@@ -99,6 +99,194 @@ function getAdminFromReq(req) {
 }
 
 /* ── HTTP Server Request Handler ── */
+
+function renderPublicReportHtml(rep) {
+  const p = rep.player || {};
+  const t = rep.totals || {};
+  const subjectsHtml = (rep.subjects || []).map(s => {
+    const accPct = Math.round((s.accuracy || 0) * 100);
+    const trendBadge = s.trend === 'up' ? '<span style="color:#10b981;font-weight:700">📈 Naik</span>'
+      : (s.trend === 'down' ? '<span style="color:#f59e0b;font-weight:700">📉 Perlu Latihan</span>' : '<span style="color:#94a3b8">➖ Stabil</span>');
+    return `
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.04);border-radius:10px;margin-bottom:8px">
+        <div>
+          <strong style="font-size:0.95rem;color:#fff">${s.name}</strong>
+          <div style="font-size:0.8rem;color:#94a3b8">${s.answered} Soal Dijawab</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:1.05rem;font-weight:800;color:#38bdf8">${accPct}%</div>
+          <div style="font-size:0.75rem">${trendBadge}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  return `<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Laporan Belajar Mingguan — ${p.nick || 'Siswa'}</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --primary: #38bdf8;
+      --success: #10b981;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 16px;
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+    .header-box {
+      text-align: center;
+      padding: 24px 16px 16px 16px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 99px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: rgba(56,189,248,0.15);
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .stat-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+    }
+    .stat-val {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .stat-lbl {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .btn-print {
+      display: block;
+      width: 100%;
+      background: #0284c7;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      margin-top: 10px;
+    }
+    .btn-print:hover { background: #0369a1; }
+    @media print {
+      body { background: #fff !important; color: #000 !important; padding: 0 !important; }
+      .card { border: 1px solid #ccc !important; box-shadow: none !important; background: #fff !important; color: #000 !important; }
+      .stat-box { border: 1px solid #ddd !important; background: #fafafa !important; }
+      .stat-val, strong { color: #000 !important; }
+      .no-print { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card header-box">
+      <div class="badge">LAPORAN BELAJAR RESMI</div>
+      <h1 style="font-size:1.5rem;font-weight:800;margin:4px 0 6px 0;color:#fff">${p.nick || 'Siswa'}</h1>
+      <div style="font-size:0.9rem;color:var(--muted)">${p.className || 'Siswa'} · Pekan Mulai: ${rep.weekStart}</div>
+      <button onclick="window.print()" class="btn-print no-print" style="margin-top:16px">🖨️ Cetak / Simpan PDF</button>
+    </div>
+
+    <div class="card">
+      <h3 style="font-size:1.05rem;font-weight:800;margin:0 0 12px 0;color:#fff">Ringkasan Aktivitas Belajar</h3>
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="stat-val">${t.minutes || 0} Menit</div>
+          <div class="stat-lbl">Waktu Aktif Belajar</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">${Math.round((t.accuracy || 0) * 100)}%</div>
+          <div class="stat-lbl">Akurasi Jawaban</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">${t.sessions || 0} Sesi</div>
+          <div class="stat-lbl">${t.battles || 0} Petualangan · ${t.practice || 0} Latihan</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">${t.bossDefeated || 0} 👑</div>
+          <div class="stat-lbl">Boss Ditaklukkan</div>
+        </div>
+      </div>
+      <div style="font-size:0.85rem;color:var(--muted);text-align:center">
+        Total Bintang: ⭐ ${t.stars || 0} · Kombo Terbaik: 🔥 ${t.bestStreak || 0}
+      </div>
+    </div>
+
+    ${(rep.subjects && rep.subjects.length > 0) ? `
+      <div class="card">
+        <h3 style="font-size:1.05rem;font-weight:800;margin:0 0 12px 0;color:#fff">Performa Mata Pelajaran</h3>
+        ${subjectsHtml}
+      </div>
+    ` : ''}
+
+    <div class="card">
+      <h3 style="font-size:1.05rem;font-weight:800;margin:0 0 12px 0;color:#fff">Catatan Perkembangan Materi</h3>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:0.9rem">
+        <div>
+          <span style="color:#10b981;font-weight:700">✓ Materi Dikuasai:</span>
+          <span style="color:#e2e8f0;margin-left:6px">${(rep.strengths && rep.strengths.length > 0) ? rep.strengths.join(', ') : 'Belum ada data topik'}</span>
+        </div>
+        <div>
+          <span style="color:#f59e0b;font-weight:700">⚠ Perlu Latihan Tambahan:</span>
+          <span style="color:#e2e8f0;margin-left:6px">${(rep.needsWork && rep.needsWork.length > 0) ? rep.needsWork.join(', ') : 'Tidak ada (Pemahaman sangat baik!)'}</span>
+        </div>
+        <div style="background:rgba(56,189,248,0.08);border-left:3px solid var(--primary);padding:10px 12px;border-radius:0 8px 8px 0;margin-top:6px">
+          <strong style="color:var(--primary);font-size:0.8rem;text-transform:uppercase">Tip Belajar:</strong>
+          <div style="color:#e2e8f0;margin-top:2px">${rep.tip || 'Tetap semangat berlatih setiap hari!'}</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;font-size:0.75rem;color:#64748b;margin:16px 0 24px 0" class="no-print">
+      Laporan dihasilkan secara otomatis oleh Petualangan Pelajar. Hanya menampilkan nama panggilan siswa tanpa data pribadi.
+    </div>
+  </div>
+</body>
+</html>`;
+}
+
 const server = http.createServer(async (req, res) => {
   const parsed = url.parse(req.url, true);
   const pathname = parsed.pathname;
@@ -402,6 +590,59 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
+
+  // GET /api/report/week
+  if (pathname === '/api/report/week' && method === 'GET') {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    const offset = parseInt(query.offset || 0, 10);
+    const weekKey = query.weekKey || query.week;
+    try {
+      const rep = db.getWeeklyReport(playerAuth.id, { offset, weekKey });
+      return json(res, { ok: true, report: rep });
+    } catch (e) {
+      return err(res, e.message, 400);
+    }
+  }
+
+  // POST /api/report/share
+  if (pathname === '/api/report/share' && method === 'POST') {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    try {
+      const share = db.createReportShare(playerAuth.id);
+      return json(res, { ok: true, ...share });
+    } catch (e) {
+      return err(res, e.message, 400);
+    }
+  }
+
+  // DELETE /api/report/share
+  if (pathname === '/api/report/share' && method === 'DELETE') {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    try {
+      db.revokeReportShare(playerAuth.id);
+      return json(res, { ok: true });
+    } catch (e) {
+      return err(res, e.message, 400);
+    }
+  }
+
+  // GET /api/campaign?subjectId=
+  if (pathname === '/api/campaign' && method === 'GET') {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    const subjectId = query.subjectId || query.subject_id;
+    if (!subjectId) return err(res, 'subjectId wajib diisi', 400);
+    try {
+      const camp = db.getCampaign(playerAuth.id, subjectId);
+      return json(res, camp);
+    } catch (e) {
+      return err(res, e.message, 400);
+    }
+  }
+
   // Game Session Routes
   if ((pathname === '/api/game/start' || pathname === '/api/session/start') && method === 'POST') {
     const playerAuth = getPlayerFromReq(req);
@@ -496,6 +737,9 @@ const server = http.createServer(async (req, res) => {
         const nextQ = db.nextQuestion(sessionId, playerAuth.id);
         return json(res, nextQ);
       } catch (e) {
+        if (e.code === 'EVENT_PENDING' || e.message === 'EVENT_PENDING') {
+          return err(res, 'Selesaikan kejutan terlebih dahulu', 409, 'EVENT_PENDING', { event: e.event });
+        }
         return err(res, e.message, 400);
       }
     }
@@ -564,6 +808,26 @@ const server = http.createServer(async (req, res) => {
       } catch (e) {
         if (e.message === 'OPTION_ELIMINATED' || e.code === 'OPTION_ELIMINATED') {
           return err(res, 'Opsi ini sudah dicoret oleh skill!', 409, 'OPTION_ELIMINATED');
+        }
+        return err(res, e.message, 400);
+      }
+    }
+
+    // POST /api/game/:id/event
+    if (action === 'event' && method === 'POST') {
+      const idemKey = req.headers['idempotency-key'];
+      if (idemKey) {
+        const cached = db.getIdempotency(playerAuth.id, idemKey);
+        if (cached) return json(res, cached.response, cached.statusCode);
+      }
+      try {
+        const body = await parseBody(req);
+        const resEvt = db.resolveEvent(sessionId, playerAuth.id, body.eventId, body.choice);
+        if (idemKey) db.saveIdempotency(playerAuth.id, idemKey, pathname, 200, resEvt);
+        return json(res, resEvt);
+      } catch (e) {
+        if (e.message === 'INSUFFICIENT_COINS') {
+          return err(res, 'Koin kamu tidak cukup untuk tawaran ini!', 400, 'INSUFFICIENT_COINS');
         }
         return err(res, e.message, 400);
       }
@@ -664,6 +928,42 @@ const server = http.createServer(async (req, res) => {
         return err(res, e.message, 400);
       }
     }
+
+    if (pathname === '/api/admin/reports' && method === 'GET') {
+      const classId = parseInt(query.classId || query.class_id || 1, 10);
+      const weekKey = query.weekKey || query.week;
+      try {
+        const reportsList = db.getClassWeeklyReports(classId, weekKey);
+        return json(res, { ok: true, reports: reportsList });
+      } catch (e) {
+        return err(res, e.message, 400);
+      }
+    }
+
+    if (pathname === '/api/admin/reports/csv' && method === 'GET') {
+      const classId = parseInt(query.classId || query.class_id || 1, 10);
+      const weekKey = query.weekKey || query.week;
+      try {
+        const csvData = db.exportClassReportsCsv(classId, weekKey);
+        res.writeHead(200, {
+          'Content-Type': 'text/csv; charset=utf-8',
+          'Content-Disposition': `attachment; filename="laporan-kelas-${classId}-${weekKey || 'terkini'}.csv"`
+        });
+        return res.end(csvData);
+      } catch (e) {
+        return err(res, e.message, 400);
+      }
+    }
+
+    if (pathname === '/api/admin/reports/generate-weekly' && method === 'POST') {
+      try {
+        const result = db.generateAllWeeklyReports();
+        return json(res, { ok: true, result });
+      } catch (e) {
+        return err(res, e.message, 500);
+      }
+    }
+
     if (pathname === '/api/admin/players' && method === 'GET') {
       return json(res, { ok: true, players: db.adminGetPlayers() });
     }
@@ -683,7 +983,7 @@ const server = http.createServer(async (req, res) => {
   let filePath;
   if (pathname.startsWith('/shared/')) {
     filePath = path.join(__dirname, 'shared', pathname.replace('/shared/', ''));
-  } else if (pathname === '/admin') {
+  } else if (pathname === '/admin' || pathname === '/admin/laporan') {
     filePath = path.join(PUBLIC_DIR, 'admin.html');
   } else {
     filePath = path.join(PUBLIC_DIR, pathname === '/' ? 'index.html' : pathname);
@@ -716,6 +1016,21 @@ const server = http.createServer(async (req, res) => {
     fs.createReadStream(filePath).pipe(res);
   });
 });
+
+
+// Cron: Tiap Senin 06:00 WIB buat WeeklyReport untuk pemain yang aktif minggu lalu (J.3)
+setInterval(() => {
+  const now = new Date();
+  const wib = new Date(now.getTime() + 7 * 3600 * 1000);
+  if (wib.getUTCDay() === 1 && wib.getUTCHours() === 6 && wib.getUTCMinutes() === 0) {
+    try {
+      db.generateAllWeeklyReports();
+      console.log('[CRON] Weekly reports auto-generated at Monday 06:00 WIB');
+    } catch (e) {
+      console.error('[CRON] Failed to auto-generate weekly reports:', e.message);
+    }
+  }
+}, 60000);
 
 server.listen(PORT, HOST, () => {
   console.log(`[petualangan-pelajar] Server running on http://${HOST}:${PORT}`);

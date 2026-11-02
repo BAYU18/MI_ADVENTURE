@@ -53,9 +53,30 @@
 
   const EVENTS = Object.freeze({
     chanceBetweenQ: 0.20,
+    chance: 0.20,
     maxPerSession: 2,
     timeoutSec: 8,
-    types: Object.freeze(['TREASURE', 'MERCHANT', 'TRAP'])
+    decisionTimeoutMs: 8000,
+    types: Object.freeze(['TREASURE', 'MERCHANT', 'TRAP']),
+    weights: Object.freeze({ TREASURE: 40, MERCHANT: 35, TRAP: 25 }),
+    treasure: Object.freeze({
+      coins: Object.freeze([5, 12]),
+      outcomes: Object.freeze({ COINS: 50, ENERGY_1: 25, HEAL_10: 25 })
+    }),
+    merchant: Object.freeze({
+      deals: Object.freeze([
+        Object.freeze({ id: 'heal20', price: 10, effect: 'HEAL_20', title: '+20 HP', desc: 'Pulihkan 20 HP' }),
+        Object.freeze({ id: 'energy2', price: 15, effect: 'ENERGY_2', title: '+2 ⚡ Semangat', desc: 'Tambah 2 Energi' }),
+        Object.freeze({ id: 'freeEliminate', price: 12, effect: 'FREE_ELIMINATE_NEXT', title: '1× Coret Gratis', desc: 'Coret Satu gratis di soal berikutnya' })
+      ]),
+      offers: 2
+    }),
+    trap: Object.freeze({
+      openWinChance: 0.5,
+      winCoins: 12,
+      loseHp: 8,
+      minHpAfter: 1
+    })
   });
 
   const SPACED = Object.freeze({
@@ -76,6 +97,14 @@
     chapters: 5,
     nodesPerChapter: 4,
     bossNode: 4
+  });
+
+  const REPORT = Object.freeze({
+    weekStartsOn: 'MONDAY',
+    tz: 'Asia/Jakarta',
+    generateAt: '06:00',
+    shareTtlDays: 7,
+    maxActiveMinutesPerSession: 30
   });
 
   const SKILLBAR = Object.freeze({
@@ -105,6 +134,7 @@
     SPACED,
     PACE,
     CAMPAIGN,
+    REPORT,
     SKILLBAR,
     SKILL_REASON_TEXT
   };

@@ -146,12 +146,31 @@ const API = {
     });
   },
 
-  async startSession(subjectId) {
+  async startSession(subjectId, options = {}) {
+    const payload = Object.assign({ subjectId }, typeof options === 'object' ? options : {});
     const res = await this.req('/api/game/start', {
       method: 'POST',
-      body: JSON.stringify({ subjectId }),
+      body: JSON.stringify(payload),
     });
     return res.session;
+  },
+
+  async getCampaign(subjectId) {
+    return this.req(`/api/campaign?subjectId=${encodeURIComponent(subjectId)}`);
+  },
+
+  async getWeeklyReport(offset = 0, weekKey = '') {
+    let url = `/api/report/week?offset=${encodeURIComponent(offset)}`;
+    if (weekKey) url += `&weekKey=${encodeURIComponent(weekKey)}`;
+    return this.req(url);
+  },
+
+  async createReportShare() {
+    return this.req('/api/report/share', { method: 'POST' });
+  },
+
+  async revokeReportShare() {
+    return this.req('/api/report/share', { method: 'DELETE' });
   },
 
   async readyQuestion(sessionId, questionIndex) {
@@ -165,6 +184,13 @@ const API = {
     return this.req(`/api/game/${sessionId}/answer`, {
       method: 'POST',
       body: JSON.stringify({ questionIndex, chosenIndex }),
+    });
+  },
+
+  async resolveEvent(sessionId, eventId, choice) {
+    return this.req(`/api/game/${sessionId}/event`, {
+      method: 'POST',
+      body: JSON.stringify({ eventId, choice }),
     });
   },
 
@@ -477,6 +503,187 @@ Screens.auth = {
   }
 };
 
+
+/* ============================================================
+   SCREEN: Laporan Mingguan Siswa & Portal Berbagi (J.1, J.2 / T-38)
+   ============================================================ */
+Screens.laporan = {
+  currentOffset: 0,
+  reportData: null,
+
+  async render(app) {
+    app.innerHTML = `
+      <section class="screen active stack" style="gap:12px;padding-bottom:24px">
+        <div class="hud" style="margin-bottom:0">
+          <button class="icon-btn" id="rep-back">←</button>
+          <h2 class="hud-title">Laporan Mingguanku</h2>
+          <span class="chip accent">📊 Pekan</span>
+        </div>
+
+        <div style="display:flex;gap:6px">
+          <button class="btn small ${this.currentOffset === 0 ? 'primary' : 'ghost'}" id="btn-rep-current" style="flex:1;font-weight:700">
+            Minggu Ini
+          </button>
+          <button class="btn small ${this.currentOffset === -1 ? 'primary' : 'ghost'}" id="btn-rep-prev" style="flex:1;font-weight:700">
+            Minggu Lalu
+          </button>
+        </div>
+
+        <div id="rep-content-slot" class="stack" style="gap:12px">
+          <div style="text-align:center;padding:40px;color:var(--c-muted)">Memuat laporan belajarmu... 📊</div>
+        </div>
+      </section>
+    `;
+
+    $('#rep-back').onclick = () => { if (window.Sfx) Sfx.play('tap'); go('home'); };
+    $('#btn-rep-current').onclick = () => {
+      this.currentOffset = 0;
+      $('#btn-rep-current').className = 'btn small primary';
+      $('#btn-rep-prev').className = 'btn small ghost';
+      this.loadReport();
+    };
+    $('#btn-rep-prev').onclick = () => {
+      this.currentOffset = -1;
+      $('#btn-rep-current').className = 'btn small ghost';
+      $('#btn-rep-prev').className = 'btn small primary';
+      this.loadReport();
+    };
+
+    await this.loadReport();
+  },
+
+  async loadReport() {
+    const slot = $('#rep-content-slot');
+    try {
+      const res = await API.getWeeklyReport(this.currentOffset);
+      const rep = res.report;
+      this.reportData = rep;
+      const t = rep.totals || {};
+
+      const subjectsHtml = (rep.subjects || []).map(s => {
+        const pct = Math.round((s.accuracy || 0) * 100);
+        const trendIcon = s.trend === 'up' ? '📈 Naik' : (s.trend === 'down' ? '📉 Turun' : '➖ Stabil');
+        return `
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.04);border-radius:12px;border:1px solid rgba(255,255,255,0.06)">
+            <div>
+              <strong style="font-size:0.95rem;color:#fff">${esc(s.name)}</strong>
+              <div style="font-size:0.75rem;color:var(--c-muted)">${s.answered} Soal Dijawab</div>
+            </div>
+            <div style="text-align:right">
+              <span style="font-size:1.1rem;font-weight:800;color:var(--c-primary)">${pct}%</span>
+              <div style="font-size:0.7rem;color:var(--c-muted)">${trendIcon}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      slot.innerHTML = `
+        <!-- Ringkasan Angka -->
+        <div class="card" style="background:var(--c-surface);border:1px solid var(--c-surface-strong);border-radius:18px;padding:16px">
+          <div style="font-size:0.8rem;text-transform:uppercase;color:var(--c-muted);font-weight:700;margin-bottom:10px">
+            Pekan Mulai: ${rep.weekStart}
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:12px">
+            <div style="background:rgba(255,255,255,0.04);padding:10px;border-radius:12px;text-align:center">
+              <div style="font-size:1.5rem;font-weight:800;color:#38bdf8">${t.minutes || 0} Menit</div>
+              <div style="font-size:0.75rem;color:var(--c-muted)">Waktu Belajar Aktif</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.04);padding:10px;border-radius:12px;text-align:center">
+              <div style="font-size:1.5rem;font-weight:800;color:#10b981">${Math.round((t.accuracy || 0) * 100)}%</div>
+              <div style="font-size:0.75rem;color:var(--c-muted)">Akurasi Jawaban</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.04);padding:10px;border-radius:12px;text-align:center">
+              <div style="font-size:1.5rem;font-weight:800;color:#f59e0b">${t.sessions || 0}</div>
+              <div style="font-size:0.75rem;color:var(--c-muted)">Sesi Selesai</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.04);padding:10px;border-radius:12px;text-align:center">
+              <div style="font-size:1.5rem;font-weight:800;color:#a855f7">${t.bossDefeated || 0} 👑</div>
+              <div style="font-size:0.75rem;color:var(--c-muted)">Boss Ditaklukkan</div>
+            </div>
+          </div>
+          <div style="font-size:0.8rem;color:var(--c-muted);text-align:center">
+            ⭐ ${t.stars || 0} Bintang · 🔥 Kombo Terbaik: ${t.bestStreak || 0}
+          </div>
+        </div>
+
+        <!-- Performa Pelajaran -->
+        ${subjectsHtml ? `
+          <div class="card" style="background:var(--c-surface);border:1px solid var(--c-surface-strong);border-radius:18px;padding:16px">
+            <h3 style="font-size:1rem;font-weight:800;color:#fff;margin:0 0 10px 0">Performa Mata Pelajaran</h3>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              ${subjectsHtml}
+            </div>
+          </div>
+        ` : ''}
+
+        <!-- Catatan Perkembangan -->
+        <div class="card" style="background:var(--c-surface);border:1px solid var(--c-surface-strong);border-radius:18px;padding:16px">
+          <h3 style="font-size:1rem;font-weight:800;color:#fff;margin:0 0 10px 0">Catatan Perkembangan</h3>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:0.88rem">
+            <div>
+              <span style="color:#10b981;font-weight:700">✓ Sudah Dikuasai:</span>
+              <span style="color:#e2e8f0;margin-left:4px">${rep.strengths?.length ? rep.strengths.join(', ') : 'Belum ada data topik'}</span>
+            </div>
+            <div>
+              <span style="color:#f59e0b;font-weight:700">⚠ Perlu Latihan Lagi:</span>
+              <span style="color:#e2e8f0;margin-left:4px">${rep.needsWork?.length ? rep.needsWork.join(', ') : 'Tidak ada (Hebat!)'}</span>
+            </div>
+            <div style="background:rgba(56,189,248,0.08);border-left:3px solid #38bdf8;padding:8px 10px;border-radius:0 8px 8px 0;margin-top:4px">
+              <strong style="color:#38bdf8;font-size:0.75rem">💡 TIP BELAJAR:</strong>
+              <div style="color:#e2e8f0;font-size:0.85rem;margin-top:2px">${esc(rep.tip || '')}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Berbagi Tautan ke Orang Tua -->
+        <div class="card" style="background:var(--c-surface);border:1px solid var(--c-surface-strong);border-radius:18px;padding:16px;text-align:center">
+          <h3 style="font-size:1rem;font-weight:800;color:#fff;margin:0 0 6px 0">Bagikan ke Orang Tua / Wali</h3>
+          <p style="font-size:0.8rem;color:var(--c-muted);margin:0 0 12px 0">Orang tua dapat melihat laporan ini tanpa perlu login (tautan aktif 7 hari).</p>
+          <div id="share-action-box">
+            <button class="btn primary" id="btn-share-report" data-testid="btn-share-report" style="width:100%;font-weight:700">
+              🔗 Buat Tautan Berbagi
+            </button>
+          </div>
+        </div>
+      `;
+
+      const btnShare = $('#btn-share-report');
+      if (btnShare) {
+        btnShare.onclick = async () => {
+          try {
+            const s = await API.createReportShare();
+            const fullUrl = window.location.origin + s.url;
+            $('#share-action-box').innerHTML = `
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <input type="text" readonly value="${fullUrl}" id="share-url-input" style="width:100%;padding:10px;border-radius:10px;background:#0f172a;color:#38bdf8;border:1px solid rgba(255,255,255,0.15);font-size:0.85rem;text-align:center">
+                <div style="display:flex;gap:8px">
+                  <button class="btn secondary small" id="btn-copy-share" style="flex:1">📋 Salin Tautan</button>
+                  <button class="btn ghost small" id="btn-revoke-share" style="color:var(--c-bad)">Cabut Tautan ✕</button>
+                </div>
+              </div>
+            `;
+            $('#btn-copy-share').onclick = () => {
+              navigator.clipboard.writeText(fullUrl).then(() => toast('Tautan disalin!'));
+            };
+            $('#btn-revoke-share').onclick = async () => {
+              if (confirm('Yakin ingin mencabut tautan berbagi ini?')) {
+                await API.revokeReportShare();
+                toast('Tautan berbagi dicabut.');
+                this.loadReport();
+              }
+            };
+          } catch (e) {
+            toast('Gagal membuat tautan berbagi: ' + e.message);
+          }
+        };
+      }
+
+    } catch (e) {
+      slot.innerHTML = `<div style="text-align:center;padding:40px;color:var(--c-bad)">Gagal memuat laporan: ${esc(e.message)}</div>`;
+    }
+  }
+};
+
 /* ============================================================
    SCREEN: Home
    ============================================================ */
@@ -520,6 +727,11 @@ Screens.home = {
             <span class="tile-icon">📚</span>
             <span class="tile-title">Latihan</span>
             <span class="tile-desc">Bebas Waktu</span>
+          </button>
+          <button class="menu-tile" id="m-report" data-testid="menu-report">
+            <span class="tile-icon">📊</span>
+            <span class="tile-title">Laporan</span>
+            <span class="tile-desc">Mingguanku</span>
           </button>
           <button class="menu-tile" id="m-profile" data-testid="menu-profile">
             <span class="tile-icon">👤</span>
@@ -646,38 +858,72 @@ Screens.home = {
    ============================================================ */
 Screens.subjects = {
   currentClassId: 1,
+  viewMode: 'bebas', // 'bebas' | 'cerita' (E.1 / T-35)
+  selectedSubjectId: null,
 
   async render(app) {
     this.currentClassId = Player.classId() || 1;
     app.innerHTML = `
-      <section class="screen active stack">
-        <div class="hud">
+      <section class="screen active stack" style="gap:10px">
+        <div class="hud" style="margin-bottom:0">
           <button class="icon-btn" id="sub-back">←</button>
-          <h2 class="hud-title">Pilih Arena Kuis</h2>
+          <h2 class="hud-title">Peta Petualangan</h2>
           <span class="chip accent">🪙 <span id="hdr-coins">${Player.coins()}</span></span>
         </div>
 
-        <div style="display:flex;gap:8px;margin-bottom:8px">
+        <!-- Sakelar Mode: Bebas | Cerita (T-35) -->
+        <div style="display:flex;background:rgba(255,255,255,0.08);padding:4px;border-radius:12px;gap:4px">
+          <button class="btn small ${this.viewMode === 'bebas' ? 'primary' : 'ghost'}" id="mode-toggle-bebas" data-testid="mode-toggle-bebas" style="flex:1;font-weight:700">
+            ⚔️ Mode Bebas
+          </button>
+          <button class="btn small ${this.viewMode === 'cerita' ? 'primary' : 'ghost'}" id="mode-toggle-cerita" data-testid="mode-toggle-cerita" style="flex:1;font-weight:700">
+            🗺️ Mode Cerita
+          </button>
+        </div>
+
+        <div style="display:flex;gap:8px">
           <button class="btn small ${this.currentClassId === 1 ? '' : 'ghost'}" id="tab-k4">Kelas 4 SD</button>
           <button class="btn small ${this.currentClassId === 2 ? '' : 'ghost'}" id="tab-k5">Kelas 5 SD</button>
         </div>
 
-        <div class="grow" id="subjects-container" style="overflow-y:auto;padding-bottom:16px">
-          <div style="text-align:center;padding:30px;color:var(--c-muted)">Memuat arena...</div>
+        <div class="grow" id="subjects-container" style="overflow-y:auto;padding-bottom:16px;max-height:calc(100vh - 180px)">
+          <div style="text-align:center;padding:30px;color:var(--c-muted)">Memuat petualangan...</div>
         </div>
       </section>
     `;
 
     $('#sub-back').onclick = () => { if (window.Sfx) Sfx.play('tap'); go('home'); };
-    $('#tab-k4').onclick = () => { this.currentClassId = 1; this.loadSubjects(); };
-    $('#tab-k5').onclick = () => { this.currentClassId = 2; this.loadSubjects(); };
+    $('#tab-k4').onclick = () => { this.currentClassId = 1; this.renderContent(); };
+    $('#tab-k5').onclick = () => { this.currentClassId = 2; this.renderContent(); };
 
-    await this.loadSubjects();
+    $('#mode-toggle-bebas').onclick = () => {
+      this.viewMode = 'bebas';
+      $('#mode-toggle-bebas').className = 'btn small primary';
+      $('#mode-toggle-cerita').className = 'btn small ghost';
+      this.renderContent();
+    };
+
+    $('#mode-toggle-cerita').onclick = () => {
+      this.viewMode = 'cerita';
+      $('#mode-toggle-bebas').className = 'btn small ghost';
+      $('#mode-toggle-cerita').className = 'btn small primary';
+      this.renderContent();
+    };
+
+    await this.renderContent();
+  },
+
+  async renderContent() {
+    $('#tab-k4').className = `btn small ${this.currentClassId === 1 ? '' : 'ghost'}`;
+    $('#tab-k5').className = `btn small ${this.currentClassId === 2 ? '' : 'ghost'}`;
+    if (this.viewMode === 'cerita') {
+      await this.loadCampaignMap();
+    } else {
+      await this.loadSubjects();
+    }
   },
 
   async loadSubjects() {
-    $('#tab-k4').className = `btn small ${this.currentClassId === 1 ? '' : 'ghost'}`;
-    $('#tab-k5').className = `btn small ${this.currentClassId === 2 ? '' : 'ghost'}`;
     const box = $('#subjects-container');
     try {
       const subjects = await API.getSubjects(this.currentClassId);
@@ -712,7 +958,7 @@ Screens.subjects = {
         </div>
       `;
 
-      $$('.subject-card', box).forEach(card => {
+      $('.subject-card', box).forEach(card => {
         card.onclick = async () => {
           const sid = parseInt(card.dataset.id, 10);
           if (window.Sfx) Sfx.play('select');
@@ -722,8 +968,122 @@ Screens.subjects = {
     } catch (e) {
       box.innerHTML = `<div style="text-align:center;padding:30px;color:var(--c-bad)">Gagal memuat mata pelajaran: ${esc(e.message)}</div>`;
     }
+  },
+
+  async loadCampaignMap() {
+    const box = $('#subjects-container');
+    try {
+      const subjects = await API.getSubjects(this.currentClassId);
+      if (subjects.length === 0) {
+        box.innerHTML = `<div style="text-align:center;padding:40px;color:var(--c-muted)">Belum ada mata pelajaran untuk kelas ini.</div>`;
+        return;
+      }
+
+      if (!this.selectedSubjectId || !subjects.some(s => s.id === this.selectedSubjectId)) {
+        this.selectedSubjectId = subjects[0].id;
+      }
+
+      const campData = await API.getCampaign(this.selectedSubjectId);
+      const curSubject = subjects.find(s => s.id === this.selectedSubjectId);
+
+      // Render Subject selector chips + Vertical winding path
+      box.innerHTML = `
+        <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:12px">
+          ${subjects.map(s => `
+            <button class="btn small ${s.id === this.selectedSubjectId ? 'primary' : 'secondary'} sub-chip" data-id="${s.id}" style="white-space:nowrap;padding:6px 12px;font-size:0.85rem">
+              ${s.icon || '📚'} ${esc(s.name)}
+            </button>
+          `).join('')}
+        </div>
+
+        <div class="campaign-path-root" style="display:flex;flex-direction:column;gap:20px;padding:8px 0">
+          ${campData.chapters.map(ch => {
+            return `
+              <div class="chapter-card card" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:18px;padding:16px">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:8px">
+                  <div>
+                    <span style="font-size:0.75rem;text-transform:uppercase;color:var(--c-muted);font-weight:700">Bab ${ch.n}</span>
+                    <h3 style="font-size:1.15rem;font-weight:800;color:#fff;margin:2px 0">${esc(ch.title)}</h3>
+                  </div>
+                  ${ch.completed ? `
+                    <button class="btn small secondary btn-view-comic" data-theme="${ch.theme}" data-testid="btn-view-comic" style="font-size:0.8rem;padding:4px 10px">
+                      📖 Lihat Cerita
+                    </button>
+                  ` : `
+                    <span class="chip" style="font-size:0.75rem;background:rgba(255,255,255,0.08)">${ch.nodes.filter(n => n.cleared).length}/4 Selesai</span>
+                  `}
+                </div>
+
+                <!-- Jalur Berkelok (Vertical Winding Path: left, center, right, boss) -->
+                <div class="winding-path" style="display:flex;flex-direction:column;align-items:center;gap:14px;position:relative;padding:10px 0">
+                  ${ch.nodes.map(node => {
+                    const starsStr = node.stars > 0 ? '⭐'.repeat(node.stars) : '';
+                    const alignStyle = node.order === 1 ? 'align-self:flex-start;margin-left:18%'
+                      : node.order === 2 ? 'align-self:center'
+                      : node.order === 3 ? 'align-self:flex-end;margin-right:18%'
+                      : 'align-self:center;transform:scale(1.15)';
+
+                    return `
+                      <div class="campaign-node-wrap ${node.unlocked ? 'unlocked' : 'locked'}" style="${alignStyle};display:flex;flex-direction:column;align-items:center;gap:4px">
+                        <button class="campaign-node-btn ${node.isBoss ? 'boss-node' : ''} ${node.unlocked ? 'unlocked' : 'locked'}"
+                          data-key="${node.key}"
+                          data-unlocked="${node.unlocked ? '1' : '0'}"
+                          data-testid="campaign-node"
+                          style="width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;cursor:${node.unlocked ? 'pointer' : 'not-allowed'};background:${node.unlocked ? (node.isBoss ? 'linear-gradient(135deg, #f59e0b, #ef4444)' : 'linear-gradient(135deg, #10b981, #059669)') : '#334155'};border:${node.isBoss ? '3px solid #fef08a' : '2px solid rgba(255,255,255,0.2)'};box-shadow:${node.unlocked ? '0 4px 12px rgba(0,0,0,0.4)' : 'none'};opacity:${node.unlocked ? '1' : '0.55'}">
+                          ${node.unlocked ? (node.isBoss ? '👑' : (node.cleared ? '⚔️' : '📍')) : '🔒'}
+                        </button>
+                        <div style="font-size:0.75rem;font-weight:700;color:${node.unlocked ? '#fff' : '#64748b'};text-align:center">
+                          ${esc(node.title)}
+                        </div>
+                        ${starsStr ? `<div style="font-size:0.7rem;line-height:1">${starsStr}</div>` : ''}
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+
+      $('.sub-chip', box).forEach(chip => {
+        chip.onclick = () => {
+          this.selectedSubjectId = parseInt(chip.dataset.id, 10);
+          this.loadCampaignMap();
+        };
+      });
+
+      $('.campaign-node-btn', box).forEach(btn => {
+        btn.onclick = async () => {
+          const unlocked = btn.dataset.unlocked === '1';
+          const nodeKey = btn.dataset.key;
+          if (!unlocked) {
+            toast('Selesaikan wilayah sebelumnya terlebih dahulu untuk membuka kunci! 🔒');
+            if (window.Feedback) Feedback.sfx('wrong');
+            return;
+          }
+          if (window.Sfx) Sfx.play('select');
+          await Screens.battle.start(this.selectedSubjectId, { campaignNode: nodeKey });
+        };
+      });
+
+      $('.btn-view-comic', box).forEach(btn => {
+        btn.onclick = () => {
+          const theme = btn.dataset.theme || 'hutan';
+          const comicPanels = window.StoryData?.STORY?.[theme]?.comic || [
+            { panel: 1, title: 'Kisah Penakluk', text: 'Perjalanan panjang menuju puncak kejayaan...' }
+          ];
+          Screens.showComicModal(comicPanels, theme);
+        };
+      });
+
+    } catch (e) {
+      box.innerHTML = `<div style="text-align:center;padding:30px;color:var(--c-bad)">Gagal memuat peta cerita: ${esc(e.message)}</div>`;
+    }
   }
 };
+
+Screens.peta = Screens.subjects;
 
 /* ============================================================
    SCREEN: Battle (Server-Authoritative Arena)
@@ -738,10 +1098,10 @@ Screens.battle = {
   timeTotalSec: 20,
   isAnswering: false,
 
-  async start(subjectId) {
+  async start(subjectId, options = {}) {
     try {
       toast('Membangkitkan monster bos...');
-      const res = await API.startSession(subjectId);
+      const res = await API.startSession(subjectId, options);
       this.session = res.session || res;
       this.skills = res.skills || (this.session && this.session.skills) || [];
       go('battle');
@@ -857,6 +1217,8 @@ Screens.battle = {
                 <span class="chip info" id="q-type-badge" data-testid="q-type-badge" style="font-size:0.7rem;font-weight:700;padding:2px 8px">PILIHAN GANDA</span>
                 <span class="chip warning" id="review-badge" data-testid="review-badge" style="display:none;font-size:0.7rem;font-weight:700;padding:2px 8px">🔄 ULANGAN BERJARAK</span>
                 <span class="chip danger" id="weak-badge" data-testid="weak-badge" style="display:none;font-size:0.7rem;font-weight:700;padding:2px 8px;background:var(--c-danger,#ef4444);color:#fff">🎯 TITIK LEMAH</span>
+                <span class="chip warning" id="bonus-badge" data-testid="bonus-badge" style="display:none;font-size:0.7rem;font-weight:700;padding:2px 8px;background:#f59e0b;color:#fff">⭐ BONUS</span>
+                <span class="chip" id="mystery-badge" data-testid="mystery-badge" style="display:none;font-size:0.7rem;font-weight:700;padding:2px 8px;background:#8b5cf6;color:#fff;box-shadow:0 0 8px rgba(139,92,246,0.5)">❓ MISTERI</span>
               </div>
               <button class="icon-btn small" id="btn-tts" title="Baca Soal" style="width:28px;height:28px;font-size:.8rem">🔊</button>
             </div>
@@ -904,7 +1266,11 @@ Screens.battle = {
     const fabBtn = $('#skill-fab');
     if (fabBtn) fabBtn.onclick = () => this.toggleSkillBar();
 
-    this.renderCurrentQuestion();
+    if (s.pendingEvent) {
+      this.showEventModal(s.pendingEvent);
+    } else {
+      this.renderCurrentQuestion();
+    }
   },
 
   async renderCurrentQuestion() {
@@ -942,6 +1308,14 @@ Screens.battle = {
     const weakBadge = $('#weak-badge');
     if (weakBadge) {
       weakBadge.style.display = q.isWeak ? 'inline-flex' : 'none';
+    }
+    const bonusBadge = $('#bonus-badge');
+    if (bonusBadge) {
+      bonusBadge.style.display = q.isBonus ? 'inline-flex' : 'none';
+    }
+    const mysteryBadge = $('#mystery-badge');
+    if (mysteryBadge) {
+      mysteryBadge.style.display = q.isMystery ? 'inline-flex' : 'none';
     }
 
     // Image slot
@@ -1389,6 +1763,9 @@ Screens.battle = {
 
     // Floater & SFX (T-23, T-24, T-25)
     const dmg = res.damageToBoss ?? res.bossDamage ?? 0;
+    if (res.isMystery && res.mysteryReward) {
+      this.showDamageFloater(`❓ HADIAH MISTERI: ${res.mysteryReward}!`, 'crit');
+    }
     if (res.weakHit) {
       this.showDamageFloater(`🎯 KRITIS TITIK LEMAH! -${dmg}`, 'crit');
       this.animateBossShake();
@@ -1511,6 +1888,8 @@ Screens.battle = {
       if (nextInterval) clearInterval(nextInterval);
       if (isOver) {
         Screens.result.show(res);
+      } else if (res.event) {
+        this.showEventModal(res.event);
       } else {
         this.renderCurrentQuestion();
       }
@@ -1564,6 +1943,175 @@ Screens.battle = {
     for (let i = 0; i < str.length; i++) hash = ((hash << 5) - hash + str.charCodeAt(i)) | 0;
     const idx = Math.abs(hash) % arr.length;
     return arr[idx];
+  },
+
+  showEventModal(evt) {
+    if (!evt) return;
+    this.stopTimer();
+
+    const old = $('#event-modal');
+    if (old) old.remove();
+
+    if (window.Feedback) {
+      Feedback.sfx('event');
+    }
+
+    const modal = document.createElement('div');
+    modal.id = 'event-modal';
+    modal.setAttribute('data-testid', 'event-modal');
+    modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn 0.2s ease-out;';
+
+    const playerCoins = (Player.data && Player.data.coins) || 0;
+    let icon = '🎁';
+    let title = evt.title || 'Kejutan!';
+    let desc = evt.description || 'Sesuatu yang menarik terjadi di tengah perjalanan!';
+    let actionsHtml = '';
+
+    if (evt.type === 'TREASURE') {
+      icon = '🎁';
+      title = 'Peti Harta Karun!';
+      desc = 'Kamu menemukan sebuah peti harta karun misterius yang berkilau emas!';
+      actionsHtml = `
+        <button class="btn primary" id="btn-event-open" data-testid="btn-event-open" style="width:100%;font-size:1.1rem;padding:12px;font-weight:700">
+          Buka Peti 🎁
+        </button>
+      `;
+    } else if (evt.type === 'MERCHANT') {
+      icon = '🧙';
+      title = 'Pedagang Keliling';
+      desc = `Seorang pedagang keliling menawarkan barang berharga! Koinmu: <strong>${playerCoins}</strong> 🪙`;
+      const offers = evt.offers || [
+        { id: 'heal20', price: 10, title: '+20 HP', desc: 'Pulihkan 20 HP' },
+        { id: 'energy2', price: 15, title: '+2 ⚡ Semangat', desc: 'Tambah 2 Energi' }
+      ];
+      const offersHtml = offers.map(deal => {
+        const canAfford = playerCoins >= deal.price;
+        return `
+          <button class="btn ${canAfford ? 'primary' : 'secondary'} btn-merchant-deal"
+            data-deal-id="${deal.id}" data-testid="btn-deal-${deal.id}"
+            ${canAfford ? '' : 'disabled style="opacity:0.6;cursor:not-allowed;"'}
+            style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:10px 14px;font-size:0.95rem">
+            <span>${esc(deal.title)} <span style="font-size:0.8rem;opacity:0.8;display:block">${esc(deal.desc || '')}</span></span>
+            <span style="font-weight:700">${deal.price} 🪙 ${canAfford ? '' : '(Koin kurang)'}</span>
+          </button>
+        `;
+      }).join('');
+
+      actionsHtml = `
+        <div style="display:flex;flex-direction:column;gap:8px;width:100%">
+          ${offersHtml}
+          <button class="btn secondary" id="btn-event-skip" data-testid="btn-event-skip" style="width:100%;margin-top:4px">
+            Tidak, terima kasih (Lewati) ➔
+          </button>
+        </div>
+      `;
+    } else if (evt.type === 'TRAP') {
+      icon = '🪤';
+      title = 'Peti Mencurigakan';
+      desc = 'Sebuah peti kuno tergeletak di jalan. Berani membuka untuk hadiah, atau lewati demi keselamatan?';
+      actionsHtml = `
+        <div style="display:flex;flex-direction:column;gap:8px;width:100%">
+          <button class="btn primary" id="btn-event-open" data-testid="btn-event-open" style="width:100%;padding:12px;font-weight:700">
+            Buka Peti (Risiko Jebakan) 🪤
+          </button>
+          <button class="btn secondary" id="btn-event-skip" data-testid="btn-event-skip" style="width:100%">
+            Lewati (Pilihan Aman) 🛡️
+          </button>
+        </div>
+      `;
+    }
+
+    modal.innerHTML = `
+      <div class="card" style="max-width:380px;width:100%;text-align:center;padding:24px 20px;border-radius:20px;background:#1e293b;border:2px solid rgba(255,255,255,0.15);box-shadow:0 20px 40px rgba(0,0,0,0.6)">
+        <div style="font-size:3.5rem;line-height:1;margin-bottom:12px">${icon}</div>
+        <h3 style="font-size:1.4rem;font-weight:800;color:#fff;margin-bottom:8px">${esc(title)}</h3>
+        <p style="font-size:0.95rem;color:var(--c-muted,#94a3b8);line-height:1.4;margin-bottom:16px">${desc}</p>
+        
+        <div style="margin-bottom:16px;text-align:left">
+          <div style="display:flex;justify-content:space-between;font-size:0.75rem;color:var(--c-muted,#94a3b8);margin-bottom:4px">
+            <span>Waktu Keputusan</span>
+            <span id="event-timer-text">8s</span>
+          </div>
+          <div style="height:6px;background:rgba(255,255,255,0.15);border-radius:3px;overflow:hidden">
+            <div id="event-timer-bar" data-testid="event-timer-bar" style="width:100%;height:100%;background:var(--c-warning,#f59e0b);transition:width 0.1s linear"></div>
+          </div>
+        </div>
+
+        <div id="event-actions-slot">
+          ${actionsHtml}
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    const totalDuration = 8000;
+    const startMs = Date.now();
+    let isResolved = false;
+
+    const timerInterval = setInterval(() => {
+      const elapsed = Date.now() - startMs;
+      const remainingMs = Math.max(0, totalDuration - elapsed);
+      const remainingPct = (remainingMs / totalDuration) * 100;
+      const bar = $('#event-timer-bar');
+      const txt = $('#event-timer-text');
+      if (bar) bar.style.width = remainingPct + '%';
+      if (txt) txt.textContent = Math.ceil(remainingMs / 1000) + 's';
+
+      if (remainingMs <= 0 && !isResolved) {
+        clearInterval(timerInterval);
+        resolveChoice(evt.safeChoice || 'SKIP', true);
+      }
+    }, 100);
+
+    const resolveChoice = async (choice, isTimeout = false) => {
+      if (isResolved) return;
+      isResolved = true;
+      clearInterval(timerInterval);
+
+      $('#event-modal button').forEach(b => b.disabled = true);
+
+      try {
+        const res = await API.resolveEvent(this.session.id, evt.id, isTimeout ? 'TIMEOUT' : choice);
+        if (res.player) {
+          Player.data = Object.assign(Player.data || {}, res.player);
+          const curPlayerHp = res.player.hp ?? 0;
+          const curPlayerMax = res.player.maxHp ?? 100;
+          if ($('#player-hp-bar')) $('#player-hp-bar').style.width = `${(curPlayerHp / curPlayerMax) * 100}%`;
+          if ($('#player-hp-val')) $('#player-hp-val').textContent = curPlayerHp;
+        }
+        if (res.energy && $('#energy-val')) {
+          $('#energy-val').textContent = res.energy.value;
+        }
+
+        const msg = (res.result && res.result.message) || (isTimeout ? 'Waktu habis! Pilihan aman diambil otomatis.' : 'Kejutan selesai!');
+        toast(msg);
+
+        if (modal) modal.remove();
+        this.renderCurrentQuestion();
+      } catch (err) {
+        toast('Gagal menyelesaikan kejutan: ' + err.message);
+        if (modal) modal.remove();
+        this.renderCurrentQuestion();
+      }
+    };
+
+    const btnOpen = $('#btn-event-open');
+    if (btnOpen) {
+      btnOpen.onclick = () => resolveChoice('OPEN');
+    }
+
+    const btnSkip = $('#btn-event-skip');
+    if (btnSkip) {
+      btnSkip.onclick = () => resolveChoice('SKIP');
+    }
+
+    $('.btn-merchant-deal', modal).forEach(b => {
+      b.onclick = () => {
+        const dealId = b.dataset.dealId;
+        if (dealId) resolveChoice(dealId);
+      };
+    });
   },
 
   showEnragedBanner(bossName) {
@@ -1860,6 +2408,96 @@ Screens.battle = {
   }
 };
 
+Screens.showComicModal = function (panels, theme, monsterObj) {
+  if (!panels || panels.length === 0) return;
+
+  const old = $('#comic-modal');
+  if (old) old.remove();
+
+  if (window.Feedback) Feedback.sfx('levelup');
+
+  const modal = document.createElement('div');
+  modal.id = 'comic-modal';
+  modal.setAttribute('data-testid', 'comic-modal');
+  modal.style.cssText = 'position:fixed;inset:0;background:rgba(15,23,42,0.96);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;animation:fadeIn 0.25s ease;';
+
+  let currentPanel = 0;
+  const totalPanels = panels.length;
+  let autoTimer = null;
+
+  const renderPanel = (idx) => {
+    currentPanel = idx;
+    const p = panels[idx] || panels[0];
+
+    modal.innerHTML = `
+      <div class="card" style="max-width:420px;width:100%;text-align:center;padding:24px 20px;border-radius:24px;background:linear-gradient(135deg, #1e293b, #0f172a);border:2px solid rgba(255,255,255,0.15);box-shadow:0 24px 48px rgba(0,0,0,0.8);position:relative">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div style="display:flex;gap:4px">
+            ${panels.map((_, i) => `
+              <span style="width:24px;height:4px;border-radius:2px;background:${i === currentPanel ? 'var(--c-primary,#10b981)' : 'rgba(255,255,255,0.2)'}"></span>
+            `).join('')}
+          </div>
+          <button class="btn small ghost" id="btn-comic-skip" data-testid="btn-comic-skip" style="font-size:0.8rem;padding:4px 8px">
+            Lewati ✕
+          </button>
+        </div>
+
+        <div style="font-size:0.8rem;text-transform:uppercase;color:var(--c-primary,#10b981);font-weight:800;letter-spacing:1px">
+          Panel ${currentPanel + 1} dari ${totalPanels}
+        </div>
+        <h2 style="font-size:1.35rem;font-weight:800;color:#fff;margin:4px 0 14px 0">${esc(p.title || 'Epilog Bab')}</h2>
+
+        <div style="background:rgba(255,255,255,0.05);border-radius:18px;padding:16px;margin-bottom:16px;min-height:140px;display:flex;flex-direction:column;justify-content:center;align-items:center">
+          <div style="font-size:3.5rem;margin-bottom:8px">📖</div>
+          <p style="font-size:0.95rem;line-height:1.5;color:#e2e8f0;margin:0">${esc(p.text || '')}</p>
+        </div>
+
+        <div style="display:flex;gap:10px">
+          ${currentPanel > 0 ? `
+            <button class="btn secondary" id="btn-comic-prev" style="flex:1">← Kembali</button>
+          ` : ''}
+          <button class="btn primary" id="btn-comic-next" style="flex:2">
+            ${currentPanel < totalPanels - 1 ? 'Lanjut ➔' : 'Selesai ✓'}
+          </button>
+        </div>
+      </div>
+    `;
+
+    $('#btn-comic-skip').onclick = () => closeModal();
+    const btnPrev = $('#btn-comic-prev');
+    if (btnPrev) btnPrev.onclick = () => {
+      clearTimeout(autoTimer);
+      renderPanel(currentPanel - 1);
+    };
+    $('#btn-comic-next').onclick = () => {
+      clearTimeout(autoTimer);
+      if (currentPanel < totalPanels - 1) {
+        renderPanel(currentPanel + 1);
+      } else {
+        closeModal();
+      }
+    };
+
+    // Auto-advance 2.5s per panel
+    clearTimeout(autoTimer);
+    autoTimer = setTimeout(() => {
+      if (currentPanel < totalPanels - 1) {
+        renderPanel(currentPanel + 1);
+      } else {
+        closeModal();
+      }
+    }, 2500);
+  };
+
+  const closeModal = () => {
+    clearTimeout(autoTimer);
+    if (modal) modal.remove();
+  };
+
+  document.body.appendChild(modal);
+  renderPanel(0);
+};
+
 /* ============================================================
    SCREEN: Result (Hasil Pertarungan)
    ============================================================ */
@@ -1942,6 +2580,13 @@ Screens.result = {
           ` : ''}
         </div>
 
+        ${(r.rewards && r.rewards.chapterCompleted && r.rewards.chapterComic) ? `
+          <div style="width:min(340px,100%);margin-top:10px">
+            <button class="btn block primary" id="btn-show-comic" data-testid="btn-show-comic" style="font-weight:700">
+              📖 Buka Komik Epilog Bab!
+            </button>
+          </div>
+        ` : ''}
         <div class="stack" style="width:min(340px,100%);gap:10px;margin-top:10px">
           <button class="btn block primary" id="btn-replay" data-testid="btn-retry">▶ Coba Lagi</button>
           ${!isWon ? `<button class="btn block secondary" id="btn-review-wrong">📖 Lihat Soal yang Salah</button>` : ''}
@@ -1949,6 +2594,15 @@ Screens.result = {
         </div>
       </section>
     `;
+
+    const comicBtn = $('#btn-show-comic');
+    if (comicBtn && r.rewards?.chapterComic) {
+      comicBtn.onclick = () => {
+        Screens.showComicModal(r.rewards.chapterComic, s.monster?.theme);
+      };
+      // Auto-open comic modal once on chapter completion
+      Screens.showComicModal(r.rewards.chapterComic, s.monster?.theme);
+    }
 
     $('#btn-replay').onclick = () => { if (window.Sfx) Sfx.play('tap'); go('subjects'); };
     const btnWrong = $('#btn-review-wrong');

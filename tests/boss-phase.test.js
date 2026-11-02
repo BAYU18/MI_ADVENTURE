@@ -85,10 +85,15 @@ test('Skenario 13.2 #4 / T-20: Boss Fase Marah, phaseChanged, +1 energi, jurus t
   rawDb.prepare("UPDATE session_questions SET timer_state='RUNNING', ready_at=?, served_at=? WHERE id=?")
     .run(new Date().toISOString(), new Date().toISOString(), sq1.id);
 
+  rawDb.prepare('UPDATE game_sessions SET boss_hp=50, boss_max_hp=200 WHERE id=?').run(session.sessionId);
+
   const ans2 = db.answerQuestion(session.sessionId, player.id, sq1.question_id, correctDisplayIdx1);
   assert.ok(ans2.ok);
   assert.equal(ans2.boss.phase, 2, 'Boss tetap di fase 2');
   assert.equal(ans2.phaseChanged, false, 'phaseChanged harus false setelah transisi sudah lewat');
+  if (ans2.event) {
+    db.resolveEvent(session.sessionId, player.id, ans2.event.id, ans2.event.safeChoice || 'SKIP');
+  }
 
   // 4. Verifikasi timeLimitSec di fase 2 (faktor x0.9)
   const qNext = db.nextQuestion(session.sessionId, player.id);

@@ -31,6 +31,9 @@
     players: [],
     loadingPlayers: false,
     playerSearch: '',
+    reportsList: [],
+    selectedReportClassId: null,
+    loadingReports: false,
     modal: null, // null | 'question' | 'import' | 'reset-pw'
     modalData: null,
   };
@@ -413,6 +416,7 @@
         <button type="button" class="${curTab === 'overview' ? 'active' : ''}" data-tab="overview">📊 Ringkasan</button>
         <button type="button" class="${curTab === 'questions' ? 'active' : ''}" data-tab="questions">📚 Bank Soal</button>
         <button type="button" class="${curTab === 'players' ? 'active' : ''}" data-tab="players">👥 Siswa & Kata Sandi</button>
+        <button type="button" class="${curTab === 'reports' ? 'active' : ''}" data-tab="reports">📈 Laporan Mingguan</button>
       </div>
 
       <!-- Tab Content Area -->
@@ -431,6 +435,8 @@
           state.activeTab = t;
           if (t === 'players' && state.players.length === 0) {
             loadPlayers();
+          } else if (t === 'reports' && state.reportsList.length === 0) {
+            loadReports();
           }
           render();
         }
@@ -1489,6 +1495,9 @@
     }
   }
 
+  if (window.location.pathname === '/admin/laporan') {
+    state.activeTab = 'reports';
+  }
   // Initialize
   checkAuth();
 })();

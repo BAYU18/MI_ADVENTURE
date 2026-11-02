@@ -68,17 +68,28 @@ Aplikasi: Petualangan Pelajar (`https://play.printshare.my.id`)
   - *Bukti:* Gerbang 2 lulus 100%: Skenario 13.2 #4, #5, #12, #13, #14 terverifikasi dengan 32 tes passing, check:schema valid tanpa galat
 
 ## Fase 3 — Fitur Sekunder (P1)
-- [ ] **T-30:** Soal Tipe MATCHING (Pasangkan) P1 (A.1–A.4)
-- [ ] **T-31:** Soal Bonus ⭐ & Soal Misteri ❓ (B)
-- [ ] **T-32:** Backend Kejutan Tengah Sesi / Events (D)
-- [ ] **T-33:** UI Kartu Kejutan & Auto-Decision Timeout (D)
-- [ ] **T-34:** Backend Mode Peta Cerita / Kampanye (E.1)
-- [ ] **T-35:** Frontend Peta Cerita Berkelok (E.1)
-- [ ] **T-36:** Komik 3-Panel Epilog Bab (F.3)
-- [ ] **T-37:** Mesin Agregasi Laporan Mingguan Siswa (J.1, J.3)
-- [ ] **T-38:** Portal Laporan Siswa & Berbagi Tautan Orang Tua (J.2)
-- [ ] **T-39:** Halaman Admin Laporan Kelas & Ekspor CSV (J.2, J.3)
-- [ ] **G-3:** Gerbang 3 (Skenario 13.2 #6, #7, #10, #11 lulus)
+- [x] **T-30:** Soal Tipe MATCHING (Pasangkan) P1 (A.1–A.4)
+  - *Bukti:* Tipe MATCHING lengkap: pengacakan rightOrder, evaluasi gradeMatching, reveal correctPairs, komponen UI match-left/match-right/submit, dan admin editor (tests/types-eval.test.js & tests/admin-multitype.test.js pass)
+- [x] **T-31:** Soal Bonus ⭐ & Soal Misteri ❓ (B)
+  - *Bukti:* Soal Bonus & Misteri selesai dan lulus pengujian tests/bonus-mystery.test.js
+- [x] **T-32:** Backend Kejutan Tengah Sesi / Events (D)
+  - *Bukti:* Backend Kejutan Tengah Sesi selesai dan lulus Skenario 13.2 #6 (tests/events.test.js pass)
+- [x] **T-33:** UI Kartu Kejutan & Auto-Decision Timeout (D)
+  - *Bukti:* UI Kartu Kejutan (peti, pedagang, jebakan), timer keputusan 8 detik, auto-decision safeChoice, dan SFX event terintegrasi
+- [x] **T-34:** Backend Mode Peta Cerita / Kampanye (E.1)
+  - *Bukti:* Backend Peta Cerita / Kampanye selesai dan lulus Skenario 13.2 #10 (tests/campaign.test.js pass)
+- [x] **T-35:** Frontend Peta Cerita Berkelok (E.1)
+  - *Bukti:* Frontend Peta Cerita Berkelok (sakelar Bebas/Cerita, simpul bintang, gembok, boss) selesai
+- [x] **T-36:** Komik 3-Panel Epilog Bab (F.3)
+  - *Bukti:* Komik 3-Panel Epilog Bab layar penuh (auto-advance 2.5s, tombol Lewati, tombol Lihat Cerita di peta) selesai
+- [x] **T-37:** Mesin Agregasi Laporan Mingguan Siswa (J.1, J.3)
+  - *Bukti:* Mesin generator laporan mingguan (J.1) selesai dan lulus uji data sintetis Skenario 13.2 #11
+- [x] **T-38:** Portal Laporan Siswa & Berbagi Tautan Orang Tua (J.2)
+  - *Bukti:* Halaman /laporan, bagikan/cabut tautan, dan halaman publik /r/{token} selesai
+- [x] **T-39:** Halaman Admin Laporan Kelas & Ekspor CSV (J.2, J.3)
+  - *Bukti:* Halaman /admin/laporan, ekspor CSV, dan cron Senin 06:00 WIB selesai
+- [x] **G-3:** Gerbang 3 (Skenario 13.2 #6, #7, #10, #11 lulus)
+  - *Bukti:* Gerbang 3 lulus: 25 tes 100% hijau, check-schema valid, skenario 13.2 #6, #7, #10, #11 terverifikasi
 
 ## Fase 4 — Fitur Ekstensi P2 (Opsional / Terkondisi)
 - [ ] **T-40:** Mode Boss Rush (E.2)

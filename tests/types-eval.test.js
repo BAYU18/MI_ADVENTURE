@@ -162,6 +162,9 @@ test('T-17: Evaluasi Jawaban Multi-Tipe & Waktu Baca Dinamis (A.1, A.3)', async 
       const ansRes = db.answerQuestion(sId, player.id, qRow.question_id, answerPayload);
       assert.equal(ansRes.isCorrect, true, `Tipe ${qType} harus dinilai benar`);
       assert.ok(ansRes.reveal, `Tipe ${qType} harus menyertakan reveal`);
+      if (ansRes.event) {
+        db.resolveEvent(sId, player.id, ansRes.event.id, ansRes.event.safeChoice || 'SKIP');
+      }
 
       if (qType === 'MCQ') {
         assert.equal(ansRes.reveal.correctDisplayIndex, answerPayload);
