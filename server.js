@@ -5,6 +5,7 @@ const path = require('node:path');
 const url = require('node:url');
 const db = require('./lib/db');
 const auth = require('./lib/auth');
+const GameplayConfig = require('./shared/gameplay');
 
 const PORT = parseInt(process.env.PORT || '3002', 10);
 const HOST = process.env.HOST || '0.0.0.0';
@@ -230,6 +231,31 @@ const server = http.createServer(async (req, res) => {
       return json(res, { ok: true, avatar });
     } catch (e) {
       if (e.code === 'ITEM_NOT_OWNED') return err(res, e.message, 422, 'ITEM_NOT_OWNED');
+      return err(res, e.message, 400);
+    }
+  }
+
+  // Player Settings (GET /api/settings)
+  if (pathname === '/api/settings' && method === 'GET') {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    try {
+      const settings = db.getPlayerSettings(playerAuth.id);
+      return json(res, { ok: true, settings });
+    } catch (e) {
+      return err(res, e.message, 400);
+    }
+  }
+
+  // Player Settings Update (PUT/POST /api/settings)
+  if (pathname === '/api/settings' && (method === 'PUT' || method === 'POST')) {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    try {
+      const body = await parseBody(req);
+      const updated = db.updatePlayerSettings(playerAuth.id, body.settings || body);
+      return json(res, { ok: true, settings: updated });
+    } catch (e) {
       return err(res, e.message, 400);
     }
   }
@@ -491,8 +517,18 @@ const server = http.createServer(async (req, res) => {
       }
     }
 
+    // GET /api/game/:id/skills
+    if (action === 'skills' && method === 'GET') {
+      try {
+        const skills = db.getSkillAvailability(sessionId, playerAuth.id);
+        return json(res, { ok: true, skills });
+      } catch (e) {
+        return err(res, e.message, 400);
+      }
+    }
+
     // POST /api/game/:id/skill
-    if (action === 'skill' && method === 'POST') {
+    if ((action === 'skill' || action === 'skills') && method === 'POST') {
       const idemKey = req.headers['idempotency-key'];
       if (idemKey) {
         const cached = db.getIdempotency(playerAuth.id, idemKey);
@@ -505,7 +541,9 @@ const server = http.createServer(async (req, res) => {
         return json(res, resSkill);
       } catch (e) {
         if (e.message === 'SKILL_UNAVAILABLE' || e.code === 'SKILL_UNAVAILABLE') {
-          return err(res, 'Energi tidak cukup untuk menggunakan skill', 409, 'SKILL_UNAVAILABLE', { reason: e.reason || 'ENERGY' });
+          const reasonKey = e.reason || 'NO_ENERGY';
+          const reasonText = (GameplayConfig && GameplayConfig.SKILL_REASON_TEXT && GameplayConfig.SKILL_REASON_TEXT[reasonKey]) || 'Skill tidak dapat digunakan saat ini';
+          return err(res, reasonText, 409, 'SKILL_UNAVAILABLE', { reason: reasonKey });
         }
         return err(res, e.message, 400);
       }
@@ -642,8 +680,14 @@ const server = http.createServer(async (req, res) => {
   /* ─────────────────────────────────────────────────────────────
      STATIC FILE SERVING
   ───────────────────────────────────────────────────────────── */
-  let filePath = path.join(PUBLIC_DIR, pathname === '/' ? 'index.html' : pathname);
-  if (pathname === '/admin') filePath = path.join(PUBLIC_DIR, 'admin.html');
+  let filePath;
+  if (pathname.startsWith('/shared/')) {
+    filePath = path.join(__dirname, 'shared', pathname.replace('/shared/', ''));
+  } else if (pathname === '/admin') {
+    filePath = path.join(PUBLIC_DIR, 'admin.html');
+  } else {
+    filePath = path.join(PUBLIC_DIR, pathname === '/' ? 'index.html' : pathname);
+  }
 
   fs.stat(filePath, (errStat, stats) => {
     if (errStat || !stats.isFile()) {

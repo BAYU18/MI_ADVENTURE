@@ -173,6 +173,22 @@ const API = {
     });
   },
 
+  async getGameSkills(sessionId) {
+    const res = await this.req(`/api/game/${sessionId}/skills`);
+    return res.skills || [];
+  },
+
+  async getSettings() {
+    return this.req('/api/settings');
+  },
+
+  async saveSettings(settings) {
+    return this.req('/api/settings', {
+      method: 'PUT',
+      body: JSON.stringify(settings),
+    });
+  },
+
   async getInventory() {
     return this.req('/api/inventory');
   },
@@ -233,6 +249,11 @@ const API = {
       body: JSON.stringify({ skillId, questionIndex }),
     });
   },
+
+  async getGameSkills(sessionId) {
+    const res = await this.req(`/api/game/${sessionId}/skills`);
+    return res && res.skills ? res.skills : [];
+  },
 };
 
 /* ---------- Current Player Store ---------- */
@@ -241,6 +262,10 @@ const Player = {
   async init() {
     try {
       this.data = await API.getMe();
+      if (this.data && this.data.settings) {
+        Object.assign(Settings.get(), this.data.settings);
+        Settings.save();
+      }
     } catch (e) {
       this.data = null;
     }
@@ -690,6 +715,8 @@ Screens.subjects = {
    ============================================================ */
 Screens.battle = {
   session: null,
+  skills: [],
+  isUsingSkill: false,
   timerInterval: null,
   heartbeatInterval: null,
   timeRemainingSec: 0,
@@ -699,13 +726,15 @@ Screens.battle = {
   async start(subjectId) {
     try {
       toast('Membangkitkan monster bos...');
-      const session = await API.startSession(subjectId);
-      this.session = session;
+      const res = await API.startSession(subjectId);
+      this.session = res.session || res;
+      this.skills = res.skills || (this.session && this.session.skills) || [];
       go('battle');
     } catch (e) {
       if (e.code === 'ACTIVE_SESSION' && e.data?.session) {
         toast('Melanjutkan sesi pertempuran aktif...');
         this.session = e.data.session;
+        this.skills = e.data.skills || (this.session && this.session.skills) || [];
         go('battle');
       } else {
         toast('Gagal memulai pertempuran: ' + e.message);
@@ -811,8 +840,20 @@ Screens.battle = {
             <div id="q-image-slot"></div>
           </div>
 
-          <!-- SKILLS DECK IN ARENA -->
-          <div class="battle-skills-deck" id="battle-skills-slot" style="margin-top:6px;margin-bottom:2px"></div>
+          <!-- SKILLS PANEL CONTAINER -->
+          <div class="skill-panel-container" id="skill-panel-container">
+            <button class="skill-toggle-btn" id="skill-toggle-btn" data-testid="skill-toggle" type="button">
+              <span>⚡</span> <span id="skill-toggle-label">Skill ▾</span>
+            </button>
+            <div class="skill-deck-wrapper" id="skill-deck-wrapper">
+              <div class="battle-skills-deck" id="battle-skills-slot" style="margin-top:4px;margin-bottom:2px"></div>
+            </div>
+          </div>
+          <!-- FLOATING CHIP WHEN HIDDEN -->
+          <button class="skill-fab" id="skill-fab" data-testid="skill-fab" type="button" style="display:none">
+            <span>⚡</span><span id="skill-fab-energy">${s.energy ?? 2}</span>
+            <span class="skill-fab-dot" id="skill-fab-dot" style="display:none"></span>
+          </button>
 
           <!-- OPTIONS -->
           <div class="options" id="options-slot" style="margin-top:6px;margin-bottom:6px;flex:0 0 auto"></div>
@@ -833,6 +874,11 @@ Screens.battle = {
     $('#btn-tts').onclick = () => {
       if (s.currentQuestion && window.Sfx) Sfx.speak(s.currentQuestion.text);
     };
+
+    const toggleBtn = $('#skill-toggle-btn');
+    if (toggleBtn) toggleBtn.onclick = () => this.toggleSkillBar();
+    const fabBtn = $('#skill-fab');
+    if (fabBtn) fabBtn.onclick = () => this.toggleSkillBar();
 
     this.renderCurrentQuestion();
   },
@@ -1023,6 +1069,11 @@ Screens.battle = {
     // Update Energy Gauge & Skills Deck
     const eg = $('#energy-val');
     if (eg) eg.textContent = s.energy ?? 2;
+    if (res.skills) {
+      this.skills = res.skills;
+    } else if (res.session && res.session.skills) {
+      this.skills = res.session.skills;
+    }
     this.renderSkillsDeck();
 
     // Feedback box & Auto-next timer
@@ -1115,36 +1166,97 @@ Screens.battle = {
     setTimeout(() => floater.remove(), 850);
   },
 
-  renderSkillsDeck() {
+  applySkillBarVisibility() {
+    const hidden = !!Settings.get().skillBarHidden;
+    const wrapper = $('#skill-deck-wrapper');
+    const fab = $('#skill-fab');
+    const toggleLabel = $('#skill-toggle-label');
+    const reduced = !!Settings.get().reducedMotion;
+
+    if (wrapper) {
+      if (reduced) {
+        wrapper.style.transition = 'none';
+      } else {
+        wrapper.style.transition = 'opacity 150ms ease, transform 150ms ease, max-height 150ms ease';
+      }
+      if (hidden) {
+        wrapper.classList.add('hidden');
+        wrapper.setAttribute('aria-hidden', 'true');
+        wrapper.setAttribute('inert', '');
+      } else {
+        wrapper.classList.remove('hidden');
+        wrapper.removeAttribute('aria-hidden');
+        wrapper.removeAttribute('inert');
+      }
+    }
+
+    if (toggleLabel) {
+      toggleLabel.textContent = hidden ? 'Skill ▸' : 'Skill ▾';
+    }
+
+    if (fab) {
+      fab.style.display = hidden ? 'flex' : 'none';
+      const energyVal = this.session?.energy ?? 2;
+      const fabEnergy = $('#skill-fab-energy');
+      if (fabEnergy) fabEnergy.textContent = energyVal;
+
+      const hasUsable = (this.skills || []).some(sk => sk.usable);
+      const dot = $('#skill-fab-dot');
+      if (dot) dot.style.display = hasUsable ? 'block' : 'none';
+    }
+  },
+
+  toggleSkillBar() {
+    const current = !!Settings.get().skillBarHidden;
+    const next = !current;
+    Settings.set('skillBarHidden', next);
+    this.applySkillBarVisibility();
+    API.saveSettings({ skillBarHidden: next }).catch(() => {});
+  },
+
+  async renderSkillsDeck() {
     const slot = $('#battle-skills-slot');
     if (!slot) return;
     const s = this.session;
     if (!s) { slot.innerHTML = ''; return; }
 
-    const curEnergy = s.energy !== undefined ? s.energy : 2;
-    const loadout = Array.isArray(s.loadout) ? s.loadout : [];
+    if (!this.skills || this.skills.length === 0) {
+      if (s.skills && Array.isArray(s.skills)) {
+        this.skills = s.skills;
+      } else {
+        try {
+          this.skills = await API.getGameSkills(s.id);
+        } catch (e) {
+          this.skills = [];
+        }
+      }
+    }
 
-    if (loadout.length === 0) {
-      slot.innerHTML = '';
+    const skills = this.skills || [];
+    if (skills.length === 0) {
+      slot.innerHTML = '<span style="font-size:0.75rem;color:var(--c-muted)">Tidak ada skill terpasang</span>';
+      this.applySkillBarVisibility();
       return;
     }
 
-    slot.innerHTML = loadout.map(item => {
-      const id = typeof item === 'string' ? item : item.id;
-      const name = item.name || id;
-      const icon = item.icon || '✨';
-      const cost = item.costEnergy ?? 1;
-      const maxU = item.maxUses ?? 3;
-      const usesLeft = item.usesRemaining !== undefined ? item.usesRemaining : maxU;
-      const canUse = (curEnergy >= cost) && (usesLeft > 0) && !this.isAnswering;
+    slot.innerHTML = skills.map(sk => {
+      const id = sk.id;
+      const name = sk.name || id;
+      const icon = sk.icon || '✨';
+      const cost = sk.cost ?? 1;
+      const usesLeft = sk.usesLeft ?? 3;
+      const usable = !!sk.usable && !this.isAnswering && !this.isUsingSkill;
+      const reason = sk.reason || null;
 
       return `
-        <button class="skill-btn"
+        <button class="skill-btn ${!usable ? 'dimmed' : ''}"
           id="skill-btn-${id}"
           data-testid="skill-btn-${id}"
           data-skill-id="${id}"
+          aria-disabled="${!usable}"
+          data-reason="${esc(reason || '')}"
           title="${esc(name)} (Biaya: ${cost} ⚡, Sisa: ${usesLeft}×)"
-          ${!canUse ? 'disabled' : ''}>
+          type="button">
           <span class="skill-cost-badge">⚡${cost}</span>
           <span class="skill-icon">${icon}</span>
           <span class="skill-uses-badge">x${usesLeft}</span>
@@ -1155,36 +1267,43 @@ Screens.battle = {
     $$('.skill-btn', slot).forEach(btn => {
       btn.onclick = async () => {
         const skillId = btn.dataset.skillId;
+        const isAriaDisabled = btn.getAttribute('aria-disabled') === 'true';
+        if (isAriaDisabled) {
+          const skObj = this.skills.find(x => x.id === skillId);
+          const reason = skObj?.reason || btn.dataset.reason;
+          const msg = (window.GameplayConfig && GameplayConfig.SKILL_REASON_TEXT && GameplayConfig.SKILL_REASON_TEXT[reason])
+            || (reason === 'NO_ENERGY' ? 'Energi ⚡ belum cukup!'
+              : reason === 'NOT_APPLICABLE' ? 'Skill ini tidak dapat digunakan pada tipe soal ini.'
+              : reason === 'ALREADY_USED' ? 'Batas pemakaian skill ini sudah habis!'
+              : reason === 'WRONG_STATE' ? 'Tunggu giliran soal berikutnya ya!'
+              : reason === 'EVENT_PENDING' ? 'Selesaikan kejutan terlebih dahulu!'
+              : reason === 'NOTHING_TO_ELIMINATE' ? 'Pilihan salah sudah habis dieliminasi!'
+              : 'Skill belum bisa digunakan saat ini.');
+          toast(msg);
+          return;
+        }
         await this.useBattleSkill(skillId, btn);
       };
     });
+
+    this.applySkillBarVisibility();
   },
 
   async useBattleSkill(skillId, btnEl) {
-    if (this.isAnswering) return;
+    if (this.isAnswering || this.isUsingSkill) return;
     const s = this.session;
     if (!s) return;
 
-    const item = (s.loadout || []).find(x => (x.id || x) === skillId);
-    const cost = item?.costEnergy ?? 1;
-    const curEnergy = s.energy ?? 2;
-    if (curEnergy < cost) {
-      toast('Energi tidak cukup! ⚡');
-      return;
-    }
-
-    btnEl.disabled = true;
+    this.isUsingSkill = true;
+    btnEl.classList.add('loading');
     try {
       const idemKey = `skill-${s.id}-${s.currentIndex}-${skillId}-${Date.now()}`;
       const res = await API.useSkill(s.id, skillId, s.currentIndex, idemKey);
 
       if (res && res.ok) {
         if (window.Sfx) Sfx.play('select');
-        s.energy = res.energy ? res.energy.value : Math.max(0, s.energy - cost);
-        if (item) {
-          item.usesRemaining = res.usesLeft;
-          item.available = (s.energy >= cost) && (res.usesLeft > 0);
-        }
+        s.energy = res.energy ? res.energy.value : s.energy;
+        this.skills = res.skills || (res.session && res.session.skills) || this.skills;
 
         const eg = $('#energy-val');
         if (eg) eg.textContent = s.energy;
@@ -1202,7 +1321,7 @@ Screens.battle = {
               optBtn.style.opacity = '0.35';
             }
           });
-          toast(`Skill ${item?.name || skillId}: ${fx.eliminated.length} opsi salah dicoret! 🎯`);
+          toast(`Skill ${fx.name || skillId}: ${fx.eliminated.length} opsi salah dicoret! 🎯`);
         }
 
         if (fx.healed) {
@@ -1234,11 +1353,14 @@ Screens.battle = {
         if (skillId === 'power_strike') {
           toast('Kekuatan serangan berikutnya berlipat ganda! 💥');
         }
-
-        this.renderSkillsDeck();
       }
     } catch (e) {
-      toast('Gagal menggunakan skill: ' + (e.message || e.code));
+      const reason = e.data?.reason || e.code;
+      const msg = (window.GameplayConfig && GameplayConfig.SKILL_REASON_TEXT && GameplayConfig.SKILL_REASON_TEXT[reason]) || (e.message || 'Gagal menggunakan skill');
+      toast(msg);
+    } finally {
+      this.isUsingSkill = false;
+      btnEl.classList.remove('loading');
       this.renderSkillsDeck();
     }
   }
@@ -2081,6 +2203,24 @@ Screens.settings = {
           </div>
 
           <div class="card" style="padding:16px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong)">
+            <h3 style="margin:0 0 12px 0;font-size:1rem;color:var(--c-accent)">Tampilan & Gameplay</h3>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+              <div>
+                <strong style="display:block">Sembunyikan Panel Skill</strong>
+                <span style="font-size:.75rem;color:var(--c-muted)">Gunakan tombol mengambang ringkas di battle</span>
+              </div>
+              <button class="toggle" id="tog-skillbar" aria-checked="${!!s.skillBarHidden}"></button>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <strong style="display:block">Animasi Hemat (Reduced Motion)</strong>
+                <span style="font-size:.75rem;color:var(--c-muted)">Matikan getar layar dan animasi cepat</span>
+              </div>
+              <button class="toggle" id="tog-reduced-motion" aria-checked="${!!s.reducedMotion}"></button>
+            </div>
+          </div>
+
+          <div class="card" style="padding:16px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong)">
             <h3 style="margin:0 0 12px 0;font-size:1rem;color:var(--c-info)">Akun Pemain</h3>
             <div style="margin-bottom:12px;font-size:.85rem">
               Masuk sebagai: <strong>${esc(Player.nick())}</strong> (Lv. ${Player.level()})
@@ -2108,6 +2248,22 @@ Screens.settings = {
       Settings.set('tts', now);
       $('#tog-tts').setAttribute('aria-checked', String(now));
       toast(now ? 'TTS Aktif' : 'TTS Dimatikan');
+    };
+
+    $('#tog-skillbar').onclick = () => {
+      const now = !Settings.get().skillBarHidden;
+      Settings.set('skillBarHidden', now);
+      $('#tog-skillbar').setAttribute('aria-checked', String(now));
+      API.saveSettings({ skillBarHidden: now }).catch(() => {});
+      toast(now ? 'Panel Skill Disembunyikan' : 'Panel Skill Ditampilkan');
+    };
+
+    $('#tog-reduced-motion').onclick = () => {
+      const now = !Settings.get().reducedMotion;
+      Settings.set('reducedMotion', now);
+      $('#tog-reduced-motion').setAttribute('aria-checked', String(now));
+      API.saveSettings({ reducedMotion: now }).catch(() => {});
+      toast(now ? 'Mode Hemat Animasi Aktif' : 'Mode Hemat Animasi Mati');
     };
 
     $('#btn-switch-act').onclick = () => Screens.home.openAuthModal();
