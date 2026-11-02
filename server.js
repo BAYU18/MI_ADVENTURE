@@ -120,14 +120,33 @@ const server = http.createServer(async (req, res) => {
 
   // Health check
   if ((pathname === '/api/health' || pathname === '/healthz') && method === 'GET') {
-    return json(res, {
-      ok: true,
-      db: true,
-      schema: { valid: true, errorCount: 0 },
-      service: 'petualangan-pelajar',
-      version: 1,
-      timestamp: new Date().toISOString(),
-    });
+    try {
+      const dbInstance = db.getDb();
+      dbInstance.prepare('SELECT 1').get();
+      const gsCols = dbInstance.prepare("PRAGMA table_info('game_sessions')").all().map(c => c.name);
+      const isMatch = gsCols.includes('created_at');
+      if (!isMatch) {
+        return json(res, {
+          ok: false,
+          db: true,
+          schema: 'MISMATCH',
+          missing: ['game_sessions.created_at'],
+          service: 'petualangan-pelajar',
+          version: 'v4',
+          timestamp: new Date().toISOString()
+        }, 500);
+      }
+      return json(res, {
+        ok: true,
+        db: true,
+        schema: 'MATCH',
+        service: 'petualangan-pelajar',
+        version: 'v4',
+        timestamp: new Date().toISOString(),
+      });
+    } catch (e) {
+      return json(res, { ok: false, db: false, schema: 'ERROR', error: e.message }, 500);
+    }
   }
 
   // Auth: Register (Player)
@@ -258,9 +277,15 @@ const server = http.createServer(async (req, res) => {
   if (pathname === '/api/shop/buy' && method === 'POST') {
     const playerAuth = getPlayerFromReq(req);
     if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    const idemKey = req.headers['idempotency-key'];
+    if (idemKey) {
+      const cached = db.getIdempotency(playerAuth.id, idemKey);
+      if (cached) return json(res, cached.response, cached.statusCode);
+    }
     try {
       const body = await parseBody(req);
       const resBuy = db.buyShopItem(playerAuth.id, body.itemId);
+      if (idemKey) db.saveIdempotency(playerAuth.id, idemKey, pathname, 200, resBuy);
       return json(res, resBuy);
     } catch (e) {
       if (e.code === 'INSUFFICIENT_COINS') return err(res, 'Koin tidak cukup', 422, 'INSUFFICIENT_COINS');
@@ -272,8 +297,14 @@ const server = http.createServer(async (req, res) => {
   if (pathname === '/api/shop/box' && method === 'POST') {
     const playerAuth = getPlayerFromReq(req);
     if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    const idemKey = req.headers['idempotency-key'];
+    if (idemKey) {
+      const cached = db.getIdempotency(playerAuth.id, idemKey);
+      if (cached) return json(res, cached.response, cached.statusCode);
+    }
     try {
       const resBox = db.buyMysteryBox(playerAuth.id);
+      if (idemKey) db.saveIdempotency(playerAuth.id, idemKey, pathname, 200, resBox);
       return json(res, resBox);
     } catch (e) {
       if (e.code === 'INSUFFICIENT_COINS') return err(res, 'Koin tidak cukup', 422, 'INSUFFICIENT_COINS');
@@ -316,10 +347,16 @@ const server = http.createServer(async (req, res) => {
   if (pathname.startsWith('/api/skills/') && pathname.endsWith('/upgrade') && method === 'POST') {
     const playerAuth = getPlayerFromReq(req);
     if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    const idemKey = req.headers['idempotency-key'];
+    if (idemKey) {
+      const cached = db.getIdempotency(playerAuth.id, idemKey);
+      if (cached) return json(res, cached.response, cached.statusCode);
+    }
     const parts = pathname.split('/');
     const skillId = parts[3];
     try {
       const resUp = db.upgradeSkill(playerAuth.id, skillId);
+      if (idemKey) db.saveIdempotency(playerAuth.id, idemKey, pathname, 200, resUp);
       return json(res, resUp);
     } catch (e) {
       if (e.code === 'INSUFFICIENT_COINS') return err(res, 'Koin tidak cukup', 422, 'INSUFFICIENT_COINS');
@@ -375,8 +412,16 @@ const server = http.createServer(async (req, res) => {
       if (e.message === 'NO_QUESTIONS') {
         return err(res, 'Belum ada soal untuk mata pelajaran ini', 400, 'NO_QUESTIONS');
       }
-      console.error('[startSession error]', e);
-      return err(res, 'Gagal memulai petualangan. Silakan coba lagi.', 500, 'SERVER_ERROR');
+      const requestId = Math.random().toString(36).substring(2, 10);
+      console.error(`[startSession error] [requestId:${requestId}]`, e);
+      return json(res, {
+        ok: false,
+        error: {
+          code: 'START_FAILED',
+          message: 'Gagal memulai petualangan. Coba lagi ya.',
+          requestId
+        }
+      }, 500);
     }
   }
 

@@ -18,9 +18,18 @@ for (const t of tables) {
 }
 
 // Pemeriksaan khusus untuk tabel game_sessions
-console.log('\n=== AUDIT game_sessions ===');
-if (!schemaMap.game_sessions.includes('created_at')) {
-  console.log('⚠️  PERINGATAN: game_sessions TIDAK memiliki kolom created_at! (Memiliki: started_at)');
+console.log('\n=== AUDIT game_sessions & CORE TABLES ===');
+const requiredTables = ['players', 'game_sessions', 'session_questions', 'coin_transactions', 'player_skills', 'player_loadout', 'player_items'];
+for (const reqT of requiredTables) {
+  if (!schemaMap[reqT]) {
+    console.log(`❌ ERROR: Tabel inti '${reqT}' TIDAK ditemukan!`);
+    errorsFound++;
+  }
+}
+
+if (!schemaMap.game_sessions || !schemaMap.game_sessions.includes('created_at')) {
+  console.log('❌ ERROR: game_sessions TIDAK memiliki kolom created_at!');
+  errorsFound++;
 } else {
   console.log('✅ game_sessions memiliki kolom created_at');
 }

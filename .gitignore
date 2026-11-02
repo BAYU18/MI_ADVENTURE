@@ -22,3 +22,7 @@ Thumbs.db
 .idea/
 graphify-out/
 .graphifyignore
+
+# Backups
+*.bak*
+backup-*/

@@ -699,4 +699,616 @@ body {
   background: rgba(255,255,255,0.2);
 }
 
+/* ============================================================
+   V4 ADDITIONS: Beranda 8 Ubin, Profil 5-Tab, Toko, & Battle HUD
+   ============================================================ */
+
+/* Home 8-Tile Navigation */
+.home-tiles-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  width: min(380px, 100%);
+  margin: 0 auto;
+}
+@media (min-width: 480px) {
+  .home-tiles-grid {
+    grid-template-columns: repeat(4, 1fr);
+    width: min(520px, 100%);
+  }
+}
+.menu-tile {
+  appearance: none;
+  border: 1px solid var(--c-surface-strong);
+  background: var(--c-surface);
+  border-radius: var(--radius);
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--c-text);
+  cursor: pointer;
+  transition: transform 0.12s ease, background 0.15s, border-color 0.15s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  text-decoration: none;
+  min-height: 80px;
+}
+.menu-tile:active {
+  transform: scale(0.96);
+}
+.menu-tile .tile-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+.menu-tile .tile-title {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #fff;
+  text-align: center;
+}
+.menu-tile .tile-desc {
+  font-size: 0.7rem;
+  color: var(--c-muted);
+  text-align: center;
+}
+.menu-tile.highlight {
+  background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(217,119,6,0.1));
+  border-color: rgba(245,158,11,0.4);
+}
+.menu-tile.highlight .tile-title {
+  color: var(--c-primary);
+}
+
+/* Profile 5-Tab View */
+#profile-view {
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--pad) + env(safe-area-inset-top)) var(--pad) calc(var(--pad) + env(safe-area-inset-bottom));
+}
+.profile-top-bar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 10px;
+}
+.profile-tab-nav {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 4px 2px 10px 2px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.profile-tab-nav::-webkit-scrollbar {
+  display: none;
+}
+.profile-tab-btn {
+  flex: 0 0 auto;
+  appearance: none;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  padding: 7px 14px;
+  color: var(--c-muted);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.profile-tab-btn.active {
+  background: var(--c-primary);
+  border-color: var(--c-primary);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(245,158,11,0.4);
+}
+
+.profile-content-area {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+  -webkit-overflow-scrolling: touch !important;
+  padding-bottom: 24px;
+}
+
+/* Tab 1: Ringkasan */
+.avatar-summary-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-surface-strong);
+  border-radius: var(--radius);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+.avatar-svg-container {
+  width: 140px;
+  height: 140px;
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+.avatar-svg-container svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.player-xp-wrap {
+  width: 100%;
+  max-width: 280px;
+  margin-top: 4px;
+}
+.xp-track {
+  height: 8px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+.xp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #38bdf8, #818cf8);
+  border-radius: 99px;
+  transition: width 0.3s ease;
+}
+
+/* Stats 3x2 Grid */
+.stats-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 12px;
+}
+@media (min-width: 480px) {
+  .stats-summary-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.stat-box {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 12px 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.stat-box .stat-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+.stat-box .stat-val {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #fff;
+}
+.stat-box .stat-lbl {
+  font-size: 0.72rem;
+  color: var(--c-muted);
+}
+
+/* Badges list */
+.badge-chips-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 6px 0;
+  scrollbar-width: none;
+}
+.badge-chip {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Loadout 3-Slot Preview */
+.loadout-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+.loadout-slot-card {
+  background: rgba(255,255,255,0.06);
+  border: 2px dashed rgba(255,255,255,0.2);
+  border-radius: 14px;
+  padding: 10px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 80px;
+  justify-content: center;
+}
+.loadout-slot-card.filled {
+  border-style: solid;
+  border-color: rgba(56,189,248,0.5);
+  background: rgba(56,189,248,0.1);
+}
+.loadout-slot-card .slot-num {
+  font-size: 0.68rem;
+  color: var(--c-muted);
+}
+.loadout-slot-card .slot-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+.loadout-slot-card .slot-name {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90%;
+}
+.loadout-slot-card .slot-lvl {
+  font-size: 0.68rem;
+  color: var(--c-primary);
+  font-weight: 700;
+}
+
+/* Filter Chips */
+.filter-scroll-row {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 6px 0 12px 0;
+  scrollbar-width: none;
+}
+.filter-chip-btn {
+  flex: 0 0 auto;
+  appearance: none;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--c-muted);
+  cursor: pointer;
+}
+.filter-chip-btn.active {
+  background: var(--c-info);
+  border-color: var(--c-info);
+  color: #0f172a;
+}
+
+/* Item Grid & Cards */
+.item-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+@media (min-width: 480px) {
+  .item-card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.cosmetic-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-surface-strong);
+  border-radius: 14px;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.cosmetic-card.rarity-COMMON { border-color: rgba(148,163,184,0.4); }
+.cosmetic-card.rarity-RARE { border-color: rgba(56,189,248,0.5); }
+.cosmetic-card.rarity-EPIC { border-color: rgba(168,85,247,0.5); }
+.cosmetic-card.rarity-LEGENDARY { border-color: rgba(245,158,11,0.6); box-shadow: 0 0 12px rgba(245,158,11,0.25); }
+
+.rarity-tag {
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+.rarity-tag.COMMON { background: rgba(148,163,184,0.2); color: #cbd5e1; }
+.rarity-tag.RARE { background: rgba(56,189,248,0.2); color: #38bdf8; }
+.rarity-tag.EPIC { background: rgba(168,85,247,0.2); color: #c084fc; }
+.rarity-tag.LEGENDARY { background: rgba(245,158,11,0.2); color: #fbbf24; }
+
+.cosmetic-icon-preview {
+  font-size: 2.2rem;
+  line-height: 1;
+  margin: 4px 0;
+}
+.cosmetic-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #fff;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Skill List in Tab 3 */
+.skill-cards-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.skill-item-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-surface-strong);
+  border-radius: var(--radius);
+  padding: 14px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+.skill-item-card.locked {
+  opacity: 0.6;
+  filter: grayscale(40%);
+}
+.skill-avatar-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  flex: 0 0 auto;
+}
+.skill-main-info {
+  flex: 1;
+  min-width: 0;
+}
+.skill-title-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.skill-name-txt {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #fff;
+}
+.skill-lvl-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 99px;
+  background: rgba(245,158,11,0.2);
+  color: var(--c-primary);
+}
+.skill-desc-now {
+  font-size: 0.8rem;
+  color: #cbd5e1;
+  margin-top: 3px;
+  line-height: 1.3;
+}
+.skill-desc-next {
+  font-size: 0.75rem;
+  color: var(--c-muted);
+  margin-top: 2px;
+  font-style: italic;
+}
+.skill-act-side {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+/* Toko: Mystery Box Banner */
+.mystery-box-hero {
+  background: linear-gradient(135deg, rgba(168,85,247,0.25), rgba(245,158,11,0.2));
+  border: 2px solid rgba(245,158,11,0.5);
+  border-radius: var(--radius);
+  padding: 18px 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  margin-bottom: 16px;
+}
+.mystery-box-hero .box-gift-icon {
+  font-size: 3rem;
+  animation: floatBounce 2s infinite ease-in-out;
+}
+@keyframes floatBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* History Rows */
+.history-cards-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.history-row-item {
+  background: var(--c-surface);
+  border: 1px solid var(--c-surface-strong);
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.history-row-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.history-icon-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+.history-desc-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+}
+.history-date-sub {
+  font-size: 0.72rem;
+  color: var(--c-muted);
+  margin-top: 1px;
+}
+.history-row-right {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+.history-delta-badge {
+  font-size: 0.88rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+.history-delta-badge.pos { background: rgba(34,197,94,0.2); color: var(--c-good); }
+.history-delta-badge.neg { background: rgba(239,68,68,0.2); color: var(--c-bad); }
+.history-bal-sub {
+  font-size: 0.72rem;
+  color: var(--c-muted);
+}
+
+/* Battle HUD: Energy & Round Skills */
+#energy-gauge {
+  background: rgba(245,158,11,0.2);
+  color: var(--c-primary);
+  border: 1px solid rgba(245,158,11,0.3);
+  font-weight: 800;
+}
+
+.battle-skills-deck {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 0;
+  margin-bottom: 4px;
+}
+.skill-btn {
+  appearance: none;
+  border: 2px solid rgba(255,255,255,0.2);
+  background: linear-gradient(135deg, rgba(30,27,75,0.9), rgba(15,23,42,0.9));
+  width: 52px;
+  height: 52px;
+  min-height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  transition: transform 0.1s ease, border-color 0.15s;
+  padding: 0;
+  color: #fff;
+}
+.skill-btn:active:not(:disabled) {
+  transform: scale(0.92);
+}
+.skill-btn .skill-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+.skill-cost-badge {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  background: #f59e0b;
+  color: #0f172a;
+  font-size: 0.65rem;
+  font-weight: 900;
+  padding: 1px 5px;
+  border-radius: 99px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+.skill-uses-badge {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  background: #38bdf8;
+  color: #0f172a;
+  font-size: 0.65rem;
+  font-weight: 900;
+  padding: 1px 5px;
+  border-radius: 99px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+.skill-btn:disabled, .skill-btn.dimmed {
+  opacity: 0.45;
+  filter: grayscale(60%);
+  cursor: not-allowed;
+  border-color: rgba(255,255,255,0.08);
+}
+
+/* Strikethrough eliminated options */
+.opt.choice-btn.eliminated,
+.opt.choice-btn[aria-disabled="true"].eliminated {
+  text-decoration: line-through !important;
+  opacity: 0.35 !important;
+  pointer-events: none !important;
+  background: rgba(0,0,0,0.3) !important;
+  border-color: rgba(255,255,255,0.08) !important;
+  color: var(--c-muted) !important;
+}
+
+/* Modals */
+.modal-confirm-card {
+  max-width: 360px;
+  background: #1e1b4b;
+  border: 1px solid var(--c-surface-strong);
+  border-radius: var(--radius);
+  padding: 22px;
+  text-align: center;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 
