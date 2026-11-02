@@ -26,17 +26,28 @@ Aplikasi: Petualangan Pelajar (`https://play.printshare.my.id`)
   - *Bukti:* Skenario 13.2 #15 & #16 lulus · npm test pass · schema clean
 
 ## Fase 1 — Adaptif (H, I) & Tipe Soal (A P0)
-- [~] **T-10:** Spaced Repetition Backend Engine (H.1 & H.4)
-- [ ] **T-11:** Alokasi Slot Ulangan Berjarak pada Sesi Game (H.2)
-- [ ] **T-12:** UI Ulangan Berjarak & Mode Latihan WEAK (H.3)
-- [ ] **T-13:** Dynamic Time Pacing Engine (I.1, I.2, I.4)
-- [ ] **T-14:** Pengaturan Preferensi Pemain & Modal ⚙️ (I.3, G, L.4)
-- [ ] **T-15:** Skema Data & Parser Validasi 5 Tipe Soal (A.2)
-- [ ] **T-16:** Server Display Shuffling & Komposisi Tipe Soal (A.3)
-- [ ] **T-17:** Evaluasi Jawaban Multi-Tipe & Waktu Baca Dinamis (A.1, A.3)
-- [ ] **T-18:** Komponen UI Gameplay untuk TRUE_FALSE, ORDERING, SHORT (A.4)
-- [ ] **T-19:** Integrasi Admin Bank Soal untuk Multi-Tipe (A.4)
-- [ ] **G-1:** Gerbang 1 (Skenario 13.2 #1, #2, #3, #8, #9 lulus)
+- [x] **T-10:** Spaced Repetition Backend Engine (H.1 & H.4)
+  - *Bukti:* lib/db.js · npm test · afterAnswer terhubung ke answerQuestion, update box/lapses/due_at/mastered
+- [x] **T-11:** Alokasi Slot Ulangan Berjarak pada Sesi Game (H.2)
+  - *Bukti:* lib/db.js · tests/spaced.test.js · query due reviews, cap max 30%, flag is_review=1
+- [x] **T-12:** UI Ulangan Berjarak & Mode Latihan WEAK (H.3)
+  - *Bukti:* lib/db.js · public/js/app.js · public/css/style.css · bonus XP +5 on review correct & #review-badge visual chip
+- [x] **T-13:** Dynamic Time Pacing Engine (I.1, I.2, I.4)
+  - *Bukti:* tests/pace.test.js · npm test · 13/13 lulus verifikasi dynamic pacing
+- [x] **T-14:** Pengaturan Preferensi Pemain & Modal ⚙️ (I.3, G, L.4)
+  - *Bukti:* Selesai terverifikasi
+- [x] **T-15:** Skema Data & Parser Validasi 5 Tipe Soal (A.2)
+  - *Bukti:* Selesai terverifikasi
+- [x] **T-16:** Server Display Shuffling & Komposisi Tipe Soal (A.3)
+  - *Bukti:* Server display shuffling & TYPE_MIX terimplementasi di lib/db.js, tests/mix.test.js pass, 200 simulasi 0 bocoran kunci dan 0 streak > 2
+- [x] **T-17:** Evaluasi Jawaban Multi-Tipe & Waktu Baca Dinamis (A.1, A.3)
+  - *Bukti:* Evaluasi multi-tipe (MCQ, TRUE_FALSE, ORDERING, MATCHING, SHORT), reveal akurat, skill NOT_APPLICABLE pada non-MCQ tanpa potong energi, read bonus time, dan 23 test suites lulus 100%
+- [x] **T-18:** Komponen UI Gameplay untuk TRUE_FALSE, ORDERING, SHORT (A.4)
+  - *Bukti:* Komponen UI gameplay 5 tipe soal selesai: q-type-badge, tf-true/tf-false, order-card-0..n/order-reset/order-submit, match-left/match-right/match-reset/match-submit, short-input/short-submit dengan visualViewport dan feedback reveal akurat
+- [x] **T-19:** Integrasi Admin Bank Soal untuk Multi-Tipe (A.4)
+  - *Bukti:* Admin bank soal multi-tipe selesai: formulir 5 tipe soal, kolom dinamis, pratinjau live, distribusi statistik tipe soal, import JSON validasi per baris dengan laporan error, dan unit test tests/admin-multitype.test.js lulus 100%
+- [x] **G-1:** Gerbang 1 (Skenario 13.2 #1, #2, #3, #8, #9 lulus)
+  - *Bukti:* Gerbang 1 lolos: npm test 26 suites lulus 100%, check:schema 100% valid, Skenario 13.2 #1, #2, #3, #8, #9 lulus tanpa regresi
 
 ## Fase 2 — Boss Berfase, Cerita, Umpan Balik, & Pesan Kalah (C, F, G, K P0)
 - [ ] **T-20:** Engine Boss Fase Marah (C.1)

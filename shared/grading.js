@@ -12,7 +12,7 @@
       return Number.isFinite(raw) ? raw : null;
     }
     if (typeof raw !== 'string') return null;
-    let s = raw.trim();
+    let s = raw.trim().replace(/\s+/g, '');
     if (!s) return null;
 
     // Both dots and commas present
@@ -48,9 +48,22 @@
   }
 
   function gradeShort(userAns, typeData = {}) {
+    if (typeData && typeData.numeric) {
+      const val = typeData.numeric.value;
+      const tol = typeof typeData.numeric.tolerance === 'number' ? typeData.numeric.tolerance : 0.0001;
+      const userNum = parseNumberId(userAns);
+      const ok = userNum !== null && Math.abs(userNum - val) <= tol;
+      return {
+        correct: ok,
+        score: ok ? 1.0 : 0,
+        userValue: userNum,
+        reveal: String(val)
+      };
+    }
+
     const accepted = Array.isArray(typeData.accepted)
       ? typeData.accepted
-      : (typeData.accepted != null ? [typeData.accepted] : []);
+      : (typeData.accept ? (Array.isArray(typeData.accept) ? typeData.accept : [typeData.accept]) : (typeData.accepted != null ? [typeData.accepted] : []));
 
     const isNumeric = Boolean(typeData.isNumeric);
     const tolerance = typeof typeData.tolerance === 'number' ? typeData.tolerance : 0.0001;
@@ -62,7 +75,7 @@
           correct: false,
           score: 0,
           userValue: userAns,
-          reveal: accepted[0] ?? ''
+          reveal: accepted[0] != null ? String(accepted[0]) : ''
         };
       }
       for (const target of accepted) {
@@ -72,7 +85,7 @@
             correct: true,
             score: 1.0,
             userValue: userNum,
-            reveal: target
+            reveal: String(target)
           };
         }
       }
@@ -80,7 +93,7 @@
         correct: false,
         score: 0,
         userValue: userNum,
-        reveal: accepted[0] ?? ''
+        reveal: accepted[0] != null ? String(accepted[0]) : ''
       };
     }
 
@@ -91,7 +104,7 @@
           correct: true,
           score: 1.0,
           userValue: userNorm,
-          reveal: target
+          reveal: String(target)
         };
       }
     }
@@ -100,11 +113,28 @@
       correct: false,
       score: 0,
       userValue: userNorm,
-      reveal: accepted[0] ?? ''
+      reveal: accepted[0] != null ? String(accepted[0]) : ''
     };
   }
 
-  function gradeOrdering(userOrder, typeData = {}) {
+  function gradeOrdering(arg1, arg2 = {}) {
+    if (Array.isArray(arg1) && Array.isArray(arg2)) {
+      const displayOrder = arg1;
+      const order = arg2;
+      if (order.length !== displayOrder.length || new Set(order).size !== order.length) {
+        return { correct: false, matches: 0, total: displayOrder.length, reveal: Array.from({length: displayOrder.length}, (_, i) => displayOrder.indexOf(i)) };
+      }
+      const ok = order.every((d, i) => displayOrder[d] === i);
+      return {
+        correct: ok,
+        matches: ok ? displayOrder.length : 0,
+        total: displayOrder.length,
+        reveal: Array.from({length: displayOrder.length}, (_, i) => displayOrder.indexOf(i))
+      };
+    }
+
+    const userOrder = Array.isArray(arg1) ? arg1 : [];
+    const typeData = arg2 || {};
     const correctOrder = Array.isArray(typeData.correctOrder) ? typeData.correctOrder : [];
     if (!Array.isArray(userOrder) || userOrder.length !== correctOrder.length) {
       return {
@@ -131,8 +161,25 @@
     };
   }
 
-  function gradeMatching(userPairs, typeData = {}) {
-    // typeData.pairs: Array of { left, right } or key-value map
+  function gradeMatching(arg1, arg2 = {}) {
+    if (Array.isArray(arg1) && Array.isArray(arg2)) {
+      const rightOrder = arg1;
+      const pairs = arg2;
+      const total = rightOrder.length;
+      if (pairs.length !== total || new Set(pairs).size !== total) {
+        return { correct: false, matchedCount: 0, total, reveal: Array.from({length: total}, (_, i) => rightOrder.indexOf(i)) };
+      }
+      const ok = pairs.every((d, i) => rightOrder[d] === i);
+      return {
+        correct: ok,
+        matchedCount: ok ? total : 0,
+        total,
+        reveal: Array.from({length: total}, (_, i) => rightOrder.indexOf(i))
+      };
+    }
+
+    const userPairs = arg1;
+    const typeData = arg2 || {};
     let expectedMap = {};
     if (Array.isArray(typeData.pairs)) {
       for (const item of typeData.pairs) {
@@ -307,6 +354,10 @@
 
   return {
     parseNumberId,
+    parseNumber: parseNumberId,
+    readBonusSec: (totalChars) => Math.min(20, Math.ceil(Math.max(0, (totalChars || 0) - 160) / 25)),
+    timeLimitSec: (base, readBonus, pace) => Math.round((base + (readBonus || 0)) * (pace || 1.0)),
+    bossPhase: (hp, max) => (hp / max <= 0.5 ? 2 : 1),
     normalizeText,
     gradeShort,
     gradeOrdering,

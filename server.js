@@ -630,7 +630,7 @@ const server = http.createServer(async (req, res) => {
       if (!sid) return err(res, 'subjectId diperlukan', 400);
       return json(res, { ok: true, questions: db.adminGetQuestions(sid) });
     }
-    if (pathname === '/api/admin/questions' && method === 'POST') {
+    if ((pathname === '/api/admin/questions' || pathname === '/api/admin/question') && method === 'POST') {
       try {
         const body = await parseBody(req);
         const saved = db.adminSaveQuestion(body);

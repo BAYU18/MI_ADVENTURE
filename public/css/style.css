@@ -83,6 +83,7 @@ body {
 }
 .chip.accent { background: rgba(245,158,11,.2); color: var(--c-primary); }
 .chip.info { background: rgba(56,189,248,.18); color: var(--c-info); }
+.chip.warning { background: rgba(245, 158, 11, 0.25); color: #b45309; border: 1px solid rgba(245, 158, 11, 0.4); }
 
 /* ---------- Progress bar ---------- */
 .progress-track {
@@ -1384,3 +1385,88 @@ body {
 }
 
 
+
+
+/* ---------- Multi-type Question Styles (T-18) ---------- */
+.order-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  color: #fff;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+  width: 100%;
+}
+.order-card:active { transform: scale(0.98); }
+.order-card.selected {
+  background: rgba(59, 130, 246, 0.18);
+  border-color: #3b82f6;
+}
+.order-card.correct {
+  background: rgba(34, 197, 94, 0.25);
+  border-color: var(--c-good, #22c55e);
+}
+.order-card.revealed {
+  border-color: var(--c-good, #22c55e);
+}
+.order-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 6px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.14);
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: #fff;
+}
+.order-card.selected .order-badge {
+  background: #3b82f6;
+}
+.order-badge.correct {
+  background: var(--c-good, #22c55e);
+}
+
+.match-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  width: 100%;
+}
+.match-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 8px;
+  min-height: 48px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-align: center;
+  word-break: break-word;
+}
+.match-card.active-left {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.2);
+}
+.match-card.paired {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.2);
+}
+.match-card.correct {
+  border-color: var(--c-good, #22c55e);
+  background: rgba(34, 197, 94, 0.25);
+}
+.match-card.revealed {
+  border-color: var(--c-good, #22c55e);
+}

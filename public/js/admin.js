@@ -226,7 +226,7 @@
 
   async function saveQuestion(payload) {
     try {
-      const res = await api('/api/admin/question', {
+      const res = await api('/api/admin/questions', {
         method: 'POST',
         body: payload,
       });
@@ -503,6 +503,20 @@
     const curSubjects = getFilteredSubjects();
     const curSubject = state.subjects.find(s => s.id === state.selectedSubjectId);
 
+    // Calculate question type distribution statistics (T-19 / A.4)
+    const typeCounts = {
+      MCQ: 0,
+      TRUE_FALSE: 0,
+      ORDERING: 0,
+      MATCHING: 0,
+      SHORT: 0
+    };
+    state.questions.forEach(q => {
+      const t = (q.question_type || 'MCQ').toUpperCase();
+      if (typeCounts[t] !== undefined) typeCounts[t]++;
+      else typeCounts.MCQ++;
+    });
+
     return `
       <!-- Toolbar Filters & Actions -->
       <div style="background:var(--c-surface);border:1px solid var(--c-surface-strong);border-radius:var(--radius);padding:14px 18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
@@ -539,6 +553,17 @@
         </div>
       </div>
 
+      <!-- Type Distribution Statistics Bar (T-19) -->
+      <div class="q-type-stats" style="margin-top:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:.82rem">
+        <span style="font-weight:700;color:var(--c-muted)">Distribusi Tipe Soal:</span>
+        <span class="chip" style="background:rgba(56,189,248,.18);color:#38bdf8;padding:2px 8px;border-radius:6px;font-weight:700">MCQ: ${typeCounts.MCQ}</span>
+        <span class="chip" style="background:rgba(245,158,11,.18);color:#fbbf24;padding:2px 8px;border-radius:6px;font-weight:700">TRUE/FALSE: ${typeCounts.TRUE_FALSE}</span>
+        <span class="chip" style="background:rgba(168,85,247,.18);color:#c084fc;padding:2px 8px;border-radius:6px;font-weight:700">ORDERING: ${typeCounts.ORDERING}</span>
+        <span class="chip" style="background:rgba(236,72,153,.18);color:#f472b6;padding:2px 8px;border-radius:6px;font-weight:700">MATCHING: ${typeCounts.MATCHING}</span>
+        <span class="chip" style="background:rgba(34,197,94,.18);color:#4ade80;padding:2px 8px;border-radius:6px;font-weight:700">SHORT: ${typeCounts.SHORT}</span>
+        <span style="margin-left:auto;color:var(--c-muted)">Total: <strong style="color:var(--c-text)">${state.questions.length}</strong></span>
+      </div>
+
       <!-- Question List Table -->
       <div class="table-wrap">
         <table class="adm-table">
@@ -546,7 +571,7 @@
             <tr>
               <th style="width:48px;text-align:center">#</th>
               <th>Pertanyaan</th>
-              <th style="width:280px">Pilihan Jawaban (A/B/C/D)</th>
+              <th style="width:280px">Pilihan / Kunci Jawaban</th>
               <th style="width:110px">Tingkat</th>
               <th style="width:120px;text-align:center">Aksi</th>
             </tr>
@@ -568,30 +593,75 @@
                 </td>
               </tr>
             ` : state.questions.map((q, idx) => {
+              const qType = (q.question_type || 'MCQ').toUpperCase();
+              let typeData = {};
+              if (q.type_data_json) {
+                try { typeData = JSON.parse(q.type_data_json); } catch(e) {}
+              }
               const opts = Array.isArray(q.options) ? q.options : [];
               const ansIdx = q.answer_index !== undefined ? q.answer_index : 0;
               const diffLabels = { 1: 'Mudah', 2: 'Sedang', 3: 'Sulit', 4: 'Tinggi', 5: 'Master' };
               const diffColors = { 1: 'green', 2: 'blue', 3: 'yellow', 4: 'red', 5: 'red' };
               const diff = q.difficulty || 1;
 
+              const typeBadge = `<span class="chip" style="font-size:0.68rem;padding:1px 6px;margin-bottom:4px;display:inline-block;background:rgba(255,255,255,0.1);color:#cbd5e1">${qType}</span>`;
+
+              let answerDisplay = '';
+              if (qType === 'MCQ') {
+                answerDisplay = `
+                  <div style="display:flex;flex-direction:column;gap:2px;font-size:.8rem">
+                    ${opts.map((opt, oIdx) => `
+                      <div style="display:flex;align-items:center;gap:6px;${oIdx === ansIdx ? 'color:#4ade80;font-weight:700' : 'color:var(--c-muted)'}">
+                        <span>${['A', 'B', 'C', 'D'][oIdx] || oIdx + 1}.</span>
+                        <span>${escapeHtml(opt)}</span>
+                        ${oIdx === ansIdx ? '<span style="font-size:.7rem">✓ (Kunci)</span>' : ''}
+                      </div>
+                    `).join('')}
+                  </div>
+                `;
+              } else if (qType === 'TRUE_FALSE') {
+                const isTrue = Boolean(typeData.correctAnswer ?? (ansIdx === 0));
+                answerDisplay = `
+                  <div style="font-size:.84rem;color:${isTrue ? '#4ade80' : '#f87171'};font-weight:700">
+                    Kunci: ${isTrue ? '✅ Benar' : '❌ Salah'}
+                  </div>
+                `;
+              } else if (qType === 'ORDERING') {
+                const items = Array.isArray(typeData.items) ? typeData.items : opts;
+                answerDisplay = `
+                  <div style="display:flex;flex-direction:column;gap:2px;font-size:.8rem;color:#c084fc">
+                    <span style="font-weight:700;color:var(--c-muted)">Urutan Benar:</span>
+                    ${items.map((it, i) => `<div>${i + 1}. ${escapeHtml(it)}</div>`).join('')}
+                  </div>
+                `;
+              } else if (qType === 'MATCHING') {
+                const pairs = Array.isArray(typeData.pairs) ? typeData.pairs : [];
+                answerDisplay = `
+                  <div style="display:flex;flex-direction:column;gap:2px;font-size:.8rem;color:#f472b6">
+                    <span style="font-weight:700;color:var(--c-muted)">Pasangan:</span>
+                    ${pairs.map(p => `<div>${escapeHtml(p.left)} ➔ ${escapeHtml(p.right)}</div>`).join('')}
+                  </div>
+                `;
+              } else if (qType === 'SHORT') {
+                const isNum = Boolean(typeData.isNumeric || typeData.numeric);
+                const accepted = typeData.accepted ? typeData.accepted.join(', ') : (typeData.numeric ? `${typeData.numeric.value} (±${typeData.numeric.tolerance || 0})` : '-');
+                answerDisplay = `
+                  <div style="font-size:.84rem;color:#4ade80">
+                    <span style="color:var(--c-muted);font-weight:700">Kunci (${isNum ? 'Angka' : 'Teks'}):</span>
+                    <strong>${escapeHtml(accepted)}</strong>
+                  </div>
+                `;
+              }
+
               return `
                 <tr>
                   <td style="text-align:center;color:var(--c-muted);font-weight:700">${idx + 1}</td>
                   <td>
+                    ${typeBadge}
                     <div style="font-weight:700;color:var(--c-text);margin-bottom:4px">${escapeHtml(q.text)}</div>
                     ${q.explanation ? `<div style="font-size:.78rem;color:var(--c-muted)"><em>💡 ${escapeHtml(q.explanation)}</em></div>` : ''}
                   </td>
-                  <td>
-                    <div style="display:flex;flex-direction:column;gap:2px;font-size:.8rem">
-                      ${opts.map((opt, oIdx) => `
-                        <div style="display:flex;align-items:center;gap:6px;${oIdx === ansIdx ? 'color:#4ade80;font-weight:700' : 'color:var(--c-muted)'}">
-                          <span>${['A', 'B', 'C', 'D'][oIdx] || oIdx + 1}.</span>
-                          <span>${escapeHtml(opt)}</span>
-                          ${oIdx === ansIdx ? '<span style="font-size:.7rem">✓ (Kunci)</span>' : ''}
-                        </div>
-                      `).join('')}
-                    </div>
-                  </td>
+                  <td>${answerDisplay}</td>
                   <td>
                     <span class="badge ${diffColors[diff] || 'blue'}">
                       Tier ${diff} (${diffLabels[diff] || 'Normal'})
@@ -782,23 +852,34 @@
 
   /* ── Modal Handling ── */
   function openQuestionModal(question = null) {
+    let typeData = {};
+    if (question && question.type_data_json) {
+      try { typeData = JSON.parse(question.type_data_json); } catch (e) {}
+    } else if (question && question.type_data) {
+      typeData = question.type_data;
+    }
+
     state.modal = 'question';
     state.modalData = question ? {
       id: question.id,
       subjectId: question.subject_id || state.selectedSubjectId,
       text: question.text || '',
+      questionType: (question.question_type || 'MCQ').toUpperCase(),
       options: Array.isArray(question.options) ? [...question.options] : ['', '', '', ''],
       answerIndex: question.answer_index !== undefined ? question.answer_index : 0,
       explanation: question.explanation || '',
       difficulty: question.difficulty || 1,
+      typeData: typeData || {}
     } : {
       id: null,
       subjectId: state.selectedSubjectId,
       text: '',
+      questionType: 'MCQ',
       options: ['', '', '', ''],
       answerIndex: 0,
       explanation: '',
       difficulty: 1,
+      typeData: {}
     };
     renderModal();
   }
@@ -846,36 +927,28 @@
     if (state.modal === 'question') {
       const q = state.modalData;
       const isEdit = Boolean(q.id);
+      let curType = q.questionType || 'MCQ';
+
       backdrop.innerHTML = `
-        <div class="modal" style="width:min(580px, 100%)">
+        <div class="modal" style="width:min(640px, 100%);max-height:90vh;overflow-y:auto">
           <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:10px">
             <h3 style="margin:0;font-size:1.15rem;color:var(--c-primary)">${isEdit ? '✏️ Edit Soal' : '➕ Tambah Soal Baru'}</h3>
             <button id="modal-close-btn" style="background:transparent;border:0;color:var(--c-muted);font-size:1.4rem;cursor:pointer">&times;</button>
           </div>
 
-          <form id="form-question" style="display:flex;flex-direction:column;gap:12px;margin-top:6px">
-            <div class="field">
-              <label for="q-text">Teks Pertanyaan <span style="color:var(--c-bad)">*</span></label>
-              <textarea id="q-text" rows="3" required placeholder="Contoh: Hasil dari 24 + 16 x 2 adalah...">${escapeHtml(q.text)}</textarea>
-            </div>
-
-            <div class="field">
-              <label>Pilihan Jawaban & Tentukan Kunci Jawaban <span style="color:var(--c-bad)">*</span></label>
-              <div style="display:flex;flex-direction:column;gap:8px">
-                ${['A', 'B', 'C', 'D'].map((label, idx) => `
-                  <div style="display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.25);padding:6px 10px;border-radius:10px">
-                    <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-weight:700;color:${q.answerIndex === idx ? '#4ade80' : 'var(--c-muted)'}">
-                      <input type="radio" name="ans-key" value="${idx}" ${q.answerIndex === idx ? 'checked' : ''} style="cursor:pointer">
-                      <span>${label}</span>
-                    </label>
-                    <input type="text" id="q-opt-${idx}" required value="${escapeHtml(q.options[idx] || '')}" placeholder="Pilihan ${label}" style="flex:1;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:6px 10px;color:var(--c-text);font:inherit">
-                  </div>
-                `).join('')}
-              </div>
-              <span style="font-size:.76rem;color:var(--c-muted);margin-top:2px">Pilih radio button pada pilihan yang merupakan jawaban benar.</span>
-            </div>
-
+          <form id="form-question" style="display:flex;flex-direction:column;gap:12px;margin-top:8px">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div class="field">
+                <label for="q-type-select">Tipe Soal <span style="color:var(--c-bad)">*</span></label>
+                <select id="q-type-select" style="background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:8px;color:var(--c-text);font:inherit">
+                  <option value="MCQ" ${curType === 'MCQ' ? 'selected' : ''}>Pilihan Ganda (MCQ)</option>
+                  <option value="TRUE_FALSE" ${curType === 'TRUE_FALSE' ? 'selected' : ''}>Benar / Salah (TRUE_FALSE)</option>
+                  <option value="ORDERING" ${curType === 'ORDERING' ? 'selected' : ''}>Urutkan Kartu (ORDERING)</option>
+                  <option value="MATCHING" ${curType === 'MATCHING' ? 'selected' : ''}>Pasangkan Kata (MATCHING)</option>
+                  <option value="SHORT" ${curType === 'SHORT' ? 'selected' : ''}>Isian Singkat (SHORT)</option>
+                </select>
+              </div>
+
               <div class="field">
                 <label for="q-diff">Tingkat Kesulitan</label>
                 <select id="q-diff" style="background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:8px;color:var(--c-text);font:inherit">
@@ -886,23 +959,37 @@
                   <option value="5" ${q.difficulty === 5 ? 'selected' : ''}>Tier 5 (Master)</option>
                 </select>
               </div>
+            </div>
 
-              <div class="field">
-                <label for="q-subject">Mata Pelajaran</label>
-                <select id="q-subject" style="background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:8px;color:var(--c-text);font:inherit">
-                  ${getFilteredSubjects().map(s => `
-                    <option value="${s.id}" ${s.id === q.subjectId ? 'selected' : ''}>${escapeHtml(s.name)}</option>
-                  `).join('')}
-                </select>
-              </div>
+            <div class="field">
+              <label for="q-text">Teks Pertanyaan <span style="color:var(--c-bad)">*</span></label>
+              <textarea id="q-text" rows="2" required placeholder="Contoh: Hasil dari 24 + 16 x 2 adalah...">${escapeHtml(q.text)}</textarea>
+            </div>
+
+            <!-- Dynamic Slot per Question Type -->
+            <div id="type-fields-slot"></div>
+
+            <div class="field">
+              <label for="q-subject">Mata Pelajaran</label>
+              <select id="q-subject" style="background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:8px;color:var(--c-text);font:inherit">
+                ${getFilteredSubjects().map(s => `
+                  <option value="${s.id}" ${s.id === q.subjectId ? 'selected' : ''}>${escapeHtml(s.name)}</option>
+                `).join('')}
+              </select>
             </div>
 
             <div class="field">
               <label for="q-explanation">Penjelasan / Pembahasan (Opsional)</label>
-              <textarea id="q-explanation" rows="2" placeholder="Muncul saat siswa selesai menjawab untuk sesi evaluasi...">${escapeHtml(q.explanation)}</textarea>
+              <textarea id="q-explanation" rows="2" placeholder="Muncul saat siswa selesai menjawab untuk evaluasi...">${escapeHtml(q.explanation)}</textarea>
             </div>
 
-            <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:10px">
+            <!-- Live Preview Card -->
+            <div style="background:rgba(0,0,0,.25);border:1px dashed rgba(255,255,255,.2);border-radius:10px;padding:10px;margin-top:2px">
+              <div style="font-size:.76rem;color:var(--c-muted);font-weight:700;margin-bottom:6px">👁️ Pratinjau Soal Siswa:</div>
+              <div id="q-preview-content"></div>
+            </div>
+
+            <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:6px">
               <button type="button" id="modal-cancel-btn" class="btn small" style="background:var(--c-surface);color:var(--c-muted);border:0;border-radius:10px;cursor:pointer">Batal</button>
               <button type="submit" class="btn small" style="background:var(--c-primary);color:#1c1206;font-weight:800;border:0;border-radius:10px;cursor:pointer">
                 Simpan Soal
@@ -915,40 +1002,298 @@
       document.getElementById('modal-close-btn').addEventListener('click', closeModal);
       document.getElementById('modal-cancel-btn').addEventListener('click', closeModal);
 
+      const typeSelect = document.getElementById('q-type-select');
+      const typeSlot = document.getElementById('type-fields-slot');
+      const previewBox = document.getElementById('q-preview-content');
+
+      function renderTypeInputs(t) {
+        if (t === 'MCQ') {
+          typeSlot.innerHTML = `
+            <div class="field">
+              <label>Pilihan Jawaban & Kunci Jawaban <span style="color:var(--c-bad)">*</span></label>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                ${['A', 'B', 'C', 'D'].map((lbl, idx) => `
+                  <div style="display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.25);padding:6px 10px;border-radius:10px">
+                    <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-weight:700">
+                      <input type="radio" name="ans-key" value="${idx}" ${q.answerIndex === idx ? 'checked' : ''} style="cursor:pointer">
+                      <span>${lbl}</span>
+                    </label>
+                    <input type="text" id="q-opt-${idx}" required value="${escapeHtml(q.options[idx] || '')}" placeholder="Pilihan ${lbl}" style="flex:1;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:6px 10px;color:var(--c-text);font:inherit">
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        } else if (t === 'TRUE_FALSE') {
+          const isTrue = q.typeData ? (q.typeData.correctAnswer !== false) : (q.answerIndex === 0);
+          typeSlot.innerHTML = `
+            <div class="field">
+              <label>Kunci Jawaban Benar / Salah <span style="color:var(--c-bad)">*</span></label>
+              <div style="display:flex;gap:12px">
+                <label style="flex:1;display:flex;align-items:center;gap:8px;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);padding:10px;border-radius:10px;cursor:pointer">
+                  <input type="radio" name="tf-ans" value="true" ${isTrue ? 'checked' : ''}>
+                  <strong style="color:#4ade80">✅ Benar (TRUE)</strong>
+                </label>
+                <label style="flex:1;display:flex;align-items:center;gap:8px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);padding:10px;border-radius:10px;cursor:pointer">
+                  <input type="radio" name="tf-ans" value="false" ${!isTrue ? 'checked' : ''}>
+                  <strong style="color:#f87171">❌ Salah (FALSE)</strong>
+                </label>
+              </div>
+            </div>
+          `;
+        } else if (t === 'ORDERING') {
+          const items = (q.typeData && Array.isArray(q.typeData.items)) ? q.typeData.items : (Array.isArray(q.options) && q.options.length ? q.options : ['Langkah 1', 'Langkah 2', 'Langkah 3', 'Langkah 4']);
+          typeSlot.innerHTML = `
+            <div class="field">
+              <label for="order-items-input">Item Urutan yang Benar (1 per baris, min 2) <span style="color:var(--c-bad)">*</span></label>
+              <textarea id="order-items-input" rows="4" placeholder="Tuliskan urutan dari awal hingga akhir..." style="font-family:inherit">${escapeHtml(items.join('\n'))}</textarea>
+              <span style="font-size:.76rem;color:var(--c-muted)">Tulis dalam urutan yang BENAR. Saat game dimulai, urutan akan diacak oleh server.</span>
+            </div>
+          `;
+        } else if (t === 'MATCHING') {
+          const pairs = (q.typeData && Array.isArray(q.typeData.pairs)) ? q.typeData.pairs : [{ left: 'Kucing', right: 'Mengeong' }, { left: 'Sapi', right: 'Melenguh' }, { left: 'Kambing', right: 'Mengembik' }];
+          typeSlot.innerHTML = `
+            <div class="field">
+              <label for="matching-pairs-input">Pasangan Kiri & Kanan (Format: Kiri = Kanan) <span style="color:var(--c-bad)">*</span></label>
+              <textarea id="matching-pairs-input" rows="4" placeholder="Kiri = Kanan" style="font-family:inherit">${escapeHtml(pairs.map(p => p.left + ' = ' + p.right).join('\n'))}</textarea>
+              <span style="font-size:.76rem;color:var(--c-muted)">Tulis 1 pasangan per baris dipisahkan tanda sama dengan (=). Sisi kanan akan diacak otomatis.</span>
+            </div>
+          `;
+        } else if (t === 'SHORT') {
+          const isNum = Boolean(q.typeData && (q.typeData.isNumeric || q.typeData.numeric));
+          const numVal = (q.typeData && q.typeData.numeric && q.typeData.numeric.value) !== undefined ? q.typeData.numeric.value : '';
+          const numTol = (q.typeData && q.typeData.numeric && q.typeData.numeric.tolerance) !== undefined ? q.typeData.numeric.tolerance : '0.001';
+          const txtAnswers = (q.typeData && Array.isArray(q.typeData.accepted)) ? q.typeData.accepted.join(', ') : '';
+
+          typeSlot.innerHTML = `
+            <div class="field">
+              <label>Jenis Isian Singkat</label>
+              <div style="display:flex;gap:12px;margin-bottom:8px">
+                <label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+                  <input type="radio" name="short-type" value="numeric" ${isNum ? 'checked' : ''}> Angka (Numerik)
+                </label>
+                <label style="cursor:pointer;display:flex;align-items:center;gap:4px">
+                  <input type="radio" name="short-type" value="text" ${!isNum ? 'checked' : ''}> Teks / Kata
+                </label>
+              </div>
+            </div>
+
+            <div id="short-numeric-fields" style="display:${isNum ? 'grid' : 'none'};grid-template-columns:2fr 1fr;gap:10px">
+              <div class="field">
+                <label for="short-num-val">Nilai Angka Benar <span style="color:var(--c-bad)">*</span></label>
+                <input type="number" step="any" id="short-num-val" value="${escapeHtml(numVal)}" placeholder="Contoh: 1250">
+              </div>
+              <div class="field">
+                <label for="short-num-tol">Toleransi</label>
+                <input type="number" step="any" id="short-num-tol" value="${escapeHtml(numTol)}" placeholder="0.001">
+              </div>
+            </div>
+
+            <div id="short-text-fields" style="display:${!isNum ? 'block' : 'none'}">
+              <div class="field">
+                <label for="short-txt-ans">Jawaban Diterima (Pisah tanda koma) <span style="color:var(--c-bad)">*</span></label>
+                <input type="text" id="short-txt-ans" value="${escapeHtml(txtAnswers)}" placeholder="Contoh: Jakarta, DKI Jakarta">
+                <span style="font-size:.76rem;color:var(--c-muted)">Sistem tidak membedakan huruf besar/kecil (case-insensitive) dan spasi ganda.</span>
+              </div>
+            </div>
+          `;
+
+          const radios = typeSlot.querySelectorAll('input[name="short-type"]');
+          radios.forEach(r => {
+            r.addEventListener('change', (e) => {
+              const isN = e.target.value === 'numeric';
+              document.getElementById('short-numeric-fields').style.display = isN ? 'grid' : 'none';
+              document.getElementById('short-text-fields').style.display = !isN ? 'block' : 'none';
+              updatePreview();
+            });
+          });
+        }
+        updatePreview();
+      }
+
+      function updatePreview() {
+        const textVal = document.getElementById('q-text').value.trim() || 'Pertanyaan soal...';
+        const t = typeSelect.value;
+        let previewHtml = `
+          <div style="font-weight:700;color:#fff;margin-bottom:8px">
+            <span class="chip info" style="font-size:.7rem;padding:2px 6px;margin-right:6px">${t}</span>
+            ${escapeHtml(textVal)}
+          </div>
+        `;
+
+        if (t === 'MCQ') {
+          const opt0 = document.getElementById('q-opt-0')?.value.trim() || 'Opsi A';
+          const opt1 = document.getElementById('q-opt-1')?.value.trim() || 'Opsi B';
+          const opt2 = document.getElementById('q-opt-2')?.value.trim() || 'Opsi C';
+          const opt3 = document.getElementById('q-opt-3')?.value.trim() || 'Opsi D';
+          previewHtml += `
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+              ${[opt0, opt1, opt2, opt3].map((o, i) => `
+                <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:6px 10px;font-size:.8rem;color:#cbd5e1">
+                  <strong>${['A', 'B', 'C', 'D'][i]}.</strong> ${escapeHtml(o)}
+                </div>
+              `).join('')}
+            </div>
+          `;
+        } else if (t === 'TRUE_FALSE') {
+          previewHtml += `
+            <div style="display:flex;gap:8px">
+              <button type="button" class="btn small" style="flex:1;background:rgba(34,197,94,.2);color:#4ade80;border:1px solid rgba(34,197,94,.4);border-radius:8px">✅ BENAR</button>
+              <button type="button" class="btn small" style="flex:1;background:rgba(239,68,68,.2);color:#f87171;border:1px solid rgba(239,68,68,.4);border-radius:8px">❌ SALAH</button>
+            </div>
+          `;
+        } else if (t === 'ORDERING') {
+          const raw = document.getElementById('order-items-input')?.value || '';
+          const items = raw.split('\n').map(s => s.trim()).filter(Boolean);
+          previewHtml += `
+            <div style="display:flex;flex-direction:column;gap:4px">
+              ${items.map((it, i) => `
+                <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:4px 8px;font-size:.8rem;color:#cbd5e1">
+                  <span style="font-weight:800;color:var(--c-primary)">#</span> ${escapeHtml(it)}
+                </div>
+              `).join('')}
+            </div>
+          `;
+        } else if (t === 'MATCHING') {
+          const raw = document.getElementById('matching-pairs-input')?.value || '';
+          const lines = raw.split('\n').map(s => s.trim()).filter(Boolean);
+          previewHtml += `
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:.8rem">
+              ${lines.map(l => {
+                const parts = l.split('=');
+                return `
+                  <div style="background:rgba(255,255,255,.08);padding:4px 8px;border-radius:6px">${escapeHtml(parts[0] || '').trim()}</div>
+                  <div style="background:rgba(255,255,255,.08);padding:4px 8px;border-radius:6px">${escapeHtml(parts[1] || '').trim()}</div>
+                `;
+              }).join('')}
+            </div>
+          `;
+        } else if (t === 'SHORT') {
+          const isNum = document.querySelector('input[name="short-type"]:checked')?.value === 'numeric';
+          previewHtml += `
+            <div style="display:flex;gap:6px">
+              <input type="text" disabled placeholder="${isNum ? 'Ketik angka jawaban...' : 'Ketik kata jawaban...'}" style="flex:1;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:6px 10px;font-size:.8rem">
+              <button type="button" class="btn small primary" disabled style="border-radius:8px;font-weight:700">Kirim</button>
+            </div>
+          `;
+        }
+
+        previewBox.innerHTML = previewHtml;
+      }
+
+      typeSelect.addEventListener('change', () => {
+        renderTypeInputs(typeSelect.value);
+      });
+
+      document.getElementById('q-text').addEventListener('input', updatePreview);
+      typeSlot.addEventListener('input', updatePreview);
+
+      // Initial render
+      renderTypeInputs(curType);
+
+      // Handle submit
       document.getElementById('form-question').addEventListener('submit', (e) => {
         e.preventDefault();
         const text = document.getElementById('q-text').value.trim();
-        const opt0 = document.getElementById('q-opt-0').value.trim();
-        const opt1 = document.getElementById('q-opt-1').value.trim();
-        const opt2 = document.getElementById('q-opt-2').value.trim();
-        const opt3 = document.getElementById('q-opt-3').value.trim();
-        const checkedRadio = document.querySelector('input[name="ans-key"]:checked');
-        const ansIdx = checkedRadio ? parseInt(checkedRadio.value, 10) : 0;
         const diff = parseInt(document.getElementById('q-diff').value, 10);
         const subjId = parseInt(document.getElementById('q-subject').value, 10);
         const expl = document.getElementById('q-explanation').value.trim();
+        const qType = typeSelect.value;
 
         if (!text) return toast('Teks pertanyaan wajib diisi', 'error');
-        if (!opt0 || !opt1 || !opt2 || !opt3) {
-          return toast('Semua pilihan jawaban (A, B, C, D) wajib diisi', 'error');
-        }
 
-        saveQuestion({
+        let payload = {
           id: q.id,
           subjectId: subjId,
           text,
-          options: [opt0, opt1, opt2, opt3],
-          answerIndex: ansIdx,
           difficulty: diff,
           explanation: expl,
-        });
+          question_type: qType,
+        };
+
+        if (qType === 'MCQ') {
+          const opt0 = document.getElementById('q-opt-0').value.trim();
+          const opt1 = document.getElementById('q-opt-1').value.trim();
+          const opt2 = document.getElementById('q-opt-2').value.trim();
+          const opt3 = document.getElementById('q-opt-3').value.trim();
+          const checkedRadio = document.querySelector('input[name="ans-key"]:checked');
+          const ansIdx = checkedRadio ? parseInt(checkedRadio.value, 10) : 0;
+          if (!opt0 || !opt1 || !opt2 || !opt3) {
+            return toast('Semua 4 pilihan jawaban wajib diisi', 'error');
+          }
+          payload.options = [opt0, opt1, opt2, opt3];
+          payload.answerIndex = ansIdx;
+          payload.typeData = { options: [opt0, opt1, opt2, opt3] };
+        } else if (qType === 'TRUE_FALSE') {
+          const checkedTf = document.querySelector('input[name="tf-ans"]:checked');
+          const isTrue = checkedTf ? (checkedTf.value === 'true') : true;
+          payload.options = ['Benar', 'Salah'];
+          payload.answerIndex = isTrue ? 0 : 1;
+          payload.typeData = { correctAnswer: isTrue, options: ['Benar', 'Salah'] };
+        } else if (qType === 'ORDERING') {
+          const raw = document.getElementById('order-items-input').value;
+          const items = raw.split('\n').map(s => s.trim()).filter(Boolean);
+          if (items.length < 2) {
+            return toast('Minimal harus mengisi 2 item untuk soal urutan', 'error');
+          }
+          payload.options = items;
+          payload.answerIndex = 0;
+          payload.typeData = { items };
+        } else if (qType === 'MATCHING') {
+          const raw = document.getElementById('matching-pairs-input').value;
+          const lines = raw.split('\n').map(s => s.trim()).filter(Boolean);
+          const pairs = [];
+          for (const l of lines) {
+            const parts = l.split('=');
+            if (parts.length >= 2 && parts[0].trim() && parts[1].trim()) {
+              pairs.push({ left: parts[0].trim(), right: parts[1].trim() });
+            }
+          }
+          if (pairs.length < 2) {
+            return toast('Minimal harus mengisi 2 pasang kata dengan format Kiri = Kanan', 'error');
+          }
+          payload.options = pairs.map(p => p.left);
+          payload.answerIndex = 0;
+          payload.typeData = { pairs };
+        } else if (qType === 'SHORT') {
+          const isNum = document.querySelector('input[name="short-type"]:checked')?.value === 'numeric';
+          if (isNum) {
+            const valStr = document.getElementById('short-num-val').value.trim();
+            const tolStr = document.getElementById('short-num-tol').value.trim();
+            if (!valStr || isNaN(parseFloat(valStr))) {
+              return toast('Harap masukkan angka jawaban yang valid', 'error');
+            }
+            const numericVal = parseFloat(valStr);
+            const tolerance = tolStr ? parseFloat(tolStr) : 0.001;
+            payload.options = [];
+            payload.answerIndex = 0;
+            payload.typeData = {
+              isNumeric: true,
+              numeric: { value: numericVal, tolerance }
+            };
+          } else {
+            const txtStr = document.getElementById('short-txt-ans').value.trim();
+            const answers = txtStr.split(',').map(s => s.trim()).filter(Boolean);
+            if (answers.length === 0) {
+              return toast('Harap masukkan minimal 1 kata jawaban yang diterima', 'error');
+            }
+            payload.options = [];
+            payload.answerIndex = 0;
+            payload.typeData = {
+              isNumeric: false,
+              accepted: answers
+            };
+          }
+        }
+
+        saveQuestion(payload);
       });
     }
 
     if (state.modal === 'import') {
       const curSubj = state.subjects.find(s => s.id === state.modalData.subjectId);
       backdrop.innerHTML = `
-        <div class="modal" style="width:min(580px, 100%)">
+        <div class="modal" style="width:min(600px, 100%)">
           <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:10px">
             <h3 style="margin:0;font-size:1.15rem;color:var(--c-primary)">📥 Import Bank Soal JSON</h3>
             <button id="modal-close-btn" style="background:transparent;border:0;color:var(--c-muted);font-size:1.4rem;cursor:pointer">&times;</button>
@@ -966,11 +1311,10 @@
 
             <div class="field">
               <label for="txt-import-json">2. Atau Tempel (Paste) Konten JSON di Sini</label>
-              <textarea id="txt-import-json" rows="6" placeholder='{\n  "questions": [\n    {\n      "text": "Pertanyaan kuis...",\n      "options": ["Pilihan A", "Pilihan B", "Pilihan C", "Pilihan D"],\n      "answerIndex": 0,\n      "difficulty": 1,\n      "explanation": "Pembahasan..."\n    }\n  ]\n}' style="font-family:monospace;font-size:.8rem"></textarea>
+              <textarea id="txt-import-json" rows="6" placeholder='[\n  {\n    "text": "Hasil dari 5 + 5 adalah...",\n    "type": "SHORT",\n    "typeData": { "numeric": { "value": 10 } }\n  }\n]' style="font-family:monospace;font-size:.8rem"></textarea>
             </div>
 
-            <div id="import-preview-box" style="display:none;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);border-radius:10px;padding:10px;font-size:.84rem;color:#86efac">
-            </div>
+            <div id="import-preview-box" style="display:none;padding:10px;border-radius:10px;font-size:.84rem"></div>
 
             <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:6px">
               <button type="button" id="modal-cancel-btn" class="btn small" style="background:var(--c-surface);color:var(--c-muted);border:0;border-radius:10px;cursor:pointer">Batal</button>
@@ -989,18 +1333,85 @@
       const txtInp = document.getElementById('txt-import-json');
       const prevBox = document.getElementById('import-preview-box');
 
+      function validateQuestionItem(qItem, rowNum) {
+        if (!qItem || typeof qItem !== 'object') {
+          return { valid: false, error: `Baris ${rowNum}: Format objek soal tidak valid` };
+        }
+        if (!qItem.text || typeof qItem.text !== 'string' || !qItem.text.trim()) {
+          return { valid: false, error: `Baris ${rowNum}: Teks pertanyaan wajib diisi` };
+        }
+        const qType = (qItem.type || qItem.question_type || qItem.questionType || 'MCQ').toUpperCase();
+        if (!['MCQ', 'TRUE_FALSE', 'ORDERING', 'MATCHING', 'SHORT'].includes(qType)) {
+          return { valid: false, error: `Baris ${rowNum}: Tipe '${qType}' tidak dikenal` };
+        }
+        if (qType === 'MCQ') {
+          const opts = qItem.options || (qItem.typeData && qItem.typeData.options);
+          if (!Array.isArray(opts) || opts.length < 2) {
+            return { valid: false, error: `Baris ${rowNum} [MCQ]: Membutuhkan minimal 2 pilihan opsi` };
+          }
+        } else if (qType === 'TRUE_FALSE') {
+          const ca = qItem.correctAnswer ?? (qItem.typeData && qItem.typeData.correctAnswer);
+          if (ca === undefined && qItem.answer_index === undefined && qItem.answerIndex === undefined) {
+            return { valid: false, error: `Baris ${rowNum} [TRUE_FALSE]: Kunci jawaban (correctAnswer) tidak ditentukan` };
+          }
+        } else if (qType === 'ORDERING') {
+          const items = qItem.items || (qItem.typeData && qItem.typeData.items);
+          if (!Array.isArray(items) || items.length < 2) {
+            return { valid: false, error: `Baris ${rowNum} [ORDERING]: Membutuhkan minimal 2 item urutan` };
+          }
+        } else if (qType === 'MATCHING') {
+          const pairs = qItem.pairs || (qItem.typeData && qItem.typeData.pairs);
+          if (!Array.isArray(pairs) || pairs.length < 2) {
+            return { valid: false, error: `Baris ${rowNum} [MATCHING]: Membutuhkan minimal 2 pasangan (left & right)` };
+          }
+        } else if (qType === 'SHORT') {
+          const hasNum = qItem.numeric || (qItem.typeData && qItem.typeData.numeric);
+          const hasAns = qItem.answers || qItem.accepted || (qItem.typeData && (qItem.typeData.answers || qItem.typeData.accepted));
+          if (!hasNum && !hasAns) {
+            return { valid: false, error: `Baris ${rowNum} [SHORT]: Membutuhkan jawaban numerik atau daftar kata yang diterima` };
+          }
+        }
+        return { valid: true };
+      }
+
       function parseRaw(rawStr) {
         try {
           const parsed = JSON.parse(rawStr);
-          let qList = [];
-          if (Array.isArray(parsed)) qList = parsed;
-          else if (parsed && Array.isArray(parsed.questions)) qList = parsed.questions;
-          else if (parsed && Array.isArray(parsed.data)) qList = parsed.data;
+          let rawList = [];
+          if (Array.isArray(parsed)) rawList = parsed;
+          else if (parsed && Array.isArray(parsed.questions)) rawList = parsed.questions;
+          else if (parsed && Array.isArray(parsed.data)) rawList = parsed.data;
 
-          const valid = qList.filter(q => q && q.text && Array.isArray(q.options) && q.options.length >= 2);
+          const validQuestions = [];
+          const errorReports = [];
+
+          rawList.forEach((item, idx) => {
+            const check = validateQuestionItem(item, idx + 1);
+            if (check.valid) {
+              validQuestions.push(item);
+            } else {
+              errorReports.push(check.error);
+            }
+          });
+
           prevBox.style.display = 'block';
-          prevBox.textContent = `✓ Ditemukan ${valid.length} soal valid siap di-import.`;
-          return valid;
+          if (errorReports.length === 0) {
+            prevBox.style.color = '#86efac';
+            prevBox.style.borderColor = 'rgba(34,197,94,.3)';
+            prevBox.style.background = 'rgba(34,197,94,.1)';
+            prevBox.innerHTML = `✓ Ditemukan <strong>${validQuestions.length}</strong> soal valid siap di-import.`;
+          } else {
+            prevBox.style.color = '#fca5a5';
+            prevBox.style.borderColor = 'rgba(239,68,68,.3)';
+            prevBox.style.background = 'rgba(239,68,68,.1)';
+            prevBox.innerHTML = `
+              <div>⚠️ Ditemukan <strong>${validQuestions.length}</strong> soal valid, dan <strong>${errorReports.length}</strong> baris bermasalah:</div>
+              <div style="max-height:90px;overflow-y:auto;margin-top:6px;font-size:.78rem;line-height:1.4">
+                ${errorReports.map(err => `<div>• ${escapeHtml(err)}</div>`).join('')}
+              </div>
+            `;
+          }
+          return validQuestions;
         } catch (e) {
           prevBox.style.display = 'block';
           prevBox.style.color = '#fca5a5';

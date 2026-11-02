@@ -833,7 +833,12 @@ Screens.battle = {
         <div class="qwrap grow" style="display:flex;flex-direction:column;min-height:0">
           <div class="qcard q-scroll-box" style="padding:14px;flex:1 1 auto;overflow-y:auto;max-height:100%">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-              <span style="font-size:.75rem;color:var(--c-muted)">${esc(s.subject.name)}</span>
+              <div style="display:flex;align-items:center;gap:6px">
+                <span style="font-size:.75rem;color:var(--c-muted)">${esc(s.subject.name)}</span>
+                <span class="chip info" id="q-type-badge" data-testid="q-type-badge" style="font-size:0.7rem;font-weight:700;padding:2px 8px">PILIHAN GANDA</span>
+                <span class="chip warning" id="review-badge" data-testid="review-badge" style="display:none;font-size:0.7rem;font-weight:700;padding:2px 8px">🔄 ULANGAN BERJARAK</span>
+                <span class="chip danger" id="weak-badge" data-testid="weak-badge" style="display:none;font-size:0.7rem;font-weight:700;padding:2px 8px;background:var(--c-danger,#ef4444);color:#fff">🎯 TITIK LEMAH</span>
+              </div>
               <button class="icon-btn small" id="btn-tts" title="Baca Soal" style="width:28px;height:28px;font-size:.8rem">🔊</button>
             </div>
             <p class="qtext" id="q-text" style="font-size:1.05rem;line-height:1.35;margin:0">${esc(s.currentQuestion ? s.currentQuestion.text : '...')}</p>
@@ -888,43 +893,328 @@ Screens.battle = {
     const q = s.currentQuestion;
     if (!q) return;
 
+    if (this._vvCleanup) {
+      try { this._vvCleanup(); } catch (e) {}
+      this._vvCleanup = null;
+    }
+
     this.isAnswering = false;
     $('#q-counter').textContent = `Soal ${s.currentIndex + 1}/${s.totalQuestions}`;
     $('#q-text').textContent = q.text;
     $('#fb-slot').innerHTML = '';
+
+    const qType = q.type || q.questionType || 'MCQ';
+    const typeBadge = $('#q-type-badge');
+    if (typeBadge) {
+      const typeLabels = {
+        'MCQ': 'PILIHAN GANDA',
+        'TRUE_FALSE': 'BENAR / SALAH',
+        'ORDERING': 'URUTKAN KARTU',
+        'MATCHING': 'PASANGKAN KATA',
+        'SHORT': 'ISIAN SINGKAT'
+      };
+      typeBadge.textContent = typeLabels[qType] || qType;
+    }
+
+    const reviewBadge = $('#review-badge');
+    if (reviewBadge) {
+      reviewBadge.style.display = q.isReview ? 'inline-flex' : 'none';
+    }
+    const weakBadge = $('#weak-badge');
+    if (weakBadge) {
+      weakBadge.style.display = q.isWeak ? 'inline-flex' : 'none';
+    }
 
     // Image slot
     $('#q-image-slot').innerHTML = q.imageUrl
       ? `<img class="qimage" src="${esc(q.imageUrl)}" alt="${esc(q.imageAlt || 'Soal')}" style="max-height:140px;margin-top:8px;border-radius:10px" loading="lazy">`
       : '';
 
-    // Render option buttons
-    const letters = ['A', 'B', 'C', 'D'];
+    // Render multi-type options
     const optBox = $('#options-slot');
-    optBox.innerHTML = q.options.map((optText, idx) => `
-      <button class="btn opt choice-btn" data-idx="${idx}" data-testid="answer-${idx}">
-        <span class="key">${letters[idx] || (idx + 1)}</span>
-        <span>${esc(optText)}</span>
-      </button>
-    `).join('');
+    optBox.innerHTML = '';
 
-    $$('.opt', optBox).forEach(btn => {
-      btn.onclick = () => this.handleOptionClick(parseInt(btn.dataset.idx, 10), btn);
-    });
+    if (qType === 'MCQ') {
+      const letters = ['A', 'B', 'C', 'D'];
+      const opts = Array.isArray(q.options) ? q.options : [];
+      optBox.innerHTML = opts.map((optText, idx) => `
+        <button class="btn opt choice-btn" data-idx="${idx}" data-testid="answer-${idx}">
+          <span class="key">${letters[idx] || (idx + 1)}</span>
+          <span>${esc(optText)}</span>
+        </button>
+      `).join('');
 
-    // Check eliminated options from question / session
-    if (Array.isArray(q.eliminated) && q.eliminated.length > 0) {
-      q.eliminated.forEach(idx => {
-        const btn = $(`#options-slot .opt[data-idx="${idx}"]`);
-        if (btn) {
-          btn.classList.add('eliminated');
-          btn.setAttribute('aria-disabled', 'true');
-          btn.disabled = true;
-          btn.style.pointerEvents = 'none';
-          btn.style.textDecoration = 'line-through';
-          btn.style.opacity = '0.35';
-        }
+      $$('.opt', optBox).forEach(btn => {
+        btn.onclick = () => this.handleOptionClick(parseInt(btn.dataset.idx, 10), btn);
       });
+
+      // Check eliminated options
+      if (Array.isArray(q.eliminated) && q.eliminated.length > 0) {
+        q.eliminated.forEach(idx => {
+          const btn = $(`#options-slot .opt[data-idx="${idx}"]`);
+          if (btn) {
+            btn.classList.add('eliminated');
+            btn.setAttribute('aria-disabled', 'true');
+            btn.disabled = true;
+            btn.style.pointerEvents = 'none';
+            btn.style.textDecoration = 'line-through';
+            btn.style.opacity = '0.35';
+          }
+        });
+      }
+    } else if (qType === 'TRUE_FALSE') {
+      optBox.innerHTML = `
+        <div style="display:flex;gap:12px;width:100%">
+          <button class="btn opt choice-btn tf-btn" id="tf-true" data-idx="0" data-testid="tf-true" style="flex:1;padding:16px;font-size:1.15rem;font-weight:700;background:rgba(34,197,94,0.15);border:2px solid rgba(34,197,94,0.4);border-radius:14px;color:#22c55e">
+            <span>✅ BENAR</span>
+          </button>
+          <button class="btn opt choice-btn tf-btn" id="tf-false" data-idx="1" data-testid="tf-false" style="flex:1;padding:16px;font-size:1.15rem;font-weight:700;background:rgba(239,68,68,0.15);border:2px solid rgba(239,68,68,0.4);border-radius:14px;color:#ef4444">
+            <span>❌ SALAH</span>
+          </button>
+        </div>
+      `;
+      $$('.tf-btn', optBox).forEach(btn => {
+        btn.onclick = () => this.handleOptionClick(parseInt(btn.dataset.idx, 10), btn);
+      });
+    } else if (qType === 'ORDERING') {
+      const items = (q.typeData && Array.isArray(q.typeData.items)) ? q.typeData.items : (Array.isArray(q.options) ? q.options : []);
+      let selectedOrder = [];
+
+      optBox.innerHTML = `
+        <div class="ordering-container" style="display:flex;flex-direction:column;gap:8px;width:100%">
+          <div class="ordering-cards" style="display:flex;flex-direction:column;gap:6px">
+            ${items.map((itemText, idx) => `
+              <button type="button" class="order-card" id="order-card-${idx}" data-idx="${idx}" data-testid="order-card-${idx}">
+                <span class="order-badge" id="order-badge-${idx}"></span>
+                <span class="order-text" style="flex:1;font-size:0.95rem;text-align:left">${esc(itemText)}</span>
+              </button>
+            `).join('')}
+          </div>
+          <div style="display:flex;gap:8px;margin-top:4px;width:100%">
+            <button type="button" class="btn secondary" id="order-reset" data-testid="order-reset" style="flex:1;padding:10px;border-radius:12px">
+              🔄 Reset
+            </button>
+            <button type="button" class="btn primary" id="order-submit" data-testid="order-submit" disabled style="flex:2;padding:10px;border-radius:12px;font-weight:700">
+              Kirim Urutan
+            </button>
+          </div>
+        </div>
+      `;
+
+      const updateBadges = () => {
+        items.forEach((_, idx) => {
+          const card = $(`#order-card-${idx}`);
+          const badge = $(`#order-badge-${idx}`);
+          const pos = selectedOrder.indexOf(idx);
+          if (pos !== -1) {
+            badge.textContent = pos + 1;
+            card.classList.add('selected');
+          } else {
+            badge.textContent = '';
+            card.classList.remove('selected');
+          }
+        });
+        const submitBtn = $('#order-submit');
+        if (submitBtn) submitBtn.disabled = (selectedOrder.length < items.length);
+      };
+
+      $$('.order-card', optBox).forEach(card => {
+        card.onclick = () => {
+          if (this.isAnswering) return;
+          const idx = parseInt(card.dataset.idx, 10);
+          const pos = selectedOrder.indexOf(idx);
+          if (pos === -1) {
+            selectedOrder.push(idx);
+          } else if (pos === selectedOrder.length - 1) {
+            selectedOrder.pop();
+          }
+          updateBadges();
+        };
+      });
+
+      const resetBtn = $('#order-reset');
+      if (resetBtn) {
+        resetBtn.onclick = () => {
+          if (this.isAnswering) return;
+          selectedOrder = [];
+          updateBadges();
+        };
+      }
+
+      const submitBtn = $('#order-submit');
+      if (submitBtn) {
+        submitBtn.onclick = () => {
+          if (selectedOrder.length === items.length && !this.isAnswering) {
+            this.handleOptionClick(selectedOrder, submitBtn);
+          }
+        };
+      }
+    } else if (qType === 'MATCHING') {
+      const leftItems = (q.typeData && Array.isArray(q.typeData.leftItems)) ? q.typeData.leftItems : [];
+      const rightItems = (q.typeData && Array.isArray(q.typeData.rightItems)) ? q.typeData.rightItems : [];
+      let pairs = {};
+      let activeLeft = null;
+      const colors = ['#3b82f6', '#ec4899', '#10b981', '#f59e0b', '#8b5cf6'];
+
+      optBox.innerHTML = `
+        <div class="matching-container" style="display:flex;flex-direction:column;gap:8px;width:100%">
+          <div class="match-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              ${leftItems.map((txt, idx) => `
+                <button type="button" class="match-card match-left" id="match-left-${idx}" data-idx="${idx}" data-testid="match-left-${idx}">
+                  ${esc(txt)}
+                </button>
+              `).join('')}
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              ${rightItems.map((txt, idx) => `
+                <button type="button" class="match-card match-right" id="match-right-${idx}" data-idx="${idx}" data-testid="match-right-${idx}">
+                  ${esc(txt)}
+                </button>
+              `).join('')}
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:4px;width:100%">
+            <button type="button" class="btn secondary" id="match-reset" data-testid="match-reset" style="flex:1;padding:10px;border-radius:12px">
+              🔄 Reset
+            </button>
+            <button type="button" class="btn primary" id="match-submit" data-testid="match-submit" disabled style="flex:2;padding:10px;border-radius:12px;font-weight:700">
+              Kirim Pasangan
+            </button>
+          </div>
+        </div>
+      `;
+
+      const updateMatchUI = () => {
+        leftItems.forEach((_, idx) => {
+          const el = $(`#match-left-${idx}`);
+          el.className = 'match-card match-left';
+          el.style.borderColor = '';
+          el.style.background = '';
+          if (idx === activeLeft) {
+            el.classList.add('active-left');
+          } else if (pairs[idx] !== undefined) {
+            el.classList.add('paired');
+            const color = colors[idx % colors.length];
+            el.style.borderColor = color;
+            el.style.background = color + '22';
+          }
+        });
+        rightItems.forEach((_, rIdx) => {
+          const el = $(`#match-right-${rIdx}`);
+          el.className = 'match-card match-right';
+          el.style.borderColor = '';
+          el.style.background = '';
+          const pairedLeft = Object.keys(pairs).find(l => pairs[l] === rIdx);
+          if (pairedLeft !== undefined) {
+            el.classList.add('paired');
+            const color = colors[parseInt(pairedLeft, 10) % colors.length];
+            el.style.borderColor = color;
+            el.style.background = color + '22';
+          }
+        });
+        const submitBtn = $('#match-submit');
+        if (submitBtn) {
+          submitBtn.disabled = (Object.keys(pairs).length < leftItems.length);
+        }
+      };
+
+      $$('.match-left', optBox).forEach(el => {
+        el.onclick = () => {
+          if (this.isAnswering) return;
+          const idx = parseInt(el.dataset.idx, 10);
+          activeLeft = (activeLeft === idx) ? null : idx;
+          updateMatchUI();
+        };
+      });
+
+      $$('.match-right', optBox).forEach(el => {
+        el.onclick = () => {
+          if (this.isAnswering) return;
+          const rIdx = parseInt(el.dataset.idx, 10);
+          if (activeLeft !== null) {
+            for (const l in pairs) {
+              if (pairs[l] === rIdx) delete pairs[l];
+            }
+            pairs[activeLeft] = rIdx;
+            activeLeft = null;
+            updateMatchUI();
+          }
+        };
+      });
+
+      const resetBtn = $('#match-reset');
+      if (resetBtn) {
+        resetBtn.onclick = () => {
+          if (this.isAnswering) return;
+          pairs = {};
+          activeLeft = null;
+          updateMatchUI();
+        };
+      }
+
+      const submitBtn = $('#match-submit');
+      if (submitBtn) {
+        submitBtn.onclick = () => {
+          if (Object.keys(pairs).length === leftItems.length && !this.isAnswering) {
+            const payload = leftItems.map((_, i) => pairs[i]);
+            this.handleOptionClick(payload, submitBtn);
+          }
+        };
+      }
+    } else if (qType === 'SHORT') {
+      const isNum = Boolean(q.typeData && (q.typeData.isNumeric || q.typeData.numeric));
+      const placeholder = (q.typeData && q.typeData.placeholder) || (isNum ? 'Ketik angka jawaban...' : 'Ketik jawabanmu...');
+      const inputMode = (q.typeData && q.typeData.inputMode) || (isNum ? 'numeric' : 'text');
+
+      optBox.innerHTML = `
+        <div class="short-container" style="display:flex;flex-direction:column;gap:8px;width:100%">
+          <div style="display:flex;gap:8px;width:100%">
+            <input type="${isNum ? 'tel' : 'text'}"
+                   inputmode="${inputMode}"
+                   id="short-input"
+                   data-testid="short-input"
+                   class="input short-input"
+                   placeholder="${esc(placeholder)}"
+                   autocomplete="off"
+                   style="flex:1;padding:12px 14px;font-size:1.05rem;border-radius:12px;border:2px solid rgba(255,255,255,0.2);background:rgba(0,0,0,0.3);color:#fff" />
+            <button type="button" class="btn primary" id="short-submit" data-testid="short-submit" disabled style="padding:12px 20px;font-weight:700;border-radius:12px">
+              Kirim
+            </button>
+          </div>
+          <div id="short-reveal-slot"></div>
+        </div>
+      `;
+
+      const input = $('#short-input');
+      const submitBtn = $('#short-submit');
+
+      input.oninput = () => {
+        submitBtn.disabled = !input.value.trim();
+      };
+      input.onkeydown = (e) => {
+        if (e.key === 'Enter' && !submitBtn.disabled && !this.isAnswering) {
+          submitBtn.click();
+        }
+      };
+      submitBtn.onclick = () => {
+        if (!submitBtn.disabled && !this.isAnswering) {
+          this.handleOptionClick(input.value.trim(), submitBtn);
+        }
+      };
+
+      // Support visualViewport to keep input visible on mobile virtual keyboard
+      if (window.visualViewport) {
+        const handleVvResize = () => {
+          if (document.activeElement === input) {
+            setTimeout(() => {
+              input.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 60);
+          }
+        };
+        window.visualViewport.addEventListener('resize', handleVvResize);
+        this._vvCleanup = () => window.visualViewport.removeEventListener('resize', handleVvResize);
+      }
     }
 
     // Render 3 Battle Skills
@@ -984,8 +1274,8 @@ Screens.battle = {
     this.stopTimer();
     if (window.Sfx) Sfx.play('tap');
 
-    // Disable all options
-    $$('#options-slot .opt').forEach(b => b.disabled = true);
+    // Disable all options / submit buttons / inputs
+    $$('#options-slot button, #options-slot input').forEach(b => b.disabled = true);
 
     try {
       const result = await API.answerQuestion(this.session.id, this.session.currentIndex, chosenIndex);
@@ -999,7 +1289,7 @@ Screens.battle = {
   async handleTimeout() {
     if (this.isAnswering) return;
     this.isAnswering = true;
-    $$('#options-slot .opt').forEach(b => b.disabled = true);
+    $$('#options-slot button, #options-slot input').forEach(b => b.disabled = true);
 
     try {
       const result = await API.answerQuestion(this.session.id, this.session.currentIndex, null);
@@ -1015,13 +1305,68 @@ Screens.battle = {
     if (res.player) Player.data = res.player;
 
     const outcome = res.outcome; // CRITICAL, NORMAL, SLOW, WRONG, TIMEOUT
-    const correctIdx = res.correctDisplayIndex;
+    const correctIdx = (res.reveal && res.reveal.correctDisplayIndex !== undefined)
+      ? res.reveal.correctDisplayIndex
+      : res.correctDisplayIndex;
 
-    // Highlight options
-    $$('#options-slot .opt').forEach((b, idx) => {
-      if (idx === correctIdx) b.classList.add('correct');
-      else if (idx === chosenIndex) b.classList.add('wrong');
-    });
+    const qType = (res.qType || (s.currentQuestion && (s.currentQuestion.type || s.currentQuestion.questionType))) || 'MCQ';
+
+    if (qType === 'MCQ') {
+      $$('#options-slot .opt').forEach((b, idx) => {
+        if (idx === correctIdx) b.classList.add('correct');
+        else if (idx === chosenIndex) b.classList.add('wrong');
+      });
+    } else if (qType === 'TRUE_FALSE') {
+      const tfTrue = $('#tf-true');
+      const tfFalse = $('#tf-false');
+      if (tfTrue && tfFalse) {
+        if (correctIdx === 0) tfTrue.classList.add('correct');
+        else tfFalse.classList.add('correct');
+        if (chosenIndex !== null && chosenIndex !== correctIdx) {
+          if (chosenIndex === 0) tfTrue.classList.add('wrong');
+          else if (chosenIndex === 1) tfFalse.classList.add('wrong');
+        }
+      }
+    } else if (qType === 'ORDERING') {
+      if (res.reveal && Array.isArray(res.reveal.correctOrder)) {
+        res.reveal.correctOrder.forEach((cardIdx, pos) => {
+          const card = $(`#order-card-${cardIdx}`);
+          const badge = $(`#order-badge-${cardIdx}`);
+          if (card && badge) {
+            badge.textContent = `✓ ${pos + 1}`;
+            badge.className = 'order-badge correct';
+            if (res.isCorrect) card.classList.add('correct');
+            else card.classList.add('revealed');
+          }
+        });
+      }
+    } else if (qType === 'MATCHING') {
+      if (res.reveal && Array.isArray(res.reveal.correctPairs)) {
+        res.reveal.correctPairs.forEach((rIdx, lIdx) => {
+          const leftEl = $(`#match-left-${lIdx}`);
+          const rightEl = $(`#match-right-${rIdx}`);
+          if (leftEl) leftEl.classList.add(res.isCorrect ? 'correct' : 'revealed');
+          if (rightEl) rightEl.classList.add(res.isCorrect ? 'correct' : 'revealed');
+        });
+      }
+    } else if (qType === 'SHORT') {
+      const inp = $('#short-input');
+      if (inp) {
+        if (res.isCorrect) {
+          inp.style.borderColor = 'var(--c-good, #22c55e)';
+          inp.style.background = 'rgba(34,197,94,0.15)';
+        } else {
+          inp.style.borderColor = 'var(--c-bad, #ef4444)';
+          inp.style.background = 'rgba(239,68,68,0.15)';
+        }
+      }
+      if (res.reveal && res.reveal.correctText && !res.isCorrect) {
+        const revSlot = $('#short-reveal-slot');
+        if (revSlot) {
+          revSlot.innerHTML = `<div style="font-size:0.9rem;font-weight:600;color:var(--c-good,#22c55e);margin-top:4px">Kunci: ${esc(res.reveal.correctText)}</div>`;
+        }
+      }
+    }
 
     // Floater & SFX
     if (outcome === 'CRITICAL') {
@@ -1146,7 +1491,7 @@ Screens.battle = {
       nextTimeout = setTimeout(goNext, duration);
     }
   },
-
+  
   animateBossShake() {
     const box = $('#boss-svg-slot');
     if (box) {
