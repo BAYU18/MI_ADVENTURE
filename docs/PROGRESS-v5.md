@@ -92,10 +92,13 @@ Aplikasi: Petualangan Pelajar (`https://play.printshare.my.id`)
   - *Bukti:* Gerbang 3 lulus: 25 tes 100% hijau, check-schema valid, skenario 13.2 #6, #7, #10, #11 terverifikasi
 
 ## Fase 4 — Fitur Ekstensi P2 (Opsional / Terkondisi)
-- [ ] **T-40:** Mode Boss Rush (E.2)
-- [ ] **T-41:** Mode Boss Kelas / Raid Komunitas (E.3)
+- [!] **T-40:** Mode Boss Rush (E.2)
+- [!] **T-41:** Mode Boss Kelas / Raid Komunitas (E.3)
 
 ## Fase 5 — Verifikasi Menyeluruh, Quality Gates, & Penutupan
-- [ ] **T-50:** Eksekusi 16 Skenario Pengujian 13.2 & Verifikasi Kriteria 13.3
-- [ ] **T-51:** Audit Kepatuhan Anti-Scope (Kriteria 13)
-- [ ] **T-52:** Restart Layanan PM2 & Penyusunan Laporan Akhir Resmi
+- [x] **T-50:** Eksekusi 16 Skenario Pengujian 13.2 & Verifikasi Kriteria 13.3
+  - *Bukti:* Seluruh 16 skenario pengujian 13.2 dan 16 kriteria 13.3 diverifikasi lulus 100% (25 test files, 54 unit/integration tests hijau, check-schema valid)
+- [x] **T-51:** Audit Kepatuhan Anti-Scope (Kriteria 13)
+  - *Bukti:* Audit kepatuhan anti-scope bersih 100%: nihil adaptif per topik, zona nyaman 70%, tantangan opsional, rekomendasi harian, atau pengingat istirahat
+- [x] **T-52:** Restart Layanan PM2 & Penyusunan Laporan Akhir Resmi
+  - *Bukti:* Restart PM2 play sukses dan seluruh laporan roadmap v5.2 diverifikasi lengkap
