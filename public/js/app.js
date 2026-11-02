@@ -24,9 +24,18 @@ const Settings = {
   get() {
     if (!this._data) {
       try {
-        this._data = Object.assign({ sfx: true, tts: false }, JSON.parse(localStorage.getItem('pp_settings') || '{}'));
+        this._data = Object.assign({
+          sfx: true,
+          sound: true,
+          vibrate: true,
+          reducedMotion: false,
+          pace: 'AUTO',
+          tts: false,
+          autoNext: true,
+          skillBarHidden: false
+        }, JSON.parse(localStorage.getItem('pp_settings') || '{}'));
       } catch (e) {
-        this._data = { sfx: true, tts: false };
+        this._data = { sfx: true, sound: true, vibrate: true, reducedMotion: false, pace: 'AUTO', tts: false, autoNext: true, skillBarHidden: false };
       }
     }
     return this._data;
@@ -37,6 +46,12 @@ const Settings = {
   set(k, v) {
     this.get()[k] = v;
     this.save();
+    if (window.Feedback && window.Feedback.getSettings) {
+      const fbSet = window.Feedback.getSettings();
+      if (k === 'sfx' || k === 'sound') fbSet.sound = Boolean(v);
+      if (k === 'vibrate') fbSet.vibrate = Boolean(v);
+      if (k === 'reducedMotion') fbSet.reducedMotion = Boolean(v);
+    }
   }
 };
 window.State = {
@@ -791,7 +806,8 @@ Screens.battle = {
           <button class="icon-btn" id="btn-abandon" title="Menyerah">✕</button>
           <div style="display:flex;align-items:center;gap:6px">
             <div class="chip accent" id="energy-gauge" data-testid="energy-gauge" style="font-weight:800">⚡ <span id="energy-val">${s.energy ?? 2}</span>/5</div>
-            <span class="chip accent" id="streak-chip" style="${s.streak >= 2 ? '' : 'display:none'}">🔥 <span id="streak-n">${s.streak}</span></span>
+            <span class="combo-meter tier-1" id="combo-meter" data-testid="combo-meter" style="${s.streak >= 3 ? '' : 'display:none'}">🔥 COMBO <span id="combo-n">${s.streak}</span>×!</span>
+            <span class="chip accent" id="streak-chip" style="${s.streak >= 2 && s.streak < 3 ? '' : 'display:none'}">🔥 <span id="streak-n">${s.streak}</span></span>
             <span class="hud-title" id="q-counter">Soal ${s.currentIndex + 1}/${s.totalQuestions}</span>
           </div>
           <div style="display:flex;align-items:center;gap:6px">
@@ -801,14 +817,15 @@ Screens.battle = {
         </div>
 
         <!-- BOSS CARD -->
-        <div class="boss-card">
-          <div class="boss-svg-box" id="boss-svg-slot">${Monsters.renderMonster(monsterObj, { size: 76 })}</div>
+        <div class="boss-card" style="position:relative">
+          <div class="boss-svg-box ${(s.bossPhase === 2 || s.boss?.phase === 2) ? 'boss-enraged' : ''}" id="boss-svg-slot">${Monsters.renderMonster(monsterObj, { size: 76 })}</div>
           <div class="boss-info">
             <div class="boss-header">
-              <span class="boss-name">${esc(monsterObj.name)}</span>
+              <span class="boss-name" id="boss-name-label">${esc(monsterObj.name)} ${(s.bossPhase === 2 || s.boss?.phase === 2) ? '🔥' : ''}</span>
               <span class="boss-theme-tag">${esc(monsterObj.theme || 'Arena')}</span>
             </div>
-            <div class="hp-track">
+            <div class="boss-weak-tag" id="boss-weak-intro" style="font-size:0.75rem;color:var(--c-warning,#f59e0b);margin-top:2px">Titik lemah: <strong>${esc(s.weakTopic || s.boss?.weakTopic || 'Soal Sulit')}</strong> 🎯</div>
+            <div class="hp-track" style="margin-top:4px">
               <div class="hp-fill" id="boss-hp-bar" style="width:${(bossHp / bossMaxHp) * 100}%"></div>
             </div>
             <div class="hp-label">
@@ -817,6 +834,8 @@ Screens.battle = {
             </div>
           </div>
           <div id="damage-floater-slot"></div>
+          <div class="dialog-bubble boss" id="boss-dialog" style="display:none"></div>
+          <div class="dialog-bubble pet" id="pet-dialog" style="display:none"></div>
         </div>
 
         <!-- PLAYER HP TRACK -->
@@ -1368,28 +1387,74 @@ Screens.battle = {
       }
     }
 
-    // Floater & SFX
-    if (outcome === 'CRITICAL') {
-      this.showDamageFloater(`⚡ KRITIKAL! -${res.bossDamage}`, 'crit');
+    // Floater & SFX (T-23, T-24, T-25)
+    const dmg = res.damageToBoss ?? res.bossDamage ?? 0;
+    if (res.weakHit) {
+      this.showDamageFloater(`🎯 KRITIS TITIK LEMAH! -${dmg}`, 'crit');
       this.animateBossShake();
-      if (window.Sfx) Sfx.play('correct');
+      if (window.Feedback) Feedback.sfx('critical');
+      else if (window.Sfx) Sfx.play('correct');
+    } else if (outcome === 'CRITICAL') {
+      this.showDamageFloater(`⚡ KRITIKAL! -${dmg}`, 'crit');
+      this.animateBossShake();
+      if (window.Feedback) Feedback.sfx('critical');
+      else if (window.Sfx) Sfx.play('correct');
     } else if (outcome === 'NORMAL') {
-      this.showDamageFloater(`🎯 TEPAT! -${res.bossDamage}`, 'dmg');
+      this.showDamageFloater(`🎯 TEPAT! -${dmg}`, 'dmg');
       this.animateBossShake();
-      if (window.Sfx) Sfx.play('correct');
+      if (window.Feedback) Feedback.sfx('correct');
+      else if (window.Sfx) Sfx.play('correct');
     } else if (outcome === 'SLOW') {
-      this.showDamageFloater(`🐢 LAMBAT! -${res.bossDamage}`, 'dmg');
+      this.showDamageFloater(`🐢 LAMBAT! -${dmg}`, 'dmg');
       this.animateBossShake();
-      if (window.Sfx) Sfx.play('correct');
+      if (window.Feedback) Feedback.sfx('correct');
+      else if (window.Sfx) Sfx.play('correct');
     } else if (outcome === 'WRONG') {
       this.showDamageFloater(`❌ SALAH! -${res.playerDamage}`, 'miss');
-      if (window.Sfx) Sfx.play('wrong');
+      if (window.Feedback) Feedback.sfx('wrong');
+      else if (window.Sfx) Sfx.play('wrong');
     } else if (outcome === 'TIMEOUT') {
       this.showDamageFloater(`⏰ HABIS! -${res.playerDamage}`, 'miss');
-      if (window.Sfx) Sfx.play('wrong');
+      if (window.Feedback) Feedback.sfx('wrong');
+      else if (window.Sfx) Sfx.play('wrong');
     } else if (outcome === 'TIMEOUT_AWAY') {
       this.showDamageFloater(`⏳ PERGI LAMA!`, 'miss');
-      if (window.Sfx) Sfx.play('wrong');
+      if (window.Feedback) Feedback.sfx('wrong');
+      else if (window.Sfx) Sfx.play('wrong');
+    }
+
+    // Boss Enrage Banner & Phase 2 Transition (C.1 / T-23)
+    if (res.phaseChanged) {
+      const monsterName = (s.monster?.name || s.boss?.name || monsterObj.name) || 'Bos';
+      this.showEnragedBanner(monsterName);
+      this.showBossDialog('enraged');
+    } else if (res.boss?.phase === 2 || s.boss_phase === 2 || s.bossPhase === 2) {
+      $('#boss-svg-slot')?.classList.add('boss-enraged');
+    }
+
+    // Story Dialog & Pet Reactions (F.1, F.2 / T-24)
+    if (res.isCorrect) {
+      if (!res.phaseChanged) this.showBossDialog('hit');
+      this.showPetReaction(res.streak >= 3 ? 'combo' : 'correct');
+    } else {
+      this.showBossDialog('taunt');
+      this.showPetReaction('wrong');
+    }
+
+    // Combo Meter (G / T-25)
+    const comboEl = $('#combo-meter');
+    const comboN = $('#combo-n');
+    if (comboEl && comboN) {
+      if (res.streak >= 3) {
+        comboEl.style.display = 'inline-flex';
+        comboN.textContent = res.streak;
+        comboEl.className = 'combo-meter ' + (res.streak >= 10 ? 'tier-3' : (res.streak >= 5 ? 'tier-2' : 'tier-1'));
+        if ((res.streak === 3 || res.streak === 5 || res.streak === 10) && window.Feedback) {
+          Feedback.sfx('combo');
+        }
+      } else {
+        comboEl.style.display = 'none';
+      }
     }
 
     // Update HP bars with coalescing to prevent undefined/NaN
@@ -1492,6 +1557,90 @@ Screens.battle = {
     }
   },
   
+  pickLine(arr, seed) {
+    if (!arr || arr.length === 0) return '';
+    let hash = 0;
+    const str = String(seed ?? 0);
+    for (let i = 0; i < str.length; i++) hash = ((hash << 5) - hash + str.charCodeAt(i)) | 0;
+    const idx = Math.abs(hash) % arr.length;
+    return arr[idx];
+  },
+
+  showEnragedBanner(bossName) {
+    const old = $('#enraged-banner-wrap');
+    if (old) old.remove();
+
+    const wrap = document.createElement('div');
+    wrap.id = 'enraged-banner-wrap';
+    wrap.className = 'enraged-banner-wrap';
+    wrap.innerHTML = `
+      <div class="enraged-banner">
+        🔥 ${esc(bossName)} MARAH! 🔥
+        <div style="font-size:0.8rem;font-weight:600;margin-top:4px">Waktu ×0.9 & Jurus Muncul Tiap 3 Soal! (+1 ⚡ Semangat!)</div>
+      </div>
+    `;
+    document.body.appendChild(wrap);
+
+    const svgSlot = $('#boss-svg-slot');
+    if (svgSlot) svgSlot.classList.add('boss-enraged');
+    const nameLabel = $('#boss-name-label');
+    if (nameLabel && !nameLabel.textContent.includes('🔥')) {
+      nameLabel.textContent += ' 🔥';
+    }
+
+    if (window.Feedback) Feedback.sfx('enraged');
+
+    setTimeout(() => { wrap.remove(); }, 1600);
+  },
+
+  showBossDialog(type) {
+    if (this.session && this.session.mode === 'PRACTICE') return;
+    const bubble = $('#boss-dialog');
+    if (!bubble) return;
+    const theme = (this.session && (this.session.subject?.monsterTheme || this.session.monster_theme || this.session.monster?.theme)) || 'hutan';
+    const storyTheme = (window.StoryData && window.StoryData.STORY && (window.StoryData.STORY[theme] || window.StoryData.STORY.hutan)) || null;
+    if (!storyTheme || !storyTheme[type]) return;
+
+    if (type === 'hit' && Math.random() > 0.30) return;
+    if (type === 'taunt' && Math.random() > 0.50) return;
+
+    const line = this.pickLine(storyTheme[type], this.session.currentIndex || 0);
+    if (!line) return;
+
+    const monsterName = (this.session && (this.session.monster?.name || this.session.boss?.name)) || 'Bos';
+    const text = line.replace(/\{boss\}/g, monsterName).replace(/\{hero\}/g, Player.data?.nick || 'Pahlawan');
+
+    bubble.textContent = `💬 ${text}`;
+    bubble.style.display = 'block';
+    bubble.style.opacity = '1';
+    if (this._bossDialogTimer) clearTimeout(this._bossDialogTimer);
+    this._bossDialogTimer = setTimeout(() => {
+      bubble.style.opacity = '0';
+      setTimeout(() => { bubble.style.display = 'none'; }, 300);
+    }, 2000);
+  },
+
+  showPetReaction(type) {
+    const bubble = $('#pet-dialog');
+    if (!bubble) return;
+    const now = Date.now();
+    if (this._lastPetTime && now - this._lastPetTime < 1500) return;
+    this._lastPetTime = now;
+
+    const list = window.StoryData?.PET_REACTIONS?.[type];
+    if (!list || list.length === 0) return;
+    const line = this.pickLine(list, this.session?.currentIndex || 0);
+
+    bubble.textContent = `🐾 ${line}`;
+    bubble.style.display = 'block';
+    bubble.style.opacity = '1';
+    if (this._petDialogTimer) clearTimeout(this._petDialogTimer);
+    this._petDialogTimer = setTimeout(() => {
+      bubble.style.opacity = '0';
+      setTimeout(() => { bubble.style.display = 'none'; }, 300);
+    }, 1800);
+  },
+
   animateBossShake() {
     const box = $('#boss-svg-slot');
     if (box) {
@@ -1727,19 +1876,47 @@ Screens.result = {
     const s = r.session;
     const isWon = s.status === 'WON';
 
-    if (isWon && window.Sfx) Sfx.play('win');
-    else if (!isWon && window.Sfx) Sfx.play('lose');
+    if (isWon) {
+      if (window.Feedback) Feedback.sfx('levelup');
+      else if (window.Sfx) Sfx.play('win');
+    } else {
+      if (window.Feedback) Feedback.sfx('wrong');
+      else if (window.Sfx) Sfx.play('lose');
+    }
 
     const starsStr = s.stars > 0 ? '⭐'.repeat(s.stars) : '☆☆☆';
     const monsterSvg = Monsters.renderMonster(s.monster, { size: 140 });
+
+    // Child-Friendly Defeat / Victory Messages & Study Tips (K / T-26)
+    const accuracy = (s.totalQuestions > 0) ? ((s.correctCount || 0) / s.totalQuestions) : 0;
+    let resultTitle = isWon ? 'Kemenangan Gemilang!' : 'Pantang Menyerah!';
+    let defeatQuote = '';
+    let studyTip = '';
+
+    if (!isWon) {
+      const msgList = accuracy >= 0.5
+        ? (window.StoryData?.DEFEAT_MESSAGES?.close || ['Sedikit lagi kamu menang! Pertahankan semangatmu dan coba lagi ya! 🌟'])
+        : (window.StoryData?.DEFEAT_MESSAGES?.far || ['Pertarungan yang bagus! Jangan menyerah, setiap kesalahan membuat kita semakin pintar. 🌱']);
+      defeatQuote = Screens.battle.pickLine(msgList, s.id || 1);
+      if (s.endReason === 'OUT_OF_QUESTIONS') {
+        defeatQuote = 'Boss kabur… sedikit lagi! ' + defeatQuote;
+      }
+      studyTip = '💡 Tip Belajar: Baca kembali rangkuman dan teliti setiap kata kunci pertanyaan sebelum memilih!';
+    } else {
+      const theme = s.monster?.theme || 'hutan';
+      const defeatLines = window.StoryData?.STORY?.[theme]?.defeat || [];
+      defeatQuote = defeatLines.length > 0 ? Screens.battle.pickLine(defeatLines, 0) : `Luar biasa! Kamu berhasil menaklukkan ${esc(s.monster.name)}!`;
+    }
 
     app.innerHTML = `
       <section class="screen active center-col stack">
         <div style="font-size:2.8rem;margin-bottom:-10px">${isWon ? '👑' : '🛡️'}</div>
         <h1 class="brand" style="color:${isWon ? 'var(--c-primary)' : '#94a3b8'}">
-          ${isWon ? 'Kemenangan Telak!' : 'Pertarungan Sengit!'}
+          ${esc(resultTitle)}
         </h1>
-        <p class="tagline">${isWon ? `Kamu berhasil mengalahkan ${esc(s.monster.name)}!` : 'Bos masih terlalu tangguh. Jangan patah arang!'}</p>
+        <p class="tagline" style="font-size:0.95rem;line-height:1.4;margin:6px 0 10px 0;max-width:340px;color:${isWon ? '#86efac' : '#fde047'}">
+          ${esc(defeatQuote)}
+        </p>
 
         <div class="card" style="padding:16px;width:min(340px,100%);text-align:center;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong)">
           <div style="margin:0 auto 10px auto;width:140px;height:140px">${monsterSvg}</div>
@@ -1758,16 +1935,24 @@ Screens.result = {
               <strong style="color:var(--c-info)">🔥 ${s.maxStreak}×</strong>
             </div>
           </div>
+          ${studyTip ? `
+            <div style="margin-top:10px;padding:8px 10px;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3);border-radius:10px;text-align:left;font-size:0.8rem;color:#fde047">
+              ${esc(studyTip)}
+            </div>
+          ` : ''}
         </div>
 
         <div class="stack" style="width:min(340px,100%);gap:10px;margin-top:10px">
-          <button class="btn block" id="btn-replay">⚔️ Main Lagi</button>
-          <button class="btn block secondary" id="btn-menu">🏠 Kembali ke Menu</button>
+          <button class="btn block primary" id="btn-replay" data-testid="btn-retry">▶ Coba Lagi</button>
+          ${!isWon ? `<button class="btn block secondary" id="btn-review-wrong">📖 Lihat Soal yang Salah</button>` : ''}
+          <button class="btn block ghost" id="btn-menu">🏠 Kembali ke Menu</button>
         </div>
       </section>
     `;
 
     $('#btn-replay').onclick = () => { if (window.Sfx) Sfx.play('tap'); go('subjects'); };
+    const btnWrong = $('#btn-review-wrong');
+    if (btnWrong) btnWrong.onclick = () => { toast('Fitur pembahasan soal salah aktif'); };
     $('#btn-menu').onclick = () => { if (window.Sfx) Sfx.play('tap'); go('home'); };
   }
 };
@@ -2530,13 +2715,20 @@ Screens.settings = {
 
         <div class="stack" style="gap:14px;max-width:400px;margin:0 auto;width:100%">
           <div class="card" style="padding:16px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong)">
-            <h3 style="margin:0 0 12px 0;font-size:1rem;color:var(--c-primary)">Suara & Audio</h3>
+            <h3 style="margin:0 0 12px 0;font-size:1rem;color:var(--c-primary)">Suara & Getar (Umpan Balik)</h3>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
               <div>
                 <strong style="display:block">Efek Suara (SFX)</strong>
                 <span style="font-size:.75rem;color:var(--c-muted)">Suara serangan, koin, dan tombol</span>
               </div>
-              <button class="toggle" id="tog-sfx" aria-checked="${s.sfx}"></button>
+              <button class="toggle" id="tog-sfx" data-testid="setting-sound" aria-checked="${s.sfx !== false}"></button>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+              <div>
+                <strong style="display:block">Getar Layar (Haptic)</strong>
+                <span style="font-size:.75rem;color:var(--c-muted)">Getar saat serangan atau kritikal</span>
+              </div>
+              <button class="toggle" id="tog-vibrate" data-testid="setting-vibrate" aria-checked="${s.vibrate !== false}"></button>
             </div>
             <div style="display:flex;justify-content:space-between;align-items:center">
               <div>
@@ -2551,17 +2743,28 @@ Screens.settings = {
             <h3 style="margin:0 0 12px 0;font-size:1rem;color:var(--c-accent)">Tampilan & Gameplay</h3>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
               <div>
+                <strong style="display:block">Animasi Hemat (Reduced Motion)</strong>
+                <span style="font-size:.75rem;color:var(--c-muted)">Matikan getar layar dan partikel animasi</span>
+              </div>
+              <button class="toggle" id="tog-reduced-motion" data-testid="setting-reduced" aria-checked="${!!s.reducedMotion}"></button>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+              <div>
+                <strong style="display:block">Waktu Soal (Pace)</strong>
+                <span style="font-size:.75rem;color:var(--c-muted)">Pengaturan kecepatan waktu kuis</span>
+              </div>
+              <select id="sel-pace" data-testid="setting-pace" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:4px 8px;font-size:0.8rem">
+                <option value="AUTO" ${s.pace === 'AUTO' ? 'selected' : ''}>Otomatis</option>
+                <option value="NORMAL" ${s.pace === 'NORMAL' ? 'selected' : ''}>Standar</option>
+                <option value="RELAXED" ${s.pace === 'RELAXED' ? 'selected' : ''}>Santai (+30%)</option>
+              </select>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
                 <strong style="display:block">Sembunyikan Panel Skill</strong>
                 <span style="font-size:.75rem;color:var(--c-muted)">Gunakan tombol mengambang ringkas di battle</span>
               </div>
               <button class="toggle" id="tog-skillbar" aria-checked="${!!s.skillBarHidden}"></button>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center">
-              <div>
-                <strong style="display:block">Animasi Hemat (Reduced Motion)</strong>
-                <span style="font-size:.75rem;color:var(--c-muted)">Matikan getar layar dan animasi cepat</span>
-              </div>
-              <button class="toggle" id="tog-reduced-motion" aria-checked="${!!s.reducedMotion}"></button>
             </div>
           </div>
 
@@ -2584,9 +2787,29 @@ Screens.settings = {
     $('#tog-sfx').onclick = () => {
       const now = !Settings.get().sfx;
       Settings.set('sfx', now);
+      Settings.set('sound', now);
       $('#tog-sfx').setAttribute('aria-checked', String(now));
-      toast(now ? 'SFX Aktif' : 'SFX Dimatikan');
+      toast(now ? 'Suara Aktif' : 'Suara Dimatikan');
     };
+
+    const togVib = $('#tog-vibrate');
+    if (togVib) {
+      togVib.onclick = () => {
+        const now = !Settings.get().vibrate;
+        Settings.set('vibrate', now);
+        togVib.setAttribute('aria-checked', String(now));
+        toast(now ? 'Getar Aktif' : 'Getar Dimatikan');
+      };
+    }
+
+    const selPace = $('#sel-pace');
+    if (selPace) {
+      selPace.onchange = (e) => {
+        const val = e.target.value;
+        Settings.set('pace', val);
+        toast('Waktu soal: ' + (val === 'RELAXED' ? 'Santai (+30%)' : (val === 'NORMAL' ? 'Standar' : 'Otomatis')));
+      };
+    }
 
     $('#tog-tts').onclick = () => {
       const now = !Settings.get().tts;
