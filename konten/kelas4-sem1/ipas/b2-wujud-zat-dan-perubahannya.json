@@ -1,0 +1,502 @@
+{
+  "class": "Kelas 4 SD",
+  "subjectSlug": "ipas",
+  "batch": "b2-wujud-zat-dan-perubahannya",
+  "count": 38,
+  "questions": [
+    {
+      "question": "Segala sesuatu yang memiliki massa dan menempati ruang disebut ...",
+      "options": [
+        "Materi atau zat",
+        "Energi potensial",
+        "Gelombang suara",
+        "Ruang hampa udara"
+      ],
+      "answer": 0,
+      "explanation": "Materi adalah apa saja yang bermassa dan bervolume.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Zat yang memiliki bentuk dan volume yang tetap adalah zat ...",
+      "options": [
+        "Cair",
+        "Padat",
+        "Gas",
+        "Asap"
+      ],
+      "answer": 1,
+      "explanation": "Benda padat mempertahankan bentuk dan volumenya di mana saja.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Zat yang memiliki bentuk berubah mengikuti wadahnya tetapi volumenya tetap adalah zat ...",
+      "options": [
+        "Padat",
+        "Gas",
+        "Cair",
+        "Batu"
+      ],
+      "answer": 2,
+      "explanation": "Benda cair mengalir menyesuaikan bentuk wadah dengan volume tetap.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Zat yang bentuk dan volumenya selalu berubah memenuhi seluruh ruangan adalah zat ...",
+      "options": [
+        "Padat",
+        "Cair",
+        "Logam",
+        "Gas"
+      ],
+      "answer": 3,
+      "explanation": "Gas menyebar mengisi seluruh wadah dan ruangan yang tersedia.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perubahan wujud benda dari padat menjadi cair disebut ...",
+      "options": [
+        "Mencair",
+        "Membeku",
+        "Menguap",
+        "Mengembun"
+      ],
+      "answer": 0,
+      "explanation": "Mencair (melebur) terjadi saat es terkena panas menjadi air.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perubahan wujud benda dari cair menjadi padat disebut ...",
+      "options": [
+        "Mencair",
+        "Membeku",
+        "Menyublim",
+        "Mengkristal"
+      ],
+      "answer": 1,
+      "explanation": "Membeku terjadi saat cairan didinginkan hingga padat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perubahan wujud benda dari cair menjadi gas disebut ...",
+      "options": [
+        "Mengembun",
+        "Membeku",
+        "Menguap",
+        "Mencair"
+      ],
+      "answer": 2,
+      "explanation": "Menguap terjadi saat air dipanaskan hingga mendidih dan menjadi uap.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perubahan wujud benda dari gas menjadi cair disebut ...",
+      "options": [
+        "Menguap",
+        "Mengkristal",
+        "Menyublim",
+        "Mengembun"
+      ],
+      "answer": 3,
+      "explanation": "Mengembun tampak pada titik-titik embun di dedaunan pagi hari.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perubahan wujud benda dari padat langsung menjadi gas tanpa mencair disebut ...",
+      "options": [
+        "Menyublim",
+        "Mengkristal",
+        "Mencair cepat",
+        "Mengembun tipis"
+      ],
+      "answer": 0,
+      "explanation": "Menyublim terjadi pada kapur barus (kamper) di lemari pakaian.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perubahan wujud benda dari gas langsung menjadi padat disebut ...",
+      "options": [
+        "Menyublim secara cepat",
+        "Mengkristal (deposisi)",
+        "Menguap menjadi gas",
+        "Mencair menjadi air"
+      ],
+      "answer": 1,
+      "explanation": "Mengkristal terjadi pada pembentukan butiran salju di awan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh benda yang berwujud gas di sekitar kita adalah ...",
+      "options": [
+        "Batu kali dan pasir",
+        "Minyak goreng sawit",
+        "Udara dan uap air",
+        "Meja dan kursi kayu"
+      ],
+      "answer": 2,
+      "explanation": "Udara yang kita hirup dan uap air adalah materi berwujud gas.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Air yang dimasukkan ke dalam freezer lemari es akan mengalami peristiwa ...",
+      "options": [
+        "Mencair",
+        "Menguap",
+        "Menyublim",
+        "Membeku"
+      ],
+      "answer": 3,
+      "explanation": "Suhu dingin di freezer membekukan air menjadi es batu.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kapur barus yang diletakkan di dalam lemari lama-kelamaan akan habis karena ...",
+      "options": [
+        "Menyublim",
+        "Membeku",
+        "Mencair",
+        "Mendidih"
+      ],
+      "answer": 0,
+      "explanation": "Kapur barus padat berubah langsung menjadi gas aromatik.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perubahan wujud yang memerlukan (menyerap) kalor dari lingkungan adalah ...",
+      "options": [
+        "Membeku, mengembun, dan kristal",
+        "Mencair, menguap, dan menyublim",
+        "Membeku, mengembun, dan larut",
+        "Mengkristal, beku, dan memadat"
+      ],
+      "answer": 1,
+      "explanation": "Zat butuh kalor untuk mencairkan ikatan partikelnya.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perubahan wujud yang melepaskan kalor ke lingkungan sekitarnya adalah ...",
+      "options": [
+        "Mencair, menguap, dan menyublimkan",
+        "Menguap, mencair, serta melarutkan",
+        "Membeku, mengembun, dan mengkristal",
+        "Menyublim, mencair, serta memuaskan"
+      ],
+      "answer": 2,
+      "explanation": "Zat melepaskan kalor agar partikel merapat dan mendingin.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Titik-titik air yang muncul pada dinding luar gelas berisi air es terjadi karena peristiwa ...",
+      "options": [
+        "Bocornya dinding kaca",
+        "Air merembes ke luar",
+        "Penguapan dari es batu",
+        "Mengembunnya uap air"
+      ],
+      "answer": 3,
+      "explanation": "Uap air di udara luar gelas mendingin lalu mengembun menjadi tetes air.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Baju basah yang dijemur di bawah terik sinar matahari lama-kelamaan kering karena airnya ...",
+      "options": [
+        "Menguap",
+        "Membeku",
+        "Menyublim",
+        "Mengkristal"
+      ],
+      "answer": 0,
+      "explanation": "Panas matahari menguapkan molekul air dari serat kain.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pembuatan garam tradisional di pinggir pantai memanfaatkan perubahan wujud berupa ...",
+      "options": [
+        "Peleburan air asin",
+        "Penguapan air laut",
+        "Pembekuan es garam",
+        "Penyubliman kapur"
+      ],
+      "answer": 1,
+      "explanation": "Air laut dijemur hingga airnya menguap menyisakan kristal garam.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sifat partikel pada benda padat adalah ...",
+      "options": [
+        "Bergerak sangat bebas dan berjauhan",
+        "Renggang mengalir ke segala penjuru",
+        "Tersusun sangat rapat dan bergetar",
+        "Tidak teratur dan mudah meluncur"
+      ],
+      "answer": 2,
+      "explanation": "Partikel zat padat terikat kuat dan teratur rapat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sifat partikel pada zat gas adalah ...",
+      "options": [
+        "Sangat rapat dan tidak berpindah",
+        "Rapat teratur dan diam di tempat",
+        "Membentuk kisi kristal yang kaku",
+        "Sangat renggang dan bergerak bebas"
+      ],
+      "answer": 3,
+      "explanation": "Gaya tarik partikel gas sangat lemah sehingga bebas bergerak cepat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mentega yang dipanaskan di atas wajan penggorengan mengalami peristiwa ...",
+      "options": [
+        "Mencair",
+        "Membeku",
+        "Menguap",
+        "Menyublim"
+      ],
+      "answer": 0,
+      "explanation": "Mentega padat menyerap panas wajan lalu meleleh menjadi cair.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Lilin yang dinyalakan sumbunya mengalami dua perubahan, yaitu ...",
+      "options": [
+        "Menguap lalu hilang seketika",
+        "Mencair lalu membeku kembali",
+        "Mengkristal jadi batu kapur",
+        "Membeku jadi butiran salju"
+      ],
+      "answer": 1,
+      "explanation": "Dekat api lilin meleleh cair, menetes ke bawah lalu memadat kembali.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Alat yang digunakan untuk mengukur massa suatu benda adalah ...",
+      "options": [
+        "Termometer kaca ruang",
+        "Mistar ukur kayu meja",
+        "Neraca atau timbangan",
+        "Gelas ukur cairan lab"
+      ],
+      "answer": 2,
+      "explanation": "Massa benda diukur menggunakan alat neraca/timbangan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ruang yang ditempati oleh suatu materi disebut ...",
+      "options": [
+        "Massa",
+        "Berat",
+        "Suhu",
+        "Volume"
+      ],
+      "answer": 3,
+      "explanation": "Volume (kapasitas) adalah ukuran besarnya ruang suatu benda.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Peristiwa pembuatan es kering (dry ice) dari gas karbon dioksida memanfaatkan proses ...",
+      "options": [
+        "Mengkristal (deposisi)",
+        "Mencair secara alami",
+        "Menguap dengan cepat",
+        "Menyublim bertahap"
+      ],
+      "answer": 0,
+      "explanation": "Gas CO2 didinginkan di bawah tekanan tinggi memadat jadi es kering.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika memasak air hingga mendidih dan panci ditutup, di balik tutup panci akan terlihat tetesan air. Peristiwa ini disebut ...",
+      "options": [
+        "Pembekuan",
+        "Pengembunan",
+        "Penyubliman",
+        "Pelarutan"
+      ],
+      "answer": 1,
+      "explanation": "Uap air panas membentur tutup panci yang lebih dingin lalu mengembun.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa minyak goreng di dalam botol bentuknya bisa berubah-ubah?",
+      "options": [
+        "Minyak goreng tergolong benda padat",
+        "Minyak goreng sangat mudah menguap",
+        "Benda cair bentuknya mengikuti wadah",
+        "Volume minyak terus membesar di botol"
+      ],
+      "answer": 2,
+      "explanation": "Benda cair memiliki volume konstan tetapi bentuk lentur mengikuti wadah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Massa suatu benda di bumi dan di bulan adalah sama, sedangkan yang berbeda adalah ...",
+      "options": [
+        "Bentuknya",
+        "Wujudnya",
+        "Warnanya",
+        "Beratnya"
+      ],
+      "answer": 3,
+      "explanation": "Berat bergantung gravitasi, sedangkan massa partikel selalu tetap.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa es batu dapat mengapung di permukaan air, padahal keduanya adalah zat yang sama?",
+      "options": [
+        "Massa jenis es lebih kecil dari air",
+        "Es batu tidak memiliki massa nyata",
+        "Es batu menyimpan gas helium murni",
+        "Air cair lebih dingin daripada es"
+      ],
+      "answer": 0,
+      "explanation": "Saat membeku air membentuk struktur kristal renggang sehingga massa jenisnya turun.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pada siklus air hujan di alam, peristiwa perubahan wujud yang terjadi secara berurutan adalah ...",
+      "options": [
+        "Kondensasi lalu menyublim",
+        "Evaporasi lalu kondensasi",
+        "Pembekuan lalu pencairan",
+        "Pengkristalan lalu mendidih"
+      ],
+      "answer": 1,
+      "explanation": "Air laut menguap ke atmosfer, mendingin membentuk awan (kondensasi), lalu turun hujan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa jalan aspal atau rel kereta api dibuat berongga atau bercelah di sambungannya?",
+      "options": [
+        "Agar air hujan cepat meresap habis",
+        "Mengurangi gesekan roda kendaraan",
+        "Memberi ruang muai saat siang hari",
+        "Memudahkan proses pengecatan baja"
+      ],
+      "answer": 2,
+      "explanation": "Benda padat memuai saat panas, celah mencegah rel bengkok melengkung.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Apa yang terjadi pada partikel minyak wangi saat disemprotkan di salah satu sudut ruangan?",
+      "options": [
+        "Partikel langsung jatuh ke lantai",
+        "Partikel diserap seluruhnya tembok",
+        "Partikel membeku jadi butiran es",
+        "Partikel gas berdifusi menyebar"
+      ],
+      "answer": 3,
+      "explanation": "Partikel gas bergerak acak berkecepatan tinggi mengisi seluruh ruang (difusi).",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ibu memasak sup. Sup yang semula panas dibiarkan di meja hingga dingin. Pada peristiwa pendinginan sup terjadi ...",
+      "options": [
+        "Pelepasan kalor ke udara sekitar",
+        "Penyerapan kalor dari udara sekitar",
+        "Penyubliman kuah sup menjadi uap",
+        "Peningkatan suhu cairan secara alami"
+      ],
+      "answer": 0,
+      "explanation": "Benda bersuhu lebih tinggi melepaskan kalor ke lingkungan bersuhu lebih rendah.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perbedaan mendasar antara proses menguap dan mendidih adalah ...",
+      "options": [
+        "Menguap butuh api, mendidih butuh es",
+        "Menguap di permukaan, mendidih merata",
+        "Menguap hasilkan es, mendidih uap",
+        "Keduanya tidak memiliki perbedaan"
+      ],
+      "answer": 1,
+      "explanation": "Penguapan terjadi di lapisan atas pada sembarang suhu, mendidih pada titik didih di seluruh zat.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kaca jendela kamar tidur berembun di bagian dalam saat dini hari yang sangat dingin. Hal ini disebabkan ...",
+      "options": [
+        "Air hujan merembes melalui pori kaca",
+        "Kaca jendela mencair karena dingin",
+        "Udara hangat mengembun di kaca dingin",
+        "Oksigen di dalam kamar tidur membeku"
+      ],
+      "answer": 2,
+      "explanation": "Uap air hangat dalam ruangan melepas kalor saat menyentuh permukaan kaca dingin.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa balon udara panas dapat terbang mengangkasa?",
+      "options": [
+        "Balon ditarik oleh gaya magnet langit",
+        "Kain balon memiliki sayap tersembunyi",
+        "Api di dalam balon mendorong roket",
+        "Udara panas di dalam balon lebih ringan"
+      ],
+      "answer": 3,
+      "explanation": "Massa jenis udara panas lebih kecil sehingga menghasilkan gaya apung ke atas.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Zat kapur barus padat dipanaskan dalam gelas kimia tertutup es di atasnya. Hasil kristal di bawah es membuktikan proses ...",
+      "options": [
+        "Penyubliman lalu pengkristalan kembali",
+        "Peleburan lalu pembekuan secara lambat",
+        "Penguapan air murni tanpa ada sisa",
+        "Pelarutan zat kimia oleh es batu padat"
+      ],
+      "answer": 0,
+      "explanation": "Kamper menyublim jadi gas, lalu gas membentur es dingin mengkristal kembali.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Batu dan kapas sama-sama memiliki massa 1 kilogram. Pernyataan yang tepat mengenai keduanya adalah ...",
+      "options": [
+        "Batu lebih berat dari kapas timbangan",
+        "Volume kapas jauh lebih besar dari batu",
+        "Kapas lebih berat dari batu timbangan",
+        "Volume batu dan kapas persis sama saja"
+      ],
+      "answer": 1,
+      "explanation": "Massa jenis kapas kecil sehingga 1 kg butuh ruang/volume yang sangat besar.",
+      "difficulty": 3,
+      "timeLimit": 20
+    }
+  ]
+}

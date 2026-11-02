@@ -1,0 +1,327 @@
+[
+  {
+    "question": "Secara bahasa kata 'amanah' memiliki arti ...",
+    "options": [
+      "dapat dipercaya",
+      "mudah berjanji",
+      "selalu menang",
+      "pandai bicara"
+    ],
+    "answer": 0,
+    "explanation": "Amanah berarti jujur, bertanggung jawab, dan dapat dipercaya.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Lawan atau kebalikan dari sifat amanah adalah ...",
+    "options": [
+      "kufur",
+      "khianat",
+      "dusta",
+      "kikir"
+    ],
+    "answer": 1,
+    "explanation": "Lawan kata amanah adalah khianat, yaitu mengingkari kepercayaan.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Contoh perilaku amanah seorang murid saat berada di sekolah adalah ...",
+    "options": [
+      "mencontek saat ujian akhir",
+      "mencoret-coret meja belajar",
+      "menjalankan tugas piket kelas",
+      "membolos saat jam pelajaran"
+    ],
+    "answer": 2,
+    "explanation": "Menjalankan piket kelas dengan penuh tanggung jawab adalah contoh amanah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Ketika dititipi pesan oleh orang tua untuk guru, sikap kita sebaiknya ...",
+    "options": [
+      "melupakan pesan tersebut",
+      "mengubah isi pesan sesuka hati",
+      "merahasiakan dari guru sekolah",
+      "menyampaikan pesan dengan tepat"
+    ],
+    "answer": 3,
+    "explanation": "Pesan atau titipan wajib disampaikan kepada yang berhak menerima.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Menjaga rahasia pribadi yang diceritakan oleh sahabat karib merupakan cermin ...",
+    "options": [
+      "sikap amanah",
+      "sikap sombong",
+      "sikap riya'",
+      "sikap kikir"
+    ],
+    "answer": 0,
+    "explanation": "Menjaga rahasia orang lain adalah bagian dari memegang amanah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Tubuh yang sehat dan akal yang cerdas merupakan amanah dari ...",
+    "options": [
+      "para guru di sekolah",
+      "Allah Subhanahu wa Ta'ala",
+      "teman-teman bermain",
+      "masyarakat sekitar"
+    ],
+    "answer": 1,
+    "explanation": "Kesehatan dan akal adalah nikmat amanah Allah yang harus disyukuri.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Orang yang selalu memegang amanah dengan baik akan ...",
+    "options": [
+      "dijauhi oleh teman-temannya",
+      "mengalami banyak kerugian",
+      "disenangi dan dipercaya orang",
+      "mendapatkan cemoohan warga"
+    ],
+    "answer": 2,
+    "explanation": "Sikap amanah mendatangkan kepercayaan dan cinta dari sesama manusia.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Mengembalikan buku perpustakaan tepat waktu dalam keadaan rapi mencerminkan ...",
+    "options": [
+      "kemalasan dalam belajar",
+      "ketakutan kepada penjaga",
+      "keinginan untuk disanjung",
+      "tanggung jawab dan amanah"
+    ],
+    "answer": 3,
+    "explanation": "Menjaga barang pinjaman adalah wujud amanah seorang pelajar.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Gelar yang diberikan penduduk Makkah kepada Nabi Muhammad saw karena kejujurannya adalah ...",
+    "options": [
+      "Al-Amin",
+      "As-Siddiq",
+      "Al-Faruq",
+      "Dzulnurain"
+    ],
+    "answer": 0,
+    "explanation": "Al-Amin artinya orang yang sangat terpercaya dan memegang amanah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Jika kita berjanji kepada seorang teman, maka janji tersebut wajib ...",
+    "options": [
+      "dilupakan begitu saja",
+      "ditepati dengan baik",
+      "diabaikan jika repot",
+      "dibatalkan sepihak"
+    ],
+    "answer": 1,
+    "explanation": "Janji adalah utang yang wajib ditepati sesuai ajaran Islam.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Contoh amanah terhadap Allah Subhanahu wa Ta'ala dalam kehidupan sehari-hari adalah ...",
+    "options": [
+      "berbuat curang saat ujian",
+      "membantah perintah orang tua",
+      "melaksanakan salat lima waktu",
+      "menghamburkan uang jajan"
+    ],
+    "answer": 2,
+    "explanation": "Menjalankan perintah ibadah adalah wujud amanah hamba kepada Penciptanya.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Menggunakan waktu belajar di sekolah untuk bermain game di ponsel merupakan bentuk ...",
+    "options": [
+      "kreativitas seorang pelajar",
+      "hiburan yang wajib dilakukan",
+      "tindakan yang sangat terpuji",
+      "pengkhianatan terhadap amanah"
+    ],
+    "answer": 3,
+    "explanation": "Menyia-nyiakan waktu belajar adalah bentuk lalai terhadap amanah belajar.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Hikmah yang dirasakan oleh orang yang selalu amanah dalam kehidupannya adalah ...",
+    "options": [
+      "hidup tenteram dan disayangi Allah",
+      "mendapatkan banyak musuh di mana-mana",
+      "selalu merasa cemas dan ketakutan",
+      "kehilangan seluruh harta bendanya"
+    ],
+    "answer": 0,
+    "explanation": "Orang yang amanah hidupnya tenang karena tidak menanggung beban dosa khianat.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Ketika menemukan dompet berisi uang di halaman sekolah, sikap murid yang amanah adalah ...",
+    "options": [
+      "mengambil uangnya untuk jajan kantin",
+      "menyerahkannya kepada bapak guru",
+      "menyembunyikannya di dalam tas sekolah",
+      "membagikan uang tersebut kepada teman"
+    ],
+    "answer": 1,
+    "explanation": "Menemukan barang temuan wajib diserahkan kepada pihak yang berwenang.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Salah satu tanda orang munafik menurut sabda Rasulullah saw adalah jika dipercaya ia ...",
+    "options": [
+      "menepati",
+      "berzikir",
+      "berkhianat",
+      "bersedekah"
+    ],
+    "answer": 2,
+    "explanation": "Rasulullah saw bersabda: tanda munafik ada 3, salah satunya jika dipercaya ia berkhianat.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Menjaga kelestarian lingkungan dan tidak merusak fasilitas umum merupakan amanah kepada ...",
+    "options": [
+      "diri sendiri semata",
+      "para penjaga keamanan",
+      "keluarga terdekat saja",
+      "alam dan masyarakat luas"
+    ],
+    "answer": 3,
+    "explanation": "Fasilitas umum adalah amanah bersama untuk dijaga dan dirawat bersama.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Seorang bendahara kelas yang amanah akan mencatat uang kas kelas dengan ...",
+    "options": [
+      "jujur, rapi, dan transparan",
+      "mengurangi jumlah catatan kas",
+      "memakai uang kas untuk pribadi",
+      "merahasiakan catatan dari teman"
+    ],
+    "answer": 0,
+    "explanation": "Bendahara wajib melaporkan keuangan dengan jujur dan terbuka.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Amanah terhadap diri sendiri dapat diwujudkan dengan cara ...",
+    "options": [
+      "tidur larut malam setiap hari",
+      "menjaga kesehatan dan rajin belajar",
+      "makan sembarangan sepanjang hari",
+      "bermalas-malasan sepanjang hari"
+    ],
+    "answer": 1,
+    "explanation": "Merawat tubuh dan mengasah ilmu adalah amanah bagi diri sendiri.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Akibat buruk yang menimpa orang yang suka berkhianat dalam pergaulan adalah ...",
+    "options": [
+      "semakin banyak teman yang mendekat",
+      "dihormati oleh seluruh masyarakat",
+      "hilang kepercayaan orang lain kepadanya",
+      "kehidupannya menjadi penuh berkah"
+    ],
+    "answer": 2,
+    "explanation": "Sekali berkhianat, orang lain akan sulit percaya lagi di kemudian hari.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Perilaku amanah sangat erat kaitannya dengan kejujuran, sebab orang yang amanah pasti ...",
+    "options": [
+      "suka menyembunyikan fakta nyata",
+      "mencari keuntungan dengan menipu",
+      "bermuka dua di depan orang lain",
+      "berkata benar dan bertindak lurus"
+    ],
+    "answer": 3,
+    "explanation": "Kejujuran adalah pondasi utama lahirnya sifat amanah yang kokoh.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Roni diminta ibunya membeli obat di apotek dan menerima uang kembalian. Sikap Roni yang amanah adalah ...",
+    "options": [
+      "menyerahkan semua uang kembalian ke ibu",
+      "mengambil sebagian kembalian diam-diam",
+      "menyimpan kembalian di sakunya untuk jajan",
+      "berbohong bahwa obatnya tidak ada kembalian"
+    ],
+    "answer": 0,
+    "explanation": "Mengembalikan hak secara utuh merupakan ujian integritas amanah anak.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Analisis perilaku: Mengapa sifat amanah menjadi kunci kesuksesan para Rasul dalam berdakwah?",
+    "options": [
+      "para Rasul punya harta sangat melimpah",
+      "umat percaya ajarannya murni dari Allah",
+      "para Rasul punya pasukan sangat besar",
+      "para Rasul memaksa manusia dengan kuasa"
+    ],
+    "answer": 1,
+    "explanation": "Kepercayaan umat lahir dari rekam jejak amanah para Rasul yang tanpa cela.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Seorang siswa meminjam buku catatan temannya untuk disalin. Tindakan yang mencerminkan amanah adalah ...",
+    "options": [
+      "meminjamkan ke orang lain tanpa izin",
+      "merobek lembaran buku yang dirasa bagus",
+      "menjaga buku dan mengembalikan segera",
+      "menunda pengembalian hingga berminggu-minggu"
+    ],
+    "answer": 2,
+    "explanation": "Menjaga fisik buku pinjaman dan tepat waktu mengembalikannya adalah amanah.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kaitan antara perilaku amanah seorang pelajar dengan masa depannya adalah ...",
+    "options": [
+      "menjadikan dirinya sombong karena jujur",
+      "menjamin kaya tanpa perlu bekerja keras",
+      "membuatnya dijauhi karena terlalu kaku",
+      "membentuk karakter jujur berintegritas"
+    ],
+    "answer": 3,
+    "explanation": "Integritas moral sejak dini adalah modal utama kepemimpinan masa depan.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Jika seorang pemimpin menyalahgunakan wewenangnya untuk kepentingan pribadi, maka ia telah ...",
+    "options": [
+      "mengkhianati rakyat dan berdosa besar",
+      "cerdas memanfaatkan peluang yang ada",
+      "menjalankan tugas dengan sangat cerdik",
+      "membuktikan kehebatan keluarganya"
+    ],
+    "answer": 0,
+    "explanation": "Korupsi wewenang adalah dosa khianat terbesar terhadap amanah kepemimpinan.",
+    "difficulty": 3,
+    "timeLimit": 20
+  }
+]

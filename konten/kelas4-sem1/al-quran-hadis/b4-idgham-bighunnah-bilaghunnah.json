@@ -1,0 +1,314 @@
+[
+  {
+    "question": "Secara bahasa, arti dari kata 'idgham' adalah ...",
+    "options": [
+      "memasukkan atau meleburkan",
+      "menjelaskan lafaz",
+      "mengganti huruf",
+      "memantulkan bunyi"
+    ],
+    "answer": 0,
+    "explanation": "Idgham secara bahasa artinya memasukkan atau meleburkan satu huruf ke huruf lain.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Idgham bighunnah artinya membaca dengan meleburkan huruf disertai ...",
+    "options": [
+      "pantulan suara keras",
+      "dengung (ghunnah)",
+      "bacaan yang sangat jelas",
+      "suara yang terputus"
+    ],
+    "answer": 1,
+    "explanation": "Bighunnah artinya dengan dengung sepanjang 2 harakat.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Idgham bilaghunnah artinya membaca dengan meleburkan huruf secara ...",
+    "options": [
+      "sangat panjang 6 harakat",
+      "memantul keras di akhir",
+      "tanpa dengung",
+      "berhenti sejenak di tengah"
+    ],
+    "answer": 2,
+    "explanation": "Bilaghunnah artinya tanpa dengung (suara langsung masuk tanpa tertahan).",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Jumlah huruf hijaiyah yang termasuk idgham bighunnah berjumlah ...",
+    "options": [
+      "2 huruf",
+      "6 huruf",
+      "8 huruf",
+      "4 huruf"
+    ],
+    "answer": 3,
+    "explanation": "Huruf idgham bighunnah ada 4 yang disingkat yanmu (ya, nun, mim, waw).",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Huruf-huruf idgham bighunnah terkumpul dalam singkatan ...",
+    "options": [
+      "yanmu (ya, nun, mim, waw)",
+      "ra dan lam saja",
+      "baju di toko",
+      "ahruf halqiyah"
+    ],
+    "answer": 0,
+    "explanation": "Empat huruf idgham bighunnah adalah: ya (ي), nun (ن), mim (م), dan waw (و).",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Jumlah huruf hijaiyah yang termasuk idgham bilaghunnah berjumlah ...",
+    "options": [
+      "4 huruf",
+      "2 huruf",
+      "5 huruf",
+      "3 huruf"
+    ],
+    "answer": 1,
+    "explanation": "Huruf idgham bilaghunnah ada 2 huruf, yaitu lam (ل) dan ra (ر).",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Huruf-huruf yang termasuk idgham bilaghunnah adalah ...",
+    "options": [
+      "nun (ن) dan mim (م)",
+      "ya (ي) dan waw (و)",
+      "lam (ل) dan ra (ر)",
+      "ba (ب) dan jim (ج)"
+    ],
+    "answer": 2,
+    "explanation": "Hanya ada dua huruf idgham bilaghunnah: lam (ل) dan ra (ر).",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Lama menahan dengung pada bacaan idgham bighunnah adalah ...",
+    "options": [
+      "4 harakat (2 alif)",
+      "6 harakat (3 alif)",
+      "1/2 harakat cepat",
+      "2 harakat (1 alif)"
+    ],
+    "answer": 3,
+    "explanation": "Dengung ditahan kira-kira 2 harakat atau satu alif.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Contoh bacaan idgham bighunnah yang benar di bawah ini adalah ...",
+    "options": [
+      "may yaqulu (nun mati bertemu ya)",
+      "min ladunka (nun mati bertemu lam)",
+      "mir rabbika (nun mati bertemu ra)",
+      "man amana (nun mati bertemu alif)"
+    ],
+    "answer": 0,
+    "explanation": "'May yaqulu' adalah contoh nun mati bertemu huruf ya.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Contoh bacaan idgham bilaghunnah yang benar di bawah ini adalah ...",
+    "options": [
+      "may ya'mal (nun mati bertemu ya)",
+      "mir rabbihim (nun mati bertemu ra)",
+      "min ma'in (nun mati bertemu mim)",
+      "min walin (nun mati bertemu waw)"
+    ],
+    "answer": 1,
+    "explanation": "'Mir rabbihim' adalah nun mati bertemu ra dibaca lebur tanpa dengung.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Hukum idgham terjadi apabila nun sukun atau tanwin bertemu huruf idgham dalam ...",
+    "options": [
+      "satu kata yang bersambung",
+      "tengah-tengah surah Al-Qur'an",
+      "dua kata yang terpisah",
+      "awal pembukaan surah saja"
+    ],
+    "answer": 2,
+    "explanation": "Idgham hanya berlaku jika nun sukun/tanwin bertemu hurufnya pada dua kata terpisah.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Jika nun sukun bertemu huruf waw atau ya dalam satu kata, hukumnya berubah menjadi ...",
+    "options": [
+      "idgham bighunnah bertambah panjang",
+      "iqlab diganti mim sukun",
+      "ikhfa haqiqi samar-samar",
+      "izhar muthlaq (wajib dibaca jelas)"
+    ],
+    "answer": 3,
+    "explanation": "Pertemuan dalam satu kata disebut izhar muthlaq dan harus dibaca jelas.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Contoh kalimat dalam Al-Qur'an yang termasuk bacaan izhar muthlaq adalah ...",
+    "options": [
+      "dunya dan bunyanun",
+      "may yaqulu dan min waro'ihim",
+      "mir rabbika dan min ladunka",
+      "khairun yarah dan amadaw ba'ida"
+    ],
+    "answer": 0,
+    "explanation": "Kata 'ad-dunya' dan 'bunyanun' wajib dibaca jelas tanpa dileburkan.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Cara membaca lafaz 'hudal lil muttaqin' (tanwin bertemu lam) adalah ...",
+    "options": [
+      "hudaannlil muttaqin (didengungkan)",
+      "hudallil muttaqin (tanpa dengung)",
+      "huda-lil muttaqin (dipantulkan)",
+      "huda lil muttaqin (dijeda hening)"
+    ],
+    "answer": 1,
+    "explanation": "Tanwin langsung dimasukkan ke huruf lam tanpa ditahan dengungnya.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Cara membaca lafaz 'wa may ya'mal' (nun sukun bertemu ya) adalah ...",
+    "options": [
+      "man ya'mal secara tegas jelas",
+      "wamirya'mal diubah ke huruf ra",
+      "wamayyya'mal dengan dengung 2 harakat",
+      "wamanya'mal dipantulkan di lidah"
+    ],
+    "answer": 2,
+    "explanation": "Nun dilebur ke ya dan ditahan dengung di pangkal hidung 2 harakat.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Perbedaan utama cara melafalkan idgham bighunnah dan idgham bilaghunnah adalah ...",
+    "options": [
+      "bighunnah memantul, bilaghunnah jelas",
+      "bighunnah pendek, bilaghunnah panjang",
+      "keduanya dibaca persis sama tanpa beda",
+      "bighunnah pakai dengung, bilaghunnah tidak"
+    ],
+    "answer": 3,
+    "explanation": "Bighunnah bersuara dengung di hidung, bilaghunnah suara bersih tanpa dengung.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Fungsi mempelajari ilmu tajwid saat membaca Al-Qur'an adalah ...",
+    "options": [
+      "menjaga lisan dari salah membaca ayat",
+      "mempercepat waktu membaca agar lekas khatam",
+      "mencari pujian atas kemerduan suara kita",
+      "mengubah arti ayat Al-Qur'an sesuka hati"
+    ],
+    "answer": 0,
+    "explanation": "Tajwid memelihara kemurnian bacaan Al-Qur'an sesuai sunnah Rasulullah saw.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Lafaz 'hablum mim masad' mengandung hukum bacaan ...",
+    "options": [
+      "idgham bilaghunnah",
+      "idgham bighunnah",
+      "izhar halqi",
+      "iqlab murni"
+    ],
+    "answer": 1,
+    "explanation": "Tanwin pada 'hablun' bertemu mim menghasilkan idgham bighunnah.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Lafaz 'ghafurur rahim' (tanwin dhommah bertemu ra) dibaca ...",
+    "options": [
+      "ghafurun-rahim dengan dengung",
+      "ghafur-m-rahim diganti mim",
+      "ghafurur-rahim tanpa dengung",
+      "ghafur rahim dipantulkan"
+    ],
+    "answer": 2,
+    "explanation": "Tanwin lebur seutuhnya ke dalam huruf ra tanpa dengungan.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Tanda tasydid pada huruf idgham dalam mushaf Al-Qur'an berfungsi untuk ...",
+    "options": [
+      "menandakan ayat tersebut harus diulang",
+      "menunjukkan tempat waqaf berhenti",
+      "menandakan bacaan dipanjangkan 6 harakat",
+      "menunjukkan huruf dibaca lebur rangkap"
+    ],
+    "answer": 3,
+    "explanation": "Tasydid pada huruf idgham menandakan peleburan sempurna huruf sebelumnya.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Mengapa kata 'qinwanun' dan 'sinwanun' tidak dibaca idgham bighunnah?",
+    "options": [
+      "karena nun sukun dan waw dalam satu kata",
+      "karena waw bukan huruf idgham bighunnah",
+      "karena kedua kata dari bahasa Ibrani",
+      "karena tidak ada tanda dhommah di atasnya"
+    ],
+    "answer": 0,
+    "explanation": "Kaidah tajwid: jika nun sukun dan waw/ya dalam satu kata, dibaca izhar muthlaq.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Analisis kesalahan: Seseorang membaca 'mir rabbihim' dengan mendengungkannya sepanjang 3 harakat. Kesalahannya adalah ...",
+    "options": [
+      "huruf ra harus dipantulkan seperti qalqalah",
+      "huruf ra dibaca lebur tanpa dengung",
+      "bacaan tersebut seharusnya dibaca samar",
+      "nun sukun harus dibaca jelas tanpa lebur"
+    ],
+    "answer": 1,
+    "explanation": "Hukum bilaghunnah mengharuskan suara lebur langsung tanpa dengungan sama sekali.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Pentingnya konsistensi panjang harakat saat melafalkan idgham bighunnah adalah ...",
+    "options": [
+      "agar pendengar kagum dengan durasi nafas",
+      "untuk menyamarkan kata yang sulit dibaca",
+      "menjaga keindahan tartil dan hak huruf",
+      "karena harakat bebas ditentukan pembaca"
+    ],
+    "answer": 2,
+    "explanation": "Tartil Al-Qur'an menuntut kepatuhan presisi pada kaidah makharij dan sifat huruf.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sikap seorang santri ketika mendengar temannya salah melafalkan hukum tajwid adalah ...",
+    "options": [
+      "menertawakan kesalahan di depan ustadz",
+      "membiarkannya terus salah membaca ayat",
+      "melarangnya membaca Al-Qur'an kembali",
+      "menegur dan mencontohkan secara santun"
+    ],
+    "answer": 3,
+    "explanation": "Membimbing sesama dengan kelembutan adalah cermin cinta Al-Qur'an.",
+    "difficulty": 3,
+    "timeLimit": 20
+  }
+]

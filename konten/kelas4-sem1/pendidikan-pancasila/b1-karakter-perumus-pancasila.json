@@ -1,0 +1,658 @@
+{
+  "class": "Kelas 4 SD",
+  "subjectSlug": "pendidikan-pancasila",
+  "batch": "b1-karakter-perumus-pancasila",
+  "count": 50,
+  "questions": [
+    {
+      "question": "Dasar negara Republik Indonesia yang sah dan resmi adalah ...",
+      "options": [
+        "Pancasila",
+        "UUD 1945",
+        "Garuda",
+        "Bhinneka"
+      ],
+      "answer": 0,
+      "explanation": "Pancasila adalah dasar negara dan pandangan hidup bangsa Indonesia.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Lambang negara kesatuan Republik Indonesia adalah ...",
+      "options": [
+        "Bendera Sang Saka Merah Putih",
+        "Burung Garuda Pancasila",
+        "Lagu Kebangsaan Indonesia Raya",
+        "Pohon Beringin yang Sangat Rindang"
+      ],
+      "answer": 1,
+      "explanation": "Burung Garuda dengan perisai Pancasila adalah lambang negara resmi.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rumusan sila pertama Pancasila yang benar adalah ...",
+      "options": [
+        "Kemanusiaan yang Adil dan Beradab",
+        "Persatuan Bangsa Indonesia Raya",
+        "Ketuhanan Yang Maha Esa",
+        "Keadilan Sosial bagi Seluruh Rakyat"
+      ],
+      "answer": 2,
+      "explanation": "Sila ke-1 berbunyi Ketuhanan Yang Maha Esa.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Simbol lambang untuk sila pertama Pancasila adalah ...",
+      "options": [
+        "Rantai baja berwarna emas",
+        "Pohon beringin yang rindang",
+        "Kepala banteng warna hitam",
+        "Bintang emas bersudut lima"
+      ],
+      "answer": 3,
+      "explanation": "Bintang emas berlatar hitam adalah lambang sila ke-1.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Simbol lambang untuk sila kedua Pancasila adalah ...",
+      "options": [
+        "Rantai emas gelang bulat",
+        "Bintang emas sudut lima",
+        "Pohon beringin daun lebat",
+        "Padi dan kapas kemakmuran"
+      ],
+      "answer": 0,
+      "explanation": "Rantai gelang bersambung melambangkan sila ke-2.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Simbol lambang untuk sila ketiga Pancasila adalah ...",
+      "options": [
+        "Bintang emas lima sudut",
+        "Pohon beringin rindang",
+        "Rantai emas berputar",
+        "Kepala banteng hitam"
+      ],
+      "answer": 1,
+      "explanation": "Pohon beringin melambangkan persatuan Indonesia (sila ke-3).",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Simbol lambang untuk sila keempat Pancasila adalah ...",
+      "options": [
+        "Pohon beringin rindang",
+        "Bintang emas lima sudut",
+        "Kepala banteng perkasa",
+        "Padi dan kapas makmur"
+      ],
+      "answer": 2,
+      "explanation": "Kepala banteng melambangkan musyawarah dan kekuatan rakyat (sila ke-4).",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Simbol lambang untuk sila kelima Pancasila adalah ...",
+      "options": [
+        "Kepala banteng perkasa",
+        "Bintang emas bercahaya",
+        "Rantai baja mengikat",
+        "Padi dan kapas sandang"
+      ],
+      "answer": 3,
+      "explanation": "Padi dan kapas melambangkan kemakmuran pangan dan sandang (sila ke-5).",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Badan yang dibentuk untuk menyelidiki usaha persiapan kemerdekaan Indonesia disingkat ...",
+      "options": [
+        "BPUPKI",
+        "PPKI",
+        "KNIP",
+        "PETA"
+      ],
+      "answer": 0,
+      "explanation": "BPUPKI dibentuk pada 1 Maret 1945.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketua BPUPKI yang memimpin sidang perumusan dasar negara adalah ...",
+      "options": [
+        "Ir. Soekarno sang proklamator bangsa",
+        "Dr. K.R.T. Radjiman Wedyodiningrat",
+        "Drs. Mohammad Hatta wakil proklamator",
+        "Mr. Mohammad Yamin perumus dasar hukum"
+      ],
+      "answer": 1,
+      "explanation": "Dr. Radjiman Wedyodiningrat memimpin jalannya sidang BPUPKI.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sidang pertama BPUPKI yang membahas dasar negara dilaksanakan pada tanggal ...",
+      "options": [
+        "10 Juli - 17 Juli 1945",
+        "17 Agustus - 18 Agustus 1945",
+        "29 Mei - 1 Juni 1945",
+        "1 Juni - 22 Juni 1945"
+      ],
+      "answer": 2,
+      "explanation": "Sidang I BPUPKI berlangsung 29 Mei sampai 1 Juni 1945.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tokoh yang menyampaikan pidato lahirnya istilah Pancasila pada 1 Juni 1945 adalah ...",
+      "options": [
+        "Drs. Mohammad Hatta",
+        "Mr. Mohammad Yamin",
+        "Prof. Dr. Soepomo",
+        "Ir. Soekarno"
+      ],
+      "answer": 3,
+      "explanation": "Ir. Soekarno memperkenalkan nama Pancasila pada 1 Juni 1945.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tiga tokoh utama yang mengusulkan gagasan rumusan dasar negara pada sidang BPUPKI adalah ...",
+      "options": [
+        "Moh. Yamin, Soepomo, dan Soekarno",
+        "Moh. Hatta, Ahmad Soebardjo, Syahrir",
+        "Radjiman, Agus Salim, dan Wahid Hasyim",
+        "Ki Hajar Dewantara, Kartini, Sudirman"
+      ],
+      "answer": 0,
+      "explanation": "Ketiga tokoh pengusul adalah Moh. Yamin, Soepomo, dan Ir. Soekarno.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Panitia kecil beranggotakan sembilan orang yang merumuskan Piagam Jakarta disebut ...",
+      "options": [
+        "Panitia Persiapan",
+        "Panitia Sembilan",
+        "Panitia Delapan",
+        "Panitia Sebelas"
+      ],
+      "answer": 1,
+      "explanation": "Panitia Sembilan dibentuk BPUPKI untuk menyusun Piagam Jakarta.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Piagam Jakarta (Jakarta Charter) disahkan oleh Panitia Sembilan pada tanggal ...",
+      "options": [
+        "1 Juni 1945",
+        "17 Agustus 1945",
+        "22 Juni 1945",
+        "18 Agustus 1945"
+      ],
+      "answer": 2,
+      "explanation": "Piagam Jakarta ditandatangani pada 22 Juni 1945.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pancasila ditetapkan secara resmi sebagai dasar negara oleh PPKI pada tanggal ...",
+      "options": [
+        "17 Agustus 1945",
+        "1 Juni 1945",
+        "22 Juni 1945",
+        "18 Agustus 1945"
+      ],
+      "answer": 3,
+      "explanation": "Sehari setelah proklamasi, PPKI mengesahkan UUD 1945 dan Pancasila.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hari lahir Pancasila diperingati bangsa Indonesia setiap tanggal ...",
+      "options": [
+        "1 Juni",
+        "1 Oktober",
+        "17 Agustus",
+        "18 Agustus"
+      ],
+      "answer": 0,
+      "explanation": "1 Juni diperingati sebagai Hari Lahir Pancasila berdasarkan pidato Bung Karno.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hari Kesaktian Pancasila diperingati setiap tanggal ...",
+      "options": [
+        "1 Juni",
+        "1 Oktober",
+        "17 Agustus",
+        "28 Oktober"
+      ],
+      "answer": 1,
+      "explanation": "1 Oktober diperingati sebagai Hari Kesaktian Pancasila.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Berdoa sebelum dan sesudah belajar di sekolah merupakan pengamalan Pancasila sila ke- ...",
+      "options": [
+        "Dua (2)",
+        "Tiga (3)",
+        "Satu (1)",
+        "Empat (4)"
+      ],
+      "answer": 2,
+      "explanation": "Ibadah dan doa kepada Tuhan mencerminkan sila pertama.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Menolong teman yang terjatuh dari sepeda tanpa membeda-bedakan adalah pengamalan sila ke- ...",
+      "options": [
+        "Satu (1)",
+        "Tiga (3)",
+        "Empat (4)",
+        "Dua (2)"
+      ],
+      "answer": 3,
+      "explanation": "Sikap saling tolong-menolong mencerminkan kemanusiaan yang adil dan beradab.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap utama para tokoh perumus Pancasila yang patut kita teladani dalam kehidupan adalah ...",
+      "options": [
+        "Mengutamakan persatuan bangsa di atas golongan",
+        "Menuntut imbalan jasa yang sangat berlimpah",
+        "Mementingkan keuntungan suku bangsanya sendiri",
+        "Menolak pendapat orang lain yang tidak sependapat"
+      ],
+      "answer": 0,
+      "explanation": "Para pendiri bangsa berjiwa besar demi persatuan Indonesia.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perubahan kalimat sila pertama pada Piagam Jakarta menjadi 'Ketuhanan Yang Maha Esa' menunjukkan sikap ...",
+      "options": [
+        "Kelemahan para tokoh pejuang Islam",
+        "Toleransi dan menjaga keutuhan bangsa",
+        "Kemenangan mutlak golongan sekuler",
+        "Keraguan dalam mengambil keputusan"
+      ],
+      "answer": 1,
+      "explanation": "Tokoh-tokoh Islam berjiwa besar menyepakati perubahan demi NKRI utuh.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh sikap pengamalan sila kedua di lingkungan keluarga adalah ...",
+      "options": [
+        "Menghabiskan makanan tanpa berbagi pada adik",
+        "Memaksakan kehendak saat menonton televisi",
+        "Menyayangi adik dan menghormati orang tua",
+        "Menuntut diberi uang jajan lebih banyak"
+      ],
+      "answer": 2,
+      "explanation": "Kasih sayang dan rasa hormat di keluarga adalah cermin sila ke-2.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Menghargai keragaman bahasa daerah dan adat istiadat teman di sekolah adalah cermin sila ke- ...",
+      "options": [
+        "Satu (1)",
+        "Dua (2)",
+        "Empat (4)",
+        "Tiga (3)"
+      ],
+      "answer": 3,
+      "explanation": "Menjaga persatuan di tengah keberagaman sesuai sila ke-3.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kegiatan pemilihan ketua kelas melalui musyawarah mufakat atau pemungutan suara mencerminkan sila ke- ...",
+      "options": [
+        "Empat (4)",
+        "Dua (2)",
+        "Tiga (3)",
+        "Lima (5)"
+      ],
+      "answer": 0,
+      "explanation": "Musyawarah bersama untuk mufakat mencerminkan sila ke-4.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Membagi tugas piket kebersihan kelas secara adil kepada seluruh siswa merupakan pengamalan sila ke- ...",
+      "options": [
+        "Satu (1)",
+        "Lima (5)",
+        "Dua (2)",
+        "Tiga (3)"
+      ],
+      "answer": 1,
+      "explanation": "Keadilan membagi tugas dan hak mencerminkan sila ke-5.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Nilai juang dari Mohammad Natsir dan Ki Bagus Hadikusumo saat menyepakati sila pertama adalah ...",
+      "options": [
+        "Mementingkan kelompok partai politik tertentu",
+        "Keras kepala mempertahankan kehendak pribadi",
+        "Jiwa besar, ikhlas, dan mendahulukan persatuan",
+        "Acuh tak acuh terhadap masa depan Indonesia"
+      ],
+      "answer": 2,
+      "explanation": "Para tokoh bangsa rela berkorban demi keutuhan wilayah Republik Indonesia.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pancasila berfungsi sebagai pandangan hidup bangsa, yang artinya Pancasila ...",
+      "options": [
+        "Hanya dibaca saat upacara bendera hari Senin saja",
+        "Hanya berlaku bagi pejabat tinggi pemerintahan pusat",
+        "Boleh diganti sewaktu-waktu sesuai keinginan presiden",
+        "Menjadi petunjuk arah dalam kehidupan sehari-hari"
+      ],
+      "answer": 3,
+      "explanation": "Pandangan hidup berarti pedoman tingkah laku seluruh warga negara.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika pendapat kita tidak diterima dalam musyawarah kelas, sikap kita sebaiknya ...",
+      "options": [
+        "Menerima dengan lapang dada dan ikhlas",
+        "Marah dan memusuhi semua teman sekelas",
+        "Mogok belajar dan tidak mau masuk sekolah",
+        "Memaksa teman agar mengubah keputusannya"
+      ],
+      "answer": 0,
+      "explanation": "Demokrasi Pancasila menuntut keikhlasan menerima hasil musyawarah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Menjaga keseimbangan antara hak dan kewajiban merupakan butir pengamalan sila ...",
+      "options": [
+        "Ketuhanan Yang Maha Esa semata",
+        "Keadilan sosial bagi seluruh rakyat",
+        "Kemanusiaan yang adil beradab",
+        "Persatuan Indonesia yang kokoh"
+      ],
+      "answer": 1,
+      "explanation": "Menyeimbangkan hak dan kewajiban adalah pengamalan sila ke-5.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Gemar menabung dan tidak bergaya hidup boros merupakan contoh pengamalan Pancasila sila ke- ...",
+      "options": [
+        "Satu (1)",
+        "Dua (2)",
+        "Lima (5)",
+        "Tiga (3)"
+      ],
+      "answer": 2,
+      "explanation": "Sikap hemat dan menghargai hasil karya orang lain adalah cermin sila ke-5.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Upacara bendera setiap hari Senin yang diikuti dengan tertib dan khidmat bertujuan memupuk rasa ...",
+      "options": [
+        "Kelelahan fisik saat berdiri lama",
+        "Takut terhadap hukuman guru piket",
+        "Persaingan antar kelompok kelas",
+        "Cinta tanah air dan nasionalisme"
+      ],
+      "answer": 3,
+      "explanation": "Upacara menumbuhkan rasa patriotisme dan persatuan (sila ke-3).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap tenggang rasa dan tepa salira kepada orang lain mencerminkan nilai luhur sila ...",
+      "options": [
+        "Kemanusiaan yang adil dan beradab",
+        "Ketuhanan Yang Maha Esa beribadah",
+        "Persatuan Indonesia yang tunggal",
+        "Kerakyatan yang dipimpin hikmat"
+      ],
+      "answer": 0,
+      "explanation": "Tenggang rasa adalah nilai utama kemanusiaan (sila ke-2).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa para perumus dasar negara tidak saling bermusuhan meskipun berbeda pandangan?",
+      "options": [
+        "Merasa takut terhadap ancaman tentara Jepang",
+        "Memiliki tujuan sama yaitu Indonesia merdeka",
+        "Mendapat bayaran emas dalam jumlah sangat besar",
+        "Tidak ada yang berani berbicara secara terbuka"
+      ],
+      "answer": 1,
+      "explanation": "Kecintaan pada bangsa menyatukan perbedaan pendapat para tokoh.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bung Hatta dikenal sebagai tokoh yang sangat sederhana dan jujur. Sikap ini mencerminkan integritas perumus dasar negara dalam hal ...",
+      "options": [
+        "Menumpuk kekayaan pribadi keluarga",
+        "Mencari pujian dari negara penjajah",
+        "Menjunjung kejujuran dan amanah",
+        "Menghindari tanggung jawab kenegaraan"
+      ],
+      "answer": 2,
+      "explanation": "Kesederhanaan Bung Hatta menjadi teladan akhlak pemimpin bangsa.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tidak memaksakan suatu agama atau kepercayaan kepada orang lain merupakan wujud pengamalan sila ke- ...",
+      "options": [
+        "Dua (2)",
+        "Tiga (3)",
+        "Empat (4)",
+        "Satu (1)"
+      ],
+      "answer": 3,
+      "explanation": "Kebebasan beragama tanpa paksaan adalah prinsip sila ke-1.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengembangkan rasa bangga menggunakan barang-barang buatan dalam negeri adalah pengamalan sila ke- ...",
+      "options": [
+        "Tiga (3)",
+        "Satu (1)",
+        "Dua (2)",
+        "Empat (4)"
+      ],
+      "answer": 0,
+      "explanation": "Bangga produk lokal memperkuat kemandirian dan persatuan (sila ke-3).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Keputusan musyawarah harus dapat dipertanggungjawabkan secara moral kepada ...",
+      "options": [
+        "Kepala desa dan ketua RT setempat",
+        "Tuhan Yang Maha Esa dan bangsa",
+        "Diri sendiri demi keuntungan pribadi",
+        "Teman akrab yang berada satu meja"
+      ],
+      "answer": 1,
+      "explanation": "Keputusan musyawarah dipertanggungjawabkan kepada Tuhan dan rakyat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Memberikan kesempatan kepada teman beragama lain untuk beribadah saat kerja kelompok menunjukkan sikap ...",
+      "options": [
+        "Kelemahan dalam kepemimpinan",
+        "Ketidakpedulian terhadap tugas",
+        "Toleransi antarumat beragama",
+        "Penyimpangan aturan kelompok"
+      ],
+      "answer": 2,
+      "explanation": "Toleransi ibadah adalah implementasi nyata sila pertama.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perilaku menjenguk teman yang sedang sakit dan mendoakan kesembuhannya mencerminkan pengamalan sila ...",
+      "options": [
+        "Ketiga (3)",
+        "Keempat (4)",
+        "Kelima (5)",
+        "Kedua (2)"
+      ],
+      "answer": 3,
+      "explanation": "Empati dan kepedulian sosial adalah nilai kemanusiaan (sila ke-2).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa rumusan dasar negara yang diusulkan oleh Ir. Soekarno pada 1 Juni 1945 disebut sebagai tonggak sejarah lahirnya Pancasila?",
+      "options": [
+        "Pertama kali mengenalkan istilah Pancasila",
+        "Satu-satunya usulan resmi yang diterima sidang",
+        "Langsung dijadikan undang-undang dasar negara",
+        "Disusun bersama perwakilan tentara sekutu dunia"
+      ],
+      "answer": 0,
+      "explanation": "Bung Karno memperkenalkan istilah dan 5 prinsip dasar yang menjadi cikal bakal.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pada tanggal 18 Agustus 1945, terjadi kesepakatan penting penggantian 7 kata dalam Piagam Jakarta. Makna mendalam dari peristiwa ini bagi NKRI adalah ...",
+      "options": [
+        "Membuktikan kekalahan tokoh-tokoh agama Islam",
+        "Menempatkan persatuan nasional di atas segalanya",
+        "Menghapus peran ulama dalam sejarah perjuangan",
+        "Tanda kebingungan para pemimpin bangsa Indonesia"
+      ],
+      "answer": 1,
+      "explanation": "Pengorbanan para tokoh Islam mengokohkan fondasi persatuan seluruh kepulauan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pancasila bersifat terbuka dan dinamis. Pernyataan yang tepat mengenai sifat keterbukaan Pancasila adalah ...",
+      "options": [
+        "Pancasila dapat diubah kapan pun oleh penguasa",
+        "Bangsa Indonesia bebas meniru budaya asing tanpa saring",
+        "Nilai dasarnya tetap, penerapannya menyesuaikan zaman",
+        "Sila-silanya boleh dikurangi menjadi tiga sila saja"
+      ],
+      "answer": 2,
+      "explanation": "Nilai inti Pancasila abadi, tetapi pengamalannya berkembang sesuai tantangan masa kini.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dalam suatu musyawarah kelas, usulan Andi didukung oleh mayoritas, namun usulan tersebut merugikan beberapa siswa difabel. Sikap pemimpin musyawarah yang berjiwa Pancasila adalah ...",
+      "options": [
+        "Langsung menetapkan hasil voting tanpa peduli",
+        "Mengeluarkan siswa difabel dari ruang rapat",
+        "Membubarkan musyawarah kelas tanpa ada hasil",
+        "Mengkaji ulang keputusan agar adil bagi semua"
+      ],
+      "answer": 3,
+      "explanation": "Musyawarah mufakat Pancasila mengutamakan keadilan dan kemanusiaan, bukan tirani suara terbanyak.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hubungan timbal balik antara sila pertama 'Ketuhanan Yang Maha Esa' dengan sila kedua 'Kemanusiaan yang Adil dan Beradab' tercermin dalam perilaku ...",
+      "options": [
+        "Mencintai sesama manusia karena ketaatan pada Tuhan",
+        "Memilih berteman hanya dengan orang yang seagama",
+        "Mementingkan ibadah ritual tanpa peduli orang miskin",
+        "Menolong orang lain hanya jika disaksikan pemuka agama"
+      ],
+      "answer": 0,
+      "explanation": "Ketaatan kepada Tuhan diwujudkan nyata dalam kasih sayang terhadap sesama makhluk.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa gotong royong disebut oleh Ir. Soekarno sebagai intisari atau perasan dari kelima sila Pancasila?",
+      "options": [
+        "Gotong royong hanya berlaku di pedesaan tradisional saja",
+        "Gotong royong mencerminkan kebersamaan dan tolong-menolong",
+        "Gotong royong adalah satu-satunya kegiatan bangsa Indonesia",
+        "Gotong royong tidak memerlukan aturan hukum yang jelas"
+      ],
+      "answer": 1,
+      "explanation": "Gotong royong memadukan ketuhanan, kemanusiaan, persatuan, musyawarah, dan keadilan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Siswa yang menggemari budaya pop asing namun tetap mencintai tarian tradisional daerahnya menunjukkan penerapan sila ke-3 dalam bentuk ...",
+      "options": [
+        "Penolakan total terhadap segala perkembangan dunia luar",
+        "Pengikisan budaya asli leluhur secara perlahan-lahan",
+        "Penyaringan budaya dengan jati diri bangsa yang kuat",
+        "Sikap meremehkan produk buatan dalam negeri sendiri"
+      ],
+      "answer": 2,
+      "explanation": "Menerima kemajuan global tanpa melupakan identitas budaya Nusantara.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Penerapan sila kelima 'Keadilan Sosial' di sekolah bukan berarti setiap siswa mendapat nilai yang sama rata, melainkan ...",
+      "options": [
+        "Semua siswa dinaikkan kelas tanpa melihat tugasnya",
+        "Uang saku setiap siswa disamakan jumlahnya oleh guru",
+        "Semua siswa wajib memakai sepatu dan tas bermerek sama",
+        "Setiap siswa mendapat hak belajar dan dinilai objektif"
+      ],
+      "answer": 3,
+      "explanation": "Keadilan proporsional: memberikan hak sesuai prestasi dan kesempatan belajar yang setara.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap patriotisme para perumus Pancasila yang paling relevan diterapkan oleh pelajar saat ini adalah ...",
+      "options": [
+        "Belajar tekun dan berprestasi mengharumkan bangsa",
+        "Ikut berperang mengangkat senjata di daerah konflik",
+        "Menghafal teks Pancasila tanpa pernah diamalkan",
+        "Menolak berteman dengan orang yang berbeda suku"
+      ],
+      "answer": 0,
+      "explanation": "Bentuk perjuangan pelajar masa kini adalah menuntut ilmu dan berakhlak mulia.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pancasila sebagai kesepakatan luhur para pendiri bangsa mengikat seluruh warga negara untuk ...",
+      "options": [
+        "Menjadikannya hiasan dinding di kantor pemerintahan saja",
+        "Mempertahankan dan mengamalkannya dalam kehidupan nyata",
+        "Menggantinya dengan ideologi negara lain yang lebih maju",
+        "Mempelajarinya hanya saat menjelang ujian sekolah tiba"
+      ],
+      "answer": 1,
+      "explanation": "Pancasila adalah konsensus nasional mutlak yang harus dijaga seluruh generasi.",
+      "difficulty": 3,
+      "timeLimit": 20
+    }
+  ]
+}

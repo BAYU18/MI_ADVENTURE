@@ -1,0 +1,1958 @@
+{
+  "version": 1,
+  "class": "Kelas 4 SD",
+  "subject": "Pendidikan Pancasila",
+  "totalQuestions": 150,
+  "questions": [
+    {
+      "question": "Dasar negara Republik Indonesia yang sah dan resmi adalah ...",
+      "options": [
+        "Pancasila",
+        "UUD 1945",
+        "Garuda",
+        "Bhinneka"
+      ],
+      "answer": 0,
+      "explanation": "Pancasila adalah dasar negara dan pandangan hidup bangsa Indonesia.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Lambang negara kesatuan Republik Indonesia adalah ...",
+      "options": [
+        "Bendera Sang Saka Merah Putih",
+        "Burung Garuda Pancasila",
+        "Lagu Kebangsaan Indonesia Raya",
+        "Pohon Beringin yang Sangat Rindang"
+      ],
+      "answer": 1,
+      "explanation": "Burung Garuda dengan perisai Pancasila adalah lambang negara resmi.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rumusan sila pertama Pancasila yang benar adalah ...",
+      "options": [
+        "Kemanusiaan yang Adil dan Beradab",
+        "Persatuan Bangsa Indonesia Raya",
+        "Ketuhanan Yang Maha Esa",
+        "Keadilan Sosial bagi Seluruh Rakyat"
+      ],
+      "answer": 2,
+      "explanation": "Sila ke-1 berbunyi Ketuhanan Yang Maha Esa.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Simbol lambang untuk sila pertama Pancasila adalah ...",
+      "options": [
+        "Rantai baja berwarna emas",
+        "Pohon beringin yang rindang",
+        "Kepala banteng warna hitam",
+        "Bintang emas bersudut lima"
+      ],
+      "answer": 3,
+      "explanation": "Bintang emas berlatar hitam adalah lambang sila ke-1.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Simbol lambang untuk sila kedua Pancasila adalah ...",
+      "options": [
+        "Rantai emas gelang bulat",
+        "Bintang emas sudut lima",
+        "Pohon beringin daun lebat",
+        "Padi dan kapas kemakmuran"
+      ],
+      "answer": 0,
+      "explanation": "Rantai gelang bersambung melambangkan sila ke-2.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Simbol lambang untuk sila ketiga Pancasila adalah ...",
+      "options": [
+        "Bintang emas lima sudut",
+        "Pohon beringin rindang",
+        "Rantai emas berputar",
+        "Kepala banteng hitam"
+      ],
+      "answer": 1,
+      "explanation": "Pohon beringin melambangkan persatuan Indonesia (sila ke-3).",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Simbol lambang untuk sila keempat Pancasila adalah ...",
+      "options": [
+        "Pohon beringin rindang",
+        "Bintang emas lima sudut",
+        "Kepala banteng perkasa",
+        "Padi dan kapas makmur"
+      ],
+      "answer": 2,
+      "explanation": "Kepala banteng melambangkan musyawarah dan kekuatan rakyat (sila ke-4).",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Simbol lambang untuk sila kelima Pancasila adalah ...",
+      "options": [
+        "Kepala banteng perkasa",
+        "Bintang emas bercahaya",
+        "Rantai baja mengikat",
+        "Padi dan kapas sandang"
+      ],
+      "answer": 3,
+      "explanation": "Padi dan kapas melambangkan kemakmuran pangan dan sandang (sila ke-5).",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Badan yang dibentuk untuk menyelidiki usaha persiapan kemerdekaan Indonesia disingkat ...",
+      "options": [
+        "BPUPKI",
+        "PPKI",
+        "KNIP",
+        "PETA"
+      ],
+      "answer": 0,
+      "explanation": "BPUPKI dibentuk pada 1 Maret 1945.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketua BPUPKI yang memimpin sidang perumusan dasar negara adalah ...",
+      "options": [
+        "Ir. Soekarno sang proklamator bangsa",
+        "Dr. K.R.T. Radjiman Wedyodiningrat",
+        "Drs. Mohammad Hatta wakil proklamator",
+        "Mr. Mohammad Yamin perumus dasar hukum"
+      ],
+      "answer": 1,
+      "explanation": "Dr. Radjiman Wedyodiningrat memimpin jalannya sidang BPUPKI.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sidang pertama BPUPKI yang membahas dasar negara dilaksanakan pada tanggal ...",
+      "options": [
+        "10 Juli - 17 Juli 1945",
+        "17 Agustus - 18 Agustus 1945",
+        "29 Mei - 1 Juni 1945",
+        "1 Juni - 22 Juni 1945"
+      ],
+      "answer": 2,
+      "explanation": "Sidang I BPUPKI berlangsung 29 Mei sampai 1 Juni 1945.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tokoh yang menyampaikan pidato lahirnya istilah Pancasila pada 1 Juni 1945 adalah ...",
+      "options": [
+        "Drs. Mohammad Hatta",
+        "Mr. Mohammad Yamin",
+        "Prof. Dr. Soepomo",
+        "Ir. Soekarno"
+      ],
+      "answer": 3,
+      "explanation": "Ir. Soekarno memperkenalkan nama Pancasila pada 1 Juni 1945.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tiga tokoh utama yang mengusulkan gagasan rumusan dasar negara pada sidang BPUPKI adalah ...",
+      "options": [
+        "Moh. Yamin, Soepomo, dan Soekarno",
+        "Moh. Hatta, Ahmad Soebardjo, Syahrir",
+        "Radjiman, Agus Salim, dan Wahid Hasyim",
+        "Ki Hajar Dewantara, Kartini, Sudirman"
+      ],
+      "answer": 0,
+      "explanation": "Ketiga tokoh pengusul adalah Moh. Yamin, Soepomo, dan Ir. Soekarno.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Panitia kecil beranggotakan sembilan orang yang merumuskan Piagam Jakarta disebut ...",
+      "options": [
+        "Panitia Persiapan",
+        "Panitia Sembilan",
+        "Panitia Delapan",
+        "Panitia Sebelas"
+      ],
+      "answer": 1,
+      "explanation": "Panitia Sembilan dibentuk BPUPKI untuk menyusun Piagam Jakarta.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Piagam Jakarta (Jakarta Charter) disahkan oleh Panitia Sembilan pada tanggal ...",
+      "options": [
+        "1 Juni 1945",
+        "17 Agustus 1945",
+        "22 Juni 1945",
+        "18 Agustus 1945"
+      ],
+      "answer": 2,
+      "explanation": "Piagam Jakarta ditandatangani pada 22 Juni 1945.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pancasila ditetapkan secara resmi sebagai dasar negara oleh PPKI pada tanggal ...",
+      "options": [
+        "17 Agustus 1945",
+        "1 Juni 1945",
+        "22 Juni 1945",
+        "18 Agustus 1945"
+      ],
+      "answer": 3,
+      "explanation": "Sehari setelah proklamasi, PPKI mengesahkan UUD 1945 dan Pancasila.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hari lahir Pancasila diperingati bangsa Indonesia setiap tanggal ...",
+      "options": [
+        "1 Juni",
+        "1 Oktober",
+        "17 Agustus",
+        "18 Agustus"
+      ],
+      "answer": 0,
+      "explanation": "1 Juni diperingati sebagai Hari Lahir Pancasila berdasarkan pidato Bung Karno.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hari Kesaktian Pancasila diperingati setiap tanggal ...",
+      "options": [
+        "1 Juni",
+        "1 Oktober",
+        "17 Agustus",
+        "28 Oktober"
+      ],
+      "answer": 1,
+      "explanation": "1 Oktober diperingati sebagai Hari Kesaktian Pancasila.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Berdoa sebelum dan sesudah belajar di sekolah merupakan pengamalan Pancasila sila ke- ...",
+      "options": [
+        "Dua (2)",
+        "Tiga (3)",
+        "Satu (1)",
+        "Empat (4)"
+      ],
+      "answer": 2,
+      "explanation": "Ibadah dan doa kepada Tuhan mencerminkan sila pertama.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Menolong teman yang terjatuh dari sepeda tanpa membeda-bedakan adalah pengamalan sila ke- ...",
+      "options": [
+        "Satu (1)",
+        "Tiga (3)",
+        "Empat (4)",
+        "Dua (2)"
+      ],
+      "answer": 3,
+      "explanation": "Sikap saling tolong-menolong mencerminkan kemanusiaan yang adil dan beradab.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap utama para tokoh perumus Pancasila yang patut kita teladani dalam kehidupan adalah ...",
+      "options": [
+        "Mengutamakan persatuan bangsa di atas golongan",
+        "Menuntut imbalan jasa yang sangat berlimpah",
+        "Mementingkan keuntungan suku bangsanya sendiri",
+        "Menolak pendapat orang lain yang tidak sependapat"
+      ],
+      "answer": 0,
+      "explanation": "Para pendiri bangsa berjiwa besar demi persatuan Indonesia.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perubahan kalimat sila pertama pada Piagam Jakarta menjadi 'Ketuhanan Yang Maha Esa' menunjukkan sikap ...",
+      "options": [
+        "Kelemahan para tokoh pejuang Islam",
+        "Toleransi dan menjaga keutuhan bangsa",
+        "Kemenangan mutlak golongan sekuler",
+        "Keraguan dalam mengambil keputusan"
+      ],
+      "answer": 1,
+      "explanation": "Tokoh-tokoh Islam berjiwa besar menyepakati perubahan demi NKRI utuh.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh sikap pengamalan sila kedua di lingkungan keluarga adalah ...",
+      "options": [
+        "Menghabiskan makanan tanpa berbagi pada adik",
+        "Memaksakan kehendak saat menonton televisi",
+        "Menyayangi adik dan menghormati orang tua",
+        "Menuntut diberi uang jajan lebih banyak"
+      ],
+      "answer": 2,
+      "explanation": "Kasih sayang dan rasa hormat di keluarga adalah cermin sila ke-2.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Menghargai keragaman bahasa daerah dan adat istiadat teman di sekolah adalah cermin sila ke- ...",
+      "options": [
+        "Satu (1)",
+        "Dua (2)",
+        "Empat (4)",
+        "Tiga (3)"
+      ],
+      "answer": 3,
+      "explanation": "Menjaga persatuan di tengah keberagaman sesuai sila ke-3.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kegiatan pemilihan ketua kelas melalui musyawarah mufakat atau pemungutan suara mencerminkan sila ke- ...",
+      "options": [
+        "Empat (4)",
+        "Dua (2)",
+        "Tiga (3)",
+        "Lima (5)"
+      ],
+      "answer": 0,
+      "explanation": "Musyawarah bersama untuk mufakat mencerminkan sila ke-4.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Membagi tugas piket kebersihan kelas secara adil kepada seluruh siswa merupakan pengamalan sila ke- ...",
+      "options": [
+        "Satu (1)",
+        "Lima (5)",
+        "Dua (2)",
+        "Tiga (3)"
+      ],
+      "answer": 1,
+      "explanation": "Keadilan membagi tugas dan hak mencerminkan sila ke-5.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Nilai juang dari Mohammad Natsir dan Ki Bagus Hadikusumo saat menyepakati sila pertama adalah ...",
+      "options": [
+        "Mementingkan kelompok partai politik tertentu",
+        "Keras kepala mempertahankan kehendak pribadi",
+        "Jiwa besar, ikhlas, dan mendahulukan persatuan",
+        "Acuh tak acuh terhadap masa depan Indonesia"
+      ],
+      "answer": 2,
+      "explanation": "Para tokoh bangsa rela berkorban demi keutuhan wilayah Republik Indonesia.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pancasila berfungsi sebagai pandangan hidup bangsa, yang artinya Pancasila ...",
+      "options": [
+        "Hanya dibaca saat upacara bendera hari Senin saja",
+        "Hanya berlaku bagi pejabat tinggi pemerintahan pusat",
+        "Boleh diganti sewaktu-waktu sesuai keinginan presiden",
+        "Menjadi petunjuk arah dalam kehidupan sehari-hari"
+      ],
+      "answer": 3,
+      "explanation": "Pandangan hidup berarti pedoman tingkah laku seluruh warga negara.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika pendapat kita tidak diterima dalam musyawarah kelas, sikap kita sebaiknya ...",
+      "options": [
+        "Menerima dengan lapang dada dan ikhlas",
+        "Marah dan memusuhi semua teman sekelas",
+        "Mogok belajar dan tidak mau masuk sekolah",
+        "Memaksa teman agar mengubah keputusannya"
+      ],
+      "answer": 0,
+      "explanation": "Demokrasi Pancasila menuntut keikhlasan menerima hasil musyawarah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Menjaga keseimbangan antara hak dan kewajiban merupakan butir pengamalan sila ...",
+      "options": [
+        "Ketuhanan Yang Maha Esa semata",
+        "Keadilan sosial bagi seluruh rakyat",
+        "Kemanusiaan yang adil beradab",
+        "Persatuan Indonesia yang kokoh"
+      ],
+      "answer": 1,
+      "explanation": "Menyeimbangkan hak dan kewajiban adalah pengamalan sila ke-5.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Gemar menabung dan tidak bergaya hidup boros merupakan contoh pengamalan Pancasila sila ke- ...",
+      "options": [
+        "Satu (1)",
+        "Dua (2)",
+        "Lima (5)",
+        "Tiga (3)"
+      ],
+      "answer": 2,
+      "explanation": "Sikap hemat dan menghargai hasil karya orang lain adalah cermin sila ke-5.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Upacara bendera setiap hari Senin yang diikuti dengan tertib dan khidmat bertujuan memupuk rasa ...",
+      "options": [
+        "Kelelahan fisik saat berdiri lama",
+        "Takut terhadap hukuman guru piket",
+        "Persaingan antar kelompok kelas",
+        "Cinta tanah air dan nasionalisme"
+      ],
+      "answer": 3,
+      "explanation": "Upacara menumbuhkan rasa patriotisme dan persatuan (sila ke-3).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap tenggang rasa dan tepa salira kepada orang lain mencerminkan nilai luhur sila ...",
+      "options": [
+        "Kemanusiaan yang adil dan beradab",
+        "Ketuhanan Yang Maha Esa beribadah",
+        "Persatuan Indonesia yang tunggal",
+        "Kerakyatan yang dipimpin hikmat"
+      ],
+      "answer": 0,
+      "explanation": "Tenggang rasa adalah nilai utama kemanusiaan (sila ke-2).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa para perumus dasar negara tidak saling bermusuhan meskipun berbeda pandangan?",
+      "options": [
+        "Merasa takut terhadap ancaman tentara Jepang",
+        "Memiliki tujuan sama yaitu Indonesia merdeka",
+        "Mendapat bayaran emas dalam jumlah sangat besar",
+        "Tidak ada yang berani berbicara secara terbuka"
+      ],
+      "answer": 1,
+      "explanation": "Kecintaan pada bangsa menyatukan perbedaan pendapat para tokoh.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bung Hatta dikenal sebagai tokoh yang sangat sederhana dan jujur. Sikap ini mencerminkan integritas perumus dasar negara dalam hal ...",
+      "options": [
+        "Menumpuk kekayaan pribadi keluarga",
+        "Mencari pujian dari negara penjajah",
+        "Menjunjung kejujuran dan amanah",
+        "Menghindari tanggung jawab kenegaraan"
+      ],
+      "answer": 2,
+      "explanation": "Kesederhanaan Bung Hatta menjadi teladan akhlak pemimpin bangsa.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tidak memaksakan suatu agama atau kepercayaan kepada orang lain merupakan wujud pengamalan sila ke- ...",
+      "options": [
+        "Dua (2)",
+        "Tiga (3)",
+        "Empat (4)",
+        "Satu (1)"
+      ],
+      "answer": 3,
+      "explanation": "Kebebasan beragama tanpa paksaan adalah prinsip sila ke-1.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengembangkan rasa bangga menggunakan barang-barang buatan dalam negeri adalah pengamalan sila ke- ...",
+      "options": [
+        "Tiga (3)",
+        "Satu (1)",
+        "Dua (2)",
+        "Empat (4)"
+      ],
+      "answer": 0,
+      "explanation": "Bangga produk lokal memperkuat kemandirian dan persatuan (sila ke-3).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Keputusan musyawarah harus dapat dipertanggungjawabkan secara moral kepada ...",
+      "options": [
+        "Kepala desa dan ketua RT setempat",
+        "Tuhan Yang Maha Esa dan bangsa",
+        "Diri sendiri demi keuntungan pribadi",
+        "Teman akrab yang berada satu meja"
+      ],
+      "answer": 1,
+      "explanation": "Keputusan musyawarah dipertanggungjawabkan kepada Tuhan dan rakyat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Memberikan kesempatan kepada teman beragama lain untuk beribadah saat kerja kelompok menunjukkan sikap ...",
+      "options": [
+        "Kelemahan dalam kepemimpinan",
+        "Ketidakpedulian terhadap tugas",
+        "Toleransi antarumat beragama",
+        "Penyimpangan aturan kelompok"
+      ],
+      "answer": 2,
+      "explanation": "Toleransi ibadah adalah implementasi nyata sila pertama.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perilaku menjenguk teman yang sedang sakit dan mendoakan kesembuhannya mencerminkan pengamalan sila ...",
+      "options": [
+        "Ketiga (3)",
+        "Keempat (4)",
+        "Kelima (5)",
+        "Kedua (2)"
+      ],
+      "answer": 3,
+      "explanation": "Empati dan kepedulian sosial adalah nilai kemanusiaan (sila ke-2).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa rumusan dasar negara yang diusulkan oleh Ir. Soekarno pada 1 Juni 1945 disebut sebagai tonggak sejarah lahirnya Pancasila?",
+      "options": [
+        "Pertama kali mengenalkan istilah Pancasila",
+        "Satu-satunya usulan resmi yang diterima sidang",
+        "Langsung dijadikan undang-undang dasar negara",
+        "Disusun bersama perwakilan tentara sekutu dunia"
+      ],
+      "answer": 0,
+      "explanation": "Bung Karno memperkenalkan istilah dan 5 prinsip dasar yang menjadi cikal bakal.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pada tanggal 18 Agustus 1945, terjadi kesepakatan penting penggantian 7 kata dalam Piagam Jakarta. Makna mendalam dari peristiwa ini bagi NKRI adalah ...",
+      "options": [
+        "Membuktikan kekalahan tokoh-tokoh agama Islam",
+        "Menempatkan persatuan nasional di atas segalanya",
+        "Menghapus peran ulama dalam sejarah perjuangan",
+        "Tanda kebingungan para pemimpin bangsa Indonesia"
+      ],
+      "answer": 1,
+      "explanation": "Pengorbanan para tokoh Islam mengokohkan fondasi persatuan seluruh kepulauan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pancasila bersifat terbuka dan dinamis. Pernyataan yang tepat mengenai sifat keterbukaan Pancasila adalah ...",
+      "options": [
+        "Pancasila dapat diubah kapan pun oleh penguasa",
+        "Bangsa Indonesia bebas meniru budaya asing tanpa saring",
+        "Nilai dasarnya tetap, penerapannya menyesuaikan zaman",
+        "Sila-silanya boleh dikurangi menjadi tiga sila saja"
+      ],
+      "answer": 2,
+      "explanation": "Nilai inti Pancasila abadi, tetapi pengamalannya berkembang sesuai tantangan masa kini.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dalam suatu musyawarah kelas, usulan Andi didukung oleh mayoritas, namun usulan tersebut merugikan beberapa siswa difabel. Sikap pemimpin musyawarah yang berjiwa Pancasila adalah ...",
+      "options": [
+        "Langsung menetapkan hasil voting tanpa peduli",
+        "Mengeluarkan siswa difabel dari ruang rapat",
+        "Membubarkan musyawarah kelas tanpa ada hasil",
+        "Mengkaji ulang keputusan agar adil bagi semua"
+      ],
+      "answer": 3,
+      "explanation": "Musyawarah mufakat Pancasila mengutamakan keadilan dan kemanusiaan, bukan tirani suara terbanyak.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hubungan timbal balik antara sila pertama 'Ketuhanan Yang Maha Esa' dengan sila kedua 'Kemanusiaan yang Adil dan Beradab' tercermin dalam perilaku ...",
+      "options": [
+        "Mencintai sesama manusia karena ketaatan pada Tuhan",
+        "Memilih berteman hanya dengan orang yang seagama",
+        "Mementingkan ibadah ritual tanpa peduli orang miskin",
+        "Menolong orang lain hanya jika disaksikan pemuka agama"
+      ],
+      "answer": 0,
+      "explanation": "Ketaatan kepada Tuhan diwujudkan nyata dalam kasih sayang terhadap sesama makhluk.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa gotong royong disebut oleh Ir. Soekarno sebagai intisari atau perasan dari kelima sila Pancasila?",
+      "options": [
+        "Gotong royong hanya berlaku di pedesaan tradisional saja",
+        "Gotong royong mencerminkan kebersamaan dan tolong-menolong",
+        "Gotong royong adalah satu-satunya kegiatan bangsa Indonesia",
+        "Gotong royong tidak memerlukan aturan hukum yang jelas"
+      ],
+      "answer": 1,
+      "explanation": "Gotong royong memadukan ketuhanan, kemanusiaan, persatuan, musyawarah, dan keadilan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Siswa yang menggemari budaya pop asing namun tetap mencintai tarian tradisional daerahnya menunjukkan penerapan sila ke-3 dalam bentuk ...",
+      "options": [
+        "Penolakan total terhadap segala perkembangan dunia luar",
+        "Pengikisan budaya asli leluhur secara perlahan-lahan",
+        "Penyaringan budaya dengan jati diri bangsa yang kuat",
+        "Sikap meremehkan produk buatan dalam negeri sendiri"
+      ],
+      "answer": 2,
+      "explanation": "Menerima kemajuan global tanpa melupakan identitas budaya Nusantara.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Penerapan sila kelima 'Keadilan Sosial' di sekolah bukan berarti setiap siswa mendapat nilai yang sama rata, melainkan ...",
+      "options": [
+        "Semua siswa dinaikkan kelas tanpa melihat tugasnya",
+        "Uang saku setiap siswa disamakan jumlahnya oleh guru",
+        "Semua siswa wajib memakai sepatu dan tas bermerek sama",
+        "Setiap siswa mendapat hak belajar dan dinilai objektif"
+      ],
+      "answer": 3,
+      "explanation": "Keadilan proporsional: memberikan hak sesuai prestasi dan kesempatan belajar yang setara.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap patriotisme para perumus Pancasila yang paling relevan diterapkan oleh pelajar saat ini adalah ...",
+      "options": [
+        "Belajar tekun dan berprestasi mengharumkan bangsa",
+        "Ikut berperang mengangkat senjata di daerah konflik",
+        "Menghafal teks Pancasila tanpa pernah diamalkan",
+        "Menolak berteman dengan orang yang berbeda suku"
+      ],
+      "answer": 0,
+      "explanation": "Bentuk perjuangan pelajar masa kini adalah menuntut ilmu dan berakhlak mulia.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pancasila sebagai kesepakatan luhur para pendiri bangsa mengikat seluruh warga negara untuk ...",
+      "options": [
+        "Menjadikannya hiasan dinding di kantor pemerintahan saja",
+        "Mempertahankan dan mengamalkannya dalam kehidupan nyata",
+        "Menggantinya dengan ideologi negara lain yang lebih maju",
+        "Mempelajarinya hanya saat menjelang ujian sekolah tiba"
+      ],
+      "answer": 1,
+      "explanation": "Pancasila adalah konsensus nasional mutlak yang harus dijaga seluruh generasi.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketentuan atau kaidah yang mengikat warga kelompok masyarakat disebut ...",
+      "options": [
+        "Norma atau aturan",
+        "Harapan pribadi",
+        "Saran sementara",
+        "Permintaan warga"
+      ],
+      "answer": 0,
+      "explanation": "Norma adalah aturan tingkah laku yang berlaku dalam masyarakat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sesuatu yang mutlak menjadi milik kita dan penggunaannya bergantung pada diri kita disebut ...",
+      "options": [
+        "Kewajiban",
+        "Hak",
+        "Hukuman",
+        "Tanggung jawab"
+      ],
+      "answer": 1,
+      "explanation": "Hak adalah segala sesuatu yang berhak diterima seseorang.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Segala sesuatu yang wajib dilaksanakan dengan penuh tanggung jawab disebut ...",
+      "options": [
+        "Hak istimewa",
+        "Wewenang jabatan",
+        "Kewajiban",
+        "Hadiah kehormatan"
+      ],
+      "answer": 2,
+      "explanation": "Kewajiban adalah keharusan yang harus dikerjakan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hubungan yang tepat antara hak dan kewajiban dalam kehidupan adalah ...",
+      "options": [
+        "Menuntut hak sebesar-besarnya tanpa kewajiban",
+        "Kewajiban boleh diabaikan jika tidak ada imbalan",
+        "Hak dan kewajiban tidak memiliki kaitan langsung",
+        "Mendahulukan kewajiban sebelum menuntut hak"
+      ],
+      "answer": 3,
+      "explanation": "Kewajiban harus dipenuhi terlebih dahulu baru hak dapat dituntut.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh kewajiban utama seorang anak di rumah adalah ...",
+      "options": [
+        "Membantu orang tua dan belajar tekun",
+        "Menuntut uang jajan setiap hari libur",
+        "Menonton televisi seharian tanpa henti",
+        "Memerintah adik membersihkan kamarnya"
+      ],
+      "answer": 0,
+      "explanation": "Berbakti kepada orang tua dan belajar adalah kewajiban anak di rumah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh hak seorang anak di dalam lingkungan keluarga adalah ...",
+      "options": [
+        "Menentukan menu makanan mewah tiap hari",
+        "Mendapatkan kasih sayang dan perlindungan",
+        "Bebas bermain tanpa belajar sama sekali",
+        "Mengabaikan nasihat dari ayah dan ibu"
+      ],
+      "answer": 1,
+      "explanation": "Anak berhak atas kasih sayang, perawatan, dan rasa aman di rumah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh kewajiban siswa di lingkungan sekolah adalah ...",
+      "options": [
+        "Memilih guru yang disukai untuk mengajar",
+        "Mengatur jadwal libur sekolah seenaknya",
+        "Mematuhi tata tertib sekolah dengan tertib",
+        "Menikmati fasilitas sekolah secara gratis"
+      ],
+      "answer": 2,
+      "explanation": "Siswa wajib taat pada tata tertib dan jadwal sekolah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh hak siswa di lingkungan sekolah adalah ...",
+      "options": [
+        "Membawa mainan elektronik saat jam pelajaran",
+        "Bebas meninggalkan kelas saat ulangan harian",
+        "Membuat keributan saat teman sedang belajar",
+        "Mendapatkan pengajaran dan bimbingan guru"
+      ],
+      "answer": 3,
+      "explanation": "Setiap siswa berhak menerima pendidikan berkualitas dari guru.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Aturan yang sumbernya berasal dari wahyu Tuhan Yang Maha Esa disebut norma ...",
+      "options": [
+        "Norma agama",
+        "Norma kesusilaan",
+        "Norma kesopanan",
+        "Norma hukum"
+      ],
+      "answer": 0,
+      "explanation": "Norma agama bersumber dari kitab suci wahyu Tuhan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Aturan yang bersumber dari hati nurani manusia mengenai baik dan buruk disebut norma ...",
+      "options": [
+        "Norma kesopanan",
+        "Norma kesusilaan",
+        "Norma hukum negara",
+        "Norma kebiasaan"
+      ],
+      "answer": 1,
+      "explanation": "Hati nurani menghasilkan norma kesusilaan (moral).",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Aturan pergaulan hidup yang timbul dari kesepakatan sopan santun masyarakat disebut norma ...",
+      "options": [
+        "Norma kesusilaan",
+        "Norma hukum positif",
+        "Norma kesopanan",
+        "Norma agama wahyu"
+      ],
+      "answer": 2,
+      "explanation": "Sopan santun tata krama adalah wujud norma kesopanan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Aturan resmi yang dibuat oleh lembaga negara berwenang dan bersifat memaksa disebut norma ...",
+      "options": [
+        "Norma kesusilaan",
+        "Norma kesopanan",
+        "Norma adat istiadat",
+        "Norma hukum"
+      ],
+      "answer": 3,
+      "explanation": "Norma hukum dibuat negara dengan sanksi tegas mengikat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sanksi bagi orang yang melanggar norma hukum yang berlaku adalah ...",
+      "options": [
+        "Hukuman pidana denda atau penjara",
+        "Merasa bersalah dalam hati nurani",
+        "Dikucilkan oleh tetangga setempat",
+        "Mendapat teguran lisan dari teman"
+      ],
+      "answer": 0,
+      "explanation": "Pelanggaran hukum ditegakkan oleh aparat negara dengan pidana/denda.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sanksi bagi orang yang melanggar norma kesusilaan adalah ...",
+      "options": [
+        "Hukuman kurungan penjara negara",
+        "Penyesalan dan rasa bersalah batin",
+        "Denda uang tunai ratusan juta rupiah",
+        "Pencabutan hak pilih kewarganegaraan"
+      ],
+      "answer": 1,
+      "explanation": "Hati nurani akan merasa gelisah dan bersalah jika melanggar susila.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mencium tangan orang tua saat hendak berangkat ke sekolah merupakan penerapan norma ...",
+      "options": [
+        "Norma hukum pidana",
+        "Norma tata usaha",
+        "Norma kesopanan",
+        "Norma kepegawaian"
+      ],
+      "answer": 2,
+      "explanation": "Salim mencium tangan orang tua adalah sopan santun budaya.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Beribadah tepat waktu sesuai ajaran agama masing-masing merupakan wujud kepatuhan pada norma ...",
+      "options": [
+        "Norma kesopanan",
+        "Norma adat desa",
+        "Norma pergaulan",
+        "Norma agama"
+      ],
+      "answer": 3,
+      "explanation": "Ibadah menjalankan perintah agama sesuai keyakinan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Menyeberang jalan raya di zebra cross atau jembatan penyeberangan orang (JPO) merupakan contoh tertib ...",
+      "options": [
+        "Norma hukum lalu lintas",
+        "Norma kesusilaan batin",
+        "Norma kesopanan bicara",
+        "Norma adat perkawinan"
+      ],
+      "answer": 0,
+      "explanation": "Aturan menyeberang jalan diatur dalam hukum lalu lintas.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Keputusan bersama yang diambil melalui kesepakatan bulat seluruh peserta rapat disebut ...",
+      "options": [
+        "Pemungutan suara kilat",
+        "Musyawarah mufakat",
+        "Keputusan sepihak ketua",
+        "Perintah paksa pemimpin"
+      ],
+      "answer": 1,
+      "explanation": "Mufakat dicapai jika semua peserta rapat sepakat bersama.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jika dalam musyawarah tidak tercapai kata mufakat, cara penyelesaian berikutnya adalah ...",
+      "options": [
+        "Membubarkan rapat seketika",
+        "Menyerahkan pada yang tertua",
+        "Pemungutan suara (voting)",
+        "Mengundi dengan lempar koin"
+      ],
+      "answer": 2,
+      "explanation": "Voting diambil bila jalan musyawarah mufakat belum mencapai sepakat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap yang wajib kita tunjukkan saat orang lain sedang menyampaikan pendapatnya adalah ...",
+      "options": [
+        "Memotong pembicaraannya di tengah jalan",
+        "Berbisik-bisik mengejek bersama teman",
+        "Meninggalkan ruang rapat dengan sengaja",
+        "Mendengarkan dengan tenang dan tertib"
+      ],
+      "answer": 3,
+      "explanation": "Menghormati orang lain bicara adalah etika dasar bermusyawarah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tujuan utama diciptakannya aturan atau norma di dalam masyarakat adalah untuk ...",
+      "options": [
+        "Menciptakan ketertiban, keadilan, dan kedamaian",
+        "Membatasi kebebasan warga agar tidak berkembang",
+        "Memberikan keuntungan besar bagi para pejabat desa",
+        "Menghukum sebanyak-banyaknya warga yang bersalah"
+      ],
+      "answer": 0,
+      "explanation": "Norma hadir agar kehidupan bersama berjalan tertib, adil, dan aman.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Akibat buruk yang akan timbul jika sebuah lingkungan tidak memiliki aturan yang jelas adalah ...",
+      "options": [
+        "Masyarakat menjadi lebih sejahtera dan makmur",
+        "Terjadi kekacauan dan perselisihan antarwarga",
+        "Semua warga hidup tenang tanpa ada masalah",
+        "Perekonomian warga meningkat dengan pesat"
+      ],
+      "answer": 1,
+      "explanation": "Tanpa aturan, benturan kepentingan memicu konflik dan kekacauan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Seorang pengendara motor wajib memakai helm standar saat berkendara. Memakai helm tersebut adalah ...",
+      "options": [
+        "Hak pribadi pengendara yang boleh diabaikan",
+        "Beban berat yang sengaja diciptakan polisi",
+        "Kewajiban pengendara demi keselamatan dirinya",
+        "Kegiatan formalitas agar tidak ditilang saja"
+      ],
+      "answer": 2,
+      "explanation": "Kewajiban helm melindungi keselamatan jiwa pengendara di jalan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika siswa melaksanakan kewajiban menjaga kebersihan kelas, maka hak yang akan ia peroleh adalah ...",
+      "options": [
+        "Mendapatkan uang saku tambahan dari sekolah",
+        "Bebas tidak mengikuti ulangan harian esok",
+        "Boleh pulang sekolah lebih awal dari teman",
+        "Suasana ruang kelas yang nyaman untuk belajar"
+      ],
+      "answer": 3,
+      "explanation": "Kewajiban piket menghasilkan hak lingkungan belajar yang bersih dan sehat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh pelanggaran norma kesopanan di lingkungan pergaulan sekolah adalah ...",
+      "options": [
+        "Berbicara kasar dan memanggil teman dengan julukan buruk",
+        "Mengerjakan tugas sekolah dengan tepat waktu",
+        "Memberikan jawaban saat ditanya bapak guru",
+        "Menolong teman membersihkan papan tulis"
+      ],
+      "answer": 0,
+      "explanation": "Memanggil teman dengan ejekan melanggar norma kesopanan dan empati.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa norma hukum memerlukan aparat penegak hukum seperti kepolisian dan kehakiman?",
+      "options": [
+        "Untuk menakut-nakuti masyarakat agar patuh buta",
+        "Untuk menegakkan aturan dan memberi sanksi tegas",
+        "Untuk mengumpulkan denda demi kepentingan aparat",
+        "Untuk menggantikan peran orang tua di rumah"
+      ],
+      "answer": 1,
+      "explanation": "Aparat menegakkan keadilan dan kepastian hukum bagi pelanggar.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dalam musyawarah keluarga untuk menentukan tujuan liburan, sikap anak yang baik adalah ...",
+      "options": [
+        "Menangis dan merajuk jika usulannya ditolak",
+        "Memaksa orang tua meminjam uang demi keinginannya",
+        "Mengemukakan usulan santun dan menerima keputusan",
+        "Diam saja lalu menolak ikut saat hari libur tiba"
+      ],
+      "answer": 2,
+      "explanation": "Menyampaikan ide dengan sopan dan menghormati keputusan orang tua.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebelum memanfaatkan fasilitas perpustakaan sekolah, kewajiban yang harus dipenuhi siswa adalah ...",
+      "options": [
+        "Membeli semua buku yang tersedia di rak baca",
+        "Membawa pulang buku tanpa dicatat petugas",
+        "Makan dan minum sambil membaca novel",
+        "Menjaga keheningan dan merawat buku pinjaman"
+      ],
+      "answer": 3,
+      "explanation": "Aturan perpustakaan mewajibkan tertib tenang dan menjaga fisik buku.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perbedaan pokok antara norma kesopanan dengan norma hukum terletak pada ...",
+      "options": [
+        "Asal aturan dan ketegasan sanksi yang diterima",
+        "Jumlah orang yang harus mematuhi aturan tersebut",
+        "Tempat berlakunya aturan di dalam masyarakat",
+        "Bahasa yang digunakan untuk menuliskan aturan"
+      ],
+      "answer": 0,
+      "explanation": "Kesopanan bersumber dari tradisi dengan sanksi celaan; hukum dari negara dengan sanksi nyata.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa setiap warga negara yang telah memenuhi syarat wajib membayar pajak?",
+      "options": [
+        "Pajak adalah sumbangan sukarela yang boleh ditolak",
+        "Pajak digunakan untuk membiayai pembangunan negara",
+        "Pajak disimpan di bank luar negeri oleh presiden",
+        "Pajak hanya menguntungkan orang kaya di kota besar"
+      ],
+      "answer": 1,
+      "explanation": "Pajak membiayai jalan, sekolah, rumah sakit, dan subsidi rakyat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hak asasi paling mendasar yang dimiliki setiap anak sejak lahir ke dunia adalah ...",
+      "options": [
+        "Hak memiliki telepon genggam tercanggih",
+        "Hak memilih tempat tinggal di luar negeri",
+        "Hak untuk hidup, tumbuh, dan dilindungi",
+        "Hak mengendarai sepeda motor di jalan raya"
+      ],
+      "answer": 2,
+      "explanation": "Hak hidup, tumbuh kembang, dan perlindungan adalah hak dasar anak.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh kewajiban menjaga lingkungan hidup di sekitar tempat tinggal adalah ...",
+      "options": [
+        "Menebang pohon peneduh di tepi jalan seenaknya",
+        "Membakar sampah plastik di depan rumah tetangga",
+        "Mengalirkan air limbah kotor ke parit umum warga",
+        "Membuang sampah pada tempatnya dan menanam pohon"
+      ],
+      "answer": 3,
+      "explanation": "Menjaga kebersihan dan kelestarian alam adalah kewajiban warga.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap yang mencerminkan pemenuhan kewajiban dalam bermasyarakat adalah ...",
+      "options": [
+        "Mengikuti kegiatan kerja bakti membersihkan selokan",
+        "Menonton tetangga yang sedang bekerja keras",
+        "Menyalakan musik bervolume keras saat larut malam",
+        "Menutup jalan umum tanpa izin pengurus RT setempat"
+      ],
+      "answer": 0,
+      "explanation": "Kerja bakti bersama mencerminkan gotong royong dan kewajiban sosial.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dalam musyawarah, setiap peserta memiliki hak yang sama, yaitu hak untuk ...",
+      "options": [
+        "Memaksakan kehendak agar disetujui seluruh anggota",
+        "Menyampaikan pendapat dan saran secara bebas santun",
+        "Menghina pendapat anggota lain yang tidak sejalan",
+        "Menentukan sendiri hasil akhir rapat tanpa diskusi"
+      ],
+      "answer": 1,
+      "explanation": "Kebebasan berpendapat secara santun adalah hak setiap peserta rapat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika hasil musyawarah telah disepakati bersama, kewajiban seluruh anggota adalah ...",
+      "options": [
+        "Mencari-cari kesalahan isi keputusan rapat",
+        "Hanya menjalankan bagian yang menguntungkan diri",
+        "Melaksanakan keputusan tersebut dengan ikhlas",
+        "Mengabaikan keputusan karena bukan usulan pribadi"
+      ],
+      "answer": 2,
+      "explanation": "Keputusan bersama mengikat seluruh peserta untuk dilaksanakan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bermain bersama teman adalah hak anak, namun anak juga wajib ingat waktu, artinya ...",
+      "options": [
+        "Boleh bermain hingga larut malam tanpa izin",
+        "Menolak disuruh orang tua belajar di rumah",
+        "Membawa teman masuk ke rumah tanpa salam",
+        "Harus pulang tepat waktu untuk mandi dan belajar"
+      ],
+      "answer": 3,
+      "explanation": "Pemenuhan hak bermain harus diimbangi kewajiban disiplin waktu.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Aturan di sekolah melarang siswa mencontek saat ujian. Tujuan aturan ini adalah ...",
+      "options": [
+        "Melatih kejujuran dan mengukur kemampuan siswa",
+        "Menyulitkan siswa dalam mendapatkan nilai bagus",
+        "Membantu siswa agar lebih pintar berbohong",
+        "Mengurangi jumlah siswa yang naik ke kelas berikutnya"
+      ],
+      "answer": 0,
+      "explanation": "Larangan mencontek menanamkan integritas moral dan evaluasi jujur.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Seseorang mengembalikan dompet berisi uang yang ditemukannya di jalan kepada pemiliknya. Tindakan ini mematuhi ...",
+      "options": [
+        "Norma kesopanan pergaulan semata",
+        "Norma kesusilaan dan norma hukum",
+        "Aturan adat istiadat suku tertentu",
+        "Perintah teman dekat satu sekolah"
+      ],
+      "answer": 1,
+      "explanation": "Kejujuran nurani mencerminkan kesusilaan dan hukum kepemilikan barang.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa tamu yang bertamu ke rumah orang lain wajib mengetuk pintu dan mengucap salam?",
+      "options": [
+        "Menunjukkan bahwa dirinya adalah orang penting",
+        "Memastikan ada barang berharga di dalam rumah",
+        "Menghormati privasi pemilik rumah (norma sopan)",
+        "Menghindari hukuman denda dari pengurus RT"
+      ],
+      "answer": 2,
+      "explanation": "Salam dan ketuk pintu adalah adab sopan santun bertamu.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Seorang anak sakit berhak mendapatkan pengobatan yang layak. Kewajiban anak tersebut adalah ...",
+      "options": [
+        "Menolak diperiksa oleh dokter di rumah sakit",
+        "Bermain hujan-hujanan saat masih demam tinggi",
+        "Menuntut makanan pedas dan es krim kesukaan",
+        "Meminum obat dan beristirahat sesuai anjuran"
+      ],
+      "answer": 3,
+      "explanation": "Mematuhi anjuran medis adalah kewajiban pasien demi lekas sembuh.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa pelaksanaan hak dan kewajiban harus berjalan seimbang dan selaras dalam kehidupan bermasyarakat?",
+      "options": [
+        "Mencegah kecemburuan sosial dan pelanggaran hak",
+        "Agar pemerintah tidak perlu membuat aturan hukum",
+        "Agar setiap orang bisa menjadi kaya mendadak",
+        "Agar semua warga negara memiliki profesi sama"
+      ],
+      "answer": 0,
+      "explanation": "Ketimpangan hak dan kewajiban menimbulkan kezaliman, konflik, dan kekacauan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Seorang anak menuntut sepeda baru yang mahal saat keluarga kesulitan ekonomi. Dari nilai Pancasila, sikap anak tersebut ...",
+      "options": [
+        "Tepat karena anak berhak meminta apa saja",
+        "Keliru karena menuntut hak tanpa tenggang rasa",
+        "Benar karena orang tua wajib penuhi kemauan",
+        "Bagus untuk memotivasi kerja orang tua"
+      ],
+      "answer": 1,
+      "explanation": "Hak anak harus diselaraskan dengan tanggung jawab dan tenggang rasa pada keluarga.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Prinsip hukum: 'Kebebasan seseorang dibatasi hak orang lain'. Makna dari prinsip ini adalah ...",
+      "options": [
+        "Manusia tidak memiliki kebebasan sama sekali",
+        "Pemerintah bebas mencabut seluruh hak asasi",
+        "Tidak boleh gunakan hak hingga rugikan orang",
+        "Orang lain bebas mengatur hidup pribadi kita"
+      ],
+      "answer": 2,
+      "explanation": "Kebebasan kita berhenti di batas hak orang lain yang wajib kita hormati.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dalam rapat OSIS, ketua mengabaikan seluruh usulan anggota dan memaksakan programnya sendiri. Pelanggaran etika demokrasi yang terjadi adalah ...",
+      "options": [
+        "Ketua sudah bersikap tegas dan profesional",
+        "Kepemimpinan modern yang efektif dan cepat",
+        "Sesuai budaya yang mengutamakan sang ketua",
+        "Otoriter dan melanggar prinsip musyawarah"
+      ],
+      "answer": 3,
+      "explanation": "Pemaksaan kehendak melanggar sila ke-4 dan prinsip demokrasi partisipatif.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa norma kesusilaan yang bersumber dari hati nurani manusia berlaku universal di seluruh dunia?",
+      "options": [
+        "Kebaikan dan kejujuran diakui fitrah manusia",
+        "Semua negara memiliki undang-undang seragam",
+        "Seluruh manusia bumi berbahasa satu bahasa",
+        "Hati nurani dikendalikan oleh lembaga dunia"
+      ],
+      "answer": 0,
+      "explanation": "Fitrah manusia secara universal membedakan benar dari salah, jujur dari curang.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika melihat teman sebangku berbuat curang saat ujian sekolah, tindakan siswa yang paling tepat dan bijak adalah ...",
+      "options": [
+        "Membiarkannya dan ikut meminta contekan",
+        "Mengingatkan dengan santun atau lapor pengawas",
+        "Menyorakinya di depan kelas agar malu",
+        "Memusuhi dan memukulnya saat istirahat"
+      ],
+      "answer": 1,
+      "explanation": "Menegur secara santun atau melapor ke pengawas menjaga kejujuran akademis.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa aturan tata tertib di sekolah perlu dievaluasi dan disosialisasikan secara berkala kepada siswa?",
+      "options": [
+        "Agar guru bisa menambah hukuman fisik berat",
+        "Menghabiskan anggaran cetak brosur sekolah",
+        "Menyesuaikan kebutuhan dan siswa paham aturan",
+        "Supaya siswa merasa takut pada para guru"
+      ],
+      "answer": 2,
+      "explanation": "Sosialisasi membangun kesadaran hukum, bukan sekadar kepatuhan semu.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Seorang warga memarkir mobil di gang sempit sehingga ambulans terhalang lewat. Warga tersebut melanggar ...",
+      "options": [
+        "Hak pribadi warga negara memiliki mobil",
+        "Aturan kebebasan berkendara di pedesaan",
+        "Norma agama tentang tata cara memiliki harta",
+        "Hak publik atas jalan dan ketertiban umum"
+      ],
+      "answer": 3,
+      "explanation": "Fasilitas umum jalan adalah hak bersama publik, tidak boleh dirampas kepentingan privat.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hak untuk menyatakan pendapat di muka umum dijamin oleh UUD 1945, namun pelaksanaannya harus disertai kewajiban ...",
+      "options": [
+        "Menjaga ketertiban dan hormati hak sesama",
+        "Membayar uang jaminan kepada kepolisian",
+        "Mengikuti semua arahan tanpa boleh protes",
+        "Menolak dialog damai dengan pihak terkait"
+      ],
+      "answer": 0,
+      "explanation": "Penyampaian aspirasi demokrasi harus damai, tertib, dan tidak merusak fasilitas.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa kepatuhan terhadap aturan yang lahir dari kesadaran diri sendiri jauh lebih baik daripada karena takut hukuman?",
+      "options": [
+        "Bisa bebas melanggar saat polisi tidak ada",
+        "Melahirkan disiplin sejati yang bertahan lama",
+        "Menghemat biaya operasional gedung penjara",
+        "Membuat orang menjadi sombong di depan kawan"
+      ],
+      "answer": 1,
+      "explanation": "Kesadaran batin menciptakan masyarakat yang tertib, beradab, dan bermartabat.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Semboyan persatuan bangsa Indonesia yang tertulis pada pita burung Garuda adalah ...",
+      "options": [
+        "Bhinneka Tunggal Ika",
+        "Tut Wuri Handayani",
+        "Ing Ngarso Sung Tulodo",
+        "Gemah Ripah Loh Jinawi"
+      ],
+      "answer": 0,
+      "explanation": "Bhinneka Tunggal Ika adalah semboyan resmi persatuan NKRI.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Arti dari semboyan 'Bhinneka Tunggal Ika' adalah ...",
+      "options": [
+        "Bersatu kita teguh bercerai kita runtuh",
+        "Berbeda-beda tetapi tetap satu jua",
+        "Maju terus pantang mundur membela bangsa",
+        "Berdiam diri menjaga kerukunan bersama"
+      ],
+      "answer": 1,
+      "explanation": "Bhinneka Tunggal Ika berarti keberagaman dalam satu kesatuan Indonesia.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat Bhinneka Tunggal Ika diambil dari kitab kuno peninggalan Majapahit bernama ...",
+      "options": [
+        "Kitab Negarakertagama",
+        "Kitab Arjunawiwaha",
+        "Kitab Sutasoma",
+        "Kitab Baratayuda"
+      ],
+      "answer": 2,
+      "explanation": "Kitab Sutasoma karangan Empu Tantular memuat frasa Bhinneka Tunggal Ika.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pengarang kitab Sutasoma yang menuliskan semboyan Bhinneka Tunggal Ika adalah ...",
+      "options": [
+        "Empu Prapanca",
+        "Empu Gandring",
+        "Empu Sedah",
+        "Empu Tantular"
+      ],
+      "answer": 3,
+      "explanation": "Empu Tantular menulis frasa toleransi tersebut pada masa Majapahit.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rumah adat khas suku Minangkabau di Sumatera Barat disebut ...",
+      "options": [
+        "Rumah Gadang",
+        "Rumah Joglo",
+        "Rumah Tongkonan",
+        "Rumah Honai"
+      ],
+      "answer": 0,
+      "explanation": "Rumah Gadang beratap melengkung runcing seperti tanduk kerbau.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rumah adat tradisional masyarakat suku Jawa disebut ...",
+      "options": [
+        "Rumah Gadang",
+        "Rumah Joglo",
+        "Rumah Tongkonan",
+        "Rumah Baileo"
+      ],
+      "answer": 1,
+      "explanation": "Joglo adalah rumah adat tradisional suku Jawa.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rumah adat khas suku Toraja di Sulawesi Selatan disebut ...",
+      "options": [
+        "Rumah Honai",
+        "Rumah Gadang",
+        "Rumah Tongkonan",
+        "Rumah Lamin"
+      ],
+      "answer": 2,
+      "explanation": "Tongkonan beratap melengkung menyerupai perahu.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rumah adat khas masyarakat suku Dani di pedalaman Papua disebut ...",
+      "options": [
+        "Rumah Gadang",
+        "Rumah Joglo",
+        "Rumah Sasak",
+        "Rumah Honai"
+      ],
+      "answer": 3,
+      "explanation": "Honai adalah rumah bundar beratap jerami/ilalang khas Papua.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tari Saman yang terkenal dengan gerakan serempak dan dinamis berasal dari daerah ...",
+      "options": [
+        "Aceh",
+        "Sumatera Barat",
+        "Jawa Barat",
+        "Bali"
+      ],
+      "answer": 0,
+      "explanation": "Tari Saman warisan budaya dunia berasal dari suku Gayo, Aceh.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tari Kecak dan Tari Pendet merupakan kesenian tari tradisional yang berasal dari provinsi ...",
+      "options": [
+        "Jawa Timur",
+        "Bali",
+        "Nusa Tenggara Barat",
+        "Sulawesi Utara"
+      ],
+      "answer": 1,
+      "explanation": "Kecak dan Pendet adalah tarian khas pulau Bali.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tari Jaipong dengan gerakan lincah dan enerjik berasal dari daerah ...",
+      "options": [
+        "Jawa Tengah",
+        "Jawa Timur",
+        "Jawa Barat",
+        "Banten"
+      ],
+      "answer": 2,
+      "explanation": "Jaipong diciptakan sebagai tarian pergaulan khas Sunda Jawa Barat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tari Piring yang penarinya membawa piring di kedua telapak tangannya berasal dari ...",
+      "options": [
+        "Sumatera Utara",
+        "Riau",
+        "Jambi",
+        "Sumatera Barat"
+      ],
+      "answer": 3,
+      "explanation": "Tari Piring adalah tari tradisional Minangkabau.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Alat musik tradisional Angklung yang terbuat dari bambu berasal dari provinsi ...",
+      "options": [
+        "Jawa Barat",
+        "Jawa Tengah",
+        "Jawa Timur",
+        "Bali"
+      ],
+      "answer": 0,
+      "explanation": "Angklung adalah alat musik bambu khas Sunda, Jawa Barat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Alat musik petik Sasando yang terbuat dari daun lontar berasal dari provinsi ...",
+      "options": [
+        "Nusa Tenggara Barat (NTB)",
+        "Nusa Tenggara Timur (NTT)",
+        "Maluku",
+        "Papua"
+      ],
+      "answer": 1,
+      "explanation": "Sasando adalah alat musik petik khas Pulau Rote, NTT.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Alat musik tabuh Kolintang yang terbuat dari bilah kayu berasal dari provinsi ...",
+      "options": [
+        "Sulawesi Selatan",
+        "Kalimantan Barat",
+        "Sulawesi Utara",
+        "Papua Barat"
+      ],
+      "answer": 2,
+      "explanation": "Kolintang berasal dari Minahasa, Sulawesi Utara.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Agama resmi yang diakui oleh pemerintah Republik Indonesia berjumlah ...",
+      "options": [
+        "Empat (4) agama",
+        "Lima (5) agama",
+        "Tujuh (7) agama",
+        "Enam (6) agama"
+      ],
+      "answer": 3,
+      "explanation": "Islam, Kristen Protestan, Katolik, Hindu, Buddha, dan Konghucu.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hari raya Idul Fitri dan Idul Adha dirayakan oleh umat beragama ...",
+      "options": [
+        "Islam",
+        "Kristen",
+        "Katolik",
+        "Hindu"
+      ],
+      "answer": 0,
+      "explanation": "Idul Fitri dan Idul Adha adalah hari raya umat Islam.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hari raya Natal yang diperingati setiap 25 Desember dirayakan oleh umat beragama ...",
+      "options": [
+        "Islam dan Hindu",
+        "Kristen dan Katolik",
+        "Buddha dan Konghucu",
+        "Hindu dan Buddha"
+      ],
+      "answer": 1,
+      "explanation": "Natal memperingati kelahiran Yesus Kristus bagi umat Kristiani.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hari raya Nyepi dan upacara Ngaben merupakan upacara keagamaan umat ...",
+      "options": [
+        "Buddha",
+        "Konghucu",
+        "Hindu",
+        "Katolik"
+      ],
+      "answer": 2,
+      "explanation": "Nyepi dan Ngaben adalah tradisi keagamaan umat Hindu.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hari raya Waisak dirayakan di candi Borobudur oleh umat beragama ...",
+      "options": [
+        "Hindu",
+        "Konghucu",
+        "Islam",
+        "Buddha"
+      ],
+      "answer": 3,
+      "explanation": "Waisak memperingati Trisuci Waisak bagi umat Buddha.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Faktor utama yang menyebabkan bangsa Indonesia memiliki keragaman suku dan budaya adalah ...",
+      "options": [
+        "Kondisi geografis kepulauan dan jalur perdagangan",
+        "Kekayaan tambang minyak bumi yang sangat melimpah",
+        "Penjajahan bangsa asing yang berlangsung seribu tahun",
+        "Perbedaan iklim salju di berbagai wilayah kepulauan"
+      ],
+      "answer": 0,
+      "explanation": "Letak strategis dan pulau terpisah membentuk kekayaan budaya unik.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap yang harus kita hindari dalam menyikapi keragaman budaya bangsa adalah ...",
+      "options": [
+        "Toleransi dan menghormati tradisi suku lain",
+        "Etnosentrisme (menganggap sukunya paling hebat)",
+        "Mau mempelajari tari-tarian daerah lain di nusantara",
+        "Mengapresiasi pertunjukan seni budaya daerah lain"
+      ],
+      "answer": 1,
+      "explanation": "Etnosentrisme memicu perpecahan dan merusak persatuan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manfaat utama dari adanya keberagaman budaya bagi bangsa Indonesia adalah ...",
+      "options": [
+        "Menyebabkan sering terjadi tawuran antarkampung",
+        "Menghambat pembangunan jalan tol antarpulau",
+        "Menjadi kekayaan nasional dan daya tarik wisata",
+        "Membuat bangsa Indonesia terbelakang teknologinya"
+      ],
+      "answer": 2,
+      "explanation": "Keragaman adalah identitas emas dan pesona pariwisata Indonesia.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Upacara adat Rambu Solo yang merupakan ritual pemakaman leluhur terdapat di daerah ...",
+      "options": [
+        "Kuta, Denpasar, Pulau Bali",
+        "Danau Toba, Sumatera Utara",
+        "Wamena, Pegunungan Papua",
+        "Tana Toraja, Sulawesi Selatan"
+      ],
+      "answer": 3,
+      "explanation": "Rambu Solo adalah upacara adat pemakaman khas Tana Toraja.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tradisi upacara pembakaran jenazah di Bali disebut upacara ...",
+      "options": [
+        "Ngaben",
+        "Sekaten",
+        "Tiwah",
+        "Rambu Solo"
+      ],
+      "answer": 0,
+      "explanation": "Ngaben adalah ritual kremasi sakral umat Hindu Bali.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perayaan Sekaten yang memperingati Maulid Nabi Muhammad saw. diadakan di daerah ...",
+      "options": [
+        "Bandung dan Cirebon",
+        "Yogyakarta dan Surakarta",
+        "Banda Aceh dan Medan",
+        "Banjarmasin dan Samarinda"
+      ],
+      "answer": 1,
+      "explanation": "Sekaten adalah tradisi akulturasi Islam dan Jawa di kraton.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tradisi lompat batu (Hombo Batu) untuk menguji kedewasaan pemuda berasal dari pulau ...",
+      "options": [
+        "Madura, Jawa Timur",
+        "Sumba, NTT",
+        "Nias, Sumatera Utara",
+        "Belitung, Babel"
+      ],
+      "answer": 2,
+      "explanation": "Lompat batu Hombo Batu adalah tradisi ksatria pulau Nias.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pakaian adat Ulos yang ditenun dengan pola khas merupakan pakaian adat suku ...",
+      "options": [
+        "Melayu, Riau Daratan",
+        "Dayak, Kalimantan Barat",
+        "Asmat, Dataran Papua",
+        "Batak, Sumatera Utara"
+      ],
+      "answer": 3,
+      "explanation": "Kain tenun Ulos adalah busana sakral adat suku Batak.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pakaian adat Baju Bodo yang berbentuk segi empat tanpa lengan berasal dari suku ...",
+      "options": [
+        "Bugis-Makassar, Sulawesi Selatan",
+        "Sasak, Lombok, NTB",
+        "Minahasa, Sulawesi Utara",
+        "Banjar, Kalimantan Selatan"
+      ],
+      "answer": 0,
+      "explanation": "Baju Bodo adalah salah satu busana tertua suku Bugis-Makassar.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Senjata tradisional Rencong yang tajam dan melegenda berasal dari daerah ...",
+      "options": [
+        "Jawa Barat",
+        "Aceh",
+        "Kalimantan Timur",
+        "Maluku"
+      ],
+      "answer": 1,
+      "explanation": "Rencong adalah senjata pusaka perjuangan rakyat Aceh.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Senjata tradisional Keris dengan lekukan khas di bilahnya berasal dari daerah ...",
+      "options": [
+        "Papua dan Maluku",
+        "Kalimantan Utara",
+        "Jawa dan Madura",
+        "Nusa Tenggara Timur"
+      ],
+      "answer": 2,
+      "explanation": "Keris diakui UNESCO sebagai warisan budaya takbenda asal Jawa.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Senjata tradisional Mandau yang dihiasi bulu burung enggang berasal dari suku ...",
+      "options": [
+        "Dani, Lembah Papua",
+        "Baduy, Banten Selatan",
+        "Tengger, Bromo",
+        "Dayak, Kalimantan"
+      ],
+      "answer": 3,
+      "explanation": "Mandau adalah senjata pusaka tradisional ksatria Dayak.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Makanan tradisional Rendang yang dinobatkan sebagai makanan terlezat dunia berasal dari ...",
+      "options": [
+        "Minangkabau, Sumatera Barat",
+        "Palembang, Sumatera Selatan",
+        "Yogyakarta, Jawa Tengah",
+        "Makassar, Sulawesi Selatan"
+      ],
+      "answer": 0,
+      "explanation": "Rendang daging kaya rempah berasal dari tanah Minangkabau.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Makanan khas Gudeg yang memiliki cita rasa manis legit berbahan nangka muda berasal dari ...",
+      "options": [
+        "Surabaya",
+        "Yogyakarta",
+        "Semarang",
+        "Bandung"
+      ],
+      "answer": 1,
+      "explanation": "Gudeg adalah kuliner ikonik khas Kota Yogyakarta.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Makanan tradisional Papeda yang berbahan dasar bubur sagu kenyal berasal dari daerah ...",
+      "options": [
+        "Kalimantan Barat",
+        "Sulawesi Tengah",
+        "Maluku dan Papua",
+        "Nusa Tenggara Barat"
+      ],
+      "answer": 2,
+      "explanation": "Papeda berkuah kuning adalah makanan pokok sagu Maluku dan Papua.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bila kita berkunjung ke daerah lain yang memiliki tradisi berbeda dengan daerah kita, sikap kita ...",
+      "options": [
+        "Mengejek pakaian adat yang dipakai penduduk lokal",
+        "Memaksa penduduk lokal mengikuti adat kebiasaan kita",
+        "Mencoret-coret bangunan tempat ibadah bersejarah",
+        "Menghormati dan mematuhi adat istiadat setempat"
+      ],
+      "answer": 3,
+      "explanation": "Di mana bumi dipijak, di sana langit dijunjung (menghormati adat).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kerjasama antarumat beragama di Indonesia dapat diwujudkan dalam kegiatan ...",
+      "options": [
+        "Gotong royong membersihkan lingkungan pascabencana",
+        "Mencampurkan ritual ibadah di satu tempat suci",
+        "Mengharuskan semua agama merayakan hari raya bersama",
+        "Memperdebatkan ajaran kitab suci di media sosial"
+      ],
+      "answer": 0,
+      "explanation": "Toleransi diwujudkan dalam aksi sosial kemanusiaan bersama.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap saling menghormati dan menghargai perbedaan latar belakang antarmanusia disebut ...",
+      "options": [
+        "Fanatisme",
+        "Toleransi",
+        "Primordialisme",
+        "Individualisme"
+      ],
+      "answer": 1,
+      "explanation": "Toleransi adalah kunci kerukunan hidup berbangsa.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tempat ibadah bagi umat beragama Konghucu disebut ...",
+      "options": [
+        "Vihara atau Candi",
+        "Pura atau Kuil",
+        "Kelenteng atau Litang",
+        "Gereja Katedral"
+      ],
+      "answer": 2,
+      "explanation": "Umat Konghucu beribadah di Kelenteng (Litang).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tempat ibadah bagi umat beragama Hindu di Indonesia disebut ...",
+      "options": [
+        "Vihara",
+        "Masjid",
+        "Gereja",
+        "Pura"
+      ],
+      "answer": 3,
+      "explanation": "Pura adalah rumah ibadah suci umat Hindu.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa semboyan Bhinneka Tunggal Ika sangat penting dan strategis bagi kelangsungan NKRI?",
+      "options": [
+        "Menjaga persatuan di tengah keberagaman ratusan suku",
+        "Membuat Indonesia ditakuti negara tetangga",
+        "Menghapus identitas suku bangsa agar seragam menjadi satu",
+        "Menjadikan bahasa daerah sebagai satu-satunya bahasa resmi"
+      ],
+      "answer": 0,
+      "explanation": "Tanpa perekat Bhinneka Tunggal Ika, negara kepulauan rentan terpecah belah.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hubungan harmonis antara pemeluk agama Islam dan Kristen di Maluku diikat oleh tradisi lokal persaudaraan bernama ...",
+      "options": [
+        "Tradisi Sekatenan",
+        "Tradisi Pela Gandong",
+        "Tradisi Kasada Bromo",
+        "Tradisi Karapan Sapi"
+      ],
+      "answer": 1,
+      "explanation": "Pela Gandong adalah kearifan lokal ikatan persaudaraan sejati di Maluku.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Di Bali terdapat tradisi 'Ngejot', yaitu tradisi saling mengantarkan makanan saat hari raya antara warga Hindu dan Muslim. Tradisi ini mencerminkan ...",
+      "options": [
+        "Kewajiban hukum yang diatur undang-undang pemerintah",
+        "Persaingan untuk menunjukkan makanan yang paling mewah",
+        "Kerukunan dan toleransi nyata dalam kehidupan sehari-hari",
+        "Kelemahan keyakinan terhadap ajaran agama masing-masing"
+      ],
+      "answer": 2,
+      "explanation": "Ngejot adalah wujud cinta damai dan toleransi persaudaraan antariman.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bagaimana cara seorang pelajar SD menunjukkan sikap cinta terhadap keragaman budaya bangsa Indonesia?",
+      "options": [
+        "Hanya mau berteman dengan teman yang satu suku saja",
+        "Menganggap bahasa daerah lain terdengar aneh dan lucu",
+        "Menghindari pergaulan dengan siswa berbeda keyakinan",
+        "Bangga mempelajari kesenian daerah dan saling menghormati"
+      ],
+      "answer": 3,
+      "explanation": "Pelajar aktif melestarikan seni nusantara dan bergaul inklusif.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Akulturasi budaya terlihat jelas pada arsitektur Masjid Menara Kudus di Jawa Tengah yang berbentuk candi Hindu. Nilai sejarah yang diajarkan Sunan Kudus adalah ...",
+      "options": [
+        "Menyebarkan ajaran dengan menghormati kearifan lokal",
+        "Memaksa pengikut agama lama menghancurkan candinya",
+        "Meniru arsitektur asing tanpa memahami maknanya",
+        "Menolak segala bentuk warisan peradaban masa lalu"
+      ],
+      "answer": 0,
+      "explanation": "Dakwah Sunan Kudus merangkul budaya setempat dengan penuh kasih sayang.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bahasa Indonesia ditetapkan sebagai bahasa persatuan sejak Sumpah Pemuda 1928. Fungsi utama bahasa Indonesia dalam keberagaman suku adalah ...",
+      "options": [
+        "Menghapus keberadaan seluruh bahasa daerah di nusantara",
+        "Sebagai jembatan komunikasi pemersatu antarsuku bangsa",
+        "Memudahkan bangsa asing untuk menguasai perdagangan",
+        "Sebagai syarat utama untuk dapat bepergian ke luar pulau"
+      ],
+      "answer": 1,
+      "explanation": "Bahasa Indonesia memungkinkan komunikasi lancar tanpa mematikan bahasa ibu.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Di Papua terdapat tradisi 'Bakar Batu' (Barapen) saat merayakan perdamaian antarkelompok atau menyambut tamu. Nilai luhur dari tradisi ini adalah ...",
+      "options": [
+        "Pamer kekayaan hewan ternak kepada suku lain",
+        "Ritual pemujaan api untuk meminta kekayaan",
+        "Gotong royong, kebersamaan, dan rasa syukur",
+        "Hukuman adat bagi warga desa yang bersalah"
+      ],
+      "answer": 2,
+      "explanation": "Bakar Batu merajut rekonsiliasi, santap bersama, dan kehangatan persaudaraan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap primordialisme sempit (hanya membela kelompok sukunya meskipun berbuat salah) dapat membahayakan NKRI karena ...",
+      "options": [
+        "Mempercepat proses pembangunan sarana olahraga",
+        "Menjadikan kebudayaan daerah terkenal di luar negeri",
+        "Membuat generasi muda semakin pintar dan kreatif",
+        "Memicu konflik horizontal dan merusak persatuan"
+      ],
+      "answer": 3,
+      "explanation": "Primordialisme fanatik merusak persaudaraan kebangsaan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Konsep moderasi beragama dalam Kurikulum Merdeka mengajarkan peserta didik untuk ...",
+      "options": [
+        "Menjalankan agama dengan teguh tanpa bersikap ekstrem",
+        "Mencampuradukkan semua ajaran agama menjadi satu aliran",
+        "Menolak segala bentuk ajaran agama dalam kehidupan",
+        "Merasa agamanya paling benar dan merendahkan yang lain"
+      ],
+      "answer": 0,
+      "explanation": "Moderat berarti kokoh berakidah namun toleran dan adil kepada umat lain.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Semboyan 'Bhinneka Tunggal Ika, Tan Hana Dharma Mangrwa' dalam Kakawin Sutasoma memiliki makna filosofis bahwa ...",
+      "options": [
+        "Setiap agama memiliki tuhan yang saling berselisih",
+        "Meskipun berbeda keyakinan, kebenaran itu satu adanya",
+        "Tidak boleh ada perbedaan pendapat di dalam kerajaan",
+        "Kebenaran hanya dimiliki oleh kalangan bangsawan saja"
+      ],
+      "answer": 1,
+      "explanation": "Kebijaksanaan luhur nusantara mengakui perbedaan menuju harmoni kebenaran ilahi.",
+      "difficulty": 3,
+      "timeLimit": 20
+    }
+  ]
+}

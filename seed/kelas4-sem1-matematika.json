@@ -1,0 +1,1958 @@
+{
+  "version": 1,
+  "class": "Kelas 4 SD",
+  "subject": "Matematika",
+  "totalQuestions": 150,
+  "questions": [
+    {
+      "question": "Lambang bilangan dari sembilan ribu empat ratus lima puluh adalah ...",
+      "options": [
+        "9.450",
+        "9.045",
+        "9.405",
+        "9.540"
+      ],
+      "answer": 0,
+      "explanation": "9 ribuan + 4 ratusan + 5 puluhan = 9.450.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Angka 7 pada bilangan 7.625 menempati nilai tempat ...",
+      "options": [
+        "Ratusan",
+        "Ribuan",
+        "Puluhan",
+        "Satuan"
+      ],
+      "answer": 1,
+      "explanation": "Pada 7.625, 7 berada di posisi ribuan bernilai 7.000.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Nama bilangan dari 8.012 adalah ...",
+      "options": [
+        "Delapan ribu seratus dua",
+        "Delapan ratus dua belas",
+        "Delapan ribu dua belas",
+        "Delapan puluh ribu dua belas"
+      ],
+      "answer": 2,
+      "explanation": "8.012 dibaca delapan ribu dua belas.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Nilai angka 5 pada bilangan 3.582 adalah ...",
+      "options": [
+        "50",
+        "5.000",
+        "5",
+        "500"
+      ],
+      "answer": 3,
+      "explanation": "Angka 5 di tempat ratusan bernilai 500.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bilangan 6.340 jika diuraikan menurut nilai tempatnya adalah ...",
+      "options": [
+        "6.000 + 300 + 40",
+        "6.000 + 34",
+        "600 + 300 + 40",
+        "6.000 + 30 + 4"
+      ],
+      "answer": 0,
+      "explanation": "6.340 = 6 ribuan + 3 ratusan + 4 puluhan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah tanda yang tepat untuk 4.250 ... 4.520?",
+      "options": [
+        ">",
+        "<",
+        "=",
+        "+"
+      ],
+      "answer": 1,
+      "explanation": "Karena 4.250 lebih kecil dari 4.520, tanda yang tepat adalah <.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bilangan cacah di antara 5.998 dan 6.000 adalah ...",
+      "options": [
+        "5.997",
+        "6.001",
+        "5.999",
+        "5.990"
+      ],
+      "answer": 2,
+      "explanation": "Bilangan tepat setelah 5.998 dan sebelum 6.000 adalah 5.999.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Berapakah jumlah dari 3 ribuan + 2 ratusan + 8 satuan?",
+      "options": [
+        "3.280",
+        "3.028",
+        "3.288",
+        "3.208"
+      ],
+      "answer": 3,
+      "explanation": "3.000 + 200 + 0 puluhan + 8 satuan = 3.208.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Lambang bilangan sepuluh ribu adalah ...",
+      "options": [
+        "10.000",
+        "1.000",
+        "100.000",
+        "10.001"
+      ],
+      "answer": 0,
+      "explanation": "Sepuluh ribu ditulis dengan angka 10.000.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Angka 0 pada bilangan 4.095 berada pada nilai tempat ...",
+      "options": [
+        "Ribuan",
+        "Ratusan",
+        "Puluhan",
+        "Satuan"
+      ],
+      "answer": 1,
+      "explanation": "4 ribuan, 0 ratusan, 9 puluhan, 5 satuan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bilangan yang lebih besar dari 7.890 adalah ...",
+      "options": [
+        "7.809",
+        "7.790",
+        "7.900",
+        "7.889"
+      ],
+      "answer": 2,
+      "explanation": "7.900 memiliki ratusan lebih besar (900) dibanding 7.890 (800).",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bilangan terkecil dari pilihan berikut adalah ...",
+      "options": [
+        "2.435",
+        "2.534",
+        "2.354",
+        "2.345"
+      ],
+      "answer": 3,
+      "explanation": "2.345 memiliki nilai puluhan terkecil (40).",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bentuk panjang dari bilangan 9.007 adalah ...",
+      "options": [
+        "9.000 + 7",
+        "900 + 7",
+        "9.000 + 70",
+        "9.000 + 700"
+      ],
+      "answer": 0,
+      "explanation": "9.007 terdiri dari 9 ribuan dan 7 satuan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Urutan bilangan dari yang terkecil adalah ...",
+      "options": [
+        "3.250, 3.210, 3.120",
+        "3.120, 3.210, 3.250",
+        "3.210, 3.120, 3.250",
+        "3.120, 3.250, 3.210"
+      ],
+      "answer": 1,
+      "explanation": "3.120 < 3.210 < 3.250.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebuah pabrik memproduksi 4.560 kotak susu hari Senin dan 4.650 hari Selasa. Pernyataan yang benar adalah ...",
+      "options": [
+        "Produksi hari Senin lebih banyak",
+        "Produksi kedua hari sama banyak",
+        "Produksi hari Selasa lebih banyak",
+        "Produksi hari Selasa lebih sedikit"
+      ],
+      "answer": 2,
+      "explanation": "4.650 > 4.560, jadi Selasa memproduksi lebih banyak.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bilangan yang terletak 5 angka sebelum 8.002 adalah ...",
+      "options": [
+        "7.995",
+        "8.007",
+        "7.998",
+        "7.997"
+      ],
+      "answer": 3,
+      "explanation": "8.002 − 5 = 7.997.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pak Jaya memanen 6.780 kg beras. Angka 8 pada jumlah panen tersebut bernilai ...",
+      "options": [
+        "80",
+        "8",
+        "800",
+        "8.000"
+      ],
+      "answer": 0,
+      "explanation": "Angka 8 menempati puluhan bernilai 80.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dua bilangan yang masing-masing lebih besar dari 6.450 adalah ...",
+      "options": [
+        "6.440 dan 6.470",
+        "6.460 dan 6.500",
+        "6.400 dan 6.490",
+        "6.420 dan 6.430"
+      ],
+      "answer": 1,
+      "explanation": "Keduanya berada di atas 6.450.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Aku adalah bilangan di antara 4.500 dan 4.600. Angka puluhanku 7 dan satuanku 5. Aku adalah ...",
+      "options": [
+        "4.675",
+        "4.750",
+        "4.575",
+        "4.557"
+      ],
+      "answer": 2,
+      "explanation": "Ratusan 5, puluhan 7, satuan 5 = 4.575.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Toko Makmur memiliki stok 8.420 buku. Toko Sejahtera memiliki 8.240 buku. Selisih ratusan kedua stok adalah ...",
+      "options": [
+        "400",
+        "180",
+        "100",
+        "200"
+      ],
+      "answer": 3,
+      "explanation": "Ratusan pertama 400, ratusan kedua 200, selisihnya 200.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Urutan bilangan 7.600, 7.060, 7.606 dari yang terbesar adalah ...",
+      "options": [
+        "7.606, 7.600, 7.060",
+        "7.600, 7.606, 7.060",
+        "7.060, 7.600, 7.606",
+        "7.606, 7.060, 7.600"
+      ],
+      "answer": 0,
+      "explanation": "7.606 terbesar, disusul 7.600, lalu 7.060.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bilangan 5.482 jika dibulatkan ke ratusan terdekat menjadi ...",
+      "options": [
+        "5.400",
+        "5.500",
+        "5.480",
+        "6.000"
+      ],
+      "answer": 1,
+      "explanation": "Puluhannya 8 (>=5), jadi ratusan naik menjadi 5.500.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bilangan 3.824 jika dibulatkan ke ribuan terdekat menjadi ...",
+      "options": [
+        "3.000",
+        "3.800",
+        "4.000",
+        "3.900"
+      ],
+      "answer": 2,
+      "explanation": "Ratusannya 8 (>=5), jadi ribuan naik menjadi 4.000.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bilangan ganjil di antara 4.230 dan 4.234 adalah ...",
+      "options": [
+        "4.232 dan 4.233",
+        "4.230 dan 4.232",
+        "4.231 dan 4.235",
+        "4.231 dan 4.233"
+      ],
+      "answer": 3,
+      "explanation": "Bilangan ganjil satuannya tidak habis dibagi 2: 4.231 dan 4.233.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Angka penyusun bilangan 9.753 yang bernilai paling kecil adalah ...",
+      "options": [
+        "3",
+        "5",
+        "7",
+        "9"
+      ],
+      "answer": 0,
+      "explanation": "Angka 3 berada di tempat satuan dengan nilai hanya 3.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Lengkapilah: 4.100, 4.200, ..., 4.400, 4.500.",
+      "options": [
+        "4.250",
+        "4.300",
+        "4.350",
+        "4.210"
+      ],
+      "answer": 1,
+      "explanation": "Pola bertambah 100 setiap langkah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebuah truk membawa 5.250 buah kelapa. Berapa ribuan pada bilangan tersebut?",
+      "options": [
+        "50 ribuan",
+        "2 ribuan",
+        "5 ribuan",
+        "25 ribuan"
+      ],
+      "answer": 2,
+      "explanation": "Angka 5 di posisi paling kiri bernilai 5 ribuan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bilangan yang bernilai 100 lebih banyak dari 7.950 adalah ...",
+      "options": [
+        "8.000",
+        "7.960",
+        "8.150",
+        "8.050"
+      ],
+      "answer": 3,
+      "explanation": "7.950 + 100 = 8.050.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dengan angka 3, 7, 0, 8, bilangan empat angka terkecil yang dapat dibuat adalah ...",
+      "options": [
+        "3.078",
+        "3.708",
+        "3.087",
+        "0.378"
+      ],
+      "answer": 0,
+      "explanation": "Angka pertama tidak boleh 0, pilih 3, lalu susun urut: 0, 7, 8.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Dengan angka 5, 2, 9, 1, bilangan empat angka terbesar yang dapat dibuat adalah ...",
+      "options": [
+        "9.512",
+        "9.521",
+        "9.251",
+        "5.921"
+      ],
+      "answer": 1,
+      "explanation": "Urutkan angka dari yang terbesar: 9, 5, 2, 1 menghasilkan 9.521.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Sebuah bilangan ribuan memiliki angka ribuan 6, ratusan 2 lebih kecil dari ribuan, dan satuan 5. Bilangan itu adalah ...",
+      "options": [
+        "6.205",
+        "6.805",
+        "6.405",
+        "6.450"
+      ],
+      "answer": 2,
+      "explanation": "Ribuan = 6, ratusan = 6 − 2 = 4, puluhan = 0, satuan = 5 -> 6.405.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Selisih nilai angka 7 dan angka 3 pada bilangan 7.435 adalah ...",
+      "options": [
+        "6.700",
+        "7.000",
+        "6.900",
+        "6.970"
+      ],
+      "answer": 3,
+      "explanation": "Nilai angka 7 = 7.000, nilai angka 3 = 30. Selisihnya 7.000 − 30 = 6.970.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Bilangan X memiliki 4 ribuan, 15 ratusan, dan 6 satuan. Nilai bilangan X sebenarnya adalah ...",
+      "options": [
+        "5.506",
+        "4.156",
+        "4.506",
+        "5.156"
+      ],
+      "answer": 0,
+      "explanation": "4.000 + (15 × 100) + 6 = 4.000 + 1.500 + 6 = 5.506.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Sebuah kode loker berupa bilangan genap 4 angka antara 5.000 dan 5.100. Angka puluhannya 8 dan satuannya bukan 0. Kode itu adalah ...",
+      "options": [
+        "5.083",
+        "5.084",
+        "5.184",
+        "5.080"
+      ],
+      "answer": 1,
+      "explanation": "Antara 5.000-5.100, puluhan 8, satuan genap bukan 0 (4) = 5.084.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Berapa banyak bilangan ratusan genap yang dapat dibentuk dari angka 2, 4, 6 tanpa pengulangan?",
+      "options": [
+        "4",
+        "3",
+        "6",
+        "8"
+      ],
+      "answer": 2,
+      "explanation": "Semua angka genap: 246, 264, 426, 462, 624, 642 = 6 bilangan.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Jumlah nilai tempat angka 4 pada bilangan 4.444 adalah ...",
+      "options": [
+        "1.600",
+        "16",
+        "4.000",
+        "4.444"
+      ],
+      "answer": 3,
+      "explanation": "4.000 + 400 + 40 + 4 = 4.444.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Pak Hasan membeli tanah seharga 9.750 ribu rupiah. Pernyataan yang setara adalah ...",
+      "options": [
+        "9 juta 750 ribu rupiah",
+        "975 ribu rupiah",
+        "90 juta 750 ribu",
+        "97 juta rupiah"
+      ],
+      "answer": 0,
+      "explanation": "9.750 ribu = 9.750.000 rupiah = 9 juta 750 ribu rupiah.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Bilangan bulat kelipatan 500 yang terletak antara 7.200 dan 7.800 adalah ...",
+      "options": [
+        "7.300",
+        "7.500",
+        "7.600",
+        "7.400"
+      ],
+      "answer": 1,
+      "explanation": "Kelipatan 500 di antara 7.200 dan 7.800 hanyalah 7.500.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Hasil dari 2.340 + 1.520 = ...",
+      "options": [
+        "3.860",
+        "3.760",
+        "3.850",
+        "4.860"
+      ],
+      "answer": 0,
+      "explanation": "2.340 + 1.520 = 3.860.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 4.750 − 2.310 = ...",
+      "options": [
+        "2.430",
+        "2.440",
+        "2.540",
+        "2.340"
+      ],
+      "answer": 1,
+      "explanation": "4.750 − 2.310 = 2.440.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 25 × 4 = ...",
+      "options": [
+        "90",
+        "110",
+        "100",
+        "125"
+      ],
+      "answer": 2,
+      "explanation": "25 × 4 = 100.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 84 ÷ 4 = ...",
+      "options": [
+        "22",
+        "20",
+        "24",
+        "21"
+      ],
+      "answer": 3,
+      "explanation": "84 ÷ 4 = 21.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 150 × 6 = ...",
+      "options": [
+        "900",
+        "800",
+        "850",
+        "950"
+      ],
+      "answer": 0,
+      "explanation": "150 × 6 = 900.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 500 − 175 = ...",
+      "options": [
+        "335",
+        "325",
+        "425",
+        "315"
+      ],
+      "answer": 1,
+      "explanation": "500 − 175 = 325.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 320 ÷ 8 = ...",
+      "options": [
+        "30",
+        "50",
+        "40",
+        "45"
+      ],
+      "answer": 2,
+      "explanation": "320 ÷ 8 = 40.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 1.200 + 800 = ...",
+      "options": [
+        "1.900",
+        "2.100",
+        "2.050",
+        "2.000"
+      ],
+      "answer": 3,
+      "explanation": "1.200 + 800 = 2.000.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 45 × 10 = ...",
+      "options": [
+        "450",
+        "405",
+        "455",
+        "540"
+      ],
+      "answer": 0,
+      "explanation": "Perkalian dengan 10 menambahkan angka 0 di belakang: 450.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 630 ÷ 9 = ...",
+      "options": [
+        "60",
+        "70",
+        "80",
+        "75"
+      ],
+      "answer": 1,
+      "explanation": "630 ÷ 9 = 70.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 3.000 − 1.250 = ...",
+      "options": [
+        "1.650",
+        "1.850",
+        "1.750",
+        "1.700"
+      ],
+      "answer": 2,
+      "explanation": "3.000 − 1.250 = 1.750.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 16 × 5 = ...",
+      "options": [
+        "70",
+        "85",
+        "90",
+        "80"
+      ],
+      "answer": 3,
+      "explanation": "16 × 5 = 80.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 96 ÷ 6 = ...",
+      "options": [
+        "16",
+        "14",
+        "18",
+        "15"
+      ],
+      "answer": 0,
+      "explanation": "96 ÷ 6 = 16.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 4.100 + 2.900 = ...",
+      "options": [
+        "6.900",
+        "7.000",
+        "7.100",
+        "6.800"
+      ],
+      "answer": 1,
+      "explanation": "4.100 + 2.900 = 7.000.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 3.428 + 2.785 = ...",
+      "options": [
+        "6.113",
+        "6.203",
+        "6.213",
+        "6.313"
+      ],
+      "answer": 2,
+      "explanation": "3.428 + 2.785 = 6.213 dengan teknik menyimpan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 5.000 − 2.645 = ...",
+      "options": [
+        "2.455",
+        "3.355",
+        "2.365",
+        "2.355"
+      ],
+      "answer": 3,
+      "explanation": "5.000 − 2.645 = 2.355.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 124 × 7 = ...",
+      "options": [
+        "868",
+        "858",
+        "878",
+        "848"
+      ],
+      "answer": 0,
+      "explanation": "124 × 7 = (100×7) + (20×7) + (4×7) = 700 + 140 + 28 = 868.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 432 ÷ 6 = ...",
+      "options": [
+        "68",
+        "72",
+        "74",
+        "76"
+      ],
+      "answer": 1,
+      "explanation": "432 ÷ 6 = 72.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sita membeli 3 kotak pensil. Tiap kotak berisi 12 pensil. Jumlah seluruh pensil Sita adalah ...",
+      "options": [
+        "32",
+        "38",
+        "36",
+        "40"
+      ],
+      "answer": 2,
+      "explanation": "3 × 12 = 36 pensil.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebuah toko roti membuat 240 roti dan dikemas ke dalam 8 kardus sama banyak. Tiap kardus berisi ...",
+      "options": [
+        "25 roti",
+        "35 roti",
+        "40 roti",
+        "30 roti"
+      ],
+      "answer": 3,
+      "explanation": "240 ÷ 8 = 30 roti per kardus.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pak Danu memiliki 1.500 batu bata. Ia membeli lagi 2.750 batu bata. Jumlah seluruh batu bata Pak Danu adalah ...",
+      "options": [
+        "4.250",
+        "4.150",
+        "4.350",
+        "3.250"
+      ],
+      "answer": 0,
+      "explanation": "1.500 + 2.750 = 4.250 batu bata.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Paman memetik 450 mangga. Sebanyak 125 mangga dibagikan ke tetangga. Sisa mangga paman adalah ...",
+      "options": [
+        "335",
+        "325",
+        "315",
+        "345"
+      ],
+      "answer": 1,
+      "explanation": "450 − 125 = 325 mangga.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 48 × 15 = ...",
+      "options": [
+        "680",
+        "740",
+        "720",
+        "700"
+      ],
+      "answer": 2,
+      "explanation": "48 × 15 = 48 × (10 + 5) = 480 + 240 = 720.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 625 ÷ 5 = ...",
+      "options": [
+        "115",
+        "135",
+        "105",
+        "125"
+      ],
+      "answer": 3,
+      "explanation": "625 ÷ 5 = 125.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 350 + 250 − 180 = ...",
+      "options": [
+        "420",
+        "410",
+        "430",
+        "400"
+      ],
+      "answer": 0,
+      "explanation": "(350 + 250) − 180 = 600 − 180 = 420.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Di perpustakaan ada 8 rak buku. Tiap rak memuat 45 buku. Berapa jumlah seluruh buku di rak?",
+      "options": [
+        "340",
+        "360",
+        "380",
+        "400"
+      ],
+      "answer": 1,
+      "explanation": "8 × 45 = 360 buku.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ibu membeli 5 kg beras seharga Rp60.000. Berapa harga 1 kg beras tersebut?",
+      "options": [
+        "Rp10.000",
+        "Rp15.000",
+        "Rp12.000",
+        "Rp11.000"
+      ],
+      "answer": 2,
+      "explanation": "Rp60.000 ÷ 5 = Rp12.000.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 18 × 20 = ...",
+      "options": [
+        "380",
+        "340",
+        "400",
+        "360"
+      ],
+      "answer": 3,
+      "explanation": "18 × 2 = 36, jadi 18 × 20 = 360.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Budi memiliki kelereng 145 butir. Diberikan ke adiknya 35 butir, lalu diberi paman 50 butir. Kelereng Budi sekarang adalah ...",
+      "options": [
+        "160",
+        "150",
+        "170",
+        "155"
+      ],
+      "answer": 0,
+      "explanation": "145 − 35 + 50 = 110 + 50 = 160 butir.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari (125 × 4) + (450 ÷ 9) = ...",
+      "options": [
+        "540",
+        "550",
+        "560",
+        "500"
+      ],
+      "answer": 1,
+      "explanation": "(125 × 4) + (450 ÷ 9) = 500 + 50 = 550.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Pak Ahmad memanen 6 keranjang apel. Setiap keranjang berisi 75 apel. Jika 50 apel busuk, apel yang bagus adalah ...",
+      "options": [
+        "410",
+        "390",
+        "400",
+        "450"
+      ],
+      "answer": 2,
+      "explanation": "(6 × 75) − 50 = 450 − 50 = 400 apel bagus.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Sebuah sekolah memiliki 240 siswa yang dibagi rata ke dalam 8 kelas. Jika tiap kelas mendapat 30 buku cerita, total buku adalah ...",
+      "options": [
+        "200",
+        "280",
+        "300",
+        "240"
+      ],
+      "answer": 3,
+      "explanation": "8 kelas × 30 buku per kelas = 240 buku.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Hasil dari 2.500 − (350 × 4) = ...",
+      "options": [
+        "1.100",
+        "1.200",
+        "1.000",
+        "1.150"
+      ],
+      "answer": 0,
+      "explanation": "350 × 4 = 1.400. Lalu 2.500 − 1.400 = 1.100.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Rina menabung Rp5.000 setiap hari selama 2 minggu. Uang tabungan Rina seluruhnya adalah ...",
+      "options": [
+        "Rp60.000",
+        "Rp70.000",
+        "Rp80.000",
+        "Rp75.000"
+      ],
+      "answer": 1,
+      "explanation": "2 minggu = 14 hari. 14 × Rp5.000 = Rp70.000.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Hasil dari (180 ÷ 6) × (24 ÷ 4) = ...",
+      "options": [
+        "160",
+        "200",
+        "180",
+        "150"
+      ],
+      "answer": 2,
+      "explanation": "(180 ÷ 6) × (24 ÷ 4) = 30 × 6 = 180.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Suatu bus memuat 45 penumpang. Di halte A turun 12 orang dan naik 8 orang. Di halte B turun 15 orang. Penumpang sekarang adalah ...",
+      "options": [
+        "28 orang",
+        "25 orang",
+        "30 orang",
+        "26 orang"
+      ],
+      "answer": 3,
+      "explanation": "45 − 12 + 8 − 15 = 41 − 15 = 26 orang.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Harga 3 buku tulis adalah Rp15.000. Berapa harga 7 buku tulis yang sama?",
+      "options": [
+        "Rp35.000",
+        "Rp30.000",
+        "Rp40.000",
+        "Rp32.000"
+      ],
+      "answer": 0,
+      "explanation": "Harga 1 buku = Rp15.000 ÷ 3 = Rp5.000. 7 buku = 7 × Rp5.000 = Rp35.000.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Sebuah bak mandi berisi 180 liter air. Air dialirkan ke dalam ember 15 liter sampai habis. Banyak ember yang terisi adalah ...",
+      "options": [
+        "10 ember",
+        "12 ember",
+        "14 ember",
+        "15 ember"
+      ],
+      "answer": 1,
+      "explanation": "180 ÷ 15 = 12 ember.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Hasil dari 3.200 ÷ 40 + 120 = ...",
+      "options": [
+        "180",
+        "220",
+        "200",
+        "190"
+      ],
+      "answer": 2,
+      "explanation": "3.200 ÷ 40 = 80. Lalu 80 + 120 = 200.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Ibu membeli 4 kotak kue. Tiap kotak berisi 18 kue. Kue tersebut dibagikan rata kepada 6 orang anak. Tiap anak menerima ...",
+      "options": [
+        "10 kue",
+        "14 kue",
+        "15 kue",
+        "12 kue"
+      ],
+      "answer": 3,
+      "explanation": "Total kue = 4 × 18 = 72. Tiap anak = 72 ÷ 6 = 12 kue.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Jika A + 450 = 1.000 dan B − 250 = 300, maka nilai A + B adalah ...",
+      "options": [
+        "1.100",
+        "1.050",
+        "1.150",
+        "1.200"
+      ],
+      "answer": 0,
+      "explanation": "A = 1.000 − 450 = 550. B = 300 + 250 = 550. Maka A + B = 1.100.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Sebuah gedung memiliki 5 lantai. Tiap lantai ada 8 ruangan dan tiap ruangan ada 6 lampu. Banyak lampu seluruhnya adalah ...",
+      "options": [
+        "220 lampu",
+        "240 lampu",
+        "260 lampu",
+        "200 lampu"
+      ],
+      "answer": 1,
+      "explanation": "5 × 8 × 6 = 40 × 6 = 240 lampu.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Pecahan 1/2 senilai dengan ...",
+      "options": [
+        "2/4",
+        "2/5",
+        "1/4",
+        "3/8"
+      ],
+      "answer": 0,
+      "explanation": "1/2 × 2/2 = 2/4.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bentuk desimal dari 3/10 adalah ...",
+      "options": [
+        "0,03",
+        "0,3",
+        "3,0",
+        "0,33"
+      ],
+      "answer": 1,
+      "explanation": "Tiga persepuluh ditulis sebagai 0,3.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pecahan 2/5 senilai dengan ...",
+      "options": [
+        "3/10",
+        "4/15",
+        "4/10",
+        "5/10"
+      ],
+      "answer": 2,
+      "explanation": "2/5 × 2/2 = 4/10.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bentuk pecahan biasa dari 0,7 adalah ...",
+      "options": [
+        "7/100",
+        "70/10",
+        "1/7",
+        "7/10"
+      ],
+      "answer": 3,
+      "explanation": "0,7 memiliki satu angka di belakang koma, jadi 7/10.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah pecahan yang paling sederhana dari 4/8?",
+      "options": [
+        "1/2",
+        "2/4",
+        "4/4",
+        "1/4"
+      ],
+      "answer": 0,
+      "explanation": "Bagi pembilang dan penyebut dengan 4 menghasilkan 1/2.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bentuk desimal dari 25/100 adalah ...",
+      "options": [
+        "2,5",
+        "0,25",
+        "0,025",
+        "25,0"
+      ],
+      "answer": 1,
+      "explanation": "25/100 ditulis sebagai 0,25.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tanda yang tepat untuk 1/4 ... 3/4 adalah ...",
+      "options": [
+        ">",
+        "=",
+        "<",
+        "+"
+      ],
+      "answer": 2,
+      "explanation": "Penyebut sama, pembilang 1 lebih kecil dari 3.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 1/5 + 2/5 = ...",
+      "options": [
+        "3/10",
+        "2/5",
+        "4/5",
+        "3/5"
+      ],
+      "answer": 3,
+      "explanation": "Penyebut sudah sama: (1 + 2)/5 = 3/5.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 5/8 − 2/8 = ...",
+      "options": [
+        "3/8",
+        "3/16",
+        "7/8",
+        "2/8"
+      ],
+      "answer": 0,
+      "explanation": "Penyebut sama: (5 − 2)/8 = 3/8.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pecahan 6/9 disederhanakan menjadi ...",
+      "options": [
+        "3/4",
+        "2/3",
+        "1/3",
+        "3/5"
+      ],
+      "answer": 1,
+      "explanation": "Bagi pembilang dan penyebut dengan FPB 3: 6÷3 / 9÷3 = 2/3.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bentuk desimal dari 1/2 adalah ...",
+      "options": [
+        "0,2",
+        "0,05",
+        "0,5",
+        "0,12"
+      ],
+      "answer": 2,
+      "explanation": "1/2 = 5/10 = 0,5.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pecahan yang memiliki nilai terbesar adalah ...",
+      "options": [
+        "1/4",
+        "2/4",
+        "1/2",
+        "3/4"
+      ],
+      "answer": 3,
+      "explanation": "3/4 bernilai 0,75, lebih besar dari 1/4 (0,25) dan 2/4 (0,50).",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pecahan yang senilai dengan 3/4 adalah ...",
+      "options": [
+        "9/12",
+        "6/10",
+        "8/12",
+        "9/16"
+      ],
+      "answer": 0,
+      "explanation": "3/4 × 3/3 = 9/12.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 2/3 senilai dengan pecahan berpenyebut 15, yaitu ...",
+      "options": [
+        "8/15",
+        "10/15",
+        "12/15",
+        "5/15"
+      ],
+      "answer": 1,
+      "explanation": "Kalikan pembilang dan penyebut dengan 5: (2×5)/(3×5) = 10/15.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bentuk persen dari pecahan 1/4 adalah ...",
+      "options": [
+        "20%",
+        "40%",
+        "25%",
+        "50%"
+      ],
+      "answer": 2,
+      "explanation": "1/4 = 25/100 = 25%.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 0,45 jika diubah ke pecahan biasa paling sederhana adalah ...",
+      "options": [
+        "45/100",
+        "9/10",
+        "4/5",
+        "9/20"
+      ],
+      "answer": 3,
+      "explanation": "45/100 dibagi 5/5 = 9/20.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah perbandingan yang benar?",
+      "options": [
+        "2/3 > 1/2",
+        "1/3 > 1/2",
+        "3/5 < 2/5",
+        "1/4 > 2/4"
+      ],
+      "answer": 0,
+      "explanation": "2/3 = 4/6 dan 1/2 = 3/6. Karena 4/6 > 3/6, maka 2/3 > 1/2.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ibu memotong melon menjadi 8 bagian sama besar. Dina memakan 2 bagian dan Budi 3 bagian. Melon yang tersisa adalah ...",
+      "options": [
+        "5/8 bagian",
+        "3/8 bagian",
+        "2/8 bagian",
+        "4/8 bagian"
+      ],
+      "answer": 1,
+      "explanation": "Dimakan = 2/8 + 3/8 = 5/8. Sisa = 8/8 − 5/8 = 3/8 bagian.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 0,4 + 0,35 = ...",
+      "options": [
+        "0,39",
+        "0,49",
+        "0,75",
+        "0,79"
+      ],
+      "answer": 2,
+      "explanation": "0,40 + 0,35 = 0,75.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 1 − 3/7 = ...",
+      "options": [
+        "3/7",
+        "2/7",
+        "5/7",
+        "4/7"
+      ],
+      "answer": 3,
+      "explanation": "1 = 7/7. 7/7 − 3/7 = 4/7.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Urutan pecahan 1/2, 1/4, 3/4 dari yang terkecil adalah ...",
+      "options": [
+        "1/4, 1/2, 3/4",
+        "1/2, 1/4, 3/4",
+        "3/4, 1/2, 1/4",
+        "1/4, 3/4, 1/2"
+      ],
+      "answer": 0,
+      "explanation": "1/4 (0,25) < 1/2 (0,50) < 3/4 (0,75).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pecahan 15/20 disederhanakan menjadi ...",
+      "options": [
+        "4/5",
+        "3/4",
+        "2/3",
+        "3/5"
+      ],
+      "answer": 1,
+      "explanation": "Bagi pembilang dan penyebut dengan 5 menghasilkan 3/4.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 0,8 − 0,25 = ...",
+      "options": [
+        "0,65",
+        "0,53",
+        "0,55",
+        "0,60"
+      ],
+      "answer": 2,
+      "explanation": "0,80 − 0,25 = 0,55.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Di meja ada kue tart. Rian mengambil 1/6 bagian dan Salsa mengambil 2/6 bagian. Bagian kue yang diambil seluruhnya adalah ...",
+      "options": [
+        "3/12 bagian",
+        "2/3 bagian",
+        "1/3 bagian",
+        "1/2 bagian"
+      ],
+      "answer": 3,
+      "explanation": "1/6 + 2/6 = 3/6 = disederhanakan menjadi 1/2 bagian.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Nilai desimal dari 3/5 adalah ...",
+      "options": [
+        "0,6",
+        "0,35",
+        "0,5",
+        "0,3"
+      ],
+      "answer": 0,
+      "explanation": "3/5 = 6/10 = 0,6.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil dari 1/2 + 1/4 adalah ...",
+      "options": [
+        "2/6",
+        "3/4",
+        "2/4",
+        "1/4"
+      ],
+      "answer": 1,
+      "explanation": "Samakan penyebut: 2/4 + 1/4 = 3/4.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Hasil dari 3/4 − 1/2 adalah ...",
+      "options": [
+        "2/2",
+        "2/4",
+        "1/4",
+        "1/2"
+      ],
+      "answer": 2,
+      "explanation": "3/4 − 2/4 = 1/4.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Pecahan di antara 1/4 dan 3/4 yang tepat di tengah-tengahnya adalah ...",
+      "options": [
+        "2/3",
+        "3/8",
+        "1/3",
+        "1/2"
+      ],
+      "answer": 3,
+      "explanation": "(1/4 + 3/4) ÷ 2 = 1 ÷ 2 = 1/2.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Tono memiliki tali 1,5 meter. Dipotong 3/4 meter untuk jemuran. Sisa tali Tono adalah ...",
+      "options": [
+        "0,75 meter",
+        "0,5 meter",
+        "1,25 meter",
+        "0,65 meter"
+      ],
+      "answer": 0,
+      "explanation": "1,5 − 0,75 = 0,75 meter (karena 3/4 = 0,75).",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Jika a/12 = 3/4, maka nilai a adalah ...",
+      "options": [
+        "6",
+        "9",
+        "8",
+        "10"
+      ],
+      "answer": 1,
+      "explanation": "3/4 = (3×3)/(4×3) = 9/12, jadi a = 9.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Sebuah botol berisi 4/5 liter sirup. Diminum 1/2 liter. Sisa sirup dalam botol adalah ...",
+      "options": [
+        "3/5 liter",
+        "1/5 liter",
+        "3/10 liter",
+        "2/10 liter"
+      ],
+      "answer": 2,
+      "explanation": "4/5 − 1/2 = 8/10 − 5/10 = 3/10 liter.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Manakah pecahan yang nilainya tidak sama dengan lainnya?",
+      "options": [
+        "3/4",
+        "6/8",
+        "9/12",
+        "4/6"
+      ],
+      "answer": 3,
+      "explanation": "3/4 = 6/8 = 9/12 = 0,75. Sedangkan 4/6 = 2/3 = 0,67.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Hasil dari 0,75 + 1/2 dalam bentuk desimal adalah ...",
+      "options": [
+        "1,25",
+        "1,15",
+        "1,20",
+        "1,50"
+      ],
+      "answer": 0,
+      "explanation": "0,75 + 0,50 = 1,25.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Pak Jaya memiliki sawah seluas 1 hektare. Sebanyak 0,35 hektare ditanami jagung dan 2/5 hektare ditanami padi. Sisa sawah adalah ...",
+      "options": [
+        "0,30 hektare",
+        "0,25 hektare",
+        "0,20 hektare",
+        "0,15 hektare"
+      ],
+      "answer": 1,
+      "explanation": "2/5 = 0,40. Terpakai = 0,35 + 0,40 = 0,75. Sisa = 1 − 0,75 = 0,25 hektare.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Jika 2/5 dari uang Beni adalah Rp10.000, maka seluruh uang Beni adalah ...",
+      "options": [
+        "Rp20.000",
+        "Rp30.000",
+        "Rp25.000",
+        "Rp15.000"
+      ],
+      "answer": 2,
+      "explanation": "Uang Beni = Rp10.000 ÷ 2 × 5 = Rp25.000.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Keliling persegi dengan panjang sisi 6 cm adalah ...",
+      "options": [
+        "24 cm",
+        "36 cm",
+        "12 cm",
+        "18 cm"
+      ],
+      "answer": 0,
+      "explanation": "Keliling persegi = 4 × sisi = 4 × 6 = 24 cm.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Luas persegi dengan panjang sisi 5 cm adalah ...",
+      "options": [
+        "20 cm²",
+        "25 cm²",
+        "10 cm²",
+        "30 cm²"
+      ],
+      "answer": 1,
+      "explanation": "Luas persegi = sisi × sisi = 5 × 5 = 25 cm².",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Panjang 2 meter sama dengan ...",
+      "options": [
+        "20 cm",
+        "2.000 cm",
+        "200 cm",
+        "20.000 cm"
+      ],
+      "answer": 2,
+      "explanation": "1 meter = 100 cm, jadi 2 meter = 200 cm.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Berat 3 kilogram sama dengan ...",
+      "options": [
+        "300 gram",
+        "30 gram",
+        "30.000 gram",
+        "3.000 gram"
+      ],
+      "answer": 3,
+      "explanation": "1 kg = 1.000 gram, jadi 3 kg = 3.000 gram.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Keliling persegi panjang dengan panjang 8 cm dan lebar 4 cm adalah ...",
+      "options": [
+        "24 cm",
+        "32 cm",
+        "16 cm",
+        "28 cm"
+      ],
+      "answer": 0,
+      "explanation": "Keliling = 2 × (p + l) = 2 × (8 + 4) = 2 × 12 = 24 cm.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Luas persegi panjang dengan panjang 10 cm dan lebar 6 cm adalah ...",
+      "options": [
+        "32 cm²",
+        "60 cm²",
+        "16 cm²",
+        "50 cm²"
+      ],
+      "answer": 1,
+      "explanation": "Luas = panjang × lebar = 10 × 6 = 60 cm².",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Lanjutan pola bilangan 3, 6, 9, 12, ... adalah ...",
+      "options": [
+        "14",
+        "16",
+        "15",
+        "18"
+      ],
+      "answer": 2,
+      "explanation": "Pola bertambah 3 setiap suku.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Lanjutan pola bilangan 2, 4, 8, 16, ... adalah ...",
+      "options": [
+        "24",
+        "30",
+        "20",
+        "32"
+      ],
+      "answer": 3,
+      "explanation": "Pola dikali 2 setiap suku.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Satuan baku untuk mengukur luas ruangan adalah ...",
+      "options": [
+        "Meter persegi (m²)",
+        "Meter (m)",
+        "Kilogram (kg)",
+        "Liter (l)"
+      ],
+      "answer": 0,
+      "explanation": "Luas diukur dalam satuan persegi seperti m² atau cm².",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "1 jam sama dengan ...",
+      "options": [
+        "100 menit",
+        "60 menit",
+        "30 menit",
+        "3.600 menit"
+      ],
+      "answer": 1,
+      "explanation": "1 jam terdiri atas 60 menit.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pola bilangan 50, 45, 40, 35, ... memiliki aturan ...",
+      "options": [
+        "Bertambah 5",
+        "Dibagi 5",
+        "Berkurang 5",
+        "Berkurang 10"
+      ],
+      "answer": 2,
+      "explanation": "Setiap langkah dikurangi 5.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebuah persegi panjang memiliki keliling 30 cm. Jika panjangnya 9 cm, lebarnya adalah ...",
+      "options": [
+        "5 cm",
+        "7 cm",
+        "8 cm",
+        "6 cm"
+      ],
+      "answer": 3,
+      "explanation": "p + l = 30 ÷ 2 = 15. Maka l = 15 − 9 = 6 cm.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Luas sebuah persegi adalah 64 cm². Panjang sisi persegi tersebut adalah ...",
+      "options": [
+        "8 cm",
+        "6 cm",
+        "7 cm",
+        "9 cm"
+      ],
+      "answer": 0,
+      "explanation": "sisi = akar dari 64 = 8 cm karena 8 × 8 = 64.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ibu membeli 2 kg beras dan 500 gram gula pasir. Berat belanjaan ibu seluruhnya adalah ...",
+      "options": [
+        "2.050 gram",
+        "2.500 gram",
+        "2.100 gram",
+        "3.000 gram"
+      ],
+      "answer": 1,
+      "explanation": "2 kg = 2.000 g. 2.000 g + 500 g = 2.500 gram.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dua utas tali memiliki panjang 150 cm dan 2,5 meter. Panjang kedua tali jika disambung adalah ...",
+      "options": [
+        "350 cm",
+        "450 cm",
+        "400 cm",
+        "300 cm"
+      ],
+      "answer": 2,
+      "explanation": "2,5 m = 250 cm. 150 cm + 250 cm = 400 cm.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perhatikan pola: 4, 9, 14, 19, ... Suku ke-6 dari pola tersebut adalah ...",
+      "options": [
+        "24",
+        "34",
+        "28",
+        "29"
+      ],
+      "answer": 3,
+      "explanation": "Suku ke-5 = 19 + 5 = 24. Suku ke-6 = 24 + 5 = 29.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebuah meja berbentuk persegi panjang dengan panjang 120 cm dan lebar 80 cm. Keliling meja adalah ...",
+      "options": [
+        "400 cm",
+        "200 cm",
+        "9.600 cm",
+        "300 cm"
+      ],
+      "answer": 0,
+      "explanation": "Keliling = 2 × (120 + 80) = 2 × 200 = 400 cm.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Lantai kamar berbentuk persegi dengan sisi 4 meter. Luas lantai kamar tersebut adalah ...",
+      "options": [
+        "8 m²",
+        "16 m²",
+        "12 m²",
+        "20 m²"
+      ],
+      "answer": 1,
+      "explanation": "Luas = 4 × 4 = 16 m².",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Lanjutan dari pola bilangan 1, 4, 9, 16, ... adalah ...",
+      "options": [
+        "20",
+        "24",
+        "25",
+        "30"
+      ],
+      "answer": 2,
+      "explanation": "Pola bilangan kuadrat: 1², 2², 3², 4², 5² = 25.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebuah kebun jagung berukuran panjang 15 m dan lebar 10 m dipagari kawat. Panjang kawat yang diperlukan adalah ...",
+      "options": [
+        "150 m",
+        "25 m",
+        "60 m",
+        "50 m"
+      ],
+      "answer": 3,
+      "explanation": "Keliling kebun = 2 × (15 + 10) = 50 m.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jarak rumah Andi ke sekolah adalah 1 km 250 m. Jarak tersebut setara dengan ...",
+      "options": [
+        "1.250 m",
+        "1.025 m",
+        "1.205 m",
+        "1.500 m"
+      ],
+      "answer": 0,
+      "explanation": "1 km = 1.000 m. 1.000 m + 250 m = 1.250 m.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebuah pita panjangnya 3 meter dipotong menjadi 6 bagian sama panjang. Panjang tiap potongan adalah ...",
+      "options": [
+        "30 cm",
+        "50 cm",
+        "60 cm",
+        "40 cm"
+      ],
+      "answer": 1,
+      "explanation": "3 m = 300 cm. 300 ÷ 6 = 50 cm.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pola bilangan: 100, 92, 84, 76, ... Angka berikutnya adalah ...",
+      "options": [
+        "70",
+        "66",
+        "68",
+        "72"
+      ],
+      "answer": 2,
+      "explanation": "Pola selalu berkurang 8. 76 − 8 = 68.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Suatu persegi memiliki keliling 48 cm. Luas persegi tersebut adalah ...",
+      "options": [
+        "120 cm²",
+        "96 cm²",
+        "160 cm²",
+        "144 cm²"
+      ],
+      "answer": 3,
+      "explanation": "Sisi = 48 ÷ 4 = 12 cm. Luas = 12 × 12 = 144 cm².",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jika berat sekarung beras adalah 25 kg dan beras dimasak 1 kg per hari, beras akan habis dalam waktu ...",
+      "options": [
+        "25 hari",
+        "20 hari",
+        "30 hari",
+        "15 hari"
+      ],
+      "answer": 0,
+      "explanation": "25 kg ÷ 1 kg/hari = 25 hari.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Keliling sebuah persegi panjang adalah 40 cm. Jika panjangnya 4 cm lebih panjang dari lebarnya, luasnya adalah ...",
+      "options": [
+        "84 cm²",
+        "96 cm²",
+        "100 cm²",
+        "90 cm²"
+      ],
+      "answer": 1,
+      "explanation": "p + l = 20. Jika p = l + 4, maka 2l + 4 = 20 -> l = 8, p = 12. Luas = 12 × 8 = 96 cm².",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Dua persegi memiliki panjang sisi masing-masing 4 cm dan 8 cm. Perbandingan luas kedua persegi tersebut adalah ...",
+      "options": [
+        "1 : 2",
+        "1 : 8",
+        "1 : 4",
+        "1 : 16"
+      ],
+      "answer": 2,
+      "explanation": "Luas 1 = 16 cm², Luas 2 = 64 cm². Perbandingan 16 : 64 = 1 : 4.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Sebuah kolam renang berbentuk persegi panjang berukuran 20 m × 10 m. Di sekeliling kolam dibuat jalan setapak selebar 1 m. Luas jalan setapak adalah ...",
+      "options": [
+        "60 m²",
+        "70 m²",
+        "54 m²",
+        "64 m²"
+      ],
+      "answer": 3,
+      "explanation": "Luas luar = 22 × 12 = 264 m². Luas kolam = 20 × 10 = 200 m². Luas jalan = 264 − 200 = 64 m².",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Perhatikan pola: 2, 3, 5, 8, 12, ... Dua suku berikutnya adalah ...",
+      "options": [
+        "17 dan 23",
+        "16 dan 22",
+        "17 dan 24",
+        "18 dan 25"
+      ],
+      "answer": 0,
+      "explanation": "Selisih bertambah 1: +1, +2, +3, +4, +5 (12+5=17), +6 (17+6=23).",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Pak Toni memasang ubin di ruang tamu berukuran 6 m × 4 m. Jika ukuran tiap ubin 40 cm × 40 cm, banyak ubin yang dibutuhkan adalah ...",
+      "options": [
+        "120 buah",
+        "150 buah",
+        "160 buah",
+        "200 buah"
+      ],
+      "answer": 1,
+      "explanation": "Luas ruangan = 600 × 400 = 240.000 cm². Luas ubin = 40 × 40 = 1.600 cm². Banyak ubin = 240.000 ÷ 1.600 = 150 buah.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Sebuah kawat sepanjang 60 cm dibentuk menjadi persegi panjang dengan lebar 10 cm. Luas persegi panjang tersebut adalah ...",
+      "options": [
+        "150 cm²",
+        "300 cm²",
+        "200 cm²",
+        "250 cm²"
+      ],
+      "answer": 2,
+      "explanation": "Keliling = 60 cm. p + l = 30 cm -> p = 20 cm. Luas = 20 × 10 = 200 cm².",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Pola bilangan segitiga: 1, 3, 6, 10, ... Nilai suku ke-7 dari pola ini adalah ...",
+      "options": [
+        "21",
+        "25",
+        "30",
+        "28"
+      ],
+      "answer": 3,
+      "explanation": "Suku ke-n = n×(n+1)/2. Suku ke-7 = 7 × 8 / 2 = 28.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Roni bersepeda menempuh jarak 4,5 km dalam waktu 30 menit. Berapa meter jarak yang ditempuh setiap menitnya?",
+      "options": [
+        "150 meter",
+        "120 meter",
+        "180 meter",
+        "200 meter"
+      ],
+      "answer": 0,
+      "explanation": "4,5 km = 4.500 m. Jarak per menit = 4.500 ÷ 30 = 150 meter.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Sebuah lapangan berbentuk persegi memiliki keliling yang sama dengan persegi panjang berukuran 16 m × 8 m. Luas lapangan persegi adalah ...",
+      "options": [
+        "128 m²",
+        "144 m²",
+        "160 m²",
+        "100 m²"
+      ],
+      "answer": 1,
+      "explanation": "Keliling persegi panjang = 2 × (16 + 8) = 48 m. Sisi persegi = 48 ÷ 4 = 12 m. Luas = 12 × 12 = 144 m².",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Perhatikan pola: 3, 7, 15, 31, ... Suku berikutnya dari pola tersebut adalah ...",
+      "options": [
+        "55",
+        "60",
+        "63",
+        "64"
+      ],
+      "answer": 2,
+      "explanation": "Aturan: (angka × 2) + 1. Suku berikutnya = (31 × 2) + 1 = 63.",
+      "difficulty": 3,
+      "timeLimit": 35
+    }
+  ]
+}

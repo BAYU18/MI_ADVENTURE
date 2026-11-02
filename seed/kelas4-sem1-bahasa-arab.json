@@ -1,0 +1,1308 @@
+{
+  "version": 1,
+  "class": "Kelas 4 SD",
+  "subject": "Bahasa Arab",
+  "totalQuestions": 100,
+  "questions": [
+    {
+      "question": "Arti dari kata الْعُنْوَانُ (al-'unwaan) dalam bahasa Indonesia adalah ...",
+      "options": [
+        "alamat",
+        "sekolah",
+        "rumah",
+        "jalan"
+      ],
+      "answer": 0,
+      "explanation": "Kata al-'unwan bermakna alamat tempat tinggal atau lokasi.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Bahasa Arab dari kata 'rumah' adalah ...",
+      "options": [
+        "مَسْجِدٌ (masjidun)",
+        "بَيْتٌ (baitun)",
+        "مَدْرَسَةٌ (madrasatun)",
+        "فَصْلٌ (fashlun)"
+      ],
+      "answer": 1,
+      "explanation": "Baitun (بَيْتٌ) berarti rumah tempat tinggal keluarga.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Kata شَارِعٌ (syaari') memiliki arti ...",
+      "options": [
+        "kantor pos",
+        "lapangan",
+        "jalan raya",
+        "pasar tradisional"
+      ],
+      "answer": 2,
+      "explanation": "Syaari' (شَارِعٌ) artinya jalan raya atau gang perumahan.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Bahasa Arab dari kata 'nomor' atau 'angka' adalah ...",
+      "options": [
+        "اِسْمٌ (ismun)",
+        "بَابٌ (baabun)",
+        "كِتَابٌ (kitaabun)",
+        "رَقْمٌ (roqmun)"
+      ],
+      "answer": 3,
+      "explanation": "Roqmun (رَقْمٌ) bermakna nomor urut, nomor rumah, atau nomor telepon.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Angka Arab '٣' dibaca dan bernilai ...",
+      "options": [
+        "ثَلَاثَةٌ (tiga)",
+        "وَاحِدٌ (satu)",
+        "اِثْنَانِ (dua)",
+        "أَرْبَعَةٌ (empat)"
+      ],
+      "answer": 0,
+      "explanation": "Lambang angka '٣' adalah angka 3 (tsalaatsah).",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Bahasa Arab untuk bilangan 'lima' (5) adalah ...",
+      "options": [
+        "سِتَّةٌ (sittah)",
+        "خَمْسَةٌ (khamsah)",
+        "سَبْعَةٌ (sab'ah)",
+        "ثَمَانِيَةٌ (tsamaaniyah)"
+      ],
+      "answer": 1,
+      "explanation": "Khamsah (خَمْسَةٌ) adalah bilangan 5.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Angka Arab '٧' menunjukkan bilangan ...",
+      "options": [
+        "lima (٥)",
+        "enam (٦)",
+        "tujuh (٧)",
+        "delapan (٨)"
+      ],
+      "answer": 2,
+      "explanation": "Angka 7 dalam aksara Arab ditulis dengan simbol '٧'.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Kata tanya yang tepat untuk menanyakan tempat tinggal 'Di mana rumahmu?' adalah ...",
+      "options": [
+        "مَا اسْمُكَ؟",
+        "كَيْفَ حَالُكَ؟",
+        "مَنْ هَذَا؟",
+        "أَيْنَ بَيْتُكَ؟"
+      ],
+      "answer": 3,
+      "explanation": "Aina (أَيْنَ) adalah kata tanya untuk menanyakan tempat atau lokasi.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Jawaban yang tepat untuk pertanyaan 'أَيْنَ مَدْرَسَتُكَ؟' adalah ...",
+      "options": [
+        "مَدْرَسَتِي فِي الشَّارِعِ",
+        "اِسْمِي أَحْمَدُ",
+        "أَنَا تِلْمِيذٌ",
+        "عُمْرِي عَشْرُ سِنِينَ"
+      ],
+      "answer": 0,
+      "explanation": "Madrasatii fiis syaari' artinya sekolahku berada di jalan...",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Bahasa Arab dari kata 'kota' adalah ...",
+      "options": [
+        "قَرْيَةٌ (qaryah)",
+        "مَدِينَةٌ (madiinah)",
+        "بَحْرٌ (bahrun)",
+        "جَبَلٌ (jabalun)"
+      ],
+      "answer": 1,
+      "explanation": "Madiinah (مَدِينَةٌ) bermakna kota.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Bahasa Arab dari kata 'desa' adalah ...",
+      "options": [
+        "مَدِينَةٌ (madiinah)",
+        "سُوقٌ (suuqun)",
+        "قَرْيَةٌ (qaryah)",
+        "شَارِعٌ (syaari')"
+      ],
+      "answer": 2,
+      "explanation": "Qaryah (قَرْيَةٌ) artinya perkampungan atau pedesaan.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Kata هَاتِفٌ (haatifun) memiliki arti ...",
+      "options": [
+        "televisi",
+        "komputer",
+        "radio",
+        "telepon"
+      ],
+      "answer": 3,
+      "explanation": "Haatif (هَاتِفٌ) artinya telepon.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Lafal bilangan Arab 'عَشَرَةٌ' ('asyarah) melambangkan angka ...",
+      "options": [
+        "sepuluh (١٠)",
+        "delapan (٨)",
+        "sembilan (٩)",
+        "sebelas (١١)"
+      ],
+      "answer": 0,
+      "explanation": "'Asyarah (عَشَرَةٌ) bernilai 10.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Jika rumahmu di Jalan Sudirman nomor 4, maka diucapkan ...",
+      "options": [
+        "فِي شَارِعِ سُودِيرْمَان رَقْمُ ١",
+        "فِي شَارِعِ سُودِيرْمَان رَقْمُ ٤",
+        "فِي شَارِعِ سُودِيرْمَان رَقْمُ ٦",
+        "فِي شَارِعِ سُودِيرْمَان رَقْمُ ٩"
+      ],
+      "answer": 1,
+      "explanation": "Roqmu 4 ditulis رَقْمُ ٤ (arba'ah).",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Urutan bilangan Arab dari 1 sampai 4 yang benar adalah ...",
+      "options": [
+        "أَرْبَعَةٌ، ثَلَاثَةٌ، اِثْنَانِ، وَاحِدٌ",
+        "خَمْسَةٌ، سِتَّةٌ، سَبْعَةٌ، ثَمَانِيَةٌ",
+        "وَاحِدٌ، اِثْنَانِ، ثَلَاثَةٌ، أَرْبَعَةٌ",
+        "وَاحِدٌ، ثَلَاثَةٌ، خَمْسَةٌ، سَبْعَةٌ"
+      ],
+      "answer": 2,
+      "explanation": "Urutan hitungan dasar: wahid (1), itsnan (2), tsalatsah (3), arba'ah (4).",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Perhatikan kalimat: 'بَيْتِي قَرِيبٌ مِنَ الْمَدْرَسَةِ'. Arti kata قَرِيبٌ adalah ...",
+      "options": [
+        "sangat jauh dari sekolah",
+        "tepat di depan pasar",
+        "berada di tengah sawah",
+        "dekat dengan sekolah"
+      ],
+      "answer": 3,
+      "explanation": "Qariibun min (قَرِيبٌ مِنْ) bermakna dekat dari suatu tempat.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Lawan kata dari قَرِيبٌ (dekat) dalam bahasa Arab adalah ...",
+      "options": [
+        "بَعِيدٌ (jauh)",
+        "كَبِيرٌ (besar)",
+        "صَغِيرٌ (kecil)",
+        "جَمِيلٌ (indah)"
+      ],
+      "answer": 0,
+      "explanation": "Ba'iidun (بَعِيدٌ) bermakna jauh.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Perhatikan kalimat: 'هَذَا رَقْمُ هَاتِفِي: ٠٨١٢٣٤'. Kata رَقْمُ هَاتِفِي artinya ...",
+      "options": [
+        "nomor rumah paman",
+        "nomor telepon saya",
+        "nomor kartu pelajar",
+        "nomor induk siswa"
+      ],
+      "answer": 1,
+      "explanation": "Roqmu haatifii (رَقْمُ هَاتِفِي) bermakna nomor telepon saya.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Manakah penulisan angka 'delapan' dalam aksara Arab yang tepat?",
+      "options": [
+        "٧ (sab'ah)",
+        "٦ (sittah)",
+        "٨ (tsamaaniyah)",
+        "٩ (tis'ah)"
+      ],
+      "answer": 2,
+      "explanation": "Angka delapan ditulis dengan lambang terbuka ke bawah '٨'.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Jika Fatimah ditanya 'أَيْنَ بَيْتُكِ؟', jawaban yang benar dengan dhamir perempuan adalah ...",
+      "options": [
+        "بَيْتُهُ فِي شَارِعِ أَحْمَد يَانِي",
+        "بَيْتُهَا فِي شَارِعِ أَحْمَد يَانِي",
+        "بَيْتُكَ فِي شَارِعِ أَحْمَد يَانِي",
+        "بَيْتِي فِي شَارِعِ أَحْمَد يَانِي"
+      ],
+      "answer": 3,
+      "explanation": "Saat menjawab untuk diri sendiri, laki-laki maupun perempuan memakai 'baitii' (بَيْتِي).",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Arti dari ungkapan 'مَا عُنْوَانُ مَدْرَسَتِكَ؟' adalah ...",
+      "options": [
+        "Di mana alamat sekolahmu?",
+        "Kapan kamu berangkat ke sekolah?",
+        "Siapa nama kepala sekolahmu?",
+        "Berapa banyak siswa di sekolahmu?"
+      ],
+      "answer": 0,
+      "explanation": "Maa 'unwaanu madrasatika artinya apa/di mana alamat sekolahmu.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Perhatikan dialog: 'هَلْ بَيْتُكَ بَعِيدٌ؟ - لَا، بَلْ بَيْتِي ...'. Kata yang tepat melengkapi adalah ...",
+      "options": [
+        "كَبِيرٌ (besar)",
+        "قَرِيبٌ (dekat)",
+        "جَدِيدٌ (baru)",
+        "وَاسِعٌ (luas)"
+      ],
+      "answer": 1,
+      "explanation": "Lawan dari ba'iid (jauh) adalah qariib (dekat).",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Bilangan genap antara 1 sampai 10 dalam bahasa Arab adalah ...",
+      "options": [
+        "وَاحِدٌ، ثَلَاثَةٌ، خَمْسَةٌ، سَبْعَةٌ",
+        "ثَلَاثَةٌ، سِتَّةٌ، تِسْعَةٌ، عَشَرَةٌ",
+        "اِثْنَانِ، أَرْبَعَةٌ، سِتَّةٌ، ثَمَانِيَةٌ",
+        "أَرْبَعَةٌ، خَمْسَةٌ، سِتَّةٌ، سَبْعَةٌ"
+      ],
+      "answer": 2,
+      "explanation": "Bilangan genap: 2 (itsnan), 4 (arba'ah), 6 (sittah), 8 (tsamaniyah).",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Susunan kata yang benar dari kata acak: [فِي - بَيْتِي - شَارِعِ - مَاوَار] adalah ...",
+      "options": [
+        "شَارِعِ مَاوَار فِي بَيْتِي",
+        "فِي بَيْتِي مَاوَار شَارِعِ",
+        "مَاوَار شَارِعِ فِي بَيْتِي",
+        "بَيْتِي فِي شَارِعِ مَاوَار"
+      ],
+      "answer": 3,
+      "explanation": "Susunan gramatikal yang tepat: Baitii fii syaari' mawaar (Rumahku di Jl Mawar).",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Lafal Arab untuk angka sembilan (٩) adalah ...",
+      "options": [
+        "تِسْعَةٌ (tis'ah)",
+        "سَبْعَةٌ (sab'ah)",
+        "سِتَّةٌ (sittah)",
+        "ثَمَانِيَةٌ (tsamaaniyah)"
+      ],
+      "answer": 0,
+      "explanation": "Angka 9 dibaca tis'ah (تِسْعَةٌ).",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Perhatikan kalimat: 'أَسْكُنُ فِي الْقَرْيَةِ'. Makna kata أَسْكُنُ adalah ...",
+      "options": [
+        "saya pergi bermain",
+        "saya bertempat tinggal",
+        "saya sedang belajar",
+        "saya membeli makanan"
+      ],
+      "answer": 1,
+      "explanation": "Askanu (أَسْكُنُ) bermakna saya tinggal atau bermukim.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Apa arti ungkapan 'أَهْلًا وَسَهْلًا' yang sering digunakan saat menerima tamu di rumah?",
+      "options": [
+        "sampai jumpa lagi",
+        "terima kasih banyak",
+        "selamat datang",
+        "semoga selamat"
+      ],
+      "answer": 2,
+      "explanation": "Ahlan wa sahlan adalah sapaan menyambut kedatangan tamu.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Jawaban santun untuk sapaan 'أَهْلًا وَسَهْلًا' kepada teman laki-laki adalah ...",
+      "options": [
+        "مَعَ السَّلَامَةِ",
+        "شُكْرًا جَزِيلًا",
+        "صَبَاحُ الْخَيْرِ",
+        "أَهْلًا بِكَ"
+      ],
+      "answer": 3,
+      "explanation": "Ahlan bika (أَهْلًا بِكَ) diucapkan sebagai balasan selamat datang.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Analisis struktur: Manakah kalimat penunjukan alamat rumah yang paling lengkap dan kaidahnya tepat?",
+      "options": [
+        "بَيْتِي فِي شَارِعِ بَاتُورَقْمُ ٧ مَدِينَةُ مَالَانْج",
+        "بَيْتِي إِلَى مَدِينَةِ مَالَانْج شَارِعٌ رَقْمٌ",
+        "فِي شَارِعِ رَقْمُ بَيْتِي مَالَانْج مَدِينَةٌ",
+        "مَدِينَةُ مَالَانْج فِي بَيْتِي شَارِعِ رَقْمُ ٧"
+      ],
+      "answer": 0,
+      "explanation": "Kalimat runut menyebutkan kepemilikan, nama jalan, nomor, lalu kota.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Mengapa kata tanya 'مَا' digunakan pada 'مَا عُنْوَانُكَ؟', bukan kata tanya 'أَيْنَ'?",
+      "options": [
+        "karena alamat adalah benda hidup berakal",
+        "karena menanyakan frasa nomina alamat secara utuh",
+        "karena 'aina' hanya boleh untuk nama orang",
+        "karena kata 'unwan' tidak memiliki arti tempat"
+      ],
+      "answer": 1,
+      "explanation": "'Maa' menanyakan identitas (apa alamatmu), sedangkan 'Aina' menanyakan letak fisik.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Jika nomor telepon paman adalah ٠٨٥٧, bagaimana cara membaca digit tersebut dalam bahasa Arab?",
+      "options": [
+        "وَاحِدٌ، سَبْعَةٌ، سِتَّةٌ، خَمْسَةٌ",
+        "ثَلَاثَةٌ، ثَمَانِيَةٌ، أَرْبَعَةٌ، اثْنَانِ",
+        "صِفْرٌ، ثَمَانِيَةٌ، خَمْسَةٌ، سَبْعَةٌ",
+        "تِسْعَةٌ، خَمْسَةٌ، سِتَّةٌ، ثَلَاثَةٌ"
+      ],
+      "answer": 2,
+      "explanation": "Digit per digit: Shifr (0), tsamaniyah (8), khamsah (5), sab'ah (7).",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Nilai adab Islami: Saat seorang muslim ditanya alamat rumahnya oleh teman yang ingin bersilaturahmi, sikap terbaik adalah ...",
+      "options": [
+        "merahasiakan alamat karena curiga",
+        "memberikan nomor rumah palsu",
+        "meminta uang sebelum menjawab",
+        "memberitahukan dengan jelas dan ramah"
+      ],
+      "answer": 3,
+      "explanation": "Memudahkan silaturahmi adalah anjuran mulia dalam persaudaraan Islam.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Perhatikan dialog: 'أَيْنَ مَدْرَسَتُكَ؟ - مَدْرَسَتِي أَمَامَ الْمَسْجِدِ'. Makna kata أَمَامَ adalah ...",
+      "options": [
+        "di depan masjid",
+        "di belakang masjid",
+        "di dalam masjid",
+        "di atas loteng masjid"
+      ],
+      "answer": 0,
+      "explanation": "Amaama (أَمَامَ) adalah zhorof makan yang bermakna di depan.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Bagaimana cara menulis angka Arab untuk tahun pelajaran '2024' yang benar?",
+      "options": [
+        "٤٢٠٢",
+        "٢٠٢٤",
+        "١٤٤٥",
+        "٢٠٢٣"
+      ],
+      "answer": 1,
+      "explanation": "Aksara angka Arab ditulis dari kiri ke kanan: 2 (٢), 0 (٠), 2 (٢), 4 (٤).",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Kata الْمِهْنَةُ (al-mihnah) dalam bahasa Indonesia memiliki arti ...",
+      "options": [
+        "profesi atau pekerjaan",
+        "hobi kegemaran",
+        "tempat rekreasi",
+        "cita-cita masa depan"
+      ],
+      "answer": 0,
+      "explanation": "Al-Mihnah bermakna mata pencaharian, tugas profesi, atau pekerjaan.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Bahasa Arab dari profesi 'guru laki-laki' adalah ...",
+      "options": [
+        "طَبِيبٌ (thabiibun)",
+        "مُدَرِّسٌ (mudarrisun)",
+        "فَلَّاحٌ (fallaaHun)",
+        "شُرْطِيٌّ (syurthiyyun)"
+      ],
+      "answer": 1,
+      "explanation": "Mudarrisun atau ustaadzun adalah sebutan untuk pengajar laki-laki.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Bahasa Arab dari profesi 'guru perempuan' adalah ...",
+      "options": [
+        "طَبِيبَةٌ (thabiibatun)",
+        "تَاجِرَةٌ (taajiratun)",
+        "مُدَرِّسَةٌ (mudarrisatun)",
+        "فَلَّاحَةٌ (fallaaHatun)"
+      ],
+      "answer": 2,
+      "explanation": "Bentuk muannats (perempuan) ditandai dengan ta' marbuthah: mudarrisah.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Kata طَبِيبٌ (thabiibun) memiliki arti profesi sebagai ...",
+      "options": [
+        "pilot pesawat terbang",
+        "sopir mobil ambulans",
+        "penjahit busana",
+        "dokter yang mengobati pasien"
+      ],
+      "answer": 3,
+      "explanation": "Thabiib (طَبِيبٌ) artinya dokter.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Profesi orang yang bertugas menjaga keamanan dan ketertiban lalu lintas adalah ...",
+      "options": [
+        "شُرْطِيٌّ (syurthiyyun)",
+        "جُنْدِيٌّ (jundiyyun)",
+        "مُهَنْدِسٌ (muhandisun)",
+        "تَاجِرٌ (taajirun)"
+      ],
+      "answer": 0,
+      "explanation": "Syurthiyyun bermakna polisi.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Kata فَلَّاحٌ (fallaaHun) memiliki arti profesi sebagai ...",
+      "options": [
+        "nelayan penangkap ikan",
+        "petani yang bercocok tanam",
+        "pedagang di pasar",
+        "koki pembuat kue"
+      ],
+      "answer": 1,
+      "explanation": "Fallah (فَلَّاحٌ) adalah petani pembudidaya sawah dan ladang.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Bahasa Arab dari profesi 'pedagang laki-laki' adalah ...",
+      "options": [
+        "طَيَّارٌ (thoyyaarun)",
+        "خَيَّاطٌ (khayyaathun)",
+        "تَاجِرٌ (taajirun)",
+        "سَائِقٌ (saa-iqun)"
+      ],
+      "answer": 2,
+      "explanation": "Taajir (تَاجِرٌ) adalah saudagar atau pedagang perniagaan.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Kata جُنْدِيٌّ (jundiyyun) memiliki arti profesi sebagai ...",
+      "options": [
+        "polisi pamong praja",
+        "nahkoda kapal laut",
+        "satpam perumahan",
+        "tentara pembela tanah air"
+      ],
+      "answer": 3,
+      "explanation": "Jundiyyun artinya prajurit militer atau tentara.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Kata tunjuk (isim isyarah) untuk benda atau orang laki-laki dekat adalah ...",
+      "options": [
+        "هَذَا (hadza)",
+        "هَذِهِ (hadzihi)",
+        "تِلْكَ (tilka)",
+        "ذَلِكَ (dzalika)"
+      ],
+      "answer": 0,
+      "explanation": "Hadza (هَذَا) digunakan untuk menunjuk muzakkar (laki-laki) jarak dekat.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Kata tunjuk (isim isyarah) untuk benda atau orang perempuan dekat adalah ...",
+      "options": [
+        "هَذَا (hadza)",
+        "هَذِهِ (hadzihi)",
+        "هُوَ (huwa)",
+        "أَنْتَ (anta)"
+      ],
+      "answer": 1,
+      "explanation": "Hadzihi (هَذِهِ) digunakan untuk menunjuk muannats (perempuan) jarak dekat.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Kata ganti (dhamir) orang ketiga tunggal laki-laki 'dia laki-laki' adalah ...",
+      "options": [
+        "هِيَ (hiya)",
+        "أَنَا (ana)",
+        "هُوَ (huwa)",
+        "نَحْنُ (nahnu)"
+      ],
+      "answer": 2,
+      "explanation": "Huwa (هُوَ) bermakna dia (seorang laki-laki).",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Kata ganti (dhamir) orang ketiga tunggal perempuan 'dia perempuan' adalah ...",
+      "options": [
+        "هُوَ (huwa)",
+        "أَنْتَ (anta)",
+        "أَنْتِ (anti)",
+        "هِيَ (hiya)"
+      ],
+      "answer": 3,
+      "explanation": "Hiya (هِيَ) bermakna dia (seorang perempuan).",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Profesi orang yang menjahit pakaian dalam bahasa Arab disebut ...",
+      "options": [
+        "خَيَّاطٌ (khayyaathun)",
+        "طَبَّاخٌ (thabbaakhun)",
+        "حَلَّاقٌ (hallaAqun)",
+        "نَجَّارٌ (najjaarun)"
+      ],
+      "answer": 0,
+      "explanation": "Khayyath (خَيَّاطٌ) bermakna tukang jahit pakaian.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Lengkapi kalimat: 'هَذَا أَبِي، ... طَبِيبٌ مَاهِرٌ'. Kata ganti yang tepat adalah ...",
+      "options": [
+        "هِيَ (dia perempuan)",
+        "هُوَ (dia laki-laki)",
+        "أَنْتِ (kamu perempuan)",
+        "هَذِهِ (ini perempuan)"
+      ],
+      "answer": 1,
+      "explanation": "Ayah (أَبِي) adalah muzakkar, kata ganti yang tepat adalah huwa (هُوَ).",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Lengkapi kalimat: 'هَذِهِ أُمِّي، ... مُدَرِّسَةٌ فِي الْمَدْرَسَةِ'. Kata ganti yang tepat adalah ...",
+      "options": [
+        "هُوَ (dia laki-laki)",
+        "أَنْتَ (kamu laki-laki)",
+        "هِيَ (dia perempuan)",
+        "هَذَا (ini laki-laki)"
+      ],
+      "answer": 2,
+      "explanation": "Ibu (أُمِّي) adalah muannats, kata ganti yang tepat adalah hiya (هِيَ).",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Perhatikan kalimat: 'الْفَلَّاحُ يَزْرَعُ الرُّزَّ فِي الْمَزْرَعَةِ'. Di manakah petani bekerja?",
+      "options": [
+        "فِي الْمُسْتَشْفَى (di rumah sakit)",
+        "فِي السُّوقِ (di pasar raya)",
+        "فِي الْمَدْرَسَةِ (di sekolah)",
+        "فِي الْمَزْرَعَةِ (di sawah/ladang)"
+      ],
+      "answer": 3,
+      "explanation": "Petani menanam padi di sawah atau ladang (al-mazra'ah).",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Perhatikan kalimat: 'الطَّبِيبُ يُعَالِجُ الْمَرِيضَ فِي الْمُسْتَشْفَى'. Kata الْمُسْتَشْفَى artinya ...",
+      "options": [
+        "rumah sakit umum",
+        "kantor polisi",
+        "pasar tradisional",
+        "stasiun kereta"
+      ],
+      "answer": 0,
+      "explanation": "Al-Mustasyfa (الْمُسْتَشْفَى) bermakna rumah sakit tempat pengobatan.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Pasangan kata isim isyarah dan kata benda muannats yang sesuai kaidah adalah ...",
+      "options": [
+        "هَذَا شُرْطِيَّةٌ",
+        "هَذِهِ شُرْطِيَّةٌ",
+        "هَذِهِ شُرْطِيٌّ",
+        "هَذَا مُدَرِّسَةٌ"
+      ],
+      "answer": 1,
+      "explanation": "Muannats bertanda ta' marbuthah berpasangan dengan isim isyarah hadzihi.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Kata سَائِقٌ (saa-iqun) adalah sebutan untuk orang yang berprofesi sebagai ...",
+      "options": [
+        "peternak sapi perah",
+        "tukang kebun bunga",
+        "pengemudi sopir kendaraan",
+        "petugas kebersihan jalan"
+      ],
+      "answer": 2,
+      "explanation": "Saa-iq (سَائِقٌ) artinya sopir atau pengendara.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Kalimat tanya yang tepat untuk menanyakan pekerjaan ayah teman adalah ...",
+      "options": [
+        "أَيْنَ بَيْتُ أَبِيكَ؟",
+        "كَمْ عُمْرُ أَبِيكَ؟",
+        "مَا اسْمُ أَبِيكَ؟",
+        "مَا مِهْنَةُ أَبِيكَ؟"
+      ],
+      "answer": 3,
+      "explanation": "Maa mihnatu abiika digunakan untuk menanyakan apa profesi ayahmu.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Jika seseorang bekerja mengemudikan pesawat terbang, profesinya adalah ...",
+      "options": [
+        "طَيَّارٌ (pilot)",
+        "بَحَّارٌ (pelaut)",
+        "سَائِقٌ (sopir)",
+        "جُنْدِيٌّ (tentara)"
+      ],
+      "answer": 0,
+      "explanation": "Thoyyaar (طَيَّارٌ) artinya penerbang atau pilot pesawat.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Perhatikan kalimat: 'عَمِّي تَاجِرٌ، يَبِيعُ الْفَوَاكِهَ فِي السُّوقِ'. Kata السُّوقِ artinya ...",
+      "options": [
+        "sekolah dasar",
+        "pasar perniagaan",
+        "rumah sakit",
+        "bandara udara"
+      ],
+      "answer": 1,
+      "explanation": "As-Suuq (السُّوقِ) bermakna pasar tempat jual beli barang.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Bentuk muannats dari kata طَالِبٌ (siswa laki-laki) adalah ...",
+      "options": [
+        "طَبِيبَةٌ (dokter perempuan)",
+        "مُعَلِّمَةٌ (guru perempuan)",
+        "طَالِبَةٌ (siswi perempuan)",
+        "مُهَنْدِسَةٌ (insinyur perempuan)"
+      ],
+      "answer": 2,
+      "explanation": "Perubahan muzakkar ke muannats menambahkan akhiran ta' marbuthah: thaalibah.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Lengkapi dialog: 'مَنْ هَذَا؟ - هَذَا أَخِي، هُوَ ...'. Pilihan profesi yang cocok untuk muzakkar adalah ...",
+      "options": [
+        "مُهَنْدِسَةٌ (insinyur wanita)",
+        "طَبِيبَةٌ (dokter wanita)",
+        "مُدَرِّسَةٌ (guru wanita)",
+        "مُهَنْدِسٌ (insinyur)"
+      ],
+      "answer": 3,
+      "explanation": "Subjek akhii (saudara laki-laki) membutuhkan predikat muzakkar muhandis.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Profesi orang yang merancang bangunan gedung dan jembatan adalah ...",
+      "options": [
+        "مُهَنْدِسٌ (arsitek/insinyur)",
+        "شُرْطِيٌّ (polisi)",
+        "مُدَرِّسٌ (guru)",
+        "فَلَّاحٌ (petani)"
+      ],
+      "answer": 0,
+      "explanation": "Muhandis (مُهَنْدِسٌ) bermakna insinyur atau perancang konstruksi.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Arti dari kalimat: 'أُمِّي رَبَّةُ الْبَيْتِ' adalah ...",
+      "options": [
+        "Ibuku seorang perawat pasien",
+        "Ibuku seorang ibu rumah tangga",
+        "Ibuku berdagang di pasar",
+        "Ibuku bekerja di kantor pos"
+      ],
+      "answer": 1,
+      "explanation": "Rabbatul baiti bermakna ibu rumah tangga yang mengelola keluarga.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Analisis tata bahasa: Manakah kalimat yang seluruh penyesuaian gender kata (muzakkar/muannats) tepat?",
+      "options": [
+        "هَذَا أُخْتِي، هُوَ مُمَرِّضٌ نَشِيطٌ",
+        "هَذِهِ أُخْتِي، هُوَ مُمَرِّضَةٌ نَشِيطَةٌ",
+        "هَذِهِ أُخْتِي، هِيَ مُمَرِّضَةٌ نَشِيطَةٌ",
+        "هَذَا أُخْتِي، هِيَ مُمَرِّضَةٌ نَشِيطٌ"
+      ],
+      "answer": 2,
+      "explanation": "Subjek ukhtii muannats selaras dengan hadzihi, hiya, mumarridhatun, dan nasyiithah.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Perhatikan teks: 'هَذَا خَالِي. هُوَ شُرْطِيٌّ. هُوَ يُنَظِّمُ الْمُرُورَ فِي الشَّارِعِ'. Apa tugas paman dalam teks?",
+      "options": [
+        "menangkap ikan di lautan luas",
+        "mengobati orang sakit di klinik",
+        "mengajar matematika di kelas",
+        "mengatur kelancaran lalu lintas jalan"
+      ],
+      "answer": 3,
+      "explanation": "Teks menyebutkan 'yunazzhimul muruur' yang artinya menertibkan lalu lintas.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Bagaimana cara mengubah kalimat 'أَبِي مُوَظَّفٌ فِي الْمَكْتَبِ' menjadi kalimat untuk ibu?",
+      "options": [
+        "أُمِّي مُوَظَّفَةٌ فِي الْمَكْتَبِ",
+        "أُمِّي مُوَظَّفٌ فِي الْمَكْتَبَةِ",
+        "أُمِّي مُدَرِّسٌ فِي الْمَكْتَبِ",
+        "أُمِّي فَلَّاحَةٌ فِي الْمَكْتَبِ"
+      ],
+      "answer": 0,
+      "explanation": "Abii diganti ummii, dan muwazhzhaf disesuaikan menjadi muwazhzhafah.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Pernyataan hikmah: Mengapa dalam pandangan Islam semua profesi halal yang ditekuni dengan jujur bernilai ibadah?",
+      "options": [
+        "karena hanya profesi guru yang diridhai Allah",
+        "karena ikhtiar mencari nafkah halal bernilai pahala",
+        "karena semua pekerjaan menghasilkan uang sama",
+        "karena di dunia tidak ada pekerjaan yang salah"
+      ],
+      "answer": 1,
+      "explanation": "Niat ikhlas bekerja halal memenuhi kebutuhan keluarga dihitung sedekah ibadah.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Perhatikan kalimat: 'الْمُعَلِّمُ يَشْرَحُ الدَّرْسَ بِجِدٍّ'. Sikap siswa meneladani guru yang mengajar bersungguh-sungguh adalah ...",
+      "options": [
+        "berbicara sendiri saat guru mengajar",
+        "bermain lempar kertas di dalam kelas",
+        "menyimak penjelasan guru dengan takzim",
+        "mengabaikan nasihat yang diberikan"
+      ],
+      "answer": 2,
+      "explanation": "Menghormati guru (ta'zhimul ustadz) adalah kunci keberkahan ilmu.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Jika seorang anak ingin memperkenalkan kakeknya yang seorang pensiunan tentara, kalimat yang tepat adalah ...",
+      "options": [
+        "هَذِهِ جَدَّتِي، هِيَ جُنْدِيَّةٌ",
+        "هَذَا أَبِي، هِيَ شُرْطِيَّةٌ",
+        "هَذِهِ عَمَّتِي، هُوَ طَبِيبٌ",
+        "هَذَا جَدِّي، هُوَ جُنْدِيٌّ مُتَقَاعِدٌ"
+      ],
+      "answer": 3,
+      "explanation": "Jaddii muzakkar menggunakan hadza dan huwa jundiyyun.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Refleksi Kurikulum Berbasis Cinta (KBC): Menghargai profesi petani (fallah) diwujudkan dengan perilaku ...",
+      "options": [
+        "menghabiskan makanan tanpa membuangnya",
+        "mengejek pakaian petani yang kotor",
+        "menolak makan nasi produksi petani",
+        "merusak tanaman di pinggir jalan"
+      ],
+      "answer": 0,
+      "explanation": "Menghargai jerih payah petani diwujudkan dengan tidak menyia-nyiakan makanan.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Kata أَمَلِي (amalii) dalam bahasa Indonesia memiliki arti ...",
+      "options": [
+        "cita-cita atau harapanku",
+        "nama panggilanku",
+        "alamat tempat tinggalku",
+        "keluarga besarku"
+      ],
+      "answer": 0,
+      "explanation": "Amalii (أَمَلِي) bermakna impian, harapan, atau cita-cita masa depan.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Kata فِي الْمُسْتَقْبَلِ (fiil mustaqbali) memiliki arti ...",
+      "options": [
+        "di masa lalu dahulu",
+        "di masa depan kelak",
+        "di hari kemarin",
+        "pada pagi hari ini"
+      ],
+      "answer": 1,
+      "explanation": "Al-Mustaqbal bermakna masa depan yang akan datang.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Ungkapan bahasa Arab 'أُرِيدُ أَنْ أَكُونَ ...' memiliki arti ...",
+      "options": [
+        "Saya telah menjadi ...",
+        "Kamu tidak boleh menjadi ...",
+        "Saya ingin menjadi ...",
+        "Mereka sedang melihat ..."
+      ],
+      "answer": 2,
+      "explanation": "Uriidu an akuuna adalah kalimat ekspresi menyatakan cita-cita profesi.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Jika Ahmad ingin bercita-cita menjadi dokter, ia mengucapkan ...",
+      "options": [
+        "أُرِيدُ أَنْ أَكُونَ شُرْطِيًّا",
+        "أُرِيدُ أَنْ أَكُونَ طَيَّارًا",
+        "أُرِيدُ أَنْ أَكُونَ فَلَّاحًا",
+        "أُرِيدُ أَنْ أَكُونَ طَبِيبًا"
+      ],
+      "answer": 3,
+      "explanation": "Thabiiban (طَبِيبًا) bermakna dokter.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Jika Aisyah bercita-cita menjadi guru perempuan, ia mengucapkan ...",
+      "options": [
+        "أُرِيدُ أَنْ أَكُونَ مُدَرِّسَةً",
+        "أُرِيدُ أَنْ أَكُونَ مُدَرِّسًا",
+        "أُرِيدُ أَنْ أَكُونَ شُرْطِيًّا",
+        "أُرِيدُ أَنْ أَكُونَ جُنْدِيًّا"
+      ],
+      "answer": 0,
+      "explanation": "Untuk perempuan (muannats) menggunakan akhiran ta' marbuthah: mudarrisatan.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Pertanyaan yang tepat untuk menanyakan cita-cita kepada teman adalah ...",
+      "options": [
+        "مَا اسْمُ أُخْتِكَ؟",
+        "مَا أَمَلُكَ فِي الْمُسْتَقْبَلِ؟",
+        "أَيْنَ تَدْرُسُ الْآنَ؟",
+        "كَمْ سَاعَةً تَنَامُ؟"
+      ],
+      "answer": 1,
+      "explanation": "Maa amaluka fiil mustaqbal artinya apa cita-citamu di masa depan.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Cita-cita menjadi pilot dalam bahasa Arab dinyatakan dengan ungkapan ...",
+      "options": [
+        "أُرِيدُ أَنْ أَكُونَ بَحَّارًا",
+        "أُرِيدُ أَنْ أَكُونَ خَيَّاطًا",
+        "أُرِيدُ أَنْ أَكُونَ طَيَّارًا",
+        "أُرِيدُ أَنْ أَكُونَ نَجَّارًا"
+      ],
+      "answer": 2,
+      "explanation": "Thoyyaaran (طَيَّارًا) artinya pilot penerbang.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Arti dari ungkapan mahfuzhat 'مَنْ جَدَّ وَجَدَ' adalah ...",
+      "options": [
+        "Waktu itu bagaikan sebilah pedang",
+        "Kebersihan adalah sebagian dari iman",
+        "Menuntut ilmu itu hukumnya wajib",
+        "Barang siapa bersungguh-sungguh, dapatlah ia"
+      ],
+      "answer": 3,
+      "explanation": "Man jadda wajada adalah pepatah motivasi ketekunan menggapai cita-cita.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Kata مُهَنْدِسًا (muhandisan) dalam konteks cita-cita bermakna ...",
+      "options": [
+        "insinyur atau arsitek teknik",
+        "atlet olahraga lari",
+        "seniman pelukis kanvas",
+        "pedagang pakaian jadi"
+      ],
+      "answer": 0,
+      "explanation": "Muhandis bermakna insinyur perancang bangunan atau teknologi.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Jika seorang siswa ingin menjadi polisi untuk menjaga keamanan, ia berkata ...",
+      "options": [
+        "أُرِيدُ أَنْ أَكُونَ طَبَّاخًا",
+        "أُرِيدُ أَنْ أَكُونَ شُرْطِيًّا",
+        "أُرِيدُ أَنْ أَكُونَ سَائِقًا",
+        "أُرِيدُ أَنْ أَكُونَ حَلَّاقًا"
+      ],
+      "answer": 1,
+      "explanation": "Syurthiyyan (شُرْطِيًّا) bermakna polisi penegak hukum.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Cita-cita menjadi seorang dosen atau guru besar disebut ...",
+      "options": [
+        "جُنْدِيًّا (prajurit)",
+        "فَلَّاحًا (petani)",
+        "أُسْتَاذًا (ustadz/profesor)",
+        "تَاجِرًا (pedagang)"
+      ],
+      "answer": 2,
+      "explanation": "Ustaadz (أُسْتَاذٌ) adalah gelar pendidik atau profesor terhormat.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Kalimat 'أَحْمَدُ يُحِبُّ الْقِرَاءَةَ' memiliki arti ...",
+      "options": [
+        "Ahmad suka berenang di kolam",
+        "Ahmad sedang tidur lelap",
+        "Ahmad pergi berbelanja",
+        "Ahmad gemar membaca buku"
+      ],
+      "answer": 3,
+      "explanation": "Yuhibbul qiraa'ah bermakna menyukai aktivitas membaca.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Kata نَاجِحٌ (naajihun) dalam menggapai cita-cita memiliki arti ...",
+      "options": [
+        "sukses dan berhasil",
+        "malas dan putus asa",
+        "ketinggalan zaman",
+        "tergesa-gesa terburu"
+      ],
+      "answer": 0,
+      "explanation": "Naajih (نَاجِحٌ) artinya orang yang meraih kesuksesan.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Lengkapi kalimat: 'فَاطِمَةُ تُحِبُّ الرَّسْمَ، تُرِيدُ أَنْ تَكُونَ ...'. Profesi yang sesuai adalah ...",
+      "options": [
+        "طَبِيبَةً (dokter wanita)",
+        "رَسَّامَةً (pelukis perempuan)",
+        "شُرْطِيَّةً (polisi wanita)",
+        "مُهَنْدِسَةً (arsitek wanita)"
+      ],
+      "answer": 1,
+      "explanation": "Ar-Rasmu artinya menggambar, profesinya adalah rassaamah (pelukis).",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Perhatikan dialog: 'لِمَاذَا تُرِيدُ أَنْ تَكُونَ طَبِيبًا؟ - لِأَنِّي أُرِيدُ أَنْ ...'. Jawaban alasan yang mulia adalah ...",
+      "options": [
+        "أَبِيعَ الْفَوَاكِهَ (menjual aneka buah)",
+        "أَسُوقَ الطَّائِرَةَ (menerbangkan pesawat)",
+        "أُعَالِجَ الْمَرْضَى (mengobati pasien sakit)",
+        "أَزْرَعَ الرُّزَّ (menanam padi di sawah)"
+      ],
+      "answer": 2,
+      "explanation": "Tujuan luhur seorang dokter adalah merawat dan mengobati orang sakit.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Makna dari ungkapan: 'أَتَعَلَّمُ بِجِدٍّ لِأَنَالَ أَمَلِي' adalah ...",
+      "options": [
+        "Saya bermain bola bersama teman sebangku",
+        "Saya membantu orang tua berdagang di pasar",
+        "Saya bangun pagi lalu segera berolahraga",
+        "Saya belajar tekun demi meraih cita-citaku"
+      ],
+      "answer": 3,
+      "explanation": "Niat belajar sungguh-sungguh (bi jiddin) untuk mencapai harapan.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Jika seorang siswi ditanya 'مَا أَمَلُكِ فِي الْمُسْتَقْبَلِ؟', bentuk kata kerja yang ia gunakan adalah ...",
+      "options": [
+        "أُرِيدُ أَنْ أَكُونَ ...",
+        "تُرِيدُ أَنْ تَكُونَ ...",
+        "يُرِيدُ أَنْ يَكُونَ ...",
+        "نُرِيدُ أَنْ نَكُونَ ..."
+      ],
+      "answer": 0,
+      "explanation": "Dhamir orang pertama tunggal 'ana' (saya) selalu mengawali dengan uriidu an akuuna.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Pasangan cita-cita dan tempat pengabdian yang paling tepat adalah ...",
+      "options": [
+        "مُدَرِّسٌ - فِي الْمَطَارِ",
+        "طَبِيبٌ - فِي الْمُسْتَشْفَى",
+        "طَيَّارٌ - فِي الْمَدْرَسَةِ",
+        "فَلَّاحٌ - فِي الْمَكْتَبِ"
+      ],
+      "answer": 1,
+      "explanation": "Thabiib (dokter) berikhtiar di mustasyfa (rumah sakit).",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Makna kata kerja 'يَبْنِي' dalam kalimat 'الْمُهَنْدِسُ يَبْنِي الْعِمَارَةَ' adalah ...",
+      "options": [
+        "merobohkan jembatan lama",
+        "mengecat dinding sekolah",
+        "membangun gedung megah",
+        "membersihkan halaman rumah"
+      ],
+      "answer": 2,
+      "explanation": "Yabnii (يَبْنِي) artinya merancang dan mendirikan konstruksi bangunan.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Arti dari ungkapan 'أَمَلِي أَنْ أَكُونَ جُنْدِيًّا لِأُدَافِعَ عَنِ الْوَطَنِ' adalah ...",
+      "options": [
+        "Cita-citaku menjadi nahkoda kapal pesiar",
+        "Cita-citaku menjadi pengusaha yang kaya",
+        "Cita-citaku membuka restoran masakan",
+        "Cita-citaku tentara pembela tanah air"
+      ],
+      "answer": 3,
+      "explanation": "Li udaafi'a 'anil wathan artinya untuk membela tanah air Indonesia tercinta.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Lafal pepatah Arab: 'الوقت كالسيف' mengajarkan kepada penuntut ilmu agar ...",
+      "options": [
+        "menghargai waktu dengan disiplin belajar",
+        "selalu membawa senjata tajam",
+        "bermain pedang di tanah lapang",
+        "menghabiskan waktu dengan tidur"
+      ],
+      "answer": 0,
+      "explanation": "Pepatah 'waktu laksana pedang' menekankan pentingnya manajemen waktu.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Susunan kalimat yang benar dari: [أَنْ - أُرِيدُ - أَكُونَ - شُرْطِيًّا - نَاجِحًا] adalah ...",
+      "options": [
+        "أَكُونَ شُرْطِيًّا أُرِيدُ أَنْ نَاجِحًا",
+        "أُرِيدُ أَنْ أَكُونَ شُرْطِيًّا نَاجِحًا",
+        "شُرْطِيًّا نَاجِحًا أُرِيدُ أَكُونَ أَنْ",
+        "أَنْ أُرِيدُ نَاجِحًا أَكُونَ شُرْطِيًّا"
+      ],
+      "answer": 1,
+      "explanation": "Struktur pola yang baku: Uriidu an akuuna syurthiyyan naajihan.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Perhatikan kalimat: 'أُحِبُّ أَنْ أَقْرَأَ الْكُتُبَ كُلَّ يَوْمٍ'. Aktivitas yang dilakukan setiap hari adalah ...",
+      "options": [
+        "menulis surat kabar daerah",
+        "mendengarkan siaran radio",
+        "membaca buku ilmu pengetahuan",
+        "menonton film kartun anak"
+      ],
+      "answer": 2,
+      "explanation": "Aqra-ul kutuba bermakna membaca buku-buku faedah.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Lengkapi kalimat: 'عَلِيٌّ يُحِبُّ الطَّيَرَانَ، أَمَلُهُ أَنْ يَكُونَ ...'. Pilihan tepat adalah ...",
+      "options": [
+        "فَلَّاحًا (petani sawah)",
+        "خَيَّاطًا (penjahit baju)",
+        "تَاجِرًا (pedagang pasar)",
+        "طَيَّارًا (pilot penerbang)"
+      ],
+      "answer": 3,
+      "explanation": "Thayaran berkaitan dengan dunia dirgantara, cita-citanya menjadi thoyyar.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Bentuk muannats dari ungkapan 'أُرِيدُ أَنْ أَكُونَ شُرْطِيًّا' bagi seorang anak perempuan adalah ...",
+      "options": [
+        "أُرِيدُ أَنْ أَكُونَ شُرْطِيَّةً",
+        "أُرِيدُ أَنْ أَكُونَ شُرْطِيًّا",
+        "تُرِيدُ أَنْ تَكُونَ شُرْطِيًّا",
+        "يُرِيدُ أَنْ يَكُونَ شُرْطِيَّةً"
+      ],
+      "answer": 0,
+      "explanation": "Muannats menambahkan ta' marbuthah berharakat fathatain: syurthiyyatan.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Arti kata جِدٌّ (jiddun) dalam proses belajar menggapai impian adalah ...",
+      "options": [
+        "kebimbangan dan keraguan hati",
+        "kesungguhan dan ketekunan tekad",
+        "keterpaksaan menjalankan tugas",
+        "kelalaian mengerjakan PR"
+      ],
+      "answer": 1,
+      "explanation": "Jiddun artinya keseriusan dan kerja keras pantang putus asa.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Analisis sintaksis: Mengapa kata setelah 'أَنْ أَكُونَ' memiliki akhiran harakat fathatain (manshub), seperti pada 'طَبِيبًا'?",
+      "options": [
+        "karena berkedudukan sebagai fail marfu'",
+        "karena didahului oleh huruf jar kasrah",
+        "karena berkedudukan sebagai khabar kaana yang manshub",
+        "karena berupa kata sifat yang majzum"
+      ],
+      "answer": 2,
+      "explanation": "Dalam kaidah nahwu, khabar kaana (dan saudaranya) berhukum manshub (fathatain).",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Perhatikan teks: 'حَسَنٌ يَتَعَلَّمُ اللُّغَةَ الْعَرَبِيَّةَ بِجِدٍّ. أَمَلُهُ أَنْ يَكُونَ مُتَرْجِمًا لِيَخْدُمَ دِينَهُ وَوَطَنَهُ'. Apa tujuan Hasan?",
+      "options": [
+        "mencari gaji yang sangat tinggi di luar negeri",
+        "berwisata keliling dunia tanpa bekerja",
+        "membeli mobil mewah dari hasil terjemahan",
+        "menjadi penerjemah pembela agama dan bangsa"
+      ],
+      "answer": 3,
+      "explanation": "Teks menyebutkan 'mutarjiman li yakhduma diinahu wa wathanahu'.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Sikap seorang santri ketika cita-citanya berbeda dengan pilihan teman sekelasnya adalah ...",
+      "options": [
+        "saling mendoakan dan saling menghargai pilihan",
+        "mengejek cita-cita teman yang sederhana",
+        "memaksa teman mengikuti cita-citanya sendiri",
+        "merasa dirinya paling hebat di antara semua"
+      ],
+      "answer": 0,
+      "explanation": "Keragaman profesi saling melengkapi kebutuhan kemaslahatan umat.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Korelasi Kurikulum Berbasis Cinta (KBC) dalam meraih cita-cita adalah ...",
+      "options": [
+        "mengejar kekayaan demi merendahkan orang lain",
+        "mendasari impian dengan cinta melayani sesama",
+        "mencari pujian dan ketenaran di media sosial",
+        "memanfaatkan jabatan untuk menindas sesama"
+      ],
+      "answer": 1,
+      "explanation": "Cita-cita yang luhur berakar dari cinta kepada Allah dan kemanfaatan bagi sesama.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Bagaimana cara seorang siswa mengamalkan nilai 'Man Jadda Wajada' saat menemui materi pelajaran yang sulit?",
+      "options": [
+        "meninggalkan buku dan bermain ponsel seharian",
+        "menyalahkan kurikulum yang dianggap berat",
+        "pantang menyerah, mengulang bacaan, dan bertanya",
+        "meminta orang lain mengerjakan seluruh tugasnya"
+      ],
+      "answer": 2,
+      "explanation": "Ketekunan sejati dibuktikan dengan daya tahan menghadapi rintangan intelektual.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Perhatikan paragraf: 'زَيْنَبُ تُرِيدُ أَنْ تَكُونَ عَالِمَةً فِي الْفَلَكِ لِتَتَفَكَّرَ فِي خَلْقِ السَّمَاوَاتِ وَالْأَرْضِ'. Karakter yang tampak pada Zainab adalah ...",
+      "options": [
+        "keinginan menjadi manusia pertama di planet mars",
+        "rasa sombong karena menguasai ilmu antariksa",
+        "ketakutan melihat fenomena gerhana bintang",
+        "kecintaan pada sains untuk mengagungkan kebesaran Allah"
+      ],
+      "answer": 3,
+      "explanation": "Tadabbur alam semesta menguatkan tauhid dan kecintaan kepada Sang Pencipta.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Refleksi etika: Apa yang harus dilakukan seorang muslim jika setelah berusaha keras, takdir menentukan ia bekerja di bidang lain?",
+      "options": [
+        "bersyukur, berhusnudzon pada ketetapan Allah, dan amanah",
+        "marah dan berhenti beribadah kepada Allah",
+        "berputus asa dan menyalahkan semua keadaan",
+        "menghalalkan segala cara agar ambisi tercapai"
+      ],
+      "answer": 0,
+      "explanation": "Tawakal sejati: ridha pada takdir Allah setelah ikhtiar optimal dijalankan.",
+      "difficulty": 3,
+      "timeLimit": 25
+    }
+  ]
+}

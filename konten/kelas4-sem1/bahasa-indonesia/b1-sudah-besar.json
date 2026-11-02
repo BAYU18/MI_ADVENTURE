@@ -1,0 +1,502 @@
+{
+  "class": "Kelas 4 SD",
+  "subjectSlug": "bahasa-indonesia",
+  "batch": "b1-sudah-besar",
+  "count": 38,
+  "questions": [
+    {
+      "question": "Kalimat yang memerlukan objek disebut kalimat ...",
+      "options": [
+        "Transitif",
+        "Intransitif",
+        "Pasif",
+        "Perintah"
+      ],
+      "answer": 0,
+      "explanation": "Kalimat transitif memerlukan objek penderita.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat yang tidak memerlukan objek disebut kalimat ...",
+      "options": [
+        "Transitif",
+        "Intransitif",
+        "Aktif",
+        "Tanya"
+      ],
+      "answer": 1,
+      "explanation": "Kalimat intransitif maknanya sudah lengkap tanpa objek.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Buku rujukan resmi untuk mencari arti kata adalah ...",
+      "options": [
+        "Atlas",
+        "Ensiklopedia",
+        "KBBI",
+        "Novel"
+      ],
+      "answer": 2,
+      "explanation": "KBBI (Kamus Besar Bahasa Indonesia) memuat arti baku kata.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rasa takut berlebihan terhadap sesuatu disebut ...",
+      "options": [
+        "Alergi",
+        "Trauma",
+        "Cemas",
+        "Fobia"
+      ],
+      "answer": 3,
+      "explanation": "Fobia adalah ketakutan berlebihan dan tidak wajar.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Imbuhan 'me-' pada kata 'baca' membentuk kata ...",
+      "options": [
+        "Membaca",
+        "Membacakan",
+        "Pustaka",
+        "Terbaca"
+      ],
+      "answer": 0,
+      "explanation": "me- + baca luluh menjadi membaca.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh kalimat transitif berikut adalah ...",
+      "options": [
+        "Adik menangis",
+        "Ibu memasak rendang",
+        "Burung terbang",
+        "Ayah tidur"
+      ],
+      "answer": 1,
+      "explanation": "'rendang' adalah objek dari kata kerja memasak.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh kalimat intransitif berikut adalah ...",
+      "options": [
+        "Ibu mencuci baju",
+        "Budi makan pisang",
+        "Kelinci melompat",
+        "Kakak menulis puisi"
+      ],
+      "answer": 2,
+      "explanation": "'melompat' tidak membutuhkan objek penyerta.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata dasar dari 'menulis' adalah ...",
+      "options": [
+        "Nulis",
+        "Tuliskan",
+        "Menulis",
+        "Tulis"
+      ],
+      "answer": 3,
+      "explanation": "Kata dasar menulis adalah tulis dengan peluluhan huruf t.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata dasar dari 'menyapu' adalah ...",
+      "options": [
+        "Sapu",
+        "Nyapu",
+        "Sapukan",
+        "Penyapu"
+      ],
+      "answer": 0,
+      "explanation": "Huruf s luluh menjadi meny- pada kata dasar sapu.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Fobia terhadap kegelapan disebut ...",
+      "options": [
+        "Klaustrofobia",
+        "Niktofobia",
+        "Akrofobia",
+        "Araknofobia"
+      ],
+      "answer": 1,
+      "explanation": "Niktofobia adalah rasa takut berlebihan pada gelap.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Subjek pada kalimat 'Rani meminjam buku' adalah ...",
+      "options": [
+        "Meminjam",
+        "Buku",
+        "Rani",
+        "Perpustakaan"
+      ],
+      "answer": 2,
+      "explanation": "Rani adalah pelaku (subjek) yang melakukan tindakan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Predikat pada kalimat 'Ayah memperbaiki sepeda' adalah ...",
+      "options": [
+        "Ayah",
+        "Sepeda",
+        "Di rumah",
+        "Memperbaiki"
+      ],
+      "answer": 3,
+      "explanation": "Memperbaiki adalah kata kerja yang menjadi predikat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Objek pada kalimat 'Beni menyiram bunga' adalah ...",
+      "options": [
+        "Bunga",
+        "Beni",
+        "Menyiram",
+        "Pagi"
+      ],
+      "answer": 0,
+      "explanation": "Bunga adalah objek yang menerima tindakan menyiram.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah kalimat berikut yang berpola S-P-O?",
+      "options": [
+        "Doni berlari cepat",
+        "Doni memotong rumput",
+        "Rumput dipotong Doni",
+        "Doni bernyanyi riang"
+      ],
+      "answer": 1,
+      "explanation": "Doni (S) memotong (P) rumput (O).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Imbuhan 'me-' jika bertemu kata dasar 'pukul' berubah menjadi ...",
+      "options": [
+        "Mempukul",
+        "Mepukul",
+        "Memukul",
+        "Menyukul"
+      ],
+      "answer": 2,
+      "explanation": "Huruf p pada awal kata dasar luluh menjadi mem-.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Imbuhan 'me-' jika bertemu kata dasar 'sapu' berubah menjadi ...",
+      "options": [
+        "Mensapu",
+        "Mesapu",
+        "Mengsapu",
+        "Menyapu"
+      ],
+      "answer": 3,
+      "explanation": "Huruf s pada kata dasar berawalan konsonan luluh menjadi meny-.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Imbuhan 'me-' jika bertemu kata dasar 'kira' berubah menjadi ...",
+      "options": [
+        "Mengira",
+        "Menkira",
+        "Mekira",
+        "Menggira"
+      ],
+      "answer": 0,
+      "explanation": "Huruf k luluh menjadi meng- pada kata mengira.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pola kalimat 'Adik tidur di kamar' adalah ...",
+      "options": [
+        "S-P-O",
+        "S-P-K",
+        "S-P-Pel",
+        "S-K-P"
+      ],
+      "answer": 1,
+      "explanation": "Adik (S) tidur (P) di kamar (Keterangan tempat).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Cara mencari kata 'terbakar' dalam kamus cetak adalah mencari kata dasar ...",
+      "options": [
+        "Terbakar",
+        "Membakar",
+        "Bakar",
+        "Kebakaran"
+      ],
+      "answer": 2,
+      "explanation": "Kata turunan selalu dicari melalui kata dasarnya di kamus.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah yang merupakan kalimat intransitif dengan keterangan waktu?",
+      "options": [
+        "Pak Tani mencangkul sawah",
+        "Pak Tani menanam padi",
+        "Pak Tani memanen jagung",
+        "Pak Tani berangkat pagi-pagi"
+      ],
+      "answer": 3,
+      "explanation": "Berangkat tidak memerlukan objek, pagi-pagi adalah keterangan waktu.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Fobia terhadap ruang sempit tertutup disebut ...",
+      "options": [
+        "Klaustrofobia",
+        "Akrofobia",
+        "Hidrofobia",
+        "Niktofobia"
+      ],
+      "answer": 0,
+      "explanation": "Klaustrofobia adalah takut berada di ruang tertutup/sempit.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Imbuhan 'me-' yang tidak mengalami peluluhan huruf terjadi pada kata ...",
+      "options": [
+        "Menulis",
+        "Membawa",
+        "Memasak",
+        "Menyapu"
+      ],
+      "answer": 1,
+      "explanation": "Kata dasar bawa berawalan huruf b sehingga tidak luluh (membawa).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat transitif berikut yang dilengkapi keterangan tempat adalah ...",
+      "options": [
+        "Siti membaca komik baru",
+        "Siti membaca dengan rajin",
+        "Siti membaca komik di teras",
+        "Siti belajar di kamar"
+      ],
+      "answer": 2,
+      "explanation": "Siti (S) membaca (P) komik (O) di teras (Keterangan tempat).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ciri orang yang mengalami fobia saat bertemu pemicunya adalah ...",
+      "options": [
+        "Tertawa terbahak-bahak",
+        "Merasa sangat mengantuk",
+        "Merasa lapar tiba-tiba",
+        "Jantung berdebar sangat kencang"
+      ],
+      "answer": 3,
+      "explanation": "Gejala fobia antara lain cemas hebat dan jantung berdebar.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata berimbuhan me- yang bermakna 'menghasilkan' adalah ...",
+      "options": [
+        "Mengaum",
+        "Menulis",
+        "Menyapu",
+        "Memotong"
+      ],
+      "answer": 0,
+      "explanation": "Mengaum berarti mengeluarkan atau menghasilkan suara aum.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Penulisan kata berimbuhan yang benar adalah ...",
+      "options": [
+        "Merubah",
+        "Mengubah",
+        "Menyubit",
+        "Mensapu"
+      ],
+      "answer": 1,
+      "explanation": "Kata dasar ubah berawalan vokal sehingga menjadi mengubah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat di bawah ini yang menggunakan kata kerja aktif transitif adalah ...",
+      "options": [
+        "Ardi berdiri di bawah pohon",
+        "Pohon mangga berbuah lebat",
+        "Ardi memanjat pohon mangga",
+        "Ardi tersenyum lebar"
+      ],
+      "answer": 2,
+      "explanation": "Memanjat membutuhkan objek penderita yaitu pohon mangga.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pernyataan yang tepat tentang KBBI adalah ...",
+      "options": [
+        "Kata disusun berdasar panjangnya",
+        "Hanya berisi nama orang",
+        "Disusun berdasar jumlah halaman",
+        "Kata disusun urut sesuai abjad"
+      ],
+      "answer": 3,
+      "explanation": "Entri kamus disusun secara alfabetis dari A sampai Z.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perhatikan kalimat: 'Lani menaruh kacamata di atas meja.' Fungsi kata 'di atas meja' adalah ...",
+      "options": [
+        "Keterangan tempat",
+        "Objek penderita",
+        "Pelengkap",
+        "Predikat"
+      ],
+      "answer": 0,
+      "explanation": "'di atas meja' menerangkan tempat terjadinya peristiwa menaruh.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat transitif dapat diubah menjadi kalimat pasif. Manakah bentuk pasif dari 'Kucing mengejar tikus'?",
+      "options": [
+        "Kucing dikejar oleh tikus",
+        "Tikus dikejar oleh kucing",
+        "Tikus mengejar kucing liar",
+        "Kucing berlari cepat"
+      ],
+      "answer": 1,
+      "explanation": "Objek tikus maju menjadi subjek pada kalimat pasif.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa kalimat 'Budi menangis keras' tidak bisa diubah menjadi kalimat pasif?",
+      "options": [
+        "Karena subjeknya nama orang",
+        "Karena predikatnya kata sifat",
+        "Karena tidak memiliki objek",
+        "Karena ada keterangan cara"
+      ],
+      "answer": 2,
+      "explanation": "Hanya kalimat yang memiliki objek yang dapat dipasifkan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata dasar 'kristal' jika diberi imbuhan me- menjadi ...",
+      "options": [
+        "Mengristal",
+        "Menkristal",
+        "Mekristal",
+        "Mengkristal"
+      ],
+      "answer": 3,
+      "explanation": "Huruf k yang diikuti konsonan r tidak luluh, jadi mengkristal.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Fobia ketinggian dikenal dengan istilah ...",
+      "options": [
+        "Akrofobia",
+        "Aerofobia",
+        "Ofidiofobia",
+        "Araknofobia"
+      ],
+      "answer": 0,
+      "explanation": "Akrofobia adalah ketakutan ekstrem terhadap tempat tinggi.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perhatikan: 'Anak itu memancing ikan di danau kemarin sore.' Unsur kalimat tersebut secara berurutan adalah ...",
+      "options": [
+        "S-P-Pel-K",
+        "S-P-O-K-K",
+        "S-P-O-Pel",
+        "S-K-P-O"
+      ],
+      "answer": 1,
+      "explanation": "Anak itu (S) memancing (P) ikan (O) di danau (K.tempat) kemarin sore (K.waktu).",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat yang menggunakan kata berimbuhan me- bermakna 'menjadi seperti' adalah ...",
+      "options": [
+        "Adik menangis tersedu",
+        "Ibu menggoreng pisang",
+        "Air laut mulai membeku",
+        "Paman mengecat pagar"
+      ],
+      "answer": 2,
+      "explanation": "Membeku bermakna menjadi beku seperti es.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah pasangan kata dasar dan kata berimbuhan yang luluh dengan benar?",
+      "options": [
+        "Tulis -> Mentulis",
+        "Pegang -> Mempegang",
+        "Sikat -> Mensikat",
+        "Tolong -> Menolong"
+      ],
+      "answer": 3,
+      "explanation": "Huruf t pada tolong luluh menjadi menolong.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dalam sebuah cerita, kalimat 'Hati Lani menciut saat melihat laba-laba' menggambarkan perasaan ...",
+      "options": [
+        "Sangat takut",
+        "Sangat senang",
+        "Sangat kagum",
+        "Biasa saja"
+      ],
+      "answer": 0,
+      "explanation": "'Hati menciut' adalah kiasan untuk perasaan ciut atau sangat takut.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah kalimat yang memiliki pola sama dengan 'Burung kenari berkicau merdu'?",
+      "options": [
+        "Ayah mencuci mobil",
+        "Mobil balap melaju kencang",
+        "Rina membaca buku tebal",
+        "Budi melempar bola"
+      ],
+      "answer": 1,
+      "explanation": "Keduanya berpola S-P-K (Keterangan cara: merdu / kencang).",
+      "difficulty": 3,
+      "timeLimit": 20
+    }
+  ]
+}

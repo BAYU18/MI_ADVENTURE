@@ -1,0 +1,327 @@
+[
+  {
+    "question": "Beriman kepada kitab-kitab Allah merupakan rukun iman yang ke- ...",
+    "options": [
+      "tiga (3)",
+      "satu (1)",
+      "dua (2)",
+      "empat (4)"
+    ],
+    "answer": 0,
+    "explanation": "Rukun iman ke-3 adalah beriman kepada kitab-kitab Allah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kitab suci Taurat diturunkan oleh Allah kepada Nabi ...",
+    "options": [
+      "Dawud 'alaihissalam",
+      "Musa 'alaihissalam",
+      "Isa 'alaihissalam",
+      "Ibrahim 'alaihissalam"
+    ],
+    "answer": 1,
+    "explanation": "Kitab Taurat diwahyukan kepada Nabi Musa a.s. untuk Bani Israil.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kitab suci Zabur diturunkan oleh Allah kepada Nabi ...",
+    "options": [
+      "Musa 'alaihissalam",
+      "Isa 'alaihissalam",
+      "Dawud 'alaihissalam",
+      "Yusuf 'alaihissalam"
+    ],
+    "answer": 2,
+    "explanation": "Kitab Zabur diwahyukan kepada Nabi Dawud a.s.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kitab suci Injil diturunkan oleh Allah kepada Nabi ...",
+    "options": [
+      "Dawud 'alaihissalam",
+      "Musa 'alaihissalam",
+      "Nuh 'alaihissalam",
+      "Isa 'alaihissalam"
+    ],
+    "answer": 3,
+    "explanation": "Kitab Injil diwahyukan kepada Nabi Isa a.s.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kitab suci Al-Qur'an diturunkan oleh Allah kepada Nabi ...",
+    "options": [
+      "Muhammad shallallahu 'alaihi wasallam",
+      "Musa 'alaihissalam",
+      "Isa 'alaihissalam",
+      "Ibrahim 'alaihissalam"
+    ],
+    "answer": 0,
+    "explanation": "Al-Qur'an diturunkan kepada Nabi Muhammad saw sebagai penutup para nabi.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Bahasa yang digunakan dalam penyampaian kitab suci Al-Qur'an adalah ...",
+    "options": [
+      "bahasa Ibrani",
+      "bahasa Arab",
+      "bahasa Suryani",
+      "bahasa Yunani"
+    ],
+    "answer": 1,
+    "explanation": "Al-Qur'an diturunkan dalam bahasa Arab yang sangat jelas dan fasih.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Malaikat yang bertugas menyampaikan wahyu kitab suci kepada para nabi adalah ...",
+    "options": [
+      "Malaikat Mikail",
+      "Malaikat Israfil",
+      "Malaikat Jibril",
+      "Malaikat Izrail"
+    ],
+    "answer": 2,
+    "explanation": "Malaikat Jibril adalah utusan Allah pembawa wahyu suci.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Al-Qur'an diturunkan sebagai penyempurna dan membenarkan kitab-kitab ...",
+    "options": [
+      "yang dibuat oleh para ulama",
+      "cerita rakyat zaman dahulu",
+      "hukum adat istiadat kabilah",
+      "yang diturunkan sebelumnya"
+    ],
+    "answer": 3,
+    "explanation": "Al-Qur'an menyempurnakan syariat kitab-kitab terdahulu.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Lembaran-lembaran wahyu Allah yang diturunkan sebelum kitab suci disebut ...",
+    "options": [
+      "suhuf",
+      "hadis",
+      "risalah",
+      "matan"
+    ],
+    "answer": 0,
+    "explanation": "Suhuf adalah lembaran-lembaran wahyu Allah (seperti suhuf Ibrahim dan Musa).",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kitab suci Al-Qur'an terdiri dari ... juz dan 114 surah.",
+    "options": [
+      "20 juz",
+      "30 juz",
+      "40 juz",
+      "50 juz"
+    ],
+    "answer": 1,
+    "explanation": "Al-Qur'an terbagi menjadi 30 juz dan 114 surah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Fungsi utama kitab suci diturunkan kepada umat manusia adalah sebagai ...",
+    "options": [
+      "buku cerita sejarah masa lampau",
+      "pajangan hiasan di lemari buku",
+      "petunjuk jalan kebenaran hidup",
+      "pelengkap upacara adat keluarga"
+    ],
+    "answer": 2,
+    "explanation": "Kitab suci menjadi pedoman hidup (hudan lin-nas) agar selamat dunia akhirat.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sikap seorang muslim terhadap kitab-kitab sebelum Al-Qur'an adalah ...",
+    "options": [
+      "mengingkari dan menolak ajarannya",
+      "mengamalkan seluruh hukum lamanya",
+      "menganggap kitab tersebut palsu",
+      "meyakini keberadaannya dengan baik"
+    ],
+    "answer": 3,
+    "explanation": "Kita wajib mengimani keberadaannya tetapi syariatnya disempurnakan Al-Qur'an.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Mukjizat terbesar yang diberikan Allah kepada Nabi Muhammad saw adalah ...",
+    "options": [
+      "kitab suci Al-Qur'an al-Karim",
+      "membelah lautan merah luas",
+      "tongkat yang menjadi ular",
+      "menyembuhkan penyakit lepra"
+    ],
+    "answer": 0,
+    "explanation": "Al-Qur'an adalah mukjizat abadi yang terpelihara hingga akhir zaman.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Wahyu Al-Qur'an pertama kali diturunkan kepada Rasulullah saw di ...",
+    "options": [
+      "Gua Tsur di Madinah",
+      "Gua Hira di Jabal Nur",
+      "Bukit Shafa di Makkah",
+      "Padang Arafah Makkah"
+    ],
+    "answer": 1,
+    "explanation": "Surah Al-'Alaq ayat 1-5 turun saat beliau berkhalwat di Gua Hira.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Cara mencintai kitab suci Al-Qur'an dalam kehidupan sehari-hari adalah ...",
+    "options": [
+      "hanya menyimpannya di tempat tinggi",
+      "membaca saat ada perlombaan saja",
+      "rajin membaca dan mengamalkannya",
+      "menghafal semata untuk dipuji orang"
+    ],
+    "answer": 2,
+    "explanation": "Mencintai Al-Qur'an diwujudkan dengan tilawah, tadabbur, dan amal saleh.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Nama lain Al-Qur'an 'Al-Huda' memiliki arti ...",
+    "options": [
+      "pembeda benar salah",
+      "penyembuh luka hati",
+      "cahaya yang benderang",
+      "petunjuk bagi manusia"
+    ],
+    "answer": 3,
+    "explanation": "Al-Huda bermakna petunjuk jalan lurus bagi manusia beriman.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Nama lain Al-Qur'an 'Al-Furqan' memiliki arti ...",
+    "options": [
+      "pembeda hak dan batil",
+      "penawar bagi penyakit",
+      "peringatan yang abadi",
+      "bacaan yang mulia"
+    ],
+    "answer": 0,
+    "explanation": "Al-Furqan berarti pembeda antara perkara yang benar dan perkara yang batil.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Keaslian dan kesucian kitab suci Al-Qur'an dijamin terpelihara langsung oleh ...",
+    "options": [
+      "para ilmuwan muslim dunia",
+      "Allah Subhanahu wa Ta'ala",
+      "pemerintah negara Islam",
+      "organisasi dakwah internasional"
+    ],
+    "answer": 1,
+    "explanation": "Allah berjanji dalam surah Al-Hijr ayat 9 untuk menjaga keaslian Al-Qur'an.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kitab Zabur diturunkan kepada Nabi Dawud a.s. berisi tentang ...",
+    "options": [
+      "hukum perang dan perdagangan",
+      "kisah-kisah para raja dunia",
+      "doa, zikir, dan pengagungan Allah",
+      "ramalan peristiwa masa depan"
+    ],
+    "answer": 2,
+    "explanation": "Zabur berisi pujian, zikir, dan munajat Nabi Dawud a.s. kepada Allah.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Nabi yang menerima suhuf menurut Al-Qur'an di antaranya adalah Nabi ...",
+    "options": [
+      "Isa a.s. dan Yahya a.s.",
+      "Yusuf a.s. dan Ya'qub a.s.",
+      "Nuh a.s. dan Luth a.s.",
+      "Ibrahim a.s. dan Musa a.s."
+    ],
+    "answer": 3,
+    "explanation": "Al-Qur'an menyebutkan 'Suhuful Ibrahim wa Musa'.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Alasan syariat dalam kitab-kitab suci sebelum Al-Qur'an tidak berlaku lagi bagi umat Islam adalah ...",
+    "options": [
+      "telah disempurnakan oleh Al-Qur'an",
+      "kitab dahulu bukan dari wahyu Allah",
+      "umat manusia dahulu tak punya aturan",
+      "ajaran para nabi terdahulu sangat beda"
+    ],
+    "answer": 0,
+    "explanation": "Al-Qur'an menyempurnakan seluruh syariat sebelumnya dan berlaku universal.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sikap tepat seorang pelajar saat melihat mushaf Al-Qur'an tergeletak di lantai adalah ...",
+    "options": [
+      "membiarkannya karena bukan milik sendiri",
+      "mengambilnya lalu menaruh di tempat tinggi",
+      "melangkahinya karena terburu-buru",
+      "menyuruh adik kelas memindahkannya"
+    ],
+    "answer": 1,
+    "explanation": "Menghormati mushaf Al-Qur'an adalah bagian dari pengagungan syiar Allah.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Manfaat membaca Al-Qur'an dengan tartil dan memahami terjemahannya adalah ...",
+    "options": [
+      "mendapat kekayaan instan di dunia",
+      "terbebas dari semua tugas sekolah",
+      "memperoleh petunjuk dan ketenangan batin",
+      "bisa mengalahkan teman saat debat"
+    ],
+    "answer": 2,
+    "explanation": "Membaca dengan tadabbur menuntun hati menuju akhlak mulia dan keselamatan.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Pernyataan yang membuktikan bahwa Al-Qur'an adalah mukjizat abadi adalah ...",
+    "options": [
+      "hanya cocok untuk orang padang pasir",
+      "isinya berubah sesuai zaman",
+      "hanya bisa dibaca oleh para ulama",
+      "bahasa indah dan relevan sepanjang zaman"
+    ],
+    "answer": 3,
+    "explanation": "Al-Qur'an mukjizat abadi karena terjaga keasliannya dan relevan sepanjang zaman.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Dalam surah Al-Baqarah ayat 2 ditegaskan bahwa Al-Qur'an tidak ada keraguan padanya. Maknanya adalah ...",
+    "options": [
+      "seluruh ajaran Al-Qur'an mutlak benar",
+      "manusia boleh memilih ayat yang disukai",
+      "isi Al-Qur'an karya manusia cerdas",
+      "hanya berlaku saat Nabi Muhammad hidup"
+    ],
+    "answer": 0,
+    "explanation": "Tiada keraguan membuktikan bahwa Al-Qur'an murni kalamullah yang mutlak benar.",
+    "difficulty": 3,
+    "timeLimit": 20
+  }
+]

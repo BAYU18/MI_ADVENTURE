@@ -1,0 +1,1568 @@
+{
+  "version": 1,
+  "class": "Kelas 4 SD",
+  "subject": "SKI",
+  "totalQuestions": 120,
+  "questions": [
+    {
+      "question": "Dakwah Islam pada awal masa kenabian dilakukan secara sembunyi-sembunyi selama ...",
+      "options": [
+        "3 tahun",
+        "selama 1 tahun",
+        "selama 5 tahun",
+        "selama 7 tahun"
+      ],
+      "answer": 0,
+      "explanation": "Dakwah sirriyah (sembunyi-sembunyi) berlangsung selama 3 tahun.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rumah sahabat yang dijadikan pusat pembinaan dakwah Islam secara rahasia adalah ...",
+      "options": [
+        "Darun Nadwah Quraisy",
+        "Darul Arqam bin Abil Arqam",
+        "Rumah Abu Bakar ash-Shiddiq",
+        "Rumah Khadijah binti Khuwailid"
+      ],
+      "answer": 1,
+      "explanation": "Darul Arqam menjadi markas dakwah rahasia pertama Rasulullah saw.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Orang-orang yang pertama kali memeluk agama Islam disebut dengan istilah ...",
+      "options": [
+        "Al-Khulafa'ur Rasyidin",
+        "Kaum Anshar Madinah",
+        "Assabiqunal Awwalun",
+        "Kaum Muhajirin"
+      ],
+      "answer": 2,
+      "explanation": "Assabiqunal Awwalun adalah generasi awal pemeluk Islam.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Wanita pertama dari kalangan dewasa yang beriman kepada Nabi Muhammad saw adalah ...",
+      "options": [
+        "Aisyah binti Abu Bakar ash-Shiddiq",
+        "Fathimah az-Zahra",
+        "Halimah as-Sa'diyah",
+        "Khadijah binti Khuwailid"
+      ],
+      "answer": 3,
+      "explanation": "Ummul Mukminin Khadijah adalah orang pertama yang beriman dan mendukung dakwah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Laki-laki dewasa pertama di luar keluarga yang memeluk Islam adalah ...",
+      "options": [
+        "Abu Bakar ash-Shiddiq",
+        "Umar bin Khattab al-Faruq pemberani",
+        "Utsman bin Affan",
+        "Ali bin Abi Thalib"
+      ],
+      "answer": 0,
+      "explanation": "Abu Bakar langsung membenarkan risalah Nabi tanpa keraguan sedikit pun.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Golongan anak-anak yang pertama kali beriman kepada Rasulullah saw adalah ...",
+      "options": [
+        "Zaid bin Haritsah sahabat tercinta",
+        "Ali bin Abi Thalib",
+        "Usamah bin Zaid",
+        "Abdullah bin Abbas"
+      ],
+      "answer": 1,
+      "explanation": "Ali bin Abi Thalib memeluk Islam saat masih berusia sangat belia sekitar 10 tahun.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dakwah terang-terangan (jahriyah) dimulai setelah turunnya wahyu surah ...",
+      "options": [
+        "Al-Muddatstsir ayat 1",
+        "Al-'Alaq ayat 1-5",
+        "Al-Hijr ayat 94",
+        "Al-Fatihah ayat 1"
+      ],
+      "answer": 2,
+      "explanation": "Firman Allah 'Fashda' bima tu'mar' menandai dimulainya dakwah jahriyah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tempat di mana Rasulullah saw pertama kali mengumpulkan kaum Quraisy untuk dakwah terbuka adalah ...",
+      "options": [
+        "Bukit Marwah",
+        "Gua Hira'",
+        "Padang Arafah",
+        "Bukit Shafa"
+      ],
+      "answer": 3,
+      "explanation": "Rasulullah saw berseru dari atas Bukit Shafa mengajak kaumnya bertauhid.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Paman Nabi yang paling keras menentang dan mencela dakwah di Bukit Shafa adalah ...",
+      "options": [
+        "Abu Lahab",
+        "Abu Thalib",
+        "Hamzah bin Abdul Muthalib",
+        "Abbas bin Abdul Muthalib"
+      ],
+      "answer": 0,
+      "explanation": "Abu Lahab berteriak 'Tabban laka ya Muhammad' mencela Nabi saw.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sahabat budak berkulit hitam yang disiksa majikannya di atas pasir panas adalah ...",
+      "options": [
+        "Salman al-Farisi",
+        "Bilal bin Rabah",
+        "Ammar bin Yasir",
+        "Zaid bin Haritsah"
+      ],
+      "answer": 1,
+      "explanation": "Bilal bin Rabah disiksa Umayyah bin Khalaf dengan ditindih batu besar.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata yang terus diucapkan oleh Bilal bin Rabah saat menerima siksaan berat adalah ...",
+      "options": [
+        "berhala Latta dan Uzza sesembahan",
+        "Tolong saya",
+        "Ahad... Ahad...",
+        "Menyerah saja"
+      ],
+      "answer": 2,
+      "explanation": "Bilal menegaskan ketauhidan kepada Allah Yang Maha Esa (Ahad).",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Wanita syahidah pertama dalam sejarah Islam yang wafat mempertahankan akidahnya adalah ...",
+      "options": [
+        "Asma' binti Abu Bakar",
+        "Ruqayyah binti Muhammad",
+        "Ummu Aiman",
+        "Sumayyah binti Khayyat"
+      ],
+      "answer": 3,
+      "explanation": "Sumayyah wafat ditombak oleh Abu Jahal karena teguh memegang tauhid.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Suami Sumayyah yang juga gugur syahid akibat kekejaman kaum Quraisy bernama ...",
+      "options": [
+        "Yasir",
+        "Ammar",
+        "Arqam",
+        "Miqdad"
+      ],
+      "answer": 0,
+      "explanation": "Yasir dan Sumayyah adalah pasangan suami istri peraih syahid pertama.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tindakan kejam kaum kafir Quraisy mengisolasi umat Islam di lembah Syi'ib disebut ...",
+      "options": [
+        "perang tanding satu lawan satu",
+        "pemboikotan ekonomi dan sosial",
+        "perjanjian damai Hudaibiyah",
+        "pembagian harta rampasan"
+      ],
+      "answer": 1,
+      "explanation": "Kaum Quraisy memboikot bani Hasyim dan umat Islam selama hampir 3 tahun.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Surat perjanjian pemboikotan digantung oleh kaum Quraisy di dinding ...",
+      "options": [
+        "Darun Nadwah",
+        "pintu gerbang Makkah",
+        "Ka'bah",
+        "istana Raja Najasyi"
+      ],
+      "answer": 2,
+      "explanation": "Piagam pemboikotan ditempel di dalam Ka'bah hingga akhirnya dimakan rayap.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Selama masa pemboikotan di lembah, kaum muslimin terpaksa memakan ...",
+      "options": [
+        "hidangan daging kambing panggang lezat",
+        "roti gandum gandum madu",
+        "buah kurma manis segar",
+        "dedaunan pohon dan kulit kering"
+      ],
+      "answer": 3,
+      "explanation": "Ketabahan luar biasa: sahabat menahan lapar dengan memakan daun-daun kering.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Alasan Rasulullah saw memilih dakwah secara rahasia pada tahap awal adalah ...",
+      "options": [
+        "menghindari benturan fisik mendadak",
+        "karena merasa takut kepada para pembesar Quraisy",
+        "meragukan kebenaran wahyu Allah",
+        "ingin mendirikan dinasti kerajaan"
+      ],
+      "answer": 0,
+      "explanation": "Strategi dakwah Nabi penuh hikmah agar fondasi iman kader kokoh terlebih dahulu.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap teladan Sayyidah Khadijah saat Rasulullah gemetar menerima wahyu pertama adalah ...",
+      "options": [
+        "memarahi Nabi karena terlambat pulang",
+        "menenangkan dan menyelimuti beliau",
+        "meminta Nabi melupakan kejadian itu",
+        "mengundang warga Makkah berpesta"
+      ],
+      "answer": 1,
+      "explanation": "Khadijah memberikan dukungan moral, cinta, dan ketenangan jiwa yang tulus.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Karakter utama para sahabat Assabiqunal Awwalun dalam menerima ajaran Islam adalah ...",
+      "options": [
+        "banyak menuntut imbalan jabatan",
+        "ragu-ragu menunggu kepastian menang",
+        "sam'an wa tha'atan (patuh dan setia)",
+        "menguji Nabi dengan tantangan harta"
+      ],
+      "answer": 2,
+      "explanation": "Para sahabat awal memiliki keimanan murni tanpa pamrih keduniaan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pernyataan yang tepat tentang ketabahan keluarga Yasir dalam mempertahankan iman adalah ...",
+      "options": [
+        "menyerah dan kembali menyembah berhala",
+        "membayar uang tebusan kepada majikan",
+        "membalas menyerang kaum Quraisy",
+        "tetap teguh meski disiksa kejam"
+      ],
+      "answer": 3,
+      "explanation": "Keluarga Yasir dijanjikan surga oleh Rasulullah saw atas ketabahan mereka.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Siapakah sahabat dermawan yang memerdekakan Bilal bin Rabah dari majikannya?",
+      "options": [
+        "Abu Bakar ash-Shiddiq",
+        "Abdurrahman bin Auf saudagar yang dermawan",
+        "Umar bin Khattab",
+        "Utsman bin Affan"
+      ],
+      "answer": 0,
+      "explanation": "Abu Bakar membeli dan membebaskan Bilal semata-mata demi ridha Allah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Isi utama piagam pemboikotan yang diberlakukan kaum kafir Quraisy adalah ...",
+      "options": [
+        "larangan memasuki kota Madinah",
+        "larangan jual beli dan menikah",
+        "kewajiban membayar pajak ganda",
+        "perintah menghancurkan rumah Nabi"
+      ],
+      "answer": 1,
+      "explanation": "Quraisy memutus total hubungan sosial, ekonomi, dan perkawinan dengan muslimin.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mukjizat yang terjadi pada piagam pemboikotan yang tergantung di Ka'bah adalah ...",
+      "options": [
+        "piagam tersebut tiba-tiba berubah menjadi emas murni",
+        "piagam terbang terbawa angin topan",
+        "seluruh isi dimakan rayap kecuali asma Allah",
+        "tinta pada piagam berubah menjadi merah"
+      ],
+      "answer": 2,
+      "explanation": "Kekuasaan Allah menampakkan kebatilan piagam pemboikotan lewat rayap.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Reaksi Rasulullah saw saat kaum Quraisy menawarkan tahta, wanita, dan harta adalah ...",
+      "options": [
+        "menerima tawaran kekayaan sementara",
+        "meminta waktu berpikir selama setahun",
+        "meminta tahta kerajaan di seluruh Arab",
+        "menolak tegas tawaran tersebut"
+      ],
+      "answer": 3,
+      "explanation": "Nabi bersabda: andai matahari ditaruh di tangan kanan dan bulan di kiri, beliau takkan berhenti.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Taktik kaum Quraisy mencoreng nama baik Nabi Muhammad saw dilakukan dengan menuduh beliau ...",
+      "options": [
+        "tukang sihir, penyair gila, dan dukun",
+        "orang yang malas bekerja mencari nafkah di pasar",
+        "pencuri ternak unta milik warga",
+        "pengkhianat suku dari negeri Romawi"
+      ],
+      "answer": 0,
+      "explanation": "Kaum Quraisy menyebarkan hoaks dan fitnah keji untuk membendung dakwah Islam.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bagaimana sikap kaum muslimin menghadapi embargo ekonomi selama 3 tahun di Syi'ib?",
+      "options": [
+        "memberontak dan menyerang pasar Makkah secara fisik",
+        "bersabar, saling menguatkan, dan tawakal",
+        "meninggalkan agama Islam satu per satu",
+        "meminta bantuan pasukan dari Persia"
+      ],
+      "answer": 1,
+      "explanation": "Kekuatan ukhuwah dan cinta kepada Allah membuat mereka mampu bertahan hidup.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Peran paman Nabi, Abu Thalib, dalam perjalanan dakwah Islam di Makkah adalah ...",
+      "options": [
+        "menjadi bendahara keuangan bagi seluruh dakwah Nabi",
+        "memerintahkan Quraisy masuk Islam",
+        "melindungi fisik Nabi dari ancaman musuh",
+        "menyusun kitab undang-undang Makkah"
+      ],
+      "answer": 2,
+      "explanation": "Abu Thalib pasang badan membela keponakannya dari intimidasi para tokoh Quraisy.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tahun wafatnya Khadijah dan Abu Thalib disebut sebagai 'Amul Huzni yang artinya ...",
+      "options": [
+        "tahun kemenangan dan kegembiraan",
+        "tahun pembebasan kota Makkah",
+        "tahun perjanjian perdamaian",
+        "tahun duka cita dan kesedihan"
+      ],
+      "answer": 3,
+      "explanation": "Nabi sangat berduka kehilangan dua sosok pelindung dan pembela utama dakwah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap Rasulullah saw saat dilempari batu oleh penduduk Tha'if hingga terluka adalah ...",
+      "options": [
+        "mendoakan kebaikan bagi keturunan Tha'if",
+        "meminta malaikat menghancurkan Tha'if",
+        "membalas melempar batu lebih banyak",
+        "mengutuk warga Tha'if terkena azab"
+      ],
+      "answer": 0,
+      "explanation": "Nabi menolak tawaran malaikat Jibril untuk menimpakan gunung, memilih mendoakan hidayah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hikmah mendalam dari berbagai cobaan berat pada periode dakwah Makkah adalah ...",
+      "options": [
+        "membuat kaum muslimin jatuh miskin",
+        "menempa kesabaran dan kemurnian iman",
+        "membuktikan kekuatan senjata perang",
+        "menghilangkan rasa kasih sayang sesama"
+      ],
+      "answer": 1,
+      "explanation": "Ujian berat menyaring siapa pejuang sejati yang bertauhid murni lillahi ta'ala.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Teladan Kurikulum Berbasis Cinta (KBC) dari ketabahan Rasulullah saw berdakwah adalah ...",
+      "options": [
+        "menuntut balas atas setiap perlakuan kasar",
+        "hanya menyayangi orang yang memberi hadiah",
+        "membalas kebencian dengan kasih dan doa",
+        "menjauhi pergaulan dengan masyarakat"
+      ],
+      "answer": 2,
+      "explanation": "Cinta sejati mendahulukan hidayah dan pengampunan daripada dendam kesumat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Penerapan sikap tabah bagi seorang siswa saat menghadapi kesulitan belajar adalah ...",
+      "options": [
+        "mudah merasa putus asa dan akhirnya berhenti sekolah",
+        "menyalahkan guru atas nilai yang kurang",
+        "mencontek jawaban teman saat ulangan",
+        "tetap giat berusaha dan berdoa pada Allah"
+      ],
+      "answer": 3,
+      "explanation": "Ketabahan menempa jiwa pantang menyerah dalam menuntut ilmu pengetahuan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Analisis historis: Mengapa pemboikotan Quraisy justru semakin memperkokoh soliditas kaum muslimin?",
+      "options": [
+        "karena penderitaan bersama menyatukan hati",
+        "karena kaum muslimin memiliki senjata rahasia",
+        "karena kaum Quraisy akhirnya memberi santunan",
+        "karena para sahabat bebas berdagang di luar"
+      ],
+      "answer": 0,
+      "explanation": "Empati dan penderitaan melahirkan ikatan persaudaraan sejati yang tak tergoyahkan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perbandingan sikap: Apa perbedaan mendasar antara keteguhan Bilal dan kekejaman Umayyah bin Khalaf?",
+      "options": [
+        "Umayyah memiliki keteguhan iman yang sangat kokoh",
+        "Bilal merdeka jiwanya, Umayyah budak hawa nafsu",
+        "Bilal mengandalkan kekuatan fisik tubuhnya",
+        "keduanya sama-sama memperjuangkan keadilan"
+      ],
+      "answer": 1,
+      "explanation": "Hakikat kemerdekaan ada pada tauhid batiniah, bukan pada status sosial lahiriah.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa dakwah terang-terangan (jahriyah) dimulai dari keluarga dekat Bani Hasyim terlebih dahulu?",
+      "options": [
+        "karena seluruh keluarga dekat pasti langsung percaya",
+        "agar harta dakwah tidak diambil suku lain",
+        "meneladani prinsip pendidikan dari lingkaran inti",
+        "karena Nabi dilarang berdakwah ke luar suku"
+      ],
+      "answer": 2,
+      "explanation": "Metode dakwah efektif dimulai dari keteladanan keluarga sebelum menjangkau publik.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Refleksi teologis: Janji Rasulullah saw 'Sabran ya ala Yasir, fa inna mau'idakumul jannah' membuktikan ...",
+      "options": [
+        "sahabat Yasir tidak akan merasakan rasa sakit",
+        "perjuangan dakwah tidak membutuhkan pengorbanan",
+        "hukuman dunia dapat dihindari dengan pura-pura",
+        "surga adalah balasan tertinggi bagi kesabaran"
+      ],
+      "answer": 3,
+      "explanation": "Visi akhirat menjadi penguat jiwa mukmin dalam menghadapi getirnya kezaliman.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bagaimana cara seorang pelajar meneladani keteguhan akidah para sahabat di era digital saat ini?",
+      "options": [
+        "teguh memegang nilai moral di tengah tren buruk",
+        "menutup diri sepenuhnya dari kemajuan teknologi modern",
+        "menyerang semua orang yang berbeda pandangan",
+        "mengikuti semua konten viral tanpa disaring"
+      ],
+      "answer": 0,
+      "explanation": "Integritas moral diuji dengan tetap istiqamah menjaga adab di dunia maya.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kritik sosial: Mengapa para pembesar Quraisy sangat takut terhadap ajaran persamaan derajat dalam Islam?",
+      "options": [
+        "karena Islam mewajibkan pembesar menjadi budak",
+        "karena meruntuhkan sistem kasta dan penindasan",
+        "karena ajaran Islam melarang orang berniaga",
+        "karena mereka tidak bisa lagi membuat patung"
+      ],
+      "answer": 1,
+      "explanation": "Islam menegaskan kemuliaan manusia terletak pada takwa, bukan nasab dan kasta.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Peran diplomasi Sayyidina Abu Bakar dalam membebaskan budak-budak tertindas mencerminkan ...",
+      "options": [
+        "keinginan Abu Bakar memiliki banyak pengawal",
+        "upaya mencari pengaruh politik di kalangan suku",
+        "kekuatan finansial yang didedikasikan demi kemanusiaan",
+        "kebiasaan bangsa Arab menimbun budak belian"
+      ],
+      "answer": 2,
+      "explanation": "Harta yang berkah adalah harta yang dialirkan untuk membebaskan derita sesama.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Puncak ketabahan Nabi di Tha'if melahirkan peristiwa agung dalam sejarah Islam, yaitu ...",
+      "options": [
+        "perang Badar melawan pasukan seribu orang",
+        "penaklukan kota Konstantinopel seketika",
+        "pembangunan masjid Nabawi pertama kali",
+        "peristiwa Isra' Mi'raj sebagai hiburan Allah"
+      ],
+      "answer": 3,
+      "explanation": "Setelah duka Tha'if dan 'Amul Huzni, Allah menghibur Nabi dengan mukjizat Isra' Mi'raj.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jumlah sifat wajib yang mutlak dimiliki oleh para rasul Allah ada ...",
+      "options": [
+        "4 sifat",
+        "2 sifat wajib",
+        "3 sifat wajib",
+        "5 sifat wajib"
+      ],
+      "answer": 0,
+      "explanation": "Empat sifat wajib bagi rasul: Shiddiq, Amanah, Tabligh, Fathanah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sifat wajib rasul 'Shiddiq' memiliki arti ...",
+      "options": [
+        "dapat dipercaya",
+        "jujur dan benar",
+        "cerdas pandai",
+        "menyampaikan wahyu"
+      ],
+      "answer": 1,
+      "explanation": "Shiddiq artinya selalu benar dan jujur dalam perkataan serta perbuatan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sifat wajib rasul 'Amanah' memiliki arti ...",
+      "options": [
+        "jujur bicaranya",
+        "pandai berdagang",
+        "dapat dipercaya",
+        "berani bertarung"
+      ],
+      "answer": 2,
+      "explanation": "Amanah bermakna bertanggung jawab dan dapat dipercaya memegang titipan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sifat wajib rasul 'Tabligh' memiliki arti ...",
+      "options": [
+        "menyembunyikan kabar",
+        "memimpin peperangan",
+        "menghukum musuh",
+        "menyampaikan wahyu"
+      ],
+      "answer": 3,
+      "explanation": "Tabligh artinya menyampaikan seluruh risalah Allah tanpa ada yang disembunyikan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sifat wajib rasul 'Fathanah' memiliki arti ...",
+      "options": [
+        "cerdas dan bijaksana",
+        "sangat kaya raya berharta melimpah",
+        "berbadan perkasa",
+        "pandai menyanyi"
+      ],
+      "answer": 0,
+      "explanation": "Fathanah bermakna memiliki kecerdasan intelektual dan kearifan yang tinggi.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Gelar yang diberikan masyarakat Quraisy kepada Nabi Muhammad saw sebelum diangkat menjadi nabi adalah ...",
+      "options": [
+        "Asadullah",
+        "Al-Amin",
+        "Saifullah",
+        "Al-Faruq"
+      ],
+      "answer": 1,
+      "explanation": "Al-Amin artinya orang yang sangat jujur dan dapat dipercaya.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Alasan masyarakat Makkah memberi gelar Al-Amin kepada beliau adalah karena ...",
+      "options": [
+        "keberaniannya menunggang kuda liar di padang pasir",
+        "ketampanan wajah dan kekayaannya",
+        "kejujuran dan integritasnya sejak muda",
+        "kehebatannya dalam bersyair"
+      ],
+      "answer": 2,
+      "explanation": "Nabi Muhammad saw terkenal tidak pernah berbohong sepanjang hidupnya.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sifat mustahil bagi rasul yang merupakan lawan dari sifat Shiddiq adalah ...",
+      "options": [
+        "Khianat (curang)",
+        "Kitman (menyembunyikan)",
+        "Baladah (bodoh)",
+        "Kizib (dusta)"
+      ],
+      "answer": 3,
+      "explanation": "Kizib bermakna berdusta atau berbohong, mustahil ada pada rasul.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sifat mustahil bagi rasul yang merupakan lawan dari sifat Amanah adalah ...",
+      "options": [
+        "Khianat (berkhianat)",
+        "Kizib (dusta)",
+        "Kitman (menyembunyikan)",
+        "Baladah (bodoh)"
+      ],
+      "answer": 0,
+      "explanation": "Khianat bermakna mengingkari janji atau curang, mustahil bagi rasul.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sifat mustahil bagi rasul yang merupakan lawan dari sifat Tabligh adalah ...",
+      "options": [
+        "Khianat (berkhianat pada amanah yang diemban)",
+        "Kitman (menyembunyikan)",
+        "Kizib (dusta)",
+        "Baladah (bodoh)"
+      ],
+      "answer": 1,
+      "explanation": "Kitman bermakna menyembunyikan wahyu atau risalah Allah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sifat mustahil bagi rasul yang merupakan lawan dari sifat Fathanah adalah ...",
+      "options": [
+        "Kizib (dusta)",
+        "Khianat (curang)",
+        "Baladah (bodoh)",
+        "Kitman (menyembunyikan)"
+      ],
+      "answer": 2,
+      "explanation": "Baladah bermakna bodoh atau dungu, mustahil dimiliki rasul pilihan Allah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Nabi Muhammad saw diutus ke muka bumi ini sebagai rahmatan lil 'alamin yang artinya ...",
+      "options": [
+        "pemimpin militer yang khusus bagi bangsa Arab",
+        "penghancur orang-orang lemah",
+        "pengumpul harta kekayaan bumi",
+        "rahmat bagi seluruh alam semesta"
+      ],
+      "answer": 3,
+      "explanation": "Surah Al-Anbiya ayat 107 menegaskan misi Nabi sebagai rahmat bagi semesta alam.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Nabi Muhammad saw menunjukkan sifat penyayang bukan hanya kepada manusia, tetapi juga kepada ...",
+      "options": [
+        "hewan dan tumbuhan",
+        "batu dan kerikil saja",
+        "benda mati tak bergerak",
+        "makhluk gaib jahat"
+      ],
+      "answer": 0,
+      "explanation": "Nabi melarang menyiksa hewan dan memerintahkan merawat alam sekitar.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap Rasulullah saw ketika bertemu dengan anak-anak kecil adalah ...",
+      "options": [
+        "bersikap acuh tak acuh dan memalingkan muka",
+        "tersenyum ramah dan menyapa mereka",
+        "menyuruh mereka pergi menjauh",
+        "memarahi mereka saat bermain"
+      ],
+      "answer": 1,
+      "explanation": "Nabi sangat mencintai anak-anak, mengusap kepala mereka, dan menebar salam.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika orang Yahudi yang biasa meludahi Nabi jatuh sakit, tindakan beliau adalah ...",
+      "options": [
+        "bersorak gembira atas penyakit yang menimpanya",
+        "membalas meludahi rumahnya",
+        "menjenguk dan mendoakan kesembuhannya",
+        "membiarkannya menderita sendirian"
+      ],
+      "answer": 2,
+      "explanation": "Akhlak mulia: membalas kejahatan dengan kebaikan dan ketulusan menjenguk musuh.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pekerjaan yang ditekuni Nabi Muhammad saw saat remaja bersama pamannya adalah ...",
+      "options": [
+        "menjadi nelayan di laut merah",
+        "menjadi pengrajin tembikar",
+        "menjadi prajurit bayaran",
+        "berdagang ke negeri Syam"
+      ],
+      "answer": 3,
+      "explanation": "Nabi belajar berdagang dengan menjunjung tinggi kejujuran dan amanah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kecerdasan (Fathanah) Nabi Muhammad saw terbukti saat menyelesaikan sengketa peletakan ...",
+      "options": [
+        "Hajar Aswad di Ka'bah",
+        "pintu gerbang kota Makkah",
+        "tiang bendera kabilah Quraisy",
+        "pedang pusaka suku Quraisy"
+      ],
+      "answer": 0,
+      "explanation": "Nabi meletakkan Hajar Aswad di atas kain agar seluruh kabilah mengangkat bersama.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Solusi bijak Nabi saw dalam peristiwa peletakan Hajar Aswad berhasil mencegah ...",
+      "options": [
+        "bencana banjir bandang dahsyat di lembah Makkah",
+        "pertumpahan darah antarsuku Quraisy",
+        "krisis perdagangan di pasar Ukaz",
+        "kebakaran hebat di kota Makkah"
+      ],
+      "answer": 1,
+      "explanation": "Kearifan beliau menyatukan persaudaraan dan mencegah perang saudara.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Prinsip kejujuran (Shiddiq) yang diterapkan Nabi Muhammad saw saat berdagang adalah ...",
+      "options": [
+        "menaikkan timbangan agar untung besar",
+        "bersumpah palsu demi menarik pembeli",
+        "menjelaskan cacat barang secara jujur",
+        "menyembunyikan barang yang rusak di bawah"
+      ],
+      "answer": 2,
+      "explanation": "Nabi mengajarkan etika bisnis berkah tanpa kecurangan sedikit pun.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sifat tabligh Rasulullah saw tercermin dalam keteguhan beliau untuk ...",
+      "options": [
+        "menyimpan ayat-ayat suci yang dirasa sangat sulit",
+        "mengubah hukum sesuai selera penguasa",
+        "hanya berdakwah kepada kerabat kaya",
+        "menyampaikan ayat meski ditentang musuh"
+      ],
+      "answer": 3,
+      "explanation": "Rasulullah saw menyampaikan seluruh wahyu tanpa ada satu huruf pun disembunyikan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perilaku pemaaf Rasulullah saw kepada bangsa Quraisy saat Fathu Makkah membuktikan sifat ...",
+      "options": [
+        "rahmatan lil 'alamin yang agung",
+        "keinginan mendapat pujian dunia",
+        "kelemahan fisik pasukan muslimin",
+        "ketakutan terhadap tentara musuh"
+      ],
+      "answer": 0,
+      "explanation": "Sabda Nabi: 'Pergilah, kalian semua bebas!', lambang pengampunan paripurna.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bagaimana cara Nabi Muhammad saw menumbuhkan kasih sayang kepada sesama muslim?",
+      "options": [
+        "mewajibkan orang miskin melayani orang kaya raya",
+        "menganjurkan saling menebar salam dan hadiah",
+        "membuat kelompok-kelompok kasta sosial",
+        "melarang tegur sapa antarsesama teman"
+      ],
+      "answer": 1,
+      "explanation": "Hadis Nabi: 'Tebarkanlah salam dan saling memberi hadiahlah niscaya kalian saling mencintai.'",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Keteladanan sifat amanah Rasulullah saw saat memegang modal dagang milik Khadijah adalah ...",
+      "options": [
+        "mengambil sebagian laba untuk diri sendiri",
+        "menghilangkan laporan pembukuan niaga",
+        "menyerahkan seluruh laba secara transparan",
+        "membagikan barang dagangan secara gratis"
+      ],
+      "answer": 2,
+      "explanation": "Integritas beliau membuat Khadijah semakin kagum dan menaruh hormat mendalam.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kesederhanaan hidup Rasulullah saw tercermin dari tempat tidur beliau yang terbuat dari ...",
+      "options": [
+        "kasur sutra berlapis emas permata",
+        "ranjang kayu jati bertatahkan intan",
+        "sofa empuk buatan negeri Romawi",
+        "pelepah kurma beralas kulit kasar"
+      ],
+      "answer": 3,
+      "explanation": "Pemimpin agung yang hidup zuhud hingga guratan pelepah kurma membekas di tubuhnya.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap santun Rasulullah saw ketika diajak berbicara oleh sahabatnya adalah ...",
+      "options": [
+        "menghadapkan seluruh tubuhnya ke arah lawan bicara",
+        "menolehkan kepala sekilas sambil lalu",
+        "bermain jari tanpa memperhatikan sahabat",
+        "memotong pembicaraan sebelum selesai"
+      ],
+      "answer": 0,
+      "explanation": "Penghormatan adab komunikasi: Nabi menyimak dengan sepenuh jiwa dan raga.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bagaimana Rasulullah saw memperlakukan para pelayan seperti Anas bin Malik r.a.?",
+      "options": [
+        "menyuruh pelayan bekerja tanpa henti",
+        "tidak pernah memarahi atau berkata kasar",
+        "memotong gaji pelayan jika ada salah",
+        "memaksa pelayan memikul beban berat"
+      ],
+      "answer": 1,
+      "explanation": "Kesaksian Anas: 10 tahun melayani Nabi, tak pernah sekalipun beliau membentak 'Uff'.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh keteladanan sifat Fathanah bagi seorang murid di sekolah adalah ...",
+      "options": [
+        "meremehkan teman yang belum mengerti",
+        "membuat contekan yang rapi saat ujian",
+        "rajin membaca dan memecahkan soal sulit",
+        "mencari alasan agar tidak mengerjakan tugas"
+      ],
+      "answer": 2,
+      "explanation": "Fathanah mendorong kita menjadi pelajar berwawasan luas dan berdaya nalar kritis.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Penerapan sifat Shiddiq dalam kehidupan sehari-hari seorang pelajar adalah ...",
+      "options": [
+        "menyalahkan orang lain saat tugas lupa",
+        "membuat alasan palsu saat terlambat sekolah",
+        "mengaku menemukan barang yang dicuri",
+        "berani mengakui kesalahan tanpa berbohong"
+      ],
+      "answer": 3,
+      "explanation": "Kejujuran membawa ketenangan batin dan mengantarkan kepada kebaikan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Meneladani sifat Amanah sebagai seorang ketua kelas dapat diwujudkan dengan ...",
+      "options": [
+        "menjaga ketertiban kelas secara adil",
+        "memanfaatkan teman untuk tugas piketnya",
+        "mengambil uang kas kelas untuk jajan",
+        "membeda-bedakan perlakuan kepada teman"
+      ],
+      "answer": 0,
+      "explanation": "Amanah kepemimpinan dijalankan dengan penuh tanggung jawab dan transparansi.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perwujudan sifat Tabligh bagi siswa di madrasah dapat dilakukan dengan cara ...",
+      "options": [
+        "menyebarkan aib kekurangan teman sekelas",
+        "mengajak teman berbuat baik dan belajar bersama",
+        "menyembunyikan catatan pelajaran sendiri",
+        "mengajak teman membolos sekolah"
+      ],
+      "answer": 1,
+      "explanation": "Tabligh adalah mengajak kepada kebaikan (amar ma'ruf) secara santun dan ramah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kasih sayang Nabi Muhammad saw terhadap lingkungan hidup terbukti lewat perintah untuk ...",
+      "options": [
+        "membakar hutan agar lahan jadi luas",
+        "membuang sampah ke aliran sungai",
+        "tidak menebang pohon sembarangan",
+        "memburu burung untuk hiburan semata"
+      ],
+      "answer": 2,
+      "explanation": "Nabi melarang merusak pepohonan dan mencemari sumber air bersih.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Nilai utama Kurikulum Berbasis Cinta (KBC) yang dipancarkan dari kepribadian Nabi adalah ...",
+      "options": [
+        "menonjolkan kekuasaan untuk menakuti lawan",
+        "mengukur kehormatan dari gelar bangsawan",
+        "mengutamakan kelompok sendiri di atas semua",
+        "menghadirkan kedamaian bagi semua ciptaan"
+      ],
+      "answer": 3,
+      "explanation": "Islam adalah agama cinta yang menebarkan kedamaian dan rahmat bagi semesta alam.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Analisis historis: Mengapa gelar Al-Amin yang disandang Nabi Muhammad saw menjadi benteng moral saat beliau mulai berdakwah?",
+      "options": [
+        "karena kaum Quraisy tak bisa menuduh beliau pembohong",
+        "karena gelar tersebut menjamin beliau kaya raya",
+        "karena kaum Quraisy langsung sujud menyembah",
+        "karena gelar tersebut membuat beliau jadi raja"
+      ],
+      "answer": 0,
+      "explanation": "Bahkan musuh bebuyutan pun mengakui dalam hati bahwa Muhammad tak pernah berdusta.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hubungan dialektis antara sifat Shiddiq dan Amanah dalam pembentukan kepribadian mukmin adalah ...",
+      "options": [
+        "keduanya berdiri sendiri tanpa saling terkait",
+        "kejujuran lisan melahirkan kepercayaan sikap",
+        "orang yang jujur tidak perlu memegang amanah",
+        "amanah hanya diperlukan dalam urusan uang saja"
+      ],
+      "answer": 1,
+      "explanation": "Integritas kata (shiddiq) adalah fondasi lahirnya kepercayaan publik (amanah).",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kearifan lokal dan resolusi konflik: Pelajaran apa yang dapat dipetik dari strategi kain perca Hajar Aswad?",
+      "options": [
+        "pemimpin harus mengambil keputusan sendiri secara mutlak",
+        "kelompok terkuat berhak menentukan jalannya acara",
+        "kolaborasi merangkul semua pihak mencegah perpecahan",
+        "penyelesaian masalah dilakukan dengan adu kekuatan"
+      ],
+      "answer": 2,
+      "explanation": "Pendekatan inklusif menghargai martabat semua golongan melahirkan harmoni sosial.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tinjauan psikologis: Mengapa keteladanan akhlak (uswah hasanah) Nabi jauh lebih efektif daripada sekadar kata-kata?",
+      "options": [
+        "karena manusia malas mendengarkan nasihat lisan",
+        "karena ajaran Islam hanya berupa gerak fisik",
+        "karena pada masa itu masyarakat tidak bisa bicara",
+        "karena perbuatan nyata menyentuh hati secara autentik"
+      ],
+      "answer": 3,
+      "explanation": "Keteladanan perilaku nyata adalah bahasa universal yang paling berwibawa.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bagaimana cara mengintegrasikan sifat Fathanah dan kelembutan hati dalam memecahkan perundungan (bullying) di sekolah?",
+      "options": [
+        "menggunakan kecerdasan nalar dan empati mendamaikan",
+        "membalas pelaku perundungan dengan kekerasan fisik",
+        "mendiamkan peristiwa agar tidak menjadi masalah besar",
+        "mengeluarkan semua murid yang terlibat dari sekolah"
+      ],
+      "answer": 0,
+      "explanation": "Kecerdasan emosional dan ketegasan moral membimbing teman kembali ke jalan benar.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pernyataan kritis: Apakah sifat pemaaf Rasulullah saw menunjukkan kelemahan politik beliau?",
+      "options": [
+        "ya, seorang pemimpin harus bersikap kejam agar ditakuti",
+        "tidak, memaafkan saat berkuasa adalah puncak kemuliaan",
+        "memaafkan musuh menunjukkan ketiadaan keberanian",
+        "memaafkan hanya dilakukan karena terpaksa oleh keadaan"
+      ],
+      "answer": 1,
+      "explanation": "Puncak kekuatan sejati adalah mampu membalas namun memilih memaafkan dengan cinta.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Relevansi sifat Tabligh bagi generasi muda muslim di tengah maraknya berita bohong (hoaks) adalah ...",
+      "options": [
+        "menyebarkan setiap kabar yang menarik perhatian",
+        "membuat berita sensasional demi jumlah pengikut",
+        "selalu memverifikasi kebenaran sebelum berbagi info",
+        "percaya penuh pada semua kabar di media sosial"
+      ],
+      "answer": 2,
+      "explanation": "Tabligh modern: menyuarakan kebenaran berbasis fakta dan menolak kabar dusta.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Konsep 'Rahmatan lil 'Alamin' menuntut umat Islam untuk membangun peradaban yang ...",
+      "options": [
+        "mengeksploitasi sumber daya alam tanpa batas",
+        "mengucilkan kelompok yang berbeda keyakinan",
+        "menomorsatukan kekuatan militer dan senjata",
+        "inklusif, adil, ramah lingkungan, dan damai"
+      ],
+      "answer": 3,
+      "explanation": "Misi rahmat Islam merawat bumi dan memuliakan harkat martabat kemanusiaan universal.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Negeri tujuan hijrah pertama yang diperintahkan oleh Rasulullah saw kepada sahabat adalah ...",
+      "options": [
+        "Habasyah (Ethiopia)",
+        "kota Madinah al-Munawwarah (Yatsrib)",
+        "Tha'if",
+        "Yaman"
+      ],
+      "answer": 0,
+      "explanation": "Habasyah di benua Afrika menjadi suaka suci pertama kaum muslimin.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Raja yang memimpin negeri Habasyah pada saat itu dikenal dengan gelar ...",
+      "options": [
+        "Kisra penguasa imperium Persia",
+        "Najasyi (Negus)",
+        "Kaisar",
+        "Firaun"
+      ],
+      "answer": 1,
+      "explanation": "Raja Najasyi (bernama Ashhamah) adalah raja yang adil dan bijaksana.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebab utama Rasulullah saw memerintahkan para sahabat hijrah ke Habasyah adalah ...",
+      "options": [
+        "menaklukkan benteng pertahanan kerajaan Habasyah",
+        "mencari rempah-rempah untuk dijual",
+        "menghindari penindasan kejam kafir Quraisy",
+        "berlibur menikmati keindahan alam Afrika"
+      ],
+      "answer": 2,
+      "explanation": "Hijrah bertujuan menyelamatkan akidah para sahabat dari teror kaum Quraisy.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sifat Raja Najasyi yang dipuji oleh Rasulullah saw sebelum hijrah adalah ...",
+      "options": [
+        "raja yang memiliki gudang emas melimpah",
+        "raja yang suka berperang antarbangsa",
+        "raja yang sangat ditakuti rakyatnya",
+        "seorang raja yang adil dan tidak menzalimi"
+      ],
+      "answer": 3,
+      "explanation": "Nabi bersabda bahwa di Habasyah ada raja yang tak membiarkan siapa pun terzalimi.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Agama yang dianut oleh Raja Najasyi dan mayoritas rakyat Habasyah saat itu adalah ...",
+      "options": [
+        "Kristen (Nashrani)",
+        "Majusi (penyembah api)",
+        "Yahudi",
+        "Hindu"
+      ],
+      "answer": 0,
+      "explanation": "Raja Najasyi adalah penganut agama Nashrani yang taat pada ajaran Injil murni.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hijrah ke Habasyah gelombang pertama diikuti oleh kaum muslimin sebanyak ...",
+      "options": [
+        "seratus orang prajurit bersenjata lengkap",
+        "belasan orang (sekitar 14-16 orang)",
+        "seribu orang warga",
+        "lima orang sahabat saja"
+      ],
+      "answer": 1,
+      "explanation": "Rombongan pertama terdiri dari belasan sahabat (laki-laki dan perempuan).",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sahabat terkemuka yang memimpin rombongan hijrah gelombang pertama adalah ...",
+      "options": [
+        "Umar bin Khattab r.a.",
+        "Ali bin Abi Thalib r.a.",
+        "Utsman bin Affan r.a.",
+        "Hamzah bin Abdul Muthalib"
+      ],
+      "answer": 2,
+      "explanation": "Utsman bin Affan memimpin rombongan pertama bersama istrinya Ruqayyah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Istri Sayyidina Utsman bin Affan yang ikut hijrah ke Habasyah adalah putri Nabi bernama ...",
+      "options": [
+        "Fathimah",
+        "Zainab",
+        "Ummu Kultsum",
+        "Ruqayyah"
+      ],
+      "answer": 3,
+      "explanation": "Ruqayyah binti Rasulullah mendampingi suami berhijrah mengarungi lautan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jalur perjalanan yang ditempuh para sahabat menuju Habasyah adalah melintasi ...",
+      "options": [
+        "Laut Merah",
+        "Gurun Sahara luas",
+        "Samudra Pasifik",
+        "Sungai Nil"
+      ],
+      "answer": 0,
+      "explanation": "Sahabat naik perahu dari pelabuhan Syu'aibah menyeberangi Laut Merah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hijrah ke Habasyah gelombang kedua dipimpin oleh sahabat Nabi yang bernama ...",
+      "options": [
+        "Abu Ubaidah bin Jarrah",
+        "Ja'far bin Abi Thalib",
+        "Khalid bin Walid",
+        "Amr bin Ash"
+      ],
+      "answer": 1,
+      "explanation": "Ja'far bin Abi Thalib memimpin sekitar seratus muslimin pada hijrah kedua.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Utusan kafir Quraisy yang dikirim ke Habasyah untuk membawa pulang kaum muslimin adalah ...",
+      "options": [
+        "Walid bin Mughirah dan Umayyah bin Khalaf pembesar",
+        "Abu Jahal dan Abu Lahab",
+        "Amr bin Ash dan Abdullah bin Abi Rabi'ah",
+        "Ikrimah dan Shafwan bin Umayyah"
+      ],
+      "answer": 2,
+      "explanation": "Amr bin Ash (sebelum masuk Islam) diutus membawa hadiah menyogok para uskup.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Barang-barang yang dibawa utusan Quraisy untuk menyuap Raja Najasyi dan uskupnya adalah ...",
+      "options": [
+        "unta merah terbaik yang bertabur intan permata",
+        "beras gandum dari Syam",
+        "emas batangan dari Persia",
+        "hadiah kerajinan kulit samak berkualitas"
+      ],
+      "answer": 3,
+      "explanation": "Kulit samak khas Makkah adalah barang mewah favorit para bangsawan Habasyah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Juru bicara kaum muslimin yang berdialog dengan gagah berani di hadapan Raja Najasyi adalah ...",
+      "options": [
+        "Ja'far bin Abi Thalib",
+        "Utsman bin Mazh'un sahabat mulia Rasulullah",
+        "Abdurrahman bin Auf",
+        "Zubair bin Awwam"
+      ],
+      "answer": 0,
+      "explanation": "Sayyidina Ja'far berpidato memukau menjelaskan hakikat ajaran Islam.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Surah dalam Al-Qur'an yang dibacakan oleh Ja'far bin Abi Thalib di hadapan Raja Najasyi adalah ...",
+      "options": [
+        "Surah Al-Baqarah",
+        "Surah Maryam",
+        "Surah Yasin",
+        "Surah Al-Mulk"
+      ],
+      "answer": 1,
+      "explanation": "Ja'far membacakan ayat-ayat surah Maryam tentang kemuliaan Nabi Isa dan ibundanya.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Reaksi Raja Najasyi dan para uskup saat mendengar lantunan surah Maryam adalah ...",
+      "options": [
+        "marah besar dan mengusir kaum muslimin",
+        "menertawakan bacaan Al-Qur'an tersebut",
+        "menangis terharu hingga janggutnya basah",
+        "merobek lembaran mushaf di hadapannya"
+      ],
+      "answer": 2,
+      "explanation": "Kebenaran ayat suci Al-Qur'an menyentuh lubuk hati Raja Najasyi yang tulus.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Keputusan akhir Raja Najasyi terhadap permintaan utusan kaum kafir Quraisy adalah ...",
+      "options": [
+        "menyerahkan semua sahabat ke tangan Quraisy",
+        "memenjarakan kaum muslimin di benteng",
+        "meminta tebusan emas yang sangat banyak",
+        "menolak mentah-mentah dan melindungi muslimin"
+      ],
+      "answer": 3,
+      "explanation": "Raja Najasyi mengembalikan suap dan menjamin keamanan penuh kaum muslimin.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tujuan utama kaum kafir Quraisy mengejar para sahabat hingga ke negeri Habasyah adalah ...",
+      "options": [
+        "mencegah Islam berkembang di luar Makkah",
+        "ingin mengajak sahabat berdagang bersama",
+        "rindu kepada sanak famili yang pergi",
+        "ingin belajar ilmu pelayaran dari sahabat"
+      ],
+      "answer": 0,
+      "explanation": "Quraisy khawatir pengaruh Islam mendapat dukungan militer dan politik asing.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Inti pidato Sayyidina Ja'far bin Abi Thalib di hadapan Raja Najasyi menggambarkan ...",
+      "options": [
+        "rencana penaklukan kota Makkah dengan perang",
+        "perubahan dari kebiadaban jahiliyah menuju akhlak Islam",
+        "kehebatan silsilah para pembesar kabilah Arab",
+        "kekayaan alam yang dimiliki jazirah Arab"
+      ],
+      "answer": 1,
+      "explanation": "Pidato Ja'far merangkum transformasi moral: dari zina dan zalim menuju tauhid dan kasih.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Persamaan ajaran yang diakui Raja Najasyi antara Al-Qur'an dan ajaran Nabi Isa a.s. adalah ...",
+      "options": [
+        "keduanya sama-sama membolehkan penyembahan berhala",
+        "keduanya memerintahkan pengumpulan harta dunia",
+        "keduanya memancarkan cahaya lentera kebenaran yang sama",
+        "keduanya berasal dari pemikiran para filsuf Yunani"
+      ],
+      "answer": 2,
+      "explanation": "Raja berkata: 'Sungguh apa yang dibawa Muhammad dan Isa keluar dari sumber yang sama.'",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Garis batas di tanah yang digoreskan oleh Raja Najasyi mengisyaratkan bahwa ...",
+      "options": [
+        "kaum muslimin dilarang melintasi perbatasan tanah",
+        "utusan Quraisy harus segera angkat kaki dari istana",
+        "istana Habasyah tidak boleh dimasuki orang asing",
+        "perbedaan pandangan tentang Nabi Isa sangat tipis"
+      ],
+      "answer": 3,
+      "explanation": "Najasyi mengakui Isa adalah hamba dan rasul Allah sebagaimana ajaran Al-Qur'an.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap toleransi dan keadilan Raja Najasyi membuktikan bahwa pemimpin yang mulia adalah ...",
+      "options": [
+        "pemimpin yang melindungi orang tertindas",
+        "pemimpin yang mudah disuap dengan hadiah mahal",
+        "pemimpin yang menindas kaum minoritas di negerinya",
+        "pemimpin yang selalu mengobarkan perang saudara"
+      ],
+      "answer": 0,
+      "explanation": "Keadilan sejati tidak membeda-bedakan suku, agama, dan asal usul tamu yang mencari suaka.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika Raja Najasyi wafat di Habasyah, penghormatan luar biasa yang dilakukan Rasulullah saw adalah ...",
+      "options": [
+        "mengirimkan pasukan untuk merebut istananya",
+        "melaksanakan salat gaib bersama sahabat di Madinah",
+        "meminta seluruh harta peninggalannya dibagikan",
+        "membangun makam megah di kota Makkah"
+      ],
+      "answer": 1,
+      "explanation": "Nabi Muhammad saw menyalatkan jenazah Raja Najasyi secara gaib (salat jenazah gaib).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pelajaran diplomasi dari strategi hijrah ke Habasyah bagi dakwah Islam adalah ...",
+      "options": [
+        "menghindari perjuangan dan lari dari tugas",
+        "mencari suaka politik untuk menyerang musuh",
+        "membangun hubungan persahabatan antarbangsa",
+        "memaksa penguasa negeri lain memeluk Islam"
+      ],
+      "answer": 2,
+      "explanation": "Dakwah Islam menjunjung tinggi hukum internasional dan adab bertamu.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Karakteristik hubungan antara kaum muslimin dan penduduk Habasyah selama menetap di sana adalah ...",
+      "options": [
+        "terlibat konflik perebutan lahan pertanian",
+        "mengisolasi diri dari interaksi masyarakat",
+        "mencampuri urusan dalam negeri istana",
+        "hidup berdampingan secara damai dan saling menghormati"
+      ],
+      "answer": 3,
+      "explanation": "Muslimin menjadi teladan pendatang yang taat hukum, santun, dan produktif.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa utusan Quraisy menyebarkan tuduhan bahwa umat Islam menghina Nabi Isa a.s.?",
+      "options": [
+        "untuk mengadu domba Raja Najasyi dengan kaum muslimin",
+        "karena utusan Quraisy sangat mencintai Nabi Isa",
+        "karena ingin membantu dakwah Islam di Habasyah",
+        "agar Raja Najasyi memberikan hadiah lebih banyak"
+      ],
+      "answer": 0,
+      "explanation": "Politik adu domba licik Quraisy berusaha memanfaatkan sentimen keagamaan raja.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jawaban bijak Sayyidina Ja'far saat ditanya status Nabi Isa menurut pandangan Islam adalah ...",
+      "options": [
+        "Isa adalah anak tuhan yang harus disembah",
+        "Isa adalah hamba Allah, rasul-Nya, dan kalimat-Nya",
+        "Isa adalah nabi palsu yang menyesatkan manusia",
+        "Isa adalah raja penguasa seluruh benua Afrika"
+      ],
+      "answer": 1,
+      "explanation": "Ja'far menyampaikan akidah Al-Qur'an secara jujur, elegan, dan menyejukkan hati.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pengorbanan besar para sahabat saat hijrah ke Habasyah di antaranya adalah ...",
+      "options": [
+        "kehilangan seluruh hafalan ayat Al-Qur'an",
+        "terpaksa meninggalkan salat lima waktu di kapal",
+        "meninggalkan sanak keluarga, rumah, dan tanah kelahiran",
+        "mengubah keyakinan tauhid selama di perantauan"
+      ],
+      "answer": 2,
+      "explanation": "Cinta kepada akidah menuntut keikhlasan berkorban harta dan kenyamanan tanah air.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Reaksi kaum kafir Quraisy setelah kepulangan Amr bin Ash dengan tangan hampa adalah ...",
+      "options": [
+        "menyadari kesalahan dan berbondong masuk Islam",
+        "meminta maaf secara terbuka kepada Rasulullah saw",
+        "menghentikan seluruh bentuk intimidasi kepada sahabat",
+        "semakin marah dan melipatgandakan kekejaman di Makkah"
+      ],
+      "answer": 3,
+      "explanation": "Kegagalan diplomasi membuat kaum Quraisy kalap hingga memberlakukan pemboikotan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Nilai kerukunan beragama yang dapat dipetik dari peristiwa hijrah ke Habasyah adalah ...",
+      "options": [
+        "dialog santun dan penghormatan atas perbedaan keyakinan",
+        "memaksa pihak lain menyepakati seluruh ritual ibadah",
+        "menolak berdialog dengan pemeluk agama lain",
+        "menganggap musuh semua orang yang berbeda akidah"
+      ],
+      "answer": 0,
+      "explanation": "Umat Islam dan kaum Nashrani Habasyah membangun harmoni di atas nilai kemanusiaan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Peran perempuan muslimah dalam peristiwa hijrah ke Habasyah membuktikan bahwa ...",
+      "options": [
+        "wanita hanya boleh berdiam diri di dalam rumah",
+        "wanita memiliki peran penting dalam perjuangan Islam",
+        "perjuangan dakwah hanya menjadi tugas kaum pria",
+        "wanita tidak boleh menempuh perjalanan jauh"
+      ],
+      "answer": 1,
+      "explanation": "Keberanian Ruqayyah, Asma' binti Umais, dan shahabiyyah lainnya mengukir sejarah emas.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap seorang pelajar saat melihat teman yang diintimidasi atau dijauhi di kelas adalah ...",
+      "options": [
+        "ikut menjauhi agar tidak dijadikan sasaran empuk",
+        "menyoraki teman yang sedang kesulitan tersebut",
+        "merangkul dan memberikan perlindungan serta empati",
+        "menertawakan kelemahan fisik teman di depan umum"
+      ],
+      "answer": 2,
+      "explanation": "Meneladani akhlak Raja Najasyi: berani berdiri membela pihak yang terzalimi.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Penerapan nilai 'rahmatan lil 'alamin' dari peristiwa Habasyah bagi Indonesia adalah ...",
+      "options": [
+        "membuat sekat pemisah antarkelompok agama",
+        "mementingkan suku sendiri di atas kepentingan bangsa",
+        "menghindari kerja sama dengan orang berbeda daerah",
+        "menjaga persatuan dan toleransi dalam bingkai kemanusiaan"
+      ],
+      "answer": 3,
+      "explanation": "Persaudaraan kemanusiaan (ukhuwah insaniyyah) mengikat kedamaian bangsa majemuk.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Analisis geopolitik: Mengapa Rasulullah saw memilih Habasyah di Afrika, bukan Yaman atau Syam?",
+      "options": [
+        "karena Yaman dan Syam dikuasai Persia dan Romawi",
+        "karena perjalanan ke Habasyah tidak memerlukan biaya",
+        "karena benua Afrika pada saat itu belum berpenghuni",
+        "karena penduduk Habasyah memiliki bahasa yang sama persis"
+      ],
+      "answer": 0,
+      "explanation": "Visi strategis Nabi: Habasyah berdaulat independen dan bebas dari pengaruh boneka Quraisy.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perbandingan diplomasi: Apa rahasia keberhasilan pidato Ja'far bin Abi Thalib melumpuhkan suap Quraisy?",
+      "options": [
+        "kehebatan Ja'far dalam menjanjikan bagi hasil upeti",
+        "ketulusan argumen moral dan keindahan kalam Ilahi",
+        "ancaman militer yang dibawa oleh pasukan para sahabat",
+        "hadiah intan permata yang dibawa lebih banyak dari Quraisy"
+      ],
+      "answer": 1,
+      "explanation": "Kebenaran autentik yang disampaikan dengan keindahan nurani mengalahkan suap materi.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tinjauan maqashid syariah: Hijrah ke Habasyah mencerminkan perlindungan terhadap ...",
+      "options": [
+        "hifdzul mal (menimbun harta kekayaan perniagaan)",
+        "hifdzun nasl (mencari pasangan hidup di luar negeri)",
+        "hifdzud din (menjaga agama) dan hifdzun nafs (jiwa)",
+        "hifdzul 'aql (mempelajari bahasa asing semata)"
+      ],
+      "answer": 2,
+      "explanation": "Prioritas darurat syariat: menyelamatkan nyawa dan kemerdekaan memeluk tauhid.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Refleksi etika kepemimpinan: Mengapa Rasulullah saw menyalatkan Raja Najasyi secara gaib?",
+      "options": [
+        "karena Raja Najasyi tidak memiliki rakyat yang mengurusnya",
+        "sebagai syarat formal agar warisan kerajaannya sah",
+        "karena diperintahkan untuk menguasai negeri Habasyah",
+        "penghormatan tertinggi atas jasanya melindungi dakwah"
+      ],
+      "answer": 3,
+      "explanation": "Pengakuan dan apresiasi abadi Islam kepada pemimpin yang adil dan berhati mulia.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kritik komparatif: Bagaimana dialog Ja'far dan Najasyi membantah mitos bahwa Islam disebarkan dengan pedang?",
+      "options": [
+        "Islam merangkul hati melalui dialog damai dan kebijaksanaan",
+        "karena kaum muslimin saat itu belum memiliki pedang perang",
+        "karena Raja Najasyi menyerah kalah akibat kepungan tentara",
+        "karena kaum Quraisy yang memaksa kaum muslimin berperang"
+      ],
+      "answer": 0,
+      "explanation": "Sejarah membuktikan dakwah Islam memikat dunia dengan keadilan moral dan pencerahan akal.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bagaimana cara seorang santri mengamalkan semangat hijrah di era kemerdekaan sekarang?",
+      "options": [
+        "meninggalkan keluarga untuk tinggal di hutan belantara",
+        "berpindah dari kebiasaan malas menuju produktivitas belajar",
+        "berpindah sekolah setiap kali mendapatkan nilai buruk",
+        "menolak berbicara bahasa Indonesia dalam pergaulan"
+      ],
+      "answer": 1,
+      "explanation": "Hakikat hijrah maknawi: meninggalkan keburukan menuju kemuliaan amal saleh.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Nilai Kurikulum Berbasis Cinta (KBC) dalam dialog lintas agama di istana Habasyah adalah ...",
+      "options": [
+        "mengorbankan prinsip keyakinan demi menyenangkan penguasa",
+        "mencari-cari kesalahan dan memancing perdebatan sengit",
+        "menemukan titik temu kemanusiaan tanpa menggadaikan akidah",
+        "memaksa penguasa meyakini seluruh dogma secara sepihak"
+      ],
+      "answer": 2,
+      "explanation": "Dialog berbasis cinta memancarkan kedewasaan beragama dan mutual respect.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pelajaran apa yang dapat dipetik tentang ketahanan mental para sahabat selama di pengasingan?",
+      "options": [
+        "pengasingan membuat manusia putus asa dan kehilangan iman",
+        "hidup di negeri asing mengharuskan kita meniru semua adat",
+        "perjuangan membela kebenaran harus selalu dibayar uang",
+        "kesabaran menghadapi ujian menumbuhkan kematangan spiritual"
+      ],
+      "answer": 3,
+      "explanation": "Tempaan jarak dan penderitaan menyempurnakan keikhlasan pejuang generasi terbaik.",
+      "difficulty": 3,
+      "timeLimit": 20
+    }
+  ]
+}

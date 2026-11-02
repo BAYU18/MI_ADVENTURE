@@ -1,0 +1,1958 @@
+{
+  "version": 1,
+  "class": "Kelas 4 SD",
+  "subject": "Bahasa Indonesia",
+  "totalQuestions": 150,
+  "questions": [
+    {
+      "question": "Kalimat yang memerlukan objek disebut kalimat ...",
+      "options": [
+        "Transitif",
+        "Intransitif",
+        "Pasif",
+        "Perintah"
+      ],
+      "answer": 0,
+      "explanation": "Kalimat transitif memerlukan objek penderita.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat yang tidak memerlukan objek disebut kalimat ...",
+      "options": [
+        "Transitif",
+        "Intransitif",
+        "Aktif",
+        "Tanya"
+      ],
+      "answer": 1,
+      "explanation": "Kalimat intransitif maknanya sudah lengkap tanpa objek.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Buku rujukan resmi untuk mencari arti kata adalah ...",
+      "options": [
+        "Atlas",
+        "Ensiklopedia",
+        "KBBI",
+        "Novel"
+      ],
+      "answer": 2,
+      "explanation": "KBBI (Kamus Besar Bahasa Indonesia) memuat arti baku kata.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rasa takut berlebihan terhadap sesuatu disebut ...",
+      "options": [
+        "Alergi",
+        "Trauma",
+        "Cemas",
+        "Fobia"
+      ],
+      "answer": 3,
+      "explanation": "Fobia adalah ketakutan berlebihan dan tidak wajar.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Imbuhan 'me-' pada kata 'baca' membentuk kata ...",
+      "options": [
+        "Membaca",
+        "Membacakan",
+        "Pustaka",
+        "Terbaca"
+      ],
+      "answer": 0,
+      "explanation": "me- + baca luluh menjadi membaca.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh kalimat transitif berikut adalah ...",
+      "options": [
+        "Adik menangis",
+        "Ibu memasak rendang",
+        "Burung terbang",
+        "Ayah tidur"
+      ],
+      "answer": 1,
+      "explanation": "'rendang' adalah objek dari kata kerja memasak.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh kalimat intransitif berikut adalah ...",
+      "options": [
+        "Ibu mencuci baju",
+        "Budi makan pisang",
+        "Kelinci melompat",
+        "Kakak menulis puisi"
+      ],
+      "answer": 2,
+      "explanation": "'melompat' tidak membutuhkan objek penyerta.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata dasar dari 'menulis' adalah ...",
+      "options": [
+        "Nulis",
+        "Tuliskan",
+        "Menulis",
+        "Tulis"
+      ],
+      "answer": 3,
+      "explanation": "Kata dasar menulis adalah tulis dengan peluluhan huruf t.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata dasar dari 'menyapu' adalah ...",
+      "options": [
+        "Sapu",
+        "Nyapu",
+        "Sapukan",
+        "Penyapu"
+      ],
+      "answer": 0,
+      "explanation": "Huruf s luluh menjadi meny- pada kata dasar sapu.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Fobia terhadap kegelapan disebut ...",
+      "options": [
+        "Klaustrofobia",
+        "Niktofobia",
+        "Akrofobia",
+        "Araknofobia"
+      ],
+      "answer": 1,
+      "explanation": "Niktofobia adalah rasa takut berlebihan pada gelap.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Subjek pada kalimat 'Rani meminjam buku' adalah ...",
+      "options": [
+        "Meminjam",
+        "Buku",
+        "Rani",
+        "Perpustakaan"
+      ],
+      "answer": 2,
+      "explanation": "Rani adalah pelaku (subjek) yang melakukan tindakan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Predikat pada kalimat 'Ayah memperbaiki sepeda' adalah ...",
+      "options": [
+        "Ayah",
+        "Sepeda",
+        "Di rumah",
+        "Memperbaiki"
+      ],
+      "answer": 3,
+      "explanation": "Memperbaiki adalah kata kerja yang menjadi predikat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Objek pada kalimat 'Beni menyiram bunga' adalah ...",
+      "options": [
+        "Bunga",
+        "Beni",
+        "Menyiram",
+        "Pagi"
+      ],
+      "answer": 0,
+      "explanation": "Bunga adalah objek yang menerima tindakan menyiram.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah kalimat berikut yang berpola S-P-O?",
+      "options": [
+        "Doni berlari cepat",
+        "Doni memotong rumput",
+        "Rumput dipotong Doni",
+        "Doni bernyanyi riang"
+      ],
+      "answer": 1,
+      "explanation": "Doni (S) memotong (P) rumput (O).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Imbuhan 'me-' jika bertemu kata dasar 'pukul' berubah menjadi ...",
+      "options": [
+        "Mempukul",
+        "Mepukul",
+        "Memukul",
+        "Menyukul"
+      ],
+      "answer": 2,
+      "explanation": "Huruf p pada awal kata dasar luluh menjadi mem-.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Imbuhan 'me-' jika bertemu kata dasar 'sapu' berubah menjadi ...",
+      "options": [
+        "Mensapu",
+        "Mesapu",
+        "Mengsapu",
+        "Menyapu"
+      ],
+      "answer": 3,
+      "explanation": "Huruf s pada kata dasar berawalan konsonan luluh menjadi meny-.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Imbuhan 'me-' jika bertemu kata dasar 'kira' berubah menjadi ...",
+      "options": [
+        "Mengira",
+        "Menkira",
+        "Mekira",
+        "Menggira"
+      ],
+      "answer": 0,
+      "explanation": "Huruf k luluh menjadi meng- pada kata mengira.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pola kalimat 'Adik tidur di kamar' adalah ...",
+      "options": [
+        "S-P-O",
+        "S-P-K",
+        "S-P-Pel",
+        "S-K-P"
+      ],
+      "answer": 1,
+      "explanation": "Adik (S) tidur (P) di kamar (Keterangan tempat).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Cara mencari kata 'terbakar' dalam kamus cetak adalah mencari kata dasar ...",
+      "options": [
+        "Terbakar",
+        "Membakar",
+        "Bakar",
+        "Kebakaran"
+      ],
+      "answer": 2,
+      "explanation": "Kata turunan selalu dicari melalui kata dasarnya di kamus.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah yang merupakan kalimat intransitif dengan keterangan waktu?",
+      "options": [
+        "Pak Tani mencangkul sawah",
+        "Pak Tani menanam padi",
+        "Pak Tani memanen jagung",
+        "Pak Tani berangkat pagi-pagi"
+      ],
+      "answer": 3,
+      "explanation": "Berangkat tidak memerlukan objek, pagi-pagi adalah keterangan waktu.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Fobia terhadap ruang sempit tertutup disebut ...",
+      "options": [
+        "Klaustrofobia",
+        "Akrofobia",
+        "Hidrofobia",
+        "Niktofobia"
+      ],
+      "answer": 0,
+      "explanation": "Klaustrofobia adalah takut berada di ruang tertutup/sempit.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Imbuhan 'me-' yang tidak mengalami peluluhan huruf terjadi pada kata ...",
+      "options": [
+        "Menulis",
+        "Membawa",
+        "Memasak",
+        "Menyapu"
+      ],
+      "answer": 1,
+      "explanation": "Kata dasar bawa berawalan huruf b sehingga tidak luluh (membawa).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat transitif berikut yang dilengkapi keterangan tempat adalah ...",
+      "options": [
+        "Siti membaca komik baru",
+        "Siti membaca dengan rajin",
+        "Siti membaca komik di teras",
+        "Siti belajar di kamar"
+      ],
+      "answer": 2,
+      "explanation": "Siti (S) membaca (P) komik (O) di teras (Keterangan tempat).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ciri orang yang mengalami fobia saat bertemu pemicunya adalah ...",
+      "options": [
+        "Tertawa terbahak-bahak",
+        "Merasa sangat mengantuk",
+        "Merasa lapar tiba-tiba",
+        "Jantung berdebar sangat kencang"
+      ],
+      "answer": 3,
+      "explanation": "Gejala fobia antara lain cemas hebat dan jantung berdebar.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata berimbuhan me- yang bermakna 'menghasilkan' adalah ...",
+      "options": [
+        "Mengaum",
+        "Menulis",
+        "Menyapu",
+        "Memotong"
+      ],
+      "answer": 0,
+      "explanation": "Mengaum berarti mengeluarkan atau menghasilkan suara aum.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Penulisan kata berimbuhan yang benar adalah ...",
+      "options": [
+        "Merubah",
+        "Mengubah",
+        "Menyubit",
+        "Mensapu"
+      ],
+      "answer": 1,
+      "explanation": "Kata dasar ubah berawalan vokal sehingga menjadi mengubah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat di bawah ini yang menggunakan kata kerja aktif transitif adalah ...",
+      "options": [
+        "Ardi berdiri di bawah pohon",
+        "Pohon mangga berbuah lebat",
+        "Ardi memanjat pohon mangga",
+        "Ardi tersenyum lebar"
+      ],
+      "answer": 2,
+      "explanation": "Memanjat membutuhkan objek penderita yaitu pohon mangga.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pernyataan yang tepat tentang KBBI adalah ...",
+      "options": [
+        "Kata disusun berdasar panjangnya",
+        "Hanya berisi nama orang",
+        "Disusun berdasar jumlah halaman",
+        "Kata disusun urut sesuai abjad"
+      ],
+      "answer": 3,
+      "explanation": "Entri kamus disusun secara alfabetis dari A sampai Z.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perhatikan kalimat: 'Lani menaruh kacamata di atas meja.' Fungsi kata 'di atas meja' adalah ...",
+      "options": [
+        "Keterangan tempat",
+        "Objek penderita",
+        "Pelengkap",
+        "Predikat"
+      ],
+      "answer": 0,
+      "explanation": "'di atas meja' menerangkan tempat terjadinya peristiwa menaruh.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat transitif dapat diubah menjadi kalimat pasif. Manakah bentuk pasif dari 'Kucing mengejar tikus'?",
+      "options": [
+        "Kucing dikejar oleh tikus",
+        "Tikus dikejar oleh kucing",
+        "Tikus mengejar kucing liar",
+        "Kucing berlari cepat"
+      ],
+      "answer": 1,
+      "explanation": "Objek tikus maju menjadi subjek pada kalimat pasif.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa kalimat 'Budi menangis keras' tidak bisa diubah menjadi kalimat pasif?",
+      "options": [
+        "Karena subjeknya nama orang",
+        "Karena predikatnya kata sifat",
+        "Karena tidak memiliki objek",
+        "Karena ada keterangan cara"
+      ],
+      "answer": 2,
+      "explanation": "Hanya kalimat yang memiliki objek yang dapat dipasifkan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata dasar 'kristal' jika diberi imbuhan me- menjadi ...",
+      "options": [
+        "Mengristal",
+        "Menkristal",
+        "Mekristal",
+        "Mengkristal"
+      ],
+      "answer": 3,
+      "explanation": "Huruf k yang diikuti konsonan r tidak luluh, jadi mengkristal.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Fobia ketinggian dikenal dengan istilah ...",
+      "options": [
+        "Akrofobia",
+        "Aerofobia",
+        "Ofidiofobia",
+        "Araknofobia"
+      ],
+      "answer": 0,
+      "explanation": "Akrofobia adalah ketakutan ekstrem terhadap tempat tinggi.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perhatikan: 'Anak itu memancing ikan di danau kemarin sore.' Unsur kalimat tersebut secara berurutan adalah ...",
+      "options": [
+        "S-P-Pel-K",
+        "S-P-O-K-K",
+        "S-P-O-Pel",
+        "S-K-P-O"
+      ],
+      "answer": 1,
+      "explanation": "Anak itu (S) memancing (P) ikan (O) di danau (K.tempat) kemarin sore (K.waktu).",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat yang menggunakan kata berimbuhan me- bermakna 'menjadi seperti' adalah ...",
+      "options": [
+        "Adik menangis tersedu",
+        "Ibu menggoreng pisang",
+        "Air laut mulai membeku",
+        "Paman mengecat pagar"
+      ],
+      "answer": 2,
+      "explanation": "Membeku bermakna menjadi beku seperti es.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah pasangan kata dasar dan kata berimbuhan yang luluh dengan benar?",
+      "options": [
+        "Tulis -> Mentulis",
+        "Pegang -> Mempegang",
+        "Sikat -> Mensikat",
+        "Tolong -> Menolong"
+      ],
+      "answer": 3,
+      "explanation": "Huruf t pada tolong luluh menjadi menolong.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dalam sebuah cerita, kalimat 'Hati Lani menciut saat melihat laba-laba' menggambarkan perasaan ...",
+      "options": [
+        "Sangat takut",
+        "Sangat senang",
+        "Sangat kagum",
+        "Biasa saja"
+      ],
+      "answer": 0,
+      "explanation": "'Hati menciut' adalah kiasan untuk perasaan ciut atau sangat takut.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah kalimat yang memiliki pola sama dengan 'Burung kenari berkicau merdu'?",
+      "options": [
+        "Ayah mencuci mobil",
+        "Mobil balap melaju kencang",
+        "Rina membaca buku tebal",
+        "Budi melempar bola"
+      ],
+      "answer": 1,
+      "explanation": "Keduanya berpola S-P-K (Keterangan cara: merdu / kencang).",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Cerita yang berdasarkan khayalan atau rekaan pengarang disebut cerita ...",
+      "options": [
+        "Fiksi",
+        "Nonfiksi",
+        "Biografi",
+        "Fakta"
+      ],
+      "answer": 0,
+      "explanation": "Cerita fiksi lahir dari daya imajinasi pengarang.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Cerita yang berdasarkan kenyataan atau fakta disebut cerita ...",
+      "options": [
+        "Fiksi",
+        "Nonfiksi",
+        "Dongeng",
+        "Mite"
+      ],
+      "answer": 1,
+      "explanation": "Nonfiksi ditulis berlandaskan fakta yang benar-benar terjadi.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata yang memiliki ejaan dan pelafalan sama tetapi artinya berbeda disebut ...",
+      "options": [
+        "Sinonim",
+        "Antonim",
+        "Homonim",
+        "Akronim"
+      ],
+      "answer": 2,
+      "explanation": "Homonim memiliki bentuk dan bunyi sama, namun makna berbeda.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata 'bisa' bermakna racun ular dan dapat bermakna sanggup. Kata ini termasuk ...",
+      "options": [
+        "Sinonim",
+        "Antonim",
+        "Homograf",
+        "Homonim"
+      ],
+      "answer": 3,
+      "explanation": "Kata 'bisa' adalah contoh klasik homonim.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Gambar yang menunjukkan letak kota, jalan, atau ruangan disebut ...",
+      "options": [
+        "Denah",
+        "Lukisan",
+        "Poster",
+        "Grafik"
+      ],
+      "answer": 0,
+      "explanation": "Denah adalah petunjuk visual letak suatu tempat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Arah mata angin yang berlawanan dengan utara adalah ...",
+      "options": [
+        "Barat",
+        "Selatan",
+        "Timur",
+        "Tenggara"
+      ],
+      "answer": 1,
+      "explanation": "Utara berhadapan langsung dengan selatan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Matahari terbit dari arah ...",
+      "options": [
+        "Barat",
+        "Utara",
+        "Timur",
+        "Selatan"
+      ],
+      "answer": 2,
+      "explanation": "Matahari selalu terbit di ufuk timur.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Matahari terbenam di arah ...",
+      "options": [
+        "Timur",
+        "Utara",
+        "Selatan",
+        "Barat"
+      ],
+      "answer": 3,
+      "explanation": "Matahari terbenam di ufuk barat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh karya tulisan nonfiksi adalah ...",
+      "options": [
+        "Buku pelajaran sains",
+        "Cerita dongeng kancil",
+        "Kisah peri ajaib",
+        "Cerita raksasa"
+      ],
+      "answer": 0,
+      "explanation": "Buku pelajaran sains memuat fakta ilmiah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Paragraf yang kalimat utamanya berada di awal paragraf disebut paragraf ...",
+      "options": [
+        "Induktif",
+        "Deduktif",
+        "Campuran",
+        "Naratif"
+      ],
+      "answer": 1,
+      "explanation": "Deduktif: gagasan pokok terletak di awal paragraf.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Paragraf yang kalimat utamanya berada di akhir paragraf disebut paragraf ...",
+      "options": [
+        "Deduktif",
+        "Deskriptif",
+        "Induktif",
+        "Eksposisi"
+      ],
+      "answer": 2,
+      "explanation": "Induktif: gagasan pokok berada di akhir sebagai kesimpulan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tokoh utama dalam sebuah cerita fiksi adalah tokoh yang ...",
+      "options": [
+        "Hanya muncul sekali",
+        "Paling jahat",
+        "Tidak pernah bicara",
+        "Paling sering diceritakan"
+      ],
+      "answer": 3,
+      "explanation": "Tokoh utama mendominasi jalannya alur cerita.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Latar dalam sebuah cerita meliputi ...",
+      "options": [
+        "Tempat, waktu, dan suasana",
+        "Hanya nama tokoh",
+        "Panjangnya halaman buku",
+        "Harga buku"
+      ],
+      "answer": 0,
+      "explanation": "Latar menjelaskan di mana, kapan, dan suasana peristiwa.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata 'genting' bermakna atap rumah dan juga bermakna ...",
+      "options": [
+        "Lembut",
+        "Gawat atau tegang",
+        "Dingin",
+        "Tinggi"
+      ],
+      "answer": 1,
+      "explanation": "Keadaan genting berarti situasi darurat atau tegang.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perhatikan: 'Bulan ini paman menatap bulan purnama.' Kata 'bulan' pada kalimat tersebut merupakan contoh ...",
+      "options": [
+        "Sinonim",
+        "Antonim",
+        "Homonim",
+        "Hipernim"
+      ],
+      "answer": 2,
+      "explanation": "Bulan nama waktu dan bulan benda langit adalah homonim.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Arah mata angin di antara utara dan timur adalah ...",
+      "options": [
+        "Tenggara",
+        "Barat daya",
+        "Barat laut",
+        "Timur laut"
+      ],
+      "answer": 3,
+      "explanation": "Antara utara dan timur adalah timur laut.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Arah mata angin di antara selatan dan barat adalah ...",
+      "options": [
+        "Barat daya",
+        "Barat laut",
+        "Tenggara",
+        "Timur laut"
+      ],
+      "answer": 0,
+      "explanation": "Antara selatan dan barat adalah barat daya.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pada denah standar, arah utara selalu menunjuk ke arah ...",
+      "options": [
+        "Bawah",
+        "Atas",
+        "Kanan",
+        "Kiri"
+      ],
+      "answer": 1,
+      "explanation": "Arah atas peta atau denah konvensional menunjuk ke utara.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jika kita menghadap ke arah timur, maka tangan kiri kita menunjuk ke arah ...",
+      "options": [
+        "Selatan",
+        "Barat",
+        "Utara",
+        "Tenggara"
+      ],
+      "answer": 2,
+      "explanation": "Menghadap timur: depan timur, belakang barat, kiri utara, kanan selatan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata 'rapat' pada 'pertemuan dinas' dan 'barisan yang rapat' memiliki hubungan ...",
+      "options": [
+        "Sinonim",
+        "Antonim",
+        "Homofon",
+        "Homonim"
+      ],
+      "answer": 3,
+      "explanation": "Ejaan dan lafalnya persis sama namun artinya berbeda.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pesan moral yang ingin disampaikan pengarang kepada pembaca disebut ...",
+      "options": [
+        "Amanat",
+        "Tema",
+        "Alur",
+        "Latar"
+      ],
+      "answer": 0,
+      "explanation": "Amanat adalah pesan kebaikan dalam sebuah cerita.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bagian awal dalam cerita yang memperkenalkan tokoh dan latar disebut ...",
+      "options": [
+        "Komplikasi",
+        "Orientasi",
+        "Resolusi",
+        "Koda"
+      ],
+      "answer": 1,
+      "explanation": "Orientasi berisi pengenalan awal tokoh, latar, dan situasi.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Puncak ketegangan atau masalah dalam suatu cerita disebut ...",
+      "options": [
+        "Orientasi",
+        "Resolusi",
+        "Klimaks",
+        "Prolog"
+      ],
+      "answer": 2,
+      "explanation": "Klimaks adalah titik balik masalah paling menegangkan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Penyelesaian masalah dalam sebuah cerita disebut ...",
+      "options": [
+        "Orientasi",
+        "Komplikasi",
+        "Klimaks",
+        "Resolusi"
+      ],
+      "answer": 3,
+      "explanation": "Resolusi memuat jalan keluar atas konflik yang terjadi.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat yang berisi pendapat atau perkiraan seseorang disebut kalimat ...",
+      "options": [
+        "Opini",
+        "Fakta",
+        "Perintah",
+        "Tanya"
+      ],
+      "answer": 0,
+      "explanation": "Opini bersifat subjektif dan kebenarannya belum pasti.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat yang menyatakan kenyataan yang dapat dibuktikan kebenarannya disebut ...",
+      "options": [
+        "Opini",
+        "Fakta",
+        "Saran",
+        "Kritik"
+      ],
+      "answer": 1,
+      "explanation": "Fakta berisi data nyata yang terbukti benar secara objektif.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah kalimat di bawah ini yang merupakan fakta?",
+      "options": [
+        "Pantai Kuta pantai terindah di dunia",
+        "Semua anak suka makan es krim",
+        "Indonesia memiliki ribuan pulau",
+        "Membaca komik lebih asyik dari buku"
+      ],
+      "answer": 2,
+      "explanation": "Jumlah kepulauan Indonesia adalah kenyataan geografis.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Simbol arah mata angin pada peta biasanya digambarkan dengan ...",
+      "options": [
+        "Lingkaran hitam pekat",
+        "Gambar bintang kuning",
+        "Segitiga berwarna merah",
+        "Tanda panah ke atas huruf U"
+      ],
+      "answer": 3,
+      "explanation": "Huruf U (Utara) dengan panah adalah penunjuk arah baku.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perhatikan: 'Rian berdiri menghadap matahari terbit. Ia lalu berputar 90 derajat searah jarum jam.' Menghadap ke manakah Rian sekarang?",
+      "options": [
+        "Selatan",
+        "Utara",
+        "Barat",
+        "Barat daya"
+      ],
+      "answer": 0,
+      "explanation": "Dari timur putar 90 derajat searah jarum jam menuju ke selatan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah di bawah ini pasangan kalimat yang memuat kata homonim?",
+      "options": [
+        "Adik makan apel / Ibu beli buah apel",
+        "Bank itu buka pukul 8 / Bang Danu memancing",
+        "Bisa ular beracun / Saya bisa melompat",
+        "Kaki meja patah / Kaki adik sakit"
+      ],
+      "answer": 1,
+      "explanation": "Bisa (racun) dan bisa (mampu) adalah kata homonim sejati.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bacalah teks: 'Matahari bersinar terik. Suhu udara mencapai 34 derajat Celsius.' Kalimat kedua teks tersebut merupakan kalimat ...",
+      "options": [
+        "Opini",
+        "Fiksi",
+        "Fakta",
+        "Perintah"
+      ],
+      "answer": 2,
+      "explanation": "Angka pengukuran suhu 34 derajat Celsius adalah fakta terukur.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa sebuah denah membutuhkan skala?",
+      "options": [
+        "Agar gambar tampak berwarna",
+        "Untuk mencatat nama pembuat",
+        "Supaya denah lebih tebal",
+        "Untuk membandingkan ukuran asli"
+      ],
+      "answer": 3,
+      "explanation": "Skala menunjukkan perbandingan jarak pada denah dengan jarak sebenarnya.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jika rumah Dina berada di sebelah barat sekolah, maka sekolah berada di sebelah ... rumah Dina.",
+      "options": [
+        "Timur",
+        "Utara",
+        "Selatan",
+        "Barat laut"
+      ],
+      "answer": 0,
+      "explanation": "Arah yang berlawanan dengan barat adalah timur.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata dasar 'kunci' dapat bermakna alat pengunci pintu atau ...",
+      "options": [
+        "Jendela kamar",
+        "Jawaban yang benar",
+        "Dinding rumah",
+        "Lantai semen"
+      ],
+      "answer": 1,
+      "explanation": "Kunci jawaban bermakna pedoman jawaban yang tepat.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Di bawah ini yang merupakan ciri-ciri teks deskripsi rumah yang baik adalah ...",
+      "options": [
+        "Menceritakan hewan yang bisa bicara",
+        "Menyajikan rumus matematika",
+        "Menggambarkan tata letak ruang secara rinci",
+        "Berisi dialog drama lucu"
+      ],
+      "answer": 2,
+      "explanation": "Teks deskripsi memaparkan objek secara jelas dan terperinci.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah yang merupakan opini mengenai sebuah rumah?",
+      "options": [
+        "Rumah itu memiliki tiga kamar tidur",
+        "Pagar rumah itu berwarna putih",
+        "Atap rumah terbuat dari genting",
+        "Rumah itu tampak sangat nyaman dihuni"
+      ],
+      "answer": 3,
+      "explanation": "Rasa nyaman adalah penilaian subjektif (opini) masing-masing orang.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Teks cerita yang menceritakan asal-usul suatu daerah dan bercampur mitos disebut ...",
+      "options": [
+        "Legenda",
+        "Fabel",
+        "Biografi",
+        "Laporan observasi"
+      ],
+      "answer": 0,
+      "explanation": "Legenda adalah cerita rakyat fiktif mengenai asal-usul tempat.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hubungan makna kata 'kali' dalam 'dua kali seminggu' dan 'mandi di kali' adalah ...",
+      "options": [
+        "Sinonim",
+        "Homonim",
+        "Antonim",
+        "Polisemi"
+      ],
+      "answer": 1,
+      "explanation": "Kali (frekuensi) dan kali (sungai kecil) adalah homonim.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Teks yang menggambarkan suatu benda atau tempat secara jelas sehingga pembaca seolah melihatnya disebut ...",
+      "options": [
+        "Deskripsi",
+        "Narasi",
+        "Argumentasi",
+        "Persuasi"
+      ],
+      "answer": 0,
+      "explanation": "Teks deskripsi melukiskan objek melalui panca indra.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Teks yang berisi pendapat disertai alasan dan bukti yang kuat disebut teks ...",
+      "options": [
+        "Deskripsi",
+        "Argumentasi",
+        "Dongeng",
+        "Puisi"
+      ],
+      "answer": 1,
+      "explanation": "Argumentasi bertujuan meyakinkan pembaca melalui bukti logis.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rambu lalu lintas berbentuk lingkaran warna merah dengan garis strip putih melintang artinya ...",
+      "options": [
+        "Boleh parkir",
+        "Wajib belok kiri",
+        "Dilarang masuk",
+        "Jalan terus"
+      ],
+      "answer": 2,
+      "explanation": "Rambu lingkaran merah strip putih adalah larangan masuk.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Lampu lalu lintas berwarna kuning menyala memberikan peringatan agar pengendara ...",
+      "options": [
+        "Mempercepat laju kendaraan",
+        "Langsung berhenti mendadak",
+        "Mematikan mesin mobil",
+        "Hati-hati dan bersiap"
+      ],
+      "answer": 3,
+      "explanation": "Warna kuning menandakan pengguna jalan harus berhati-hati.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Imbuhan 'ber-' pada kata 'sepeda' membentuk kata ...",
+      "options": [
+        "Bersepeda",
+        "Belsepeda",
+        "Besepeda",
+        "Menyepeda"
+      ],
+      "answer": 0,
+      "explanation": "ber- + sepeda menjadi bersepeda.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Imbuhan 'ber-' pada kata 'layar' membentuk kata ...",
+      "options": [
+        "Belayar",
+        "Berlayar",
+        "Melayar",
+        "Terlayar"
+      ],
+      "answer": 1,
+      "explanation": "ber- + layar menjadi berlayar.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tempat khusus penyeberangan pejalan kaki di jalan raya disebut ...",
+      "options": [
+        "Trotoar",
+        "Halte",
+        "Zebra cross",
+        "Jembatan tol"
+      ],
+      "answer": 2,
+      "explanation": "Zebra cross bercorak garis putih hitam untuk penyeberang jalan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rambu peringatan di jalan raya umumnya memiliki warna dasar ...",
+      "options": [
+        "Merah",
+        "Biru",
+        "Hijau",
+        "Kuning"
+      ],
+      "answer": 3,
+      "explanation": "Warna kuning digunakan sebagai lambang rambu peringatan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rambu larangan di jalan raya umumnya menggunakan warna dasar ...",
+      "options": [
+        "Merah",
+        "Hijau",
+        "Biru",
+        "Cokelat"
+      ],
+      "answer": 0,
+      "explanation": "Warna merah menandakan larangan keras bagi pengendara.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rambu perintah atau petunjuk arah umumnya memiliki warna dasar ...",
+      "options": [
+        "Kuning atau merah",
+        "Biru atau hijau",
+        "Hitam legam",
+        "Oranye menyala"
+      ],
+      "answer": 1,
+      "explanation": "Biru untuk perintah, hijau untuk penunjuk arah jurusan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bagian jalan yang dikhususkan bagi pejalan kaki di tepi jalan adalah ...",
+      "options": [
+        "Zebra cross",
+        "Bahu jalan",
+        "Trotoar",
+        "Median jalan"
+      ],
+      "answer": 2,
+      "explanation": "Trotoar dibangun di samping jalan untuk keamanan pejalan kaki.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata dasar dari 'berjalan' adalah ...",
+      "options": [
+        "Berjalan",
+        "Jalankan",
+        "Perjalanan",
+        "Jalan"
+      ],
+      "answer": 3,
+      "explanation": "Kata dasar berjalan adalah jalan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Imbuhan 'ber-' jika bertemu kata dasar 'ajar' berubah bentuk menjadi ...",
+      "options": [
+        "Belajar",
+        "Berajar",
+        "Beajar",
+        "Mengajar"
+      ],
+      "answer": 0,
+      "explanation": "ber- + ajar mengalami perubahan khusus menjadi belajar.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Imbuhan 'ber-' jika bertemu kata dasar 'kerja' berubah bentuk menjadi ...",
+      "options": [
+        "Berkerja",
+        "Bekerja",
+        "Belkerja",
+        "Pekerja"
+      ],
+      "answer": 1,
+      "explanation": "Jika suku kata pertama mengandung 'er', r luluh menjadi be-.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Imbuhan 'ber-' jika bertemu kata dasar 'cermin' berubah menjadi ...",
+      "options": [
+        "Becermin",
+        "Belcermin",
+        "Bercermin",
+        "Pencermin"
+      ],
+      "answer": 2,
+      "explanation": "ber- + cermin luluh menjadi becermin (atau bercermin yang lazim).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Makna imbuhan 'ber-' pada kalimat 'Andi bersepatu baru' adalah ...",
+      "options": [
+        "Memiliki",
+        "Menghasilkan",
+        "Melakukan",
+        "Memakai"
+      ],
+      "answer": 3,
+      "explanation": "Bersepatu berarti memakai atau mengenakan sepatu.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Makna imbuhan 'ber-' pada kalimat 'Ayam paman bertelur tiga butir' adalah ...",
+      "options": [
+        "Menghasilkan",
+        "Memakai",
+        "Menjadi",
+        "Kumpulan"
+      ],
+      "answer": 0,
+      "explanation": "Bertelur berarti mengeluarkan atau menghasilkan telur.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Makna imbuhan 'ber-' pada kalimat 'Budi dan Dodi bersalaman' adalah ...",
+      "options": [
+        "Mengerjakan sendiri",
+        "Saling berbalasan",
+        "Memakai barang",
+        "Menjadi"
+      ],
+      "answer": 1,
+      "explanation": "Bersalaman menunjukkan perbuatan resiprokal (saling membalas).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ciri utama paragraf deskripsi yang tepat adalah ...",
+      "options": [
+        "Menyajikan debat pro kontra",
+        "Berisi ajakan membeli produk",
+        "Melibatkan tangkapan indra",
+        "Hanya menyajikan angka rumus"
+      ],
+      "answer": 2,
+      "explanation": "Deskripsi membuat pembaca seolah melihat, mendengar, atau merasa.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perhatikan: 'Ruang kelas itu bersih dan harum semerbak bunga melati.' Kalimat ini menggunakan indra ...",
+      "options": [
+        "Pendengaran dan peraba",
+        "Pengecap dan penglihatan",
+        "Peraba saja",
+        "Penglihatan dan penciuman"
+      ],
+      "answer": 3,
+      "explanation": "'Bersih' dilihat mata, 'harum semerbak' dicium hidung.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Paragraf argumentasi harus dilengkapi dengan ...",
+      "options": [
+        "Alasan logis dan fakta pendukung",
+        "Mantra ajaib fiktif",
+        "Dongeng masa lalu",
+        "Khayalan tokoh kartun"
+      ],
+      "answer": 0,
+      "explanation": "Alasan logis dan fakta memperkuat argumen penulis.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rambu huruf 'P' yang dicoret garis merah miring melintang berarti ...",
+      "options": [
+        "Boleh parkir",
+        "Dilarang parkir",
+        "Tempat putar balik",
+        "Wajib parkir"
+      ],
+      "answer": 1,
+      "explanation": "P coret adalah rambu larangan parkir kendaraan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rambu huruf 'S' yang dicoret garis merah miring melintang berarti ...",
+      "options": [
+        "Dilarang menyalip",
+        "Dilarang putar arah",
+        "Dilarang berhenti",
+        "Boleh istirahat"
+      ],
+      "answer": 2,
+      "explanation": "S (Stop) coret berarti dilarang berhenti di area tersebut.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata berimbuhan 'ber-' yang bermakna 'mengendarai' terdapat pada kalimat ...",
+      "options": [
+        "Adik bersedih hati",
+        "Ibu berbelanja di pasar",
+        "Kucing bersembunyi",
+        "Ayah bermotor ke kantor"
+      ],
+      "answer": 3,
+      "explanation": "Bermotor bermakna mengendarai sepeda motor.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Penulisan kata berimbuhan ber- yang benar adalah ...",
+      "options": [
+        "Bekerja",
+        "Berkerja",
+        "Berasa-rasa",
+        "Bercermin"
+      ],
+      "answer": 0,
+      "explanation": "Kata kerja dengan imbuhan ber- yang baku adalah bekerja.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat di bawah ini yang paling tepat untuk teks argumentasi adalah ...",
+      "options": [
+        "Bunga mawar merah itu mekar di taman",
+        "Kita harus menjaga kebersihan agar tidak tertular penyakit",
+        "Kancil berlari menghindari buaya",
+        "Ruang tamu itu berukuran 4x5 meter"
+      ],
+      "answer": 1,
+      "explanation": "Menyajikan pernyataan sikap disertai alasan hubungan sebab akibat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Saat menyeberang jalan raya, langkah pertama yang aman adalah ...",
+      "options": [
+        "Langsung berlari kencang",
+        "Sambil bermain ponsel pintar",
+        "Tengok kanan, kiri, lalu kanan lagi",
+        "Menutup mata dan berjalan"
+      ],
+      "answer": 2,
+      "explanation": "Melihat situasi lalu lintas di kedua arah menjamin keselamatan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bacalah paragraf: 'Pantai itu berpasir putih lembut. Angin sepoi bertiup membelai wajah.' Paragraf tersebut termasuk jenis ...",
+      "options": [
+        "Argumentasi",
+        "Persuasi",
+        "Eksposisi",
+        "Deskripsi"
+      ],
+      "answer": 3,
+      "explanation": "Melukiskan keindahan fisik objek pantai secara mendalam.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bacalah: 'Membaca buku setiap hari sangat penting karena dapat menambah wawasan dan melatih fokus.' Paragraf ini termasuk teks ...",
+      "options": [
+        "Argumentasi",
+        "Deskripsi",
+        "Narasi fiksi",
+        "Puisi"
+      ],
+      "answer": 0,
+      "explanation": "Menyampaikan pendapat yang didukung alasan manfaat membaca.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perbedaan mendasar antara teks deskripsi dan teks argumentasi adalah ...",
+      "options": [
+        "Deskripsi selalu fiksi, argumentasi selalu fabel",
+        "Deskripsi melukiskan objek, argumentasi menyajikan alasan",
+        "Deskripsi memakai angka, argumentasi tanpa huruf",
+        "Keduanya tidak memiliki perbedaan"
+      ],
+      "answer": 1,
+      "explanation": "Tujuan deskripsi adalah menggambarkan, argumentasi meyakinkan pembaca.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Imbuhan 'ber-' pada kalimat 'Kedua petinju itu bertarung di atas ring' menyatakan makna ...",
+      "options": [
+        "Menyatakan jumlah dua",
+        "Memakai kostum baru",
+        "Melakukan tindakan berbalasan",
+        "Menghasilkan tenaga"
+      ],
+      "answer": 2,
+      "explanation": "Bertarung bermakna saling menyerang secara timbal balik.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah kalimat berikut yang menggunakan kata berimbuhan ber- dengan makna 'mempunyai'?",
+      "options": [
+        "Kakak berenang di sungai",
+        "Adik bersenandung riang",
+        "Ibu berbelanja di warung",
+        "Pak Hadi beranak tiga orang"
+      ],
+      "answer": 3,
+      "explanation": "Beranak tiga bermakna mempunyai tiga orang anak.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rambu berbentuk belah ketupat kuning dengan gambar tanjakan terjal berfungsi untuk ...",
+      "options": [
+        "Memperingatkan adanya jalan menanjak berbahaya",
+        "Melarang kendaraan menanjak",
+        "Menyuruh kendaraan mundur",
+        "Menutup jalan secara total"
+      ],
+      "answer": 0,
+      "explanation": "Rambu kuning bergambar tanjakan adalah peringatan kondisi jalan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Berikut ini yang merupakan argumen yang logis untuk menolak jajan sembarangan adalah ...",
+      "options": [
+        "Penjualnya tidak tersenyum ramah",
+        "Jajanan terbuka mudah dihinggapi lalat pembawa kuman",
+        "Warna makanannya kurang cerah",
+        "Bungkusnya terbuat dari daun pisang"
+      ],
+      "answer": 1,
+      "explanation": "Kebersihan makanan berkaitan langsung dengan kesehatan saluran cerna.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata berimbuhan ber- di bawah ini yang mengalami peluluhan huruf 'r' adalah ...",
+      "options": [
+        "Bermain",
+        "Berputar",
+        "Beternak",
+        "Berpikir"
+      ],
+      "answer": 2,
+      "explanation": "Kata dasar ternak mendapat imbuhan ber- menjadi beternak.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika kita mendeskripsikan suatu pasar tradisional, rincian indra pengecap yang relevan adalah ...",
+      "options": [
+        "Bisingnya tawar menawar pedagang",
+        "Harumnya aroma rempah cengkih",
+        "Ramainya kerumunan orang",
+        "Manisnya buah mangga arumanis yang dicicipi pembeli"
+      ],
+      "answer": 3,
+      "explanation": "Rasa manis mangga dirasakan melalui indra pengecap (lidah).",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Penggunaan tanda titik dua (:) yang benar dalam teks adalah ...",
+      "options": [
+        "Ibu membeli buah: apel, jeruk, dan mangga.",
+        "Ibu: membeli buah apel, jeruk.",
+        "Ibu membeli: apel jeruk dan mangga.",
+        "Ibu membeli buah apel: jeruk dan mangga"
+      ],
+      "answer": 0,
+      "explanation": "Titik dua dipakai sebelum rincian pemerian yang lengkap.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Gagasan yang menjadi pokok pengembangan suatu paragraf disebut ...",
+      "options": [
+        "Ide pokok",
+        "Ide penjelas",
+        "Judul cerita",
+        "Kalimat penutup"
+      ],
+      "answer": 0,
+      "explanation": "Ide pokok adalah inti sari pembahasan dalam paragraf.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat yang memperjelas dan menguraikan ide pokok disebut ...",
+      "options": [
+        "Kalimat tanya",
+        "Kalimat pendukung",
+        "Kalimat seru",
+        "Kalimat judul"
+      ],
+      "answer": 1,
+      "explanation": "Kalimat pengembang/pendukung memaparkan rincian ide pokok.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kegiatan tanya jawab untuk memperoleh informasi dari narasumber disebut ...",
+      "options": [
+        "Pidato",
+        "Diskusi",
+        "Wawancara",
+        "Debat"
+      ],
+      "answer": 2,
+      "explanation": "Wawancara bertujuan menggali informasi langsung dari narasumber.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Orang yang memberikan informasi dalam wawancara disebut ...",
+      "options": [
+        "Pewawancara",
+        "Moderator",
+        "Notulis",
+        "Narasumber"
+      ],
+      "answer": 3,
+      "explanation": "Narasumber adalah orang yang ahli atau saksi peristiwa.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Orang yang mengajukan pertanyaan dalam wawancara disebut ...",
+      "options": [
+        "Pewawancara",
+        "Narasumber",
+        "Penonton",
+        "Penyimak"
+      ],
+      "answer": 0,
+      "explanation": "Pewawancara memandu jalannya tanya jawab.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Gaya bahasa yang mengumpamakan benda mati seolah bersikap seperti manusia disebut majas ...",
+      "options": [
+        "Metafora",
+        "Personifikasi",
+        "Hiperbola",
+        "Litotes"
+      ],
+      "answer": 1,
+      "explanation": "Personifikasi meminjam sifat manusia untuk disematkan pada benda.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Teks yang menceritakan urutan peristiwa secara runtut disebut teks ...",
+      "options": [
+        "Eksposisi",
+        "Laporan",
+        "Narasi",
+        "Persuasi"
+      ],
+      "answer": 2,
+      "explanation": "Teks narasi mengisahkan alur peristiwa berdasarkan waktu.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata tanya yang digunakan untuk menanyakan alasan terjadinya sesuatu adalah ...",
+      "options": [
+        "Kapan",
+        "Siapa",
+        "Di mana",
+        "Mengapa"
+      ],
+      "answer": 3,
+      "explanation": "Kata 'mengapa' menanyakan latar belakang atau alasan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata tanya yang digunakan untuk menanyakan waktu kejadian adalah ...",
+      "options": [
+        "Kapan",
+        "Bagaimana",
+        "Berapa",
+        "Mengapa"
+      ],
+      "answer": 0,
+      "explanation": "Kata 'kapan' menanyakan hari, jam, atau waktu peristiwa.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata tanya yang digunakan untuk menanyakan cara atau proses adalah ...",
+      "options": [
+        "Siapa",
+        "Bagaimana",
+        "Kapan",
+        "Di mana"
+      ],
+      "answer": 1,
+      "explanation": "Kata 'bagaimana' menanyakan proses terjadinya suatu hal.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata tanya untuk menanyakan pelaku peristiwa adalah ...",
+      "options": [
+        "Mengapa",
+        "Apa",
+        "Siapa",
+        "Berapa"
+      ],
+      "answer": 2,
+      "explanation": "Kata 'siapa' menanyakan subjek orang yang terlibat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata tanya untuk menanyakan tempat kejadian adalah ...",
+      "options": [
+        "Kapan",
+        "Bagaimana",
+        "Mengapa",
+        "Di mana"
+      ],
+      "answer": 3,
+      "explanation": "Kata 'di mana' menanyakan lokasi berlangsungnya kegiatan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh kalimat bermajas personifikasi berikut adalah ...",
+      "options": [
+        "Angin malam membisikkan salam ke telingaku",
+        "Suaranya keras menggelegar membelah angkasa",
+        "Budi adalah anak emas di dalam keluarganya",
+        "Ibu memasak gulai ikan kakap di dapur"
+      ],
+      "answer": 0,
+      "explanation": "Angin diumpamakan bisa berbisik layaknya manusia.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perhatikan: 'Ombak berkejar-kejaran di tepian pantai.' Majas yang digunakan adalah ...",
+      "options": [
+        "Hiperbola",
+        "Personifikasi",
+        "Metafora",
+        "Asosiasi"
+      ],
+      "answer": 1,
+      "explanation": "Ombak digambarkan seolah-olah bernyawa dan saling mengejar.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap santun yang wajib dimiliki pewawancara saat menemui narasumber adalah ...",
+      "options": [
+        "Langsung menyela pembicaraan narasumber",
+        "Bermain gawai tanpa meminta izin dulu",
+        "Mengucapkan salam dan memperkenalkan diri",
+        "Memaksa narasumber menceritakan rahasia"
+      ],
+      "answer": 2,
+      "explanation": "Adab wawancara dimulai dengan salam dan perkenalan diri.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Langkah pertama yang harus dilakukan sebelum melakukan wawancara adalah ...",
+      "options": [
+        "Membuat laporan kesimpulan akhir tertulis",
+        "Mengunggah rekaman video ke internet",
+        "Menagih upah honorarium wawancara",
+        "Menentukan topik dan narasumber sasaran"
+      ],
+      "answer": 3,
+      "explanation": "Topik dan narasumber yang sesuai adalah pondasi wawancara.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Daftar pertanyaan wawancara sebaiknya disusun menggunakan prinsip ...",
+      "options": [
+        "5W + 1H (Adiksimba)",
+        "Teka-teki humoris",
+        "Pertanyaan jebakan",
+        "Satu pertanyaan saja"
+      ],
+      "answer": 0,
+      "explanation": "Adiksimba (Apa, Di mana, Kapan, Siapa, Mengapa, Bagaimana).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perhatikan kalimat: 'Matahari baru saja bangun dari peraduannya.' Maksud ungkapan tersebut adalah ...",
+      "options": [
+        "Matahari sedang tidur siang di balik awan",
+        "Matahari mulai terbit di pagi hari",
+        "Terjadi gerhana matahari total di wilayah",
+        "Matahari terbenam perlahan di ufuk barat"
+      ],
+      "answer": 1,
+      "explanation": "'Bangun dari peraduan' adalah kiasan personifikasi untuk terbit.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ide pokok dalam sebuah paragraf biasanya tertuang di dalam ...",
+      "options": [
+        "Kalimat penjelas",
+        "Catatan kaki",
+        "Kalimat utama",
+        "Daftar pustaka"
+      ],
+      "answer": 2,
+      "explanation": "Kalimat utama memuat gagasan pokok paragraf.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Paragraf yang memiliki kalimat utama di awal dan di akhir disebut paragraf ...",
+      "options": [
+        "Deduktif",
+        "Induktif",
+        "Naratif",
+        "Campuran"
+      ],
+      "answer": 3,
+      "explanation": "Paragraf campuran menegaskan gagasan di awal dan ditegaskan lagi di akhir.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dalam teks narasi, rangkaian peristiwa dari awal hingga akhir cerita disebut ...",
+      "options": [
+        "Alur atau plot",
+        "Latar tempat",
+        "Amanat cerita",
+        "Tema pokok"
+      ],
+      "answer": 0,
+      "explanation": "Alur merangkai jalannya kronologi cerita.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Alat bantu yang berguna merekam suara narasumber saat wawancara adalah ...",
+      "options": [
+        "Kamera video resolusi tinggi",
+        "Perekam suara atau ponsel cerdas",
+        "Kamus bahasa dan ensiklopedia",
+        "Kertas karton lembar jawaban"
+      ],
+      "answer": 1,
+      "explanation": "Perekam audio membantu mencatat keterangan narasumber secara akurat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah kalimat berikut yang menggunakan majas personifikasi?",
+      "options": [
+        "Wajahnya pucat pasi bagaikan mayat",
+        "Ia banting tulang demi masa depan",
+        "Nyiur melambai-lambai di tepi pantai",
+        "Rumahnya sangat megah bagai istana"
+      ],
+      "answer": 2,
+      "explanation": "Pohon kelapa melambai seperti tangan manusia.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat tanya yang tepat untuk menggali riwayat hidup seorang atlet berprestasi adalah ...",
+      "options": [
+        "Berapa uang yang tersimpan di rekening Anda?",
+        "Mengapa Anda suka menyantap nasi goreng?",
+        "Apakah Anda mengenal nama keluarga saya?",
+        "Kapan Anda pertama kali mulai berlatih silat?"
+      ],
+      "answer": 3,
+      "explanation": "Pertanyaan ini relevan dengan profesi dan capaian narasumber.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Setelah wawancara selesai dilakukan, pewawancara harus menyampaikan ...",
+      "options": [
+        "Ucapan terima kasih kepada narasumber",
+        "Permintaan uang saku dan ongkos pulang",
+        "Keluhan tentang lamanya waktu tunggu",
+        "Kritik pedas terhadap jawaban narasumber"
+      ],
+      "answer": 0,
+      "explanation": "Berterima kasih adalah etika wajib penutup wawancara.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ciri kalimat pendukung yang baik dalam sebuah paragraf adalah ...",
+      "options": [
+        "Menyimpang jauh dari tema paragraf",
+        "Memperjelas dan memperkuat ide pokok",
+        "Berisi kalimat tanpa makna yang jelas",
+        "Berisi ringkasan seluruh isi buku teks"
+      ],
+      "answer": 1,
+      "explanation": "Kalimat pendukung berfungsi memperjelas gagasan utama.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perhatikan: 'Daun-daun menari diiringi hembusan angin sore.' Benda mati yang dipersonifikasikan adalah ...",
+      "options": [
+        "Hembusan angin sore",
+        "Gerak tarian gemulai",
+        "Daun-daun pepohonan",
+        "Dahan batang tanaman"
+      ],
+      "answer": 2,
+      "explanation": "Daun digambarkan mampu menari seperti manusia.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bacalah teks: 'Tari saman berasal dari Aceh. Tarian ini dimainkan belasan penari yang duduk berbanjar dengan gerakan tepukan dada serempak.' Ide pokok teks tersebut adalah ...",
+      "options": [
+        "Rincian warna busana penari adat",
+        "Tata cara pembelian tiket konser",
+        "Daftar instrumen musik pengiring",
+        "Asal dan keunikan gerak tari saman"
+      ],
+      "answer": 3,
+      "explanation": "Teks menjelaskan daerah asal dan kekhasan formasi gerak tari saman.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perhatikan: 'Pena itu menari-nari di atas lembaran kertas putih.' Makna majas personifikasi dalam kalimat tersebut adalah ...",
+      "options": [
+        "Seseorang sedang menulis dengan lancar",
+        "Pena dapat bergerak secara mandiri",
+        "Tinta pada pena tersebut bocor",
+        "Lembaran kertas putih itu terbelah"
+      ],
+      "answer": 0,
+      "explanation": "Pena yang menari melukiskan kegiatan menulis yang mengalir indah.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah pertanyaan wawancara yang paling efektif untuk menggali informasi cara pembuatan batik tulis?",
+      "options": [
+        "Apakah batik tulis memiliki corak?",
+        "Bagaimana tahapan membatik yang tepat?",
+        "Mengapa Anda gemar mengenakan batik?",
+        "Berapa jam Anda beristirahat semalam?"
+      ],
+      "answer": 1,
+      "explanation": "Pertanyaan 'Bagaimana' menggali langkah-langkah detail proses berkarya.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dalam laporan hasil wawancara, bagian penutup biasanya memuat ...",
+      "options": [
+        "Daftar hidangan makanan penutup",
+        "Biografi lengkap dari pewawancara",
+        "Kesimpulan dan ucapan terima kasih",
+        "Album dokumentasi masa kecil tamu"
+      ],
+      "answer": 2,
+      "explanation": "Penutup laporan berisi rangkuman poin penting dan apresiasi.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perhatikan kutipan: 'Peluit wasit menjerit menghentikan pertandingan.' Majas personifikasi ditunjukkan oleh frasa ...",
+      "options": [
+        "Menghentikan pertandingan",
+        "Pertandingan sepak bola",
+        "Wasit lapangan hijau",
+        "Peluit wasit menjerit"
+      ],
+      "answer": 3,
+      "explanation": "Peluit disamakan dengan manusia yang menjerit kencang.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika narasumber memberikan jawaban yang sangat panjang dan mulai keluar dari topik, pewawancara sebaiknya ...",
+      "options": [
+        "Memotong secara sopan dan terarah",
+        "Membentak narasumber seketika itu",
+        "Mematikan alat rekam dan keluar",
+        "Mengabaikan penjelasan narasumber"
+      ],
+      "answer": 0,
+      "explanation": "Etika wawancara: potong secara halus dan kembalikan ke fokus topik.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebuah paragraf memiliki 4 kalimat. Kalimat 1 menyatakan 'Olahraga teratur menjaga kesehatan jantung.' Kalimat 2-4 menjelaskan aliran darah dan denyut nadi. Kalimat utamanya terletak pada ...",
+      "options": [
+        "Akhir paragraf (induktif)",
+        "Awal paragraf (deduktif)",
+        "Tengah paragraf bacaan",
+        "Seluruh kalimat paragraf"
+      ],
+      "answer": 1,
+      "explanation": "Gagasan umum berada di kalimat 1, diikuti penjelasan teknis.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah di bawah ini kalimat yang tidak menggunakan majas personifikasi?",
+      "options": [
+        "Kabut tebal menelan seluruh perkampungan",
+        "Dinding kamar itu seolah ikut membisu",
+        "Pesawat terbang melintas di atas awan",
+        "Api berkobar melahap deretan toko pasar"
+      ],
+      "answer": 2,
+      "explanation": "Kalimat pertama adalah peristiwa faktual tanpa kiasan sifat manusia.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Format penulisan laporan wawancara yang terstruktur secara runtut adalah ...",
+      "options": [
+        "Kesimpulan, tanda tangan, pustaka",
+        "Foto dokumentasi tanpa keterangan",
+        "Daftar presensi seluruh penonton",
+        "Topik, narasumber, hasil, kesimpulan"
+      ],
+      "answer": 3,
+      "explanation": "Laporan sistematis memuat komponen lengkap dari topik hingga simpulan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ungkapan 'Mentari tersenyum menyapa pagi' memberikan kesan suasana ...",
+      "options": [
+        "Suasana ceria dan penuh harapan",
+        "Suasana seram dan mencekam raga",
+        "Rasa duka cita yang mendalam",
+        "Kondisi marah dan penuh dendam"
+      ],
+      "answer": 0,
+      "explanation": "Senyum mentari melambangkan suasana pagi yang hangat dan menyenangkan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    }
+  ]
+}

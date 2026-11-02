@@ -1,0 +1,457 @@
+[
+  {
+    "question": "Unsur seni rupa yang paling mendasar dan menjadi awal dari segala bentuk garis adalah ...",
+    "options": [
+      "titik atau bintik",
+      "bidang dua dimensi",
+      "tekstur kasar halus",
+      "ruang berongga"
+    ],
+    "answer": 0,
+    "explanation": "Titik adalah unsur seni rupa terkecil yang mengawali terbentuknya garis.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Goresan yang memanjang dan mempunyai arah tertentu dalam seni rupa disebut ...",
+    "options": [
+      "warna",
+      "garis",
+      "tekstur",
+      "volume"
+    ],
+    "answer": 1,
+    "explanation": "Garis terbentuk dari rangkaian titik-titik yang saling terhubung memanjang.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Tiga warna dasar pokok yang tidak dapat dihasilkan dari campuran warna lain adalah ...",
+    "options": [
+      "merah, hijau, dan hitam",
+      "kuning, hijau, dan putih",
+      "merah, kuning, dan biru",
+      "biru, ungu, dan jingga"
+    ],
+    "answer": 2,
+    "explanation": "Warna primer adalah merah, kuning, dan biru sebagai induk semua warna.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Campuran warna merah dan kuning dengan perbandingan seimbang akan menghasilkan warna ...",
+    "options": [
+      "hijau lumut muda",
+      "ungu lembayung tua",
+      "cokelat tanah liat",
+      "oranye atau jingga"
+    ],
+    "answer": 3,
+    "explanation": "Warna sekunder oranye tercipta dari paduan warna primer merah dan kuning.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Campuran warna biru dan kuning dengan perbandingan seimbang akan menghasilkan warna ...",
+    "options": [
+      "hijau",
+      "jingga",
+      "ungu",
+      "merah muda"
+    ],
+    "answer": 0,
+    "explanation": "Pencampuran warna biru dan kuning menghasilkan warna sekunder hijau.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Campuran warna merah dan biru dengan perbandingan seimbang akan menghasilkan warna ...",
+    "options": [
+      "jingga",
+      "ungu",
+      "hijau",
+      "abu-abu"
+    ],
+    "answer": 1,
+    "explanation": "Merah dipadu biru menghasilkan warna sekunder ungu (violet).",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Nilai raba dari permukaan suatu benda (kasar, halus, licin, atau bergelombang) disebut ...",
+    "options": [
+      "proporsi",
+      "komposisi",
+      "tekstur",
+      "dinamika"
+    ],
+    "answer": 2,
+    "explanation": "Tekstur adalah sifat permukaan bidang yang dapat diraba oleh kulit.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Karya seni rupa yang hanya memiliki dimensi panjang dan lebar serta dinikmati satu arah disebut ...",
+    "options": [
+      "karya tiga dimensi (3D)",
+      "karya empat dimensi",
+      "karya tanpa dimensi",
+      "karya dua dimensi (2D)"
+    ],
+    "answer": 3,
+    "explanation": "Karya 2D seperti lukisan dan gambar hanya memiliki luas bidang datar.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Karya seni rupa yang memiliki ukuran panjang, lebar, dan tinggi serta bervolume ruang adalah ...",
+    "options": [
+      "karya tiga dimensi (3D)",
+      "karya dua dimensi (2D)",
+      "karya sketsa garis",
+      "karya kaligrafi datar"
+    ],
+    "answer": 0,
+    "explanation": "Patung, vas bunga, dan gerabah memiliki volume ruang tiga dimensi nyata.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Bentuk bidang seperti lingkaran, segitiga, persegi, dan trapesium termasuk kelompok bidang ...",
+    "options": [
+      "organis bebas",
+      "geometris",
+      "non-geometris",
+      "abstrak maya"
+    ],
+    "answer": 1,
+    "explanation": "Bidang geometris memiliki batas teratur dan dapat diukur secara matematis.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Bentuk bidang yang bebas dan terinspirasi dari bentuk alam seperti daun dan batu disebut ...",
+    "options": [
+      "bidang geometris",
+      "bidang persegi",
+      "bidang organis",
+      "bidang garis lurus"
+    ],
+    "answer": 2,
+    "explanation": "Bentuk organis mengikuti lekuk bebas alami tanpa rumus matematika kaku.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Warna hitam dan putih dalam pembagian jenis warna digolongkan sebagai warna ...",
+    "options": [
+      "primer",
+      "sekunder",
+      "tersier",
+      "netral"
+    ],
+    "answer": 3,
+    "explanation": "Warna netral digunakan untuk mengatur intensitas terang-gelap suatu warna.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Alat pewarna gambar yang terbuat dari bahan lilin padat berpigmen warna adalah ...",
+    "options": [
+      "krayon (crayon)",
+      "cat air (watercolor)",
+      "spidol warna",
+      "tinta bak cina"
+    ],
+    "answer": 0,
+    "explanation": "Krayon berbahan lilin (wax) mudah digoreskan tebal di kertas gambar.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Teknik menggambar menggunakan sapuan kuas basah dengan cat air yang transparan disebut teknik ...",
+    "options": [
+      "plakat tebal",
+      "akuarel",
+      "pointilis bintik",
+      "arsir garis rapat"
+    ],
+    "answer": 1,
+    "explanation": "Akuarel adalah teknik melukis cat air transparan dengan media kertas basah.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Prinsip seni rupa yang menata objek gambar agar tampak serasi, seimbang, dan tidak timpang adalah ...",
+    "options": [
+      "kontras warna tajam",
+      "kecepatan menggores",
+      "keseimbangan (balance)",
+      "kerumitan garis tepi"
+    ],
+    "answer": 2,
+    "explanation": "Keseimbangan menata bobot visual gambar agar nyaman dipandang mata.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Keseimbangan yang bagian sisi kanan dan kirinya memiliki bentuk serta ukuran persis sama disebut ...",
+    "options": [
+      "keseimbangan asimetris",
+      "keseimbangan radial",
+      "keseimbangan acak",
+      "keseimbangan simetris"
+    ],
+    "answer": 3,
+    "explanation": "Simetris memiliki kesamaan bentuk cermin antara sisi kanan dan kiri bidang.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Keseimbangan yang sisi kanan dan kirinya berbeda bentuk tetapi memiliki bobot visual setara adalah ...",
+    "options": [
+      "keseimbangan asimetris",
+      "keseimbangan simetris",
+      "keseimbangan sejajar",
+      "keseimbangan vertikal"
+    ],
+    "answer": 0,
+    "explanation": "Asimetris memberikan kesan dinamis tanpa kehilangan keserasian pandang.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Teknik menggambar untuk memberikan kesan gelap-terang pada gambar menggunakan goresan garis berulang adalah ...",
+    "options": [
+      "teknik dussel gosok",
+      "teknik arsir",
+      "teknik cetak saring",
+      "teknik siluet hitam"
+    ],
+    "answer": 1,
+    "explanation": "Goresan garis arsir sejajar atau silang menciptakan gradasi bayangan nyata.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Teknik menggambar gelap-terang dengan cara menggosokkan serbuk pensil menggunakan jari atau kapas disebut ...",
+    "options": [
+      "teknik arsir silang",
+      "teknik pointilis",
+      "teknik dussel",
+      "teknik cetak tinggi"
+    ],
+    "answer": 2,
+    "explanation": "Dussel dilakukan dengan menggosok goresan pensil agar tampak bergradasi halus.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Teknik membuat gambar yang tersusun dari titik-titik bintik warna berkerapatan tertentu disebut ...",
+    "options": [
+      "teknik kolase kertas",
+      "teknik blok siluet",
+      "teknik lukis akrilik",
+      "teknik pointilis"
+    ],
+    "answer": 3,
+    "explanation": "Pointilis memanfaatkan kumpulan jutaan bintik titik untuk membentuk objek gambar.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Gradasi warna dari hijau tua, hijau muda, hingga kuning pada gambar daun bertujuan untuk ...",
+    "options": [
+      "memberikan kesan volume dan pencahayaan",
+      "membuat gambar menjadi sangat ramai",
+      "menghabiskan seluruh cat warna kita",
+      "menutupi kesalahan coretan pensil"
+    ],
+    "answer": 0,
+    "explanation": "Gradasi menampilkan pantulan cahaya matahari dan lekukan tiga dimensi objek.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Tekstur pada lukisan yang tampak kasar di mata tetapi terasa halus licin saat diraba disebut tekstur ...",
+    "options": [
+      "nyata alami",
+      "semu atau maya",
+      "asli buatan",
+      "mekanis mesin"
+    ],
+    "answer": 1,
+    "explanation": "Tekstur semu adalah ilusi optik visual yang berbeda dengan rabaan fisik.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Unsur rupa yang menjadi pusat perhatian utama (focal point) dalam sebuah lukisan disebut prinsip ...",
+    "options": [
+      "keseragaman corak",
+      "keseimbangan bidang",
+      "penegasan (center of interest)",
+      "irama pengulangan"
+    ],
+    "answer": 2,
+    "explanation": "Pusat perhatian menjadi daya tarik pertama yang ditangkap oleh pandangan mata.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Cara menggambar benda yang letaknya lebih jauh dari mata pengamat adalah digambar dengan ukuran ...",
+    "options": [
+      "lebih besar dan warnanya mencolok",
+      "sama persis dengan objek di depan",
+      "bergaris tepi sangat tebal gelap",
+      "lebih kecil dan warnanya memudar"
+    ],
+    "answer": 3,
+    "explanation": "Prinsip perspektif: objek yang jauh tampak lebih kecil dan samar warnanya.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Perpaduan warna yang letaknya berseberangan dalam lingkaran warna (seperti merah dan hijau) disebut warna ...",
+    "options": [
+      "komplementer (kontras)",
+      "analogis serasi",
+      "monokromatik",
+      "warna primer murni"
+    ],
+    "answer": 0,
+    "explanation": "Warna komplementer saling melengkapi dan memberi kontras visual yang kuat.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Bahan alam yang dapat dimanfaatkan untuk membuat pewarna alami kuning pada gambar kriya adalah ...",
+    "options": [
+      "daun suji hijau",
+      "kunyit parut",
+      "kulit buah naga",
+      "arang kayu bakar"
+    ],
+    "answer": 1,
+    "explanation": "Kunyit menghasilkan pigmen kuning kurkumin yang cerah dan alami.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Sikap yang tepat saat mengapresiasi dan melihat pameran lukisan hasil karya teman sekelas adalah ...",
+    "options": [
+      "mengejek kekurangan gambar teman",
+      "mencoret-coret lukisan yang dipajang",
+      "menghargai keindahan dan memberi saran santun",
+      "membanding-bandingkan dengan nada meremehkan"
+    ],
+    "answer": 2,
+    "explanation": "Apresiasi seni menumbuhkan sikap saling menghargai kreativitas sahabat.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Manfaat membuat sketsa pensil tipis terlebih dahulu sebelum mewarnai lukisan adalah ...",
+    "options": [
+      "membuat kertas gambar menjadi basah",
+      "menghabiskan waktu jam pelajaran seni",
+      "membuat warna krayon cepat habis",
+      "mempermudah memperbaiki proporsi bentuk objek"
+    ],
+    "answer": 3,
+    "explanation": "Sketsa tipis adalah panduan komposisi yang mudah dihapus bila terjadi kesalahan.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Analisis komposisi: Mengapa penempatan objek utama tepat di tengah bidang gambar terkadang terasa kaku?",
+    "options": [
+      "kurang dinamis dan minim ruang gerak visual",
+      "karena objek akan sulit diwarnai kuas",
+      "sebab dilarang oleh aturan menggambar",
+      "karena kertas gambar bisa menjadi robek"
+    ],
+    "answer": 0,
+    "explanation": "Prinsip 'rule of thirds' menempatkan objek sedikit ke tepi agar komposisi lebih hidup.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Evaluasi pencahayaan: Jika sumber cahaya datang dari sisi kanan atas, di manakah letak bayangan objek?",
+    "options": [
+      "tepat di atas permukaan objek",
+      "di sisi kiri bawah objek gambar",
+      "di sisi kanan bawah objek gambar",
+      "di dalam rongga tengah objek"
+    ],
+    "answer": 1,
+    "explanation": "Cahaya merambat lurus, bayangan jatuh berlawanan arah dengan datangnya sinar.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Perbandingan bahan: Mengapa cat poster (plakat) lebih cocok untuk mewarnai bidang warna pekat dibanding cat air?",
+    "options": [
+      "karena cat poster harus dicampur minyak",
+      "sebab cat air tidak bisa menghasilkan warna",
+      "cat poster memiliki sifat menutup dan kedap",
+      "karena cat poster harganya sangat mahal"
+    ],
+    "answer": 2,
+    "explanation": "Cat plakat bersifat opaque (menutup) sehingga warna di bawahnya tidak tembus.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Kritik estetika: Apa dampak buruk jika seorang pelukis mencampurkan terlalu banyak warna sekunder secara acak?",
+    "options": [
+      "gambar akan menyala terang di kegelapan",
+      "kertas gambar otomatis mengkilap indah",
+      "warna lukisan menjadi putih bersih",
+      "warna menjadi keruh, kotor, dan berlumpur"
+    ],
+    "answer": 3,
+    "explanation": "Campuran terlalu banyak warna berlawanan menghasilkan warna abu kecokelatan kusam.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Nilai kearifan lokal: Ragam hias motif batik kawung yang tersusun rapi geometris menyimbolkan ...",
+    "options": [
+      "kesucian hati, pengendalian diri, dan keadilan",
+      "keinginan menguasai harta duniawi",
+      "rasa takut menghadapi kegelapan malam",
+      "kekuatan fisik menaklukkan musuh"
+    ],
+    "answer": 0,
+    "explanation": "Filosofi batik kawung mencerminkan kearifan budi pekerti luhur bangsa Indonesia.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Refleksi Kurikulum Berbasis Cinta (KBC): Menggambar keindahan alam flora Nusantara menumbuhkan rasa ...",
+    "options": [
+      "rasa sombong karena memiliki negeri kaya",
+      "cinta dan syukur atas anugerah ciptaan Tuhan",
+      "keinginan mengeksploitasi hutan semena-mena",
+      "ketidakpedulian terhadap kelestarian bumi"
+    ],
+    "answer": 1,
+    "explanation": "Seni mengasah kepekaan hati untuk menyayangi dan menjaga keasrian semesta alam.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Penerapan inovasi: Bagaimana memanfaatkan limbah serbuk gergaji kayu untuk karya seni rupa dua dimensi?",
+    "options": [
+      "dilarutkan ke dalam segelas air minum",
+      "dibakar di atas kertas gambar basah",
+      "ditempelkan dengan lem membentuk tekstur nyata",
+      "dihamburkan ke udara kelas pameran"
+    ],
+    "answer": 2,
+    "explanation": "Serbuk kayu memberi tekstur taktil nyata yang unik pada lukisan kolase.",
+    "difficulty": 3,
+    "timeLimit": 25
+  }
+]

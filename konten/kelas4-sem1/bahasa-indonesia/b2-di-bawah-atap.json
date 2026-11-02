@@ -1,0 +1,502 @@
+{
+  "class": "Kelas 4 SD",
+  "subjectSlug": "bahasa-indonesia",
+  "batch": "b2-di-bawah-atap",
+  "count": 38,
+  "questions": [
+    {
+      "question": "Cerita yang berdasarkan khayalan atau rekaan pengarang disebut cerita ...",
+      "options": [
+        "Fiksi",
+        "Nonfiksi",
+        "Biografi",
+        "Fakta"
+      ],
+      "answer": 0,
+      "explanation": "Cerita fiksi lahir dari daya imajinasi pengarang.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Cerita yang berdasarkan kenyataan atau fakta disebut cerita ...",
+      "options": [
+        "Fiksi",
+        "Nonfiksi",
+        "Dongeng",
+        "Mite"
+      ],
+      "answer": 1,
+      "explanation": "Nonfiksi ditulis berlandaskan fakta yang benar-benar terjadi.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata yang memiliki ejaan dan pelafalan sama tetapi artinya berbeda disebut ...",
+      "options": [
+        "Sinonim",
+        "Antonim",
+        "Homonim",
+        "Akronim"
+      ],
+      "answer": 2,
+      "explanation": "Homonim memiliki bentuk dan bunyi sama, namun makna berbeda.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata 'bisa' bermakna racun ular dan dapat bermakna sanggup. Kata ini termasuk ...",
+      "options": [
+        "Sinonim",
+        "Antonim",
+        "Homograf",
+        "Homonim"
+      ],
+      "answer": 3,
+      "explanation": "Kata 'bisa' adalah contoh klasik homonim.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Gambar yang menunjukkan letak kota, jalan, atau ruangan disebut ...",
+      "options": [
+        "Denah",
+        "Lukisan",
+        "Poster",
+        "Grafik"
+      ],
+      "answer": 0,
+      "explanation": "Denah adalah petunjuk visual letak suatu tempat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Arah mata angin yang berlawanan dengan utara adalah ...",
+      "options": [
+        "Barat",
+        "Selatan",
+        "Timur",
+        "Tenggara"
+      ],
+      "answer": 1,
+      "explanation": "Utara berhadapan langsung dengan selatan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Matahari terbit dari arah ...",
+      "options": [
+        "Barat",
+        "Utara",
+        "Timur",
+        "Selatan"
+      ],
+      "answer": 2,
+      "explanation": "Matahari selalu terbit di ufuk timur.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Matahari terbenam di arah ...",
+      "options": [
+        "Timur",
+        "Utara",
+        "Selatan",
+        "Barat"
+      ],
+      "answer": 3,
+      "explanation": "Matahari terbenam di ufuk barat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh karya tulisan nonfiksi adalah ...",
+      "options": [
+        "Buku pelajaran sains",
+        "Cerita dongeng kancil",
+        "Kisah peri ajaib",
+        "Cerita raksasa"
+      ],
+      "answer": 0,
+      "explanation": "Buku pelajaran sains memuat fakta ilmiah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Paragraf yang kalimat utamanya berada di awal paragraf disebut paragraf ...",
+      "options": [
+        "Induktif",
+        "Deduktif",
+        "Campuran",
+        "Naratif"
+      ],
+      "answer": 1,
+      "explanation": "Deduktif: gagasan pokok terletak di awal paragraf.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Paragraf yang kalimat utamanya berada di akhir paragraf disebut paragraf ...",
+      "options": [
+        "Deduktif",
+        "Deskriptif",
+        "Induktif",
+        "Eksposisi"
+      ],
+      "answer": 2,
+      "explanation": "Induktif: gagasan pokok berada di akhir sebagai kesimpulan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tokoh utama dalam sebuah cerita fiksi adalah tokoh yang ...",
+      "options": [
+        "Hanya muncul sekali",
+        "Paling jahat",
+        "Tidak pernah bicara",
+        "Paling sering diceritakan"
+      ],
+      "answer": 3,
+      "explanation": "Tokoh utama mendominasi jalannya alur cerita.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Latar dalam sebuah cerita meliputi ...",
+      "options": [
+        "Tempat, waktu, dan suasana",
+        "Hanya nama tokoh",
+        "Panjangnya halaman buku",
+        "Harga buku"
+      ],
+      "answer": 0,
+      "explanation": "Latar menjelaskan di mana, kapan, dan suasana peristiwa.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata 'genting' bermakna atap rumah dan juga bermakna ...",
+      "options": [
+        "Lembut",
+        "Gawat atau tegang",
+        "Dingin",
+        "Tinggi"
+      ],
+      "answer": 1,
+      "explanation": "Keadaan genting berarti situasi darurat atau tegang.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perhatikan: 'Bulan ini paman menatap bulan purnama.' Kata 'bulan' pada kalimat tersebut merupakan contoh ...",
+      "options": [
+        "Sinonim",
+        "Antonim",
+        "Homonim",
+        "Hipernim"
+      ],
+      "answer": 2,
+      "explanation": "Bulan nama waktu dan bulan benda langit adalah homonim.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Arah mata angin di antara utara dan timur adalah ...",
+      "options": [
+        "Tenggara",
+        "Barat daya",
+        "Barat laut",
+        "Timur laut"
+      ],
+      "answer": 3,
+      "explanation": "Antara utara dan timur adalah timur laut.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Arah mata angin di antara selatan dan barat adalah ...",
+      "options": [
+        "Barat daya",
+        "Barat laut",
+        "Tenggara",
+        "Timur laut"
+      ],
+      "answer": 0,
+      "explanation": "Antara selatan dan barat adalah barat daya.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pada denah standar, arah utara selalu menunjuk ke arah ...",
+      "options": [
+        "Bawah",
+        "Atas",
+        "Kanan",
+        "Kiri"
+      ],
+      "answer": 1,
+      "explanation": "Arah atas peta atau denah konvensional menunjuk ke utara.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jika kita menghadap ke arah timur, maka tangan kiri kita menunjuk ke arah ...",
+      "options": [
+        "Selatan",
+        "Barat",
+        "Utara",
+        "Tenggara"
+      ],
+      "answer": 2,
+      "explanation": "Menghadap timur: depan timur, belakang barat, kiri utara, kanan selatan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata 'rapat' pada 'pertemuan dinas' dan 'barisan yang rapat' memiliki hubungan ...",
+      "options": [
+        "Sinonim",
+        "Antonim",
+        "Homofon",
+        "Homonim"
+      ],
+      "answer": 3,
+      "explanation": "Ejaan dan lafalnya persis sama namun artinya berbeda.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pesan moral yang ingin disampaikan pengarang kepada pembaca disebut ...",
+      "options": [
+        "Amanat",
+        "Tema",
+        "Alur",
+        "Latar"
+      ],
+      "answer": 0,
+      "explanation": "Amanat adalah pesan kebaikan dalam sebuah cerita.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bagian awal dalam cerita yang memperkenalkan tokoh dan latar disebut ...",
+      "options": [
+        "Komplikasi",
+        "Orientasi",
+        "Resolusi",
+        "Koda"
+      ],
+      "answer": 1,
+      "explanation": "Orientasi berisi pengenalan awal tokoh, latar, dan situasi.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Puncak ketegangan atau masalah dalam suatu cerita disebut ...",
+      "options": [
+        "Orientasi",
+        "Resolusi",
+        "Klimaks",
+        "Prolog"
+      ],
+      "answer": 2,
+      "explanation": "Klimaks adalah titik balik masalah paling menegangkan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Penyelesaian masalah dalam sebuah cerita disebut ...",
+      "options": [
+        "Orientasi",
+        "Komplikasi",
+        "Klimaks",
+        "Resolusi"
+      ],
+      "answer": 3,
+      "explanation": "Resolusi memuat jalan keluar atas konflik yang terjadi.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat yang berisi pendapat atau perkiraan seseorang disebut kalimat ...",
+      "options": [
+        "Opini",
+        "Fakta",
+        "Perintah",
+        "Tanya"
+      ],
+      "answer": 0,
+      "explanation": "Opini bersifat subjektif dan kebenarannya belum pasti.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat yang menyatakan kenyataan yang dapat dibuktikan kebenarannya disebut ...",
+      "options": [
+        "Opini",
+        "Fakta",
+        "Saran",
+        "Kritik"
+      ],
+      "answer": 1,
+      "explanation": "Fakta berisi data nyata yang terbukti benar secara objektif.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah kalimat di bawah ini yang merupakan fakta?",
+      "options": [
+        "Pantai Kuta pantai terindah di dunia",
+        "Semua anak suka makan es krim",
+        "Indonesia memiliki ribuan pulau",
+        "Membaca komik lebih asyik dari buku"
+      ],
+      "answer": 2,
+      "explanation": "Jumlah kepulauan Indonesia adalah kenyataan geografis.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Simbol arah mata angin pada peta biasanya digambarkan dengan ...",
+      "options": [
+        "Lingkaran hitam pekat",
+        "Gambar bintang kuning",
+        "Segitiga berwarna merah",
+        "Tanda panah ke atas huruf U"
+      ],
+      "answer": 3,
+      "explanation": "Huruf U (Utara) dengan panah adalah penunjuk arah baku.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perhatikan: 'Rian berdiri menghadap matahari terbit. Ia lalu berputar 90 derajat searah jarum jam.' Menghadap ke manakah Rian sekarang?",
+      "options": [
+        "Selatan",
+        "Utara",
+        "Barat",
+        "Barat daya"
+      ],
+      "answer": 0,
+      "explanation": "Dari timur putar 90 derajat searah jarum jam menuju ke selatan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah di bawah ini pasangan kalimat yang memuat kata homonim?",
+      "options": [
+        "Adik makan apel / Ibu beli buah apel",
+        "Bank itu buka pukul 8 / Bang Danu memancing",
+        "Bisa ular beracun / Saya bisa melompat",
+        "Kaki meja patah / Kaki adik sakit"
+      ],
+      "answer": 1,
+      "explanation": "Bisa (racun) dan bisa (mampu) adalah kata homonim sejati.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bacalah teks: 'Matahari bersinar terik. Suhu udara mencapai 34 derajat Celsius.' Kalimat kedua teks tersebut merupakan kalimat ...",
+      "options": [
+        "Opini",
+        "Fiksi",
+        "Fakta",
+        "Perintah"
+      ],
+      "answer": 2,
+      "explanation": "Angka pengukuran suhu 34 derajat Celsius adalah fakta terukur.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa sebuah denah membutuhkan skala?",
+      "options": [
+        "Agar gambar tampak berwarna",
+        "Untuk mencatat nama pembuat",
+        "Supaya denah lebih tebal",
+        "Untuk membandingkan ukuran asli"
+      ],
+      "answer": 3,
+      "explanation": "Skala menunjukkan perbandingan jarak pada denah dengan jarak sebenarnya.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jika rumah Dina berada di sebelah barat sekolah, maka sekolah berada di sebelah ... rumah Dina.",
+      "options": [
+        "Timur",
+        "Utara",
+        "Selatan",
+        "Barat laut"
+      ],
+      "answer": 0,
+      "explanation": "Arah yang berlawanan dengan barat adalah timur.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata dasar 'kunci' dapat bermakna alat pengunci pintu atau ...",
+      "options": [
+        "Jendela kamar",
+        "Jawaban yang benar",
+        "Dinding rumah",
+        "Lantai semen"
+      ],
+      "answer": 1,
+      "explanation": "Kunci jawaban bermakna pedoman jawaban yang tepat.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Di bawah ini yang merupakan ciri-ciri teks deskripsi rumah yang baik adalah ...",
+      "options": [
+        "Menceritakan hewan yang bisa bicara",
+        "Menyajikan rumus matematika",
+        "Menggambarkan tata letak ruang secara rinci",
+        "Berisi dialog drama lucu"
+      ],
+      "answer": 2,
+      "explanation": "Teks deskripsi memaparkan objek secara jelas dan terperinci.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah yang merupakan opini mengenai sebuah rumah?",
+      "options": [
+        "Rumah itu memiliki tiga kamar tidur",
+        "Pagar rumah itu berwarna putih",
+        "Atap rumah terbuat dari genting",
+        "Rumah itu tampak sangat nyaman dihuni"
+      ],
+      "answer": 3,
+      "explanation": "Rasa nyaman adalah penilaian subjektif (opini) masing-masing orang.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Teks cerita yang menceritakan asal-usul suatu daerah dan bercampur mitos disebut ...",
+      "options": [
+        "Legenda",
+        "Fabel",
+        "Biografi",
+        "Laporan observasi"
+      ],
+      "answer": 0,
+      "explanation": "Legenda adalah cerita rakyat fiktif mengenai asal-usul tempat.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hubungan makna kata 'kali' dalam 'dua kali seminggu' dan 'mandi di kali' adalah ...",
+      "options": [
+        "Sinonim",
+        "Homonim",
+        "Antonim",
+        "Polisemi"
+      ],
+      "answer": 1,
+      "explanation": "Kali (frekuensi) dan kali (sungai kecil) adalah homonim.",
+      "difficulty": 3,
+      "timeLimit": 20
+    }
+  ]
+}

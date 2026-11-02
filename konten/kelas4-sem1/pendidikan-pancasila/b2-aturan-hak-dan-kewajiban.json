@@ -1,0 +1,658 @@
+{
+  "class": "Kelas 4 SD",
+  "subjectSlug": "pendidikan-pancasila",
+  "batch": "b2-aturan-hak-dan-kewajiban",
+  "count": 50,
+  "questions": [
+    {
+      "question": "Ketentuan atau kaidah yang mengikat warga kelompok masyarakat disebut ...",
+      "options": [
+        "Norma atau aturan",
+        "Harapan pribadi",
+        "Saran sementara",
+        "Permintaan warga"
+      ],
+      "answer": 0,
+      "explanation": "Norma adalah aturan tingkah laku yang berlaku dalam masyarakat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sesuatu yang mutlak menjadi milik kita dan penggunaannya bergantung pada diri kita disebut ...",
+      "options": [
+        "Kewajiban",
+        "Hak",
+        "Hukuman",
+        "Tanggung jawab"
+      ],
+      "answer": 1,
+      "explanation": "Hak adalah segala sesuatu yang berhak diterima seseorang.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Segala sesuatu yang wajib dilaksanakan dengan penuh tanggung jawab disebut ...",
+      "options": [
+        "Hak istimewa",
+        "Wewenang jabatan",
+        "Kewajiban",
+        "Hadiah kehormatan"
+      ],
+      "answer": 2,
+      "explanation": "Kewajiban adalah keharusan yang harus dikerjakan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hubungan yang tepat antara hak dan kewajiban dalam kehidupan adalah ...",
+      "options": [
+        "Menuntut hak sebesar-besarnya tanpa kewajiban",
+        "Kewajiban boleh diabaikan jika tidak ada imbalan",
+        "Hak dan kewajiban tidak memiliki kaitan langsung",
+        "Mendahulukan kewajiban sebelum menuntut hak"
+      ],
+      "answer": 3,
+      "explanation": "Kewajiban harus dipenuhi terlebih dahulu baru hak dapat dituntut.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh kewajiban utama seorang anak di rumah adalah ...",
+      "options": [
+        "Membantu orang tua dan belajar tekun",
+        "Menuntut uang jajan setiap hari libur",
+        "Menonton televisi seharian tanpa henti",
+        "Memerintah adik membersihkan kamarnya"
+      ],
+      "answer": 0,
+      "explanation": "Berbakti kepada orang tua dan belajar adalah kewajiban anak di rumah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh hak seorang anak di dalam lingkungan keluarga adalah ...",
+      "options": [
+        "Menentukan menu makanan mewah tiap hari",
+        "Mendapatkan kasih sayang dan perlindungan",
+        "Bebas bermain tanpa belajar sama sekali",
+        "Mengabaikan nasihat dari ayah dan ibu"
+      ],
+      "answer": 1,
+      "explanation": "Anak berhak atas kasih sayang, perawatan, dan rasa aman di rumah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh kewajiban siswa di lingkungan sekolah adalah ...",
+      "options": [
+        "Memilih guru yang disukai untuk mengajar",
+        "Mengatur jadwal libur sekolah seenaknya",
+        "Mematuhi tata tertib sekolah dengan tertib",
+        "Menikmati fasilitas sekolah secara gratis"
+      ],
+      "answer": 2,
+      "explanation": "Siswa wajib taat pada tata tertib dan jadwal sekolah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh hak siswa di lingkungan sekolah adalah ...",
+      "options": [
+        "Membawa mainan elektronik saat jam pelajaran",
+        "Bebas meninggalkan kelas saat ulangan harian",
+        "Membuat keributan saat teman sedang belajar",
+        "Mendapatkan pengajaran dan bimbingan guru"
+      ],
+      "answer": 3,
+      "explanation": "Setiap siswa berhak menerima pendidikan berkualitas dari guru.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Aturan yang sumbernya berasal dari wahyu Tuhan Yang Maha Esa disebut norma ...",
+      "options": [
+        "Norma agama",
+        "Norma kesusilaan",
+        "Norma kesopanan",
+        "Norma hukum"
+      ],
+      "answer": 0,
+      "explanation": "Norma agama bersumber dari kitab suci wahyu Tuhan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Aturan yang bersumber dari hati nurani manusia mengenai baik dan buruk disebut norma ...",
+      "options": [
+        "Norma kesopanan",
+        "Norma kesusilaan",
+        "Norma hukum negara",
+        "Norma kebiasaan"
+      ],
+      "answer": 1,
+      "explanation": "Hati nurani menghasilkan norma kesusilaan (moral).",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Aturan pergaulan hidup yang timbul dari kesepakatan sopan santun masyarakat disebut norma ...",
+      "options": [
+        "Norma kesusilaan",
+        "Norma hukum positif",
+        "Norma kesopanan",
+        "Norma agama wahyu"
+      ],
+      "answer": 2,
+      "explanation": "Sopan santun tata krama adalah wujud norma kesopanan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Aturan resmi yang dibuat oleh lembaga negara berwenang dan bersifat memaksa disebut norma ...",
+      "options": [
+        "Norma kesusilaan",
+        "Norma kesopanan",
+        "Norma adat istiadat",
+        "Norma hukum"
+      ],
+      "answer": 3,
+      "explanation": "Norma hukum dibuat negara dengan sanksi tegas mengikat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sanksi bagi orang yang melanggar norma hukum yang berlaku adalah ...",
+      "options": [
+        "Hukuman pidana denda atau penjara",
+        "Merasa bersalah dalam hati nurani",
+        "Dikucilkan oleh tetangga setempat",
+        "Mendapat teguran lisan dari teman"
+      ],
+      "answer": 0,
+      "explanation": "Pelanggaran hukum ditegakkan oleh aparat negara dengan pidana/denda.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sanksi bagi orang yang melanggar norma kesusilaan adalah ...",
+      "options": [
+        "Hukuman kurungan penjara negara",
+        "Penyesalan dan rasa bersalah batin",
+        "Denda uang tunai ratusan juta rupiah",
+        "Pencabutan hak pilih kewarganegaraan"
+      ],
+      "answer": 1,
+      "explanation": "Hati nurani akan merasa gelisah dan bersalah jika melanggar susila.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mencium tangan orang tua saat hendak berangkat ke sekolah merupakan penerapan norma ...",
+      "options": [
+        "Norma hukum pidana",
+        "Norma tata usaha",
+        "Norma kesopanan",
+        "Norma kepegawaian"
+      ],
+      "answer": 2,
+      "explanation": "Salim mencium tangan orang tua adalah sopan santun budaya.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Beribadah tepat waktu sesuai ajaran agama masing-masing merupakan wujud kepatuhan pada norma ...",
+      "options": [
+        "Norma kesopanan",
+        "Norma adat desa",
+        "Norma pergaulan",
+        "Norma agama"
+      ],
+      "answer": 3,
+      "explanation": "Ibadah menjalankan perintah agama sesuai keyakinan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Menyeberang jalan raya di zebra cross atau jembatan penyeberangan orang (JPO) merupakan contoh tertib ...",
+      "options": [
+        "Norma hukum lalu lintas",
+        "Norma kesusilaan batin",
+        "Norma kesopanan bicara",
+        "Norma adat perkawinan"
+      ],
+      "answer": 0,
+      "explanation": "Aturan menyeberang jalan diatur dalam hukum lalu lintas.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Keputusan bersama yang diambil melalui kesepakatan bulat seluruh peserta rapat disebut ...",
+      "options": [
+        "Pemungutan suara kilat",
+        "Musyawarah mufakat",
+        "Keputusan sepihak ketua",
+        "Perintah paksa pemimpin"
+      ],
+      "answer": 1,
+      "explanation": "Mufakat dicapai jika semua peserta rapat sepakat bersama.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jika dalam musyawarah tidak tercapai kata mufakat, cara penyelesaian berikutnya adalah ...",
+      "options": [
+        "Membubarkan rapat seketika",
+        "Menyerahkan pada yang tertua",
+        "Pemungutan suara (voting)",
+        "Mengundi dengan lempar koin"
+      ],
+      "answer": 2,
+      "explanation": "Voting diambil bila jalan musyawarah mufakat belum mencapai sepakat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap yang wajib kita tunjukkan saat orang lain sedang menyampaikan pendapatnya adalah ...",
+      "options": [
+        "Memotong pembicaraannya di tengah jalan",
+        "Berbisik-bisik mengejek bersama teman",
+        "Meninggalkan ruang rapat dengan sengaja",
+        "Mendengarkan dengan tenang dan tertib"
+      ],
+      "answer": 3,
+      "explanation": "Menghormati orang lain bicara adalah etika dasar bermusyawarah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tujuan utama diciptakannya aturan atau norma di dalam masyarakat adalah untuk ...",
+      "options": [
+        "Menciptakan ketertiban, keadilan, dan kedamaian",
+        "Membatasi kebebasan warga agar tidak berkembang",
+        "Memberikan keuntungan besar bagi para pejabat desa",
+        "Menghukum sebanyak-banyaknya warga yang bersalah"
+      ],
+      "answer": 0,
+      "explanation": "Norma hadir agar kehidupan bersama berjalan tertib, adil, dan aman.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Akibat buruk yang akan timbul jika sebuah lingkungan tidak memiliki aturan yang jelas adalah ...",
+      "options": [
+        "Masyarakat menjadi lebih sejahtera dan makmur",
+        "Terjadi kekacauan dan perselisihan antarwarga",
+        "Semua warga hidup tenang tanpa ada masalah",
+        "Perekonomian warga meningkat dengan pesat"
+      ],
+      "answer": 1,
+      "explanation": "Tanpa aturan, benturan kepentingan memicu konflik dan kekacauan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Seorang pengendara motor wajib memakai helm standar saat berkendara. Memakai helm tersebut adalah ...",
+      "options": [
+        "Hak pribadi pengendara yang boleh diabaikan",
+        "Beban berat yang sengaja diciptakan polisi",
+        "Kewajiban pengendara demi keselamatan dirinya",
+        "Kegiatan formalitas agar tidak ditilang saja"
+      ],
+      "answer": 2,
+      "explanation": "Kewajiban helm melindungi keselamatan jiwa pengendara di jalan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika siswa melaksanakan kewajiban menjaga kebersihan kelas, maka hak yang akan ia peroleh adalah ...",
+      "options": [
+        "Mendapatkan uang saku tambahan dari sekolah",
+        "Bebas tidak mengikuti ulangan harian esok",
+        "Boleh pulang sekolah lebih awal dari teman",
+        "Suasana ruang kelas yang nyaman untuk belajar"
+      ],
+      "answer": 3,
+      "explanation": "Kewajiban piket menghasilkan hak lingkungan belajar yang bersih dan sehat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh pelanggaran norma kesopanan di lingkungan pergaulan sekolah adalah ...",
+      "options": [
+        "Berbicara kasar dan memanggil teman dengan julukan buruk",
+        "Mengerjakan tugas sekolah dengan tepat waktu",
+        "Memberikan jawaban saat ditanya bapak guru",
+        "Menolong teman membersihkan papan tulis"
+      ],
+      "answer": 0,
+      "explanation": "Memanggil teman dengan ejekan melanggar norma kesopanan dan empati.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa norma hukum memerlukan aparat penegak hukum seperti kepolisian dan kehakiman?",
+      "options": [
+        "Untuk menakut-nakuti masyarakat agar patuh buta",
+        "Untuk menegakkan aturan dan memberi sanksi tegas",
+        "Untuk mengumpulkan denda demi kepentingan aparat",
+        "Untuk menggantikan peran orang tua di rumah"
+      ],
+      "answer": 1,
+      "explanation": "Aparat menegakkan keadilan dan kepastian hukum bagi pelanggar.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dalam musyawarah keluarga untuk menentukan tujuan liburan, sikap anak yang baik adalah ...",
+      "options": [
+        "Menangis dan merajuk jika usulannya ditolak",
+        "Memaksa orang tua meminjam uang demi keinginannya",
+        "Mengemukakan usulan santun dan menerima keputusan",
+        "Diam saja lalu menolak ikut saat hari libur tiba"
+      ],
+      "answer": 2,
+      "explanation": "Menyampaikan ide dengan sopan dan menghormati keputusan orang tua.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebelum memanfaatkan fasilitas perpustakaan sekolah, kewajiban yang harus dipenuhi siswa adalah ...",
+      "options": [
+        "Membeli semua buku yang tersedia di rak baca",
+        "Membawa pulang buku tanpa dicatat petugas",
+        "Makan dan minum sambil membaca novel",
+        "Menjaga keheningan dan merawat buku pinjaman"
+      ],
+      "answer": 3,
+      "explanation": "Aturan perpustakaan mewajibkan tertib tenang dan menjaga fisik buku.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perbedaan pokok antara norma kesopanan dengan norma hukum terletak pada ...",
+      "options": [
+        "Asal aturan dan ketegasan sanksi yang diterima",
+        "Jumlah orang yang harus mematuhi aturan tersebut",
+        "Tempat berlakunya aturan di dalam masyarakat",
+        "Bahasa yang digunakan untuk menuliskan aturan"
+      ],
+      "answer": 0,
+      "explanation": "Kesopanan bersumber dari tradisi dengan sanksi celaan; hukum dari negara dengan sanksi nyata.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa setiap warga negara yang telah memenuhi syarat wajib membayar pajak?",
+      "options": [
+        "Pajak adalah sumbangan sukarela yang boleh ditolak",
+        "Pajak digunakan untuk membiayai pembangunan negara",
+        "Pajak disimpan di bank luar negeri oleh presiden",
+        "Pajak hanya menguntungkan orang kaya di kota besar"
+      ],
+      "answer": 1,
+      "explanation": "Pajak membiayai jalan, sekolah, rumah sakit, dan subsidi rakyat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hak asasi paling mendasar yang dimiliki setiap anak sejak lahir ke dunia adalah ...",
+      "options": [
+        "Hak memiliki telepon genggam tercanggih",
+        "Hak memilih tempat tinggal di luar negeri",
+        "Hak untuk hidup, tumbuh, dan dilindungi",
+        "Hak mengendarai sepeda motor di jalan raya"
+      ],
+      "answer": 2,
+      "explanation": "Hak hidup, tumbuh kembang, dan perlindungan adalah hak dasar anak.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh kewajiban menjaga lingkungan hidup di sekitar tempat tinggal adalah ...",
+      "options": [
+        "Menebang pohon peneduh di tepi jalan seenaknya",
+        "Membakar sampah plastik di depan rumah tetangga",
+        "Mengalirkan air limbah kotor ke parit umum warga",
+        "Membuang sampah pada tempatnya dan menanam pohon"
+      ],
+      "answer": 3,
+      "explanation": "Menjaga kebersihan dan kelestarian alam adalah kewajiban warga.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap yang mencerminkan pemenuhan kewajiban dalam bermasyarakat adalah ...",
+      "options": [
+        "Mengikuti kegiatan kerja bakti membersihkan selokan",
+        "Menonton tetangga yang sedang bekerja keras",
+        "Menyalakan musik bervolume keras saat larut malam",
+        "Menutup jalan umum tanpa izin pengurus RT setempat"
+      ],
+      "answer": 0,
+      "explanation": "Kerja bakti bersama mencerminkan gotong royong dan kewajiban sosial.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dalam musyawarah, setiap peserta memiliki hak yang sama, yaitu hak untuk ...",
+      "options": [
+        "Memaksakan kehendak agar disetujui seluruh anggota",
+        "Menyampaikan pendapat dan saran secara bebas santun",
+        "Menghina pendapat anggota lain yang tidak sejalan",
+        "Menentukan sendiri hasil akhir rapat tanpa diskusi"
+      ],
+      "answer": 1,
+      "explanation": "Kebebasan berpendapat secara santun adalah hak setiap peserta rapat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika hasil musyawarah telah disepakati bersama, kewajiban seluruh anggota adalah ...",
+      "options": [
+        "Mencari-cari kesalahan isi keputusan rapat",
+        "Hanya menjalankan bagian yang menguntungkan diri",
+        "Melaksanakan keputusan tersebut dengan ikhlas",
+        "Mengabaikan keputusan karena bukan usulan pribadi"
+      ],
+      "answer": 2,
+      "explanation": "Keputusan bersama mengikat seluruh peserta untuk dilaksanakan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bermain bersama teman adalah hak anak, namun anak juga wajib ingat waktu, artinya ...",
+      "options": [
+        "Boleh bermain hingga larut malam tanpa izin",
+        "Menolak disuruh orang tua belajar di rumah",
+        "Membawa teman masuk ke rumah tanpa salam",
+        "Harus pulang tepat waktu untuk mandi dan belajar"
+      ],
+      "answer": 3,
+      "explanation": "Pemenuhan hak bermain harus diimbangi kewajiban disiplin waktu.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Aturan di sekolah melarang siswa mencontek saat ujian. Tujuan aturan ini adalah ...",
+      "options": [
+        "Melatih kejujuran dan mengukur kemampuan siswa",
+        "Menyulitkan siswa dalam mendapatkan nilai bagus",
+        "Membantu siswa agar lebih pintar berbohong",
+        "Mengurangi jumlah siswa yang naik ke kelas berikutnya"
+      ],
+      "answer": 0,
+      "explanation": "Larangan mencontek menanamkan integritas moral dan evaluasi jujur.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Seseorang mengembalikan dompet berisi uang yang ditemukannya di jalan kepada pemiliknya. Tindakan ini mematuhi ...",
+      "options": [
+        "Norma kesopanan pergaulan semata",
+        "Norma kesusilaan dan norma hukum",
+        "Aturan adat istiadat suku tertentu",
+        "Perintah teman dekat satu sekolah"
+      ],
+      "answer": 1,
+      "explanation": "Kejujuran nurani mencerminkan kesusilaan dan hukum kepemilikan barang.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa tamu yang bertamu ke rumah orang lain wajib mengetuk pintu dan mengucap salam?",
+      "options": [
+        "Menunjukkan bahwa dirinya adalah orang penting",
+        "Memastikan ada barang berharga di dalam rumah",
+        "Menghormati privasi pemilik rumah (norma sopan)",
+        "Menghindari hukuman denda dari pengurus RT"
+      ],
+      "answer": 2,
+      "explanation": "Salam dan ketuk pintu adalah adab sopan santun bertamu.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Seorang anak sakit berhak mendapatkan pengobatan yang layak. Kewajiban anak tersebut adalah ...",
+      "options": [
+        "Menolak diperiksa oleh dokter di rumah sakit",
+        "Bermain hujan-hujanan saat masih demam tinggi",
+        "Menuntut makanan pedas dan es krim kesukaan",
+        "Meminum obat dan beristirahat sesuai anjuran"
+      ],
+      "answer": 3,
+      "explanation": "Mematuhi anjuran medis adalah kewajiban pasien demi lekas sembuh.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa pelaksanaan hak dan kewajiban harus berjalan seimbang dan selaras dalam kehidupan bermasyarakat?",
+      "options": [
+        "Mencegah kecemburuan sosial dan pelanggaran hak",
+        "Agar pemerintah tidak perlu membuat aturan hukum",
+        "Agar setiap orang bisa menjadi kaya mendadak",
+        "Agar semua warga negara memiliki profesi sama"
+      ],
+      "answer": 0,
+      "explanation": "Ketimpangan hak dan kewajiban menimbulkan kezaliman, konflik, dan kekacauan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Seorang anak menuntut sepeda baru yang mahal saat keluarga kesulitan ekonomi. Dari nilai Pancasila, sikap anak tersebut ...",
+      "options": [
+        "Tepat karena anak berhak meminta apa saja",
+        "Keliru karena menuntut hak tanpa tenggang rasa",
+        "Benar karena orang tua wajib penuhi kemauan",
+        "Bagus untuk memotivasi kerja orang tua"
+      ],
+      "answer": 1,
+      "explanation": "Hak anak harus diselaraskan dengan tanggung jawab dan tenggang rasa pada keluarga.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Prinsip hukum: 'Kebebasan seseorang dibatasi hak orang lain'. Makna dari prinsip ini adalah ...",
+      "options": [
+        "Manusia tidak memiliki kebebasan sama sekali",
+        "Pemerintah bebas mencabut seluruh hak asasi",
+        "Tidak boleh gunakan hak hingga rugikan orang",
+        "Orang lain bebas mengatur hidup pribadi kita"
+      ],
+      "answer": 2,
+      "explanation": "Kebebasan kita berhenti di batas hak orang lain yang wajib kita hormati.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dalam rapat OSIS, ketua mengabaikan seluruh usulan anggota dan memaksakan programnya sendiri. Pelanggaran etika demokrasi yang terjadi adalah ...",
+      "options": [
+        "Ketua sudah bersikap tegas dan profesional",
+        "Kepemimpinan modern yang efektif dan cepat",
+        "Sesuai budaya yang mengutamakan sang ketua",
+        "Otoriter dan melanggar prinsip musyawarah"
+      ],
+      "answer": 3,
+      "explanation": "Pemaksaan kehendak melanggar sila ke-4 dan prinsip demokrasi partisipatif.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa norma kesusilaan yang bersumber dari hati nurani manusia berlaku universal di seluruh dunia?",
+      "options": [
+        "Kebaikan dan kejujuran diakui fitrah manusia",
+        "Semua negara memiliki undang-undang seragam",
+        "Seluruh manusia bumi berbahasa satu bahasa",
+        "Hati nurani dikendalikan oleh lembaga dunia"
+      ],
+      "answer": 0,
+      "explanation": "Fitrah manusia secara universal membedakan benar dari salah, jujur dari curang.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika melihat teman sebangku berbuat curang saat ujian sekolah, tindakan siswa yang paling tepat dan bijak adalah ...",
+      "options": [
+        "Membiarkannya dan ikut meminta contekan",
+        "Mengingatkan dengan santun atau lapor pengawas",
+        "Menyorakinya di depan kelas agar malu",
+        "Memusuhi dan memukulnya saat istirahat"
+      ],
+      "answer": 1,
+      "explanation": "Menegur secara santun atau melapor ke pengawas menjaga kejujuran akademis.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa aturan tata tertib di sekolah perlu dievaluasi dan disosialisasikan secara berkala kepada siswa?",
+      "options": [
+        "Agar guru bisa menambah hukuman fisik berat",
+        "Menghabiskan anggaran cetak brosur sekolah",
+        "Menyesuaikan kebutuhan dan siswa paham aturan",
+        "Supaya siswa merasa takut pada para guru"
+      ],
+      "answer": 2,
+      "explanation": "Sosialisasi membangun kesadaran hukum, bukan sekadar kepatuhan semu.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Seorang warga memarkir mobil di gang sempit sehingga ambulans terhalang lewat. Warga tersebut melanggar ...",
+      "options": [
+        "Hak pribadi warga negara memiliki mobil",
+        "Aturan kebebasan berkendara di pedesaan",
+        "Norma agama tentang tata cara memiliki harta",
+        "Hak publik atas jalan dan ketertiban umum"
+      ],
+      "answer": 3,
+      "explanation": "Fasilitas umum jalan adalah hak bersama publik, tidak boleh dirampas kepentingan privat.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hak untuk menyatakan pendapat di muka umum dijamin oleh UUD 1945, namun pelaksanaannya harus disertai kewajiban ...",
+      "options": [
+        "Menjaga ketertiban dan hormati hak sesama",
+        "Membayar uang jaminan kepada kepolisian",
+        "Mengikuti semua arahan tanpa boleh protes",
+        "Menolak dialog damai dengan pihak terkait"
+      ],
+      "answer": 0,
+      "explanation": "Penyampaian aspirasi demokrasi harus damai, tertib, dan tidak merusak fasilitas.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa kepatuhan terhadap aturan yang lahir dari kesadaran diri sendiri jauh lebih baik daripada karena takut hukuman?",
+      "options": [
+        "Bisa bebas melanggar saat polisi tidak ada",
+        "Melahirkan disiplin sejati yang bertahan lama",
+        "Menghemat biaya operasional gedung penjara",
+        "Membuat orang menjadi sombong di depan kawan"
+      ],
+      "answer": 1,
+      "explanation": "Kesadaran batin menciptakan masyarakat yang tertib, beradab, dan bermartabat.",
+      "difficulty": 3,
+      "timeLimit": 20
+    }
+  ]
+}

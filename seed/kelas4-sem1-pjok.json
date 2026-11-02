@@ -1,0 +1,1308 @@
+{
+  "version": 1,
+  "class": "Kelas 4 SD",
+  "subject": "PJOK",
+  "totalQuestions": 100,
+  "questions": [
+    {
+      "question": "Gerak berpindah tempat dari satu titik ke titik lain dalam olahraga disebut gerak ...",
+      "options": [
+        "lokomotor",
+        "nonlokomotor",
+        "manipulatif",
+        "statis berdiam"
+      ],
+      "answer": 0,
+      "explanation": "Gerak lokomotor ditandai dengan adanya perpindahan tempat tubuh.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Gerak yang dilakukan tanpa berpindah tempat dari posisi awal disebut gerak ...",
+      "options": [
+        "lokomotor",
+        "nonlokomotor",
+        "manipulatif",
+        "akrobatik"
+      ],
+      "answer": 1,
+      "explanation": "Gerak nonlokomotor dilakukan di tempat seperti menekuk, meliuk, dan mengayun.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Gerak yang menggunakan atau mengendalikan suatu benda luar seperti bola disebut gerak ...",
+      "options": [
+        "lokomotor",
+        "nonlokomotor",
+        "manipulatif",
+        "relaksasi"
+      ],
+      "answer": 2,
+      "explanation": "Gerak manipulatif melibatkan penguasaan objek atau alat olahraga.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Contoh gerak lokomotor dalam permainan sepak bola adalah ...",
+      "options": [
+        "menekuk lutut bersiap melompat",
+        "mengayun lengan saat berdiri",
+        "meliukkan pinggang ke kanan",
+        "berlari kencang mengejar bola"
+      ],
+      "answer": 3,
+      "explanation": "Berlari menyebabkan seluruh tubuh berpindah tempat di lapangan.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Contoh gerak manipulatif dalam permainan sepak bola adalah ...",
+      "options": [
+        "menendang bola ke arah gawang",
+        "berlari mengelilingi lapangan",
+        "berjalan santai menuju teman",
+        "melompat tanpa menyentuh bola"
+      ],
+      "answer": 0,
+      "explanation": "Menendang bola melibatkan kendali atas objek (bola).",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Menggiring bola dalam permainan sepak bola bertujuan untuk ...",
+      "options": [
+        "membuang bola keluar lapangan",
+        "membawa bola mendekati sasaran",
+        "mengulur waktu tanpa strategi",
+        "menjatuhkan pemain bertahan"
+      ],
+      "answer": 1,
+      "explanation": "Dribbling bertujuan mendekatkan bola ke gawang lawan atau mencari ruang.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Bagian kaki yang paling sering digunakan untuk mengoper bola jarak dekat adalah ...",
+      "options": [
+        "ujung jari jempol kaki",
+        "kaki bagian tumit belakang",
+        "kaki bagian dalam",
+        "bagian telapak kaki bawah"
+      ],
+      "answer": 2,
+      "explanation": "Kaki bagian dalam memberikan operan yang lebih terarah dan akurat.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Gerak mengoper bola kepada rekan satu tim dengan kedua tangan dari bawah pada bola voli disebut ...",
+      "options": [
+        "passing atas",
+        "smash keras",
+        "servis lompat",
+        "passing bawah"
+      ],
+      "answer": 3,
+      "explanation": "Passing bawah digunakan untuk menerima servis dan serangan lawan.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Sikap kedua lutut yang tepat saat melakukan passing bawah bola voli adalah ...",
+      "options": [
+        "ditekuk sedikit mengeper",
+        "lurus tegak kaku sekali",
+        "berlutut rapat di lantai",
+        "ditekuk hingga menyentuh dada"
+      ],
+      "answer": 0,
+      "explanation": "Lutut ditekuk agar tubuh memiliki daya dorong pegas saat bola datang.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Gerak memantul-mantulkan bola basket ke lantai menggunakan satu tangan disebut ...",
+      "options": [
+        "shooting (menembak)",
+        "dribbling (menggiring)",
+        "passing (mengoper)",
+        "pivot (berputar)"
+      ],
+      "answer": 1,
+      "explanation": "Dribble basket dilakukan dengan mendorong bola ke lantai bergantian atau satu tangan.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Gerakan melempar bola basket setinggi dada kepada teman satu tim disebut ...",
+      "options": [
+        "bounce pass (operan pantul)",
+        "overhead pass (atas kepala)",
+        "chest pass (operan dada)",
+        "slam dunk (hunjaman bola)"
+      ],
+      "answer": 2,
+      "explanation": "Chest pass adalah teknik operan cepat sejajar dada rekan tim.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Gerakan memasukkan bola basket langsung ke dalam keranjang lawan disebut ...",
+      "options": [
+        "dribbling (menggiring)",
+        "passing (mengoper)",
+        "rebound (merebut)",
+        "shooting (menembak)"
+      ],
+      "answer": 3,
+      "explanation": "Shooting bertujuan mencetak angka dengan memasukkan bola ke keranjang.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Jumlah pemain dalam satu tim regu sepak bola di lapangan adalah ...",
+      "options": [
+        "11 pemain",
+        "5 pemain",
+        "6 pemain",
+        "9 pemain"
+      ],
+      "answer": 0,
+      "explanation": "Sepak bola dimainkan oleh dua tim yang masing-masing beranggotakan 11 orang.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Jumlah pemain dalam satu regu pertandingan bola voli di lapangan adalah ...",
+      "options": [
+        "5 pemain",
+        "6 pemain",
+        "8 pemain",
+        "11 pemain"
+      ],
+      "answer": 1,
+      "explanation": "Satu regu bola voli lapangan terdiri dari 6 pemain aktif.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Kombinasi gerak nonlokomotor dan manipulatif pada permainan sepak bola tampak pada gerakan ...",
+      "options": [
+        "berlari cepat mengejar operan bola",
+        "melompat tinggi menghindari tekel",
+        "mengayun kaki lalu menendang bola",
+        "berjalan santai menuju titik penalti"
+      ],
+      "answer": 2,
+      "explanation": "Mengayun kaki (nonlokomotor) dipadukan dengan menendang bola (manipulatif).",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Kombinasi gerak lokomotor dan manipulatif pada permainan bola basket tampak pada gerakan ...",
+      "options": [
+        "berdiri tegak memegang bola erat",
+        "menekuk lutut sebelum menembak",
+        "meliukkan badan saat menjaga lawan",
+        "berlari sambil memantulkan bola"
+      ],
+      "answer": 3,
+      "explanation": "Berlari (lokomotor) dipadukan dengan dribbling bola (manipulatif).",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Posisi perkenaan bola yang tepat pada lengan saat melakukan passing bawah bola voli adalah ...",
+      "options": [
+        "bagian pergelangan tangan bagian atas",
+        "ujung jari-jemari kedua tangan",
+        "tepat di siku kedua belah lengan",
+        "bagian pundak dekat leher leher"
+      ],
+      "answer": 0,
+      "explanation": "Bola harus mengenai bidang datar antara pergelangan tangan dan siku bawah.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Tujuan utama mengoper bola dengan teknik bounce pass (operan pantul) pada bola basket adalah ...",
+      "options": [
+        "memperlambat tempo serangan tim",
+        "mengecoh hadangan tangan lawan",
+        "membuat bola melambung tinggi",
+        "membuang tenaga pemain penyerang"
+      ],
+      "answer": 1,
+      "explanation": "Pantulan lantai menyulitkan lawan berpostur tinggi merebut operan.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Posisi tubuh yang tepat saat menyundul bola (heading) dalam sepak bola adalah ...",
+      "options": [
+        "menutup mata rapat-rapat ketakutan",
+        "menggunakan bagian ubun-ubun kepala",
+        "mengencangkan otot leher dan dahi",
+        "membiarkan kepala lemas tanpa tenaga"
+      ],
+      "answer": 2,
+      "explanation": "Menyundul menggunakan dahi (tulang depan) dengan otot leher terkunci kuat.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Gerakan berputar dengan satu kaki sebagai poros dalam permainan bola basket disebut ...",
+      "options": [
+        "lay up",
+        "rebound",
+        "blocking",
+        "pivot"
+      ],
+      "answer": 3,
+      "explanation": "Pivot digunakan untuk menyelamatkan bola dari sergapan lawan tanpa melangkah.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Ketika bola keluar melewati garis samping lapangan sepak bola, permainan dilanjutkan dengan ...",
+      "options": [
+        "lemparan ke dalam (throw in)",
+        "tendangan bebas langsung",
+        "tendangan sudut (corner kick)",
+        "tendangan penalti 12 pas"
+      ],
+      "answer": 0,
+      "explanation": "Bola keluar garis samping memicu lemparan ke dalam (throw-in) dua tangan.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Sikap sportivitas yang benar saat tim mengalami kekalahan dalam pertandingan bola voli adalah ...",
+      "options": [
+        "menyalahkan keputusan wasit pertandingan",
+        "menjabat tangan lawan dan memberi selamat",
+        "menolak bersalaman dengan tim pemenang",
+        "merusak fasilitas olahraga di lapangan"
+      ],
+      "answer": 1,
+      "explanation": "Sportivitas mengajarkan kerendahan hati menerima hasil pertandingan.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Peran utama seorang penjaga gawang (kiper) dalam sepak bola adalah ...",
+      "options": [
+        "mengatur strategi serangan dari tengah",
+        "melakukan tekel keras kepada penyerang",
+        "mencegah bola masuk ke dalam gawang",
+        "mencetak gol sebanyak-banyaknya"
+      ],
+      "answer": 2,
+      "explanation": "Kiper adalah pemain yang diperbolehkan memegang bola di area kotak penalti.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Sikap kedua lengan saat melakukan passing atas pada permainan bola voli adalah ...",
+      "options": [
+        "lurus ke bawah di depan lutut kaki",
+        "merapat lurus ke samping badan kita",
+        "disilangkan rapat di depan rongga dada",
+        "membentuk mangkuk terbuka di atas dahi"
+      ],
+      "answer": 3,
+      "explanation": "Jari-jari tangan terbuka membentuk mangkuk menyongsong datangnya bola.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Tujuan gerakan menembak sambil melayang (lay-up shoot) dalam bola basket adalah ...",
+      "options": [
+        "mempermudah memasukkan bola dari dekat",
+        "menjauhkan bola dari keranjang basket",
+        "mengoper bola ke kawan di garis tengah",
+        "menghindari kontak fisik dengan lantai"
+      ],
+      "answer": 0,
+      "explanation": "Lay-up adalah tembakan melayang dua langkah mendekati ring basket.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Mengapa komunikasi antarpemain sangat penting dalam permainan bola voli?",
+      "options": [
+        "agar penonton bersorak lebih gembira",
+        "mencegah tabrakan saat merebut bola",
+        "untuk mengganggu konsentrasi pemain lawan",
+        "supaya pertandingan cepat diselesaikan"
+      ],
+      "answer": 1,
+      "explanation": "Komunikasi (misal seruan 'saya!') membagi tugas menyambut bola secara rapi.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Pemanasan sebelum bermain sepak bola sangat bermanfaat untuk ...",
+      "options": [
+        "membuat perut terasa kenyang lama",
+        "menghabiskan waktu jam pelajaran",
+        "mencegah cedera otot dan kram",
+        "membuat tubuh cepat lelah bertanding"
+      ],
+      "answer": 2,
+      "explanation": "Pemanasan meningkatkan suhu otot dan kelenturan sendi tubuh.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Pendinginan (cooling down) setelah berolahraga bola besar bertujuan untuk ...",
+      "options": [
+        "meningkatkan suhu tubuh setinggi mungkin",
+        "membuat otot langsung menjadi sangat kaku",
+        "mengeluarkan seluruh cadangan energi tubuh",
+        "menurunkan detak jantung secara bertahap"
+      ],
+      "answer": 3,
+      "explanation": "Pendinginan mengembalikan tubuh ke kondisi rileks dan normal.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Analisis taktik: Mengapa operan lambung panjang (long pass) efektif saat serangan balik cepat?",
+      "options": [
+        "karena melewati barisan pertahanan lawan",
+        "karena bola lambung mustahil direbut lawan",
+        "karena pemain penyerang selalu lebih cepat",
+        "karena tidak membutuhkan tenaga yang besar"
+      ],
+      "answer": 0,
+      "explanation": "Operan melambung memangkas jarak dan melompati kepadatan pemain lini tengah.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Evaluasi gerak: Apa yang terjadi jika saat passing bawah bola voli siku ditekuk berlebihan?",
+      "options": [
+        "bola akan meluncur semakin kencang lurus",
+        "pantulan bola liar dan tidak terarah",
+        "arah bola menjadi sangat stabil dan tenang",
+        "pukulan bola otomatis berubah menjadi smash"
+      ],
+      "answer": 1,
+      "explanation": "Bidang lengan yang tidak rata membuat sudut pantul bola menyimpang jauh.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Perbandingan mekanika: Mengapa lemparan dada (chest pass) lebih cepat sampai daripada operan lambung?",
+      "options": [
+        "karena bola basket memiliki bobot yang ringan",
+        "karena dilakukan dengan melompat sangat tinggi",
+        "karena lintasan bolanya lurus mendatar",
+        "karena pemain penerima selalu berdiri diam"
+      ],
+      "answer": 2,
+      "explanation": "Gaya dorong horizontal menghasilkan garis edar terpendek menuju sasaran rekan.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Kritik keselamatan: Bahaya yang ditimbulkan jika bermain sepak bola memakai sepatu tanpa pul di rumput basah adalah ...",
+      "options": [
+        "bola akan pecah saat ditendang keras",
+        "wasit akan memberikan kartu merah langsung",
+        "kaki menjadi terasa sangat hangat dan nyaman",
+        "mudah terpeleset dan cedera lutut"
+      ],
+      "answer": 3,
+      "explanation": "Traksi cengkeraman sepatu sangat krusial mencegah cedera sendi dan ligamen.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Nilai karakter: Bagaimana seorang kapten tim basket menenangkan anggotanya yang melakukan kesalahan passing?",
+      "options": [
+        "memberi semangat dan mengajak fokus kembali",
+        "memarahi dan mencadangkan pemain tersebut",
+        "menyuruh pemain keluar dari lapangan lomba",
+        "menghentikan permainan secara sepihak"
+      ],
+      "answer": 0,
+      "explanation": "Kepemimpinan positif membangkitkan rasa percaya diri rekan seperjuangan.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Penerapan aturan: Mengapa menyentuh net saat pertandingan bola voli dianggap sebagai pelanggaran (net touch)?",
+      "options": [
+        "karena jaring net sangat mudah robek rusak",
+        "mengganggu sportivitas dan membahayakan lawan",
+        "karena pemain harus selalu melompat mundur",
+        "agar tinggi tiang net tidak berubah ukuran"
+      ],
+      "answer": 1,
+      "explanation": "Aturan net touch menjaga integritas pemisah wilayah dan keselamatan atlet.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Refleksi nilai KBC: Menunjukkan rasa cinta dan empati saat rekan setim cedera diwujudkan dengan ...",
+      "options": [
+        "meneruskan serangan demi mencetak angka",
+        "menertawakan kejadian jatuhnya teman kita",
+        "menghentikan bola dan membantunya menepi",
+        "pura-pura tidak melihat cedera rekan tim"
+      ],
+      "answer": 2,
+      "explanation": "Kemanusiaan dan kepedulian kawan berada jauh di atas sebatas kemenangan skor.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Induk organisasi cabang olahraga atletik di tingkat nasional Indonesia adalah ...",
+      "options": [
+        "PASI",
+        "PSSI",
+        "PBVSI",
+        "PERBASI"
+      ],
+      "answer": 0,
+      "explanation": "PASI adalah singkatan dari Persatuan Atletik Seluruh Indonesia.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Atletik sering dijuluki sebagai 'Mother of Sports' yang artinya ...",
+      "options": [
+        "olahraga khusus kaum wanita saja",
+        "ibu dari segala cabang olahraga",
+        "olahraga yang paling murah biayanya",
+        "olahraga tertua di benua Amerika"
+      ],
+      "answer": 1,
+      "explanation": "Gerakan dasar atletik (jalan, lari, lompat, lempar) adalah fondasi semua olahraga.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Perbedaan utama antara jalan cepat dan lari terletak pada ...",
+      "options": [
+        "kecepatan ayunan kedua belah tangan",
+        "arah pandangan mata lari ke depan",
+        "fase melayang di udara saat melangkah",
+        "panjang celana olahraga yang dipakai"
+      ],
+      "answer": 2,
+      "explanation": "Pada lari ada saat tubuh melayang, sedangkan jalan satu kaki selalu menapak tanah.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Aba-aba resmi pada perlombaan lari cepat (sprint) jarak pendek adalah ...",
+      "options": [
+        "Satu, Dua, Tiga, Mulai!",
+        "Awas, Hati-hati, Berlari!",
+        "Siap, Lari, Cepat!",
+        "Bersedia, Siap, Ya! (atau bunyi pistol)"
+      ],
+      "answer": 3,
+      "explanation": "Urutan standar start jongkok: Bersedia -> Siap -> Ya! (atau pistol start).",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Jenis start yang digunakan untuk lari jarak pendek (sprint) adalah ...",
+      "options": [
+        "start jongkok",
+        "start berdiri",
+        "start melayang",
+        "start duduk"
+      ],
+      "answer": 0,
+      "explanation": "Start jongkok (bunch/medium/long start) memberikan daya ledak dorong tercepat.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Alat pengukur waktu dalam perlombaan lari cepat disebut ...",
+      "options": [
+        "speedometer",
+        "stopwatch",
+        "barometer",
+        "termometer"
+      ],
+      "answer": 1,
+      "explanation": "Stopwatch digunakan untuk mencatat waktu tempuh atlet secara presisi.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Jumlah tahapan teknik gerak dasar dalam lompat jauh ada ...",
+      "options": [
+        "2 tahapan",
+        "6 tahapan",
+        "4 tahapan",
+        "8 tahapan"
+      ],
+      "answer": 2,
+      "explanation": "Empat tahapan lompat jauh: awalan, tolakan, melayang, dan mendarat.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Pada saat melakukan tolakan lompat jauh, atlet harus menolak dengan ...",
+      "options": [
+        "kedua belah kaki bersamaan",
+        "kedua lutut yang rapat",
+        "bagian tumit kedua kaki",
+        "satu kaki terkuat"
+      ],
+      "answer": 3,
+      "explanation": "Tolakan papan tumpu lompat jauh wajib menggunakan satu kaki tumpu terkuat.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Tempat pendaratan atlet pada cabang lompat jauh berupa ...",
+      "options": [
+        "bak pasir yang gembur",
+        "matras busa yang keras",
+        "lantai semen yang licin",
+        "rumput lapangan berbatu"
+      ],
+      "answer": 0,
+      "explanation": "Bak pasir lembut berfungsi meredam benturan saat pendaratan kedua kaki.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Alat yang dilempar pada olahraga atletik nomor lempar anak usia SD adalah ...",
+      "options": [
+        "tombak besi runcing tajam",
+        "roket atau turbo plastik",
+        "cakram logam seberat dua kilo",
+        "martil berantai baja panjang"
+      ],
+      "answer": 1,
+      "explanation": "Turbo/roket dirancang aman dan sesuai anatomi anak usia sekolah dasar.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Arah tolakan dan lemparan turbo yang baik membentuk sudut parabola sekitar ...",
+      "options": [
+        "90 derajat lurus ke atas langit",
+        "10 derajat mendatar ke bawah tanah",
+        "45 derajat ke arah depan atas",
+        "180 derajat ke arah belakang badan"
+      ],
+      "answer": 2,
+      "explanation": "Sudut 45 derajat menghasilkan jarak jangkauan lemparan terjauh secara fisika.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Saat melakukan lari sprint, posisi badan yang benar adalah ...",
+      "options": [
+        "tegak lurus kaku ke atas",
+        "miring ke samping kanan kiri",
+        "condong ke belakang menengadah",
+        "condong ke depan secara rileks"
+      ],
+      "answer": 3,
+      "explanation": "Badan condong ke depan membantu memanfaatkan gravitasi untuk percepatan lari.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Sikap kedua tangan saat melakukan lari cepat (sprint) adalah ...",
+      "options": [
+        "ditekuk 90 derajat diayun seirama",
+        "lurus ke bawah di samping paha",
+        "dilipat rapat di depan dada",
+        "diangkat lurus tinggi ke atas"
+      ],
+      "answer": 0,
+      "explanation": "Ayunan siku 90 derajat membantu menjaga keseimbangan dan frekuensi langkah.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Peraturan penting dalam nomor jalan cepat yang tidak boleh dilanggar adalah ...",
+      "options": [
+        "dilarang menoleh ke arah kanan kiri",
+        "satu kaki harus selalu menyentuh tanah",
+        "tidak boleh minum air selama perlombaan",
+        "kedua tangan wajib lurus di samping paha"
+      ],
+      "answer": 1,
+      "explanation": "Pelanggaran 'floating' (kedua kaki melayang bersamaan) memicu diskualifikasi.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Posisi pinggul saat aba-aba 'SIAP' pada start jongkok lari cepat adalah ...",
+      "options": [
+        "sejajar rata dengan lantai tanah",
+        "ditarik rendah mendekati tumit",
+        "diangkat lebih tinggi dari bahu",
+        "dimiringkan ke sisi kaki terlemah"
+      ],
+      "answer": 2,
+      "explanation": "Pinggul terangkat memindahkan titik berat badan ke lengan bersiap meluncur.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Sikap pendaratan yang tepat pada lompat jauh untuk menghindari cedera lutut adalah ...",
+      "options": [
+        "kaki lurus kaku membentur pasir",
+        "mendaratkan pantat terlebih dahulu",
+        "menumpu dengan kedua telapak tangan",
+        "kedua kaki mengeper dan lutut lentur"
+      ],
+      "answer": 3,
+      "explanation": "Lutut mengeper berfungsi sebagai peredam kejut alami persendian kaki.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Fungsi gerakan ayunan lengan saat melayang di udara pada lompat jauh adalah ...",
+      "options": [
+        "menjaga keseimbangan tubuh atlet",
+        "mempercepat turunnya kaki ke pasir",
+        "membuat tubuh terbang semakin tinggi",
+        "menakut-nakuti lawan perlombaan"
+      ],
+      "answer": 0,
+      "explanation": "Ayunan lengan di udara mengendalikan pusat massa agar tidak jatuh ke belakang.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Cara memegang roket/turbo yang benar pada nomor lempar turbo anak adalah ...",
+      "options": [
+        "dijepit dengan kedua jari telunjuk kaki",
+        "digenggam pada tali pegangan di atas bahu",
+        "dipegang dengan dua tangan di depan dada",
+        "dilemparkan seperti melempar bola bowling"
+      ],
+      "answer": 1,
+      "explanation": "Turbo dipegang pada bagian lilitan pegangan di atas garis pundak bahu.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Gerakan lanjutan setelah melempar turbo (follow through) sangat berguna untuk ...",
+      "options": [
+        "menambah laju lari penonton di pinggir",
+        "membuat turbo berputar di udara bebas",
+        "menjaga keseimbangan agar tidak jatuh",
+        "menghentikan perlombaan secara mendadak"
+      ],
+      "answer": 2,
+      "explanation": "Follow-through menyalurkan sisa momentum agar tubuh tidak melewati garis batas.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Mengapa atlet lompat jauh yang mendarat lalu jatuh ke belakang merugi dalam penilaian?",
+      "options": [
+        "karena lompatan otomatis dianulir wasit",
+        "karena waktu melayang dinyatakan gugur",
+        "karena pakaian atlet menjadi kotor pasir",
+        "jarak diukur dari jejak tubuh terbelakang"
+      ],
+      "answer": 3,
+      "explanation": "Jarak diukur dari papan tolakan hingga bekas anggota badan terdekat di bak pasir.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Gerak langkah kaki yang tepat saat lari sprint jarak pendek adalah ...",
+      "options": [
+        "langkah lebar, cepat, dan bertenaga",
+        "langkah pendek dan diseret santai",
+        "melangkah pelan sambil berjinjit",
+        "melompat-lompat dengan satu kaki"
+      ],
+      "answer": 0,
+      "explanation": "Frekuensi langkah tinggi dan dorongan kuat memaksimalkan kecepatan lari.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Bagian telapak kaki yang digunakan sebagai tumpuan saat berlari cepat adalah ...",
+      "options": [
+        "bagian tumit kaki belakang penuh",
+        "bagian ujung telapak kaki depan",
+        "bagian sisi luar telapak kaki saja",
+        "seluruh telapak kaki secara rata"
+      ],
+      "answer": 1,
+      "explanation": "Menumpu pada bola kaki depan memberi pantulan pegas yang eksplosif.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Pada saat memasuki garis finish lari sprint, gerakan yang dianjurkan adalah ...",
+      "options": [
+        "melompat tinggi ke atas udara",
+        "mengurangi kecepatan lari mendadak",
+        "mencondongkan dada ke arah depan",
+        "menoleh ke belakang melihat lawan"
+      ],
+      "answer": 2,
+      "explanation": "Pita finish disentuh oleh bagian torso/dada atlet yang condong ke depan.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Manfaat utama melakukan lari bolak-balik (shuttle run) dalam latihan atletik adalah ...",
+      "options": [
+        "membuat tubuh menjadi sangat mengantuk",
+        "meningkatkan tinggi badan secara instan",
+        "mengurangi berat badan dalam satu menit",
+        "melatih kelincahan dan kecepatan ubah arah"
+      ],
+      "answer": 3,
+      "explanation": "Shuttle run melatih akselerasi, deselerasi, dan koordinasi gerak cepat.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Sikap mental yang wajib ditunjukkan seorang pelari cepat jika mendahului aba-aba start adalah ...",
+      "options": [
+        "mengakui kesalahan dan kembali bersiap",
+        "marah kepada juri pencatat waktu",
+        "tetap berlari kencang menuju finish",
+        "menuduh lawan mengganggu startnya"
+      ],
+      "answer": 0,
+      "explanation": "Start mendahului (false start) harus diulang dengan sikap sportif jujur.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Latihan lari zig-zag melewati corong (cone) sangat berguna melatih keterampilan ...",
+      "options": [
+        "kekuatan daya cengkeram jari tangan",
+        "kelincahan gerak menghindar rintangan",
+        "kelenturan otot leher dan kepala",
+        "daya tahan bernapas di dalam air"
+      ],
+      "answer": 1,
+      "explanation": "Gerak zig-zag melatih fleksibilitas otot paha dan koordinasi gerak kaki.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Analisis biomekanika: Mengapa panjang awalan pada lompat jauh tidak boleh terlalu pendek?",
+      "options": [
+        "karena atlet harus menghabiskan seluruh tenaga",
+        "karena papan tumpu terletak sangat jauh di depan",
+        "karena kecepatan awalan menentukan jarak lompat",
+        "agar penonton memiliki waktu untuk bertepuk tangan"
+      ],
+      "answer": 2,
+      "explanation": "Momentum horizontal lari awalan dikonversi menjadi daya dorong vertikal melayang.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Evaluasi gerak jalan cepat: Apa bahaya mekanis jika lutut atlet ditekuk saat kaki tumpu mendarat?",
+      "options": [
+        "membuat langkah kaki meluncur semakin kencang",
+        "mengurangi rasa pegal pada persendian lutut",
+        "membuat tubuh melayang sangat tinggi di udara",
+        "melanggar aturan sah dan terancam diskualifikasi"
+      ],
+      "answer": 3,
+      "explanation": "Syarat mutlak jalan cepat: kaki tumpu harus lurus sejak kontak pertama tanah.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Perbandingan teknik: Mengapa lemparan turbo dengan sudut 45 derajat lebih jauh daripada sudut 70 derajat?",
+      "options": [
+        "sudut 45 derajat menghasilkan perpaduan gaya optimal",
+        "sudut 70 derajat membuat turbo langsung hancur",
+        "sudut 45 derajat membuat angin bertiup kencang",
+        "karena roket turbo tidak boleh terbang ke udara"
+      ],
+      "answer": 0,
+      "explanation": "Secara proyektil, sudut 45 derajat memaksimalkan jangkauan jarak terjauh di bumi.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Kritik keselamatan: Mengapa area lempar turbo harus steril dan bebas dari orang yang melintas?",
+      "options": [
+        "agar rumput lapangan tidak rusak terinjak-injak",
+        "ujung turbo tajam dan dapat mencederai orang",
+        "karena angin dari penonton bisa mengubah arah",
+        "supaya petugas lapangan tidak merasa kelelahan"
+      ],
+      "answer": 1,
+      "explanation": "Keselamatan jiwa nomor satu: proyektil lempar berpotensi menimbulkan luka fatal.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Refleksi karakter: Nilai integritas yang diuji saat atlet berlari sendirian di lintasan lari adalah ...",
+      "options": [
+        "berpura-pura terjatuh agar dikasihani juri",
+        "menarik baju lawan saat luput dari pandangan",
+        "tetap berlari jujur tanpa memotong lintasan orang",
+        "berhenti berlari jika merasa tidak akan juara"
+      ],
+      "answer": 2,
+      "explanation": "Kejujuran sejati hadir saat kita patuh aturan meski tiada yang mengawasi.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Analisis fisiologi: Mengapa pelari sprint jarak pendek tidak boleh bernapas tersengal-sengal di awal start?",
+      "options": [
+        "karena bernapas dilarang saat lari sprint",
+        "supaya udara di lapangan tidak cepat habis",
+        "agar pelari tidak menelan serangga yang lewat",
+        "agar pasokan oksigen otot stabil dan ritme terjaga"
+      ],
+      "answer": 3,
+      "explanation": "Kontrol napas teratur menjaga ketegangan otot inti dan efisiensi tenaga.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Korelasi nilai KBC: Menghargai kawan yang finish paling akhir pada lomba lari diwujudkan dengan ...",
+      "options": [
+        "memberikan tepuk tangan hangat dan apresiasi",
+        "mengejek larinya yang lambat seperti kura-kura",
+        "meninggalkan lapangan sebelum kawan sampai",
+        "menertawakan kelelahan yang dialami teman"
+      ],
+      "answer": 0,
+      "explanation": "Kasih sayang merangkul setiap usaha perjuangan tanpa memandang nomor urut juara.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Kemampuan tubuh melakukan aktivitas sehari-hari tanpa kelelahan berlebih disebut ...",
+      "options": [
+        "kebugaran jasmani",
+        "ketahanan pangan",
+        "kekuatan pikiran",
+        "kecepatan berpikir"
+      ],
+      "answer": 0,
+      "explanation": "Kebugaran jasmani membuat tubuh tetap segar bertenaga setelah beraktivitas.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Latihan push-up secara teratur bermanfaat untuk melatih kekuatan otot ...",
+      "options": [
+        "betis dan paha",
+        "lengan dan dada",
+        "punggung bawah",
+        "leher dan kepala"
+      ],
+      "answer": 1,
+      "explanation": "Push-up membebani otot lengan (triceps) dan dada (pectoralis).",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Latihan sit-up sangat berguna untuk meningkatkan kekuatan otot bagian ...",
+      "options": [
+        "kaki",
+        "tangan",
+        "perut",
+        "bahu"
+      ],
+      "answer": 2,
+      "explanation": "Gerakan mengangkat badan dari posisi terlentang melatih otot dinding perut.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Latihan naik turun bangku atau tangga bermanfaat melatih kekuatan otot ...",
+      "options": [
+        "leher dan dagu",
+        "jari-jari tangan",
+        "pergelangan siku",
+        "tungkai dan kaki"
+      ],
+      "answer": 3,
+      "explanation": "Tumpuan langkah tangga membebani otot paha, lutut, dan betis kaki.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Latihan mencium lutut dari posisi duduk selonjor bertujuan untuk melatih ...",
+      "options": [
+        "kelenturan tubuh",
+        "kecepatan lari",
+        "daya ledak tangan",
+        "keseimbangan mata"
+      ],
+      "answer": 0,
+      "explanation": "Kelenturan (fleksibilitas) meregangkan otot punggung dan paha belakang.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Waktu tidur malam yang ideal bagi anak usia sekolah dasar adalah sekitar ...",
+      "options": [
+        "3 sampai 4 jam",
+        "8 sampai 9 jam",
+        "12 sampai 14 jam",
+        "1 sampai 2 jam"
+      ],
+      "answer": 1,
+      "explanation": "Istirahat cukup 8-9 jam meregenerasi sel tubuh dan mengoptimalkan pertumbuhan.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Prinsip susunan menu makanan bergizi seimbang yang dianjurkan pemerintah disebut ...",
+      "options": [
+        "Makanan Cepat Saji",
+        "Kenyang Sepuasnya",
+        "Isi Piringku",
+        "Diet Tanpa Karbohidrat"
+      ],
+      "answer": 2,
+      "explanation": "'Isi Piringku' menekankan proporsi seimbang: makanan pokok, lauk, sayur, buah.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Zat gizi yang berfungsi sebagai sumber energi utama bagi aktivitas tubuh adalah ...",
+      "options": [
+        "vitamin C",
+        "kalsium tulang",
+        "mineral air",
+        "karbohidrat"
+      ],
+      "answer": 3,
+      "explanation": "Nasi, jagung, gandum, dan umbi kaya karbohidrat sebagai bahan bakar energi.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Zat gizi yang berfungsi membangun dan memperbaiki sel-sel tubuh yang rusak adalah ...",
+      "options": [
+        "protein",
+        "karbohidrat",
+        "lemak jenuh",
+        "garam dapur"
+      ],
+      "answer": 0,
+      "explanation": "Protein nabati dan hewani adalah zat pembangun utama jaringan tubuh.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Jumlah konsumsi air putih yang dianjurkan per hari untuk menjaga hidrasi tubuh adalah ...",
+      "options": [
+        "cukup 1 gelas",
+        "sekitar 8 gelas",
+        "harus 20 gelas",
+        "tidak perlu minum"
+      ],
+      "answer": 1,
+      "explanation": "Air putih 8 gelas (sekitar 2 liter) menjaga cairan dan fungsi organ ginjal.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Membiasakan mencuci tangan dengan sabun dan air mengalir paling tepat dilakukan saat ...",
+      "options": [
+        "sebelum tidur siang",
+        "setelah membaca buku",
+        "sebelum makan makanan",
+        "saat menonton televisi"
+      ],
+      "answer": 2,
+      "explanation": "Mencuci tangan membunuh kuman patogen penyebab diare dan infeksi cerna.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Menjaga kebersihan pakaian dalam dilakukan dengan cara menggantinya minimal ...",
+      "options": [
+        "1 kali seminggu",
+        "3 hari sekali",
+        "bila sudah robek",
+        "2 kali sehari"
+      ],
+      "answer": 3,
+      "explanation": "Mengganti pakaian dalam dua kali sehari mencegah timbulnya jamur dan bakteri.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Bagian tubuh pribadi (seperti area dada dan alat kelamin) hanya boleh disentuh oleh ...",
+      "options": [
+        "diri sendiri dan orang tua untuk rawatan",
+        "siapa saja teman di sekolah",
+        "orang asing yang baru dikenal",
+        "semua orang yang meminta"
+      ],
+      "answer": 0,
+      "explanation": "Edukasi privasi tubuh menjaga diri dari tindakan pelecehan dan bahaya.",
+      "difficulty": 1,
+      "timeLimit": 25
+    },
+    {
+      "question": "Gerakan peregangan statis (menahan posisi regang 8-10 hitungan) paling tepat dilakukan saat ...",
+      "options": [
+        "sedang tidur lelap malam",
+        "pemanasan dan pendinginan",
+        "saat makan siang di kantin",
+        "ketika sedang berlari kencang"
+      ],
+      "answer": 1,
+      "explanation": "Peregangan statis melenturkan serat otot dan meredakan ketegangan sendi.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Latihan lari jogging santai selama 15-20 menit secara rutin sangat bermanfaat untuk melatih ...",
+      "options": [
+        "kecepatan memukul bola voli",
+        "kekuatan mengangkat beban berat",
+        "daya tahan jantung dan paru-paru",
+        "kelenturan jari-jari tangan"
+      ],
+      "answer": 2,
+      "explanation": "Latihan aerobik melatih sistem kardiorespirasi (jantung-paru) agar efisien.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Sikap tubuh yang benar saat melakukan gerakan mencium lutut adalah ...",
+      "options": [
+        "lutut ditekuk rapat ke dagu",
+        "punggung dimiringkan ke samping",
+        "mata terpejam menahan napas",
+        "lutut tetap lurus tidak ditekuk"
+      ],
+      "answer": 3,
+      "explanation": "Menjaga lutut lurus memaksimalkan regangan pada otot hamstring paha.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Akibat yang ditimbulkan jika tubuh sering mengonsumsi makanan cepat saji (junk food) adalah ...",
+      "options": [
+        "risiko obesitas dan penyakit kronis",
+        "tubuh menjadi semakin kebal penyakit",
+        "tulang dan gigi menjadi sangat kuat",
+        "daya ingat bertambah cerdas seketika"
+      ],
+      "answer": 0,
+      "explanation": "Junk food tinggi lemak jenuh, garam, dan gula pemicu kegemukan berlebih.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Mengapa mandi dua kali sehari menggunakan sabun mandi sangat penting bagi pelajar?",
+      "options": [
+        "agar kulit menjadi kebal benturan",
+        "membersihkan keringat, debu, dan bakteri",
+        "supaya tubuh tidak memerlukan pakaian",
+        "menghilangkan rasa lapar setelah bermain"
+      ],
+      "answer": 1,
+      "explanation": "Kebersihan kulit mencegah penyakit gatal, panu, dan bau badan tak sedap.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Langkah pertama yang tepat saat membersihkan diri setelah buang air kecil atau besar adalah ...",
+      "options": [
+        "mengusap dengan kain kotor basah",
+        "membiarkan basah tanpa dikeringkan",
+        "membasuh dengan air bersih mengalir",
+        "menyemprotkan parfum wangi semata"
+      ],
+      "answer": 2,
+      "explanation": "Air bersih mengalir menyucikan hadas najis secara higienis dan syar'i.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Sikap yang benar jika ada orang yang berusaha menyentuh bagian tubuh pribadimu adalah ...",
+      "options": [
+        "diam saja karena merasa sangat takut",
+        "memberikan uang saku kepadanya",
+        "mengajaknya bermain bersama kawan",
+        "berteriak tolak dan laporkan orang tua"
+      ],
+      "answer": 3,
+      "explanation": "Tolak tegas: KATAKAN TIDAK, LARI KE TEMPAT AMAN, dan LAPORKAN orang dewasa.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Manfaat utama mengonsumsi sayur-sayuran hijau dan buah-buahan segar adalah ...",
+      "options": [
+        "memperlancar pencernaan dan serat tubuh",
+        "membuat badan cepat merasa mengantuk",
+        "menggantikan fungsi istirahat tidur",
+        "membuat warna kulit menjadi hijau"
+      ],
+      "answer": 0,
+      "explanation": "Serat sayur dan vitamin buah menjaga fungsi usus dan metabolisme imun.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Gejala yang dirasakan tubuh jika mengalami dehidrasi (kekurangan cairan) adalah ...",
+      "options": [
+        "badan terasa sangat segar bertenaga",
+        "mulut kering, pusing, dan urin pekat",
+        "nafsu makan mendadak meningkat tajam",
+        "detak jantung melambat sangat tenang"
+      ],
+      "answer": 1,
+      "explanation": "Dehidrasi menurunkan konsentrasi belajar dan stamina fungsi organ.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Tindakan pertolongan pertama yang tepat saat teman mengalami kram otot kaki adalah ...",
+      "options": [
+        "memaksa teman berdiri dan berlari",
+        "memukul-mukul bagian otot yang kram",
+        "meregangkan otot perlahan dan kompres",
+        "menekuk kaki sekuat-kuatnya paksa"
+      ],
+      "answer": 2,
+      "explanation": "Peregangan pasif perlahan mengendurkan kejang kontraksi serat otot.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Mengapa kuku tangan dan kaki harus dipotong pendek secara teratur seminggu sekali?",
+      "options": [
+        "agar kuku tidak berbunyi saat berjalan",
+        "supaya jari tangan tidak bertambah panjang",
+        "karena kuku panjang menghabiskan sabun",
+        "mencegah sarang telur cacing dan kuman"
+      ],
+      "answer": 3,
+      "explanation": "Kuku panjang dan hitam membawa bibit penyakit cacingan saat makan.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Latihan lari mengelilingi lapangan sekolah (jogging) termasuk dalam bentuk latihan ...",
+      "options": [
+        "daya tahan aerobik",
+        "kekuatan anaerobik",
+        "kelenturan ekstrem",
+        "keseimbangan statis"
+      ],
+      "answer": 0,
+      "explanation": "Aktivitas terus menerus ritmis dengan pasokan oksigen disebut latihan aerobik.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Penerapan pola hidup sehat di lingkungan sekolah yang paling mudah dilakukan adalah ...",
+      "options": [
+        "membeli jajanan yang berwarna mencolok",
+        "membuang sampah pada tempat pemilahan",
+        "berlari-lari di tangga saat jam istirahat",
+        "menumpuk sampah di laci meja belajar"
+      ],
+      "answer": 1,
+      "explanation": "Menjaga sanitasi kelas menciptakan lingkungan belajar yang asri dan higienis.",
+      "difficulty": 2,
+      "timeLimit": 25
+    },
+    {
+      "question": "Analisis fisiologis: Mengapa detak nadi dan napas bertambah cepat saat kita melakukan aktivitas fisik berat?",
+      "options": [
+        "paru-paru kehabisan tempat menyimpan udara",
+        "darah berhenti mengalir di dalam pembuluh",
+        "jantung memompa oksigen lebih cepat ke otot",
+        "otak memerintahkan tubuh untuk segera tidur"
+      ],
+      "answer": 2,
+      "explanation": "Kerja otot meningkat menuntut pasokan oksigen dan nutrisi darah lebih banyak.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Evaluasi kebiasaan: Bahaya radiasi layar gawai (gadget) jika dimainkan larut malam sebelum tidur adalah ...",
+      "options": [
+        "membuat mata otomatis memiliki daya tembus",
+        "menghentikan detak jantung secara mendadak",
+        "menghapus seluruh ingatan pelajaran hafalan",
+        "merusak ritme tidur karena cahaya biru"
+      ],
+      "answer": 3,
+      "explanation": "Cahaya biru (blue light) menekan hormon melatonin penginduksi kantuk alami.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Perbandingan gizi: Mengapa nasi merah atau ubi rebus lebih menyehatkan daripada roti manis berpengawet?",
+      "options": [
+        "mengandung serat alami dan indeks glikemik rendah",
+        "karena nasi merah tidak mengandung kalori apa pun",
+        "karena ubi rebus bisa disimpan selama bertahun-tahun",
+        "sebab roti manis dilarang oleh dokter spesialis"
+      ],
+      "answer": 0,
+      "explanation": "Serat kompleks memberi rasa kenyang bertahan lama dan gula darah stabil.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Pendidikan seksualitas anak: Menghormati batasan tubuh diri dan orang lain (body boundary) mencerminkan ...",
+      "options": [
+        "sikap sombong dan tidak mau berteman akrab",
+        "kesadaran martabat diri yang bermoral luhur",
+        "ketakutan berlebihan terhadap lingkungan luar",
+        "upaya memamerkan pakaian yang dikenakan"
+      ],
+      "answer": 1,
+      "explanation": "Menjaga batas fisik adalah benteng harga diri, kesopanan, dan keselamatan.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Korelasi nilai KBC: Menyayangi tubuh karunia Tuhan diwujudkan dengan perilaku hidup ...",
+      "options": [
+        "membiarkan tubuh sakit tanpa perlu berobat",
+        "makan makanan apa saja asal rasanya manis pedas",
+        "menjaga makanan sehat, bersih, dan giat berolahraga",
+        "begadang setiap malam menonton tayangan video"
+      ],
+      "answer": 2,
+      "explanation": "Tubuh adalah amanah suci dari Tuhan yang wajib dirawat dengan penuh cinta.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Refleksi etika kesehatan: Sikap seorang siswa saat sedang terserang flu dan batuk di dalam kelas adalah ...",
+      "options": [
+        "batuk sengaja ke arah teman di sebelahnya",
+        "melepas masker agar bernapas lebih leluasa",
+        "meludah di lantai kelas saat guru menulis",
+        "memakai masker dan menutup mulut saat batuk"
+      ],
+      "answer": 3,
+      "explanation": "Etika batuk dan bermasker memutus rantai penularan kuman kepada sahabat.",
+      "difficulty": 3,
+      "timeLimit": 25
+    }
+  ]
+}

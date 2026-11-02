@@ -1,0 +1,457 @@
+[
+  {
+    "question": "Secara bahasa, kata 'baligh' memiliki arti ...",
+    "options": [
+      "sampai atau cukup umur",
+      "anak kecil yang cerdas",
+      "orang tua yang lemah",
+      "pemuda yang perkasa"
+    ],
+    "answer": 0,
+    "explanation": "Baligh secara bahasa artinya sampai (sampainya usia pada batas dewasa).",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Seseorang yang telah baligh dan dikenai beban kewajiban syariat disebut ...",
+    "options": [
+      "muallaf",
+      "mukallaf",
+      "mushallin",
+      "munafik"
+    ],
+    "answer": 1,
+    "explanation": "Mukallaf adalah orang yang telah baligh, berakal, dan dibebani syariat.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Tanda baligh yang khusus dialami oleh anak laki-laki adalah ...",
+    "options": [
+      "mengalami haid bulanan",
+      "suara menjadi lebih halus",
+      "mimpi basah (ihtilam)",
+      "rambut tumbuh sangat panjang"
+    ],
+    "answer": 2,
+    "explanation": "Mimpi basah (ihtilam) adalah tanda biologis baligh bagi laki-laki.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Tanda baligh yang khusus dialami oleh anak perempuan adalah ...",
+    "options": [
+      "tumbuh jakun di leher",
+      "mimpi basah pertama",
+      "suara menjadi lebih berat",
+      "haid (menstruasi)"
+    ],
+    "answer": 3,
+    "explanation": "Haid adalah keluarnya darah dari rahim perempuan sehat saat usia baligh.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Tanda baligh umum bagi laki-laki dan perempuan jika belum ada tanda fisik adalah berusia ...",
+    "options": [
+      "15 tahun qamariyah",
+      "10 tahun qamariyah",
+      "12 tahun qamariyah",
+      "20 tahun qamariyah"
+    ],
+    "answer": 0,
+    "explanation": "Batas usia maksimal baligh menurut fikih adalah genap 15 tahun qamariyah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Usia paling dini seorang anak perempuan mulai mengalami haid adalah sekitar ...",
+    "options": [
+      "5 tahun",
+      "9 tahun",
+      "7 tahun",
+      "13 tahun"
+    ],
+    "answer": 1,
+    "explanation": "Menurut fikih, usia minimal perempuan memungkinkan haid adalah 9 tahun.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Setelah memasuki masa baligh, segala amal perbuatan manusia akan ...",
+    "options": [
+      "dimaafkan tanpa perhitungan",
+      "dihapus seluruh dosanya",
+      "dicatat malaikat dan dihisab",
+      "diwakilkan kepada orang tua"
+    ],
+    "answer": 2,
+    "explanation": "Seorang mukallaf menanggung sendiri pertanggungjawaban dosanya.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Dua malaikat yang bertugas mencatat amal baik dan buruk manusia adalah ...",
+    "options": [
+      "Jibril dan Mikail",
+      "Munkar dan Nakir",
+      "Malik dan Ridwan",
+      "Raqib dan Atid"
+    ],
+    "answer": 3,
+    "explanation": "Malaikat Raqib mencatat amal baik, malaikat Atid mencatat amal buruk.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kewajiban utama yang harus dilaksanakan setiap hari setelah baligh adalah ...",
+    "options": [
+      "salat fardhu lima waktu",
+      "berhaji ke Baitullah",
+      "menyembelih hewan kurban",
+      "membayar zakat mal"
+    ],
+    "answer": 0,
+    "explanation": "Salat lima waktu menjadi fardhu 'ain yang berdosa besar bila ditinggalkan.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Menutup aurat bagi seorang muslim yang telah baligh hukumnya adalah ...",
+    "options": [
+      "sunnah",
+      "wajib",
+      "mubah",
+      "makruh"
+    ],
+    "answer": 1,
+    "explanation": "Menutup aurat adalah kewajiban mutlak bagi setiap muslim yang telah baligh.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Batas aurat laki-laki di hadapan sesama adalah antara ...",
+    "options": [
+      "dada hingga telapak kaki",
+      "leher hingga mata kaki",
+      "pusar hingga lutut",
+      "wajah dan telapak tangan"
+    ],
+    "answer": 2,
+    "explanation": "Aurat laki-laki menurut mayoritas ulama adalah antara pusar dan lutut.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Batas aurat perempuan muslimah di hadapan bukan mahram adalah ...",
+    "options": [
+      "antara pusar hingga lutut",
+      "seluruh tubuh tanpa terkecuali",
+      "rambut kepala hingga pundak",
+      "seluruh tubuh kecuali wajah dan tangan"
+    ],
+    "answer": 3,
+    "explanation": "Aurat wanita di hadapan ajnabi adalah seluruh badan kecuali muka dan telapak tangan.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kondisi tubuh setelah mengalami mimpi basah atau selesai haid berstatus ...",
+    "options": [
+      "berhadas besar",
+      "berhadas kecil",
+      "terkena najis mughalladhah",
+      "suci dari segala kotoran"
+    ],
+    "answer": 0,
+    "explanation": "Ihtilam dan haid menyebabkan hadas besar yang wajib disucikan dengan mandi.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Ibadah yang wajib dilakukan untuk menyucikan diri dari hadas besar adalah ...",
+    "options": [
+      "berwudhu dengan sempurna",
+      "mandi wajib (mandi junub)",
+      "beristinja' dengan batu",
+      "membasuh muka tiga kali"
+    ],
+    "answer": 1,
+    "explanation": "Hadas besar hanya bisa diangkat dengan mandi wajib membasahi seluruh tubuh.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Perbedaan mendasar antara hadas kecil dan hadas besar terletak pada ...",
+    "options": [
+      "warna air yang digunakan bersuci",
+      "tempat terjadinya hadas tersebut",
+      "cara menyucikannya (wudhu vs mandi)",
+      "waktu shalat yang dikerjakan"
+    ],
+    "answer": 2,
+    "explanation": "Hadas kecil cukup disucikan dengan wudhu, hadas besar wajib mandi wajib.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Hal-hal yang dilarang bagi perempuan yang sedang mengalami haid di antaranya ...",
+    "options": [
+      "memasak makanan di dapur",
+      "keluar rumah untuk sekolah",
+      "berbicara dengan anggota keluarga",
+      "salat, puasa, dan menyentuh mushaf"
+    ],
+    "answer": 3,
+    "explanation": "Wanita haid dilarang salat, puasa, tawaf, dan menyentuh mushaf Al-Qur'an.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kewajiban seorang perempuan terhadap puasa Ramadhan yang ditinggalkan karena haid adalah ...",
+    "options": [
+      "wajib menggantinya (mengqadha')",
+      "tidak perlu mengganti selamanya",
+      "cukup membayar fidyah beras",
+      "puasanya diwakilkan oleh suami"
+    ],
+    "answer": 0,
+    "explanation": "Puasa yang tertinggal karena haid wajib diqadha di luar bulan Ramadhan.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Mengapa salat yang ditinggalkan oleh perempuan saat haid tidak perlu diqadha?",
+    "options": [
+      "karena salat tidak penting lagi bagi wanita",
+      "sebagai bentuk keringanan (rukhsah) Islam",
+      "agar wanita dapat beristirahat seharian",
+      "karena wanita haid bukan orang Islam"
+    ],
+    "answer": 1,
+    "explanation": "Islam memberi kemudahan rahmat agar wanita tidak terbebani qadha salat.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Perubahan fisik yang menyertai masa baligh pada anak laki-laki antara lain ...",
+    "options": [
+      "suara menjadi sangat melengking tinggi",
+      "panggul membesar dan kulit menipis",
+      "tumbuhnya jakun dan suara memberat",
+      "rambut rontok secara permanen"
+    ],
+    "answer": 2,
+    "explanation": "Tanda sekunder baligh laki-laki: suara membesar, jakun tumbuh, otot menguat.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sikap bijak seorang remaja muslim ketika menyadari dirinya telah baligh adalah ...",
+    "options": [
+      "merasa bebas bertindak semaunya sendiri",
+      "meninggalkan sekolah dan bekerja keras",
+      "menyombongkan kedewasaan pada teman",
+      "meningkatkan ibadah dan menjaga akhlak"
+    ],
+    "answer": 3,
+    "explanation": "Baligh adalah pintu tanggung jawab moral di hadapan Allah dan manusia.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Jika seorang anak telah berusia 15 tahun namun belum mimpi basah atau haid, maka ia ...",
+    "options": [
+      "sudah dihukumi baligh secara syariat",
+      "tetap dihukumi anak-anak selamanya",
+      "belum wajib mengerjakan salat fardhu",
+      "tidak boleh menjadi makmum salat"
+    ],
+    "answer": 0,
+    "explanation": "Batas 15 tahun hijriyah adalah ketentuan syariat otomatis menjadi mukallaf.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Peran orang tua dan guru dalam membimbing anak yang memasuki masa baligh adalah ...",
+    "options": [
+      "membiarkan anak mencari info di medsos",
+      "mengajarkan fikih bersuci dengan ramah",
+      "memarahi anak saat bertanya tentang haid",
+      "melarang anak berteman dengan siapa pun"
+    ],
+    "answer": 1,
+    "explanation": "Edukasi fikih baligh harus disampaikan secara benar, ramah, dan penuh empati.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Larangan bagi orang yang sedang dalam keadaan junub (hadas besar) meliputi ...",
+    "options": [
+      "makan dan minum makanan halal",
+      "tidur di atas kasur yang bersih",
+      "mengerjakan salat dan thawaf",
+      "berpakaian rapi dan harum"
+    ],
+    "answer": 2,
+    "explanation": "Orang junub diharamkan salat, thawaf, i'tikaf di masjid, dan menyentuh mushaf.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Hikmah adanya batasan usia baligh dalam ajaran syariat Islam adalah ...",
+    "options": [
+      "membedakan status kasta sosial manusia",
+      "membatasi pergaulan antarsesama anak",
+      "mempersulit kehidupan generasi muda",
+      "menetapkan waktu kesiapan tanggung jawab"
+    ],
+    "answer": 3,
+    "explanation": "Baligh menandai kematangan akal dan fisik untuk memikul amanah ibadah.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Ketika seorang anak perempuan pertama kali mengalami haid, sikap terbaiknya adalah ...",
+    "options": [
+      "memberitahu ibu untuk dibimbing bersuci",
+      "merasa sangat panik dan menangis ketakutan",
+      "menyembunyikan darah haid dari keluarga",
+      "tetap mengerjakan salat fardhu seperti biasa"
+    ],
+    "answer": 0,
+    "explanation": "Keterbukaan kepada ibu memudahkan anak belajar tata cara thaharah yang benar.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Menjaga pandangan mata dan etika pergaulan setelah baligh bertujuan untuk ...",
+    "options": [
+      "membuat diri terlihat angkuh di kelas",
+      "menjaga kesucian kehormatan diri",
+      "menghindari interaksi sosial masyarakat",
+      "memperlihatkan kehebatan ilmu agama"
+    ],
+    "answer": 1,
+    "explanation": "Menjaga pandangan (ghadhul bashar) membentengi hati dari godaan maksiat.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Konsekuensi hukum bagi orang yang meninggalkan salat lima waktu setelah baligh adalah ...",
+    "options": [
+      "cukup membayar denda uang kepada fakir",
+      "dosanya ditanggung oleh orang tuanya",
+      "berdosa besar dan diancam azab neraka",
+      "amalnya dimaafkan karena masih muda"
+    ],
+    "answer": 2,
+    "explanation": "Meninggalkan salat dengan sengaja setelah baligh adalah perbuatan dosa besar.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Darah istihadhah berbeda dengan darah haid karena istihadhah merupakan ...",
+    "options": [
+      "darah kotoran yang keluar dari lambung",
+      "darah yang keluar saat melahirkan anak",
+      "tanda utama mulainya masa kedewasaan",
+      "darah penyakit di luar siklus haid"
+    ],
+    "answer": 3,
+    "explanation": "Istihadhah adalah darah penyakit; wanita istihadhah tetap wajib salat.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Analisis fikih: Mengapa syariat Islam membedakan hukum qadha salat dan qadha puasa bagi wanita haid?",
+    "options": [
+      "salat tiap hari, puasa setahun sekali",
+      "salat lebih mudah daripada ibadah puasa",
+      "puasa memiliki derajat pahala lebih tinggi",
+      "wanita haid tidak diwajibkan masuk Islam"
+    ],
+    "answer": 0,
+    "explanation": "Keringanan syariat: mengqadha salat puluhan rakaat memberatkan, puasa hanya setahun sekali.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Seorang anak berusia 12 tahun telah mengalami mimpi basah. Status hukum syariat baginya adalah ...",
+    "options": [
+      "belum mukallaf karena belum usia 15 tahun",
+      "telah mukallaf dan wajib salat fardhu",
+      "hanya diwajibkan puasa Ramadhan saja",
+      "ibadahnya masih dianggap sunnah belaka"
+    ],
+    "answer": 1,
+    "explanation": "Munculnya tanda biologis (ihtilam) otomatis menjadikannya mukallaf sah.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Tinjauan psikologis: Mengapa masa baligh sering disebut masa transisi yang krusial?",
+    "options": [
+      "anak-anak kehilangan seluruh hak bermainnya",
+      "daya ingat manusia menurun drastis di usia ini",
+      "ada lonjakan hormon dan tuntutan tanggung jawab",
+      "anak tidak lagi membutuhkan bimbingan orang tua"
+    ],
+    "answer": 2,
+    "explanation": "Perubahan emosi, fisik, dan spiritual menuntut kedewasaan bersikap.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sikap bijak seorang pelajar saat melihat konten tidak pantas di internet adalah ...",
+    "options": [
+      "membagikan tautan tersebut ke grup kelas",
+      "menontonnya bersama teman-teman dekat",
+      "menyimpannya di memori ponsel pribadi",
+      "segera menutup dan memohon ampun pada Allah"
+    ],
+    "answer": 3,
+    "explanation": "Integritas mukallaf diuji saat sendirian dengan menjaga pandangan mata.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kaitan antara konsep 'tanda baligh' dengan keadilan hukum syariat Allah adalah ...",
+    "options": [
+      "kewajiban dibebankan saat fisik dan akal siap",
+      "semua manusia dibebani aturan sejak lahir",
+      "syariat dibuat untuk menghukum kelemahan manusia",
+      "hanya anak orang kaya yang diwajibkan ibadah"
+    ],
+    "answer": 0,
+    "explanation": "Keadilan Allah: tidak membebani hamba melampaui batas kesiapan kemampuannya.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Bagaimana cara membedakan antara darah haid dan darah istihadhah menurut fikih?",
+    "options": [
+      "haid putih bening, istihadhah hitam pekat",
+      "haid berbau khas dan teratur, istihadhah encer",
+      "haid keluar sejam, istihadhah bulanan",
+      "keduanya persis sama tanpa ada beda"
+    ],
+    "answer": 1,
+    "explanation": "Karakteristik warna, bau, kepekatan, dan jadwal membedakan haid dan istihadhah.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Nilai cinta dan kelembutan syariat (KBC) dalam thaharah baligh tercermin dalam ...",
+    "options": [
+      "ancaman hukuman fisik yang sangat keras",
+      "kewajiban membeli wewangian yang sangat mahal",
+      "tuntunan bersuci menjaga martabat manusia",
+      "larangan beristirahat saat badan merasa lelah"
+    ],
+    "answer": 2,
+    "explanation": "Pensyariatan mandi wajib mengangkat harkat kesucian spiritual dan raga hamba.",
+    "difficulty": 3,
+    "timeLimit": 20
+  }
+]

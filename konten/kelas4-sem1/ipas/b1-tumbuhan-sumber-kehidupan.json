@@ -1,0 +1,502 @@
+{
+  "class": "Kelas 4 SD",
+  "subjectSlug": "ipas",
+  "batch": "b1-tumbuhan-sumber-kehidupan",
+  "count": 38,
+  "questions": [
+    {
+      "question": "Bagian tumbuhan yang berfungsi menyerap air dan zat hara dari dalam tanah adalah ...",
+      "options": [
+        "Akar",
+        "Daun",
+        "Batang",
+        "Bunga"
+      ],
+      "answer": 0,
+      "explanation": "Akar bertugas menyerap air dan mineral dari tanah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bagian tumbuhan yang menjadi tempat terjadinya proses fotosintesis adalah ...",
+      "options": [
+        "Akar",
+        "Daun",
+        "Biji",
+        "Buah"
+      ],
+      "answer": 1,
+      "explanation": "Daun mengandung klorofil untuk menangkap cahaya matahari.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Zat hijau daun yang berperan penting dalam proses fotosintesis disebut ...",
+      "options": [
+        "Stomata",
+        "Xilem",
+        "Klorofil",
+        "Floem"
+      ],
+      "answer": 2,
+      "explanation": "Klorofil adalah pigmen hijau penangkap sinar matahari.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Gas dari udara yang dibutuhkan tumbuhan hijau untuk proses fotosintesis adalah ...",
+      "options": [
+        "Oksigen murni",
+        "Gas nitrogen",
+        "Gas helium",
+        "Karbon dioksida"
+      ],
+      "answer": 3,
+      "explanation": "Tumbuhan mengikat karbon dioksida (CO2) untuk fotosintesis.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Gas yang dihasilkan oleh tumbuhan dari proses fotosintesis adalah ...",
+      "options": [
+        "Oksigen",
+        "Karbon dioksida",
+        "Gas nitrogen",
+        "Karbon monoksida"
+      ],
+      "answer": 0,
+      "explanation": "Hasil sampingan fotosintesis yang berguna bagi makhluk hidup adalah oksigen.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bagian bunga yang berfungsi sebagai alat kelamin jantan adalah ...",
+      "options": [
+        "Putik bunga",
+        "Benang sari",
+        "Mahkota bunga",
+        "Kelopak bunga"
+      ],
+      "answer": 1,
+      "explanation": "Benang sari menghasilkan serbuk sari sebagai sel jantan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bagian bunga yang berfungsi sebagai alat kelamin betina adalah ...",
+      "options": [
+        "Benang sari",
+        "Tangkai bunga",
+        "Putik",
+        "Dasar bunga"
+      ],
+      "answer": 2,
+      "explanation": "Putik merupakan alat perkembangbiakan betina pada bunga.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bagian bunga yang memiliki warna mencolok untuk memikat serangga adalah ...",
+      "options": [
+        "Kelopak bunga",
+        "Tangkai bunga",
+        "Dasar bunga",
+        "Mahkota bunga"
+      ],
+      "answer": 3,
+      "explanation": "Mahkota bunga berwarna indah untuk menarik serangga penyerbuk.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Peristiwa jatuhnya serbuk sari ke kepala putik disebut peristiwa ...",
+      "options": [
+        "Penyerbukan",
+        "Pembuahan",
+        "Fotosintesis",
+        "Penguapan"
+      ],
+      "answer": 0,
+      "explanation": "Penyerbukan adalah proses menempelnya serbuk sari ke putik.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bagian tumbuhan yang berfungsi menopang tubuh tumbuhan agar tegak berdiri adalah ...",
+      "options": [
+        "Daun",
+        "Batang",
+        "Bunga",
+        "Kuncup"
+      ],
+      "answer": 1,
+      "explanation": "Batang menyangga daun, bunga, dan buah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Lubang-lubang kecil pada daun yang berfungsi sebagai tempat keluar masuk udara disebut ...",
+      "options": [
+        "Klorofil",
+        "Kambium",
+        "Stomata",
+        "Lentisel"
+      ],
+      "answer": 2,
+      "explanation": "Stomata (mulut daun) adalah organ pernapasan pada daun.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tumbuhan berikut yang menyimpan cadangan makanan pada bagian umbi akar adalah ...",
+      "options": [
+        "Mangga",
+        "Tebu",
+        "Bayam",
+        "Wortel"
+      ],
+      "answer": 3,
+      "explanation": "Wortel dan singkong menyimpan cadangan makanan di akar.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tumbuhan berikut yang berkembang biak dengan spora adalah ...",
+      "options": [
+        "Tumbuhan paku",
+        "Pohon jagung",
+        "Tanaman kedelai",
+        "Pohon pisang"
+      ],
+      "answer": 0,
+      "explanation": "Tumbuhan paku dan lumut berkembang biak dengan spora.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tumbuhan menyerap air dari tanah, lalu mengalirkannya ke daun melalui pembuluh ...",
+      "options": [
+        "Floem",
+        "Xilem",
+        "Stomata",
+        "Kambium"
+      ],
+      "answer": 1,
+      "explanation": "Xilem (pembuluh kayu) mengangkut air dan mineral dari akar ke daun.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hasil fotosintesis diedarkan dari daun ke seluruh bagian tubuh tumbuhan melalui ...",
+      "options": [
+        "Xilem",
+        "Korteks",
+        "Floem",
+        "Epidermis"
+      ],
+      "answer": 2,
+      "explanation": "Floem (pembuluh tapis) mengedarkan hasil fotosintesis ke seluruh organ.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Proses pembuatan makanan pada tumbuhan hijau dengan bantuan cahaya disebut ...",
+      "options": [
+        "Respirasi sel",
+        "Transpirasi",
+        "Perkecambahan",
+        "Fotosintesis"
+      ],
+      "answer": 3,
+      "explanation": "Fotosintesis adalah sintesis makanan oleh klorofil dan cahaya.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perkembangbiakan tumbuhan tanpa melalui proses perkawinan (peleburan sel) disebut perkembangbiakan ...",
+      "options": [
+        "Vegetatif",
+        "Generatif",
+        "Konjugasi",
+        "Penyerbukan"
+      ],
+      "answer": 0,
+      "explanation": "Perkembangbiakan vegetatif tidak melibatkan pertemuan sel jantan dan betina.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perkembangbiakan tumbuhan yang terjadi melalui proses peleburan sel kelamin disebut ...",
+      "options": [
+        "Vegetatif",
+        "Generatif",
+        "Tunas liar",
+        "Cangkokan"
+      ],
+      "answer": 1,
+      "explanation": "Generatif diawali penyerbukan dan pembuahan sel gamet.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pohon pisang dan bambu berkembang biak secara alami menggunakan ...",
+      "options": [
+        "Biji",
+        "Umbi lapis",
+        "Tunas",
+        "Geragih"
+      ],
+      "answer": 2,
+      "explanation": "Pisang dan bambu membentuk tunas baru di dekat pangkal induknya.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bawang merah berkembang biak secara vegetatif alami menggunakan ...",
+      "options": [
+        "Umbi batang",
+        "Akar tinggal",
+        "Spora daun",
+        "Umbi lapis"
+      ],
+      "answer": 3,
+      "explanation": "Bawang merah memiliki pelepah daun berlapis yang membengkak.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tanaman jahe, kunyit, dan lengkuas berkembang biak menggunakan ...",
+      "options": [
+        "Rizoma (akar tinggal)",
+        "Umbi akar",
+        "Geragih (stolon)",
+        "Tunas adventif"
+      ],
+      "answer": 0,
+      "explanation": "Rizoma adalah batang yang tumbuh mendatar di dalam tanah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rumput teki dan tanaman stroberi berkembang biak secara alami menggunakan ...",
+      "options": [
+        "Umbi batang",
+        "Geragih (stolon)",
+        "Akar tinggal",
+        "Spora halus"
+      ],
+      "answer": 1,
+      "explanation": "Geragih adalah batang yang menjalar di atas permukaan tanah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Cocor bebek berkembang biak secara vegetatif alami melalui tunas yang tumbuh pada ...",
+      "options": [
+        "Ujung akar",
+        "Batang utama",
+        "Tepi daun",
+        "Kelopak bunga"
+      ],
+      "answer": 2,
+      "explanation": "Cocor bebek memiliki tunas adventif pada lekukan tepi daun.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kentang dan ubi jalar menyimpan cadangan makanan pada bagian ...",
+      "options": [
+        "Umbi akar",
+        "Batang kayu",
+        "Daun muda",
+        "Umbi batang"
+      ],
+      "answer": 3,
+      "explanation": "Kentang adalah modifikasi batang yang membesar di dalam tanah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh perkembangbiakan vegetatif buatan dengan bantuan manusia adalah ...",
+      "options": [
+        "Mencangkok dan stek",
+        "Penyerbukan lebah",
+        "Tunas dan spora",
+        "Biji dan buah"
+      ],
+      "answer": 0,
+      "explanation": "Mencangkok, menempel (okulasi), dan menyetek dilakukan manusia.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Penyerbukan yang terjadi jika serbuk sari jatuh ke kepala putik bunga lain tetapi masih satu tanaman disebut penyerbukan ...",
+      "options": [
+        "Sendiri",
+        "Tetangga",
+        "Silang",
+        "Bastar"
+      ],
+      "answer": 1,
+      "explanation": "Penyerbukan tetangga terjadi antar bunga dalam satu pohon.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hewan yang sering membantu proses penyerbukan pada bunga karena mengisap nektar adalah ...",
+      "options": [
+        "Cacing dan siput",
+        "Katak dan kadal",
+        "Kupu-kupu dan lebah",
+        "Tikus dan kelinci"
+      ],
+      "answer": 2,
+      "explanation": "Serangga terbang membantu menempelkan serbuk sari saat mengisap nektar.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tumbuhan kaktus mengubah bentuk daunnya menjadi duri yang bertujuan untuk ...",
+      "options": [
+        "Menarik mangsa serangga",
+        "Mempercepat fotosintesis",
+        "Menyerap udara dingin",
+        "Mengurangi penguapan air"
+      ],
+      "answer": 3,
+      "explanation": "Duri memperkecil luas permukaan sehingga hemat air di daerah kering.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa fotosintesis pada tumbuhan hijau sangat penting bagi kelangsungan hidup hewan dan manusia?",
+      "options": [
+        "Menghasilkan oksigen dan bahan makanan",
+        "Menyerap seluruh air di permukaan bumi",
+        "Mengubah iklim bumi menjadi sangat panas",
+        "Mencegah pertumbuhan tanaman parasit"
+      ],
+      "answer": 0,
+      "explanation": "Tumbuhan adalah produsen makanan dan penyedia oksigen bagi bumi.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jika sebuah tanaman diletakkan di dalam kardus tertutup tanpa cahaya selama berhari-hari, apa yang terjadi?",
+      "options": [
+        "Tanaman tumbuh lebih kokoh dan hijau tua",
+        "Daun menguning dan layu karena gagal fotosintesis",
+        "Tanaman menghasilkan bunga yang sangat lebat",
+        "Tanaman menghasilkan oksigen berlimpah"
+      ],
+      "answer": 1,
+      "explanation": "Tanpa cahaya, klorofil rusak dan tanaman kekurangan energi makanan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Percobaan Sach membuktikan bahwa fotosintesis menghasilkan amilum (karbohidrat) dengan menggunakan tetesan cairan ...",
+      "options": [
+        "Air garam pekat",
+        "Minyak goreng",
+        "Iodin (Lugol)",
+        "Alkohol panas murni"
+      ],
+      "answer": 2,
+      "explanation": "Lugol/iodin akan mengubah daun beramilum menjadi biru kehitaman.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Biji buah kapuk atau dandelion mudah tersebar luas ke tempat yang jauh karena memiliki ciri ...",
+      "options": [
+        "Kulit tebal berduri tajam dan lengket",
+        "Mengeluarkan aroma manis yang kuat",
+        "Biji sangat berat dan keras",
+        "Ringan dan memiliki bulu halus menyerupai parasut"
+      ],
+      "answer": 3,
+      "explanation": "Struktur berbulu ringan memungkinkan biji terbang terbawa angin (anemokori).",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Biji buah kelapa dapat menyebar melintasi lautan pulau lain karena struktur sabutnya yang ...",
+      "options": [
+        "Berongga udara sehingga terapung di air",
+        "Sangat berat sehingga tenggelam di lumpur",
+        "Manis sehingga dimakan ikan paus",
+        "Bercabang banyak membelah karang"
+      ],
+      "answer": 0,
+      "explanation": "Rongga sabut kelapa berfungsi sebagai pelampung alami di air laut.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa mencangkok hanya dapat dilakukan pada tanaman berkambium (dikotil)?",
+      "options": [
+        "Tanaman monokotil tidak membutuhkan air",
+        "Kambium membentuk kulit dan kayu baru",
+        "Batang monokotil terlalu keras untuk dipotong",
+        "Tanaman dikotil tidak memiliki akar tunggang"
+      ],
+      "answer": 1,
+      "explanation": "Kambium aktif membelah membentuk jaringan kalus dan perakaran baru.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perbedaan utama perkembangbiakan vegetatif alami dan buatan adalah ...",
+      "options": [
+        "Buatan selalu menghasilkan bunga liar",
+        "Alami menghasilkan tanaman lebih pendek",
+        "Alami terjadi tanpa campur tangan manusia",
+        "Buatan hanya bisa dilakukan di laboratorium"
+      ],
+      "answer": 2,
+      "explanation": "Vegetatif alami terjadi secara mandiri oleh organ tanaman itu sendiri.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Gas karbon dioksida masuk ke dalam daun melalui organ ... sedangkan air masuk melalui organ ...",
+      "options": [
+        "Batang tanaman - Lentisel kayu",
+        "Bunga mekar - Ujung tudung akar",
+        "Klorofil hijau - Floem batang",
+        "Stomata pada daun - Rambut akar"
+      ],
+      "answer": 3,
+      "explanation": "CO2 diserap dari udara via stomata, air diserap tanah via rambut akar.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hubungan simbiosis mutualisme antara lebah madu dan bunga yang sedang mekar adalah ...",
+      "options": [
+        "Lebah mendapat nektar, bunga terbantu penyerbukannya",
+        "Lebah mendapat daun, bunga mendapat madu lebah",
+        "Bunga menjadi sarang lebah yang aman",
+        "Lebah memakan benang sari sampai habis"
+      ],
+      "answer": 0,
+      "explanation": "Keduanya saling menguntungkan dalam transfer serbuk sari dan makanan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tanaman eceng gondok dapat mengapung di permukaan air karena memiliki adaptasi pada batangnya berupa ...",
+      "options": [
+        "Akar gantung yang menyerap uap air",
+        "Rongga udara yang banyak pada tangkai daun",
+        "Lapisan lilin tebal yang kedap cahaya",
+        "Duri tajam pelindung dari arus air"
+      ],
+      "answer": 1,
+      "explanation": "Rongga udara membuat masa jenis tangkai daun eceng gondok ringan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    }
+  ]
+}

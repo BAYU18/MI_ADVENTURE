@@ -1,0 +1,314 @@
+[
+  {
+    "question": "Arti dari nama surah An-Nasr adalah ...",
+    "options": [
+      "Pertolongan",
+      "Kemenangan",
+      "Waktu Subuh",
+      "Hari Kiamat"
+    ],
+    "answer": 0,
+    "explanation": "An-Nasr secara bahasa bermakna Pertolongan dari Allah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Surah An-Nasr terdiri dari berapa ayat?",
+    "options": [
+      "4 ayat",
+      "3 ayat",
+      "5 ayat",
+      "6 ayat"
+    ],
+    "answer": 1,
+    "explanation": "Surah An-Nasr adalah surah pendek yang terdiri dari 3 ayat.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Dalam mushaf Al-Qur'an, surah An-Nasr menempati urutan surah ke- ...",
+    "options": [
+      "108",
+      "109",
+      "110",
+      "111"
+    ],
+    "answer": 2,
+    "explanation": "Surah An-Nasr adalah surah ke-110 dalam susunan mushaf Al-Qur'an.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Berdasarkan tempat dan masa turunnya, surah An-Nasr tergolong surah ...",
+    "options": [
+      "Makkiyyah",
+      "Kufiyyah",
+      "Mishriyyah",
+      "Madaniyyah"
+    ],
+    "answer": 3,
+    "explanation": "Surah An-Nasr diturunkan di Mina setelah peristiwa Fathu Makkah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Lafaz ayat pertama surah An-Nasr berbunyi ...",
+    "options": [
+      "Idza ja'a nasrullahi wal fath",
+      "Tabbat yada abi lahabiw watabb",
+      "Inna a'thainakal kautsar",
+      "Qul huwallahu ahad"
+    ],
+    "answer": 0,
+    "explanation": "Ayat pertama surah An-Nasr dimulai dengan 'Idza ja'a nasrullahi wal fath'.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Peristiwa besar yang menjadi kabar gembira dalam surah An-Nasr adalah ...",
+    "options": [
+      "Perang Badar kubra",
+      "Fathu Makkah (Pembebasan Makkah)",
+      "Isra' Mi'raj Nabi",
+      "Hijrah ke Habasyah"
+    ],
+    "answer": 1,
+    "explanation": "Surah An-Nasr mengabarkan kemenangan Fathu Makkah bagi kaum muslimin.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Arti potongan ayat 'waro'aitan nasa yadkhuluna fi dinillahi afwaja' adalah manusia masuk agama Allah secara ...",
+    "options": [
+      "sendiri-sendiri",
+      "terpaksa dan takut",
+      "berbondong-bondong",
+      "sembunyi-sembunyi"
+    ],
+    "answer": 2,
+    "explanation": "'Afwaja' bermakna berbondong-bondong atau berkelompok besar.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Dua amalan utama yang diperintahkan Allah pada ayat ke-3 surah An-Nasr adalah ...",
+    "options": [
+      "berzakat dan berpuasa",
+      "berqurban dan bersedekah",
+      "berhaji dan berjihad",
+      "bertasbih dan beristighfar"
+    ],
+    "answer": 3,
+    "explanation": "Ayat ke-3 berbunyi 'fasabbih bihamdi rabbika wastaghfirh'.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Lafaz istighfar yang biasa kita baca sehari-hari adalah ...",
+    "options": [
+      "Astaghfirullahaladzim",
+      "Subhanallahi wabihamdihi",
+      "Alhamdulillahirabbilalamin",
+      "Allahu Akbar walillahilhamd"
+    ],
+    "answer": 0,
+    "explanation": "Istighfar memohon ampunan Allah dengan lafaz Astaghfirullah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Surah An-Nasr mengajarkan bahwa kemenangan hakiki semata-mata datang dari ...",
+    "options": [
+      "banyaknya jumlah pasukan",
+      "Allah Subhanahu wa Ta'ala",
+      "kehebatan senjata perang",
+      "kekayaan para bangsawan"
+    ],
+    "answer": 1,
+    "explanation": "Kemenangan dan pertolongan murni anugerah dari Allah Ta'ala.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Latar belakang turunnya surah An-Nasr berkaitan erat dengan ...",
+    "options": [
+      "kemenangan dagang kaum Quraisy",
+      "perintah membangun Ka'bah baru",
+      "isyarat telah dekatnya ajal Nabi saw",
+      "pemberian mukjizat air zamzam"
+    ],
+    "answer": 2,
+    "explanation": "Sahabat memahami surah ini sebagai isyarat dekatnya wafat Rasulullah saw.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sikap seorang mukmin saat memperoleh keberhasilan besar menurut surah An-Nasr adalah ...",
+    "options": [
+      "berpesta pora hingga larut",
+      "merasa paling hebat di dunia",
+      "meremehkan orang yang kalah",
+      "bersyukur dan memohon ampunan"
+    ],
+    "answer": 3,
+    "explanation": "Kemenangan disambut dengan tasbih, tahmid, dan istighfar, bukan kesombongan.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Mengapa kita tetap diperintahkan beristighfar meskipun telah meraih kemenangan?",
+    "options": [
+      "agar terhindar dari rasa sombong dan ujub",
+      "karena istighfar hanya untuk orang kalah",
+      "agar musuh merasa ketakutan",
+      "karena kemenangan itu adalah dosa"
+    ],
+    "answer": 0,
+    "explanation": "Istighfar menjaga hati agar tetap tawadhu dan tidak terbuai rasa bangga diri.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kata 'al-fath' dalam surah An-Nasr merujuk pada peristiwa ...",
+    "options": [
+      "kemenangan pasukan Romawi",
+      "terbukanya kota Makkah tanpa perang",
+      "dibukanya jalur dagang Yaman",
+      "terbelahnya bulan purnama"
+    ],
+    "answer": 1,
+    "explanation": "'Al-Fath' merujuk pada pembebasan kota Makkah (Fathu Makkah) secara damai.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Surah An-Nasr dibaca saat salat fardhu atau sunnah setelah membaca surah ...",
+    "options": [
+      "Al-Ikhlas",
+      "An-Nas",
+      "Al-Fatihah",
+      "Al-Baqarah"
+    ],
+    "answer": 2,
+    "explanation": "Setelah membaca Al-Fatihah disunnahkan membaca surah pendek seperti An-Nasr.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Tanda keberhasilan dakwah Rasulullah saw yang disebutkan dalam surah An-Nasr adalah ...",
+    "options": [
+      "berdirinya istana megah di Madinah",
+      "terkumpulnya emas perak berlimpah",
+      "musuh-musuh Islam musnah seketika",
+      "banyak kaum berbondong masuk Islam"
+    ],
+    "answer": 3,
+    "explanation": "Masyarakat berbondong-bondong memeluk Islam dengan sukarela dan tulus.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Lafaz 'fasabbih bihamdi rabbika' mengandung perintah untuk ...",
+    "options": [
+      "menyucikan dan memuji nama Allah",
+      "meminta perlindungan dari jin",
+      "membayar zakat tepat waktu",
+      "menyembelih hewan qurban"
+    ],
+    "answer": 0,
+    "explanation": "Fasabbih berarti bertasbihlah dengan memuji Rabbmu.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sifat Allah yang disebutkan di akhir surah An-Nasr adalah ...",
+    "options": [
+      "Al-Ghafur (Maha Pengampun)",
+      "At-Tawwab (Maha Penerima Taubat)",
+      "Ar-Rahim (Maha Penyayang)",
+      "Al-Quddus (Maha Suci)"
+    ],
+    "answer": 1,
+    "explanation": "Penutup ayat ke-3 adalah 'Innahu kaana tawwaba'.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sikap bijaksana yang dicontohkan Rasulullah saw saat Fathu Makkah adalah ...",
+    "options": [
+      "menghukum semua tawanan dengan kejam",
+      "merampas seluruh rumah penduduk Makkah",
+      "memaafkan penduduk yang memusuhinya",
+      "mengusir warga keluar dari kota"
+    ],
+    "answer": 2,
+    "explanation": "Nabi saw memberikan amnesti umum dan memaafkan penduduk Makkah.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Pesan moral surah An-Nasr bagi seorang pelajar yang berprestasi adalah ...",
+    "options": [
+      "memamerkan piala kepada semua teman",
+      "berhenti belajar karena merasa pintar",
+      "mengejek teman yang nilainya rendah",
+      "tetap rendah hati dan tidak sombong"
+    ],
+    "answer": 3,
+    "explanation": "Prestasi adalah amanah nikmat yang wajib disyukuri dengan rendah hati.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Ibnu Abbas r.a. menafsirkan surah An-Nasr sebagai isyarat wafatnya Nabi saw karena ...",
+    "options": [
+      "tugas dakwah dan risalah Nabi telah tuntas",
+      "kaum muslimin telah memiliki banyak harta",
+      "kota Makkah telah menjadi kota terkaya",
+      "para malaikat telah berhenti bertasbih"
+    ],
+    "answer": 0,
+    "explanation": "Kemenangan mutlak menandakan tugas risalah Rasulullah saw telah tuntas sempurna.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Perpaduan antara tasbih dan istighfar pada penutup surah An-Nasr mengajarkan bahwa ...",
+    "options": [
+      "manusia tak perlu beramal jika menang",
+      "kebajikan manusia tetap punya kekurangan",
+      "istighfar menghapus pahala kemenangan",
+      "amal manusia pasti sudah sempurna"
+    ],
+    "answer": 1,
+    "explanation": "Istighfar menyempurnakan amal karena manusia tak pernah luput dari kekurangan.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Nilai Kurikulum Berbasis Cinta (KBC) yang tercermin dalam peristiwa Fathu Makkah adalah ...",
+    "options": [
+      "membalas kejahatan dengan kekuatan senjata",
+      "menuntut ganti rugi materi pada yang salah",
+      "menebarkan kasih sayang dan pengampunan",
+      "memenjarakan orang yang berbeda pandangan"
+    ],
+    "answer": 2,
+    "explanation": "Rasulullah saw meneladankan cinta dan ampunan agung tanpa rasa dendam.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Analisis perilaku: Mengapa kesombongan sering muncul setelah kemenangan dan bagaimana surah An-Nasr mencegahnya?",
+    "options": [
+      "membiarkan pesta kemenangan berlebihan",
+      "memerintahkan bersembunyi dari warga",
+      "melarang manusia meraih kemenangan hidup",
+      "mengarahkan syukur lewat tasbih istighfar"
+    ],
+    "answer": 3,
+    "explanation": "Zikir tasbih dan istighfar membentengi hati dari rasa takabur dan bangga diri.",
+    "difficulty": 3,
+    "timeLimit": 20
+  }
+]

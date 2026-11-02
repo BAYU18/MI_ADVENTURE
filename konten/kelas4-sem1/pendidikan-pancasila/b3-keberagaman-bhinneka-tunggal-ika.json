@@ -1,0 +1,658 @@
+{
+  "class": "Kelas 4 SD",
+  "subjectSlug": "pendidikan-pancasila",
+  "batch": "b3-keberagaman-bhinneka-tunggal-ika",
+  "count": 50,
+  "questions": [
+    {
+      "question": "Semboyan persatuan bangsa Indonesia yang tertulis pada pita burung Garuda adalah ...",
+      "options": [
+        "Bhinneka Tunggal Ika",
+        "Tut Wuri Handayani",
+        "Ing Ngarso Sung Tulodo",
+        "Gemah Ripah Loh Jinawi"
+      ],
+      "answer": 0,
+      "explanation": "Bhinneka Tunggal Ika adalah semboyan resmi persatuan NKRI.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Arti dari semboyan 'Bhinneka Tunggal Ika' adalah ...",
+      "options": [
+        "Bersatu kita teguh bercerai kita runtuh",
+        "Berbeda-beda tetapi tetap satu jua",
+        "Maju terus pantang mundur membela bangsa",
+        "Berdiam diri menjaga kerukunan bersama"
+      ],
+      "answer": 1,
+      "explanation": "Bhinneka Tunggal Ika berarti keberagaman dalam satu kesatuan Indonesia.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat Bhinneka Tunggal Ika diambil dari kitab kuno peninggalan Majapahit bernama ...",
+      "options": [
+        "Kitab Negarakertagama",
+        "Kitab Arjunawiwaha",
+        "Kitab Sutasoma",
+        "Kitab Baratayuda"
+      ],
+      "answer": 2,
+      "explanation": "Kitab Sutasoma karangan Empu Tantular memuat frasa Bhinneka Tunggal Ika.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pengarang kitab Sutasoma yang menuliskan semboyan Bhinneka Tunggal Ika adalah ...",
+      "options": [
+        "Empu Prapanca",
+        "Empu Gandring",
+        "Empu Sedah",
+        "Empu Tantular"
+      ],
+      "answer": 3,
+      "explanation": "Empu Tantular menulis frasa toleransi tersebut pada masa Majapahit.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rumah adat khas suku Minangkabau di Sumatera Barat disebut ...",
+      "options": [
+        "Rumah Gadang",
+        "Rumah Joglo",
+        "Rumah Tongkonan",
+        "Rumah Honai"
+      ],
+      "answer": 0,
+      "explanation": "Rumah Gadang beratap melengkung runcing seperti tanduk kerbau.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rumah adat tradisional masyarakat suku Jawa disebut ...",
+      "options": [
+        "Rumah Gadang",
+        "Rumah Joglo",
+        "Rumah Tongkonan",
+        "Rumah Baileo"
+      ],
+      "answer": 1,
+      "explanation": "Joglo adalah rumah adat tradisional suku Jawa.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rumah adat khas suku Toraja di Sulawesi Selatan disebut ...",
+      "options": [
+        "Rumah Honai",
+        "Rumah Gadang",
+        "Rumah Tongkonan",
+        "Rumah Lamin"
+      ],
+      "answer": 2,
+      "explanation": "Tongkonan beratap melengkung menyerupai perahu.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rumah adat khas masyarakat suku Dani di pedalaman Papua disebut ...",
+      "options": [
+        "Rumah Gadang",
+        "Rumah Joglo",
+        "Rumah Sasak",
+        "Rumah Honai"
+      ],
+      "answer": 3,
+      "explanation": "Honai adalah rumah bundar beratap jerami/ilalang khas Papua.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tari Saman yang terkenal dengan gerakan serempak dan dinamis berasal dari daerah ...",
+      "options": [
+        "Aceh",
+        "Sumatera Barat",
+        "Jawa Barat",
+        "Bali"
+      ],
+      "answer": 0,
+      "explanation": "Tari Saman warisan budaya dunia berasal dari suku Gayo, Aceh.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tari Kecak dan Tari Pendet merupakan kesenian tari tradisional yang berasal dari provinsi ...",
+      "options": [
+        "Jawa Timur",
+        "Bali",
+        "Nusa Tenggara Barat",
+        "Sulawesi Utara"
+      ],
+      "answer": 1,
+      "explanation": "Kecak dan Pendet adalah tarian khas pulau Bali.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tari Jaipong dengan gerakan lincah dan enerjik berasal dari daerah ...",
+      "options": [
+        "Jawa Tengah",
+        "Jawa Timur",
+        "Jawa Barat",
+        "Banten"
+      ],
+      "answer": 2,
+      "explanation": "Jaipong diciptakan sebagai tarian pergaulan khas Sunda Jawa Barat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tari Piring yang penarinya membawa piring di kedua telapak tangannya berasal dari ...",
+      "options": [
+        "Sumatera Utara",
+        "Riau",
+        "Jambi",
+        "Sumatera Barat"
+      ],
+      "answer": 3,
+      "explanation": "Tari Piring adalah tari tradisional Minangkabau.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Alat musik tradisional Angklung yang terbuat dari bambu berasal dari provinsi ...",
+      "options": [
+        "Jawa Barat",
+        "Jawa Tengah",
+        "Jawa Timur",
+        "Bali"
+      ],
+      "answer": 0,
+      "explanation": "Angklung adalah alat musik bambu khas Sunda, Jawa Barat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Alat musik petik Sasando yang terbuat dari daun lontar berasal dari provinsi ...",
+      "options": [
+        "Nusa Tenggara Barat (NTB)",
+        "Nusa Tenggara Timur (NTT)",
+        "Maluku",
+        "Papua"
+      ],
+      "answer": 1,
+      "explanation": "Sasando adalah alat musik petik khas Pulau Rote, NTT.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Alat musik tabuh Kolintang yang terbuat dari bilah kayu berasal dari provinsi ...",
+      "options": [
+        "Sulawesi Selatan",
+        "Kalimantan Barat",
+        "Sulawesi Utara",
+        "Papua Barat"
+      ],
+      "answer": 2,
+      "explanation": "Kolintang berasal dari Minahasa, Sulawesi Utara.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Agama resmi yang diakui oleh pemerintah Republik Indonesia berjumlah ...",
+      "options": [
+        "Empat (4) agama",
+        "Lima (5) agama",
+        "Tujuh (7) agama",
+        "Enam (6) agama"
+      ],
+      "answer": 3,
+      "explanation": "Islam, Kristen Protestan, Katolik, Hindu, Buddha, dan Konghucu.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hari raya Idul Fitri dan Idul Adha dirayakan oleh umat beragama ...",
+      "options": [
+        "Islam",
+        "Kristen",
+        "Katolik",
+        "Hindu"
+      ],
+      "answer": 0,
+      "explanation": "Idul Fitri dan Idul Adha adalah hari raya umat Islam.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hari raya Natal yang diperingati setiap 25 Desember dirayakan oleh umat beragama ...",
+      "options": [
+        "Islam dan Hindu",
+        "Kristen dan Katolik",
+        "Buddha dan Konghucu",
+        "Hindu dan Buddha"
+      ],
+      "answer": 1,
+      "explanation": "Natal memperingati kelahiran Yesus Kristus bagi umat Kristiani.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hari raya Nyepi dan upacara Ngaben merupakan upacara keagamaan umat ...",
+      "options": [
+        "Buddha",
+        "Konghucu",
+        "Hindu",
+        "Katolik"
+      ],
+      "answer": 2,
+      "explanation": "Nyepi dan Ngaben adalah tradisi keagamaan umat Hindu.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hari raya Waisak dirayakan di candi Borobudur oleh umat beragama ...",
+      "options": [
+        "Hindu",
+        "Konghucu",
+        "Islam",
+        "Buddha"
+      ],
+      "answer": 3,
+      "explanation": "Waisak memperingati Trisuci Waisak bagi umat Buddha.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Faktor utama yang menyebabkan bangsa Indonesia memiliki keragaman suku dan budaya adalah ...",
+      "options": [
+        "Kondisi geografis kepulauan dan jalur perdagangan",
+        "Kekayaan tambang minyak bumi yang sangat melimpah",
+        "Penjajahan bangsa asing yang berlangsung seribu tahun",
+        "Perbedaan iklim salju di berbagai wilayah kepulauan"
+      ],
+      "answer": 0,
+      "explanation": "Letak strategis dan pulau terpisah membentuk kekayaan budaya unik.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap yang harus kita hindari dalam menyikapi keragaman budaya bangsa adalah ...",
+      "options": [
+        "Toleransi dan menghormati tradisi suku lain",
+        "Etnosentrisme (menganggap sukunya paling hebat)",
+        "Mau mempelajari tari-tarian daerah lain di nusantara",
+        "Mengapresiasi pertunjukan seni budaya daerah lain"
+      ],
+      "answer": 1,
+      "explanation": "Etnosentrisme memicu perpecahan dan merusak persatuan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manfaat utama dari adanya keberagaman budaya bagi bangsa Indonesia adalah ...",
+      "options": [
+        "Menyebabkan sering terjadi tawuran antarkampung",
+        "Menghambat pembangunan jalan tol antarpulau",
+        "Menjadi kekayaan nasional dan daya tarik wisata",
+        "Membuat bangsa Indonesia terbelakang teknologinya"
+      ],
+      "answer": 2,
+      "explanation": "Keragaman adalah identitas emas dan pesona pariwisata Indonesia.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Upacara adat Rambu Solo yang merupakan ritual pemakaman leluhur terdapat di daerah ...",
+      "options": [
+        "Kuta, Denpasar, Pulau Bali",
+        "Danau Toba, Sumatera Utara",
+        "Wamena, Pegunungan Papua",
+        "Tana Toraja, Sulawesi Selatan"
+      ],
+      "answer": 3,
+      "explanation": "Rambu Solo adalah upacara adat pemakaman khas Tana Toraja.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tradisi upacara pembakaran jenazah di Bali disebut upacara ...",
+      "options": [
+        "Ngaben",
+        "Sekaten",
+        "Tiwah",
+        "Rambu Solo"
+      ],
+      "answer": 0,
+      "explanation": "Ngaben adalah ritual kremasi sakral umat Hindu Bali.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perayaan Sekaten yang memperingati Maulid Nabi Muhammad saw. diadakan di daerah ...",
+      "options": [
+        "Bandung dan Cirebon",
+        "Yogyakarta dan Surakarta",
+        "Banda Aceh dan Medan",
+        "Banjarmasin dan Samarinda"
+      ],
+      "answer": 1,
+      "explanation": "Sekaten adalah tradisi akulturasi Islam dan Jawa di kraton.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tradisi lompat batu (Hombo Batu) untuk menguji kedewasaan pemuda berasal dari pulau ...",
+      "options": [
+        "Madura, Jawa Timur",
+        "Sumba, NTT",
+        "Nias, Sumatera Utara",
+        "Belitung, Babel"
+      ],
+      "answer": 2,
+      "explanation": "Lompat batu Hombo Batu adalah tradisi ksatria pulau Nias.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pakaian adat Ulos yang ditenun dengan pola khas merupakan pakaian adat suku ...",
+      "options": [
+        "Melayu, Riau Daratan",
+        "Dayak, Kalimantan Barat",
+        "Asmat, Dataran Papua",
+        "Batak, Sumatera Utara"
+      ],
+      "answer": 3,
+      "explanation": "Kain tenun Ulos adalah busana sakral adat suku Batak.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pakaian adat Baju Bodo yang berbentuk segi empat tanpa lengan berasal dari suku ...",
+      "options": [
+        "Bugis-Makassar, Sulawesi Selatan",
+        "Sasak, Lombok, NTB",
+        "Minahasa, Sulawesi Utara",
+        "Banjar, Kalimantan Selatan"
+      ],
+      "answer": 0,
+      "explanation": "Baju Bodo adalah salah satu busana tertua suku Bugis-Makassar.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Senjata tradisional Rencong yang tajam dan melegenda berasal dari daerah ...",
+      "options": [
+        "Jawa Barat",
+        "Aceh",
+        "Kalimantan Timur",
+        "Maluku"
+      ],
+      "answer": 1,
+      "explanation": "Rencong adalah senjata pusaka perjuangan rakyat Aceh.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Senjata tradisional Keris dengan lekukan khas di bilahnya berasal dari daerah ...",
+      "options": [
+        "Papua dan Maluku",
+        "Kalimantan Utara",
+        "Jawa dan Madura",
+        "Nusa Tenggara Timur"
+      ],
+      "answer": 2,
+      "explanation": "Keris diakui UNESCO sebagai warisan budaya takbenda asal Jawa.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Senjata tradisional Mandau yang dihiasi bulu burung enggang berasal dari suku ...",
+      "options": [
+        "Dani, Lembah Papua",
+        "Baduy, Banten Selatan",
+        "Tengger, Bromo",
+        "Dayak, Kalimantan"
+      ],
+      "answer": 3,
+      "explanation": "Mandau adalah senjata pusaka tradisional ksatria Dayak.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Makanan tradisional Rendang yang dinobatkan sebagai makanan terlezat dunia berasal dari ...",
+      "options": [
+        "Minangkabau, Sumatera Barat",
+        "Palembang, Sumatera Selatan",
+        "Yogyakarta, Jawa Tengah",
+        "Makassar, Sulawesi Selatan"
+      ],
+      "answer": 0,
+      "explanation": "Rendang daging kaya rempah berasal dari tanah Minangkabau.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Makanan khas Gudeg yang memiliki cita rasa manis legit berbahan nangka muda berasal dari ...",
+      "options": [
+        "Surabaya",
+        "Yogyakarta",
+        "Semarang",
+        "Bandung"
+      ],
+      "answer": 1,
+      "explanation": "Gudeg adalah kuliner ikonik khas Kota Yogyakarta.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Makanan tradisional Papeda yang berbahan dasar bubur sagu kenyal berasal dari daerah ...",
+      "options": [
+        "Kalimantan Barat",
+        "Sulawesi Tengah",
+        "Maluku dan Papua",
+        "Nusa Tenggara Barat"
+      ],
+      "answer": 2,
+      "explanation": "Papeda berkuah kuning adalah makanan pokok sagu Maluku dan Papua.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bila kita berkunjung ke daerah lain yang memiliki tradisi berbeda dengan daerah kita, sikap kita ...",
+      "options": [
+        "Mengejek pakaian adat yang dipakai penduduk lokal",
+        "Memaksa penduduk lokal mengikuti adat kebiasaan kita",
+        "Mencoret-coret bangunan tempat ibadah bersejarah",
+        "Menghormati dan mematuhi adat istiadat setempat"
+      ],
+      "answer": 3,
+      "explanation": "Di mana bumi dipijak, di sana langit dijunjung (menghormati adat).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kerjasama antarumat beragama di Indonesia dapat diwujudkan dalam kegiatan ...",
+      "options": [
+        "Gotong royong membersihkan lingkungan pascabencana",
+        "Mencampurkan ritual ibadah di satu tempat suci",
+        "Mengharuskan semua agama merayakan hari raya bersama",
+        "Memperdebatkan ajaran kitab suci di media sosial"
+      ],
+      "answer": 0,
+      "explanation": "Toleransi diwujudkan dalam aksi sosial kemanusiaan bersama.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap saling menghormati dan menghargai perbedaan latar belakang antarmanusia disebut ...",
+      "options": [
+        "Fanatisme",
+        "Toleransi",
+        "Primordialisme",
+        "Individualisme"
+      ],
+      "answer": 1,
+      "explanation": "Toleransi adalah kunci kerukunan hidup berbangsa.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tempat ibadah bagi umat beragama Konghucu disebut ...",
+      "options": [
+        "Vihara atau Candi",
+        "Pura atau Kuil",
+        "Kelenteng atau Litang",
+        "Gereja Katedral"
+      ],
+      "answer": 2,
+      "explanation": "Umat Konghucu beribadah di Kelenteng (Litang).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tempat ibadah bagi umat beragama Hindu di Indonesia disebut ...",
+      "options": [
+        "Vihara",
+        "Masjid",
+        "Gereja",
+        "Pura"
+      ],
+      "answer": 3,
+      "explanation": "Pura adalah rumah ibadah suci umat Hindu.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa semboyan Bhinneka Tunggal Ika sangat penting dan strategis bagi kelangsungan NKRI?",
+      "options": [
+        "Menjaga persatuan di tengah keberagaman ratusan suku",
+        "Membuat Indonesia ditakuti negara tetangga",
+        "Menghapus identitas suku bangsa agar seragam menjadi satu",
+        "Menjadikan bahasa daerah sebagai satu-satunya bahasa resmi"
+      ],
+      "answer": 0,
+      "explanation": "Tanpa perekat Bhinneka Tunggal Ika, negara kepulauan rentan terpecah belah.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hubungan harmonis antara pemeluk agama Islam dan Kristen di Maluku diikat oleh tradisi lokal persaudaraan bernama ...",
+      "options": [
+        "Tradisi Sekatenan",
+        "Tradisi Pela Gandong",
+        "Tradisi Kasada Bromo",
+        "Tradisi Karapan Sapi"
+      ],
+      "answer": 1,
+      "explanation": "Pela Gandong adalah kearifan lokal ikatan persaudaraan sejati di Maluku.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Di Bali terdapat tradisi 'Ngejot', yaitu tradisi saling mengantarkan makanan saat hari raya antara warga Hindu dan Muslim. Tradisi ini mencerminkan ...",
+      "options": [
+        "Kewajiban hukum yang diatur undang-undang pemerintah",
+        "Persaingan untuk menunjukkan makanan yang paling mewah",
+        "Kerukunan dan toleransi nyata dalam kehidupan sehari-hari",
+        "Kelemahan keyakinan terhadap ajaran agama masing-masing"
+      ],
+      "answer": 2,
+      "explanation": "Ngejot adalah wujud cinta damai dan toleransi persaudaraan antariman.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bagaimana cara seorang pelajar SD menunjukkan sikap cinta terhadap keragaman budaya bangsa Indonesia?",
+      "options": [
+        "Hanya mau berteman dengan teman yang satu suku saja",
+        "Menganggap bahasa daerah lain terdengar aneh dan lucu",
+        "Menghindari pergaulan dengan siswa berbeda keyakinan",
+        "Bangga mempelajari kesenian daerah dan saling menghormati"
+      ],
+      "answer": 3,
+      "explanation": "Pelajar aktif melestarikan seni nusantara dan bergaul inklusif.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Akulturasi budaya terlihat jelas pada arsitektur Masjid Menara Kudus di Jawa Tengah yang berbentuk candi Hindu. Nilai sejarah yang diajarkan Sunan Kudus adalah ...",
+      "options": [
+        "Menyebarkan ajaran dengan menghormati kearifan lokal",
+        "Memaksa pengikut agama lama menghancurkan candinya",
+        "Meniru arsitektur asing tanpa memahami maknanya",
+        "Menolak segala bentuk warisan peradaban masa lalu"
+      ],
+      "answer": 0,
+      "explanation": "Dakwah Sunan Kudus merangkul budaya setempat dengan penuh kasih sayang.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bahasa Indonesia ditetapkan sebagai bahasa persatuan sejak Sumpah Pemuda 1928. Fungsi utama bahasa Indonesia dalam keberagaman suku adalah ...",
+      "options": [
+        "Menghapus keberadaan seluruh bahasa daerah di nusantara",
+        "Sebagai jembatan komunikasi pemersatu antarsuku bangsa",
+        "Memudahkan bangsa asing untuk menguasai perdagangan",
+        "Sebagai syarat utama untuk dapat bepergian ke luar pulau"
+      ],
+      "answer": 1,
+      "explanation": "Bahasa Indonesia memungkinkan komunikasi lancar tanpa mematikan bahasa ibu.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Di Papua terdapat tradisi 'Bakar Batu' (Barapen) saat merayakan perdamaian antarkelompok atau menyambut tamu. Nilai luhur dari tradisi ini adalah ...",
+      "options": [
+        "Pamer kekayaan hewan ternak kepada suku lain",
+        "Ritual pemujaan api untuk meminta kekayaan",
+        "Gotong royong, kebersamaan, dan rasa syukur",
+        "Hukuman adat bagi warga desa yang bersalah"
+      ],
+      "answer": 2,
+      "explanation": "Bakar Batu merajut rekonsiliasi, santap bersama, dan kehangatan persaudaraan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap primordialisme sempit (hanya membela kelompok sukunya meskipun berbuat salah) dapat membahayakan NKRI karena ...",
+      "options": [
+        "Mempercepat proses pembangunan sarana olahraga",
+        "Menjadikan kebudayaan daerah terkenal di luar negeri",
+        "Membuat generasi muda semakin pintar dan kreatif",
+        "Memicu konflik horizontal dan merusak persatuan"
+      ],
+      "answer": 3,
+      "explanation": "Primordialisme fanatik merusak persaudaraan kebangsaan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Konsep moderasi beragama dalam Kurikulum Merdeka mengajarkan peserta didik untuk ...",
+      "options": [
+        "Menjalankan agama dengan teguh tanpa bersikap ekstrem",
+        "Mencampuradukkan semua ajaran agama menjadi satu aliran",
+        "Menolak segala bentuk ajaran agama dalam kehidupan",
+        "Merasa agamanya paling benar dan merendahkan yang lain"
+      ],
+      "answer": 0,
+      "explanation": "Moderat berarti kokoh berakidah namun toleran dan adil kepada umat lain.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Semboyan 'Bhinneka Tunggal Ika, Tan Hana Dharma Mangrwa' dalam Kakawin Sutasoma memiliki makna filosofis bahwa ...",
+      "options": [
+        "Setiap agama memiliki tuhan yang saling berselisih",
+        "Meskipun berbeda keyakinan, kebenaran itu satu adanya",
+        "Tidak boleh ada perbedaan pendapat di dalam kerajaan",
+        "Kebenaran hanya dimiliki oleh kalangan bangsawan saja"
+      ],
+      "answer": 1,
+      "explanation": "Kebijaksanaan luhur nusantara mengakui perbedaan menuju harmoni kebenaran ilahi.",
+      "difficulty": 3,
+      "timeLimit": 20
+    }
+  ]
+}

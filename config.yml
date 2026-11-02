@@ -1,0 +1,7 @@
+tunnel: play
+credentials-file: /home/maman/.cloudflared/bede1b03-6f22-438b-aade-f9b669230550.json
+
+ingress:
+  - hostname: play.printshare.my.id
+    service: http://localhost:3002
+  - service: http_status:404

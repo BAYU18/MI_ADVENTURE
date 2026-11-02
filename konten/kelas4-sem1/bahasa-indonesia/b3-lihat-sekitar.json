@@ -1,0 +1,489 @@
+{
+  "class": "Kelas 4 SD",
+  "subjectSlug": "bahasa-indonesia",
+  "batch": "b3-lihat-sekitar",
+  "count": 37,
+  "questions": [
+    {
+      "question": "Teks yang menggambarkan suatu benda atau tempat secara jelas sehingga pembaca seolah melihatnya disebut ...",
+      "options": [
+        "Deskripsi",
+        "Narasi",
+        "Argumentasi",
+        "Persuasi"
+      ],
+      "answer": 0,
+      "explanation": "Teks deskripsi melukiskan objek melalui panca indra.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Teks yang berisi pendapat disertai alasan dan bukti yang kuat disebut teks ...",
+      "options": [
+        "Deskripsi",
+        "Argumentasi",
+        "Dongeng",
+        "Puisi"
+      ],
+      "answer": 1,
+      "explanation": "Argumentasi bertujuan meyakinkan pembaca melalui bukti logis.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rambu lalu lintas berbentuk lingkaran warna merah dengan garis strip putih melintang artinya ...",
+      "options": [
+        "Boleh parkir",
+        "Wajib belok kiri",
+        "Dilarang masuk",
+        "Jalan terus"
+      ],
+      "answer": 2,
+      "explanation": "Rambu lingkaran merah strip putih adalah larangan masuk.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Lampu lalu lintas berwarna kuning menyala memberikan peringatan agar pengendara ...",
+      "options": [
+        "Mempercepat laju kendaraan",
+        "Langsung berhenti mendadak",
+        "Mematikan mesin mobil",
+        "Hati-hati dan bersiap"
+      ],
+      "answer": 3,
+      "explanation": "Warna kuning menandakan pengguna jalan harus berhati-hati.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Imbuhan 'ber-' pada kata 'sepeda' membentuk kata ...",
+      "options": [
+        "Bersepeda",
+        "Belsepeda",
+        "Besepeda",
+        "Menyepeda"
+      ],
+      "answer": 0,
+      "explanation": "ber- + sepeda menjadi bersepeda.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Imbuhan 'ber-' pada kata 'layar' membentuk kata ...",
+      "options": [
+        "Belayar",
+        "Berlayar",
+        "Melayar",
+        "Terlayar"
+      ],
+      "answer": 1,
+      "explanation": "ber- + layar menjadi berlayar.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tempat khusus penyeberangan pejalan kaki di jalan raya disebut ...",
+      "options": [
+        "Trotoar",
+        "Halte",
+        "Zebra cross",
+        "Jembatan tol"
+      ],
+      "answer": 2,
+      "explanation": "Zebra cross bercorak garis putih hitam untuk penyeberang jalan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rambu peringatan di jalan raya umumnya memiliki warna dasar ...",
+      "options": [
+        "Merah",
+        "Biru",
+        "Hijau",
+        "Kuning"
+      ],
+      "answer": 3,
+      "explanation": "Warna kuning digunakan sebagai lambang rambu peringatan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rambu larangan di jalan raya umumnya menggunakan warna dasar ...",
+      "options": [
+        "Merah",
+        "Hijau",
+        "Biru",
+        "Cokelat"
+      ],
+      "answer": 0,
+      "explanation": "Warna merah menandakan larangan keras bagi pengendara.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rambu perintah atau petunjuk arah umumnya memiliki warna dasar ...",
+      "options": [
+        "Kuning atau merah",
+        "Biru atau hijau",
+        "Hitam legam",
+        "Oranye menyala"
+      ],
+      "answer": 1,
+      "explanation": "Biru untuk perintah, hijau untuk penunjuk arah jurusan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bagian jalan yang dikhususkan bagi pejalan kaki di tepi jalan adalah ...",
+      "options": [
+        "Zebra cross",
+        "Bahu jalan",
+        "Trotoar",
+        "Median jalan"
+      ],
+      "answer": 2,
+      "explanation": "Trotoar dibangun di samping jalan untuk keamanan pejalan kaki.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata dasar dari 'berjalan' adalah ...",
+      "options": [
+        "Berjalan",
+        "Jalankan",
+        "Perjalanan",
+        "Jalan"
+      ],
+      "answer": 3,
+      "explanation": "Kata dasar berjalan adalah jalan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Imbuhan 'ber-' jika bertemu kata dasar 'ajar' berubah bentuk menjadi ...",
+      "options": [
+        "Belajar",
+        "Berajar",
+        "Beajar",
+        "Mengajar"
+      ],
+      "answer": 0,
+      "explanation": "ber- + ajar mengalami perubahan khusus menjadi belajar.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Imbuhan 'ber-' jika bertemu kata dasar 'kerja' berubah bentuk menjadi ...",
+      "options": [
+        "Berkerja",
+        "Bekerja",
+        "Belkerja",
+        "Pekerja"
+      ],
+      "answer": 1,
+      "explanation": "Jika suku kata pertama mengandung 'er', r luluh menjadi be-.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Imbuhan 'ber-' jika bertemu kata dasar 'cermin' berubah menjadi ...",
+      "options": [
+        "Becermin",
+        "Belcermin",
+        "Bercermin",
+        "Pencermin"
+      ],
+      "answer": 2,
+      "explanation": "ber- + cermin luluh menjadi becermin (atau bercermin yang lazim).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Makna imbuhan 'ber-' pada kalimat 'Andi bersepatu baru' adalah ...",
+      "options": [
+        "Memiliki",
+        "Menghasilkan",
+        "Melakukan",
+        "Memakai"
+      ],
+      "answer": 3,
+      "explanation": "Bersepatu berarti memakai atau mengenakan sepatu.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Makna imbuhan 'ber-' pada kalimat 'Ayam paman bertelur tiga butir' adalah ...",
+      "options": [
+        "Menghasilkan",
+        "Memakai",
+        "Menjadi",
+        "Kumpulan"
+      ],
+      "answer": 0,
+      "explanation": "Bertelur berarti mengeluarkan atau menghasilkan telur.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Makna imbuhan 'ber-' pada kalimat 'Budi dan Dodi bersalaman' adalah ...",
+      "options": [
+        "Mengerjakan sendiri",
+        "Saling berbalasan",
+        "Memakai barang",
+        "Menjadi"
+      ],
+      "answer": 1,
+      "explanation": "Bersalaman menunjukkan perbuatan resiprokal (saling membalas).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ciri utama paragraf deskripsi yang tepat adalah ...",
+      "options": [
+        "Menyajikan debat pro kontra",
+        "Berisi ajakan membeli produk",
+        "Melibatkan tangkapan indra",
+        "Hanya menyajikan angka rumus"
+      ],
+      "answer": 2,
+      "explanation": "Deskripsi membuat pembaca seolah melihat, mendengar, atau merasa.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perhatikan: 'Ruang kelas itu bersih dan harum semerbak bunga melati.' Kalimat ini menggunakan indra ...",
+      "options": [
+        "Pendengaran dan peraba",
+        "Pengecap dan penglihatan",
+        "Peraba saja",
+        "Penglihatan dan penciuman"
+      ],
+      "answer": 3,
+      "explanation": "'Bersih' dilihat mata, 'harum semerbak' dicium hidung.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Paragraf argumentasi harus dilengkapi dengan ...",
+      "options": [
+        "Alasan logis dan fakta pendukung",
+        "Mantra ajaib fiktif",
+        "Dongeng masa lalu",
+        "Khayalan tokoh kartun"
+      ],
+      "answer": 0,
+      "explanation": "Alasan logis dan fakta memperkuat argumen penulis.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rambu huruf 'P' yang dicoret garis merah miring melintang berarti ...",
+      "options": [
+        "Boleh parkir",
+        "Dilarang parkir",
+        "Tempat putar balik",
+        "Wajib parkir"
+      ],
+      "answer": 1,
+      "explanation": "P coret adalah rambu larangan parkir kendaraan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rambu huruf 'S' yang dicoret garis merah miring melintang berarti ...",
+      "options": [
+        "Dilarang menyalip",
+        "Dilarang putar arah",
+        "Dilarang berhenti",
+        "Boleh istirahat"
+      ],
+      "answer": 2,
+      "explanation": "S (Stop) coret berarti dilarang berhenti di area tersebut.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata berimbuhan 'ber-' yang bermakna 'mengendarai' terdapat pada kalimat ...",
+      "options": [
+        "Adik bersedih hati",
+        "Ibu berbelanja di pasar",
+        "Kucing bersembunyi",
+        "Ayah bermotor ke kantor"
+      ],
+      "answer": 3,
+      "explanation": "Bermotor bermakna mengendarai sepeda motor.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Penulisan kata berimbuhan ber- yang benar adalah ...",
+      "options": [
+        "Bekerja",
+        "Berkerja",
+        "Berasa-rasa",
+        "Bercermin"
+      ],
+      "answer": 0,
+      "explanation": "Kata kerja dengan imbuhan ber- yang baku adalah bekerja.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat di bawah ini yang paling tepat untuk teks argumentasi adalah ...",
+      "options": [
+        "Bunga mawar merah itu mekar di taman",
+        "Kita harus menjaga kebersihan agar tidak tertular penyakit",
+        "Kancil berlari menghindari buaya",
+        "Ruang tamu itu berukuran 4x5 meter"
+      ],
+      "answer": 1,
+      "explanation": "Menyajikan pernyataan sikap disertai alasan hubungan sebab akibat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Saat menyeberang jalan raya, langkah pertama yang aman adalah ...",
+      "options": [
+        "Langsung berlari kencang",
+        "Sambil bermain ponsel pintar",
+        "Tengok kanan, kiri, lalu kanan lagi",
+        "Menutup mata dan berjalan"
+      ],
+      "answer": 2,
+      "explanation": "Melihat situasi lalu lintas di kedua arah menjamin keselamatan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bacalah paragraf: 'Pantai itu berpasir putih lembut. Angin sepoi bertiup membelai wajah.' Paragraf tersebut termasuk jenis ...",
+      "options": [
+        "Argumentasi",
+        "Persuasi",
+        "Eksposisi",
+        "Deskripsi"
+      ],
+      "answer": 3,
+      "explanation": "Melukiskan keindahan fisik objek pantai secara mendalam.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bacalah: 'Membaca buku setiap hari sangat penting karena dapat menambah wawasan dan melatih fokus.' Paragraf ini termasuk teks ...",
+      "options": [
+        "Argumentasi",
+        "Deskripsi",
+        "Narasi fiksi",
+        "Puisi"
+      ],
+      "answer": 0,
+      "explanation": "Menyampaikan pendapat yang didukung alasan manfaat membaca.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perbedaan mendasar antara teks deskripsi dan teks argumentasi adalah ...",
+      "options": [
+        "Deskripsi selalu fiksi, argumentasi selalu fabel",
+        "Deskripsi melukiskan objek, argumentasi menyajikan alasan",
+        "Deskripsi memakai angka, argumentasi tanpa huruf",
+        "Keduanya tidak memiliki perbedaan"
+      ],
+      "answer": 1,
+      "explanation": "Tujuan deskripsi adalah menggambarkan, argumentasi meyakinkan pembaca.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Imbuhan 'ber-' pada kalimat 'Kedua petinju itu bertarung di atas ring' menyatakan makna ...",
+      "options": [
+        "Menyatakan jumlah dua",
+        "Memakai kostum baru",
+        "Melakukan tindakan berbalasan",
+        "Menghasilkan tenaga"
+      ],
+      "answer": 2,
+      "explanation": "Bertarung bermakna saling menyerang secara timbal balik.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah kalimat berikut yang menggunakan kata berimbuhan ber- dengan makna 'mempunyai'?",
+      "options": [
+        "Kakak berenang di sungai",
+        "Adik bersenandung riang",
+        "Ibu berbelanja di warung",
+        "Pak Hadi beranak tiga orang"
+      ],
+      "answer": 3,
+      "explanation": "Beranak tiga bermakna mempunyai tiga orang anak.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rambu berbentuk belah ketupat kuning dengan gambar tanjakan terjal berfungsi untuk ...",
+      "options": [
+        "Memperingatkan adanya jalan menanjak berbahaya",
+        "Melarang kendaraan menanjak",
+        "Menyuruh kendaraan mundur",
+        "Menutup jalan secara total"
+      ],
+      "answer": 0,
+      "explanation": "Rambu kuning bergambar tanjakan adalah peringatan kondisi jalan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Berikut ini yang merupakan argumen yang logis untuk menolak jajan sembarangan adalah ...",
+      "options": [
+        "Penjualnya tidak tersenyum ramah",
+        "Jajanan terbuka mudah dihinggapi lalat pembawa kuman",
+        "Warna makanannya kurang cerah",
+        "Bungkusnya terbuat dari daun pisang"
+      ],
+      "answer": 1,
+      "explanation": "Kebersihan makanan berkaitan langsung dengan kesehatan saluran cerna.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata berimbuhan ber- di bawah ini yang mengalami peluluhan huruf 'r' adalah ...",
+      "options": [
+        "Bermain",
+        "Berputar",
+        "Beternak",
+        "Berpikir"
+      ],
+      "answer": 2,
+      "explanation": "Kata dasar ternak mendapat imbuhan ber- menjadi beternak.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika kita mendeskripsikan suatu pasar tradisional, rincian indra pengecap yang relevan adalah ...",
+      "options": [
+        "Bisingnya tawar menawar pedagang",
+        "Harumnya aroma rempah cengkih",
+        "Ramainya kerumunan orang",
+        "Manisnya buah mangga arumanis yang dicicipi pembeli"
+      ],
+      "answer": 3,
+      "explanation": "Rasa manis mangga dirasakan melalui indra pengecap (lidah).",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Penggunaan tanda titik dua (:) yang benar dalam teks adalah ...",
+      "options": [
+        "Ibu membeli buah: apel, jeruk, dan mangga.",
+        "Ibu: membeli buah apel, jeruk.",
+        "Ibu membeli: apel jeruk dan mangga.",
+        "Ibu membeli buah apel: jeruk dan mangga"
+      ],
+      "answer": 0,
+      "explanation": "Titik dua dipakai sebelum rincian pemerian yang lengkap.",
+      "difficulty": 3,
+      "timeLimit": 20
+    }
+  ]
+}

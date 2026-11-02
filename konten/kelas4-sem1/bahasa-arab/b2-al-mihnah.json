@@ -1,0 +1,431 @@
+[
+  {
+    "question": "Kata الْمِهْنَةُ (al-mihnah) dalam bahasa Indonesia memiliki arti ...",
+    "options": [
+      "profesi atau pekerjaan",
+      "hobi kegemaran",
+      "tempat rekreasi",
+      "cita-cita masa depan"
+    ],
+    "answer": 0,
+    "explanation": "Al-Mihnah bermakna mata pencaharian, tugas profesi, atau pekerjaan.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Bahasa Arab dari profesi 'guru laki-laki' adalah ...",
+    "options": [
+      "طَبِيبٌ (thabiibun)",
+      "مُدَرِّسٌ (mudarrisun)",
+      "فَلَّاحٌ (fallaaHun)",
+      "شُرْطِيٌّ (syurthiyyun)"
+    ],
+    "answer": 1,
+    "explanation": "Mudarrisun atau ustaadzun adalah sebutan untuk pengajar laki-laki.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Bahasa Arab dari profesi 'guru perempuan' adalah ...",
+    "options": [
+      "طَبِيبَةٌ (thabiibatun)",
+      "تَاجِرَةٌ (taajiratun)",
+      "مُدَرِّسَةٌ (mudarrisatun)",
+      "فَلَّاحَةٌ (fallaaHatun)"
+    ],
+    "answer": 2,
+    "explanation": "Bentuk muannats (perempuan) ditandai dengan ta' marbuthah: mudarrisah.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Kata طَبِيبٌ (thabiibun) memiliki arti profesi sebagai ...",
+    "options": [
+      "pilot pesawat terbang",
+      "sopir mobil ambulans",
+      "penjahit busana",
+      "dokter yang mengobati pasien"
+    ],
+    "answer": 3,
+    "explanation": "Thabiib (طَبِيبٌ) artinya dokter.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Profesi orang yang bertugas menjaga keamanan dan ketertiban lalu lintas adalah ...",
+    "options": [
+      "شُرْطِيٌّ (syurthiyyun)",
+      "جُنْدِيٌّ (jundiyyun)",
+      "مُهَنْدِسٌ (muhandisun)",
+      "تَاجِرٌ (taajirun)"
+    ],
+    "answer": 0,
+    "explanation": "Syurthiyyun bermakna polisi.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Kata فَلَّاحٌ (fallaaHun) memiliki arti profesi sebagai ...",
+    "options": [
+      "nelayan penangkap ikan",
+      "petani yang bercocok tanam",
+      "pedagang di pasar",
+      "koki pembuat kue"
+    ],
+    "answer": 1,
+    "explanation": "Fallah (فَلَّاحٌ) adalah petani pembudidaya sawah dan ladang.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Bahasa Arab dari profesi 'pedagang laki-laki' adalah ...",
+    "options": [
+      "طَيَّارٌ (thoyyaarun)",
+      "خَيَّاطٌ (khayyaathun)",
+      "تَاجِرٌ (taajirun)",
+      "سَائِقٌ (saa-iqun)"
+    ],
+    "answer": 2,
+    "explanation": "Taajir (تَاجِرٌ) adalah saudagar atau pedagang perniagaan.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Kata جُنْدِيٌّ (jundiyyun) memiliki arti profesi sebagai ...",
+    "options": [
+      "polisi pamong praja",
+      "nahkoda kapal laut",
+      "satpam perumahan",
+      "tentara pembela tanah air"
+    ],
+    "answer": 3,
+    "explanation": "Jundiyyun artinya prajurit militer atau tentara.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Kata tunjuk (isim isyarah) untuk benda atau orang laki-laki dekat adalah ...",
+    "options": [
+      "هَذَا (hadza)",
+      "هَذِهِ (hadzihi)",
+      "تِلْكَ (tilka)",
+      "ذَلِكَ (dzalika)"
+    ],
+    "answer": 0,
+    "explanation": "Hadza (هَذَا) digunakan untuk menunjuk muzakkar (laki-laki) jarak dekat.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Kata tunjuk (isim isyarah) untuk benda atau orang perempuan dekat adalah ...",
+    "options": [
+      "هَذَا (hadza)",
+      "هَذِهِ (hadzihi)",
+      "هُوَ (huwa)",
+      "أَنْتَ (anta)"
+    ],
+    "answer": 1,
+    "explanation": "Hadzihi (هَذِهِ) digunakan untuk menunjuk muannats (perempuan) jarak dekat.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Kata ganti (dhamir) orang ketiga tunggal laki-laki 'dia laki-laki' adalah ...",
+    "options": [
+      "هِيَ (hiya)",
+      "أَنَا (ana)",
+      "هُوَ (huwa)",
+      "نَحْنُ (nahnu)"
+    ],
+    "answer": 2,
+    "explanation": "Huwa (هُوَ) bermakna dia (seorang laki-laki).",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Kata ganti (dhamir) orang ketiga tunggal perempuan 'dia perempuan' adalah ...",
+    "options": [
+      "هُوَ (huwa)",
+      "أَنْتَ (anta)",
+      "أَنْتِ (anti)",
+      "هِيَ (hiya)"
+    ],
+    "answer": 3,
+    "explanation": "Hiya (هِيَ) bermakna dia (seorang perempuan).",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Profesi orang yang menjahit pakaian dalam bahasa Arab disebut ...",
+    "options": [
+      "خَيَّاطٌ (khayyaathun)",
+      "طَبَّاخٌ (thabbaakhun)",
+      "حَلَّاقٌ (hallaAqun)",
+      "نَجَّارٌ (najjaarun)"
+    ],
+    "answer": 0,
+    "explanation": "Khayyath (خَيَّاطٌ) bermakna tukang jahit pakaian.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Lengkapi kalimat: 'هَذَا أَبِي، ... طَبِيبٌ مَاهِرٌ'. Kata ganti yang tepat adalah ...",
+    "options": [
+      "هِيَ (dia perempuan)",
+      "هُوَ (dia laki-laki)",
+      "أَنْتِ (kamu perempuan)",
+      "هَذِهِ (ini perempuan)"
+    ],
+    "answer": 1,
+    "explanation": "Ayah (أَبِي) adalah muzakkar, kata ganti yang tepat adalah huwa (هُوَ).",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Lengkapi kalimat: 'هَذِهِ أُمِّي، ... مُدَرِّسَةٌ فِي الْمَدْرَسَةِ'. Kata ganti yang tepat adalah ...",
+    "options": [
+      "هُوَ (dia laki-laki)",
+      "أَنْتَ (kamu laki-laki)",
+      "هِيَ (dia perempuan)",
+      "هَذَا (ini laki-laki)"
+    ],
+    "answer": 2,
+    "explanation": "Ibu (أُمِّي) adalah muannats, kata ganti yang tepat adalah hiya (هِيَ).",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Perhatikan kalimat: 'الْفَلَّاحُ يَزْرَعُ الرُّزَّ فِي الْمَزْرَعَةِ'. Di manakah petani bekerja?",
+    "options": [
+      "فِي الْمُسْتَشْفَى (di rumah sakit)",
+      "فِي السُّوقِ (di pasar raya)",
+      "فِي الْمَدْرَسَةِ (di sekolah)",
+      "فِي الْمَزْرَعَةِ (di sawah/ladang)"
+    ],
+    "answer": 3,
+    "explanation": "Petani menanam padi di sawah atau ladang (al-mazra'ah).",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Perhatikan kalimat: 'الطَّبِيبُ يُعَالِجُ الْمَرِيضَ فِي الْمُسْتَشْفَى'. Kata الْمُسْتَشْفَى artinya ...",
+    "options": [
+      "rumah sakit umum",
+      "kantor polisi",
+      "pasar tradisional",
+      "stasiun kereta"
+    ],
+    "answer": 0,
+    "explanation": "Al-Mustasyfa (الْمُسْتَشْفَى) bermakna rumah sakit tempat pengobatan.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Pasangan kata isim isyarah dan kata benda muannats yang sesuai kaidah adalah ...",
+    "options": [
+      "هَذَا شُرْطِيَّةٌ",
+      "هَذِهِ شُرْطِيَّةٌ",
+      "هَذِهِ شُرْطِيٌّ",
+      "هَذَا مُدَرِّسَةٌ"
+    ],
+    "answer": 1,
+    "explanation": "Muannats bertanda ta' marbuthah berpasangan dengan isim isyarah hadzihi.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Kata سَائِقٌ (saa-iqun) adalah sebutan untuk orang yang berprofesi sebagai ...",
+    "options": [
+      "peternak sapi perah",
+      "tukang kebun bunga",
+      "pengemudi sopir kendaraan",
+      "petugas kebersihan jalan"
+    ],
+    "answer": 2,
+    "explanation": "Saa-iq (سَائِقٌ) artinya sopir atau pengendara.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Kalimat tanya yang tepat untuk menanyakan pekerjaan ayah teman adalah ...",
+    "options": [
+      "أَيْنَ بَيْتُ أَبِيكَ؟",
+      "كَمْ عُمْرُ أَبِيكَ؟",
+      "مَا اسْمُ أَبِيكَ؟",
+      "مَا مِهْنَةُ أَبِيكَ؟"
+    ],
+    "answer": 3,
+    "explanation": "Maa mihnatu abiika digunakan untuk menanyakan apa profesi ayahmu.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Jika seseorang bekerja mengemudikan pesawat terbang, profesinya adalah ...",
+    "options": [
+      "طَيَّارٌ (pilot)",
+      "بَحَّارٌ (pelaut)",
+      "سَائِقٌ (sopir)",
+      "جُنْدِيٌّ (tentara)"
+    ],
+    "answer": 0,
+    "explanation": "Thoyyaar (طَيَّارٌ) artinya penerbang atau pilot pesawat.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Perhatikan kalimat: 'عَمِّي تَاجِرٌ، يَبِيعُ الْفَوَاكِهَ فِي السُّوقِ'. Kata السُّوقِ artinya ...",
+    "options": [
+      "sekolah dasar",
+      "pasar perniagaan",
+      "rumah sakit",
+      "bandara udara"
+    ],
+    "answer": 1,
+    "explanation": "As-Suuq (السُّوقِ) bermakna pasar tempat jual beli barang.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Bentuk muannats dari kata طَالِبٌ (siswa laki-laki) adalah ...",
+    "options": [
+      "طَبِيبَةٌ (dokter perempuan)",
+      "مُعَلِّمَةٌ (guru perempuan)",
+      "طَالِبَةٌ (siswi perempuan)",
+      "مُهَنْدِسَةٌ (insinyur perempuan)"
+    ],
+    "answer": 2,
+    "explanation": "Perubahan muzakkar ke muannats menambahkan akhiran ta' marbuthah: thaalibah.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Lengkapi dialog: 'مَنْ هَذَا؟ - هَذَا أَخِي، هُوَ ...'. Pilihan profesi yang cocok untuk muzakkar adalah ...",
+    "options": [
+      "مُهَنْدِسَةٌ (insinyur wanita)",
+      "طَبِيبَةٌ (dokter wanita)",
+      "مُدَرِّسَةٌ (guru wanita)",
+      "مُهَنْدِسٌ (insinyur)"
+    ],
+    "answer": 3,
+    "explanation": "Subjek akhii (saudara laki-laki) membutuhkan predikat muzakkar muhandis.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Profesi orang yang merancang bangunan gedung dan jembatan adalah ...",
+    "options": [
+      "مُهَنْدِسٌ (arsitek/insinyur)",
+      "شُرْطِيٌّ (polisi)",
+      "مُدَرِّسٌ (guru)",
+      "فَلَّاحٌ (petani)"
+    ],
+    "answer": 0,
+    "explanation": "Muhandis (مُهَنْدِسٌ) bermakna insinyur atau perancang konstruksi.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Arti dari kalimat: 'أُمِّي رَبَّةُ الْبَيْتِ' adalah ...",
+    "options": [
+      "Ibuku seorang perawat pasien",
+      "Ibuku seorang ibu rumah tangga",
+      "Ibuku berdagang di pasar",
+      "Ibuku bekerja di kantor pos"
+    ],
+    "answer": 1,
+    "explanation": "Rabbatul baiti bermakna ibu rumah tangga yang mengelola keluarga.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Analisis tata bahasa: Manakah kalimat yang seluruh penyesuaian gender kata (muzakkar/muannats) tepat?",
+    "options": [
+      "هَذَا أُخْتِي، هُوَ مُمَرِّضٌ نَشِيطٌ",
+      "هَذِهِ أُخْتِي، هُوَ مُمَرِّضَةٌ نَشِيطَةٌ",
+      "هَذِهِ أُخْتِي، هِيَ مُمَرِّضَةٌ نَشِيطَةٌ",
+      "هَذَا أُخْتِي، هِيَ مُمَرِّضَةٌ نَشِيطٌ"
+    ],
+    "answer": 2,
+    "explanation": "Subjek ukhtii muannats selaras dengan hadzihi, hiya, mumarridhatun, dan nasyiithah.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Perhatikan teks: 'هَذَا خَالِي. هُوَ شُرْطِيٌّ. هُوَ يُنَظِّمُ الْمُرُورَ فِي الشَّارِعِ'. Apa tugas paman dalam teks?",
+    "options": [
+      "menangkap ikan di lautan luas",
+      "mengobati orang sakit di klinik",
+      "mengajar matematika di kelas",
+      "mengatur kelancaran lalu lintas jalan"
+    ],
+    "answer": 3,
+    "explanation": "Teks menyebutkan 'yunazzhimul muruur' yang artinya menertibkan lalu lintas.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Bagaimana cara mengubah kalimat 'أَبِي مُوَظَّفٌ فِي الْمَكْتَبِ' menjadi kalimat untuk ibu?",
+    "options": [
+      "أُمِّي مُوَظَّفَةٌ فِي الْمَكْتَبِ",
+      "أُمِّي مُوَظَّفٌ فِي الْمَكْتَبَةِ",
+      "أُمِّي مُدَرِّسٌ فِي الْمَكْتَبِ",
+      "أُمِّي فَلَّاحَةٌ فِي الْمَكْتَبِ"
+    ],
+    "answer": 0,
+    "explanation": "Abii diganti ummii, dan muwazhzhaf disesuaikan menjadi muwazhzhafah.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Pernyataan hikmah: Mengapa dalam pandangan Islam semua profesi halal yang ditekuni dengan jujur bernilai ibadah?",
+    "options": [
+      "karena hanya profesi guru yang diridhai Allah",
+      "karena ikhtiar mencari nafkah halal bernilai pahala",
+      "karena semua pekerjaan menghasilkan uang sama",
+      "karena di dunia tidak ada pekerjaan yang salah"
+    ],
+    "answer": 1,
+    "explanation": "Niat ikhlas bekerja halal memenuhi kebutuhan keluarga dihitung sedekah ibadah.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Perhatikan kalimat: 'الْمُعَلِّمُ يَشْرَحُ الدَّرْسَ بِجِدٍّ'. Sikap siswa meneladani guru yang mengajar bersungguh-sungguh adalah ...",
+    "options": [
+      "berbicara sendiri saat guru mengajar",
+      "bermain lempar kertas di dalam kelas",
+      "menyimak penjelasan guru dengan takzim",
+      "mengabaikan nasihat yang diberikan"
+    ],
+    "answer": 2,
+    "explanation": "Menghormati guru (ta'zhimul ustadz) adalah kunci keberkahan ilmu.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Jika seorang anak ingin memperkenalkan kakeknya yang seorang pensiunan tentara, kalimat yang tepat adalah ...",
+    "options": [
+      "هَذِهِ جَدَّتِي، هِيَ جُنْدِيَّةٌ",
+      "هَذَا أَبِي، هِيَ شُرْطِيَّةٌ",
+      "هَذِهِ عَمَّتِي، هُوَ طَبِيبٌ",
+      "هَذَا جَدِّي، هُوَ جُنْدِيٌّ مُتَقَاعِدٌ"
+    ],
+    "answer": 3,
+    "explanation": "Jaddii muzakkar menggunakan hadza dan huwa jundiyyun.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Refleksi Kurikulum Berbasis Cinta (KBC): Menghargai profesi petani (fallah) diwujudkan dengan perilaku ...",
+    "options": [
+      "menghabiskan makanan tanpa membuangnya",
+      "mengejek pakaian petani yang kotor",
+      "menolak makan nasi produksi petani",
+      "merusak tanaman di pinggir jalan"
+    ],
+    "answer": 0,
+    "explanation": "Menghargai jerih payah petani diwujudkan dengan tidak menyia-nyiakan makanan.",
+    "difficulty": 3,
+    "timeLimit": 25
+  }
+]

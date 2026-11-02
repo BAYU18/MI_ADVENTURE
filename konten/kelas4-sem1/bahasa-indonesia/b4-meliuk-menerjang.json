@@ -1,0 +1,489 @@
+{
+  "class": "Kelas 4 SD",
+  "subjectSlug": "bahasa-indonesia",
+  "batch": "b4-meliuk-menerjang",
+  "count": 37,
+  "questions": [
+    {
+      "question": "Gagasan yang menjadi pokok pengembangan suatu paragraf disebut ...",
+      "options": [
+        "Ide pokok",
+        "Ide penjelas",
+        "Judul cerita",
+        "Kalimat penutup"
+      ],
+      "answer": 0,
+      "explanation": "Ide pokok adalah inti sari pembahasan dalam paragraf.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat yang memperjelas dan menguraikan ide pokok disebut ...",
+      "options": [
+        "Kalimat tanya",
+        "Kalimat pendukung",
+        "Kalimat seru",
+        "Kalimat judul"
+      ],
+      "answer": 1,
+      "explanation": "Kalimat pengembang/pendukung memaparkan rincian ide pokok.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kegiatan tanya jawab untuk memperoleh informasi dari narasumber disebut ...",
+      "options": [
+        "Pidato",
+        "Diskusi",
+        "Wawancara",
+        "Debat"
+      ],
+      "answer": 2,
+      "explanation": "Wawancara bertujuan menggali informasi langsung dari narasumber.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Orang yang memberikan informasi dalam wawancara disebut ...",
+      "options": [
+        "Pewawancara",
+        "Moderator",
+        "Notulis",
+        "Narasumber"
+      ],
+      "answer": 3,
+      "explanation": "Narasumber adalah orang yang ahli atau saksi peristiwa.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Orang yang mengajukan pertanyaan dalam wawancara disebut ...",
+      "options": [
+        "Pewawancara",
+        "Narasumber",
+        "Penonton",
+        "Penyimak"
+      ],
+      "answer": 0,
+      "explanation": "Pewawancara memandu jalannya tanya jawab.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Gaya bahasa yang mengumpamakan benda mati seolah bersikap seperti manusia disebut majas ...",
+      "options": [
+        "Metafora",
+        "Personifikasi",
+        "Hiperbola",
+        "Litotes"
+      ],
+      "answer": 1,
+      "explanation": "Personifikasi meminjam sifat manusia untuk disematkan pada benda.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Teks yang menceritakan urutan peristiwa secara runtut disebut teks ...",
+      "options": [
+        "Eksposisi",
+        "Laporan",
+        "Narasi",
+        "Persuasi"
+      ],
+      "answer": 2,
+      "explanation": "Teks narasi mengisahkan alur peristiwa berdasarkan waktu.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata tanya yang digunakan untuk menanyakan alasan terjadinya sesuatu adalah ...",
+      "options": [
+        "Kapan",
+        "Siapa",
+        "Di mana",
+        "Mengapa"
+      ],
+      "answer": 3,
+      "explanation": "Kata 'mengapa' menanyakan latar belakang atau alasan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata tanya yang digunakan untuk menanyakan waktu kejadian adalah ...",
+      "options": [
+        "Kapan",
+        "Bagaimana",
+        "Berapa",
+        "Mengapa"
+      ],
+      "answer": 0,
+      "explanation": "Kata 'kapan' menanyakan hari, jam, atau waktu peristiwa.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata tanya yang digunakan untuk menanyakan cara atau proses adalah ...",
+      "options": [
+        "Siapa",
+        "Bagaimana",
+        "Kapan",
+        "Di mana"
+      ],
+      "answer": 1,
+      "explanation": "Kata 'bagaimana' menanyakan proses terjadinya suatu hal.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata tanya untuk menanyakan pelaku peristiwa adalah ...",
+      "options": [
+        "Mengapa",
+        "Apa",
+        "Siapa",
+        "Berapa"
+      ],
+      "answer": 2,
+      "explanation": "Kata 'siapa' menanyakan subjek orang yang terlibat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kata tanya untuk menanyakan tempat kejadian adalah ...",
+      "options": [
+        "Kapan",
+        "Bagaimana",
+        "Mengapa",
+        "Di mana"
+      ],
+      "answer": 3,
+      "explanation": "Kata 'di mana' menanyakan lokasi berlangsungnya kegiatan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh kalimat bermajas personifikasi berikut adalah ...",
+      "options": [
+        "Angin malam membisikkan salam ke telingaku",
+        "Suaranya keras menggelegar membelah angkasa",
+        "Budi adalah anak emas di dalam keluarganya",
+        "Ibu memasak gulai ikan kakap di dapur"
+      ],
+      "answer": 0,
+      "explanation": "Angin diumpamakan bisa berbisik layaknya manusia.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perhatikan: 'Ombak berkejar-kejaran di tepian pantai.' Majas yang digunakan adalah ...",
+      "options": [
+        "Hiperbola",
+        "Personifikasi",
+        "Metafora",
+        "Asosiasi"
+      ],
+      "answer": 1,
+      "explanation": "Ombak digambarkan seolah-olah bernyawa dan saling mengejar.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap santun yang wajib dimiliki pewawancara saat menemui narasumber adalah ...",
+      "options": [
+        "Langsung menyela pembicaraan narasumber",
+        "Bermain gawai tanpa meminta izin dulu",
+        "Mengucapkan salam dan memperkenalkan diri",
+        "Memaksa narasumber menceritakan rahasia"
+      ],
+      "answer": 2,
+      "explanation": "Adab wawancara dimulai dengan salam dan perkenalan diri.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Langkah pertama yang harus dilakukan sebelum melakukan wawancara adalah ...",
+      "options": [
+        "Membuat laporan kesimpulan akhir tertulis",
+        "Mengunggah rekaman video ke internet",
+        "Menagih upah honorarium wawancara",
+        "Menentukan topik dan narasumber sasaran"
+      ],
+      "answer": 3,
+      "explanation": "Topik dan narasumber yang sesuai adalah pondasi wawancara.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Daftar pertanyaan wawancara sebaiknya disusun menggunakan prinsip ...",
+      "options": [
+        "5W + 1H (Adiksimba)",
+        "Teka-teki humoris",
+        "Pertanyaan jebakan",
+        "Satu pertanyaan saja"
+      ],
+      "answer": 0,
+      "explanation": "Adiksimba (Apa, Di mana, Kapan, Siapa, Mengapa, Bagaimana).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perhatikan kalimat: 'Matahari baru saja bangun dari peraduannya.' Maksud ungkapan tersebut adalah ...",
+      "options": [
+        "Matahari sedang tidur siang di balik awan",
+        "Matahari mulai terbit di pagi hari",
+        "Terjadi gerhana matahari total di wilayah",
+        "Matahari terbenam perlahan di ufuk barat"
+      ],
+      "answer": 1,
+      "explanation": "'Bangun dari peraduan' adalah kiasan personifikasi untuk terbit.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ide pokok dalam sebuah paragraf biasanya tertuang di dalam ...",
+      "options": [
+        "Kalimat penjelas",
+        "Catatan kaki",
+        "Kalimat utama",
+        "Daftar pustaka"
+      ],
+      "answer": 2,
+      "explanation": "Kalimat utama memuat gagasan pokok paragraf.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Paragraf yang memiliki kalimat utama di awal dan di akhir disebut paragraf ...",
+      "options": [
+        "Deduktif",
+        "Induktif",
+        "Naratif",
+        "Campuran"
+      ],
+      "answer": 3,
+      "explanation": "Paragraf campuran menegaskan gagasan di awal dan ditegaskan lagi di akhir.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dalam teks narasi, rangkaian peristiwa dari awal hingga akhir cerita disebut ...",
+      "options": [
+        "Alur atau plot",
+        "Latar tempat",
+        "Amanat cerita",
+        "Tema pokok"
+      ],
+      "answer": 0,
+      "explanation": "Alur merangkai jalannya kronologi cerita.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Alat bantu yang berguna merekam suara narasumber saat wawancara adalah ...",
+      "options": [
+        "Kamera video resolusi tinggi",
+        "Perekam suara atau ponsel cerdas",
+        "Kamus bahasa dan ensiklopedia",
+        "Kertas karton lembar jawaban"
+      ],
+      "answer": 1,
+      "explanation": "Perekam audio membantu mencatat keterangan narasumber secara akurat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah kalimat berikut yang menggunakan majas personifikasi?",
+      "options": [
+        "Wajahnya pucat pasi bagaikan mayat",
+        "Ia banting tulang demi masa depan",
+        "Nyiur melambai-lambai di tepi pantai",
+        "Rumahnya sangat megah bagai istana"
+      ],
+      "answer": 2,
+      "explanation": "Pohon kelapa melambai seperti tangan manusia.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat tanya yang tepat untuk menggali riwayat hidup seorang atlet berprestasi adalah ...",
+      "options": [
+        "Berapa uang yang tersimpan di rekening Anda?",
+        "Mengapa Anda suka menyantap nasi goreng?",
+        "Apakah Anda mengenal nama keluarga saya?",
+        "Kapan Anda pertama kali mulai berlatih silat?"
+      ],
+      "answer": 3,
+      "explanation": "Pertanyaan ini relevan dengan profesi dan capaian narasumber.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Setelah wawancara selesai dilakukan, pewawancara harus menyampaikan ...",
+      "options": [
+        "Ucapan terima kasih kepada narasumber",
+        "Permintaan uang saku dan ongkos pulang",
+        "Keluhan tentang lamanya waktu tunggu",
+        "Kritik pedas terhadap jawaban narasumber"
+      ],
+      "answer": 0,
+      "explanation": "Berterima kasih adalah etika wajib penutup wawancara.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ciri kalimat pendukung yang baik dalam sebuah paragraf adalah ...",
+      "options": [
+        "Menyimpang jauh dari tema paragraf",
+        "Memperjelas dan memperkuat ide pokok",
+        "Berisi kalimat tanpa makna yang jelas",
+        "Berisi ringkasan seluruh isi buku teks"
+      ],
+      "answer": 1,
+      "explanation": "Kalimat pendukung berfungsi memperjelas gagasan utama.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perhatikan: 'Daun-daun menari diiringi hembusan angin sore.' Benda mati yang dipersonifikasikan adalah ...",
+      "options": [
+        "Hembusan angin sore",
+        "Gerak tarian gemulai",
+        "Daun-daun pepohonan",
+        "Dahan batang tanaman"
+      ],
+      "answer": 2,
+      "explanation": "Daun digambarkan mampu menari seperti manusia.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bacalah teks: 'Tari saman berasal dari Aceh. Tarian ini dimainkan belasan penari yang duduk berbanjar dengan gerakan tepukan dada serempak.' Ide pokok teks tersebut adalah ...",
+      "options": [
+        "Rincian warna busana penari adat",
+        "Tata cara pembelian tiket konser",
+        "Daftar instrumen musik pengiring",
+        "Asal dan keunikan gerak tari saman"
+      ],
+      "answer": 3,
+      "explanation": "Teks menjelaskan daerah asal dan kekhasan formasi gerak tari saman.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perhatikan: 'Pena itu menari-nari di atas lembaran kertas putih.' Makna majas personifikasi dalam kalimat tersebut adalah ...",
+      "options": [
+        "Seseorang sedang menulis dengan lancar",
+        "Pena dapat bergerak secara mandiri",
+        "Tinta pada pena tersebut bocor",
+        "Lembaran kertas putih itu terbelah"
+      ],
+      "answer": 0,
+      "explanation": "Pena yang menari melukiskan kegiatan menulis yang mengalir indah.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah pertanyaan wawancara yang paling efektif untuk menggali informasi cara pembuatan batik tulis?",
+      "options": [
+        "Apakah batik tulis memiliki corak?",
+        "Bagaimana tahapan membatik yang tepat?",
+        "Mengapa Anda gemar mengenakan batik?",
+        "Berapa jam Anda beristirahat semalam?"
+      ],
+      "answer": 1,
+      "explanation": "Pertanyaan 'Bagaimana' menggali langkah-langkah detail proses berkarya.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dalam laporan hasil wawancara, bagian penutup biasanya memuat ...",
+      "options": [
+        "Daftar hidangan makanan penutup",
+        "Biografi lengkap dari pewawancara",
+        "Kesimpulan dan ucapan terima kasih",
+        "Album dokumentasi masa kecil tamu"
+      ],
+      "answer": 2,
+      "explanation": "Penutup laporan berisi rangkuman poin penting dan apresiasi.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perhatikan kutipan: 'Peluit wasit menjerit menghentikan pertandingan.' Majas personifikasi ditunjukkan oleh frasa ...",
+      "options": [
+        "Menghentikan pertandingan",
+        "Pertandingan sepak bola",
+        "Wasit lapangan hijau",
+        "Peluit wasit menjerit"
+      ],
+      "answer": 3,
+      "explanation": "Peluit disamakan dengan manusia yang menjerit kencang.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika narasumber memberikan jawaban yang sangat panjang dan mulai keluar dari topik, pewawancara sebaiknya ...",
+      "options": [
+        "Memotong secara sopan dan terarah",
+        "Membentak narasumber seketika itu",
+        "Mematikan alat rekam dan keluar",
+        "Mengabaikan penjelasan narasumber"
+      ],
+      "answer": 0,
+      "explanation": "Etika wawancara: potong secara halus dan kembalikan ke fokus topik.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebuah paragraf memiliki 4 kalimat. Kalimat 1 menyatakan 'Olahraga teratur menjaga kesehatan jantung.' Kalimat 2-4 menjelaskan aliran darah dan denyut nadi. Kalimat utamanya terletak pada ...",
+      "options": [
+        "Akhir paragraf (induktif)",
+        "Awal paragraf (deduktif)",
+        "Tengah paragraf bacaan",
+        "Seluruh kalimat paragraf"
+      ],
+      "answer": 1,
+      "explanation": "Gagasan umum berada di kalimat 1, diikuti penjelasan teknis.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manakah di bawah ini kalimat yang tidak menggunakan majas personifikasi?",
+      "options": [
+        "Kabut tebal menelan seluruh perkampungan",
+        "Dinding kamar itu seolah ikut membisu",
+        "Pesawat terbang melintas di atas awan",
+        "Api berkobar melahap deretan toko pasar"
+      ],
+      "answer": 2,
+      "explanation": "Kalimat pertama adalah peristiwa faktual tanpa kiasan sifat manusia.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Format penulisan laporan wawancara yang terstruktur secara runtut adalah ...",
+      "options": [
+        "Kesimpulan, tanda tangan, pustaka",
+        "Foto dokumentasi tanpa keterangan",
+        "Daftar presensi seluruh penonton",
+        "Topik, narasumber, hasil, kesimpulan"
+      ],
+      "answer": 3,
+      "explanation": "Laporan sistematis memuat komponen lengkap dari topik hingga simpulan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ungkapan 'Mentari tersenyum menyapa pagi' memberikan kesan suasana ...",
+      "options": [
+        "Suasana ceria dan penuh harapan",
+        "Suasana seram dan mencekam raga",
+        "Rasa duka cita yang mendalam",
+        "Kondisi marah dan penuh dendam"
+      ],
+      "answer": 0,
+      "explanation": "Senyum mentari melambangkan suasana pagi yang hangat dan menyenangkan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    }
+  ]
+}

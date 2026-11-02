@@ -1,0 +1,489 @@
+{
+  "class": "Kelas 4 SD",
+  "subjectSlug": "ipas",
+  "batch": "b4-mengubah-bentuk-energi",
+  "count": 37,
+  "questions": [
+    {
+      "question": "Kemampuan untuk melakukan usaha atau kerja disebut ...",
+      "options": [
+        "Energi",
+        "Gaya",
+        "Massa",
+        "Kecepatan"
+      ],
+      "answer": 0,
+      "explanation": "Energi didefinisikan sebagai kemampuan beraktivitas atau bekerja.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sumber energi terbesar dan utama bagi seluruh kehidupan di bumi adalah ...",
+      "options": [
+        "Batu bara",
+        "Matahari",
+        "Minyak bumi",
+        "Inti bumi"
+      ],
+      "answer": 1,
+      "explanation": "Matahari memancarkan energi cahaya dan panas bagi seluruh biosfer.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Energi yang dimiliki oleh benda yang sedang bergerak disebut energi ...",
+      "options": [
+        "Potensial gravitasi",
+        "Kimia organik",
+        "Kinetik (gerak)",
+        "Nuklir atom"
+      ],
+      "answer": 2,
+      "explanation": "Energi kinetik muncul pada setiap materi yang bergerak.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Energi yang tersimpan pada suatu benda karena kedudukan atau posisinya disebut energi ...",
+      "options": [
+        "Kinetik",
+        "Listrik",
+        "Cahaya",
+        "Potensial"
+      ],
+      "answer": 3,
+      "explanation": "Benda di ketinggian menyimpan energi potensial gravitasi.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Energi yang tersimpan di dalam bahan makanan dan bahan bakar fosil adalah energi ...",
+      "options": [
+        "Energi kimia",
+        "Energi gerak",
+        "Energi panas",
+        "Energi bunyi"
+      ],
+      "answer": 0,
+      "explanation": "Ikatan senyawa makanan dan bahan bakar memuat energi kimia.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perubahan energi yang terjadi pada setrika listrik yang sedang digunakan adalah ...",
+      "options": [
+        "Panas menjadi energi gerak",
+        "Listrik menjadi energi panas",
+        "Kimia menjadi energi cahaya",
+        "Listrik menjadi energi gerak"
+      ],
+      "answer": 1,
+      "explanation": "Elemen pemanas setrika mengubah listrik menjadi energi termal.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perubahan energi yang terjadi pada kipas angin listrik adalah ...",
+      "options": [
+        "Gerak menjadi energi panas",
+        "Listrik menjadi energi kimia",
+        "Listrik menjadi energi gerak",
+        "Cahaya menjadi energi listrik"
+      ],
+      "answer": 2,
+      "explanation": "Motor listrik memutar baling-baling mengubah listrik jadi gerak.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perubahan energi yang terjadi pada lampu senter menyala adalah ...",
+      "options": [
+        "Gerak menjadi bunyi dan getaran",
+        "Panas menjadi potensial pegas",
+        "Cahaya menjadi reaksi kimia",
+        "Kimia menjadi listrik lalu cahaya"
+      ],
+      "answer": 3,
+      "explanation": "Zat kimia baterai dialirkan jadi arus listrik lalu memancarkan cahaya.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Energi yang dihasilkan oleh getaran suatu benda disebut energi ...",
+      "options": [
+        "Bunyi",
+        "Kalor",
+        "Cahaya",
+        "Listrik"
+      ],
+      "answer": 0,
+      "explanation": "Getaran merambat melalui medium menghasilkan gelombang bunyi.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh alat rumah tangga yang mengubah energi listrik menjadi energi bunyi adalah ...",
+      "options": [
+        "Kulkas dan setrika baju",
+        "Radio dan bel listrik",
+        "Kipas angin dan blender",
+        "Oven dan pemanggang roti"
+      ],
+      "answer": 1,
+      "explanation": "Pengeras suara pada radio dan bel bergetar menghasilkan bunyi.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Energi panas sering juga disebut dengan istilah energi ...",
+      "options": [
+        "Radiasi",
+        "Kinetik",
+        "Kalor",
+        "Foton"
+      ],
+      "answer": 2,
+      "explanation": "Kalor adalah bentuk energi panas yang dapat berpindah tempat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manusia memperoleh energi untuk beraktivitas sehari-hari dari ...",
+      "options": [
+        "Cahaya lampu listrik malam",
+        "Menghirup gas karbon dioksida",
+        "Mendengarkan siaran musik radio",
+        "Makanan dan minuman bergizi"
+      ],
+      "answer": 3,
+      "explanation": "Makanan diolah tubuh menghasilkan energi kimia untuk tenaga.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hukum kekekalan energi menyatakan bahwa energi tidak dapat ...",
+      "options": [
+        "Diciptakan atau dimusnahkan",
+        "Diubah ke bentuk energi lain",
+        "Disimpan lama di dalam benda",
+        "Dirasakan manfaatnya oleh insan"
+      ],
+      "answer": 0,
+      "explanation": "Energi kekal, hanya berpindah atau berganti bentuk saja.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Panel surya (solar cell) adalah alat yang berfungsi mengubah ...",
+      "options": [
+        "Panas bumi menjadi energi angin",
+        "Cahaya matahari menjadi listrik",
+        "Listrik menjadi pancaran cahaya",
+        "Gerakan air menjadi gelombang"
+      ],
+      "answer": 1,
+      "explanation": "Sel surya fotovoltaik mengubah sinar matahari menjadi listrik.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pembangkit Listrik Tenaga Air (PLTA) memanfaatkan aliran air deras untuk memutar ...",
+      "options": [
+        "Dinamo pemanas waduk air",
+        "Baling-baling kipas ruangan",
+        "Turbin penggerak generator",
+        "Roda penggiling gandum desa"
+      ],
+      "answer": 2,
+      "explanation": "Arus air memutar sudu turbin yang menggerakkan generator listrik.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perubahan energi yang terjadi pada alat blender dapur adalah ...",
+      "options": [
+        "Gerak menjadi energi kimiawi",
+        "Kimia menjadi energi panas oven",
+        "Suara menjadi energi potensial",
+        "Listrik menjadi gerak dan suara"
+      ],
+      "answer": 3,
+      "explanation": "Motor listrik memutar pisau potong dan menghasilkan bunyi bising.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika kita bertepuk tangan kencang, perubahan energi yang terjadi adalah ...",
+      "options": [
+        "Kinetik menjadi bunyi dan panas",
+        "Kimia menjadi arus listrik kuat",
+        "Potensial menjadi cahaya terang",
+        "Cahaya menjadi getaran mekanik"
+      ],
+      "answer": 0,
+      "explanation": "Benturan telapak tangan (kinetik) memancarkan suara dan rasa hangat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh sumber energi alternatif yang dapat diperbarui ramah lingkungan adalah ...",
+      "options": [
+        "Minyak tanah, bensin, dan batu bara",
+        "Matahari, angin, dan air mengalir",
+        "Batu bara, gas alam, serta solar murni",
+        "Bensin pertalite, avtur, dan pelumas"
+      ],
+      "answer": 1,
+      "explanation": "Angin, air, dan matahari tidak akan habis dan bersih dari polusi.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Minyak bumi dan batu bara disebut sumber energi fosil yang tidak dapat diperbarui karena ...",
+      "options": [
+        "Bersifat beracun dan tak berguna",
+        "Hanya ditemukan di luar angkasa",
+        "Pembentukannya butuh jutaan tahun",
+        "Tidak dapat diubah bentuk energinya"
+      ],
+      "answer": 2,
+      "explanation": "Cadangan fosil di bumi terbatas dan proses pembentukannya sangat lama.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perubahan energi yang terjadi saat mobil bensin melaju di jalan raya adalah ...",
+      "options": [
+        "Listrik menjadi energi potensial",
+        "Gerak menjadi kimia bahan bakar",
+        "Cahaya menjadi energi arus baterai",
+        "Kimia menjadi panas lalu kinetik"
+      ],
+      "answer": 3,
+      "explanation": "Bensin dibakar di mesin menghasilkan tenaga gerak kendaraan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pemanfaatan kincir angin di Belanda atau daerah pantai bertujuan untuk ...",
+      "options": [
+        "Menghasilkan energi listrik bersih",
+        "Mengeringkan seluruh air laut pantai",
+        "Mengubah arah tiupan badai taufan",
+        "Menurunkan suhu bumi secara drastis"
+      ],
+      "answer": 0,
+      "explanation": "Kincir angin (aerogenerator) memanen tenaga angin jadi listrik.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perubahan energi yang terjadi pada proses fotosintesis tumbuhan hijau adalah ...",
+      "options": [
+        "Kimia diubah menjadi energi kinetik",
+        "Cahaya diubah menjadi energi kimia",
+        "Panas diubah menjadi tenaga mekanik",
+        "Listrik diubah menjadi energi bunyi"
+      ],
+      "answer": 1,
+      "explanation": "Foton sinar matahari diikat menjadi glukosa (energi kimia).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebuah busur panah yang ditarik kencang menyimpan energi ...",
+      "options": [
+        "Energi kinetik gerak melesat",
+        "Energi panas termal lingkungan",
+        "Energi potensial pegas elastis",
+        "Energi kimia serat kayu busur"
+      ],
+      "answer": 2,
+      "explanation": "Regangan tali busur menyimpan energi potensial elastisitas.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Saat anak panah lepas melesat dari tali busur, terjadi perubahan energi dari ...",
+      "options": [
+        "Energi kinetik menjadi potensial",
+        "Energi kimia menjadi arus listrik",
+        "Energi cahaya menjadi getaran bunyi",
+        "Energi potensial menjadi kinetik"
+      ],
+      "answer": 3,
+      "explanation": "Energi regangan tali beralih menjadi tenaga gerak anak panah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Alat pengering rambut (hair dryer) menghasilkan dua bentuk energi utama yaitu ...",
+      "options": [
+        "Energi panas dan energi hembusan angin",
+        "Energi kimia dan energi cahaya penerang",
+        "Energi potensial dan reaksi fusi nuklir",
+        "Energi gravitasi bumi dan medan magnet"
+      ],
+      "answer": 0,
+      "explanation": "Hair dryer memanaskan udara dan meniupkannya dengan kipas.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tindakan bijak dalam menghemat energi listrik di rumah adalah ...",
+      "options": [
+        "Menyalakan penyejuk ruangan sepanjang hari",
+        "Mematikan lampu saat ruangan tidak dipakai",
+        "Membiarkan layar televisi menyala saat tidur",
+        "Mencuci baju setiap kali ada sehelai kotor"
+      ],
+      "answer": 1,
+      "explanation": "Mengurangi pemakaian alat listrik yang tidak perlu menghemat daya.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Energi panas bumi yang dimanfaatkan sebagai pembangkit listrik disebut energi ...",
+      "options": [
+        "Energi biomassa",
+        "Energi atom nuklir",
+        "Energi geotermal",
+        "Gelombang laut"
+      ],
+      "answer": 2,
+      "explanation": "Uap panas dari perut bumi (geotermal) digunakan memutar turbin listrik.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebuah buah kelapa tergantung tinggi di pohon. Saat jatuh meluncur ke tanah, perubahan energi yang terjadi adalah ...",
+      "options": [
+        "Potensial bertambah, kinetik berkurang",
+        "Kedua energi sama-sama musnah seketika",
+        "Energi kinetik berubah menjadi zat kimia",
+        "Potensial berkurang, kinetik bertambah"
+      ],
+      "answer": 3,
+      "explanation": "Makin ke bawah ketinggian turun (Ep turun) dan kecepatan naik (Ek naik).",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa bahan bakar fosil tidak boleh digunakan secara boros dan berlebihan?",
+      "options": [
+        "Jumlahnya terbatas dan memicu polusi udara",
+        "Bahan bakar fosil tidak dapat hasilkan kalor",
+        "Bahan bakar fosil mematikan tanaman langsung",
+        "Semua bahan bakar fosil beracun radioaktif"
+      ],
+      "answer": 0,
+      "explanation": "Emisi gas buang memicu pemanasan global dan cadangannya menipis.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pembangkit Listrik Tenaga Bayu (PLTB) Jeneponto dan Sidrap di Sulawesi memanfaatkan ...",
+      "options": [
+        "Arus pasang surut air laut pantai",
+        "Tiupan angin kencang pemutar turbin",
+        "Uap panas magma dari dalam perut bumi",
+        "Pembakaran sampah limbah padat kota"
+      ],
+      "answer": 1,
+      "explanation": "PLTB memanfaatkan energi kinetik angin (bayu) untuk memutar generator.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika ponsel pintar (smartphone) digunakan untuk bermain game online, terjadi perubahan energi listrik baterai menjadi ...",
+      "options": [
+        "Gravitasi bumi, roda gerak, dan energi nuklir",
+        "Kimia bahan bakar minyak dan desiran angin",
+        "Cahaya layar, bunyi speaker, dan panas mesin",
+        "Medan magnet bumi dan pasang surut air laut"
+      ],
+      "answer": 2,
+      "explanation": "Layar memancarkan cahaya, speaker berbunyi, dan prosesor menghangat.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bahan bakar ramah lingkungan yang dibuat dari kotoran ternak atau sisa sampah organik disebut ...",
+      "options": [
+        "Bensin pertalite",
+        "Minyak solar solar",
+        "Batu bara muda",
+        "Biogas metana"
+      ],
+      "answer": 3,
+      "explanation": "Fermentasi kotoran ternak menghasilkan gas metana alami (biogas).",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kereta api listrik berkecepatan tinggi dapat melaju sangat cepat dan efisien karena memanfaatkan ...",
+      "options": [
+        "Levitasi magnetik yang minim gaya gesek",
+        "Pembakaran batu bara kualitas rendah",
+        "Tenaga dorong uap air mendidih tangki",
+        "Kipas angin raksasa di gerbong belakang"
+      ],
+      "answer": 0,
+      "explanation": "Teknologi levitasi magnetik (maglev) mengurangi gesekan rel hingga minimal.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Air di bendungan waduk yang tinggi memiliki energi potensial besar. Energi ini diubah menjadi energi listrik melalui urutan ...",
+      "options": [
+        "Generator listrik -> Sudu turbin -> Aliran air",
+        "Aliran air kinetik -> Turbin -> Generator listrik",
+        "Cahaya surya -> Pompa air -> Pemanas waduk",
+        "Uap panas bumi -> Baterai kimia -> Generator"
+      ],
+      "answer": 1,
+      "explanation": "Air mengalir (kinetik) menggerakkan poros turbin, memutar generator.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perbedaan utama antara pembangkit listrik tenaga surya dan batu bara adalah ...",
+      "options": [
+        "Batu bara tidak membutuhkan bahan bakar bakar",
+        "Surya hanya bisa beroperasi pada malam gelap",
+        "Surya bebas emisi asap serta ramah terbarukan",
+        "Batu bara tidak menimbulkan polusi sedikit pun"
+      ],
+      "answer": 2,
+      "explanation": "Tenaga surya bebas polusi gas rumah kaca dan sumbernya tak terbatas.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa memasak dengan kompas induksi listrik lebih hemat energi daripada kompor gas biasa?",
+      "options": [
+        "Kompor induksi tidak memerlukan energi sama sekali",
+        "Wajan penggorengan tidak akan pernah menjadi panas",
+        "Api kompor induksi memancarkan cahaya biru terang",
+        "Panas terpusat langsung pada permukaan panci"
+      ],
+      "answer": 3,
+      "explanation": "Induksi elektromagnetik memanaskan logam wajan secara langsung tanpa buangan panas.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebuah bola dilempar ke atas hingga mencapai titik tertinggi. Pada titik tertinggi tersebut ...",
+      "options": [
+        "Potensial maksimal, kinetik sesaat nol",
+        "Kinetik maksimal, potensial sesaat nol",
+        "Kedua energi bernilai nol secara serentak",
+        "Bola kehilangan pengaruh gravitasi bumi"
+      ],
+      "answer": 0,
+      "explanation": "Di puncak tertinggi, bola berhenti sesaat (Ek=0) dan ketinggian puncak (Ep maks).",
+      "difficulty": 3,
+      "timeLimit": 20
+    }
+  ]
+}

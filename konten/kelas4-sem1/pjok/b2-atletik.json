@@ -1,0 +1,431 @@
+[
+  {
+    "question": "Induk organisasi cabang olahraga atletik di tingkat nasional Indonesia adalah ...",
+    "options": [
+      "PASI",
+      "PSSI",
+      "PBVSI",
+      "PERBASI"
+    ],
+    "answer": 0,
+    "explanation": "PASI adalah singkatan dari Persatuan Atletik Seluruh Indonesia.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Atletik sering dijuluki sebagai 'Mother of Sports' yang artinya ...",
+    "options": [
+      "olahraga khusus kaum wanita saja",
+      "ibu dari segala cabang olahraga",
+      "olahraga yang paling murah biayanya",
+      "olahraga tertua di benua Amerika"
+    ],
+    "answer": 1,
+    "explanation": "Gerakan dasar atletik (jalan, lari, lompat, lempar) adalah fondasi semua olahraga.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Perbedaan utama antara jalan cepat dan lari terletak pada ...",
+    "options": [
+      "kecepatan ayunan kedua belah tangan",
+      "arah pandangan mata lari ke depan",
+      "fase melayang di udara saat melangkah",
+      "panjang celana olahraga yang dipakai"
+    ],
+    "answer": 2,
+    "explanation": "Pada lari ada saat tubuh melayang, sedangkan jalan satu kaki selalu menapak tanah.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Aba-aba resmi pada perlombaan lari cepat (sprint) jarak pendek adalah ...",
+    "options": [
+      "Satu, Dua, Tiga, Mulai!",
+      "Awas, Hati-hati, Berlari!",
+      "Siap, Lari, Cepat!",
+      "Bersedia, Siap, Ya! (atau bunyi pistol)"
+    ],
+    "answer": 3,
+    "explanation": "Urutan standar start jongkok: Bersedia -> Siap -> Ya! (atau pistol start).",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Jenis start yang digunakan untuk lari jarak pendek (sprint) adalah ...",
+    "options": [
+      "start jongkok",
+      "start berdiri",
+      "start melayang",
+      "start duduk"
+    ],
+    "answer": 0,
+    "explanation": "Start jongkok (bunch/medium/long start) memberikan daya ledak dorong tercepat.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Alat pengukur waktu dalam perlombaan lari cepat disebut ...",
+    "options": [
+      "speedometer",
+      "stopwatch",
+      "barometer",
+      "termometer"
+    ],
+    "answer": 1,
+    "explanation": "Stopwatch digunakan untuk mencatat waktu tempuh atlet secara presisi.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Jumlah tahapan teknik gerak dasar dalam lompat jauh ada ...",
+    "options": [
+      "2 tahapan",
+      "6 tahapan",
+      "4 tahapan",
+      "8 tahapan"
+    ],
+    "answer": 2,
+    "explanation": "Empat tahapan lompat jauh: awalan, tolakan, melayang, dan mendarat.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Pada saat melakukan tolakan lompat jauh, atlet harus menolak dengan ...",
+    "options": [
+      "kedua belah kaki bersamaan",
+      "kedua lutut yang rapat",
+      "bagian tumit kedua kaki",
+      "satu kaki terkuat"
+    ],
+    "answer": 3,
+    "explanation": "Tolakan papan tumpu lompat jauh wajib menggunakan satu kaki tumpu terkuat.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Tempat pendaratan atlet pada cabang lompat jauh berupa ...",
+    "options": [
+      "bak pasir yang gembur",
+      "matras busa yang keras",
+      "lantai semen yang licin",
+      "rumput lapangan berbatu"
+    ],
+    "answer": 0,
+    "explanation": "Bak pasir lembut berfungsi meredam benturan saat pendaratan kedua kaki.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Alat yang dilempar pada olahraga atletik nomor lempar anak usia SD adalah ...",
+    "options": [
+      "tombak besi runcing tajam",
+      "roket atau turbo plastik",
+      "cakram logam seberat dua kilo",
+      "martil berantai baja panjang"
+    ],
+    "answer": 1,
+    "explanation": "Turbo/roket dirancang aman dan sesuai anatomi anak usia sekolah dasar.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Arah tolakan dan lemparan turbo yang baik membentuk sudut parabola sekitar ...",
+    "options": [
+      "90 derajat lurus ke atas langit",
+      "10 derajat mendatar ke bawah tanah",
+      "45 derajat ke arah depan atas",
+      "180 derajat ke arah belakang badan"
+    ],
+    "answer": 2,
+    "explanation": "Sudut 45 derajat menghasilkan jarak jangkauan lemparan terjauh secara fisika.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Saat melakukan lari sprint, posisi badan yang benar adalah ...",
+    "options": [
+      "tegak lurus kaku ke atas",
+      "miring ke samping kanan kiri",
+      "condong ke belakang menengadah",
+      "condong ke depan secara rileks"
+    ],
+    "answer": 3,
+    "explanation": "Badan condong ke depan membantu memanfaatkan gravitasi untuk percepatan lari.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Sikap kedua tangan saat melakukan lari cepat (sprint) adalah ...",
+    "options": [
+      "ditekuk 90 derajat diayun seirama",
+      "lurus ke bawah di samping paha",
+      "dilipat rapat di depan dada",
+      "diangkat lurus tinggi ke atas"
+    ],
+    "answer": 0,
+    "explanation": "Ayunan siku 90 derajat membantu menjaga keseimbangan dan frekuensi langkah.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Peraturan penting dalam nomor jalan cepat yang tidak boleh dilanggar adalah ...",
+    "options": [
+      "dilarang menoleh ke arah kanan kiri",
+      "satu kaki harus selalu menyentuh tanah",
+      "tidak boleh minum air selama perlombaan",
+      "kedua tangan wajib lurus di samping paha"
+    ],
+    "answer": 1,
+    "explanation": "Pelanggaran 'floating' (kedua kaki melayang bersamaan) memicu diskualifikasi.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Posisi pinggul saat aba-aba 'SIAP' pada start jongkok lari cepat adalah ...",
+    "options": [
+      "sejajar rata dengan lantai tanah",
+      "ditarik rendah mendekati tumit",
+      "diangkat lebih tinggi dari bahu",
+      "dimiringkan ke sisi kaki terlemah"
+    ],
+    "answer": 2,
+    "explanation": "Pinggul terangkat memindahkan titik berat badan ke lengan bersiap meluncur.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Sikap pendaratan yang tepat pada lompat jauh untuk menghindari cedera lutut adalah ...",
+    "options": [
+      "kaki lurus kaku membentur pasir",
+      "mendaratkan pantat terlebih dahulu",
+      "menumpu dengan kedua telapak tangan",
+      "kedua kaki mengeper dan lutut lentur"
+    ],
+    "answer": 3,
+    "explanation": "Lutut mengeper berfungsi sebagai peredam kejut alami persendian kaki.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Fungsi gerakan ayunan lengan saat melayang di udara pada lompat jauh adalah ...",
+    "options": [
+      "menjaga keseimbangan tubuh atlet",
+      "mempercepat turunnya kaki ke pasir",
+      "membuat tubuh terbang semakin tinggi",
+      "menakut-nakuti lawan perlombaan"
+    ],
+    "answer": 0,
+    "explanation": "Ayunan lengan di udara mengendalikan pusat massa agar tidak jatuh ke belakang.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Cara memegang roket/turbo yang benar pada nomor lempar turbo anak adalah ...",
+    "options": [
+      "dijepit dengan kedua jari telunjuk kaki",
+      "digenggam pada tali pegangan di atas bahu",
+      "dipegang dengan dua tangan di depan dada",
+      "dilemparkan seperti melempar bola bowling"
+    ],
+    "answer": 1,
+    "explanation": "Turbo dipegang pada bagian lilitan pegangan di atas garis pundak bahu.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Gerakan lanjutan setelah melempar turbo (follow through) sangat berguna untuk ...",
+    "options": [
+      "menambah laju lari penonton di pinggir",
+      "membuat turbo berputar di udara bebas",
+      "menjaga keseimbangan agar tidak jatuh",
+      "menghentikan perlombaan secara mendadak"
+    ],
+    "answer": 2,
+    "explanation": "Follow-through menyalurkan sisa momentum agar tubuh tidak melewati garis batas.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Mengapa atlet lompat jauh yang mendarat lalu jatuh ke belakang merugi dalam penilaian?",
+    "options": [
+      "karena lompatan otomatis dianulir wasit",
+      "karena waktu melayang dinyatakan gugur",
+      "karena pakaian atlet menjadi kotor pasir",
+      "jarak diukur dari jejak tubuh terbelakang"
+    ],
+    "answer": 3,
+    "explanation": "Jarak diukur dari papan tolakan hingga bekas anggota badan terdekat di bak pasir.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Gerak langkah kaki yang tepat saat lari sprint jarak pendek adalah ...",
+    "options": [
+      "langkah lebar, cepat, dan bertenaga",
+      "langkah pendek dan diseret santai",
+      "melangkah pelan sambil berjinjit",
+      "melompat-lompat dengan satu kaki"
+    ],
+    "answer": 0,
+    "explanation": "Frekuensi langkah tinggi dan dorongan kuat memaksimalkan kecepatan lari.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Bagian telapak kaki yang digunakan sebagai tumpuan saat berlari cepat adalah ...",
+    "options": [
+      "bagian tumit kaki belakang penuh",
+      "bagian ujung telapak kaki depan",
+      "bagian sisi luar telapak kaki saja",
+      "seluruh telapak kaki secara rata"
+    ],
+    "answer": 1,
+    "explanation": "Menumpu pada bola kaki depan memberi pantulan pegas yang eksplosif.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Pada saat memasuki garis finish lari sprint, gerakan yang dianjurkan adalah ...",
+    "options": [
+      "melompat tinggi ke atas udara",
+      "mengurangi kecepatan lari mendadak",
+      "mencondongkan dada ke arah depan",
+      "menoleh ke belakang melihat lawan"
+    ],
+    "answer": 2,
+    "explanation": "Pita finish disentuh oleh bagian torso/dada atlet yang condong ke depan.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Manfaat utama melakukan lari bolak-balik (shuttle run) dalam latihan atletik adalah ...",
+    "options": [
+      "membuat tubuh menjadi sangat mengantuk",
+      "meningkatkan tinggi badan secara instan",
+      "mengurangi berat badan dalam satu menit",
+      "melatih kelincahan dan kecepatan ubah arah"
+    ],
+    "answer": 3,
+    "explanation": "Shuttle run melatih akselerasi, deselerasi, dan koordinasi gerak cepat.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Sikap mental yang wajib ditunjukkan seorang pelari cepat jika mendahului aba-aba start adalah ...",
+    "options": [
+      "mengakui kesalahan dan kembali bersiap",
+      "marah kepada juri pencatat waktu",
+      "tetap berlari kencang menuju finish",
+      "menuduh lawan mengganggu startnya"
+    ],
+    "answer": 0,
+    "explanation": "Start mendahului (false start) harus diulang dengan sikap sportif jujur.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Latihan lari zig-zag melewati corong (cone) sangat berguna melatih keterampilan ...",
+    "options": [
+      "kekuatan daya cengkeram jari tangan",
+      "kelincahan gerak menghindar rintangan",
+      "kelenturan otot leher dan kepala",
+      "daya tahan bernapas di dalam air"
+    ],
+    "answer": 1,
+    "explanation": "Gerak zig-zag melatih fleksibilitas otot paha dan koordinasi gerak kaki.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Analisis biomekanika: Mengapa panjang awalan pada lompat jauh tidak boleh terlalu pendek?",
+    "options": [
+      "karena atlet harus menghabiskan seluruh tenaga",
+      "karena papan tumpu terletak sangat jauh di depan",
+      "karena kecepatan awalan menentukan jarak lompat",
+      "agar penonton memiliki waktu untuk bertepuk tangan"
+    ],
+    "answer": 2,
+    "explanation": "Momentum horizontal lari awalan dikonversi menjadi daya dorong vertikal melayang.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Evaluasi gerak jalan cepat: Apa bahaya mekanis jika lutut atlet ditekuk saat kaki tumpu mendarat?",
+    "options": [
+      "membuat langkah kaki meluncur semakin kencang",
+      "mengurangi rasa pegal pada persendian lutut",
+      "membuat tubuh melayang sangat tinggi di udara",
+      "melanggar aturan sah dan terancam diskualifikasi"
+    ],
+    "answer": 3,
+    "explanation": "Syarat mutlak jalan cepat: kaki tumpu harus lurus sejak kontak pertama tanah.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Perbandingan teknik: Mengapa lemparan turbo dengan sudut 45 derajat lebih jauh daripada sudut 70 derajat?",
+    "options": [
+      "sudut 45 derajat menghasilkan perpaduan gaya optimal",
+      "sudut 70 derajat membuat turbo langsung hancur",
+      "sudut 45 derajat membuat angin bertiup kencang",
+      "karena roket turbo tidak boleh terbang ke udara"
+    ],
+    "answer": 0,
+    "explanation": "Secara proyektil, sudut 45 derajat memaksimalkan jangkauan jarak terjauh di bumi.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Kritik keselamatan: Mengapa area lempar turbo harus steril dan bebas dari orang yang melintas?",
+    "options": [
+      "agar rumput lapangan tidak rusak terinjak-injak",
+      "ujung turbo tajam dan dapat mencederai orang",
+      "karena angin dari penonton bisa mengubah arah",
+      "supaya petugas lapangan tidak merasa kelelahan"
+    ],
+    "answer": 1,
+    "explanation": "Keselamatan jiwa nomor satu: proyektil lempar berpotensi menimbulkan luka fatal.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Refleksi karakter: Nilai integritas yang diuji saat atlet berlari sendirian di lintasan lari adalah ...",
+    "options": [
+      "berpura-pura terjatuh agar dikasihani juri",
+      "menarik baju lawan saat luput dari pandangan",
+      "tetap berlari jujur tanpa memotong lintasan orang",
+      "berhenti berlari jika merasa tidak akan juara"
+    ],
+    "answer": 2,
+    "explanation": "Kejujuran sejati hadir saat kita patuh aturan meski tiada yang mengawasi.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Analisis fisiologi: Mengapa pelari sprint jarak pendek tidak boleh bernapas tersengal-sengal di awal start?",
+    "options": [
+      "karena bernapas dilarang saat lari sprint",
+      "supaya udara di lapangan tidak cepat habis",
+      "agar pelari tidak menelan serangga yang lewat",
+      "agar pasokan oksigen otot stabil dan ritme terjaga"
+    ],
+    "answer": 3,
+    "explanation": "Kontrol napas teratur menjaga ketegangan otot inti dan efisiensi tenaga.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Korelasi nilai KBC: Menghargai kawan yang finish paling akhir pada lomba lari diwujudkan dengan ...",
+    "options": [
+      "memberikan tepuk tangan hangat dan apresiasi",
+      "mengejek larinya yang lambat seperti kura-kura",
+      "meninggalkan lapangan sebelum kawan sampai",
+      "menertawakan kelelahan yang dialami teman"
+    ],
+    "answer": 0,
+    "explanation": "Kasih sayang merangkul setiap usaha perjuangan tanpa memandang nomor urut juara.",
+    "difficulty": 3,
+    "timeLimit": 25
+  }
+]

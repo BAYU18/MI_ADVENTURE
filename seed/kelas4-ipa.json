@@ -1,0 +1,151 @@
+{
+  "version": 1,
+  "class": "Kelas 4 SD",
+  "subject": "IPA",
+  "questions": [
+    {
+      "question": "Bagian tumbuhan yang menyerap air dari dalam tanah adalah ...",
+      "options": [
+        "Daun",
+        "Batang",
+        "Akar",
+        "Bunga"
+      ],
+      "answer": 2,
+      "explanation": "Akar menyerap air dan mineral dari tanah.",
+      "difficulty": 1
+    },
+    {
+      "question": "Proses tumbuhan membuat makanan dengan bantuan cahaya matahari disebut ...",
+      "options": [
+        "Respirasi",
+        "Fotosintesis",
+        "Evaporasi",
+        "Metamorfosis"
+      ],
+      "answer": 1,
+      "explanation": "Fotosintesis terjadi di daun yang mengandung klorofil.",
+      "difficulty": 1
+    },
+    {
+      "question": "Hewan pemakan tumbuhan disebut ...",
+      "options": [
+        "Karnivora",
+        "Omnivora",
+        "Herbivora",
+        "Insektivora"
+      ],
+      "answer": 2,
+      "explanation": "Herbivora = pemakan tumbuhan, contoh sapi dan kelinci.",
+      "difficulty": 1
+    },
+    {
+      "question": "Sumber energi utama bagi bumi adalah ...",
+      "options": [
+        "Bulan",
+        "Angin",
+        "Matahari",
+        "Api"
+      ],
+      "answer": 2,
+      "explanation": "Matahari memberi cahaya dan panas bagi bumi.",
+      "difficulty": 1
+    },
+    {
+      "question": "Perubahan wujud air menjadi uap air disebut ...",
+      "options": [
+        "Membeku",
+        "Mencair",
+        "Menguap",
+        "Mengembun"
+      ],
+      "answer": 2,
+      "explanation": "Zat cair berubah menjadi gas disebut menguap.",
+      "difficulty": 1
+    },
+    {
+      "question": "Benda yang dapat ditarik oleh magnet adalah ...",
+      "options": [
+        "Plastik",
+        "Kayu",
+        "Paku besi",
+        "Kertas"
+      ],
+      "answer": 2,
+      "explanation": "Magnet menarik benda yang mengandung besi atau baja.",
+      "difficulty": 1
+    },
+    {
+      "question": "Alat gerak pasif pada manusia yang keras dan menjadi kerangka tubuh adalah ...",
+      "options": [
+        "Otot",
+        "Tulang",
+        "Kulit",
+        "Saraf"
+      ],
+      "answer": 1,
+      "explanation": "Tulang membentuk kerangka dan melindungi organ dalam.",
+      "difficulty": 2
+    },
+    {
+      "question": "Hewan yang mengalami metamorfosis sempurna adalah ...",
+      "options": [
+        "Belalang",
+        "Kecoa",
+        "Kupu-kupu",
+        "Jangkrik"
+      ],
+      "answer": 2,
+      "explanation": "Kupu-kupu: telur → ulat → kepompong → dewasa.",
+      "difficulty": 2
+    },
+    {
+      "question": "Planet tempat kita tinggal adalah ...",
+      "options": [
+        "Mars",
+        "Venus",
+        "Bumi",
+        "Jupiter"
+      ],
+      "answer": 2,
+      "explanation": "Kita tinggal di planet Bumi.",
+      "difficulty": 1
+    },
+    {
+      "question": "Gas yang kita hirup untuk bernapas adalah ...",
+      "options": [
+        "Karbon dioksida",
+        "Oksigen",
+        "Nitrogen",
+        "Hidrogen"
+      ],
+      "answer": 1,
+      "explanation": "Tubuh memerlukan oksigen untuk bernapas.",
+      "difficulty": 1
+    },
+    {
+      "question": "Indra yang digunakan untuk mencium bau adalah ...",
+      "options": [
+        "Lidah",
+        "Telinga",
+        "Hidung",
+        "Mata"
+      ],
+      "answer": 2,
+      "explanation": "Hidung adalah indra penciuman.",
+      "difficulty": 1
+    },
+    {
+      "question": "Bunyi dihasilkan oleh benda yang ...",
+      "options": [
+        "Diam",
+        "Bergetar",
+        "Dingin",
+        "Berat"
+      ],
+      "answer": 1,
+      "explanation": "Getaran benda menghasilkan bunyi.",
+      "difficulty": 2
+    }
+  ]
+}

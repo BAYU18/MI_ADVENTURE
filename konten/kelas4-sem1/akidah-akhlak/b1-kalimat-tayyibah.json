@@ -1,0 +1,327 @@
+[
+  {
+    "question": "Kalimat thayyibah secara bahasa memiliki arti kalimat yang ...",
+    "options": [
+      "sangat baik dan mulia",
+      "sangat panjang dibaca",
+      "sulit untuk dihafal",
+      "berisi perintah perang"
+    ],
+    "answer": 0,
+    "explanation": "Kalimat thayyibah berarti perkataan yang baik, indah, dan bernilai pahala.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Lafaz kalimat tasbih yang benar dalam ajaran Islam adalah ...",
+    "options": [
+      "Alhamdulillah",
+      "Subhanallah",
+      "Astaghfirullah",
+      "Allahu Akbar"
+    ],
+    "answer": 1,
+    "explanation": "Lafaz tasbih berbunyi Subhanallah yang artinya Maha Suci Allah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Arti dari kalimat tayyibah 'Subhanallah' adalah ...",
+    "options": [
+      "Segala puji bagi Allah",
+      "Allah Maha Besar",
+      "Maha Suci Allah",
+      "Tiada daya dan upaya"
+    ],
+    "answer": 2,
+    "explanation": "Subhanallah bermakna menyucikan Allah dari segala kekurangan.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Lafaz kalimat tayyibah yang bermakna 'Allah Maha Besar' adalah ...",
+    "options": [
+      "Subhanallah",
+      "Alhamdulillah",
+      "Masyaallah",
+      "Allahu Akbar"
+    ],
+    "answer": 3,
+    "explanation": "Allahu Akbar disebut kalimat takbir yang mengagungkan kebesaran Allah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kalimat tayyibah 'Masyaallah' memiliki arti ...",
+    "options": [
+      "Semua atas kehendak Allah",
+      "Maha Suci Allah selalu",
+      "Segala puji milik Allah",
+      "Ampunilah dosaku ya Allah"
+    ],
+    "answer": 0,
+    "explanation": "Masyaallah bermakna apa yang dikehendaki oleh Allah pasti terjadi.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Saat melihat pemandangan alam yang sangat menakjubkan, kita mengucap ...",
+    "options": [
+      "Astaghfirullahaladzim",
+      "Subhanallah atau Masyaallah",
+      "Inna lillahi wa inna ilaihi",
+      "La haula wala quwwata"
+    ],
+    "answer": 1,
+    "explanation": "Melihat keindahan ciptaan Allah disunnahkan mengucap Subhanallah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kalimat tayyibah 'Allahu Akbar' sering dikumandangkan ketika ...",
+    "options": [
+      "mendengar kabar kematian",
+      "terkena musibah banjir",
+      "seruan azan dan ikamah",
+      "berpamitan kepada guru"
+    ],
+    "answer": 2,
+    "explanation": "Takbir selalu dikumandangkan dalam lafaz azan lima waktu.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Mengucapkan kalimat thayyibah dalam kehidupan sehari-hari bernilai ...",
+    "options": [
+      "dosa dan kesalahan",
+      "kesia-siaan belaka",
+      "hukuman dari malaikat",
+      "pahala dan kebaikan"
+    ],
+    "answer": 3,
+    "explanation": "Setiap ucapan kalimat thayyibah mendapat pahala zikir di sisi Allah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Saat merasa heran menyaksikan perbuatan ganjil seseorang, kita membaca ...",
+    "options": [
+      "Subhanallah",
+      "Alhamdulillah",
+      "Bismillah",
+      "Allahu Akbar"
+    ],
+    "answer": 0,
+    "explanation": "Melihat keheranan atau hal yang tak pantas disunnahkan mengucap Subhanallah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Melihat adik bayi yang baru lahir sangat lucu dan menggemaskan, kita membaca ...",
+    "options": [
+      "Astaghfirullah rabbal baraya",
+      "Masyaallah tabarakallah",
+      "Inna lillahi wa inna ilaihi",
+      "La haula wala quwwata"
+    ],
+    "answer": 1,
+    "explanation": "Mengagumi kebaikan atau keberkahan disunnahkan mengucap Masyaallah tabarakallah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Perbedaan utama pengucapan Subhanallah dan Masyaallah terletak pada ...",
+    "options": [
+      "keduanya tidak memiliki arti",
+      "Masyaallah hanya diucap saat tidur",
+      "Subhanallah untuk takjub ciptaan-Nya",
+      "Subhanallah hanya saat hari raya"
+    ],
+    "answer": 2,
+    "explanation": "Subhanallah menyucikan Allah, Masyaallah mengagumi karya atas izin Allah.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Hikmah membiasakan diri melafalkan kalimat takbir adalah menumbuhkan rasa ...",
+    "options": [
+      "sombong di hadapan teman",
+      "paling pintar di kelas",
+      "paling kaya di sekolah",
+      "rendah hati di hadapan Allah"
+    ],
+    "answer": 3,
+    "explanation": "Takbir menyadarkan bahwa hanya Allah Yang Maha Besar, manusia adalah kecil.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Siti melihat lukisan pemandangan karya temannya yang sangat indah. Siti sebaiknya mengucap ...",
+    "options": [
+      "Masyaallah tabarakallah",
+      "Inna lillahi wa inna ilaihi",
+      "Astaghfirullahaladzim",
+      "Naudzubillahi min dzalik"
+    ],
+    "answer": 0,
+    "explanation": "Melihat keindahan karya manusia atas izin Allah dianjurkan mengucap Masyaallah.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Roni berjalan mendaki bukit terjal bersama ayahnya. Ketika jalan menanjak, Roni disunnahkan membaca ...",
+    "options": [
+      "Alhamdulillah",
+      "Allahu Akbar",
+      "Subhanallah",
+      "Astaghfirullah"
+    ],
+    "answer": 1,
+    "explanation": "Sunnah Nabi saat jalan menanjak membaca takbir, dan menurun membaca tasbih.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Manfaat zikir kalimat thayyibah bagi ketenangan jiwa manusia adalah ...",
+    "options": [
+      "membuat cepat merasa mengantuk",
+      "menambah beban pikiran dan sedih",
+      "menjadikan hati damai dan tenang",
+      "menimbulkan perselisihan antarteman"
+    ],
+    "answer": 2,
+    "explanation": "Mengingat Allah dengan kalimat thayyibah membuat hati menjadi tenteram.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Ucapan 'Allahu Akbar' mengingatkan seorang mukmin agar tidak memiliki sifat ...",
+    "options": [
+      "dermawan kepada sesama",
+      "jujur dalam perkataan",
+      "sabar saat diuji musibah",
+      "takabur dan tinggi hati"
+    ],
+    "answer": 3,
+    "explanation": "Takbir menghapus kesombongan karena hanya Allah yang berhak memiliki kebesaran.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Mengucapkan Subhanallah ketika lupa bilangan rakaat dalam salat berjamaah dilakukan oleh ...",
+    "options": [
+      "makmum laki-laki",
+      "makmum perempuan",
+      "imam yang memimpin",
+      "muazin yang berazan"
+    ],
+    "answer": 0,
+    "explanation": "Makmum pria menegur imam dengan bertasbih, makmum wanita dengan menepuk tangan.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Ucapan zikir yang dianjurkan dibaca sebanyak 33 kali setelah salat fardhu meliputi ...",
+    "options": [
+      "Astaghfirullah, Masyaallah, Bismillah",
+      "Subhanallah, Alhamdulillah, Allahu Akbar",
+      "Innalillah, Masyaallah, Allahu Akbar",
+      "Subhanallah, Astaghfirullah, Syukron"
+    ],
+    "answer": 1,
+    "explanation": "Zikir ba'da salat terdiri dari tasbih 33x, tahmid 33x, dan takbir 33x.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sikap seorang muslim yang selalu mengagungkan kebesaran Allah tercermin dalam ...",
+    "options": [
+      "suka pamer harta kekayaan",
+      "enggan memaafkan sahabat",
+      "tidak meremehkan orang lain",
+      "merasa dirinya paling hebat"
+    ],
+    "answer": 2,
+    "explanation": "Mengakui kebesaran Allah melahirkan sikap santun dan tidak merendahkan sesama.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Zikir kalimat thayyibah menjadi bukti cinta dan penghambaan seorang hamba kepada ...",
+    "options": [
+      "harta benda kekayaannya",
+      "pujian dan sanjungan teman",
+      "kedudukan jabatan di sekolah",
+      "Allah Subhanahu wa Ta'ala"
+    ],
+    "answer": 3,
+    "explanation": "Kalimat thayyibah ditujukan semata-mata untuk mengagungkan Allah Ta'ala.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kaitan antara kalimat tayyibah Masyaallah dengan pencegahan penyakit ain adalah ...",
+    "options": [
+      "menghindarkan rasa iri dan pandangan takjub",
+      "menyembuhkan batuk dan demam tinggi",
+      "membuat barang langsung jadi milik kita",
+      "mencegah diri dari rasa kantuk di kelas"
+    ],
+    "answer": 0,
+    "explanation": "Mengucap Masyaallah tabarakallah memohon berkah agar terhindar dari penyakit ain.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Pernyataan yang tepat mengenai penerapan kalimat tasbih dalam kehidupan adalah ...",
+    "options": [
+      "mengakui manusia punya kekuatan setara",
+      "menyucikan Allah dari segala sifat lemah",
+      "memuji kecerdasan diri saat lulus ujian",
+      "mengharapkan pujian dari teman dan guru"
+    ],
+    "answer": 1,
+    "explanation": "Hakikat tasbih adalah keyakinan mutlak bahwa Allah suci dari segala kekurangan.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Ketika seorang muslim meraih juara kelas, respon akidah terbaik yang ia ucapkan adalah ...",
+    "options": [
+      "ini semua murni hasil kehebatanku",
+      "orang lain tak mampu menyaingiku",
+      "Alhamdulillah dan Masyaallah tabarakallah",
+      "aku memang pantas sombong di depan teman"
+    ],
+    "answer": 2,
+    "explanation": "Menyadari prestasi adalah anugerah Allah, bukan semata karena kehebatan diri.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Makna filosofis dari takbir 'Allahu Akbar' saat menghadapi kesulitan besar adalah ...",
+    "options": [
+      "pasrah tanpa berusaha mencari jalan keluar",
+      "mengeluh terus kepada orang lain",
+      "meninggalkan ibadah karena cobaan berat",
+      "yakin pertolongan Allah sangat besar"
+    ],
+    "answer": 3,
+    "explanation": "Takbir membangkitkan optimisme bahwa tiada masalah yang lebih besar dari kekuasaan Allah.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Analisis perilaku: Budi selalu mengucapkan kalimat thayyibah setiap hari. Dampak sosial perilakunya adalah ...",
+    "options": [
+      "lisan terjaga dan disayangi teman",
+      "menjadi pendiam dan enggan bergaul",
+      "selalu dipuji berlebihan sehingga sombong",
+      "teman-teman merasa sangat terganggu"
+    ],
+    "answer": 0,
+    "explanation": "Membiasakan kalimat thayyibah menjaga lisan dari ghibah dan perkataan kotor.",
+    "difficulty": 3,
+    "timeLimit": 20
+  }
+]

@@ -1,0 +1,1308 @@
+{
+  "version": 1,
+  "class": "Kelas 4 SD",
+  "subject": "Fikih",
+  "totalQuestions": 100,
+  "questions": [
+    {
+      "question": "Secara bahasa kata khitan berasal dari bahasa Arab yang berarti ...",
+      "options": [
+        "memotong",
+        "membasuh",
+        "mengikat",
+        "menyucikan"
+      ],
+      "answer": 0,
+      "explanation": "Khitan berasal dari kata khatana yang artinya memotong.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bagian kulit yang dipotong saat khitan bagi laki-laki disebut ...",
+      "options": [
+        "rambut ketiak",
+        "kulup (qulfah)",
+        "kuku jari",
+        "kulit tumit"
+      ],
+      "answer": 1,
+      "explanation": "Khitan adalah memotong kulup (qulfah) yang menutupi ujung kemaluan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Nabi yang pertama kali diperintahkan Allah untuk berkhitan adalah ...",
+      "options": [
+        "Nabi Adam a.s.",
+        "Nabi Musa a.s.",
+        "Nabi Ibrahim a.s.",
+        "Nabi Isa a.s."
+      ],
+      "answer": 2,
+      "explanation": "Nabi Ibrahim a.s. adalah nabi pertama yang melaksanakan khitan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hukum khitan bagi anak laki-laki muslim menurut mayoritas ulama adalah ...",
+      "options": [
+        "sunnah muakkad",
+        "mubah (boleh)",
+        "makruh",
+        "wajib"
+      ],
+      "answer": 3,
+      "explanation": "Mayoritas ulama mewajibkan khitan bagi anak laki-laki.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Usia Nabi Ibrahim a.s. ketika pertama kali berkhitan adalah sekitar ...",
+      "options": [
+        "80 tahun",
+        "40 tahun",
+        "60 tahun",
+        "100 tahun"
+      ],
+      "answer": 0,
+      "explanation": "Dalam hadis sahih disebutkan Nabi Ibrahim berkhitan pada usia 80 tahun.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Alat yang digunakan Nabi Ibrahim a.s. saat pertama kali berkhitan adalah ...",
+      "options": [
+        "pisau bedah baja",
+        "kampak (al-qaddum)",
+        "gunting perak",
+        "pedang besi"
+      ],
+      "answer": 1,
+      "explanation": "Nabi Ibrahim a.s. berkhitan menggunakan alat pahat atau kampak.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manfaat utama khitan dari sudut pandang kesehatan medis adalah ...",
+      "options": [
+        "membuat tubuh cepat tinggi",
+        "meningkatkan nafsu makan",
+        "mencegah penumpukan kotoran kencing",
+        "mencegah sakit gigi"
+      ],
+      "answer": 2,
+      "explanation": "Khitan membuang kulup tempat mengendapnya kotoran urin dan kuman.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Khitan termasuk salah satu ajaran kesucian fitrah yang diajarkan oleh ...",
+      "options": [
+        "para dokter modern",
+        "para raja zaman dahulu",
+        "masyarakat adat saja",
+        "para nabi dan rasul"
+      ],
+      "answer": 3,
+      "explanation": "Khitan adalah sunnah fitrah para nabi sejak Nabi Ibrahim a.s.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tujuan utama pensyariatan khitan dalam ajaran Islam adalah menjaga ...",
+      "options": [
+        "kesucian ibadah dan kesehatan",
+        "penampilan di hadapan teman",
+        "kekayaan keluarga besar",
+        "kekuatan fisik tubuh"
+      ],
+      "answer": 0,
+      "explanation": "Khitan menyucikan tubuh dari najis agar salat sah dan badan sehat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap seorang anak laki-laki muslim saat tiba waktunya berkhitan adalah ...",
+      "options": [
+        "menolak dan menangis ketakutan",
+        "berani dan ikhlas berkhitan",
+        "bersembunyi di dalam kamar",
+        "marah kepada orang tua"
+      ],
+      "answer": 1,
+      "explanation": "Meneladani keberanian dan ketaatan dalam menjalankan syariat Allah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Setelah berkhitan, ujung kemaluan menjadi lebih mudah untuk ...",
+      "options": [
+        "ditutup kain tebal",
+        "diwarnai dengan obat",
+        "dibersihkan saat beristinja'",
+        "dibiarkan tanpa dicuci"
+      ],
+      "answer": 2,
+      "explanation": "Tanpa kulup, membersihkan sisa air kencing menjadi sangat mudah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Khitan bagi perempuan menurut syariat Islam hukumnya adalah ...",
+      "options": [
+        "haram mutlak",
+        "wajib fardhu 'ain",
+        "makruh tahrim",
+        "makramah (kemuliaan)"
+      ],
+      "answer": 3,
+      "explanation": "Sebagian besar ulama memandang khitan perempuan sebagai bentuk kemuliaan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Waktu yang paling utama (mustahab) untuk mengkhitan anak adalah ...",
+      "options": [
+        "pada hari ke-7 setelah lahir",
+        "saat usia 17 tahun",
+        "ketika sudah tamat kuliah",
+        "setelah menikah nanti"
+      ],
+      "answer": 0,
+      "explanation": "Sunnah mengkhitan bayi pada hari ke-7 kelahirannya.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perayaan syukuran yang diadakan saat seorang anak berkhitan disebut ...",
+      "options": [
+        "walimatul 'ursy",
+        "walimatul khitan",
+        "walimatul waqirah",
+        "walimatul ma'dabah"
+      ],
+      "answer": 1,
+      "explanation": "Walimatul khitan adalah jamuan makan wujud syukur atas terlaksananya khitan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hubungan antara khitan dengan keabsahan salat seseorang adalah ...",
+      "options": [
+        "memperbanyak rakaat salat fardhu",
+        "membuat bacaan salat jadi fasih",
+        "menghilangkan sisa najis air seni",
+        "menggugurkan rukun wudhu"
+      ],
+      "answer": 2,
+      "explanation": "Salat sah bila badan suci; kulup yang tidak dikhitan rawan menyimpan najis.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hikmah sosial dari diadakannya walimatul khitan di masyarakat adalah ...",
+      "options": [
+        "memamerkan kekayaan keluarga",
+        "mencari sumbangan uang sebanyaknya",
+        "mengharuskan tamu memberi kado",
+        "mempererat silaturahmi tetangga"
+      ],
+      "answer": 3,
+      "explanation": "Walimah bertujuan mengumumkan syiar dan mempererat tali persaudaraan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pernyataan yang tepat mengenai manfaat medis khitan bagi pria adalah ...",
+      "options": [
+        "mengurangi risiko kanker dan infeksi",
+        "mencegah penyakit patah tulang",
+        "menghilangkan alergi makanan laut",
+        "meningkatkan daya ingat otak"
+      ],
+      "answer": 0,
+      "explanation": "Secara medis, khitan terbukti menurunkan risiko infeksi saluran kemih.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap tepat orang tua dalam mendampingi anak yang akan dikhitan adalah ...",
+      "options": [
+        "menakut-nakuti dengan jarum suntik",
+        "memberi semangat dan pengertian agama",
+        "memaksa anak tanpa penjelasan",
+        "mengancam tidak memberi uang jajan"
+      ],
+      "answer": 1,
+      "explanation": "Orang tua mendidik anak dengan kasih sayang agar anak siap secara mental.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rasulullah saw mengkhitan kedua cucunya Hasan dan Husain pada saat ...",
+      "options": [
+        "berusia 10 tahun di Madinah",
+        "setelah perang Badar selesai",
+        "berusia 7 hari setelah lahir",
+        "menjelang pembebasan Makkah"
+      ],
+      "answer": 2,
+      "explanation": "Nabi Muhammad saw mengkhitan Hasan dan Husain pada hari ke-7 kelahiran.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Batasan waktu wajib khitan bagi seorang anak laki-laki adalah sebelum ...",
+      "options": [
+        "masuk sekolah dasar",
+        "memulai ibadah puasa",
+        "belajar membaca Al-Qur'an",
+        "memasuki usia baligh"
+      ],
+      "answer": 3,
+      "explanation": "Kewajiban khitan berlaku saat anak menginjak usia baligh sebagai mukallaf.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jika seorang mualaf dewasa masuk Islam, maka anjuran baginya adalah ...",
+      "options": [
+        "tetap berkhitan jika kondisi aman",
+        "wajib mengulang syahadat berkali-kali",
+        "dilarang salat sebelum berkhitan",
+        "khitan diganti dengan membayar fidyah"
+      ],
+      "answer": 0,
+      "explanation": "Mualaf dianjurkan berkhitan selama tidak membahayakan keselamatan dirinya.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bentuk kasih sayang (KBC) yang ditunjukkan teman kepada anak yang baru berkhitan adalah ...",
+      "options": [
+        "mengajak bermain lari-larian cepat",
+        "mendoakan kesembuhan dan menjenguk",
+        "mengejek sarung yang dipakainya",
+        "menyenggol bagian lukanya"
+      ],
+      "answer": 1,
+      "explanation": "Menjenguk dan mendoakan teman adalah wujud empati persaudaraan Islam.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tata cara khitan modern saat ini semakin nyaman bagi anak karena ...",
+      "options": [
+        "tidak memerlukan obat pereda nyeri",
+        "dapat sembuh dalam waktu satu jam",
+        "menggunakan bius medis dan laser",
+        "dilakukan sendiri tanpa bantuan dokter"
+      ],
+      "answer": 2,
+      "explanation": "Teknologi medis modern membuat proses khitan minim rasa sakit dan steril.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kaitan khitan dengan hadis 'kebersihan sebagian dari iman' adalah ...",
+      "options": [
+        "khitan merupakan syarat pakaian bersih",
+        "kebersihan hanya berlaku untuk anak kecil",
+        "khitan menghapus kewajiban mandi",
+        "khitan menjaga organ reproduksi bersih"
+      ],
+      "answer": 3,
+      "explanation": "Khitan membersihkan bagian tubuh yang rawan kotoran sehingga fitrah terjaga.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa Nabi Ibrahim a.s. tetap berkhitan meski usianya sudah lanjut?",
+      "options": [
+        "karena ketaatan mutlak pada perintah Allah",
+        "karena ingin menjadi panglima perang",
+        "karena anjuran tabib di negerinya",
+        "karena mengikuti tradisi kaum sekitar"
+      ],
+      "answer": 0,
+      "explanation": "Ketaatan Nabi Ibrahim a.s. adalah bukti kepasrahan iman tanpa keraguan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Doa kebaikan yang lazim diucapkan untuk anak yang baru berkhitan adalah ...",
+      "options": [
+        "semoga menjadi orang yang paling kaya",
+        "semoga lekas sembuh dan jadi anak saleh",
+        "semoga tidak perlu belajar lagi",
+        "semoga ditakuti oleh semua temannya"
+      ],
+      "answer": 1,
+      "explanation": "Doa walimah memohon kesembuhan, keberkahan, dan kesalehan bagi si anak.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dampak psikologis bagi anak yang berani berkhitan adalah ...",
+      "options": [
+        "menjadi anak yang pemarah dan sombong",
+        "merasa takut bertemu orang lain",
+        "merasa percaya diri memasuki kedewasaan",
+        "kehilangan semangat belajar di sekolah"
+      ],
+      "answer": 2,
+      "explanation": "Khitan menumbuhkan keberanian dan kesiapan mental menuju tahap baligh.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Syariat khitan telah ada sejak masa nabi terdahulu membuktikan bahwa ajaran Islam ...",
+      "options": [
+        "hanya meniru adat bangsa Arab",
+        "berubah-ubah sesuai zaman dan tempat",
+        "baru dimulai saat Nabi Muhammad hijrah",
+        "melanjutkan ajaran tauhid para rasul"
+      ],
+      "answer": 3,
+      "explanation": "Islam adalah penyempurna risalah tauhid dari para nabi terdahulu.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Analisis fikih: Mengapa sahnya salat seseorang erat kaitannya dengan khitan?",
+      "options": [
+        "kulup yang belum dipotong menyimpan sisa najis",
+        "salat orang yang belum khitan batal otomatis",
+        "khitan merupakan salah satu rukun salat",
+        "tanpa khitan wudhu seseorang tidak sah"
+      ],
+      "answer": 0,
+      "explanation": "Sisa air seni di balik kulup membatalkan syarat suci badan saat salat.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perbandingan antara tradisi khitan kuno dan medis modern menunjukkan bahwa ...",
+      "options": [
+        "syariat Islam sudah tidak relevan lagi",
+        "syariat Islam selalu selaras dengan sains",
+        "metode kuno jauh lebih baik daripada medis",
+        "khitan modern mengubah hukum syariat Islam"
+      ],
+      "answer": 1,
+      "explanation": "Perintah khitan terbukti secara ilmiah memberi manfaat kesehatan luar biasa.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap bijak seorang guru agama saat mendapati muridnya takut dikhitan adalah ...",
+      "options": [
+        "memarahi murid di depan teman-temannya",
+        "mengancam tidak menaikkan kelas murid",
+        "menjelaskan hikmahnya dengan ramah dan sabar",
+        "membiarkan murid tidak berkhitan selamanya"
+      ],
+      "answer": 2,
+      "explanation": "Pendidikan berbasis cinta menanamkan pemahaman agama dengan kasih sayang.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hikmah dianjurkannya khitan pada usia dini (bayi) menurut tinjauan medis adalah ...",
+      "options": [
+        "biaya operasi menjadi jauh lebih mahal",
+        "bayi tidak perlu lagi diberi air susu ibu",
+        "agar bayi langsung bisa berjalan lancar",
+        "luka lebih cepat sembuh dan minim trauma"
+      ],
+      "answer": 3,
+      "explanation": "Jaringan kulit bayi elastis dan daya regenerasi sel sangat cepat.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bagaimana cara seorang anak menjaga kebersihan luka khitan selama masa penyembuhan?",
+      "options": [
+        "menjaga luka tetap kering dan rutin berobat",
+        "menutup luka dengan plester kedap air rapat",
+        "mencuci luka dengan air sabun berkali-kali",
+        "bermain lumpur di luar rumah bersama teman"
+      ],
+      "answer": 0,
+      "explanation": "Perawatan steril dan kering mempercepat proses pengeringan luka khitan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tinjauan syariat: Mengapa khitan perempuan tidak boleh dilakukan secara melukai berlebihan?",
+      "options": [
+        "agar perempuan tidak kehilangan rasa takut",
+        "karena Islam melarang tindakan merusak fisik",
+        "karena biaya medis operasi sangat tinggi",
+        "agar anak perempuan tidak bisa berlari"
+      ],
+      "answer": 1,
+      "explanation": "Syariat Islam menjaga kehormatan dan melarang mutilasi organ tubuh wanita.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Integrasi nilai tauhid: Berkhitan bukan sekadar operasi medis biasa, melainkan ...",
+      "options": [
+        "tanda bahwa seseorang memiliki kasta tinggi",
+        "syarat utama untuk mendapatkan warisan",
+        "bukti ketaatan dan penyerahan diri pada Allah",
+        "tata cara untuk menjadi warga negara sah"
+      ],
+      "answer": 2,
+      "explanation": "Niat lillahi ta'ala mengubah khitan menjadi ibadah agung penyempurna fitrah.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Secara bahasa, kata 'baligh' memiliki arti ...",
+      "options": [
+        "sampai atau cukup umur",
+        "anak kecil yang cerdas",
+        "orang tua yang lemah",
+        "pemuda yang perkasa"
+      ],
+      "answer": 0,
+      "explanation": "Baligh secara bahasa artinya sampai (sampainya usia pada batas dewasa).",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Seseorang yang telah baligh dan dikenai beban kewajiban syariat disebut ...",
+      "options": [
+        "muallaf",
+        "mukallaf",
+        "mushallin",
+        "munafik"
+      ],
+      "answer": 1,
+      "explanation": "Mukallaf adalah orang yang telah baligh, berakal, dan dibebani syariat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tanda baligh yang khusus dialami oleh anak laki-laki adalah ...",
+      "options": [
+        "mengalami haid bulanan",
+        "suara menjadi lebih halus",
+        "mimpi basah (ihtilam)",
+        "rambut tumbuh sangat panjang"
+      ],
+      "answer": 2,
+      "explanation": "Mimpi basah (ihtilam) adalah tanda biologis baligh bagi laki-laki.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tanda baligh yang khusus dialami oleh anak perempuan adalah ...",
+      "options": [
+        "tumbuh jakun di leher",
+        "mimpi basah pertama",
+        "suara menjadi lebih berat",
+        "haid (menstruasi)"
+      ],
+      "answer": 3,
+      "explanation": "Haid adalah keluarnya darah dari rahim perempuan sehat saat usia baligh.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tanda baligh umum bagi laki-laki dan perempuan jika belum ada tanda fisik adalah berusia ...",
+      "options": [
+        "15 tahun qamariyah",
+        "10 tahun qamariyah",
+        "12 tahun qamariyah",
+        "20 tahun qamariyah"
+      ],
+      "answer": 0,
+      "explanation": "Batas usia maksimal baligh menurut fikih adalah genap 15 tahun qamariyah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Usia paling dini seorang anak perempuan mulai mengalami haid adalah sekitar ...",
+      "options": [
+        "5 tahun",
+        "9 tahun",
+        "7 tahun",
+        "13 tahun"
+      ],
+      "answer": 1,
+      "explanation": "Menurut fikih, usia minimal perempuan memungkinkan haid adalah 9 tahun.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Setelah memasuki masa baligh, segala amal perbuatan manusia akan ...",
+      "options": [
+        "dimaafkan tanpa perhitungan",
+        "dihapus seluruh dosanya",
+        "dicatat malaikat dan dihisab",
+        "diwakilkan kepada orang tua"
+      ],
+      "answer": 2,
+      "explanation": "Seorang mukallaf menanggung sendiri pertanggungjawaban dosanya.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dua malaikat yang bertugas mencatat amal baik dan buruk manusia adalah ...",
+      "options": [
+        "Jibril dan Mikail",
+        "Munkar dan Nakir",
+        "Malik dan Ridwan",
+        "Raqib dan Atid"
+      ],
+      "answer": 3,
+      "explanation": "Malaikat Raqib mencatat amal baik, malaikat Atid mencatat amal buruk.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kewajiban utama yang harus dilaksanakan setiap hari setelah baligh adalah ...",
+      "options": [
+        "salat fardhu lima waktu",
+        "berhaji ke Baitullah",
+        "menyembelih hewan kurban",
+        "membayar zakat mal"
+      ],
+      "answer": 0,
+      "explanation": "Salat lima waktu menjadi fardhu 'ain yang berdosa besar bila ditinggalkan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Menutup aurat bagi seorang muslim yang telah baligh hukumnya adalah ...",
+      "options": [
+        "sunnah",
+        "wajib",
+        "mubah",
+        "makruh"
+      ],
+      "answer": 1,
+      "explanation": "Menutup aurat adalah kewajiban mutlak bagi setiap muslim yang telah baligh.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Batas aurat laki-laki di hadapan sesama adalah antara ...",
+      "options": [
+        "dada hingga telapak kaki",
+        "leher hingga mata kaki",
+        "pusar hingga lutut",
+        "wajah dan telapak tangan"
+      ],
+      "answer": 2,
+      "explanation": "Aurat laki-laki menurut mayoritas ulama adalah antara pusar dan lutut.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Batas aurat perempuan muslimah di hadapan bukan mahram adalah ...",
+      "options": [
+        "antara pusar hingga lutut",
+        "seluruh tubuh tanpa terkecuali",
+        "rambut kepala hingga pundak",
+        "seluruh tubuh kecuali wajah dan tangan"
+      ],
+      "answer": 3,
+      "explanation": "Aurat wanita di hadapan ajnabi adalah seluruh badan kecuali muka dan telapak tangan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kondisi tubuh setelah mengalami mimpi basah atau selesai haid berstatus ...",
+      "options": [
+        "berhadas besar",
+        "berhadas kecil",
+        "terkena najis mughalladhah",
+        "suci dari segala kotoran"
+      ],
+      "answer": 0,
+      "explanation": "Ihtilam dan haid menyebabkan hadas besar yang wajib disucikan dengan mandi.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ibadah yang wajib dilakukan untuk menyucikan diri dari hadas besar adalah ...",
+      "options": [
+        "berwudhu dengan sempurna",
+        "mandi wajib (mandi junub)",
+        "beristinja' dengan batu",
+        "membasuh muka tiga kali"
+      ],
+      "answer": 1,
+      "explanation": "Hadas besar hanya bisa diangkat dengan mandi wajib membasahi seluruh tubuh.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perbedaan mendasar antara hadas kecil dan hadas besar terletak pada ...",
+      "options": [
+        "warna air yang digunakan bersuci",
+        "tempat terjadinya hadas tersebut",
+        "cara menyucikannya (wudhu vs mandi)",
+        "waktu shalat yang dikerjakan"
+      ],
+      "answer": 2,
+      "explanation": "Hadas kecil cukup disucikan dengan wudhu, hadas besar wajib mandi wajib.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hal-hal yang dilarang bagi perempuan yang sedang mengalami haid di antaranya ...",
+      "options": [
+        "memasak makanan di dapur",
+        "keluar rumah untuk sekolah",
+        "berbicara dengan anggota keluarga",
+        "salat, puasa, dan menyentuh mushaf"
+      ],
+      "answer": 3,
+      "explanation": "Wanita haid dilarang salat, puasa, tawaf, dan menyentuh mushaf Al-Qur'an.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kewajiban seorang perempuan terhadap puasa Ramadhan yang ditinggalkan karena haid adalah ...",
+      "options": [
+        "wajib menggantinya (mengqadha')",
+        "tidak perlu mengganti selamanya",
+        "cukup membayar fidyah beras",
+        "puasanya diwakilkan oleh suami"
+      ],
+      "answer": 0,
+      "explanation": "Puasa yang tertinggal karena haid wajib diqadha di luar bulan Ramadhan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa salat yang ditinggalkan oleh perempuan saat haid tidak perlu diqadha?",
+      "options": [
+        "karena salat tidak penting lagi bagi wanita",
+        "sebagai bentuk keringanan (rukhsah) Islam",
+        "agar wanita dapat beristirahat seharian",
+        "karena wanita haid bukan orang Islam"
+      ],
+      "answer": 1,
+      "explanation": "Islam memberi kemudahan rahmat agar wanita tidak terbebani qadha salat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perubahan fisik yang menyertai masa baligh pada anak laki-laki antara lain ...",
+      "options": [
+        "suara menjadi sangat melengking tinggi",
+        "panggul membesar dan kulit menipis",
+        "tumbuhnya jakun dan suara memberat",
+        "rambut rontok secara permanen"
+      ],
+      "answer": 2,
+      "explanation": "Tanda sekunder baligh laki-laki: suara membesar, jakun tumbuh, otot menguat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap bijak seorang remaja muslim ketika menyadari dirinya telah baligh adalah ...",
+      "options": [
+        "merasa bebas bertindak semaunya sendiri",
+        "meninggalkan sekolah dan bekerja keras",
+        "menyombongkan kedewasaan pada teman",
+        "meningkatkan ibadah dan menjaga akhlak"
+      ],
+      "answer": 3,
+      "explanation": "Baligh adalah pintu tanggung jawab moral di hadapan Allah dan manusia.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jika seorang anak telah berusia 15 tahun namun belum mimpi basah atau haid, maka ia ...",
+      "options": [
+        "sudah dihukumi baligh secara syariat",
+        "tetap dihukumi anak-anak selamanya",
+        "belum wajib mengerjakan salat fardhu",
+        "tidak boleh menjadi makmum salat"
+      ],
+      "answer": 0,
+      "explanation": "Batas 15 tahun hijriyah adalah ketentuan syariat otomatis menjadi mukallaf.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Peran orang tua dan guru dalam membimbing anak yang memasuki masa baligh adalah ...",
+      "options": [
+        "membiarkan anak mencari info di medsos",
+        "mengajarkan fikih bersuci dengan ramah",
+        "memarahi anak saat bertanya tentang haid",
+        "melarang anak berteman dengan siapa pun"
+      ],
+      "answer": 1,
+      "explanation": "Edukasi fikih baligh harus disampaikan secara benar, ramah, dan penuh empati.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Larangan bagi orang yang sedang dalam keadaan junub (hadas besar) meliputi ...",
+      "options": [
+        "makan dan minum makanan halal",
+        "tidur di atas kasur yang bersih",
+        "mengerjakan salat dan thawaf",
+        "berpakaian rapi dan harum"
+      ],
+      "answer": 2,
+      "explanation": "Orang junub diharamkan salat, thawaf, i'tikaf di masjid, dan menyentuh mushaf.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hikmah adanya batasan usia baligh dalam ajaran syariat Islam adalah ...",
+      "options": [
+        "membedakan status kasta sosial manusia",
+        "membatasi pergaulan antarsesama anak",
+        "mempersulit kehidupan generasi muda",
+        "menetapkan waktu kesiapan tanggung jawab"
+      ],
+      "answer": 3,
+      "explanation": "Baligh menandai kematangan akal dan fisik untuk memikul amanah ibadah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika seorang anak perempuan pertama kali mengalami haid, sikap terbaiknya adalah ...",
+      "options": [
+        "memberitahu ibu untuk dibimbing bersuci",
+        "merasa sangat panik dan menangis ketakutan",
+        "menyembunyikan darah haid dari keluarga",
+        "tetap mengerjakan salat fardhu seperti biasa"
+      ],
+      "answer": 0,
+      "explanation": "Keterbukaan kepada ibu memudahkan anak belajar tata cara thaharah yang benar.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Menjaga pandangan mata dan etika pergaulan setelah baligh bertujuan untuk ...",
+      "options": [
+        "membuat diri terlihat angkuh di kelas",
+        "menjaga kesucian kehormatan diri",
+        "menghindari interaksi sosial masyarakat",
+        "memperlihatkan kehebatan ilmu agama"
+      ],
+      "answer": 1,
+      "explanation": "Menjaga pandangan (ghadhul bashar) membentengi hati dari godaan maksiat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Konsekuensi hukum bagi orang yang meninggalkan salat lima waktu setelah baligh adalah ...",
+      "options": [
+        "cukup membayar denda uang kepada fakir",
+        "dosanya ditanggung oleh orang tuanya",
+        "berdosa besar dan diancam azab neraka",
+        "amalnya dimaafkan karena masih muda"
+      ],
+      "answer": 2,
+      "explanation": "Meninggalkan salat dengan sengaja setelah baligh adalah perbuatan dosa besar.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Darah istihadhah berbeda dengan darah haid karena istihadhah merupakan ...",
+      "options": [
+        "darah kotoran yang keluar dari lambung",
+        "darah yang keluar saat melahirkan anak",
+        "tanda utama mulainya masa kedewasaan",
+        "darah penyakit di luar siklus haid"
+      ],
+      "answer": 3,
+      "explanation": "Istihadhah adalah darah penyakit; wanita istihadhah tetap wajib salat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Analisis fikih: Mengapa syariat Islam membedakan hukum qadha salat dan qadha puasa bagi wanita haid?",
+      "options": [
+        "salat tiap hari, puasa setahun sekali",
+        "salat lebih mudah daripada ibadah puasa",
+        "puasa memiliki derajat pahala lebih tinggi",
+        "wanita haid tidak diwajibkan masuk Islam"
+      ],
+      "answer": 0,
+      "explanation": "Keringanan syariat: mengqadha salat puluhan rakaat memberatkan, puasa hanya setahun sekali.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Seorang anak berusia 12 tahun telah mengalami mimpi basah. Status hukum syariat baginya adalah ...",
+      "options": [
+        "belum mukallaf karena belum usia 15 tahun",
+        "telah mukallaf dan wajib salat fardhu",
+        "hanya diwajibkan puasa Ramadhan saja",
+        "ibadahnya masih dianggap sunnah belaka"
+      ],
+      "answer": 1,
+      "explanation": "Munculnya tanda biologis (ihtilam) otomatis menjadikannya mukallaf sah.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tinjauan psikologis: Mengapa masa baligh sering disebut masa transisi yang krusial?",
+      "options": [
+        "anak-anak kehilangan seluruh hak bermainnya",
+        "daya ingat manusia menurun drastis di usia ini",
+        "ada lonjakan hormon dan tuntutan tanggung jawab",
+        "anak tidak lagi membutuhkan bimbingan orang tua"
+      ],
+      "answer": 2,
+      "explanation": "Perubahan emosi, fisik, dan spiritual menuntut kedewasaan bersikap.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap bijak seorang pelajar saat melihat konten tidak pantas di internet adalah ...",
+      "options": [
+        "membagikan tautan tersebut ke grup kelas",
+        "menontonnya bersama teman-teman dekat",
+        "menyimpannya di memori ponsel pribadi",
+        "segera menutup dan memohon ampun pada Allah"
+      ],
+      "answer": 3,
+      "explanation": "Integritas mukallaf diuji saat sendirian dengan menjaga pandangan mata.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kaitan antara konsep 'tanda baligh' dengan keadilan hukum syariat Allah adalah ...",
+      "options": [
+        "kewajiban dibebankan saat fisik dan akal siap",
+        "semua manusia dibebani aturan sejak lahir",
+        "syariat dibuat untuk menghukum kelemahan manusia",
+        "hanya anak orang kaya yang diwajibkan ibadah"
+      ],
+      "answer": 0,
+      "explanation": "Keadilan Allah: tidak membebani hamba melampaui batas kesiapan kemampuannya.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bagaimana cara membedakan antara darah haid dan darah istihadhah menurut fikih?",
+      "options": [
+        "haid putih bening, istihadhah hitam pekat",
+        "haid berbau khas dan teratur, istihadhah encer",
+        "haid keluar sejam, istihadhah bulanan",
+        "keduanya persis sama tanpa ada beda"
+      ],
+      "answer": 1,
+      "explanation": "Karakteristik warna, bau, kepekatan, dan jadwal membedakan haid dan istihadhah.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Nilai cinta dan kelembutan syariat (KBC) dalam thaharah baligh tercermin dalam ...",
+      "options": [
+        "ancaman hukuman fisik yang sangat keras",
+        "kewajiban membeli wewangian yang sangat mahal",
+        "tuntunan bersuci menjaga martabat manusia",
+        "larangan beristirahat saat badan merasa lelah"
+      ],
+      "answer": 2,
+      "explanation": "Pensyariatan mandi wajib mengangkat harkat kesucian spiritual dan raga hamba.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pengertian mandi wajib (mandi junub) menurut istilah syariat adalah ...",
+      "options": [
+        "meratakan air suci ke seluruh tubuh",
+        "menyiram kepala dengan air bunga",
+        "mengusap sebagian badan dengan handuk",
+        "mencuci tangan dan kaki di kamar mandi"
+      ],
+      "answer": 0,
+      "explanation": "Mandi wajib adalah membasahi seluruh permukaan kulit dan rambut dengan air suci.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebab-sebab yang mewajibkan seseorang melakukan mandi wajib adalah ...",
+      "options": [
+        "buang air kecil dan buang air besar",
+        "mimpi basah, selesai haid, atau nifas",
+        "tertidur lelap dalam posisi berbaring",
+        "mengeluarkan darah mimisan dari hidung"
+      ],
+      "answer": 1,
+      "explanation": "Hadas besar (ihtilam, jima', haid, nifas, wiladah) mewajibkan mandi besar.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rukun mandi wajib yang pertama kali harus dilakukan adalah ...",
+      "options": [
+        "membasuh kedua telapak kaki",
+        "menggosok badan dengan sabun wangi",
+        "niat di dalam hati",
+        "membaca doa masuk kamar mandi"
+      ],
+      "answer": 2,
+      "explanation": "Rukun mandi wajib ada dua: niat dan meratakan air ke seluruh badan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Rukun mandi wajib yang kedua adalah ...",
+      "options": [
+        "berkumur-kumur sebanyak tiga kali",
+        "membasuh telinga kanan dan kiri",
+        "berwudhu sebelum menyiram badan",
+        "meratakan air ke seluruh rambut dan kulit"
+      ],
+      "answer": 3,
+      "explanation": "Air wajib mengenai seluruh permukaan rambut hingga ke kulit kepala.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jenis air yang sah digunakan untuk mandi wajib adalah ...",
+      "options": [
+        "air muthlaq (suci dan menyucikan)",
+        "air kelapa muda yang segar",
+        "air teh manis yang hangat",
+        "air musta'mal yang keruh"
+      ],
+      "answer": 0,
+      "explanation": "Bersuci wajib menggunakan air suci menyucikan (air sumur, hujan, sungai).",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hukum melafalkan niat mandi wajib secara lisan adalah ...",
+      "options": [
+        "wajib fardhu bila ditinggalkan batal",
+        "sunnah untuk memantapkan hati",
+        "haram dan berdosa besar",
+        "makruh yang dibenci"
+      ],
+      "answer": 1,
+      "explanation": "Niat wajib di hati saat air pertama menyentuh badan, melafalkan lisan adalah sunnah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Berkumur-kumur dan menghirup air ke hidung saat mandi wajib berstatus ...",
+      "options": [
+        "rukun wajib mandi",
+        "syarat sah wudhu",
+        "sunnah mandi",
+        "makruh mandi"
+      ],
+      "answer": 2,
+      "explanation": "Berkumur dan istinsyaq termasuk amalan sunnah penyempurna mandi wajib.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mendahulukan anggota tubuh bagian kanan sebelum bagian kiri hukumnya ...",
+      "options": [
+        "wajib",
+        "makruh",
+        "haram",
+        "sunnah"
+      ],
+      "answer": 3,
+      "explanation": "Mendahulukan anggota kanan adalah sunnah Rasulullah saw dalam bersuci.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebelum mulai menyiramkan air ke seluruh badan, disunnahkan untuk ...",
+      "options": [
+        "berwudhu seperti wudhu salat",
+        "memotong seluruh kuku jari",
+        "mencukur rambut kepala botak",
+        "berpuasa sunnah seharian"
+      ],
+      "answer": 0,
+      "explanation": "Nabi saw senantiasa berwudhu terlebih dahulu sebelum membasuh badan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Menghilangkan najis yang menempel di badan sebelum mandi wajib dilakukan agar ...",
+      "options": [
+        "sabun mandi tidak cepat habis",
+        "air mandi suci menyentuh kulit langsung",
+        "waktu mandi menjadi lebih lama",
+        "kulit menjadi wangi semerbak"
+      ],
+      "answer": 1,
+      "explanation": "Kotoran atau najis di badan harus dibersihkan dulu agar air merata sempurna.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jika terdapat cat kuku atau kutek yang menghalangi air sampai ke kuku, maka ...",
+      "options": [
+        "mandi tetap sah tanpa dihilangkan",
+        "cukup diusap dengan kain basah",
+        "wajib dihilangkan terlebih dahulu",
+        "mandi diganti dengan tayamum"
+      ],
+      "answer": 2,
+      "explanation": "Benda yang menghalangi sampainya air ke kulit atau kuku membatalkan mandi.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mandi sunnah yang sangat dianjurkan seminggu sekali bagi umat Islam adalah ...",
+      "options": [
+        "mandi tengah malam buta",
+        "mandi air es di pagi hari",
+        "mandi setelah makan kenyang",
+        "mandi sunnah hari Jumat"
+      ],
+      "answer": 3,
+      "explanation": "Mandi sebelum menghadiri salat Jumat adalah sunnah muakkadah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Urutan tata cara mandi wajib yang paling sempurna sesuai sunnah Nabi adalah ...",
+      "options": [
+        "cuci tangan, wudhu, lalu siram badan",
+        "siram badan, pakai sabun, baru niat",
+        "wudhu, sikat gigi, cuci pakaian",
+        "niat, pakai sampo, siram kaki saja"
+      ],
+      "answer": 0,
+      "explanation": "Urutan sunnah: basuh tangan, bersihkan kemaluan, wudhu, lalu guyur seluruh badan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Saat menyiram kepala pada mandi wajib, hal yang harus diperhatikan adalah ...",
+      "options": [
+        "rambut harus diikat sangat kencang",
+        "air meresap hingga pangkal kulit kepala",
+        "tidak boleh memakai air dingin",
+        "kepala tidak boleh tersentuh tangan"
+      ],
+      "answer": 1,
+      "explanation": "Pangkal rambut dan kulit kepala wajib terbasahi air secara merata.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perbedaan mandi wajib dengan mandi biasa sehari-hari terletak pada ...",
+      "options": [
+        "harga sabun dan sampo yang dipakai",
+        "banyaknya gayung air yang dihabiskan",
+        "niat ibadah dan kewajiban meratakan air",
+        "suhu air dingin atau hangat"
+      ],
+      "answer": 2,
+      "explanation": "Mandi wajib adalah ibadah terikat rukun niat dan cakupan seluruh badan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jika seseorang lupa niat saat mandi wajib, maka konsekuensi hukumnya adalah ...",
+      "options": [
+        "mandinya tetap sah karena badan basah",
+        "cukup membaca istighfar tiga kali",
+        "menggantinya dengan salat dua rakaat",
+        "mandinya tidak sah dan hadas belum hilang"
+      ],
+      "answer": 3,
+      "explanation": "Niat adalah rukun penentu keabsahan ibadah mandi wajib.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Menghemat penggunaan air saat mandi wajib merupakan cermin akhlak ...",
+      "options": [
+        "meneladani sunnah dan anti boros",
+        "kikir terhadap diri sendiri",
+        "enggan bersuci dengan bersih",
+        "takut kehabisan air sumur"
+      ],
+      "answer": 0,
+      "explanation": "Rasulullah saw mandi dengan 1 sha' (sekitar 3 liter air) tanpa berlebih-lebihan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jika seseorang sedang sakit parah dan dilarang dokter terkena air, maka mandi wajib diganti dengan ...",
+      "options": [
+        "berwudhu menggunakan minyak wangi",
+        "tayamum menggunakan debu suci",
+        "membayar denda puasa tiga hari",
+        "mengusap badan dengan daun kering"
+      ],
+      "answer": 1,
+      "explanation": "Tayamum adalah solusi syariat saat ada uzur sakit atau ketiadaan air.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Menyela-nyela jari tangan, jari kaki, dan lipatan tubuh saat mandi wajib hukumnya ...",
+      "options": [
+        "makruh karena membuang waktu",
+        "haram menyentuh lipatan tubuh",
+        "sunnah penyempurna basuhan",
+        "membatalkan wudhu sebelumnya"
+      ],
+      "answer": 2,
+      "explanation": "Menyela lipatan memastikan air benar-benar membasahi lekukan kulit.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap seorang muslim saat berada di dalam kamar mandi menurut adab Islam adalah ...",
+      "options": [
+        "bernyanyi dengan suara yang lantang",
+        "membaca ayat Al-Qur'an keras-keras",
+        "menghadap ke arah kiblat saat buang air",
+        "tidak berbicara dan tidak berlama-lama"
+      ],
+      "answer": 3,
+      "explanation": "Adab kamar mandi: menjaga kesopanan, hening, dan menutup aurat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Doa sebelum masuk kamar mandi bertujuan untuk memohon perlindungan dari ...",
+      "options": [
+        "gangguan setan laki-laki dan perempuan",
+        "bahaya tersengat aliran listrik",
+        "dinginnya air sumur di pagi hari",
+        "kehilangan sabun dan peralatan mandi"
+      ],
+      "answer": 0,
+      "explanation": "Lafaz doa memohon perlindungan dari 'khubutsi wal khabaits' (setan jahat).",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kewajiban mandi bagi wanita yang selesai masa nifas berlaku setelah ...",
+      "options": [
+        "bayi berusia satu tahun penuh",
+        "darah persalinan berhenti total",
+        "melahirkan tanpa menunggu darah henti",
+        "anak sudah mulai bisa berbicara"
+      ],
+      "answer": 1,
+      "explanation": "Nifas adalah darah pasca persalinan; mandi wajib saat darah telah tuntas.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Apakah sah mandi wajib seseorang jika masih ada bagian tumit yang kering?",
+      "options": [
+        "tetap sah asalkan kepala sudah basah",
+        "sah jika lupa memeriksa tumitnya",
+        "tidak sah karena belum seluruh tubuh terkena air",
+        "sah dengan syarat membaca tahmid"
+      ],
+      "answer": 2,
+      "explanation": "Rukun meratakan air mewajibkan tidak ada satu milimeter pun kulit yang kering.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hikmah disyariatkannya mandi wajib bagi kesehatan fisik manusia adalah ...",
+      "options": [
+        "membuat tubuh menjadi kebal penyakit",
+        "menambah berat badan secara drastis",
+        "menggugurkan kewajiban berolahraga",
+        "menyegarkan tubuh dan melancarkan darah"
+      ],
+      "answer": 3,
+      "explanation": "Guyuran air membersihkan kotoran mikroba serta menyegarkan saraf tubuh.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Analisis kondisi: Seseorang salat subuh, lalu teringat bahwa ia belum mandi wajib setelah ihtilam. Tindakan yang wajib ia lakukan adalah ...",
+      "options": [
+        "segera mandi wajib lalu mengulang salatnya",
+        "cukup berwudhu lalu melanjutkan aktivitas",
+        "salatnya sah karena ia dalam kondisi lupa",
+        "membayar fidyah sedekah kepada anak yatim"
+      ],
+      "answer": 0,
+      "explanation": "Salat tanpa suci dari hadas besar hukumnya batal dan wajib diulang setelah mandi.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bagaimana cara seseorang memastikan air telah membasahi bagian tubuh yang berlipat-lipat?",
+      "options": [
+        "merendam tubuh di kolam renang berjam-jam",
+        "menggosok lipatan kulit dengan jari secara cermat",
+        "menyemprotkan air dengan tekanan sangat tinggi",
+        "menggunakan sabun cair berbuih sangat tebal"
+      ],
+      "answer": 1,
+      "explanation": "Kecermatan meratakan air di area pusar, ketiak, dan lipatan paha adalah tuntunan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pernyataan kritis: Mengapa Islam sangat menekankan detail kebersihan dalam mandi wajib?",
+      "options": [
+        "agar umat Islam menghabiskan waktu di kamar mandi",
+        "hanya sebagai formalitas adat masyarakat timur tengah",
+        "karena kebersihan lahiriah pintu kesucian spiritual",
+        "untuk menunjukkan perbedaan status orang kaya dan miskin"
+      ],
+      "answer": 2,
+      "explanation": "Thaharah adalah jembatan sakral menyucikan raga menyambut kehadiran Ilahi.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap bijak seorang pelajar saat fasilitas air di rumahnya sedang padam dan ia berhadas besar adalah ...",
+      "options": [
+        "meninggalkan salat fardhu hingga air kembali mengalir",
+        "salat tanpa bersuci karena merasa terpaksa",
+        "memarahi orang tua karena pompa air rusak",
+        "mencari sumber air bersih atau bertayamum jika uzur"
+      ],
+      "answer": 3,
+      "explanation": "Syariat memberikan alternatif tayamum bila air benar-benar tidak ditemukan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kaitan antara mandi wajib dengan konsep 'Kurikulum Berbasis Cinta' adalah ...",
+      "options": [
+        "mencintai tubuh ciptaan Allah dengan merawatnya suci",
+        "memaksa diri melakukan ritual yang sangat berat",
+        "mengukur cinta dari banyaknya air yang dialirkan",
+        "menghukum fisik agar terbebas dari kesalahan dosa"
+      ],
+      "answer": 0,
+      "explanation": "Menjaga kesucian fisik adalah ekspresi cinta dan rasa syukur kepada Sang Khalik.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Refleksi fiqhiyyah: Mengapa perempuan yang memiliki rambut tebal dikepang tidak wajib membuka kepangannya saat mandi junub?",
+      "options": [
+        "karena wanita tidak diwajibkan membasahi kepalanya",
+        "keringanan syariat asalkan air sampai ke pangkal kulit",
+        "agar rambut wanita tidak rusak terkena air biasa",
+        "karena kepang rambut sudah dianggap sebagai penutup aurat"
+      ],
+      "answer": 1,
+      "explanation": "Hadis Ummu Salamah: cukup menyiram kepala 3 kali hingga pangkal tanpa buka kepangan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    }
+  ]
+}

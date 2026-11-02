@@ -1,0 +1,489 @@
+{
+  "class": "Kelas 4 SD",
+  "subjectSlug": "ipas",
+  "batch": "b3-gaya-di-sekitar-kita",
+  "count": 37,
+  "questions": [
+    {
+      "question": "Tarikan atau dorongan yang diberikan pada suatu benda disebut ...",
+      "options": [
+        "Gaya",
+        "Energi potensial",
+        "Daya listrik",
+        "Usaha mekanik"
+      ],
+      "answer": 0,
+      "explanation": "Gaya adalah dorongan atau tarikan yang mempengaruhi benda.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Satuan gaya dalam Sistem Internasional (SI) adalah ...",
+      "options": [
+        "Joule",
+        "Newton",
+        "Watt",
+        "Pascal"
+      ],
+      "answer": 1,
+      "explanation": "Newton (N) adalah satuan resmi besaran gaya.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Alat yang digunakan untuk mengukur besar gaya adalah ...",
+      "options": [
+        "Termometer ruang",
+        "Barometer udara",
+        "Dinamometer",
+        "Speedometer laju"
+      ],
+      "answer": 2,
+      "explanation": "Dinamometer (neraca pegas) mengukur kekuatan gaya.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Gaya yang dihasilkan oleh kerja otot manusia atau hewan disebut gaya ...",
+      "options": [
+        "Gaya gesek",
+        "Gaya magnet",
+        "Gaya gravitasi",
+        "Gaya otot"
+      ],
+      "answer": 3,
+      "explanation": "Otot berkontraksi menghasilkan gaya dorong atau tarik.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Gaya yang terjadi ketika dua permukaan benda saling bersentuhan disebut gaya ...",
+      "options": [
+        "Gaya gesek",
+        "Gaya magnet",
+        "Gaya pegas",
+        "Gaya gravitasi"
+      ],
+      "answer": 0,
+      "explanation": "Gaya gesek timbul dari sentuhan dua permukaan berlawanan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Gaya yang menarik semua benda jatuh menuju ke pusat bumi disebut gaya ...",
+      "options": [
+        "Gaya gesekan",
+        "Gaya gravitasi",
+        "Gaya pegas",
+        "Gaya listrik"
+      ],
+      "answer": 1,
+      "explanation": "Gravitasi bumi menarik semua objek ke bawah permukaannya.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Gaya yang dihasilkan oleh benda lentur yang diregangkan atau dimampatkan disebut gaya ...",
+      "options": [
+        "Gaya otot",
+        "Gaya magnet",
+        "Gaya pegas",
+        "Gaya gesek"
+      ],
+      "answer": 2,
+      "explanation": "Pegas elastis menghasilkan gaya lenting saat kembali ke bentuk semula.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kutub magnet yang senama (misal utara dengan utara) jika didekatkan akan ...",
+      "options": [
+        "Tarik-menarik",
+        "Menempel kuat",
+        "Diam tak bergerak",
+        "Tolak-menolak"
+      ],
+      "answer": 3,
+      "explanation": "Kutub sejenis saling tolak-menolak.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kutub magnet yang tidak senama (utara dengan selatan) jika didekatkan akan ...",
+      "options": [
+        "Tarik-menarik",
+        "Tolak-menolak",
+        "Berputar kencang",
+        "Saling menghindar"
+      ],
+      "answer": 0,
+      "explanation": "Kutub magnet yang berlawanan saling menarik.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Benda yang dapat ditarik dengan kuat oleh magnet disebut benda ...",
+      "options": [
+        "Paramagnetik",
+        "Feromagnetik",
+        "Diamagnetik",
+        "Nonmagnetik"
+      ],
+      "answer": 1,
+      "explanation": "Feromagnetik seperti besi dan baja ditarik magnet dengan kuat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh kegiatan sehari-hari yang menggunakan gaya otot adalah ...",
+      "options": [
+        "Jatuhnya buah kelapa tua",
+        "Kompas menunjuk utara bumi",
+        "Mengayuh sepeda santai",
+        "Paku menempel di magnet"
+      ],
+      "answer": 2,
+      "explanation": "Mengayuh pedal menggunakan tenaga otot kaki.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Buah mangga yang matang jatuh dari pohon ke tanah membuktikan adanya gaya ...",
+      "options": [
+        "Gaya pegas pohon jati",
+        "Gaya gesek ranting kayu",
+        "Gaya dorong tiupan angin",
+        "Gravitasi bumi"
+      ],
+      "answer": 3,
+      "explanation": "Tarikan gravitasi bumi menyebabkan benda jatuh ke bawah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pengaruh gaya yang diberikan pemain kasti saat memukul bola yang dilempar adalah ...",
+      "options": [
+        "Mengubah arah dan kecepatan bola",
+        "Menambah massa serta berat bola",
+        "Mengubah warna serta corak bola",
+        "Membuat bola berhenti selamanya"
+      ],
+      "answer": 0,
+      "explanation": "Pukulan gaya dapat membelokkan arah dan melesatkan laju bola.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pengrajin yang membuat vas bunga dari tanah liat membuktikan bahwa gaya dapat ...",
+      "options": [
+        "Menambah bobot berat tanah liat",
+        "Mengubah bentuk suatu benda",
+        "Mengubah massa jenis cairan air",
+        "Membuat tanah liat bersinar terang"
+      ],
+      "answer": 1,
+      "explanation": "Tekanan tangan pengrajin merubah bentuk fisik tanah liat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Gaya gesek yang bekerja pada roda sepeda saat direm bermanfaat untuk ...",
+      "options": [
+        "Membuat sepeda meluncur kencang",
+        "Menghemat penggunaan rantai roda",
+        "Memperlambat dan menghentikan laju",
+        "Membuat ban sepeda menjadi licin"
+      ],
+      "answer": 2,
+      "explanation": "Gesekan kampas rem memperlambat putaran roda hingga berhenti.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Permukaan ban kendaraan bermotor dibuat beralur (bergigi) dengan tujuan untuk ...",
+      "options": [
+        "Memperkecil gesekan ban agar makin licin",
+        "Membuat laju kendaraan bersuara nyaring",
+        "Menambah beban bobot kendaraan di jalan",
+        "Memperbesar gaya gesek agar tidak selip"
+      ],
+      "answer": 3,
+      "explanation": "Alur ban meningkatkan cengkeraman gesek roda pada aspal basah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Gaya gesek yang merugikan dalam kehidupan sehari-hari dapat dikurangi dengan cara ...",
+      "options": [
+        "Memberi pelumas oli mesin",
+        "Menaburkan pasir kasar di engsel pintu",
+        "Mengikis permukaan besi menjadi tajam",
+        "Menjemur komponen di bawah terik matahari"
+      ],
+      "answer": 0,
+      "explanation": "Minyak pelumas melicinkan permukaan logam agar tidak cepat aus.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pemanah yang menarik tali busur lalu melepaskannya memanfaatkan gaya ...",
+      "options": [
+        "Gaya magnet dan gravitasi bumi",
+        "Gaya otot dan gaya pegas",
+        "Gaya listrik dan gesekan udara",
+        "Gaya mesin uap dan gaya apung"
+      ],
+      "answer": 1,
+      "explanation": "Otot menarik busur, tali elastis (pegas) melesatkan anak panah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bagian magnet yang memiliki kekuatan tarikan paling kuat terletak pada ...",
+      "options": [
+        "Bagian tengah batang magnet",
+        "Permukaan sisi samping magnet",
+        "Kedua ujung kutubnya",
+        "Tepat di dalam rongga magnet"
+      ],
+      "answer": 2,
+      "explanation": "Garis-garis gaya magnet paling rapat berkumpul di kedua kutubnya.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jarum kompas selalu menunjuk ke arah utara dan selatan karena ...",
+      "options": [
+        "Angin selalu berhembus dari arah utara",
+        "Matahari melintas ke arah kutub selatan",
+        "Gravitasi bumi hanya ada di kedua kutub",
+        "Bumi memiliki medan magnet alami"
+      ],
+      "answer": 3,
+      "explanation": "Kutub magnet bumi berinteraksi dengan kutub jarum kompas.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jika sebuah meja didorong oleh dua orang dari arah yang sama, maka meja akan ...",
+      "options": [
+        "Bergerak lebih cepat dan terasa ringan",
+        "Tetap diam dan tidak bergeser sedikit pun",
+        "Bergerak berbalik arah meluncur ke belakang",
+        "Patah menjadi dua bagian secara mendadak"
+      ],
+      "answer": 0,
+      "explanation": "Dua gaya searah saling menjumlahkan kekuatan total dorongannya.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jika sebuah meja didorong oleh dua orang dengan kekuatan sama besar tetapi berlawanan arah, maka meja akan ...",
+      "options": [
+        "Terlempar tinggi ke udara bebas",
+        "Tetap diam di tempat",
+        "Berputar dengan sangat kencang",
+        "Bergerak cepat ke sebelah kiri"
+      ],
+      "answer": 1,
+      "explanation": "Dua gaya berlawanan bernilai sama menghasilkan gaya total nol.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Benda di bawah ini yang dapat ditarik oleh magnet adalah ...",
+      "options": [
+        "Pensil kayu dan penghapus karet",
+        "Gelas kaca bening dan piring plastik",
+        "Jarum jahit dan paku besi",
+        "Daun kering dan ranting pohon cemara"
+      ],
+      "answer": 2,
+      "explanation": "Besi dan baja merupakan benda feromagnetik penarik magnet.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Olahragawan yang melompat di atas papan trampolin memanfaatkan sifat gaya ...",
+      "options": [
+        "Gaya gesek permukaan kasar",
+        "Gaya magnet tarikan bumi",
+        "Gaya gravitasi hampa udara",
+        "Gaya pegas yang elastis"
+      ],
+      "answer": 3,
+      "explanation": "Permukaan pegas trampolin memantulkan tubuh ke atas.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Batu yang dilempar ke atas melambat dan akhirnya jatuh kembali ke tanah. Hal ini membuktikan ...",
+      "options": [
+        "Gravitasi bumi menarik benda ke bawah",
+        "Batu kehilangan seluruh massa di udara",
+        "Tekanan udara mendorong batu ke samping",
+        "Gaya otot terus mendorong batu ke atas"
+      ],
+      "answer": 0,
+      "explanation": "Gaya gravitasi menarik batu ke bawah melawan arah lemparan awal.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sepatu sepak bola para pemain dilengkapi pull (paku tumpul di sol) yang bertujuan untuk ...",
+      "options": [
+        "Mengurangi bobot berat sepatu saat berlari",
+        "Memperbesar gesekan agar tidak tergelincir",
+        "Membuat benturan bola menjadi lebih empuk",
+        "Memudahkan pemain melompat terbang tinggi"
+      ],
+      "answer": 1,
+      "explanation": "Pull menancap di tanah berumput agar pijakan tidak licin/tergelincir.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Gaya yang bekerja pada parasut penerjun payung saat mengembang di udara adalah ...",
+      "options": [
+        "Tarikan gaya magnet dari lapisan awan",
+        "Lentingan gaya pegas dari untaian tali",
+        "Gesekan udara yang menahan laju jatuh",
+        "Aliran gaya listrik dari atmosfer bumi"
+      ],
+      "answer": 2,
+      "explanation": "Gesekan udara menahan parasut sehingga jatuh melambat dengan aman.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Seorang astronot di bulan dapat melompat jauh lebih tinggi daripada di bumi. Hal ini disebabkan karena ...",
+      "options": [
+        "Bulan sama sekali tidak memiliki daratan",
+        "Pakaian astronot dilengkapi roket pendorong",
+        "Udara di bulan sangat padat dan menopang",
+        "Gravitasi bulan jauh lebih kecil dari bumi"
+      ],
+      "answer": 3,
+      "explanation": "Gravitasi bulan hanya sekitar seperenam gravitasi bumi.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dua buah magnet batang dipotong menjadi dua bagian tepat di tengahnya. Hasil potongan tersebut akan ...",
+      "options": [
+        "Membentuk magnet baru berkutub lengkap",
+        "Hanya memiliki sebuah kutub utara saja",
+        "Hanya memiliki sebuah kutub selatan saja",
+        "Kehilangan seluruh kekuatan kemagnetan"
+      ],
+      "answer": 0,
+      "explanation": "Setiap potongan magnet selalu memiliki sepasang kutub utara dan selatan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa benda yang permukaannya sangat halus justru lebih sulit dipegang saat basah berminyak?",
+      "options": [
+        "Gaya gravitasi pada benda hilang seketika",
+        "Gaya gesek berkurang drastis sehingga licin",
+        "Benda memancarkan gaya pegas tolak-menolak",
+        "Massa benda bertambah menjadi berkali lipat"
+      ],
+      "answer": 1,
+      "explanation": "Cairan minyak memisahkan permukaan sentuh sehingga gesekan menurun.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebuah balok ditarik di atas lantai keramik licin dan di atas jalan beraspal kasar dengan gaya yang sama. Balok akan lebih mudah bergerak di ...",
+      "options": [
+        "Jalan beraspal karena gesekan sangat besar",
+        "Keduanya meluncur dengan kelajuan yang sama",
+        "Lantai keramik karena gesekan lebih kecil",
+        "Balok sama sekali tidak bergeser sedikit pun"
+      ],
+      "answer": 2,
+      "explanation": "Permukaan halus keramik menimbulkan gesekan lebih rendah dari aspal.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebutir kelereng disentil di lantai ubin licin meluncur jauh, tetapi cepat berhenti di atas karpet berbulu. Penyebab utamanya adalah ...",
+      "options": [
+        "Karpet menghasilkan gaya gravitasi lebih kuat",
+        "Ubin lantai menyerap seluruh energi kelereng",
+        "Kelereng kehilangan massa di atas kain karpet",
+        "Karpet berbulu memiliki gaya gesek lebih besar"
+      ],
+      "answer": 3,
+      "explanation": "Permukaan kasar karpet memberikan gaya gesek besar yang meredam gerak kelereng.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Cara membuat magnet buatan dengan mengalirkan arus listrik searah pada kawat yang dililitkan ke paku disebut ...",
+      "options": [
+        "Metode elektromagnetik",
+        "Induksi magnet alami",
+        "Gosokan magnet searah",
+        "Pemanasan logam kawat"
+      ],
+      "answer": 0,
+      "explanation": "Lilitan kawat berarus listrik (solenoida) menciptakan medan elektromagnet.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa magnet batang yang sering dibanting keras atau dipanaskan di atas api bisa kehilangan sifat kemagnetannya?",
+      "options": [
+        "Kutub utara dan selatannya bersatu padu",
+        "Susunan magnet elementernya menjadi acak",
+        "Massa besi magnetnya menguap habis tuntas",
+        "Medan gravitasi magnetnya menghilang total"
+      ],
+      "answer": 1,
+      "explanation": "Goncangan keras dan panas mengacaukan arah domain magnet elementer.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebuah lemari es pintu penutupnya dapat menutup rapat secara otomatis karena terdapat ...",
+      "options": [
+        "Kawat pegas baja di bagian luar",
+        "Perekat lem yang tak pernah kering",
+        "Magnet di dalam karet lis pintu",
+        "Tarikan gravitasi khusus kulkas"
+      ],
+      "answer": 2,
+      "explanation": "Pita magnetik di dalam lis karet melekat erat pada bodi baja kulkas.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dua mobil mogok ditarik tali. Mobil A ditarik 1 orang dengan gaya 200 N. Mobil B ditarik 3 orang masing-masing bergaya 150 N. Gaya tarikan total yang lebih besar bekerja pada ...",
+      "options": [
+        "Mobil A dengan total gaya 200 N",
+        "Keduanya memiliki gaya tarik sama",
+        "Mobil A karena ditarik satu orang",
+        "Mobil B dengan total gaya 450 N"
+      ],
+      "answer": 3,
+      "explanation": "Gaya total mobil B adalah 3 x 150 N = 450 N, lebih besar dari 200 N.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika kita menjatuhkan selembar kertas pipih dan gumpalan kertas yang diremas dari ketinggian sama di udara, gumpalan kertas jatuh lebih cepat karena ...",
+      "options": [
+        "Gesekan udara pada gumpalan kertas lebih kecil",
+        "Gumpalan kertas memiliki massa yang lebih berat",
+        "Gravitasi bumi hanya menarik benda yang bulat",
+        "Kertas pipih mengalami gaya magnet penolakan"
+      ],
+      "answer": 0,
+      "explanation": "Luas permukaan gumpalan kertas lebih kecil sehingga gesekan udara minimal.",
+      "difficulty": 3,
+      "timeLimit": 20
+    }
+  ]
+}

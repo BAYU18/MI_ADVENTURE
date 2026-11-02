@@ -1,0 +1,444 @@
+[
+  {
+    "question": "Arti dari kata الْعُنْوَانُ (al-'unwaan) dalam bahasa Indonesia adalah ...",
+    "options": [
+      "alamat",
+      "sekolah",
+      "rumah",
+      "jalan"
+    ],
+    "answer": 0,
+    "explanation": "Kata al-'unwan bermakna alamat tempat tinggal atau lokasi.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Bahasa Arab dari kata 'rumah' adalah ...",
+    "options": [
+      "مَسْجِدٌ (masjidun)",
+      "بَيْتٌ (baitun)",
+      "مَدْرَسَةٌ (madrasatun)",
+      "فَصْلٌ (fashlun)"
+    ],
+    "answer": 1,
+    "explanation": "Baitun (بَيْتٌ) berarti rumah tempat tinggal keluarga.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Kata شَارِعٌ (syaari') memiliki arti ...",
+    "options": [
+      "kantor pos",
+      "lapangan",
+      "jalan raya",
+      "pasar tradisional"
+    ],
+    "answer": 2,
+    "explanation": "Syaari' (شَارِعٌ) artinya jalan raya atau gang perumahan.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Bahasa Arab dari kata 'nomor' atau 'angka' adalah ...",
+    "options": [
+      "اِسْمٌ (ismun)",
+      "بَابٌ (baabun)",
+      "كِتَابٌ (kitaabun)",
+      "رَقْمٌ (roqmun)"
+    ],
+    "answer": 3,
+    "explanation": "Roqmun (رَقْمٌ) bermakna nomor urut, nomor rumah, atau nomor telepon.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Angka Arab '٣' dibaca dan bernilai ...",
+    "options": [
+      "ثَلَاثَةٌ (tiga)",
+      "وَاحِدٌ (satu)",
+      "اِثْنَانِ (dua)",
+      "أَرْبَعَةٌ (empat)"
+    ],
+    "answer": 0,
+    "explanation": "Lambang angka '٣' adalah angka 3 (tsalaatsah).",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Bahasa Arab untuk bilangan 'lima' (5) adalah ...",
+    "options": [
+      "سِتَّةٌ (sittah)",
+      "خَمْسَةٌ (khamsah)",
+      "سَبْعَةٌ (sab'ah)",
+      "ثَمَانِيَةٌ (tsamaaniyah)"
+    ],
+    "answer": 1,
+    "explanation": "Khamsah (خَمْسَةٌ) adalah bilangan 5.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Angka Arab '٧' menunjukkan bilangan ...",
+    "options": [
+      "lima (٥)",
+      "enam (٦)",
+      "tujuh (٧)",
+      "delapan (٨)"
+    ],
+    "answer": 2,
+    "explanation": "Angka 7 dalam aksara Arab ditulis dengan simbol '٧'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Kata tanya yang tepat untuk menanyakan tempat tinggal 'Di mana rumahmu?' adalah ...",
+    "options": [
+      "مَا اسْمُكَ؟",
+      "كَيْفَ حَالُكَ؟",
+      "مَنْ هَذَا؟",
+      "أَيْنَ بَيْتُكَ؟"
+    ],
+    "answer": 3,
+    "explanation": "Aina (أَيْنَ) adalah kata tanya untuk menanyakan tempat atau lokasi.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Jawaban yang tepat untuk pertanyaan 'أَيْنَ مَدْرَسَتُكَ؟' adalah ...",
+    "options": [
+      "مَدْرَسَتِي فِي الشَّارِعِ",
+      "اِسْمِي أَحْمَدُ",
+      "أَنَا تِلْمِيذٌ",
+      "عُمْرِي عَشْرُ سِنِينَ"
+    ],
+    "answer": 0,
+    "explanation": "Madrasatii fiis syaari' artinya sekolahku berada di jalan...",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Bahasa Arab dari kata 'kota' adalah ...",
+    "options": [
+      "قَرْيَةٌ (qaryah)",
+      "مَدِينَةٌ (madiinah)",
+      "بَحْرٌ (bahrun)",
+      "جَبَلٌ (jabalun)"
+    ],
+    "answer": 1,
+    "explanation": "Madiinah (مَدِينَةٌ) bermakna kota.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Bahasa Arab dari kata 'desa' adalah ...",
+    "options": [
+      "مَدِينَةٌ (madiinah)",
+      "سُوقٌ (suuqun)",
+      "قَرْيَةٌ (qaryah)",
+      "شَارِعٌ (syaari')"
+    ],
+    "answer": 2,
+    "explanation": "Qaryah (قَرْيَةٌ) artinya perkampungan atau pedesaan.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Kata هَاتِفٌ (haatifun) memiliki arti ...",
+    "options": [
+      "televisi",
+      "komputer",
+      "radio",
+      "telepon"
+    ],
+    "answer": 3,
+    "explanation": "Haatif (هَاتِفٌ) artinya telepon.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Lafal bilangan Arab 'عَشَرَةٌ' ('asyarah) melambangkan angka ...",
+    "options": [
+      "sepuluh (١٠)",
+      "delapan (٨)",
+      "sembilan (٩)",
+      "sebelas (١١)"
+    ],
+    "answer": 0,
+    "explanation": "'Asyarah (عَشَرَةٌ) bernilai 10.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Jika rumahmu di Jalan Sudirman nomor 4, maka diucapkan ...",
+    "options": [
+      "فِي شَارِعِ سُودِيرْمَان رَقْمُ ١",
+      "فِي شَارِعِ سُودِيرْمَان رَقْمُ ٤",
+      "فِي شَارِعِ سُودِيرْمَان رَقْمُ ٦",
+      "فِي شَارِعِ سُودِيرْمَان رَقْمُ ٩"
+    ],
+    "answer": 1,
+    "explanation": "Roqmu 4 ditulis رَقْمُ ٤ (arba'ah).",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Urutan bilangan Arab dari 1 sampai 4 yang benar adalah ...",
+    "options": [
+      "أَرْبَعَةٌ، ثَلَاثَةٌ، اِثْنَانِ، وَاحِدٌ",
+      "خَمْسَةٌ، سِتَّةٌ، سَبْعَةٌ، ثَمَانِيَةٌ",
+      "وَاحِدٌ، اِثْنَانِ، ثَلَاثَةٌ، أَرْبَعَةٌ",
+      "وَاحِدٌ، ثَلَاثَةٌ، خَمْسَةٌ، سَبْعَةٌ"
+    ],
+    "answer": 2,
+    "explanation": "Urutan hitungan dasar: wahid (1), itsnan (2), tsalatsah (3), arba'ah (4).",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Perhatikan kalimat: 'بَيْتِي قَرِيبٌ مِنَ الْمَدْرَسَةِ'. Arti kata قَرِيبٌ adalah ...",
+    "options": [
+      "sangat jauh dari sekolah",
+      "tepat di depan pasar",
+      "berada di tengah sawah",
+      "dekat dengan sekolah"
+    ],
+    "answer": 3,
+    "explanation": "Qariibun min (قَرِيبٌ مِنْ) bermakna dekat dari suatu tempat.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Lawan kata dari قَرِيبٌ (dekat) dalam bahasa Arab adalah ...",
+    "options": [
+      "بَعِيدٌ (jauh)",
+      "كَبِيرٌ (besar)",
+      "صَغِيرٌ (kecil)",
+      "جَمِيلٌ (indah)"
+    ],
+    "answer": 0,
+    "explanation": "Ba'iidun (بَعِيدٌ) bermakna jauh.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Perhatikan kalimat: 'هَذَا رَقْمُ هَاتِفِي: ٠٨١٢٣٤'. Kata رَقْمُ هَاتِفِي artinya ...",
+    "options": [
+      "nomor rumah paman",
+      "nomor telepon saya",
+      "nomor kartu pelajar",
+      "nomor induk siswa"
+    ],
+    "answer": 1,
+    "explanation": "Roqmu haatifii (رَقْمُ هَاتِفِي) bermakna nomor telepon saya.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Manakah penulisan angka 'delapan' dalam aksara Arab yang tepat?",
+    "options": [
+      "٧ (sab'ah)",
+      "٦ (sittah)",
+      "٨ (tsamaaniyah)",
+      "٩ (tis'ah)"
+    ],
+    "answer": 2,
+    "explanation": "Angka delapan ditulis dengan lambang terbuka ke bawah '٨'.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Jika Fatimah ditanya 'أَيْنَ بَيْتُكِ؟', jawaban yang benar dengan dhamir perempuan adalah ...",
+    "options": [
+      "بَيْتُهُ فِي شَارِعِ أَحْمَد يَانِي",
+      "بَيْتُهَا فِي شَارِعِ أَحْمَد يَانِي",
+      "بَيْتُكَ فِي شَارِعِ أَحْمَد يَانِي",
+      "بَيْتِي فِي شَارِعِ أَحْمَد يَانِي"
+    ],
+    "answer": 3,
+    "explanation": "Saat menjawab untuk diri sendiri, laki-laki maupun perempuan memakai 'baitii' (بَيْتِي).",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Arti dari ungkapan 'مَا عُنْوَانُ مَدْرَسَتِكَ؟' adalah ...",
+    "options": [
+      "Di mana alamat sekolahmu?",
+      "Kapan kamu berangkat ke sekolah?",
+      "Siapa nama kepala sekolahmu?",
+      "Berapa banyak siswa di sekolahmu?"
+    ],
+    "answer": 0,
+    "explanation": "Maa 'unwaanu madrasatika artinya apa/di mana alamat sekolahmu.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Perhatikan dialog: 'هَلْ بَيْتُكَ بَعِيدٌ؟ - لَا، بَلْ بَيْتِي ...'. Kata yang tepat melengkapi adalah ...",
+    "options": [
+      "كَبِيرٌ (besar)",
+      "قَرِيبٌ (dekat)",
+      "جَدِيدٌ (baru)",
+      "وَاسِعٌ (luas)"
+    ],
+    "answer": 1,
+    "explanation": "Lawan dari ba'iid (jauh) adalah qariib (dekat).",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Bilangan genap antara 1 sampai 10 dalam bahasa Arab adalah ...",
+    "options": [
+      "وَاحِدٌ، ثَلَاثَةٌ، خَمْسَةٌ، سَبْعَةٌ",
+      "ثَلَاثَةٌ، سِتَّةٌ، تِسْعَةٌ، عَشَرَةٌ",
+      "اِثْنَانِ، أَرْبَعَةٌ، سِتَّةٌ، ثَمَانِيَةٌ",
+      "أَرْبَعَةٌ، خَمْسَةٌ، سِتَّةٌ، سَبْعَةٌ"
+    ],
+    "answer": 2,
+    "explanation": "Bilangan genap: 2 (itsnan), 4 (arba'ah), 6 (sittah), 8 (tsamaniyah).",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Susunan kata yang benar dari kata acak: [فِي - بَيْتِي - شَارِعِ - مَاوَار] adalah ...",
+    "options": [
+      "شَارِعِ مَاوَار فِي بَيْتِي",
+      "فِي بَيْتِي مَاوَار شَارِعِ",
+      "مَاوَار شَارِعِ فِي بَيْتِي",
+      "بَيْتِي فِي شَارِعِ مَاوَار"
+    ],
+    "answer": 3,
+    "explanation": "Susunan gramatikal yang tepat: Baitii fii syaari' mawaar (Rumahku di Jl Mawar).",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Lafal Arab untuk angka sembilan (٩) adalah ...",
+    "options": [
+      "تِسْعَةٌ (tis'ah)",
+      "سَبْعَةٌ (sab'ah)",
+      "سِتَّةٌ (sittah)",
+      "ثَمَانِيَةٌ (tsamaaniyah)"
+    ],
+    "answer": 0,
+    "explanation": "Angka 9 dibaca tis'ah (تِسْعَةٌ).",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Perhatikan kalimat: 'أَسْكُنُ فِي الْقَرْيَةِ'. Makna kata أَسْكُنُ adalah ...",
+    "options": [
+      "saya pergi bermain",
+      "saya bertempat tinggal",
+      "saya sedang belajar",
+      "saya membeli makanan"
+    ],
+    "answer": 1,
+    "explanation": "Askanu (أَسْكُنُ) bermakna saya tinggal atau bermukim.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Apa arti ungkapan 'أَهْلًا وَسَهْلًا' yang sering digunakan saat menerima tamu di rumah?",
+    "options": [
+      "sampai jumpa lagi",
+      "terima kasih banyak",
+      "selamat datang",
+      "semoga selamat"
+    ],
+    "answer": 2,
+    "explanation": "Ahlan wa sahlan adalah sapaan menyambut kedatangan tamu.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Jawaban santun untuk sapaan 'أَهْلًا وَسَهْلًا' kepada teman laki-laki adalah ...",
+    "options": [
+      "مَعَ السَّلَامَةِ",
+      "شُكْرًا جَزِيلًا",
+      "صَبَاحُ الْخَيْرِ",
+      "أَهْلًا بِكَ"
+    ],
+    "answer": 3,
+    "explanation": "Ahlan bika (أَهْلًا بِكَ) diucapkan sebagai balasan selamat datang.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Analisis struktur: Manakah kalimat penunjukan alamat rumah yang paling lengkap dan kaidahnya tepat?",
+    "options": [
+      "بَيْتِي فِي شَارِعِ بَاتُورَقْمُ ٧ مَدِينَةُ مَالَانْج",
+      "بَيْتِي إِلَى مَدِينَةِ مَالَانْج شَارِعٌ رَقْمٌ",
+      "فِي شَارِعِ رَقْمُ بَيْتِي مَالَانْج مَدِينَةٌ",
+      "مَدِينَةُ مَالَانْج فِي بَيْتِي شَارِعِ رَقْمُ ٧"
+    ],
+    "answer": 0,
+    "explanation": "Kalimat runut menyebutkan kepemilikan, nama jalan, nomor, lalu kota.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Mengapa kata tanya 'مَا' digunakan pada 'مَا عُنْوَانُكَ؟', bukan kata tanya 'أَيْنَ'?",
+    "options": [
+      "karena alamat adalah benda hidup berakal",
+      "karena menanyakan frasa nomina alamat secara utuh",
+      "karena 'aina' hanya boleh untuk nama orang",
+      "karena kata 'unwan' tidak memiliki arti tempat"
+    ],
+    "answer": 1,
+    "explanation": "'Maa' menanyakan identitas (apa alamatmu), sedangkan 'Aina' menanyakan letak fisik.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Jika nomor telepon paman adalah ٠٨٥٧, bagaimana cara membaca digit tersebut dalam bahasa Arab?",
+    "options": [
+      "وَاحِدٌ، سَبْعَةٌ، سِتَّةٌ، خَمْسَةٌ",
+      "ثَلَاثَةٌ، ثَمَانِيَةٌ، أَرْبَعَةٌ، اثْنَانِ",
+      "صِفْرٌ، ثَمَانِيَةٌ، خَمْسَةٌ، سَبْعَةٌ",
+      "تِسْعَةٌ، خَمْسَةٌ، سِتَّةٌ، ثَلَاثَةٌ"
+    ],
+    "answer": 2,
+    "explanation": "Digit per digit: Shifr (0), tsamaniyah (8), khamsah (5), sab'ah (7).",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Nilai adab Islami: Saat seorang muslim ditanya alamat rumahnya oleh teman yang ingin bersilaturahmi, sikap terbaik adalah ...",
+    "options": [
+      "merahasiakan alamat karena curiga",
+      "memberikan nomor rumah palsu",
+      "meminta uang sebelum menjawab",
+      "memberitahukan dengan jelas dan ramah"
+    ],
+    "answer": 3,
+    "explanation": "Memudahkan silaturahmi adalah anjuran mulia dalam persaudaraan Islam.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Perhatikan dialog: 'أَيْنَ مَدْرَسَتُكَ؟ - مَدْرَسَتِي أَمَامَ الْمَسْجِدِ'. Makna kata أَمَامَ adalah ...",
+    "options": [
+      "di depan masjid",
+      "di belakang masjid",
+      "di dalam masjid",
+      "di atas loteng masjid"
+    ],
+    "answer": 0,
+    "explanation": "Amaama (أَمَامَ) adalah zhorof makan yang bermakna di depan.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Bagaimana cara menulis angka Arab untuk tahun pelajaran '2024' yang benar?",
+    "options": [
+      "٤٢٠٢",
+      "٢٠٢٤",
+      "١٤٤٥",
+      "٢٠٢٣"
+    ],
+    "answer": 1,
+    "explanation": "Aksara angka Arab ditulis dari kiri ke kanan: 2 (٢), 0 (٠), 2 (٢), 4 (٤).",
+    "difficulty": 3,
+    "timeLimit": 25
+  }
+]

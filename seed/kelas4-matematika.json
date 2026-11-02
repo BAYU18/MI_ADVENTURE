@@ -1,0 +1,152 @@
+{
+  "version": 1,
+  "class": "Kelas 4 SD",
+  "subject": "Matematika",
+  "questions": [
+    {
+      "question": "12 × 5 = ...",
+      "options": [
+        "50",
+        "60",
+        "65",
+        "70"
+      ],
+      "answer": 1,
+      "explanation": "12 × 5 = 60.",
+      "difficulty": 1
+    },
+    {
+      "question": "144 ÷ 12 = ...",
+      "options": [
+        "10",
+        "11",
+        "12",
+        "14"
+      ],
+      "answer": 2,
+      "explanation": "12 × 12 = 144, jadi 144 ÷ 12 = 12.",
+      "difficulty": 1
+    },
+    {
+      "question": "345 + 278 = ...",
+      "options": [
+        "613",
+        "633",
+        "723",
+        "623"
+      ],
+      "answer": 3,
+      "explanation": "345 + 278 = 623.",
+      "difficulty": 1
+    },
+    {
+      "question": "1.000 − 457 = ...",
+      "options": [
+        "543",
+        "553",
+        "557",
+        "643"
+      ],
+      "answer": 0,
+      "explanation": "1.000 − 457 = 543.",
+      "difficulty": 1
+    },
+    {
+      "question": "KPK dari 4 dan 6 adalah ...",
+      "options": [
+        "10",
+        "12",
+        "18",
+        "24"
+      ],
+      "answer": 1,
+      "explanation": "Kelipatan 4: 4, 8, 12. Kelipatan 6: 6, 12. KPK = 12.",
+      "difficulty": 2
+    },
+    {
+      "question": "FPB dari 12 dan 18 adalah ...",
+      "options": [
+        "3",
+        "4",
+        "6",
+        "9"
+      ],
+      "answer": 2,
+      "explanation": "Faktor persekutuan terbesar 12 dan 18 adalah 6.",
+      "difficulty": 2
+    },
+    {
+      "question": "Keliling persegi dengan panjang sisi 9 cm adalah ...",
+      "options": [
+        "18 cm",
+        "27 cm",
+        "36 cm",
+        "81 cm"
+      ],
+      "answer": 2,
+      "explanation": "Keliling = 4 × sisi = 4 × 9 = 36 cm.",
+      "difficulty": 2
+    },
+    {
+      "question": "Luas persegi panjang dengan panjang 8 cm dan lebar 5 cm adalah ...",
+      "options": [
+        "13 cm²",
+        "26 cm²",
+        "40 cm²",
+        "45 cm²"
+      ],
+      "answer": 2,
+      "explanation": "Luas = p × l = 8 × 5 = 40 cm².",
+      "difficulty": 2
+    },
+    {
+      "question": "3/4 + 1/4 = ...",
+      "options": [
+        "1/2",
+        "1",
+        "4/8",
+        "3/8"
+      ],
+      "answer": 1,
+      "explanation": "Penyebut sama: (3 + 1)/4 = 4/4 = 1.",
+      "difficulty": 2
+    },
+    {
+      "question": "Bilangan Romawi XIV bernilai ...",
+      "options": [
+        "4",
+        "6",
+        "14",
+        "16"
+      ],
+      "answer": 2,
+      "explanation": "X = 10, IV = 4, sehingga XIV = 14.",
+      "difficulty": 1
+    },
+    {
+      "question": "Pembulatan 4.763 ke ratusan terdekat adalah ...",
+      "options": [
+        "4.700",
+        "4.800",
+        "4.760",
+        "5.000"
+      ],
+      "answer": 1,
+      "explanation": "Angka puluhan 6 (≥ 5), maka ratusan naik: 4.800.",
+      "difficulty": 3,
+      "timeLimit": 25
+    },
+    {
+      "question": "Sudut siku-siku besarnya ...",
+      "options": [
+        "45°",
+        "90°",
+        "120°",
+        "180°"
+      ],
+      "answer": 1,
+      "explanation": "Sudut siku-siku sama dengan 90°.",
+      "difficulty": 1
+    }
+  ]
+}

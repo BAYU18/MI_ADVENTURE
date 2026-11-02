@@ -1,0 +1,392 @@
+[
+  {
+    "question": "Pengertian mandi wajib (mandi junub) menurut istilah syariat adalah ...",
+    "options": [
+      "meratakan air suci ke seluruh tubuh",
+      "menyiram kepala dengan air bunga",
+      "mengusap sebagian badan dengan handuk",
+      "mencuci tangan dan kaki di kamar mandi"
+    ],
+    "answer": 0,
+    "explanation": "Mandi wajib adalah membasahi seluruh permukaan kulit dan rambut dengan air suci.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sebab-sebab yang mewajibkan seseorang melakukan mandi wajib adalah ...",
+    "options": [
+      "buang air kecil dan buang air besar",
+      "mimpi basah, selesai haid, atau nifas",
+      "tertidur lelap dalam posisi berbaring",
+      "mengeluarkan darah mimisan dari hidung"
+    ],
+    "answer": 1,
+    "explanation": "Hadas besar (ihtilam, jima', haid, nifas, wiladah) mewajibkan mandi besar.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Rukun mandi wajib yang pertama kali harus dilakukan adalah ...",
+    "options": [
+      "membasuh kedua telapak kaki",
+      "menggosok badan dengan sabun wangi",
+      "niat di dalam hati",
+      "membaca doa masuk kamar mandi"
+    ],
+    "answer": 2,
+    "explanation": "Rukun mandi wajib ada dua: niat dan meratakan air ke seluruh badan.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Rukun mandi wajib yang kedua adalah ...",
+    "options": [
+      "berkumur-kumur sebanyak tiga kali",
+      "membasuh telinga kanan dan kiri",
+      "berwudhu sebelum menyiram badan",
+      "meratakan air ke seluruh rambut dan kulit"
+    ],
+    "answer": 3,
+    "explanation": "Air wajib mengenai seluruh permukaan rambut hingga ke kulit kepala.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Jenis air yang sah digunakan untuk mandi wajib adalah ...",
+    "options": [
+      "air muthlaq (suci dan menyucikan)",
+      "air kelapa muda yang segar",
+      "air teh manis yang hangat",
+      "air musta'mal yang keruh"
+    ],
+    "answer": 0,
+    "explanation": "Bersuci wajib menggunakan air suci menyucikan (air sumur, hujan, sungai).",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Hukum melafalkan niat mandi wajib secara lisan adalah ...",
+    "options": [
+      "wajib fardhu bila ditinggalkan batal",
+      "sunnah untuk memantapkan hati",
+      "haram dan berdosa besar",
+      "makruh yang dibenci"
+    ],
+    "answer": 1,
+    "explanation": "Niat wajib di hati saat air pertama menyentuh badan, melafalkan lisan adalah sunnah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Berkumur-kumur dan menghirup air ke hidung saat mandi wajib berstatus ...",
+    "options": [
+      "rukun wajib mandi",
+      "syarat sah wudhu",
+      "sunnah mandi",
+      "makruh mandi"
+    ],
+    "answer": 2,
+    "explanation": "Berkumur dan istinsyaq termasuk amalan sunnah penyempurna mandi wajib.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Mendahulukan anggota tubuh bagian kanan sebelum bagian kiri hukumnya ...",
+    "options": [
+      "wajib",
+      "makruh",
+      "haram",
+      "sunnah"
+    ],
+    "answer": 3,
+    "explanation": "Mendahulukan anggota kanan adalah sunnah Rasulullah saw dalam bersuci.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sebelum mulai menyiramkan air ke seluruh badan, disunnahkan untuk ...",
+    "options": [
+      "berwudhu seperti wudhu salat",
+      "memotong seluruh kuku jari",
+      "mencukur rambut kepala botak",
+      "berpuasa sunnah seharian"
+    ],
+    "answer": 0,
+    "explanation": "Nabi saw senantiasa berwudhu terlebih dahulu sebelum membasuh badan.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Menghilangkan najis yang menempel di badan sebelum mandi wajib dilakukan agar ...",
+    "options": [
+      "sabun mandi tidak cepat habis",
+      "air mandi suci menyentuh kulit langsung",
+      "waktu mandi menjadi lebih lama",
+      "kulit menjadi wangi semerbak"
+    ],
+    "answer": 1,
+    "explanation": "Kotoran atau najis di badan harus dibersihkan dulu agar air merata sempurna.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Jika terdapat cat kuku atau kutek yang menghalangi air sampai ke kuku, maka ...",
+    "options": [
+      "mandi tetap sah tanpa dihilangkan",
+      "cukup diusap dengan kain basah",
+      "wajib dihilangkan terlebih dahulu",
+      "mandi diganti dengan tayamum"
+    ],
+    "answer": 2,
+    "explanation": "Benda yang menghalangi sampainya air ke kulit atau kuku membatalkan mandi.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Mandi sunnah yang sangat dianjurkan seminggu sekali bagi umat Islam adalah ...",
+    "options": [
+      "mandi tengah malam buta",
+      "mandi air es di pagi hari",
+      "mandi setelah makan kenyang",
+      "mandi sunnah hari Jumat"
+    ],
+    "answer": 3,
+    "explanation": "Mandi sebelum menghadiri salat Jumat adalah sunnah muakkadah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Urutan tata cara mandi wajib yang paling sempurna sesuai sunnah Nabi adalah ...",
+    "options": [
+      "cuci tangan, wudhu, lalu siram badan",
+      "siram badan, pakai sabun, baru niat",
+      "wudhu, sikat gigi, cuci pakaian",
+      "niat, pakai sampo, siram kaki saja"
+    ],
+    "answer": 0,
+    "explanation": "Urutan sunnah: basuh tangan, bersihkan kemaluan, wudhu, lalu guyur seluruh badan.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Saat menyiram kepala pada mandi wajib, hal yang harus diperhatikan adalah ...",
+    "options": [
+      "rambut harus diikat sangat kencang",
+      "air meresap hingga pangkal kulit kepala",
+      "tidak boleh memakai air dingin",
+      "kepala tidak boleh tersentuh tangan"
+    ],
+    "answer": 1,
+    "explanation": "Pangkal rambut dan kulit kepala wajib terbasahi air secara merata.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Perbedaan mandi wajib dengan mandi biasa sehari-hari terletak pada ...",
+    "options": [
+      "harga sabun dan sampo yang dipakai",
+      "banyaknya gayung air yang dihabiskan",
+      "niat ibadah dan kewajiban meratakan air",
+      "suhu air dingin atau hangat"
+    ],
+    "answer": 2,
+    "explanation": "Mandi wajib adalah ibadah terikat rukun niat dan cakupan seluruh badan.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Jika seseorang lupa niat saat mandi wajib, maka konsekuensi hukumnya adalah ...",
+    "options": [
+      "mandinya tetap sah karena badan basah",
+      "cukup membaca istighfar tiga kali",
+      "menggantinya dengan salat dua rakaat",
+      "mandinya tidak sah dan hadas belum hilang"
+    ],
+    "answer": 3,
+    "explanation": "Niat adalah rukun penentu keabsahan ibadah mandi wajib.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Menghemat penggunaan air saat mandi wajib merupakan cermin akhlak ...",
+    "options": [
+      "meneladani sunnah dan anti boros",
+      "kikir terhadap diri sendiri",
+      "enggan bersuci dengan bersih",
+      "takut kehabisan air sumur"
+    ],
+    "answer": 0,
+    "explanation": "Rasulullah saw mandi dengan 1 sha' (sekitar 3 liter air) tanpa berlebih-lebihan.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Jika seseorang sedang sakit parah dan dilarang dokter terkena air, maka mandi wajib diganti dengan ...",
+    "options": [
+      "berwudhu menggunakan minyak wangi",
+      "tayamum menggunakan debu suci",
+      "membayar denda puasa tiga hari",
+      "mengusap badan dengan daun kering"
+    ],
+    "answer": 1,
+    "explanation": "Tayamum adalah solusi syariat saat ada uzur sakit atau ketiadaan air.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Menyela-nyela jari tangan, jari kaki, dan lipatan tubuh saat mandi wajib hukumnya ...",
+    "options": [
+      "makruh karena membuang waktu",
+      "haram menyentuh lipatan tubuh",
+      "sunnah penyempurna basuhan",
+      "membatalkan wudhu sebelumnya"
+    ],
+    "answer": 2,
+    "explanation": "Menyela lipatan memastikan air benar-benar membasahi lekukan kulit.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sikap seorang muslim saat berada di dalam kamar mandi menurut adab Islam adalah ...",
+    "options": [
+      "bernyanyi dengan suara yang lantang",
+      "membaca ayat Al-Qur'an keras-keras",
+      "menghadap ke arah kiblat saat buang air",
+      "tidak berbicara dan tidak berlama-lama"
+    ],
+    "answer": 3,
+    "explanation": "Adab kamar mandi: menjaga kesopanan, hening, dan menutup aurat.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Doa sebelum masuk kamar mandi bertujuan untuk memohon perlindungan dari ...",
+    "options": [
+      "gangguan setan laki-laki dan perempuan",
+      "bahaya tersengat aliran listrik",
+      "dinginnya air sumur di pagi hari",
+      "kehilangan sabun dan peralatan mandi"
+    ],
+    "answer": 0,
+    "explanation": "Lafaz doa memohon perlindungan dari 'khubutsi wal khabaits' (setan jahat).",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kewajiban mandi bagi wanita yang selesai masa nifas berlaku setelah ...",
+    "options": [
+      "bayi berusia satu tahun penuh",
+      "darah persalinan berhenti total",
+      "melahirkan tanpa menunggu darah henti",
+      "anak sudah mulai bisa berbicara"
+    ],
+    "answer": 1,
+    "explanation": "Nifas adalah darah pasca persalinan; mandi wajib saat darah telah tuntas.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Apakah sah mandi wajib seseorang jika masih ada bagian tumit yang kering?",
+    "options": [
+      "tetap sah asalkan kepala sudah basah",
+      "sah jika lupa memeriksa tumitnya",
+      "tidak sah karena belum seluruh tubuh terkena air",
+      "sah dengan syarat membaca tahmid"
+    ],
+    "answer": 2,
+    "explanation": "Rukun meratakan air mewajibkan tidak ada satu milimeter pun kulit yang kering.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Hikmah disyariatkannya mandi wajib bagi kesehatan fisik manusia adalah ...",
+    "options": [
+      "membuat tubuh menjadi kebal penyakit",
+      "menambah berat badan secara drastis",
+      "menggugurkan kewajiban berolahraga",
+      "menyegarkan tubuh dan melancarkan darah"
+    ],
+    "answer": 3,
+    "explanation": "Guyuran air membersihkan kotoran mikroba serta menyegarkan saraf tubuh.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Analisis kondisi: Seseorang salat subuh, lalu teringat bahwa ia belum mandi wajib setelah ihtilam. Tindakan yang wajib ia lakukan adalah ...",
+    "options": [
+      "segera mandi wajib lalu mengulang salatnya",
+      "cukup berwudhu lalu melanjutkan aktivitas",
+      "salatnya sah karena ia dalam kondisi lupa",
+      "membayar fidyah sedekah kepada anak yatim"
+    ],
+    "answer": 0,
+    "explanation": "Salat tanpa suci dari hadas besar hukumnya batal dan wajib diulang setelah mandi.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Bagaimana cara seseorang memastikan air telah membasahi bagian tubuh yang berlipat-lipat?",
+    "options": [
+      "merendam tubuh di kolam renang berjam-jam",
+      "menggosok lipatan kulit dengan jari secara cermat",
+      "menyemprotkan air dengan tekanan sangat tinggi",
+      "menggunakan sabun cair berbuih sangat tebal"
+    ],
+    "answer": 1,
+    "explanation": "Kecermatan meratakan air di area pusar, ketiak, dan lipatan paha adalah tuntunan.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Pernyataan kritis: Mengapa Islam sangat menekankan detail kebersihan dalam mandi wajib?",
+    "options": [
+      "agar umat Islam menghabiskan waktu di kamar mandi",
+      "hanya sebagai formalitas adat masyarakat timur tengah",
+      "karena kebersihan lahiriah pintu kesucian spiritual",
+      "untuk menunjukkan perbedaan status orang kaya dan miskin"
+    ],
+    "answer": 2,
+    "explanation": "Thaharah adalah jembatan sakral menyucikan raga menyambut kehadiran Ilahi.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sikap bijak seorang pelajar saat fasilitas air di rumahnya sedang padam dan ia berhadas besar adalah ...",
+    "options": [
+      "meninggalkan salat fardhu hingga air kembali mengalir",
+      "salat tanpa bersuci karena merasa terpaksa",
+      "memarahi orang tua karena pompa air rusak",
+      "mencari sumber air bersih atau bertayamum jika uzur"
+    ],
+    "answer": 3,
+    "explanation": "Syariat memberikan alternatif tayamum bila air benar-benar tidak ditemukan.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kaitan antara mandi wajib dengan konsep 'Kurikulum Berbasis Cinta' adalah ...",
+    "options": [
+      "mencintai tubuh ciptaan Allah dengan merawatnya suci",
+      "memaksa diri melakukan ritual yang sangat berat",
+      "mengukur cinta dari banyaknya air yang dialirkan",
+      "menghukum fisik agar terbebas dari kesalahan dosa"
+    ],
+    "answer": 0,
+    "explanation": "Menjaga kesucian fisik adalah ekspresi cinta dan rasa syukur kepada Sang Khalik.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Refleksi fiqhiyyah: Mengapa perempuan yang memiliki rambut tebal dikepang tidak wajib membuka kepangannya saat mandi junub?",
+    "options": [
+      "karena wanita tidak diwajibkan membasahi kepalanya",
+      "keringanan syariat asalkan air sampai ke pangkal kulit",
+      "agar rambut wanita tidak rusak terkena air biasa",
+      "karena kepang rambut sudah dianggap sebagai penutup aurat"
+    ],
+    "answer": 1,
+    "explanation": "Hadis Ummu Salamah: cukup menyiram kepala 3 kali hingga pangkal tanpa buka kepangan.",
+    "difficulty": 3,
+    "timeLimit": 20
+  }
+]

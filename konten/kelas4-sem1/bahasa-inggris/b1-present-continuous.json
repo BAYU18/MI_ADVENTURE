@@ -1,0 +1,457 @@
+[
+  {
+    "question": "What are you doing? I am ... a story book.",
+    "options": [
+      "reading",
+      "eating",
+      "sleeping",
+      "running"
+    ],
+    "answer": 0,
+    "explanation": "Membaca buku cerita menggunakan kata kerja 'reading'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Look! Budi is ... fried rice in the dining room.",
+    "options": [
+      "drinking",
+      "eating",
+      "washing",
+      "jumping"
+    ],
+    "answer": 1,
+    "explanation": "Makan nasi goreng dinyatakan dengan kata 'eating'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Siti and Nina are in the kitchen. They are ... orange juice.",
+    "options": [
+      "cooking",
+      "reading",
+      "drinking",
+      "sleeping"
+    ],
+    "answer": 2,
+    "explanation": "Meminum jus jeruk dinyatakan dengan kata kerja 'drinking'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Complete the sentence: 'I ... studying English right now.'",
+    "options": [
+      "is",
+      "are",
+      "be",
+      "am"
+    ],
+    "answer": 3,
+    "explanation": "Subjek 'I' selalu berpasangan dengan to be 'am'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Complete the sentence: 'He ... playing football in the yard.'",
+    "options": [
+      "is",
+      "am",
+      "are",
+      "were"
+    ],
+    "answer": 0,
+    "explanation": "Subjek tunggal laki-laki 'He' berpasangan dengan to be 'is'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Complete the sentence: 'They ... swimming in the pool.'",
+    "options": [
+      "is",
+      "are",
+      "am",
+      "was"
+    ],
+    "answer": 1,
+    "explanation": "Subjek jamak 'They' berpasangan dengan to be 'are'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "What is the meaning of 'writing a letter'?",
+    "options": [
+      "membaca buku cerita",
+      "menggambar pemandangan",
+      "menulis sepucuk surat",
+      "mendengarkan musik"
+    ],
+    "answer": 2,
+    "explanation": "'Writing a letter' berarti menulis surat.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "What is the meaning of 'sleeping on the bed'?",
+    "options": [
+      "duduk di atas kursi",
+      "makan di meja makan",
+      "berdiri di dekat pintu",
+      "tidur di atas kasur"
+    ],
+    "answer": 3,
+    "explanation": "'Sleeping' berarti tidur, 'bed' adalah tempat tidur/kasur.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Choose the correct verb: 'Mother is ... delicious soup for dinner.'",
+    "options": [
+      "cooking",
+      "washing",
+      "flying",
+      "riding"
+    ],
+    "answer": 0,
+    "explanation": "Memasak sup lezat menggunakan kata kerja 'cooking'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Choose the correct verb: 'The boys are ... bicycle in the park.'",
+    "options": [
+      "driving",
+      "riding",
+      "flying",
+      "reading"
+    ],
+    "answer": 1,
+    "explanation": "Mengendarai sepeda menggunakan kata kerja 'riding'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Ahmad: 'What is your sister doing?' - Fatimah: 'She ... drawing a cat.'",
+    "options": [
+      "am",
+      "are",
+      "is",
+      "do"
+    ],
+    "answer": 2,
+    "explanation": "Subjek 'She' berpasangan dengan to be 'is'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Complete the sentence: 'We ... singing a national song together.'",
+    "options": [
+      "is",
+      "am",
+      "be",
+      "are"
+    ],
+    "answer": 3,
+    "explanation": "Subjek jamak 'We' berpasangan dengan to be 'are'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "What are the students doing in the library? They are ... quietly.",
+    "options": [
+      "reading books",
+      "playing soccer",
+      "eating snacks",
+      "shouting loud"
+    ],
+    "answer": 0,
+    "explanation": "Di perpustakaan, murid membaca buku dengan tenang.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "What is the negative form of 'She is sleeping'?",
+    "options": [
+      "She are not sleeping",
+      "She is not sleeping",
+      "She am not sleeping",
+      "She not is sleeping"
+    ],
+    "answer": 1,
+    "explanation": "Bentuk negatif: tambahkan 'not' setelah to be 'is'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Change into interrogative (question): 'You are studying math.'",
+    "options": [
+      "Is you studying math?",
+      "Am you studying math?",
+      "Are you studying math?",
+      "Do you studying math?"
+    ],
+    "answer": 2,
+    "explanation": "Kalimat tanya continuous: letakkan to be 'Are' di awal kalimat.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Look at the picture: Doni is holding a pencil and paper. What is he doing?",
+    "options": [
+      "He is washing his shoes.",
+      "He is cooking noodles.",
+      "He is driving a big car.",
+      "He is drawing a picture."
+    ],
+    "answer": 3,
+    "explanation": "Memegang pensil dan kertas menandakan aktivitas menggambar.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Rina: 'Is your father watching television?' - Edo: 'Yes, ...'",
+    "options": [
+      "he is",
+      "she is",
+      "they are",
+      "we are"
+    ],
+    "answer": 0,
+    "explanation": "Ayah adalah 'he', jawaban singkat positif: 'Yes, he is.'",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Lani: 'Are you listening to the radio?' - Dayu: 'No, ...'",
+    "options": [
+      "I is not",
+      "I am not",
+      "he is not",
+      "they are not"
+    ],
+    "answer": 1,
+    "explanation": "Pertanyaan 'Are you' dijawab oleh orang pertama: 'No, I am not.'",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Complete the verb: 'swim' becomes ... in present continuous tense.",
+    "options": [
+      "swiming",
+      "swimmed",
+      "swimming",
+      "to swim"
+    ],
+    "answer": 2,
+    "explanation": "Aturan ejaan: konsonan rangkap pada kata berakhiran vokal-konsonan pendek.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Complete the verb: 'run' becomes ... in present continuous tense.",
+    "options": [
+      "runing",
+      "runed",
+      "to run",
+      "running"
+    ],
+    "answer": 3,
+    "explanation": "Kata 'run' menjadi 'running' dengan menggandakan huruf 'n'.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Choose the correct sentence in present continuous tense:",
+    "options": [
+      "The children are playing hide and seek.",
+      "The children is playing hide and seek.",
+      "The children am playing hide and seek.",
+      "The children playing hide and seek are."
+    ],
+    "answer": 0,
+    "explanation": "'Children' adalah bentuk jamak dari 'child', memakai to be 'are'.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "What is Mr. Rahman doing? He is a teacher. He is ... the students.",
+    "options": [
+      "learning",
+      "teaching",
+      "cooking",
+      "buying"
+    ],
+    "answer": 1,
+    "explanation": "Sebagai seorang guru, aktivitasnya adalah mengajar ('teaching').",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Translate into English: 'Kami sedang membersihkan ruang kelas.'",
+    "options": [
+      "We is cleaning the classroom.",
+      "We am cleaning the classroom.",
+      "We are cleaning the classroom.",
+      "We are clean the classroom."
+    ],
+    "answer": 2,
+    "explanation": "'Kami sedang membersihkan' diterjemahkan 'We are cleaning'.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Translate into English: 'Dia (perempuan) sedang menyiram bunga.'",
+    "options": [
+      "She are watering the flowers.",
+      "She is water the flowers.",
+      "She am watering the flowers.",
+      "She is watering the flowers."
+    ],
+    "answer": 3,
+    "explanation": "'She is watering the flowers' adalah kalimat continuous yang tepat.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Choose the correct question: '... they playing basketball now?'",
+    "options": [
+      "Are",
+      "Is",
+      "Am",
+      "Do"
+    ],
+    "answer": 0,
+    "explanation": "Subjek 'they' membutuhkan to be 'Are' untuk kalimat tanya continuous.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Which sentence shows an activity happening right now?",
+    "options": [
+      "My brother washed his bike yesterday afternoon.",
+      "My brother is washing his bike at the moment.",
+      "My brother will wash his bike tomorrow morning.",
+      "My brother washes his bike every single Sunday."
+    ],
+    "answer": 1,
+    "explanation": "Present continuous ('is washing ... at the moment') menyatakan kejadian sekarang.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Arrange into a good sentence: 'drinking - milk - is - cat - the'",
+    "options": [
+      "The cat drinking milk is.",
+      "Milk is drinking the cat.",
+      "The cat is drinking milk.",
+      "Drinking is the cat milk."
+    ],
+    "answer": 2,
+    "explanation": "Susunan kalimat SPO: Subject (The cat) + is + drinking + milk.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Arrange into a good sentence: 'guitar - playing - are - they - the'",
+    "options": [
+      "They playing are the guitar.",
+      "Playing they are the guitar.",
+      "The guitar are they playing.",
+      "They are playing the guitar."
+    ],
+    "answer": 3,
+    "explanation": "Susunan kalimat yang tepat: They are playing the guitar.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Error identification: Find the incorrect word in 'The cats is sleeping on the mat.'",
+    "options": [
+      "is",
+      "cats",
+      "sleeping",
+      "mat"
+    ],
+    "answer": 0,
+    "explanation": "Kata 'cats' adalah jamak, to be yang benar seharusnya 'are', bukan 'is'.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Sentence correction: 'Listen! Somebody are knocking on the door.'",
+    "options": [
+      "Change 'are' into 'am'",
+      "Change 'are' into 'is'",
+      "Change 'knocking' into 'knock'",
+      "Change 'door' into 'doors'"
+    ],
+    "answer": 1,
+    "explanation": "'Somebody' adalah kata ganti tunggal (singular), sehingga memakai 'is'.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Context analysis: When the teacher says 'Be quiet! I am explaining the lesson,' students should ...",
+    "options": [
+      "talk loudly with their friends",
+      "run outside the classroom",
+      "listen attentively to the teacher",
+      "sleep on their study desks"
+    ],
+    "answer": 2,
+    "explanation": "Makna konteks kalimat mengajak siswa menyimak penjelasan guru dengan hening.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Dialogue completion: Sarah: '...?' - Hana: 'I am helping my mother in the kitchen.'",
+    "options": [
+      "Where are you going, Hana?",
+      "Who is your mother, Hana?",
+      "How old are you, Hana?",
+      "What are you doing, Hana?"
+    ],
+    "answer": 3,
+    "explanation": "Jawaban aktivitas continuous diawali pertanyaan 'What are you doing?'.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Value integration: Helping a friend who is cleaning the board shows ...",
+    "options": [
+      "kindness and cooperation",
+      "selfishness and arrogance",
+      "laziness and boredom",
+      "greed and anger"
+    ],
+    "answer": 0,
+    "explanation": "Membantu kawan yang sedang piket mencerminkan kasih sayang dan kerjasama.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Grammar analysis: Why does 'write' become 'writing' without the letter 'e'?",
+    "options": [
+      "because the letter 'e' is too difficult to read",
+      "verbs ending in silent 'e' drop the 'e' before -ing",
+      "because all English verbs must have seven letters",
+      "so that the word sounds like an Arabic word"
+    ],
+    "answer": 1,
+    "explanation": "Aturan fonetik: kata kerja berakhiran huruf 'e' luluh saat ditambah akhiran -ing.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Complex sentence: 'While Budi is studying in his room, his sister ... a doll.'",
+    "options": [
+      "are playing with",
+      "am playing with",
+      "is playing with",
+      "playing is with"
+    ],
+    "answer": 2,
+    "explanation": "Subjek 'his sister' tunggal, sehingga menggunakan 'is playing with'.",
+    "difficulty": 3,
+    "timeLimit": 25
+  }
+]

@@ -1,0 +1,431 @@
+[
+  {
+    "question": "What is the English word for number 50?",
+    "options": [
+      "fifty",
+      "fifteen",
+      "five",
+      "fifth"
+    ],
+    "answer": 0,
+    "explanation": "Angka 50 dalam bahasa Inggris adalah 'fifty' (15 adalah fifteen).",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "What is the English word for number 60?",
+    "options": [
+      "sixteen",
+      "sixty",
+      "six",
+      "sixth"
+    ],
+    "answer": 1,
+    "explanation": "Angka 60 adalah 'sixty'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "What is the English word for number 70?",
+    "options": [
+      "seventeen",
+      "seven",
+      "seventy",
+      "seventh"
+    ],
+    "answer": 2,
+    "explanation": "Angka 70 adalah 'seventy'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "What is the English word for number 80?",
+    "options": [
+      "eighteen",
+      "eight",
+      "eighth",
+      "eighty"
+    ],
+    "answer": 3,
+    "explanation": "Angka 80 adalah 'eighty'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "What is the English word for number 90?",
+    "options": [
+      "ninety",
+      "nineteen",
+      "nine",
+      "ninth"
+    ],
+    "answer": 0,
+    "explanation": "Angka 90 adalah 'ninety'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "What is the English word for number 100?",
+    "options": [
+      "ten hundred",
+      "one hundred",
+      "one thousand",
+      "one million"
+    ],
+    "answer": 1,
+    "explanation": "Angka 100 adalah 'one hundred'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "How do you spell number 55 in English words?",
+    "options": [
+      "fifteen-five",
+      "fifty-fifth",
+      "fifty-five",
+      "five-fifty"
+    ],
+    "answer": 2,
+    "explanation": "Kombinasi puluhan dan satuan: fifty-five.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "How do you spell number 67 in English words?",
+    "options": [
+      "sixteen-seven",
+      "sixty-seventh",
+      "seven-sixty",
+      "sixty-seven"
+    ],
+    "answer": 3,
+    "explanation": "Angka 67 ditulis 'sixty-seven'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "How do you spell number 84 in English words?",
+    "options": [
+      "eighty-four",
+      "eighteen-four",
+      "eighty-fourth",
+      "four-eighty"
+    ],
+    "answer": 0,
+    "explanation": "Angka 84 ditulis 'eighty-four'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Complete the sentence: '... is an apple on the table.'",
+    "options": [
+      "There are",
+      "There is",
+      "They is",
+      "These is"
+    ],
+    "answer": 1,
+    "explanation": "Satu buah apel ('an apple') tunggal menggunakan 'There is'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Complete the sentence: '... are five pencils in my pencil case.'",
+    "options": [
+      "It",
+      "This",
+      "There",
+      "That"
+    ],
+    "answer": 2,
+    "explanation": "Ungkapan keberadaan benda jamak menggunakan 'There are'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "How many days are there in a week? There are ... days.",
+    "options": [
+      "five",
+      "twelve",
+      "thirty",
+      "seven"
+    ],
+    "answer": 3,
+    "explanation": "Ada tujuh hari dalam satu minggu ('seven days').",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "What is 'twenty plus thirty'?",
+    "options": [
+      "fifty",
+      "forty",
+      "sixty",
+      "seventy"
+    ],
+    "answer": 0,
+    "explanation": "20 + 30 = 50 ('fifty').",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Complete the sentence: 'There ... seventy students in the school hall.'",
+    "options": [
+      "is",
+      "are",
+      "am",
+      "be"
+    ],
+    "answer": 1,
+    "explanation": "Tujuh puluh murid ('seventy students') adalah jamak, menggunakan 'are'.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Complete the sentence: 'There ... one whiteboard in our classroom.'",
+    "options": [
+      "are",
+      "am",
+      "is",
+      "were"
+    ],
+    "answer": 2,
+    "explanation": "Satu papan tulis ('one whiteboard') adalah tunggal, menggunakan 'is'.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "What is the result of 'seventy-five minus fifteen'?",
+    "options": [
+      "fifty",
+      "seventy",
+      "eighty",
+      "sixty"
+    ],
+    "answer": 3,
+    "explanation": "75 - 15 = 60 ('sixty').",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "What is the result of 'forty plus forty-eight'?",
+    "options": [
+      "eighty-eight",
+      "seventy-eight",
+      "ninety-eight",
+      "eighty-six"
+    ],
+    "answer": 0,
+    "explanation": "40 + 48 = 88 ('eighty-eight').",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Question to ask quantity: '... books are there on the bookshelf?'",
+    "options": [
+      "How much",
+      "How many",
+      "How old",
+      "How long"
+    ],
+    "answer": 1,
+    "explanation": "Benda yang dapat dihitung (countable) ditanyakan dengan 'How many'.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Rudi has 52 marbles. His father gives him 10 more marbles. How many marbles does Rudi have now?",
+    "options": [
+      "fifty-two",
+      "seventy-two",
+      "sixty-two",
+      "eighty-two"
+    ],
+    "answer": 2,
+    "explanation": "52 + 10 = 62 ('sixty-two').",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Choose the correct plural noun form: 'There are two ... in the room.'",
+    "options": [
+      "watchs",
+      "watchies",
+      "watch",
+      "watches"
+    ],
+    "answer": 3,
+    "explanation": "Benda berakhiran 'ch' mendapat akhiran '-es' saat jamak: watches.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Choose the correct plural noun form: 'There are three ... under the tree.'",
+    "options": [
+      "boxes",
+      "boxs",
+      "boxies",
+      "boxen"
+    ],
+    "answer": 0,
+    "explanation": "Benda berakhiran 'x' mendapat akhiran '-es' saat jamak: boxes.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Translate into English: 'Ada sembilan puluh kursi di ruangan itu.'",
+    "options": [
+      "There is ninety chairs in the room.",
+      "There are ninety chairs in the room.",
+      "There are nineteen chairs in the room.",
+      "There is nineteen chairs in the room."
+    ],
+    "answer": 1,
+    "explanation": "'Ada 90 kursi' diterjemahkan 'There are ninety chairs'.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Translate into English: 'Berapa banyak penghapus yang ada di sana?'",
+    "options": [
+      "How much erasers is there?",
+      "How many eraser is there?",
+      "How many erasers are there?",
+      "How old erasers are there?"
+    ],
+    "answer": 2,
+    "explanation": "Penghapus dapat dihitung jamak: 'How many erasers are there?'.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Look at the number sequence: 50, 60, 70, ..., 90. What is the missing number?",
+    "options": [
+      "fifteen",
+      "seventy-five",
+      "one hundred",
+      "eighty"
+    ],
+    "answer": 3,
+    "explanation": "Pola bertambah 10: 70 + 10 = 80 ('eighty').",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Look at the number sequence: 65, 70, 75, ..., 85. What is the missing number?",
+    "options": [
+      "eighty",
+      "eighty-five",
+      "ninety",
+      "seventy-six"
+    ],
+    "answer": 0,
+    "explanation": "Pola bertambah 5: 75 + 5 = 80 ('eighty').",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Which sentence uses 'There is' correctly?",
+    "options": [
+      "There is ten rulers in my bag.",
+      "There is a ruler in my bag.",
+      "There is many rulers in my bag.",
+      "There is two rulers in my bag."
+    ],
+    "answer": 1,
+    "explanation": "'There is' hanya dipakai untuk benda tunggal ('a ruler').",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Mathematical problem: 'A library has 95 story books. 25 books are borrowed by students. How many books are left?'",
+    "options": [
+      "sixty books",
+      "eighty books",
+      "seventy books",
+      "fifty books"
+    ],
+    "answer": 2,
+    "explanation": "95 - 25 = 70 ('seventy books').",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Sentence correction: 'There is many pictures hanging on the wall.'",
+    "options": [
+      "Change 'many' into 'much'",
+      "Change 'pictures' into 'picture'",
+      "Change 'on' into 'under'",
+      "Change 'is' into 'are'"
+    ],
+    "answer": 3,
+    "explanation": "'Many pictures' adalah bentuk jamak, harus menggunakan 'are'.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Error identification: Find the mistake in 'There are fifty-four student in the laboratory.'",
+    "options": [
+      "student should be students",
+      "are should be is",
+      "fifty-four should be fifty",
+      "in should be on"
+    ],
+    "answer": 0,
+    "explanation": "Setelah bilangan lebih dari satu, kata benda harus berbentuk jamak ('students').",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Comparison analysis: 'Class A has 38 students. Class B has 42 students. How many students are there in total?'",
+    "options": [
+      "seventy students",
+      "eighty students",
+      "ninety students",
+      "sixty students"
+    ],
+    "answer": 1,
+    "explanation": "38 + 42 = 80 ('eighty students').",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Critical spelling: Which word is spelled correctly for number 40?",
+    "options": [
+      "fourty",
+      "fourty-one",
+      "forty",
+      "fourthty"
+    ],
+    "answer": 2,
+    "explanation": "Angka 40 dieja 'forty' tanpa huruf 'u'.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Value integration: Sharing 10 pencils with classmates who forgot their pens reflects ...",
+    "options": [
+      "wastefulness and carelessness",
+      "showing off wealth",
+      "disobedience to teachers",
+      "generosity and love for friends"
+    ],
+    "answer": 3,
+    "explanation": "Berbagi alat tulis mencerminkan kedermawanan dan kasih sayang kepada sahabat.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Contextual logic: If a box can hold 50 apples, how many apples can 2 similar boxes hold?",
+    "options": [
+      "one hundred apples",
+      "fifty apples",
+      "seventy-five apples",
+      "twenty-five apples"
+    ],
+    "answer": 0,
+    "explanation": "50 x 2 = 100 ('one hundred apples').",
+    "difficulty": 3,
+    "timeLimit": 25
+  }
+]

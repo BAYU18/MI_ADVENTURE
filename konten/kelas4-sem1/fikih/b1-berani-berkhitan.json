@@ -1,0 +1,457 @@
+[
+  {
+    "question": "Secara bahasa kata khitan berasal dari bahasa Arab yang berarti ...",
+    "options": [
+      "memotong",
+      "membasuh",
+      "mengikat",
+      "menyucikan"
+    ],
+    "answer": 0,
+    "explanation": "Khitan berasal dari kata khatana yang artinya memotong.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Bagian kulit yang dipotong saat khitan bagi laki-laki disebut ...",
+    "options": [
+      "rambut ketiak",
+      "kulup (qulfah)",
+      "kuku jari",
+      "kulit tumit"
+    ],
+    "answer": 1,
+    "explanation": "Khitan adalah memotong kulup (qulfah) yang menutupi ujung kemaluan.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Nabi yang pertama kali diperintahkan Allah untuk berkhitan adalah ...",
+    "options": [
+      "Nabi Adam a.s.",
+      "Nabi Musa a.s.",
+      "Nabi Ibrahim a.s.",
+      "Nabi Isa a.s."
+    ],
+    "answer": 2,
+    "explanation": "Nabi Ibrahim a.s. adalah nabi pertama yang melaksanakan khitan.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Hukum khitan bagi anak laki-laki muslim menurut mayoritas ulama adalah ...",
+    "options": [
+      "sunnah muakkad",
+      "mubah (boleh)",
+      "makruh",
+      "wajib"
+    ],
+    "answer": 3,
+    "explanation": "Mayoritas ulama mewajibkan khitan bagi anak laki-laki.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Usia Nabi Ibrahim a.s. ketika pertama kali berkhitan adalah sekitar ...",
+    "options": [
+      "80 tahun",
+      "40 tahun",
+      "60 tahun",
+      "100 tahun"
+    ],
+    "answer": 0,
+    "explanation": "Dalam hadis sahih disebutkan Nabi Ibrahim berkhitan pada usia 80 tahun.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Alat yang digunakan Nabi Ibrahim a.s. saat pertama kali berkhitan adalah ...",
+    "options": [
+      "pisau bedah baja",
+      "kampak (al-qaddum)",
+      "gunting perak",
+      "pedang besi"
+    ],
+    "answer": 1,
+    "explanation": "Nabi Ibrahim a.s. berkhitan menggunakan alat pahat atau kampak.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Manfaat utama khitan dari sudut pandang kesehatan medis adalah ...",
+    "options": [
+      "membuat tubuh cepat tinggi",
+      "meningkatkan nafsu makan",
+      "mencegah penumpukan kotoran kencing",
+      "mencegah sakit gigi"
+    ],
+    "answer": 2,
+    "explanation": "Khitan membuang kulup tempat mengendapnya kotoran urin dan kuman.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Khitan termasuk salah satu ajaran kesucian fitrah yang diajarkan oleh ...",
+    "options": [
+      "para dokter modern",
+      "para raja zaman dahulu",
+      "masyarakat adat saja",
+      "para nabi dan rasul"
+    ],
+    "answer": 3,
+    "explanation": "Khitan adalah sunnah fitrah para nabi sejak Nabi Ibrahim a.s.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Tujuan utama pensyariatan khitan dalam ajaran Islam adalah menjaga ...",
+    "options": [
+      "kesucian ibadah dan kesehatan",
+      "penampilan di hadapan teman",
+      "kekayaan keluarga besar",
+      "kekuatan fisik tubuh"
+    ],
+    "answer": 0,
+    "explanation": "Khitan menyucikan tubuh dari najis agar salat sah dan badan sehat.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sikap seorang anak laki-laki muslim saat tiba waktunya berkhitan adalah ...",
+    "options": [
+      "menolak dan menangis ketakutan",
+      "berani dan ikhlas berkhitan",
+      "bersembunyi di dalam kamar",
+      "marah kepada orang tua"
+    ],
+    "answer": 1,
+    "explanation": "Meneladani keberanian dan ketaatan dalam menjalankan syariat Allah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Setelah berkhitan, ujung kemaluan menjadi lebih mudah untuk ...",
+    "options": [
+      "ditutup kain tebal",
+      "diwarnai dengan obat",
+      "dibersihkan saat beristinja'",
+      "dibiarkan tanpa dicuci"
+    ],
+    "answer": 2,
+    "explanation": "Tanpa kulup, membersihkan sisa air kencing menjadi sangat mudah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Khitan bagi perempuan menurut syariat Islam hukumnya adalah ...",
+    "options": [
+      "haram mutlak",
+      "wajib fardhu 'ain",
+      "makruh tahrim",
+      "makramah (kemuliaan)"
+    ],
+    "answer": 3,
+    "explanation": "Sebagian besar ulama memandang khitan perempuan sebagai bentuk kemuliaan.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Waktu yang paling utama (mustahab) untuk mengkhitan anak adalah ...",
+    "options": [
+      "pada hari ke-7 setelah lahir",
+      "saat usia 17 tahun",
+      "ketika sudah tamat kuliah",
+      "setelah menikah nanti"
+    ],
+    "answer": 0,
+    "explanation": "Sunnah mengkhitan bayi pada hari ke-7 kelahirannya.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Perayaan syukuran yang diadakan saat seorang anak berkhitan disebut ...",
+    "options": [
+      "walimatul 'ursy",
+      "walimatul khitan",
+      "walimatul waqirah",
+      "walimatul ma'dabah"
+    ],
+    "answer": 1,
+    "explanation": "Walimatul khitan adalah jamuan makan wujud syukur atas terlaksananya khitan.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Hubungan antara khitan dengan keabsahan salat seseorang adalah ...",
+    "options": [
+      "memperbanyak rakaat salat fardhu",
+      "membuat bacaan salat jadi fasih",
+      "menghilangkan sisa najis air seni",
+      "menggugurkan rukun wudhu"
+    ],
+    "answer": 2,
+    "explanation": "Salat sah bila badan suci; kulup yang tidak dikhitan rawan menyimpan najis.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Hikmah sosial dari diadakannya walimatul khitan di masyarakat adalah ...",
+    "options": [
+      "memamerkan kekayaan keluarga",
+      "mencari sumbangan uang sebanyaknya",
+      "mengharuskan tamu memberi kado",
+      "mempererat silaturahmi tetangga"
+    ],
+    "answer": 3,
+    "explanation": "Walimah bertujuan mengumumkan syiar dan mempererat tali persaudaraan.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Pernyataan yang tepat mengenai manfaat medis khitan bagi pria adalah ...",
+    "options": [
+      "mengurangi risiko kanker dan infeksi",
+      "mencegah penyakit patah tulang",
+      "menghilangkan alergi makanan laut",
+      "meningkatkan daya ingat otak"
+    ],
+    "answer": 0,
+    "explanation": "Secara medis, khitan terbukti menurunkan risiko infeksi saluran kemih.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sikap tepat orang tua dalam mendampingi anak yang akan dikhitan adalah ...",
+    "options": [
+      "menakut-nakuti dengan jarum suntik",
+      "memberi semangat dan pengertian agama",
+      "memaksa anak tanpa penjelasan",
+      "mengancam tidak memberi uang jajan"
+    ],
+    "answer": 1,
+    "explanation": "Orang tua mendidik anak dengan kasih sayang agar anak siap secara mental.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Rasulullah saw mengkhitan kedua cucunya Hasan dan Husain pada saat ...",
+    "options": [
+      "berusia 10 tahun di Madinah",
+      "setelah perang Badar selesai",
+      "berusia 7 hari setelah lahir",
+      "menjelang pembebasan Makkah"
+    ],
+    "answer": 2,
+    "explanation": "Nabi Muhammad saw mengkhitan Hasan dan Husain pada hari ke-7 kelahiran.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Batasan waktu wajib khitan bagi seorang anak laki-laki adalah sebelum ...",
+    "options": [
+      "masuk sekolah dasar",
+      "memulai ibadah puasa",
+      "belajar membaca Al-Qur'an",
+      "memasuki usia baligh"
+    ],
+    "answer": 3,
+    "explanation": "Kewajiban khitan berlaku saat anak menginjak usia baligh sebagai mukallaf.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Jika seorang mualaf dewasa masuk Islam, maka anjuran baginya adalah ...",
+    "options": [
+      "tetap berkhitan jika kondisi aman",
+      "wajib mengulang syahadat berkali-kali",
+      "dilarang salat sebelum berkhitan",
+      "khitan diganti dengan membayar fidyah"
+    ],
+    "answer": 0,
+    "explanation": "Mualaf dianjurkan berkhitan selama tidak membahayakan keselamatan dirinya.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Bentuk kasih sayang (KBC) yang ditunjukkan teman kepada anak yang baru berkhitan adalah ...",
+    "options": [
+      "mengajak bermain lari-larian cepat",
+      "mendoakan kesembuhan dan menjenguk",
+      "mengejek sarung yang dipakainya",
+      "menyenggol bagian lukanya"
+    ],
+    "answer": 1,
+    "explanation": "Menjenguk dan mendoakan teman adalah wujud empati persaudaraan Islam.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Tata cara khitan modern saat ini semakin nyaman bagi anak karena ...",
+    "options": [
+      "tidak memerlukan obat pereda nyeri",
+      "dapat sembuh dalam waktu satu jam",
+      "menggunakan bius medis dan laser",
+      "dilakukan sendiri tanpa bantuan dokter"
+    ],
+    "answer": 2,
+    "explanation": "Teknologi medis modern membuat proses khitan minim rasa sakit dan steril.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kaitan khitan dengan hadis 'kebersihan sebagian dari iman' adalah ...",
+    "options": [
+      "khitan merupakan syarat pakaian bersih",
+      "kebersihan hanya berlaku untuk anak kecil",
+      "khitan menghapus kewajiban mandi",
+      "khitan menjaga organ reproduksi bersih"
+    ],
+    "answer": 3,
+    "explanation": "Khitan membersihkan bagian tubuh yang rawan kotoran sehingga fitrah terjaga.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Mengapa Nabi Ibrahim a.s. tetap berkhitan meski usianya sudah lanjut?",
+    "options": [
+      "karena ketaatan mutlak pada perintah Allah",
+      "karena ingin menjadi panglima perang",
+      "karena anjuran tabib di negerinya",
+      "karena mengikuti tradisi kaum sekitar"
+    ],
+    "answer": 0,
+    "explanation": "Ketaatan Nabi Ibrahim a.s. adalah bukti kepasrahan iman tanpa keraguan.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Doa kebaikan yang lazim diucapkan untuk anak yang baru berkhitan adalah ...",
+    "options": [
+      "semoga menjadi orang yang paling kaya",
+      "semoga lekas sembuh dan jadi anak saleh",
+      "semoga tidak perlu belajar lagi",
+      "semoga ditakuti oleh semua temannya"
+    ],
+    "answer": 1,
+    "explanation": "Doa walimah memohon kesembuhan, keberkahan, dan kesalehan bagi si anak.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Dampak psikologis bagi anak yang berani berkhitan adalah ...",
+    "options": [
+      "menjadi anak yang pemarah dan sombong",
+      "merasa takut bertemu orang lain",
+      "merasa percaya diri memasuki kedewasaan",
+      "kehilangan semangat belajar di sekolah"
+    ],
+    "answer": 2,
+    "explanation": "Khitan menumbuhkan keberanian dan kesiapan mental menuju tahap baligh.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Syariat khitan telah ada sejak masa nabi terdahulu membuktikan bahwa ajaran Islam ...",
+    "options": [
+      "hanya meniru adat bangsa Arab",
+      "berubah-ubah sesuai zaman dan tempat",
+      "baru dimulai saat Nabi Muhammad hijrah",
+      "melanjutkan ajaran tauhid para rasul"
+    ],
+    "answer": 3,
+    "explanation": "Islam adalah penyempurna risalah tauhid dari para nabi terdahulu.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Analisis fikih: Mengapa sahnya salat seseorang erat kaitannya dengan khitan?",
+    "options": [
+      "kulup yang belum dipotong menyimpan sisa najis",
+      "salat orang yang belum khitan batal otomatis",
+      "khitan merupakan salah satu rukun salat",
+      "tanpa khitan wudhu seseorang tidak sah"
+    ],
+    "answer": 0,
+    "explanation": "Sisa air seni di balik kulup membatalkan syarat suci badan saat salat.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Perbandingan antara tradisi khitan kuno dan medis modern menunjukkan bahwa ...",
+    "options": [
+      "syariat Islam sudah tidak relevan lagi",
+      "syariat Islam selalu selaras dengan sains",
+      "metode kuno jauh lebih baik daripada medis",
+      "khitan modern mengubah hukum syariat Islam"
+    ],
+    "answer": 1,
+    "explanation": "Perintah khitan terbukti secara ilmiah memberi manfaat kesehatan luar biasa.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sikap bijak seorang guru agama saat mendapati muridnya takut dikhitan adalah ...",
+    "options": [
+      "memarahi murid di depan teman-temannya",
+      "mengancam tidak menaikkan kelas murid",
+      "menjelaskan hikmahnya dengan ramah dan sabar",
+      "membiarkan murid tidak berkhitan selamanya"
+    ],
+    "answer": 2,
+    "explanation": "Pendidikan berbasis cinta menanamkan pemahaman agama dengan kasih sayang.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Hikmah dianjurkannya khitan pada usia dini (bayi) menurut tinjauan medis adalah ...",
+    "options": [
+      "biaya operasi menjadi jauh lebih mahal",
+      "bayi tidak perlu lagi diberi air susu ibu",
+      "agar bayi langsung bisa berjalan lancar",
+      "luka lebih cepat sembuh dan minim trauma"
+    ],
+    "answer": 3,
+    "explanation": "Jaringan kulit bayi elastis dan daya regenerasi sel sangat cepat.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Bagaimana cara seorang anak menjaga kebersihan luka khitan selama masa penyembuhan?",
+    "options": [
+      "menjaga luka tetap kering dan rutin berobat",
+      "menutup luka dengan plester kedap air rapat",
+      "mencuci luka dengan air sabun berkali-kali",
+      "bermain lumpur di luar rumah bersama teman"
+    ],
+    "answer": 0,
+    "explanation": "Perawatan steril dan kering mempercepat proses pengeringan luka khitan.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Tinjauan syariat: Mengapa khitan perempuan tidak boleh dilakukan secara melukai berlebihan?",
+    "options": [
+      "agar perempuan tidak kehilangan rasa takut",
+      "karena Islam melarang tindakan merusak fisik",
+      "karena biaya medis operasi sangat tinggi",
+      "agar anak perempuan tidak bisa berlari"
+    ],
+    "answer": 1,
+    "explanation": "Syariat Islam menjaga kehormatan dan melarang mutilasi organ tubuh wanita.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Integrasi nilai tauhid: Berkhitan bukan sekadar operasi medis biasa, melainkan ...",
+    "options": [
+      "tanda bahwa seseorang memiliki kasta tinggi",
+      "syarat utama untuk mendapatkan warisan",
+      "bukti ketaatan dan penyerahan diri pada Allah",
+      "tata cara untuk menjadi warga negara sah"
+    ],
+    "answer": 2,
+    "explanation": "Niat lillahi ta'ala mengubah khitan menjadi ibadah agung penyempurna fitrah.",
+    "difficulty": 3,
+    "timeLimit": 20
+  }
+]

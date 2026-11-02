@@ -1,0 +1,522 @@
+[
+  {
+    "question": "Jumlah sifat wajib yang mutlak dimiliki oleh para rasul Allah ada ...",
+    "options": [
+      "4 sifat",
+      "2 sifat wajib",
+      "3 sifat wajib",
+      "5 sifat wajib"
+    ],
+    "answer": 0,
+    "explanation": "Empat sifat wajib bagi rasul: Shiddiq, Amanah, Tabligh, Fathanah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sifat wajib rasul 'Shiddiq' memiliki arti ...",
+    "options": [
+      "dapat dipercaya",
+      "jujur dan benar",
+      "cerdas pandai",
+      "menyampaikan wahyu"
+    ],
+    "answer": 1,
+    "explanation": "Shiddiq artinya selalu benar dan jujur dalam perkataan serta perbuatan.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sifat wajib rasul 'Amanah' memiliki arti ...",
+    "options": [
+      "jujur bicaranya",
+      "pandai berdagang",
+      "dapat dipercaya",
+      "berani bertarung"
+    ],
+    "answer": 2,
+    "explanation": "Amanah bermakna bertanggung jawab dan dapat dipercaya memegang titipan.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sifat wajib rasul 'Tabligh' memiliki arti ...",
+    "options": [
+      "menyembunyikan kabar",
+      "memimpin peperangan",
+      "menghukum musuh",
+      "menyampaikan wahyu"
+    ],
+    "answer": 3,
+    "explanation": "Tabligh artinya menyampaikan seluruh risalah Allah tanpa ada yang disembunyikan.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sifat wajib rasul 'Fathanah' memiliki arti ...",
+    "options": [
+      "cerdas dan bijaksana",
+      "sangat kaya raya berharta melimpah",
+      "berbadan perkasa",
+      "pandai menyanyi"
+    ],
+    "answer": 0,
+    "explanation": "Fathanah bermakna memiliki kecerdasan intelektual dan kearifan yang tinggi.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Gelar yang diberikan masyarakat Quraisy kepada Nabi Muhammad saw sebelum diangkat menjadi nabi adalah ...",
+    "options": [
+      "Asadullah",
+      "Al-Amin",
+      "Saifullah",
+      "Al-Faruq"
+    ],
+    "answer": 1,
+    "explanation": "Al-Amin artinya orang yang sangat jujur dan dapat dipercaya.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Alasan masyarakat Makkah memberi gelar Al-Amin kepada beliau adalah karena ...",
+    "options": [
+      "keberaniannya menunggang kuda liar di padang pasir",
+      "ketampanan wajah dan kekayaannya",
+      "kejujuran dan integritasnya sejak muda",
+      "kehebatannya dalam bersyair"
+    ],
+    "answer": 2,
+    "explanation": "Nabi Muhammad saw terkenal tidak pernah berbohong sepanjang hidupnya.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sifat mustahil bagi rasul yang merupakan lawan dari sifat Shiddiq adalah ...",
+    "options": [
+      "Khianat (curang)",
+      "Kitman (menyembunyikan)",
+      "Baladah (bodoh)",
+      "Kizib (dusta)"
+    ],
+    "answer": 3,
+    "explanation": "Kizib bermakna berdusta atau berbohong, mustahil ada pada rasul.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sifat mustahil bagi rasul yang merupakan lawan dari sifat Amanah adalah ...",
+    "options": [
+      "Khianat (berkhianat)",
+      "Kizib (dusta)",
+      "Kitman (menyembunyikan)",
+      "Baladah (bodoh)"
+    ],
+    "answer": 0,
+    "explanation": "Khianat bermakna mengingkari janji atau curang, mustahil bagi rasul.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sifat mustahil bagi rasul yang merupakan lawan dari sifat Tabligh adalah ...",
+    "options": [
+      "Khianat (berkhianat pada amanah yang diemban)",
+      "Kitman (menyembunyikan)",
+      "Kizib (dusta)",
+      "Baladah (bodoh)"
+    ],
+    "answer": 1,
+    "explanation": "Kitman bermakna menyembunyikan wahyu atau risalah Allah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sifat mustahil bagi rasul yang merupakan lawan dari sifat Fathanah adalah ...",
+    "options": [
+      "Kizib (dusta)",
+      "Khianat (curang)",
+      "Baladah (bodoh)",
+      "Kitman (menyembunyikan)"
+    ],
+    "answer": 2,
+    "explanation": "Baladah bermakna bodoh atau dungu, mustahil dimiliki rasul pilihan Allah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Nabi Muhammad saw diutus ke muka bumi ini sebagai rahmatan lil 'alamin yang artinya ...",
+    "options": [
+      "pemimpin militer yang khusus bagi bangsa Arab",
+      "penghancur orang-orang lemah",
+      "pengumpul harta kekayaan bumi",
+      "rahmat bagi seluruh alam semesta"
+    ],
+    "answer": 3,
+    "explanation": "Surah Al-Anbiya ayat 107 menegaskan misi Nabi sebagai rahmat bagi semesta alam.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Nabi Muhammad saw menunjukkan sifat penyayang bukan hanya kepada manusia, tetapi juga kepada ...",
+    "options": [
+      "hewan dan tumbuhan",
+      "batu dan kerikil saja",
+      "benda mati tak bergerak",
+      "makhluk gaib jahat"
+    ],
+    "answer": 0,
+    "explanation": "Nabi melarang menyiksa hewan dan memerintahkan merawat alam sekitar.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sikap Rasulullah saw ketika bertemu dengan anak-anak kecil adalah ...",
+    "options": [
+      "bersikap acuh tak acuh dan memalingkan muka",
+      "tersenyum ramah dan menyapa mereka",
+      "menyuruh mereka pergi menjauh",
+      "memarahi mereka saat bermain"
+    ],
+    "answer": 1,
+    "explanation": "Nabi sangat mencintai anak-anak, mengusap kepala mereka, dan menebar salam.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Ketika orang Yahudi yang biasa meludahi Nabi jatuh sakit, tindakan beliau adalah ...",
+    "options": [
+      "bersorak gembira atas penyakit yang menimpanya",
+      "membalas meludahi rumahnya",
+      "menjenguk dan mendoakan kesembuhannya",
+      "membiarkannya menderita sendirian"
+    ],
+    "answer": 2,
+    "explanation": "Akhlak mulia: membalas kejahatan dengan kebaikan dan ketulusan menjenguk musuh.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Pekerjaan yang ditekuni Nabi Muhammad saw saat remaja bersama pamannya adalah ...",
+    "options": [
+      "menjadi nelayan di laut merah",
+      "menjadi pengrajin tembikar",
+      "menjadi prajurit bayaran",
+      "berdagang ke negeri Syam"
+    ],
+    "answer": 3,
+    "explanation": "Nabi belajar berdagang dengan menjunjung tinggi kejujuran dan amanah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kecerdasan (Fathanah) Nabi Muhammad saw terbukti saat menyelesaikan sengketa peletakan ...",
+    "options": [
+      "Hajar Aswad di Ka'bah",
+      "pintu gerbang kota Makkah",
+      "tiang bendera kabilah Quraisy",
+      "pedang pusaka suku Quraisy"
+    ],
+    "answer": 0,
+    "explanation": "Nabi meletakkan Hajar Aswad di atas kain agar seluruh kabilah mengangkat bersama.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Solusi bijak Nabi saw dalam peristiwa peletakan Hajar Aswad berhasil mencegah ...",
+    "options": [
+      "bencana banjir bandang dahsyat di lembah Makkah",
+      "pertumpahan darah antarsuku Quraisy",
+      "krisis perdagangan di pasar Ukaz",
+      "kebakaran hebat di kota Makkah"
+    ],
+    "answer": 1,
+    "explanation": "Kearifan beliau menyatukan persaudaraan dan mencegah perang saudara.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Prinsip kejujuran (Shiddiq) yang diterapkan Nabi Muhammad saw saat berdagang adalah ...",
+    "options": [
+      "menaikkan timbangan agar untung besar",
+      "bersumpah palsu demi menarik pembeli",
+      "menjelaskan cacat barang secara jujur",
+      "menyembunyikan barang yang rusak di bawah"
+    ],
+    "answer": 2,
+    "explanation": "Nabi mengajarkan etika bisnis berkah tanpa kecurangan sedikit pun.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sifat tabligh Rasulullah saw tercermin dalam keteguhan beliau untuk ...",
+    "options": [
+      "menyimpan ayat-ayat suci yang dirasa sangat sulit",
+      "mengubah hukum sesuai selera penguasa",
+      "hanya berdakwah kepada kerabat kaya",
+      "menyampaikan ayat meski ditentang musuh"
+    ],
+    "answer": 3,
+    "explanation": "Rasulullah saw menyampaikan seluruh wahyu tanpa ada satu huruf pun disembunyikan.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Perilaku pemaaf Rasulullah saw kepada bangsa Quraisy saat Fathu Makkah membuktikan sifat ...",
+    "options": [
+      "rahmatan lil 'alamin yang agung",
+      "keinginan mendapat pujian dunia",
+      "kelemahan fisik pasukan muslimin",
+      "ketakutan terhadap tentara musuh"
+    ],
+    "answer": 0,
+    "explanation": "Sabda Nabi: 'Pergilah, kalian semua bebas!', lambang pengampunan paripurna.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Bagaimana cara Nabi Muhammad saw menumbuhkan kasih sayang kepada sesama muslim?",
+    "options": [
+      "mewajibkan orang miskin melayani orang kaya raya",
+      "menganjurkan saling menebar salam dan hadiah",
+      "membuat kelompok-kelompok kasta sosial",
+      "melarang tegur sapa antarsesama teman"
+    ],
+    "answer": 1,
+    "explanation": "Hadis Nabi: 'Tebarkanlah salam dan saling memberi hadiahlah niscaya kalian saling mencintai.'",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Keteladanan sifat amanah Rasulullah saw saat memegang modal dagang milik Khadijah adalah ...",
+    "options": [
+      "mengambil sebagian laba untuk diri sendiri",
+      "menghilangkan laporan pembukuan niaga",
+      "menyerahkan seluruh laba secara transparan",
+      "membagikan barang dagangan secara gratis"
+    ],
+    "answer": 2,
+    "explanation": "Integritas beliau membuat Khadijah semakin kagum dan menaruh hormat mendalam.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kesederhanaan hidup Rasulullah saw tercermin dari tempat tidur beliau yang terbuat dari ...",
+    "options": [
+      "kasur sutra berlapis emas permata",
+      "ranjang kayu jati bertatahkan intan",
+      "sofa empuk buatan negeri Romawi",
+      "pelepah kurma beralas kulit kasar"
+    ],
+    "answer": 3,
+    "explanation": "Pemimpin agung yang hidup zuhud hingga guratan pelepah kurma membekas di tubuhnya.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sikap santun Rasulullah saw ketika diajak berbicara oleh sahabatnya adalah ...",
+    "options": [
+      "menghadapkan seluruh tubuhnya ke arah lawan bicara",
+      "menolehkan kepala sekilas sambil lalu",
+      "bermain jari tanpa memperhatikan sahabat",
+      "memotong pembicaraan sebelum selesai"
+    ],
+    "answer": 0,
+    "explanation": "Penghormatan adab komunikasi: Nabi menyimak dengan sepenuh jiwa dan raga.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Bagaimana Rasulullah saw memperlakukan para pelayan seperti Anas bin Malik r.a.?",
+    "options": [
+      "menyuruh pelayan bekerja tanpa henti",
+      "tidak pernah memarahi atau berkata kasar",
+      "memotong gaji pelayan jika ada salah",
+      "memaksa pelayan memikul beban berat"
+    ],
+    "answer": 1,
+    "explanation": "Kesaksian Anas: 10 tahun melayani Nabi, tak pernah sekalipun beliau membentak 'Uff'.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Contoh keteladanan sifat Fathanah bagi seorang murid di sekolah adalah ...",
+    "options": [
+      "meremehkan teman yang belum mengerti",
+      "membuat contekan yang rapi saat ujian",
+      "rajin membaca dan memecahkan soal sulit",
+      "mencari alasan agar tidak mengerjakan tugas"
+    ],
+    "answer": 2,
+    "explanation": "Fathanah mendorong kita menjadi pelajar berwawasan luas dan berdaya nalar kritis.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Penerapan sifat Shiddiq dalam kehidupan sehari-hari seorang pelajar adalah ...",
+    "options": [
+      "menyalahkan orang lain saat tugas lupa",
+      "membuat alasan palsu saat terlambat sekolah",
+      "mengaku menemukan barang yang dicuri",
+      "berani mengakui kesalahan tanpa berbohong"
+    ],
+    "answer": 3,
+    "explanation": "Kejujuran membawa ketenangan batin dan mengantarkan kepada kebaikan.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Meneladani sifat Amanah sebagai seorang ketua kelas dapat diwujudkan dengan ...",
+    "options": [
+      "menjaga ketertiban kelas secara adil",
+      "memanfaatkan teman untuk tugas piketnya",
+      "mengambil uang kas kelas untuk jajan",
+      "membeda-bedakan perlakuan kepada teman"
+    ],
+    "answer": 0,
+    "explanation": "Amanah kepemimpinan dijalankan dengan penuh tanggung jawab dan transparansi.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Perwujudan sifat Tabligh bagi siswa di madrasah dapat dilakukan dengan cara ...",
+    "options": [
+      "menyebarkan aib kekurangan teman sekelas",
+      "mengajak teman berbuat baik dan belajar bersama",
+      "menyembunyikan catatan pelajaran sendiri",
+      "mengajak teman membolos sekolah"
+    ],
+    "answer": 1,
+    "explanation": "Tabligh adalah mengajak kepada kebaikan (amar ma'ruf) secara santun dan ramah.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kasih sayang Nabi Muhammad saw terhadap lingkungan hidup terbukti lewat perintah untuk ...",
+    "options": [
+      "membakar hutan agar lahan jadi luas",
+      "membuang sampah ke aliran sungai",
+      "tidak menebang pohon sembarangan",
+      "memburu burung untuk hiburan semata"
+    ],
+    "answer": 2,
+    "explanation": "Nabi melarang merusak pepohonan dan mencemari sumber air bersih.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Nilai utama Kurikulum Berbasis Cinta (KBC) yang dipancarkan dari kepribadian Nabi adalah ...",
+    "options": [
+      "menonjolkan kekuasaan untuk menakuti lawan",
+      "mengukur kehormatan dari gelar bangsawan",
+      "mengutamakan kelompok sendiri di atas semua",
+      "menghadirkan kedamaian bagi semua ciptaan"
+    ],
+    "answer": 3,
+    "explanation": "Islam adalah agama cinta yang menebarkan kedamaian dan rahmat bagi semesta alam.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Analisis historis: Mengapa gelar Al-Amin yang disandang Nabi Muhammad saw menjadi benteng moral saat beliau mulai berdakwah?",
+    "options": [
+      "karena kaum Quraisy tak bisa menuduh beliau pembohong",
+      "karena gelar tersebut menjamin beliau kaya raya",
+      "karena kaum Quraisy langsung sujud menyembah",
+      "karena gelar tersebut membuat beliau jadi raja"
+    ],
+    "answer": 0,
+    "explanation": "Bahkan musuh bebuyutan pun mengakui dalam hati bahwa Muhammad tak pernah berdusta.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Hubungan dialektis antara sifat Shiddiq dan Amanah dalam pembentukan kepribadian mukmin adalah ...",
+    "options": [
+      "keduanya berdiri sendiri tanpa saling terkait",
+      "kejujuran lisan melahirkan kepercayaan sikap",
+      "orang yang jujur tidak perlu memegang amanah",
+      "amanah hanya diperlukan dalam urusan uang saja"
+    ],
+    "answer": 1,
+    "explanation": "Integritas kata (shiddiq) adalah fondasi lahirnya kepercayaan publik (amanah).",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kearifan lokal dan resolusi konflik: Pelajaran apa yang dapat dipetik dari strategi kain perca Hajar Aswad?",
+    "options": [
+      "pemimpin harus mengambil keputusan sendiri secara mutlak",
+      "kelompok terkuat berhak menentukan jalannya acara",
+      "kolaborasi merangkul semua pihak mencegah perpecahan",
+      "penyelesaian masalah dilakukan dengan adu kekuatan"
+    ],
+    "answer": 2,
+    "explanation": "Pendekatan inklusif menghargai martabat semua golongan melahirkan harmoni sosial.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Tinjauan psikologis: Mengapa keteladanan akhlak (uswah hasanah) Nabi jauh lebih efektif daripada sekadar kata-kata?",
+    "options": [
+      "karena manusia malas mendengarkan nasihat lisan",
+      "karena ajaran Islam hanya berupa gerak fisik",
+      "karena pada masa itu masyarakat tidak bisa bicara",
+      "karena perbuatan nyata menyentuh hati secara autentik"
+    ],
+    "answer": 3,
+    "explanation": "Keteladanan perilaku nyata adalah bahasa universal yang paling berwibawa.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Bagaimana cara mengintegrasikan sifat Fathanah dan kelembutan hati dalam memecahkan perundungan (bullying) di sekolah?",
+    "options": [
+      "menggunakan kecerdasan nalar dan empati mendamaikan",
+      "membalas pelaku perundungan dengan kekerasan fisik",
+      "mendiamkan peristiwa agar tidak menjadi masalah besar",
+      "mengeluarkan semua murid yang terlibat dari sekolah"
+    ],
+    "answer": 0,
+    "explanation": "Kecerdasan emosional dan ketegasan moral membimbing teman kembali ke jalan benar.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Pernyataan kritis: Apakah sifat pemaaf Rasulullah saw menunjukkan kelemahan politik beliau?",
+    "options": [
+      "ya, seorang pemimpin harus bersikap kejam agar ditakuti",
+      "tidak, memaafkan saat berkuasa adalah puncak kemuliaan",
+      "memaafkan musuh menunjukkan ketiadaan keberanian",
+      "memaafkan hanya dilakukan karena terpaksa oleh keadaan"
+    ],
+    "answer": 1,
+    "explanation": "Puncak kekuatan sejati adalah mampu membalas namun memilih memaafkan dengan cinta.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Relevansi sifat Tabligh bagi generasi muda muslim di tengah maraknya berita bohong (hoaks) adalah ...",
+    "options": [
+      "menyebarkan setiap kabar yang menarik perhatian",
+      "membuat berita sensasional demi jumlah pengikut",
+      "selalu memverifikasi kebenaran sebelum berbagi info",
+      "percaya penuh pada semua kabar di media sosial"
+    ],
+    "answer": 2,
+    "explanation": "Tabligh modern: menyuarakan kebenaran berbasis fakta dan menolak kabar dusta.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Konsep 'Rahmatan lil 'Alamin' menuntut umat Islam untuk membangun peradaban yang ...",
+    "options": [
+      "mengeksploitasi sumber daya alam tanpa batas",
+      "mengucilkan kelompok yang berbeda keyakinan",
+      "menomorsatukan kekuatan militer dan senjata",
+      "inklusif, adil, ramah lingkungan, dan damai"
+    ],
+    "answer": 3,
+    "explanation": "Misi rahmat Islam merawat bumi dan memuliakan harkat martabat kemanusiaan universal.",
+    "difficulty": 3,
+    "timeLimit": 20
+  }
+]

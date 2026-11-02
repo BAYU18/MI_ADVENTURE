@@ -1,0 +1,457 @@
+[
+  {
+    "question": "Gerak berpindah tempat dari satu titik ke titik lain dalam olahraga disebut gerak ...",
+    "options": [
+      "lokomotor",
+      "nonlokomotor",
+      "manipulatif",
+      "statis berdiam"
+    ],
+    "answer": 0,
+    "explanation": "Gerak lokomotor ditandai dengan adanya perpindahan tempat tubuh.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Gerak yang dilakukan tanpa berpindah tempat dari posisi awal disebut gerak ...",
+    "options": [
+      "lokomotor",
+      "nonlokomotor",
+      "manipulatif",
+      "akrobatik"
+    ],
+    "answer": 1,
+    "explanation": "Gerak nonlokomotor dilakukan di tempat seperti menekuk, meliuk, dan mengayun.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Gerak yang menggunakan atau mengendalikan suatu benda luar seperti bola disebut gerak ...",
+    "options": [
+      "lokomotor",
+      "nonlokomotor",
+      "manipulatif",
+      "relaksasi"
+    ],
+    "answer": 2,
+    "explanation": "Gerak manipulatif melibatkan penguasaan objek atau alat olahraga.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Contoh gerak lokomotor dalam permainan sepak bola adalah ...",
+    "options": [
+      "menekuk lutut bersiap melompat",
+      "mengayun lengan saat berdiri",
+      "meliukkan pinggang ke kanan",
+      "berlari kencang mengejar bola"
+    ],
+    "answer": 3,
+    "explanation": "Berlari menyebabkan seluruh tubuh berpindah tempat di lapangan.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Contoh gerak manipulatif dalam permainan sepak bola adalah ...",
+    "options": [
+      "menendang bola ke arah gawang",
+      "berlari mengelilingi lapangan",
+      "berjalan santai menuju teman",
+      "melompat tanpa menyentuh bola"
+    ],
+    "answer": 0,
+    "explanation": "Menendang bola melibatkan kendali atas objek (bola).",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Menggiring bola dalam permainan sepak bola bertujuan untuk ...",
+    "options": [
+      "membuang bola keluar lapangan",
+      "membawa bola mendekati sasaran",
+      "mengulur waktu tanpa strategi",
+      "menjatuhkan pemain bertahan"
+    ],
+    "answer": 1,
+    "explanation": "Dribbling bertujuan mendekatkan bola ke gawang lawan atau mencari ruang.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Bagian kaki yang paling sering digunakan untuk mengoper bola jarak dekat adalah ...",
+    "options": [
+      "ujung jari jempol kaki",
+      "kaki bagian tumit belakang",
+      "kaki bagian dalam",
+      "bagian telapak kaki bawah"
+    ],
+    "answer": 2,
+    "explanation": "Kaki bagian dalam memberikan operan yang lebih terarah dan akurat.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Gerak mengoper bola kepada rekan satu tim dengan kedua tangan dari bawah pada bola voli disebut ...",
+    "options": [
+      "passing atas",
+      "smash keras",
+      "servis lompat",
+      "passing bawah"
+    ],
+    "answer": 3,
+    "explanation": "Passing bawah digunakan untuk menerima servis dan serangan lawan.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Sikap kedua lutut yang tepat saat melakukan passing bawah bola voli adalah ...",
+    "options": [
+      "ditekuk sedikit mengeper",
+      "lurus tegak kaku sekali",
+      "berlutut rapat di lantai",
+      "ditekuk hingga menyentuh dada"
+    ],
+    "answer": 0,
+    "explanation": "Lutut ditekuk agar tubuh memiliki daya dorong pegas saat bola datang.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Gerak memantul-mantulkan bola basket ke lantai menggunakan satu tangan disebut ...",
+    "options": [
+      "shooting (menembak)",
+      "dribbling (menggiring)",
+      "passing (mengoper)",
+      "pivot (berputar)"
+    ],
+    "answer": 1,
+    "explanation": "Dribble basket dilakukan dengan mendorong bola ke lantai bergantian atau satu tangan.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Gerakan melempar bola basket setinggi dada kepada teman satu tim disebut ...",
+    "options": [
+      "bounce pass (operan pantul)",
+      "overhead pass (atas kepala)",
+      "chest pass (operan dada)",
+      "slam dunk (hunjaman bola)"
+    ],
+    "answer": 2,
+    "explanation": "Chest pass adalah teknik operan cepat sejajar dada rekan tim.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Gerakan memasukkan bola basket langsung ke dalam keranjang lawan disebut ...",
+    "options": [
+      "dribbling (menggiring)",
+      "passing (mengoper)",
+      "rebound (merebut)",
+      "shooting (menembak)"
+    ],
+    "answer": 3,
+    "explanation": "Shooting bertujuan mencetak angka dengan memasukkan bola ke keranjang.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Jumlah pemain dalam satu tim regu sepak bola di lapangan adalah ...",
+    "options": [
+      "11 pemain",
+      "5 pemain",
+      "6 pemain",
+      "9 pemain"
+    ],
+    "answer": 0,
+    "explanation": "Sepak bola dimainkan oleh dua tim yang masing-masing beranggotakan 11 orang.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Jumlah pemain dalam satu regu pertandingan bola voli di lapangan adalah ...",
+    "options": [
+      "5 pemain",
+      "6 pemain",
+      "8 pemain",
+      "11 pemain"
+    ],
+    "answer": 1,
+    "explanation": "Satu regu bola voli lapangan terdiri dari 6 pemain aktif.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Kombinasi gerak nonlokomotor dan manipulatif pada permainan sepak bola tampak pada gerakan ...",
+    "options": [
+      "berlari cepat mengejar operan bola",
+      "melompat tinggi menghindari tekel",
+      "mengayun kaki lalu menendang bola",
+      "berjalan santai menuju titik penalti"
+    ],
+    "answer": 2,
+    "explanation": "Mengayun kaki (nonlokomotor) dipadukan dengan menendang bola (manipulatif).",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Kombinasi gerak lokomotor dan manipulatif pada permainan bola basket tampak pada gerakan ...",
+    "options": [
+      "berdiri tegak memegang bola erat",
+      "menekuk lutut sebelum menembak",
+      "meliukkan badan saat menjaga lawan",
+      "berlari sambil memantulkan bola"
+    ],
+    "answer": 3,
+    "explanation": "Berlari (lokomotor) dipadukan dengan dribbling bola (manipulatif).",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Posisi perkenaan bola yang tepat pada lengan saat melakukan passing bawah bola voli adalah ...",
+    "options": [
+      "bagian pergelangan tangan bagian atas",
+      "ujung jari-jemari kedua tangan",
+      "tepat di siku kedua belah lengan",
+      "bagian pundak dekat leher leher"
+    ],
+    "answer": 0,
+    "explanation": "Bola harus mengenai bidang datar antara pergelangan tangan dan siku bawah.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Tujuan utama mengoper bola dengan teknik bounce pass (operan pantul) pada bola basket adalah ...",
+    "options": [
+      "memperlambat tempo serangan tim",
+      "mengecoh hadangan tangan lawan",
+      "membuat bola melambung tinggi",
+      "membuang tenaga pemain penyerang"
+    ],
+    "answer": 1,
+    "explanation": "Pantulan lantai menyulitkan lawan berpostur tinggi merebut operan.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Posisi tubuh yang tepat saat menyundul bola (heading) dalam sepak bola adalah ...",
+    "options": [
+      "menutup mata rapat-rapat ketakutan",
+      "menggunakan bagian ubun-ubun kepala",
+      "mengencangkan otot leher dan dahi",
+      "membiarkan kepala lemas tanpa tenaga"
+    ],
+    "answer": 2,
+    "explanation": "Menyundul menggunakan dahi (tulang depan) dengan otot leher terkunci kuat.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Gerakan berputar dengan satu kaki sebagai poros dalam permainan bola basket disebut ...",
+    "options": [
+      "lay up",
+      "rebound",
+      "blocking",
+      "pivot"
+    ],
+    "answer": 3,
+    "explanation": "Pivot digunakan untuk menyelamatkan bola dari sergapan lawan tanpa melangkah.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Ketika bola keluar melewati garis samping lapangan sepak bola, permainan dilanjutkan dengan ...",
+    "options": [
+      "lemparan ke dalam (throw in)",
+      "tendangan bebas langsung",
+      "tendangan sudut (corner kick)",
+      "tendangan penalti 12 pas"
+    ],
+    "answer": 0,
+    "explanation": "Bola keluar garis samping memicu lemparan ke dalam (throw-in) dua tangan.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Sikap sportivitas yang benar saat tim mengalami kekalahan dalam pertandingan bola voli adalah ...",
+    "options": [
+      "menyalahkan keputusan wasit pertandingan",
+      "menjabat tangan lawan dan memberi selamat",
+      "menolak bersalaman dengan tim pemenang",
+      "merusak fasilitas olahraga di lapangan"
+    ],
+    "answer": 1,
+    "explanation": "Sportivitas mengajarkan kerendahan hati menerima hasil pertandingan.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Peran utama seorang penjaga gawang (kiper) dalam sepak bola adalah ...",
+    "options": [
+      "mengatur strategi serangan dari tengah",
+      "melakukan tekel keras kepada penyerang",
+      "mencegah bola masuk ke dalam gawang",
+      "mencetak gol sebanyak-banyaknya"
+    ],
+    "answer": 2,
+    "explanation": "Kiper adalah pemain yang diperbolehkan memegang bola di area kotak penalti.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Sikap kedua lengan saat melakukan passing atas pada permainan bola voli adalah ...",
+    "options": [
+      "lurus ke bawah di depan lutut kaki",
+      "merapat lurus ke samping badan kita",
+      "disilangkan rapat di depan rongga dada",
+      "membentuk mangkuk terbuka di atas dahi"
+    ],
+    "answer": 3,
+    "explanation": "Jari-jari tangan terbuka membentuk mangkuk menyongsong datangnya bola.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Tujuan gerakan menembak sambil melayang (lay-up shoot) dalam bola basket adalah ...",
+    "options": [
+      "mempermudah memasukkan bola dari dekat",
+      "menjauhkan bola dari keranjang basket",
+      "mengoper bola ke kawan di garis tengah",
+      "menghindari kontak fisik dengan lantai"
+    ],
+    "answer": 0,
+    "explanation": "Lay-up adalah tembakan melayang dua langkah mendekati ring basket.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Mengapa komunikasi antarpemain sangat penting dalam permainan bola voli?",
+    "options": [
+      "agar penonton bersorak lebih gembira",
+      "mencegah tabrakan saat merebut bola",
+      "untuk mengganggu konsentrasi pemain lawan",
+      "supaya pertandingan cepat diselesaikan"
+    ],
+    "answer": 1,
+    "explanation": "Komunikasi (misal seruan 'saya!') membagi tugas menyambut bola secara rapi.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Pemanasan sebelum bermain sepak bola sangat bermanfaat untuk ...",
+    "options": [
+      "membuat perut terasa kenyang lama",
+      "menghabiskan waktu jam pelajaran",
+      "mencegah cedera otot dan kram",
+      "membuat tubuh cepat lelah bertanding"
+    ],
+    "answer": 2,
+    "explanation": "Pemanasan meningkatkan suhu otot dan kelenturan sendi tubuh.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Pendinginan (cooling down) setelah berolahraga bola besar bertujuan untuk ...",
+    "options": [
+      "meningkatkan suhu tubuh setinggi mungkin",
+      "membuat otot langsung menjadi sangat kaku",
+      "mengeluarkan seluruh cadangan energi tubuh",
+      "menurunkan detak jantung secara bertahap"
+    ],
+    "answer": 3,
+    "explanation": "Pendinginan mengembalikan tubuh ke kondisi rileks dan normal.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Analisis taktik: Mengapa operan lambung panjang (long pass) efektif saat serangan balik cepat?",
+    "options": [
+      "karena melewati barisan pertahanan lawan",
+      "karena bola lambung mustahil direbut lawan",
+      "karena pemain penyerang selalu lebih cepat",
+      "karena tidak membutuhkan tenaga yang besar"
+    ],
+    "answer": 0,
+    "explanation": "Operan melambung memangkas jarak dan melompati kepadatan pemain lini tengah.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Evaluasi gerak: Apa yang terjadi jika saat passing bawah bola voli siku ditekuk berlebihan?",
+    "options": [
+      "bola akan meluncur semakin kencang lurus",
+      "pantulan bola liar dan tidak terarah",
+      "arah bola menjadi sangat stabil dan tenang",
+      "pukulan bola otomatis berubah menjadi smash"
+    ],
+    "answer": 1,
+    "explanation": "Bidang lengan yang tidak rata membuat sudut pantul bola menyimpang jauh.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Perbandingan mekanika: Mengapa lemparan dada (chest pass) lebih cepat sampai daripada operan lambung?",
+    "options": [
+      "karena bola basket memiliki bobot yang ringan",
+      "karena dilakukan dengan melompat sangat tinggi",
+      "karena lintasan bolanya lurus mendatar",
+      "karena pemain penerima selalu berdiri diam"
+    ],
+    "answer": 2,
+    "explanation": "Gaya dorong horizontal menghasilkan garis edar terpendek menuju sasaran rekan.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Kritik keselamatan: Bahaya yang ditimbulkan jika bermain sepak bola memakai sepatu tanpa pul di rumput basah adalah ...",
+    "options": [
+      "bola akan pecah saat ditendang keras",
+      "wasit akan memberikan kartu merah langsung",
+      "kaki menjadi terasa sangat hangat dan nyaman",
+      "mudah terpeleset dan cedera lutut"
+    ],
+    "answer": 3,
+    "explanation": "Traksi cengkeraman sepatu sangat krusial mencegah cedera sendi dan ligamen.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Nilai karakter: Bagaimana seorang kapten tim basket menenangkan anggotanya yang melakukan kesalahan passing?",
+    "options": [
+      "memberi semangat dan mengajak fokus kembali",
+      "memarahi dan mencadangkan pemain tersebut",
+      "menyuruh pemain keluar dari lapangan lomba",
+      "menghentikan permainan secara sepihak"
+    ],
+    "answer": 0,
+    "explanation": "Kepemimpinan positif membangkitkan rasa percaya diri rekan seperjuangan.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Penerapan aturan: Mengapa menyentuh net saat pertandingan bola voli dianggap sebagai pelanggaran (net touch)?",
+    "options": [
+      "karena jaring net sangat mudah robek rusak",
+      "mengganggu sportivitas dan membahayakan lawan",
+      "karena pemain harus selalu melompat mundur",
+      "agar tinggi tiang net tidak berubah ukuran"
+    ],
+    "answer": 1,
+    "explanation": "Aturan net touch menjaga integritas pemisah wilayah dan keselamatan atlet.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Refleksi nilai KBC: Menunjukkan rasa cinta dan empati saat rekan setim cedera diwujudkan dengan ...",
+    "options": [
+      "meneruskan serangan demi mencetak angka",
+      "menertawakan kejadian jatuhnya teman kita",
+      "menghentikan bola dan membantunya menepi",
+      "pura-pura tidak melihat cedera rekan tim"
+    ],
+    "answer": 2,
+    "explanation": "Kemanusiaan dan kepedulian kawan berada jauh di atas sebatas kemenangan skor.",
+    "difficulty": 3,
+    "timeLimit": 25
+  }
+]

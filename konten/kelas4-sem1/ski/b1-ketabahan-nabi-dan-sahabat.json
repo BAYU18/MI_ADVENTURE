@@ -1,0 +1,522 @@
+[
+  {
+    "question": "Dakwah Islam pada awal masa kenabian dilakukan secara sembunyi-sembunyi selama ...",
+    "options": [
+      "3 tahun",
+      "selama 1 tahun",
+      "selama 5 tahun",
+      "selama 7 tahun"
+    ],
+    "answer": 0,
+    "explanation": "Dakwah sirriyah (sembunyi-sembunyi) berlangsung selama 3 tahun.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Rumah sahabat yang dijadikan pusat pembinaan dakwah Islam secara rahasia adalah ...",
+    "options": [
+      "Darun Nadwah Quraisy",
+      "Darul Arqam bin Abil Arqam",
+      "Rumah Abu Bakar ash-Shiddiq",
+      "Rumah Khadijah binti Khuwailid"
+    ],
+    "answer": 1,
+    "explanation": "Darul Arqam menjadi markas dakwah rahasia pertama Rasulullah saw.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Orang-orang yang pertama kali memeluk agama Islam disebut dengan istilah ...",
+    "options": [
+      "Al-Khulafa'ur Rasyidin",
+      "Kaum Anshar Madinah",
+      "Assabiqunal Awwalun",
+      "Kaum Muhajirin"
+    ],
+    "answer": 2,
+    "explanation": "Assabiqunal Awwalun adalah generasi awal pemeluk Islam.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Wanita pertama dari kalangan dewasa yang beriman kepada Nabi Muhammad saw adalah ...",
+    "options": [
+      "Aisyah binti Abu Bakar ash-Shiddiq",
+      "Fathimah az-Zahra",
+      "Halimah as-Sa'diyah",
+      "Khadijah binti Khuwailid"
+    ],
+    "answer": 3,
+    "explanation": "Ummul Mukminin Khadijah adalah orang pertama yang beriman dan mendukung dakwah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Laki-laki dewasa pertama di luar keluarga yang memeluk Islam adalah ...",
+    "options": [
+      "Abu Bakar ash-Shiddiq",
+      "Umar bin Khattab al-Faruq pemberani",
+      "Utsman bin Affan",
+      "Ali bin Abi Thalib"
+    ],
+    "answer": 0,
+    "explanation": "Abu Bakar langsung membenarkan risalah Nabi tanpa keraguan sedikit pun.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Golongan anak-anak yang pertama kali beriman kepada Rasulullah saw adalah ...",
+    "options": [
+      "Zaid bin Haritsah sahabat tercinta",
+      "Ali bin Abi Thalib",
+      "Usamah bin Zaid",
+      "Abdullah bin Abbas"
+    ],
+    "answer": 1,
+    "explanation": "Ali bin Abi Thalib memeluk Islam saat masih berusia sangat belia sekitar 10 tahun.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Dakwah terang-terangan (jahriyah) dimulai setelah turunnya wahyu surah ...",
+    "options": [
+      "Al-Muddatstsir ayat 1",
+      "Al-'Alaq ayat 1-5",
+      "Al-Hijr ayat 94",
+      "Al-Fatihah ayat 1"
+    ],
+    "answer": 2,
+    "explanation": "Firman Allah 'Fashda' bima tu'mar' menandai dimulainya dakwah jahriyah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Tempat di mana Rasulullah saw pertama kali mengumpulkan kaum Quraisy untuk dakwah terbuka adalah ...",
+    "options": [
+      "Bukit Marwah",
+      "Gua Hira'",
+      "Padang Arafah",
+      "Bukit Shafa"
+    ],
+    "answer": 3,
+    "explanation": "Rasulullah saw berseru dari atas Bukit Shafa mengajak kaumnya bertauhid.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Paman Nabi yang paling keras menentang dan mencela dakwah di Bukit Shafa adalah ...",
+    "options": [
+      "Abu Lahab",
+      "Abu Thalib",
+      "Hamzah bin Abdul Muthalib",
+      "Abbas bin Abdul Muthalib"
+    ],
+    "answer": 0,
+    "explanation": "Abu Lahab berteriak 'Tabban laka ya Muhammad' mencela Nabi saw.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sahabat budak berkulit hitam yang disiksa majikannya di atas pasir panas adalah ...",
+    "options": [
+      "Salman al-Farisi",
+      "Bilal bin Rabah",
+      "Ammar bin Yasir",
+      "Zaid bin Haritsah"
+    ],
+    "answer": 1,
+    "explanation": "Bilal bin Rabah disiksa Umayyah bin Khalaf dengan ditindih batu besar.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kata yang terus diucapkan oleh Bilal bin Rabah saat menerima siksaan berat adalah ...",
+    "options": [
+      "berhala Latta dan Uzza sesembahan",
+      "Tolong saya",
+      "Ahad... Ahad...",
+      "Menyerah saja"
+    ],
+    "answer": 2,
+    "explanation": "Bilal menegaskan ketauhidan kepada Allah Yang Maha Esa (Ahad).",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Wanita syahidah pertama dalam sejarah Islam yang wafat mempertahankan akidahnya adalah ...",
+    "options": [
+      "Asma' binti Abu Bakar",
+      "Ruqayyah binti Muhammad",
+      "Ummu Aiman",
+      "Sumayyah binti Khayyat"
+    ],
+    "answer": 3,
+    "explanation": "Sumayyah wafat ditombak oleh Abu Jahal karena teguh memegang tauhid.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Suami Sumayyah yang juga gugur syahid akibat kekejaman kaum Quraisy bernama ...",
+    "options": [
+      "Yasir",
+      "Ammar",
+      "Arqam",
+      "Miqdad"
+    ],
+    "answer": 0,
+    "explanation": "Yasir dan Sumayyah adalah pasangan suami istri peraih syahid pertama.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Tindakan kejam kaum kafir Quraisy mengisolasi umat Islam di lembah Syi'ib disebut ...",
+    "options": [
+      "perang tanding satu lawan satu",
+      "pemboikotan ekonomi dan sosial",
+      "perjanjian damai Hudaibiyah",
+      "pembagian harta rampasan"
+    ],
+    "answer": 1,
+    "explanation": "Kaum Quraisy memboikot bani Hasyim dan umat Islam selama hampir 3 tahun.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Surat perjanjian pemboikotan digantung oleh kaum Quraisy di dinding ...",
+    "options": [
+      "Darun Nadwah",
+      "pintu gerbang Makkah",
+      "Ka'bah",
+      "istana Raja Najasyi"
+    ],
+    "answer": 2,
+    "explanation": "Piagam pemboikotan ditempel di dalam Ka'bah hingga akhirnya dimakan rayap.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Selama masa pemboikotan di lembah, kaum muslimin terpaksa memakan ...",
+    "options": [
+      "hidangan daging kambing panggang lezat",
+      "roti gandum gandum madu",
+      "buah kurma manis segar",
+      "dedaunan pohon dan kulit kering"
+    ],
+    "answer": 3,
+    "explanation": "Ketabahan luar biasa: sahabat menahan lapar dengan memakan daun-daun kering.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Alasan Rasulullah saw memilih dakwah secara rahasia pada tahap awal adalah ...",
+    "options": [
+      "menghindari benturan fisik mendadak",
+      "karena merasa takut kepada para pembesar Quraisy",
+      "meragukan kebenaran wahyu Allah",
+      "ingin mendirikan dinasti kerajaan"
+    ],
+    "answer": 0,
+    "explanation": "Strategi dakwah Nabi penuh hikmah agar fondasi iman kader kokoh terlebih dahulu.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sikap teladan Sayyidah Khadijah saat Rasulullah gemetar menerima wahyu pertama adalah ...",
+    "options": [
+      "memarahi Nabi karena terlambat pulang",
+      "menenangkan dan menyelimuti beliau",
+      "meminta Nabi melupakan kejadian itu",
+      "mengundang warga Makkah berpesta"
+    ],
+    "answer": 1,
+    "explanation": "Khadijah memberikan dukungan moral, cinta, dan ketenangan jiwa yang tulus.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Karakter utama para sahabat Assabiqunal Awwalun dalam menerima ajaran Islam adalah ...",
+    "options": [
+      "banyak menuntut imbalan jabatan",
+      "ragu-ragu menunggu kepastian menang",
+      "sam'an wa tha'atan (patuh dan setia)",
+      "menguji Nabi dengan tantangan harta"
+    ],
+    "answer": 2,
+    "explanation": "Para sahabat awal memiliki keimanan murni tanpa pamrih keduniaan.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Pernyataan yang tepat tentang ketabahan keluarga Yasir dalam mempertahankan iman adalah ...",
+    "options": [
+      "menyerah dan kembali menyembah berhala",
+      "membayar uang tebusan kepada majikan",
+      "membalas menyerang kaum Quraisy",
+      "tetap teguh meski disiksa kejam"
+    ],
+    "answer": 3,
+    "explanation": "Keluarga Yasir dijanjikan surga oleh Rasulullah saw atas ketabahan mereka.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Siapakah sahabat dermawan yang memerdekakan Bilal bin Rabah dari majikannya?",
+    "options": [
+      "Abu Bakar ash-Shiddiq",
+      "Abdurrahman bin Auf saudagar yang dermawan",
+      "Umar bin Khattab",
+      "Utsman bin Affan"
+    ],
+    "answer": 0,
+    "explanation": "Abu Bakar membeli dan membebaskan Bilal semata-mata demi ridha Allah.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Isi utama piagam pemboikotan yang diberlakukan kaum kafir Quraisy adalah ...",
+    "options": [
+      "larangan memasuki kota Madinah",
+      "larangan jual beli dan menikah",
+      "kewajiban membayar pajak ganda",
+      "perintah menghancurkan rumah Nabi"
+    ],
+    "answer": 1,
+    "explanation": "Quraisy memutus total hubungan sosial, ekonomi, dan perkawinan dengan muslimin.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Mukjizat yang terjadi pada piagam pemboikotan yang tergantung di Ka'bah adalah ...",
+    "options": [
+      "piagam tersebut tiba-tiba berubah menjadi emas murni",
+      "piagam terbang terbawa angin topan",
+      "seluruh isi dimakan rayap kecuali asma Allah",
+      "tinta pada piagam berubah menjadi merah"
+    ],
+    "answer": 2,
+    "explanation": "Kekuasaan Allah menampakkan kebatilan piagam pemboikotan lewat rayap.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Reaksi Rasulullah saw saat kaum Quraisy menawarkan tahta, wanita, dan harta adalah ...",
+    "options": [
+      "menerima tawaran kekayaan sementara",
+      "meminta waktu berpikir selama setahun",
+      "meminta tahta kerajaan di seluruh Arab",
+      "menolak tegas tawaran tersebut"
+    ],
+    "answer": 3,
+    "explanation": "Nabi bersabda: andai matahari ditaruh di tangan kanan dan bulan di kiri, beliau takkan berhenti.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Taktik kaum Quraisy mencoreng nama baik Nabi Muhammad saw dilakukan dengan menuduh beliau ...",
+    "options": [
+      "tukang sihir, penyair gila, dan dukun",
+      "orang yang malas bekerja mencari nafkah di pasar",
+      "pencuri ternak unta milik warga",
+      "pengkhianat suku dari negeri Romawi"
+    ],
+    "answer": 0,
+    "explanation": "Kaum Quraisy menyebarkan hoaks dan fitnah keji untuk membendung dakwah Islam.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Bagaimana sikap kaum muslimin menghadapi embargo ekonomi selama 3 tahun di Syi'ib?",
+    "options": [
+      "memberontak dan menyerang pasar Makkah secara fisik",
+      "bersabar, saling menguatkan, dan tawakal",
+      "meninggalkan agama Islam satu per satu",
+      "meminta bantuan pasukan dari Persia"
+    ],
+    "answer": 1,
+    "explanation": "Kekuatan ukhuwah dan cinta kepada Allah membuat mereka mampu bertahan hidup.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Peran paman Nabi, Abu Thalib, dalam perjalanan dakwah Islam di Makkah adalah ...",
+    "options": [
+      "menjadi bendahara keuangan bagi seluruh dakwah Nabi",
+      "memerintahkan Quraisy masuk Islam",
+      "melindungi fisik Nabi dari ancaman musuh",
+      "menyusun kitab undang-undang Makkah"
+    ],
+    "answer": 2,
+    "explanation": "Abu Thalib pasang badan membela keponakannya dari intimidasi para tokoh Quraisy.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Tahun wafatnya Khadijah dan Abu Thalib disebut sebagai 'Amul Huzni yang artinya ...",
+    "options": [
+      "tahun kemenangan dan kegembiraan",
+      "tahun pembebasan kota Makkah",
+      "tahun perjanjian perdamaian",
+      "tahun duka cita dan kesedihan"
+    ],
+    "answer": 3,
+    "explanation": "Nabi sangat berduka kehilangan dua sosok pelindung dan pembela utama dakwah.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sikap Rasulullah saw saat dilempari batu oleh penduduk Tha'if hingga terluka adalah ...",
+    "options": [
+      "mendoakan kebaikan bagi keturunan Tha'if",
+      "meminta malaikat menghancurkan Tha'if",
+      "membalas melempar batu lebih banyak",
+      "mengutuk warga Tha'if terkena azab"
+    ],
+    "answer": 0,
+    "explanation": "Nabi menolak tawaran malaikat Jibril untuk menimpakan gunung, memilih mendoakan hidayah.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Hikmah mendalam dari berbagai cobaan berat pada periode dakwah Makkah adalah ...",
+    "options": [
+      "membuat kaum muslimin jatuh miskin",
+      "menempa kesabaran dan kemurnian iman",
+      "membuktikan kekuatan senjata perang",
+      "menghilangkan rasa kasih sayang sesama"
+    ],
+    "answer": 1,
+    "explanation": "Ujian berat menyaring siapa pejuang sejati yang bertauhid murni lillahi ta'ala.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Teladan Kurikulum Berbasis Cinta (KBC) dari ketabahan Rasulullah saw berdakwah adalah ...",
+    "options": [
+      "menuntut balas atas setiap perlakuan kasar",
+      "hanya menyayangi orang yang memberi hadiah",
+      "membalas kebencian dengan kasih dan doa",
+      "menjauhi pergaulan dengan masyarakat"
+    ],
+    "answer": 2,
+    "explanation": "Cinta sejati mendahulukan hidayah dan pengampunan daripada dendam kesumat.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Penerapan sikap tabah bagi seorang siswa saat menghadapi kesulitan belajar adalah ...",
+    "options": [
+      "mudah merasa putus asa dan akhirnya berhenti sekolah",
+      "menyalahkan guru atas nilai yang kurang",
+      "mencontek jawaban teman saat ulangan",
+      "tetap giat berusaha dan berdoa pada Allah"
+    ],
+    "answer": 3,
+    "explanation": "Ketabahan menempa jiwa pantang menyerah dalam menuntut ilmu pengetahuan.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Analisis historis: Mengapa pemboikotan Quraisy justru semakin memperkokoh soliditas kaum muslimin?",
+    "options": [
+      "karena penderitaan bersama menyatukan hati",
+      "karena kaum muslimin memiliki senjata rahasia",
+      "karena kaum Quraisy akhirnya memberi santunan",
+      "karena para sahabat bebas berdagang di luar"
+    ],
+    "answer": 0,
+    "explanation": "Empati dan penderitaan melahirkan ikatan persaudaraan sejati yang tak tergoyahkan.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Perbandingan sikap: Apa perbedaan mendasar antara keteguhan Bilal dan kekejaman Umayyah bin Khalaf?",
+    "options": [
+      "Umayyah memiliki keteguhan iman yang sangat kokoh",
+      "Bilal merdeka jiwanya, Umayyah budak hawa nafsu",
+      "Bilal mengandalkan kekuatan fisik tubuhnya",
+      "keduanya sama-sama memperjuangkan keadilan"
+    ],
+    "answer": 1,
+    "explanation": "Hakikat kemerdekaan ada pada tauhid batiniah, bukan pada status sosial lahiriah.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Mengapa dakwah terang-terangan (jahriyah) dimulai dari keluarga dekat Bani Hasyim terlebih dahulu?",
+    "options": [
+      "karena seluruh keluarga dekat pasti langsung percaya",
+      "agar harta dakwah tidak diambil suku lain",
+      "meneladani prinsip pendidikan dari lingkaran inti",
+      "karena Nabi dilarang berdakwah ke luar suku"
+    ],
+    "answer": 2,
+    "explanation": "Metode dakwah efektif dimulai dari keteladanan keluarga sebelum menjangkau publik.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Refleksi teologis: Janji Rasulullah saw 'Sabran ya ala Yasir, fa inna mau'idakumul jannah' membuktikan ...",
+    "options": [
+      "sahabat Yasir tidak akan merasakan rasa sakit",
+      "perjuangan dakwah tidak membutuhkan pengorbanan",
+      "hukuman dunia dapat dihindari dengan pura-pura",
+      "surga adalah balasan tertinggi bagi kesabaran"
+    ],
+    "answer": 3,
+    "explanation": "Visi akhirat menjadi penguat jiwa mukmin dalam menghadapi getirnya kezaliman.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Bagaimana cara seorang pelajar meneladani keteguhan akidah para sahabat di era digital saat ini?",
+    "options": [
+      "teguh memegang nilai moral di tengah tren buruk",
+      "menutup diri sepenuhnya dari kemajuan teknologi modern",
+      "menyerang semua orang yang berbeda pandangan",
+      "mengikuti semua konten viral tanpa disaring"
+    ],
+    "answer": 0,
+    "explanation": "Integritas moral diuji dengan tetap istiqamah menjaga adab di dunia maya.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Kritik sosial: Mengapa para pembesar Quraisy sangat takut terhadap ajaran persamaan derajat dalam Islam?",
+    "options": [
+      "karena Islam mewajibkan pembesar menjadi budak",
+      "karena meruntuhkan sistem kasta dan penindasan",
+      "karena ajaran Islam melarang orang berniaga",
+      "karena mereka tidak bisa lagi membuat patung"
+    ],
+    "answer": 1,
+    "explanation": "Islam menegaskan kemuliaan manusia terletak pada takwa, bukan nasab dan kasta.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Peran diplomasi Sayyidina Abu Bakar dalam membebaskan budak-budak tertindas mencerminkan ...",
+    "options": [
+      "keinginan Abu Bakar memiliki banyak pengawal",
+      "upaya mencari pengaruh politik di kalangan suku",
+      "kekuatan finansial yang didedikasikan demi kemanusiaan",
+      "kebiasaan bangsa Arab menimbun budak belian"
+    ],
+    "answer": 2,
+    "explanation": "Harta yang berkah adalah harta yang dialirkan untuk membebaskan derita sesama.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Puncak ketabahan Nabi di Tha'if melahirkan peristiwa agung dalam sejarah Islam, yaitu ...",
+    "options": [
+      "perang Badar melawan pasukan seribu orang",
+      "penaklukan kota Konstantinopel seketika",
+      "pembangunan masjid Nabawi pertama kali",
+      "peristiwa Isra' Mi'raj sebagai hiburan Allah"
+    ],
+    "answer": 3,
+    "explanation": "Setelah duka Tha'if dan 'Amul Huzni, Allah menghibur Nabi dengan mukjizat Isra' Mi'raj.",
+    "difficulty": 3,
+    "timeLimit": 20
+  }
+]

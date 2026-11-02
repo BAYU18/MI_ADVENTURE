@@ -1,0 +1,431 @@
+[
+  {
+    "question": "Bunyi yang teratur dan memiliki frekuensi getaran tertentu dalam musik disebut ...",
+    "options": [
+      "nada",
+      "desah",
+      "bising",
+      "denting acak"
+    ],
+    "answer": 0,
+    "explanation": "Nada adalah bunyi teratur yang menjadi bahan dasar menyusun melodi lagu.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Urutan tinggi rendahnya nada yang tersusun secara berjenjang teratur disebut ...",
+    "options": [
+      "tempo ketukan",
+      "tangga nada",
+      "birama lagu",
+      "dinamika suara"
+    ],
+    "answer": 1,
+    "explanation": "Tangga nada (skala nada) menyusun jenjang do, re, mi, fa, sol, la, si, do.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Cepat lambatnya suatu lagu dinyanyikan atau dimainkan dalam seni musik disebut ...",
+    "options": [
+      "ritme",
+      "nada",
+      "tempo",
+      "timbre"
+    ],
+    "answer": 2,
+    "explanation": "Tempo mengatur laju ketukan cepat lambatnya sebuah komposisi musik.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Keras lembutnya bunyi nada yang dinyanyikan dalam sebuah lagu disebut ...",
+    "options": [
+      "tangga nada",
+      "birama garis",
+      "harmoni kunci",
+      "dinamika"
+    ],
+    "answer": 3,
+    "explanation": "Dinamika memberi ekspresi emosi lagu lewat volume keras atau lembut suara.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Alat musik yang tidak memiliki tangga nada dan berfungsi mengatur irama disebut alat musik ...",
+    "options": [
+      "ritmis",
+      "melodis",
+      "harmonis",
+      "elektronis"
+    ],
+    "answer": 0,
+    "explanation": "Alat musik ritmis mengatur ketukan tempo tanpa menghasilkan untaian melodi lagu.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Alat musik yang memiliki nada dan dapat memainkan melodi sebuah lagu disebut alat musik ...",
+    "options": [
+      "ritmis",
+      "melodis",
+      "perkusi murni",
+      "statik"
+    ],
+    "answer": 1,
+    "explanation": "Pianika, rekorder, seruling, dan gitar adalah contoh alat musik melodis.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Contoh alat musik ritmis tradisional yang dimainkan dengan cara dipukul adalah ...",
+    "options": [
+      "seruling bambu",
+      "rebab dawai",
+      "kendang (gendang)",
+      "kecapi petik"
+    ],
+    "answer": 2,
+    "explanation": "Kendang dimainkan dengan telapak tangan untuk mengatur tempo tarian/gamelan.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Contoh alat musik melodis modern tiup yang sering dipelajari siswa di sekolah adalah ...",
+    "options": [
+      "tamborin",
+      "marakas",
+      "segitiga (triangle)",
+      "pianika"
+    ],
+    "answer": 3,
+    "explanation": "Pianika ditiup sambil tuts tutsnya ditekan untuk menghasilkan melodi nada.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Alat musik tradisional tiup dari bambu yang berasal dari tanah Sunda Jawa Barat adalah ...",
+    "options": [
+      "suling",
+      "angklung",
+      "calung",
+      "saluang"
+    ],
+    "answer": 0,
+    "explanation": "Suling bambu menghasilkan melodi merdu melalui lubang tiup dan petikan nada.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Lagu daerah 'Bungong Jeumpa' yang menceritakan keindahan bunga cempaka berasal dari provinsi ...",
+    "options": [
+      "Sumatera Barat",
+      "Aceh",
+      "Riau",
+      "Sumatera Utara"
+    ],
+    "answer": 1,
+    "explanation": "Bungong Jeumpa adalah lagu daerah kebanggaan masyarakat Serambi Mekkah Aceh.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Lagu daerah 'Ampar-Ampar Pisang' yang sangat ceria dan terkenal berasal dari provinsi ...",
+    "options": [
+      "Kalimantan Barat",
+      "Sulawesi Selatan",
+      "Kalimantan Selatan",
+      "Papua Barat"
+    ],
+    "answer": 2,
+    "explanation": "Lagu Ampar-Ampar Pisang berasal dari tradisi pengolahan pisang di Kalimantan Selatan.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Tanda birama 4/4 pada sebuah lagu memiliki arti bahwa dalam setiap ruas birama terdapat ...",
+    "options": [
+      "2 ketukan nada",
+      "3 ketukan nada",
+      "8 ketukan nada",
+      "4 ketukan nada"
+    ],
+    "answer": 3,
+    "explanation": "Angka pembilang 4 menunjukkan ada 4 ketukan hitungan per satu ruas birama.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Alat musik tradisional berbahan bambu dari Jawa Barat yang dimainkan dengan digoyang adalah ...",
+    "options": [
+      "angklung",
+      "kendang",
+      "gong",
+      "saron"
+    ],
+    "answer": 0,
+    "explanation": "Angklung menghasilkan bunyi nada saat tabung bambunya digoyangkan teratur.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Tanda birama 3/4 sering digunakan untuk mengiringi tarian dengan irama ayunan langkah seperti tarian ...",
+    "options": [
+      "mars perang",
+      "walts (waltz)",
+      "cha-cha cepat",
+      "dangdut koplo"
+    ],
+    "answer": 1,
+    "explanation": "Birama 3/4 memiliki aksen ketukan kuat pada hitungan pertama (TUK-tek-tek).",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Lagu wajib nasional yang dinyanyikan dengan tempo cepat dan bersemangat (marcia) contohnya adalah ...",
+    "options": [
+      "Mengheningkan Cipta",
+      "Gugur Bunga",
+      "Maju Tak Gentar",
+      "Syukur"
+    ],
+    "answer": 2,
+    "explanation": "Lagu Maju Tak Gentar berbirama 4/4 dengan tempo mars memompa patriotisme juang.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Lagu wajib nasional 'Mengheningkan Cipta' dinyanyikan dengan tempo lambat dan khidmat bertujuan untuk ...",
+    "options": [
+      "mengajak penonton melompat riang",
+      "mempercepat jalannya upacara bendera",
+      "menghibur teman yang sedang berulang tahun",
+      "mengenang jasa para pahlawan bangsa"
+    ],
+    "answer": 3,
+    "explanation": "Tempo lambat dan dinamika lembut membangkitkan rasa hening, haru, dan takzim.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Perbedaan mendasar antara tangga nada diatonis mayor dan diatonis minor adalah ...",
+    "options": [
+      "mayor bernuansa ceria, minor bernuansa sedih",
+      "mayor bernuansa murung, minor bernuansa gembira",
+      "mayor hanya memiliki 5 nada, minor memiliki 7 nada",
+      "mayor tidak memiliki nada fa, minor lengkap"
+    ],
+    "answer": 0,
+    "explanation": "Tangga nada mayor berjarak 1-1-1/2-1-1-1-1/2 berkarakter riang dan bersemangat.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Cara memainkan alat musik triangle (segitiga) dari logam adalah dengan cara ...",
+    "options": [
+      "ditiup melalui lubang sudutnya",
+      "dipukul dengan stik logam pemukul",
+      "dipetik menggunakan jari jemari",
+      "digesek dengan busur dawai tali"
+    ],
+    "answer": 1,
+    "explanation": "Triangle dipukul menggunakan pemukul besi kecil untuk menghasilkan denting jernih.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Alat musik marakas dimainkan dengan cara digoyangkan karena di dalam tabungnya terdapat ...",
+    "options": [
+      "senar baja yang ditarik kencang",
+      "udara bertekanan gas tinggi",
+      "butiran biji atau kerikil kecil",
+      "mata pisau pemotong getar"
+    ],
+    "answer": 2,
+    "explanation": "Gesekan biji-bijian di dinding labu marakas menghasilkan bunyi gemerisik khas.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Fungsi tanda istirahat (tanda diam) pada penulisan partitur notasi musik adalah ...",
+    "options": [
+      "mempercepat tempo lagu seketika",
+      "menaikkan nada menjadi satu oktaf",
+      "mengakhiri lagu secara mendadak",
+      "memberi jeda hening tanpa menyuarakan nada"
+    ],
+    "answer": 3,
+    "explanation": "Tanda diam mengatur ritme napas dan artikulasi pemenggalan frase musikal.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Lagu daerah 'Yamko Rambe Yamko' yang berirama penuh semangat berasal dari daerah ...",
+    "options": [
+      "Papua",
+      "Maluku",
+      "Nusa Tenggara Timur",
+      "Sulawesi Utara"
+    ],
+    "answer": 0,
+    "explanation": "Yamko Rambe Yamko adalah lagu perjuangan daerah yang berasal dari tanah Papua.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Sikap tubuh yang benar saat bernyanyi agar suara merdu dan pernapasan leluasa adalah ...",
+    "options": [
+      "membungkuk lesu dengan leher tertekuk",
+      "berdiri tegak rileks dan dada terbuka",
+      "duduk melipat kaki menekan perut",
+      "berbaring santai di atas lantai"
+    ],
+    "answer": 1,
+    "explanation": "Postur tegak membuka rongga diafragma sehingga udara mengalir stabil.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Pernapasan yang paling ideal dan dianjurkan digunakan dalam bernyanyi adalah pernapasan ...",
+    "options": [
+      "dada yang membusung",
+      "bahu yang terangkat",
+      "diafragma (rongga perut)",
+      "tenggorokan sempit"
+    ],
+    "answer": 2,
+    "explanation": "Diafragma mampu menampung volume udara banyak dan mengontrol dorongan vokal.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Penyanyi yang menyanyikan lagu seorang diri tanpa kawan duet disebut bernyanyi secara ...",
+    "options": [
+      "duet berpasangan",
+      "trio bertiga",
+      "paduan suara (choir)",
+      "solo (tunggal)"
+    ],
+    "answer": 3,
+    "explanation": "Solo artinya vokal tunggal yang menjadi fokus utama pembawa lagu.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Menyanyikan lagu secara bersama-sama dalam satu suara tanpa pembagian suara nada disebut bernyanyi ...",
+    "options": [
+      "unisono",
+      "kanon susul menyusul",
+      "akord harmonis",
+      "akustik kamar"
+    ],
+    "answer": 0,
+    "explanation": "Unisono adalah teknik bernyanyi serempak pada satu jalur melodi pokok yang sama.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Alat musik kolintang khas Minahasa Sulawesi Utara dibuat dari bahan dasar bilah ...",
+    "options": [
+      "lempengan baja tahan karat",
+      "kayu lokal berresonansi",
+      "kulit sapi yang dikeringkan",
+      "tanah liat bakar gerabah"
+    ],
+    "answer": 1,
+    "explanation": "Bilah kayu kolintang disusun berderet di atas kotak resonator kayu merdu.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Analisis melodi: Mengapa lagu pengantar tidur (lullaby) selalu dimainkan dengan tempo lambat dan dinamika lembut?",
+    "options": [
+      "agar penyanyi tidak merasa haus lelah",
+      "karena lagu tidur tidak memiliki nada lagu",
+      "menenangkan gelombang otak menuju tidur",
+      "supaya anak cepat terbangun dari tidurnya"
+    ],
+    "answer": 2,
+    "explanation": "Frekuensi lembut dan ritme tenang memicu relaksasi saraf pengantar istirahat.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Evaluasi ensambel: Apa yang terjadi jika pemain drum/kendang tidak menjaga kestabilan tempo birama?",
+    "options": [
+      "musik yang dimainkan menjadi semakin merdu",
+      "penyanyi vokal otomatis bernyanyi lebih indah",
+      "penonton akan langsung bertepuk tangan riuh",
+      "seluruh pemain musik lain menjadi kacau"
+    ],
+    "answer": 3,
+    "explanation": "Alat ritmis adalah metronom penuntun keteraturan seluruh instrumen ensambel.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Perbandingan nada: Mengapa alat musik pianika membutuhkan tiupan udara yang stabil saat ditekan tutsnya?",
+    "options": [
+      "tiupan stabil menjaga kemurnian tinggi rendah nada",
+      "agar pianika tidak meledak karena tekanan",
+      "karena pianika dilarang ditiup dengan lembut",
+      "supaya tuts hitam putihnya tidak terlepas"
+    ],
+    "answer": 0,
+    "explanation": "Fluktuasi tiupan napas membuat nada menjadi sumbang (fals) dan patah-patah.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Refleksi budaya: Mengapa lagu-lagu daerah Nusantara menggunakan bahasa daerah asalnya masing-masing?",
+    "options": [
+      "karena penciptanya belum mengenal bahasa persatuan",
+      "merawat kekayaan tutur dan identitas budaya suku",
+      "agar suku bangsa lain tidak boleh menyanyikannya",
+      "supaya lagu tersebut tidak didengar masyarakat"
+    ],
+    "answer": 1,
+    "explanation": "Lagu daerah adalah cermin kearifan lokal, dialek bahasa, dan jiwa suku bangsa.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Nilai etika KBC: Perilaku seorang penonton yang santun saat menyaksikan konser musik sekolah adalah ...",
+    "options": [
+      "meneriaki penyanyi saat salah lirik lagu",
+      "bermain ponsel sambil memutar musik keras",
+      "menyimak tenang dan bertepuk tangan pada waktunya",
+      "melemparkan bungkus makanan ke panggung"
+    ],
+    "answer": 2,
+    "explanation": "Menghargai penampilan seniman adalah cermin kematangan budi pekerti pendengar.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Kritik musikalitas: Mengapa harmonisasi suara dalam bernyanyi paduan suara memerlukan rasa rendah hati?",
+    "options": [
+      "karena penyanyi bersuara keras harus dihukum",
+      "agar lagu selesai lebih cepat dari jadwalnya",
+      "karena paduan suara tidak boleh terdengar penonton",
+      "setiap penyanyi harus menahan ego volume suaranya"
+    ],
+    "answer": 3,
+    "explanation": "Keindahan paduan suara lahir dari peleburan suara serasi, bukan saling menonjolkan diri.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Penerapan kreativitas: Bagaimana cara menghasilkan bunyi ritmis marakas menggunakan barang bekas rumah tangga?",
+    "options": [
+      "mengisi botol plastik bekas dengan butir beras",
+      "meniup bagian mulut kaleng susu yang kosong",
+      "memukul sendok logam pada permukaan bantal",
+      "meremas-remas lembaran kantong kresek"
+    ],
+    "answer": 0,
+    "explanation": "Botol berisi beras meniru gemerisik marakas secara mandiri dan ramah lingkungan.",
+    "difficulty": 3,
+    "timeLimit": 25
+  }
+]

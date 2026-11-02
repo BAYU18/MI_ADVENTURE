@@ -1,0 +1,1958 @@
+{
+  "version": 1,
+  "class": "Kelas 4 SD",
+  "subject": "Akidah Akhlak",
+  "totalQuestions": 150,
+  "questions": [
+    {
+      "question": "Kalimat thayyibah secara bahasa memiliki arti kalimat yang ...",
+      "options": [
+        "sangat baik dan mulia",
+        "sangat panjang dibaca",
+        "sulit untuk dihafal",
+        "berisi perintah perang"
+      ],
+      "answer": 0,
+      "explanation": "Kalimat thayyibah berarti perkataan yang baik, indah, dan bernilai pahala.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Lafaz kalimat tasbih yang benar dalam ajaran Islam adalah ...",
+      "options": [
+        "Alhamdulillah",
+        "Subhanallah",
+        "Astaghfirullah",
+        "Allahu Akbar"
+      ],
+      "answer": 1,
+      "explanation": "Lafaz tasbih berbunyi Subhanallah yang artinya Maha Suci Allah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Arti dari kalimat tayyibah 'Subhanallah' adalah ...",
+      "options": [
+        "Segala puji bagi Allah",
+        "Allah Maha Besar",
+        "Maha Suci Allah",
+        "Tiada daya dan upaya"
+      ],
+      "answer": 2,
+      "explanation": "Subhanallah bermakna menyucikan Allah dari segala kekurangan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Lafaz kalimat tayyibah yang bermakna 'Allah Maha Besar' adalah ...",
+      "options": [
+        "Subhanallah",
+        "Alhamdulillah",
+        "Masyaallah",
+        "Allahu Akbar"
+      ],
+      "answer": 3,
+      "explanation": "Allahu Akbar disebut kalimat takbir yang mengagungkan kebesaran Allah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat tayyibah 'Masyaallah' memiliki arti ...",
+      "options": [
+        "Semua atas kehendak Allah",
+        "Maha Suci Allah selalu",
+        "Segala puji milik Allah",
+        "Ampunilah dosaku ya Allah"
+      ],
+      "answer": 0,
+      "explanation": "Masyaallah bermakna apa yang dikehendaki oleh Allah pasti terjadi.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Saat melihat pemandangan alam yang sangat menakjubkan, kita mengucap ...",
+      "options": [
+        "Astaghfirullahaladzim",
+        "Subhanallah atau Masyaallah",
+        "Inna lillahi wa inna ilaihi",
+        "La haula wala quwwata"
+      ],
+      "answer": 1,
+      "explanation": "Melihat keindahan ciptaan Allah disunnahkan mengucap Subhanallah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kalimat tayyibah 'Allahu Akbar' sering dikumandangkan ketika ...",
+      "options": [
+        "mendengar kabar kematian",
+        "terkena musibah banjir",
+        "seruan azan dan ikamah",
+        "berpamitan kepada guru"
+      ],
+      "answer": 2,
+      "explanation": "Takbir selalu dikumandangkan dalam lafaz azan lima waktu.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengucapkan kalimat thayyibah dalam kehidupan sehari-hari bernilai ...",
+      "options": [
+        "dosa dan kesalahan",
+        "kesia-siaan belaka",
+        "hukuman dari malaikat",
+        "pahala dan kebaikan"
+      ],
+      "answer": 3,
+      "explanation": "Setiap ucapan kalimat thayyibah mendapat pahala zikir di sisi Allah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Saat merasa heran menyaksikan perbuatan ganjil seseorang, kita membaca ...",
+      "options": [
+        "Subhanallah",
+        "Alhamdulillah",
+        "Bismillah",
+        "Allahu Akbar"
+      ],
+      "answer": 0,
+      "explanation": "Melihat keheranan atau hal yang tak pantas disunnahkan mengucap Subhanallah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Melihat adik bayi yang baru lahir sangat lucu dan menggemaskan, kita membaca ...",
+      "options": [
+        "Astaghfirullah rabbal baraya",
+        "Masyaallah tabarakallah",
+        "Inna lillahi wa inna ilaihi",
+        "La haula wala quwwata"
+      ],
+      "answer": 1,
+      "explanation": "Mengagumi kebaikan atau keberkahan disunnahkan mengucap Masyaallah tabarakallah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perbedaan utama pengucapan Subhanallah dan Masyaallah terletak pada ...",
+      "options": [
+        "keduanya tidak memiliki arti",
+        "Masyaallah hanya diucap saat tidur",
+        "Subhanallah untuk takjub ciptaan-Nya",
+        "Subhanallah hanya saat hari raya"
+      ],
+      "answer": 2,
+      "explanation": "Subhanallah menyucikan Allah, Masyaallah mengagumi karya atas izin Allah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hikmah membiasakan diri melafalkan kalimat takbir adalah menumbuhkan rasa ...",
+      "options": [
+        "sombong di hadapan teman",
+        "paling pintar di kelas",
+        "paling kaya di sekolah",
+        "rendah hati di hadapan Allah"
+      ],
+      "answer": 3,
+      "explanation": "Takbir menyadarkan bahwa hanya Allah Yang Maha Besar, manusia adalah kecil.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Siti melihat lukisan pemandangan karya temannya yang sangat indah. Siti sebaiknya mengucap ...",
+      "options": [
+        "Masyaallah tabarakallah",
+        "Inna lillahi wa inna ilaihi",
+        "Astaghfirullahaladzim",
+        "Naudzubillahi min dzalik"
+      ],
+      "answer": 0,
+      "explanation": "Melihat keindahan karya manusia atas izin Allah dianjurkan mengucap Masyaallah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Roni berjalan mendaki bukit terjal bersama ayahnya. Ketika jalan menanjak, Roni disunnahkan membaca ...",
+      "options": [
+        "Alhamdulillah",
+        "Allahu Akbar",
+        "Subhanallah",
+        "Astaghfirullah"
+      ],
+      "answer": 1,
+      "explanation": "Sunnah Nabi saat jalan menanjak membaca takbir, dan menurun membaca tasbih.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manfaat zikir kalimat thayyibah bagi ketenangan jiwa manusia adalah ...",
+      "options": [
+        "membuat cepat merasa mengantuk",
+        "menambah beban pikiran dan sedih",
+        "menjadikan hati damai dan tenang",
+        "menimbulkan perselisihan antarteman"
+      ],
+      "answer": 2,
+      "explanation": "Mengingat Allah dengan kalimat thayyibah membuat hati menjadi tenteram.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ucapan 'Allahu Akbar' mengingatkan seorang mukmin agar tidak memiliki sifat ...",
+      "options": [
+        "dermawan kepada sesama",
+        "jujur dalam perkataan",
+        "sabar saat diuji musibah",
+        "takabur dan tinggi hati"
+      ],
+      "answer": 3,
+      "explanation": "Takbir menghapus kesombongan karena hanya Allah yang berhak memiliki kebesaran.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengucapkan Subhanallah ketika lupa bilangan rakaat dalam salat berjamaah dilakukan oleh ...",
+      "options": [
+        "makmum laki-laki",
+        "makmum perempuan",
+        "imam yang memimpin",
+        "muazin yang berazan"
+      ],
+      "answer": 0,
+      "explanation": "Makmum pria menegur imam dengan bertasbih, makmum wanita dengan menepuk tangan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ucapan zikir yang dianjurkan dibaca sebanyak 33 kali setelah salat fardhu meliputi ...",
+      "options": [
+        "Astaghfirullah, Masyaallah, Bismillah",
+        "Subhanallah, Alhamdulillah, Allahu Akbar",
+        "Innalillah, Masyaallah, Allahu Akbar",
+        "Subhanallah, Astaghfirullah, Syukron"
+      ],
+      "answer": 1,
+      "explanation": "Zikir ba'da salat terdiri dari tasbih 33x, tahmid 33x, dan takbir 33x.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap seorang muslim yang selalu mengagungkan kebesaran Allah tercermin dalam ...",
+      "options": [
+        "suka pamer harta kekayaan",
+        "enggan memaafkan sahabat",
+        "tidak meremehkan orang lain",
+        "merasa dirinya paling hebat"
+      ],
+      "answer": 2,
+      "explanation": "Mengakui kebesaran Allah melahirkan sikap santun dan tidak merendahkan sesama.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Zikir kalimat thayyibah menjadi bukti cinta dan penghambaan seorang hamba kepada ...",
+      "options": [
+        "harta benda kekayaannya",
+        "pujian dan sanjungan teman",
+        "kedudukan jabatan di sekolah",
+        "Allah Subhanahu wa Ta'ala"
+      ],
+      "answer": 3,
+      "explanation": "Kalimat thayyibah ditujukan semata-mata untuk mengagungkan Allah Ta'ala.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kaitan antara kalimat tayyibah Masyaallah dengan pencegahan penyakit ain adalah ...",
+      "options": [
+        "menghindarkan rasa iri dan pandangan takjub",
+        "menyembuhkan batuk dan demam tinggi",
+        "membuat barang langsung jadi milik kita",
+        "mencegah diri dari rasa kantuk di kelas"
+      ],
+      "answer": 0,
+      "explanation": "Mengucap Masyaallah tabarakallah memohon berkah agar terhindar dari penyakit ain.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pernyataan yang tepat mengenai penerapan kalimat tasbih dalam kehidupan adalah ...",
+      "options": [
+        "mengakui manusia punya kekuatan setara",
+        "menyucikan Allah dari segala sifat lemah",
+        "memuji kecerdasan diri saat lulus ujian",
+        "mengharapkan pujian dari teman dan guru"
+      ],
+      "answer": 1,
+      "explanation": "Hakikat tasbih adalah keyakinan mutlak bahwa Allah suci dari segala kekurangan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika seorang muslim meraih juara kelas, respon akidah terbaik yang ia ucapkan adalah ...",
+      "options": [
+        "ini semua murni hasil kehebatanku",
+        "orang lain tak mampu menyaingiku",
+        "Alhamdulillah dan Masyaallah tabarakallah",
+        "aku memang pantas sombong di depan teman"
+      ],
+      "answer": 2,
+      "explanation": "Menyadari prestasi adalah anugerah Allah, bukan semata karena kehebatan diri.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Makna filosofis dari takbir 'Allahu Akbar' saat menghadapi kesulitan besar adalah ...",
+      "options": [
+        "pasrah tanpa berusaha mencari jalan keluar",
+        "mengeluh terus kepada orang lain",
+        "meninggalkan ibadah karena cobaan berat",
+        "yakin pertolongan Allah sangat besar"
+      ],
+      "answer": 3,
+      "explanation": "Takbir membangkitkan optimisme bahwa tiada masalah yang lebih besar dari kekuasaan Allah.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Analisis perilaku: Budi selalu mengucapkan kalimat thayyibah setiap hari. Dampak sosial perilakunya adalah ...",
+      "options": [
+        "lisan terjaga dan disayangi teman",
+        "menjadi pendiam dan enggan bergaul",
+        "selalu dipuji berlebihan sehingga sombong",
+        "teman-teman merasa sangat terganggu"
+      ],
+      "answer": 0,
+      "explanation": "Membiasakan kalimat thayyibah menjaga lisan dari ghibah dan perkataan kotor.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jumlah nama-nama indah Allah (Asmaul Husna) yang wajib kita imani berjumlah ...",
+      "options": [
+        "99 nama",
+        "25 nama",
+        "100 nama",
+        "10 nama"
+      ],
+      "answer": 0,
+      "explanation": "Asmaul Husna yang masyhur berjumlah 99 nama mulia.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Arti dari Asmaul Husna 'al-Malik' adalah Allah Maha ...",
+      "options": [
+        "Maha Mendengar doa",
+        "Merajai seluruh alam",
+        "Maha Melihat rahasia",
+        "Maha Pengampun dosa"
+      ],
+      "answer": 1,
+      "explanation": "Al-Malik berarti Yang Maha Menguasai dan Merajai alam semesta.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Arti dari Asmaul Husna 'al-Quddus' adalah Allah Maha ...",
+      "options": [
+        "Kaya tanpa batas",
+        "Besar kekuasaan-Nya",
+        "Suci dari kekurangan",
+        "Penyayang pada hamba"
+      ],
+      "answer": 2,
+      "explanation": "Al-Quddus bermakna Maha Suci dari segala aib dan cela.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Arti dari Asmaul Husna 'al-'Aziz' adalah Allah Maha ...",
+      "options": [
+        "Bijaksana adil",
+        "Mengetahui ghaib",
+        "Pencipta makhluk",
+        "Perkasa dan Mulia"
+      ],
+      "answer": 3,
+      "explanation": "Al-'Aziz berarti Yang Maha Perkasa, Mulia, dan Tak Terkalahkan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Siapakah yang menguasai dan merajai alam semesta beserta seluruh isinya?",
+      "options": [
+        "Allah Yang Maha Esa",
+        "Para raja di dunia",
+        "Malaikat penjaga langit",
+        "Manusia yang paling kaya"
+      ],
+      "answer": 0,
+      "explanation": "Hanya Allah Raja yang hakiki bagi seluruh alam semesta.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Menjaga kebersihan pakaian dan tempat salat merupakan cermin meneladani Asmaul Husna ...",
+      "options": [
+        "al-Malik",
+        "al-Quddus",
+        "al-'Aziz",
+        "al-Ghaffar"
+      ],
+      "answer": 1,
+      "explanation": "Al-Quddus mengajarkan kita untuk menjaga kesucian lahir dan batin.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tidak bergantung kepada belas kasihan orang lain mencerminkan keteladanan sifat ...",
+      "options": [
+        "al-Quddus",
+        "al-Malik",
+        "al-'Aziz",
+        "al-Wahhab"
+      ],
+      "answer": 2,
+      "explanation": "Al-'Aziz mengajarkan kemuliaan diri (izzah) dan pantang mengemis.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kekuasaan para raja dan presiden di dunia ini sifatnya adalah ...",
+      "options": [
+        "abadi selamanya",
+        "tanpa batas akhir",
+        "kekal sepanjang masa",
+        "sementara dan terbatas"
+      ],
+      "answer": 3,
+      "explanation": "Kekuasaan manusia di dunia fana, sedangkan kerajaan Allah abadi.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Membersihkan hati dari rasa iri, dengki, dan sombong adalah meneladani sifat ...",
+      "options": [
+        "al-Quddus",
+        "al-Malik",
+        "al-Mutakabbir",
+        "al-'Aziz"
+      ],
+      "answer": 0,
+      "explanation": "Al-Quddus menuntun kita menyucikan hati dari penyakit hati.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Memimpin teman-teman kelompok belajar dengan penuh keadilan mencerminkan sifat ...",
+      "options": [
+        "al-Quddus",
+        "al-Malik",
+        "al-Hakim",
+        "al-Lathif"
+      ],
+      "answer": 1,
+      "explanation": "Al-Malik meneladankan kepemimpinan yang adil dan mengayomi.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perbedaan mendasar antara kerajaan Allah Ta'ala dengan kerajaan manusia adalah ...",
+      "options": [
+        "kerajaan manusia tidak pernah runtuh",
+        "kerajaan Allah butuh bantuan tentara",
+        "kerajaan Allah abadi dan mutlak",
+        "kerajaan manusia mencakup langit bumi"
+      ],
+      "answer": 2,
+      "explanation": "Kerajaan Allah mutlak dan tidak bergantung pada siapa pun.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Cara meneladani sifat al-Quddus saat berada di lingkungan sekolah adalah ...",
+      "options": [
+        "mencoret-coret meja dan dinding",
+        "mengejek kekurangan fisik teman",
+        "menyimpan dendam kepada sahabat",
+        "membuang sampah pada tempatnya"
+      ],
+      "answer": 3,
+      "explanation": "Menjaga kebersihan lingkungan sekolah merupakan bukti meneladani al-Quddus.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap izzah (kemuliaan diri) seorang pelajar muslim yang meneladani al-'Aziz adalah ...",
+      "options": [
+        "teguh membela kebenaran walau diejek",
+        "mudah putus asa saat ujian sulit",
+        "mengikuti ajakan buruk teman",
+        "rendah diri karena keluarga sederhana"
+      ],
+      "answer": 0,
+      "explanation": "Meneladani al-'Aziz membentuk pribadi yang teguh menjaga kehormatan iman.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Seorang pemimpin yang amanah dan tidak semena-mena kepada rakyatnya meneladani nama ...",
+      "options": [
+        "al-Jabbar",
+        "al-Malik",
+        "al-Qahhar",
+        "al-Mutakabbir"
+      ],
+      "answer": 1,
+      "explanation": "Pemimpin yang adil meneladani sifat kepemimpinan Allah al-Malik.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Allah tidak membutuhkan makan, minum, maupun istirahat. Hal ini membuktikan bahwa Allah ...",
+      "options": [
+        "al-Malik",
+        "al-'Aziz",
+        "al-Quddus",
+        "al-Khaliq"
+      ],
+      "answer": 2,
+      "explanation": "Allah Maha Suci dari segala sifat ketergantungan dan kelemahan makhluk.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika melihat teman kita berbuat salah, cara mengingatkan yang meneladani sifat al-Quddus adalah ...",
+      "options": [
+        "mencaci maki kesalahannya di umum",
+        "membicarakan aibnya ke semua teman",
+        "membalas perbuatannya lebih jahat",
+        "menasihati secara santun"
+      ],
+      "answer": 3,
+      "explanation": "Menjaga kesucian lisan dengan menasihati secara baik dan penuh kasih sayang.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kemuliaan yang hakiki di sisi Allah Subhanahu wa Ta'ala hanya dapat diraih melalui ...",
+      "options": [
+        "ketaqwaan dan amal saleh",
+        "banyaknya jumlah harta kekayaan",
+        "tingginya kedudukan bangsawan",
+        "wajah rupawan dan pakaian mewah"
+      ],
+      "answer": 0,
+      "explanation": "Allah memuliakan hamba-Nya berdasarkan ketakwaan, bukan rupa dan harta.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hamba yang meneladani al-Malik akan mampu mengendalikan hawa nafsunya agar tidak ...",
+      "options": [
+        "mengerjakan salat lima waktu",
+        "terjerumus ke dalam kemaksiatan",
+        "berbakti kepada kedua orang tua",
+        "membantu teman yang membutuhkan"
+      ],
+      "answer": 1,
+      "explanation": "Merajai diri sendiri berarti mengendalikan hawa nafsu dari perbuatan dosa.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Menghafal Asmaul Husna hendaknya diiringi dengan usaha nyata untuk ...",
+      "options": [
+        "dipamerkan kepada semua tetangga",
+        "mencari pujian dan sanjungan guru",
+        "mengamalkan nilai dalam perbuatan",
+        "mendapat imbalan uang dari orang tua"
+      ],
+      "answer": 2,
+      "explanation": "Menghafal Asmaul Husna harus dibarengi dengan keteladanan akhlak mulia.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa Allah memiliki sifat al-'Aziz yang Maha Perkasa?",
+      "options": [
+        "karena bergantung pada kepatuhan malaikat",
+        "karena butuh persembahan sesajen manusia",
+        "karena kekuasaan Allah dibatasi waktu",
+        "karena tiada yang dapat mengalahkan-Nya"
+      ],
+      "answer": 3,
+      "explanation": "Keperkasaan Allah mutlak dan tiada yang sanggup menandingi kekuasaan-Nya.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ahmad terpilih menjadi ketua kelas. Sikap yang mencerminkan keteladanan Asmaul Husna al-Malik adalah ...",
+      "options": [
+        "mengayomi teman dan tidak semena-mena",
+        "menyuruh teman piket sendirian",
+        "memilih teman kaya untuk diajak bicara",
+        "menghukum teman tanpa mendengarkannya"
+      ],
+      "answer": 0,
+      "explanation": "Menjadi pemimpin teladan adalah wujud penerapan al-Malik dalam skala kelas.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hubungan antara sifat al-Quddus dengan thaharah (bersuci) dalam ibadah adalah ...",
+      "options": [
+        "bersuci hanya formalitas sebelum salat",
+        "Allah menyukai kesucian lahir dan batin",
+        "ibadah sah walau badan terkena najis",
+        "kebersihan batin tak berhubungan fisik"
+      ],
+      "answer": 1,
+      "explanation": "Allah Maha Suci sehingga hanya menerima ibadah yang dilakukan dalam keadaan suci.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap seorang pelajar saat diajak berbuat curang saat ujian oleh sahabat karibnya adalah ...",
+      "options": [
+        "menerima ajakan agar tak dimusuhi",
+        "memberi contekan karena tidak enak hati",
+        "menolak tegas demi kehormatan diri",
+        "pura-pura tak dengar lalu ikut curang"
+      ],
+      "answer": 2,
+      "explanation": "Menolak kecurangan merupakan perwujudan sifat tangguh dan mulia (al-'Aziz).",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kekuasaan manusia di muka bumi bersifat titipan. Kesadaran ini menumbuhkan sikap ...",
+      "options": [
+        "tamak untuk menguasai harta orang lain",
+        "haus akan pujian masyarakat sekitar",
+        "enggan menyerahkan amanah kepada orang",
+        "tawadhu dan tidak sombong atas jabatan"
+      ],
+      "answer": 3,
+      "explanation": "Menyadari bahwa pemilik hakiki adalah al-Malik membuat manusia bersikap rendah hati.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengintegrasikan sifat al-Quddus dan al-'Aziz dalam pergaulan sehari-hari menghasilkan pribadi yang ...",
+      "options": [
+        "berhati bersih dan teguh dalam kebaikan",
+        "suka meremehkan orang berbuat salah",
+        "mudah terpengaruh tren buruk medsos",
+        "selalu merasa paling suci dibanding teman"
+      ],
+      "answer": 0,
+      "explanation": "Perpaduan al-Quddus dan al-'Aziz melahirkan integritas moral yang sangat tangguh.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Beriman kepada kitab-kitab Allah merupakan rukun iman yang ke- ...",
+      "options": [
+        "tiga (3)",
+        "satu (1)",
+        "dua (2)",
+        "empat (4)"
+      ],
+      "answer": 0,
+      "explanation": "Rukun iman ke-3 adalah beriman kepada kitab-kitab Allah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kitab suci Taurat diturunkan oleh Allah kepada Nabi ...",
+      "options": [
+        "Dawud 'alaihissalam",
+        "Musa 'alaihissalam",
+        "Isa 'alaihissalam",
+        "Ibrahim 'alaihissalam"
+      ],
+      "answer": 1,
+      "explanation": "Kitab Taurat diwahyukan kepada Nabi Musa a.s. untuk Bani Israil.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kitab suci Zabur diturunkan oleh Allah kepada Nabi ...",
+      "options": [
+        "Musa 'alaihissalam",
+        "Isa 'alaihissalam",
+        "Dawud 'alaihissalam",
+        "Yusuf 'alaihissalam"
+      ],
+      "answer": 2,
+      "explanation": "Kitab Zabur diwahyukan kepada Nabi Dawud a.s.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kitab suci Injil diturunkan oleh Allah kepada Nabi ...",
+      "options": [
+        "Dawud 'alaihissalam",
+        "Musa 'alaihissalam",
+        "Nuh 'alaihissalam",
+        "Isa 'alaihissalam"
+      ],
+      "answer": 3,
+      "explanation": "Kitab Injil diwahyukan kepada Nabi Isa a.s.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kitab suci Al-Qur'an diturunkan oleh Allah kepada Nabi ...",
+      "options": [
+        "Muhammad shallallahu 'alaihi wasallam",
+        "Musa 'alaihissalam",
+        "Isa 'alaihissalam",
+        "Ibrahim 'alaihissalam"
+      ],
+      "answer": 0,
+      "explanation": "Al-Qur'an diturunkan kepada Nabi Muhammad saw sebagai penutup para nabi.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bahasa yang digunakan dalam penyampaian kitab suci Al-Qur'an adalah ...",
+      "options": [
+        "bahasa Ibrani",
+        "bahasa Arab",
+        "bahasa Suryani",
+        "bahasa Yunani"
+      ],
+      "answer": 1,
+      "explanation": "Al-Qur'an diturunkan dalam bahasa Arab yang sangat jelas dan fasih.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Malaikat yang bertugas menyampaikan wahyu kitab suci kepada para nabi adalah ...",
+      "options": [
+        "Malaikat Mikail",
+        "Malaikat Israfil",
+        "Malaikat Jibril",
+        "Malaikat Izrail"
+      ],
+      "answer": 2,
+      "explanation": "Malaikat Jibril adalah utusan Allah pembawa wahyu suci.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Al-Qur'an diturunkan sebagai penyempurna dan membenarkan kitab-kitab ...",
+      "options": [
+        "yang dibuat oleh para ulama",
+        "cerita rakyat zaman dahulu",
+        "hukum adat istiadat kabilah",
+        "yang diturunkan sebelumnya"
+      ],
+      "answer": 3,
+      "explanation": "Al-Qur'an menyempurnakan syariat kitab-kitab terdahulu.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Lembaran-lembaran wahyu Allah yang diturunkan sebelum kitab suci disebut ...",
+      "options": [
+        "suhuf",
+        "hadis",
+        "risalah",
+        "matan"
+      ],
+      "answer": 0,
+      "explanation": "Suhuf adalah lembaran-lembaran wahyu Allah (seperti suhuf Ibrahim dan Musa).",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kitab suci Al-Qur'an terdiri dari ... juz dan 114 surah.",
+      "options": [
+        "20 juz",
+        "30 juz",
+        "40 juz",
+        "50 juz"
+      ],
+      "answer": 1,
+      "explanation": "Al-Qur'an terbagi menjadi 30 juz dan 114 surah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Fungsi utama kitab suci diturunkan kepada umat manusia adalah sebagai ...",
+      "options": [
+        "buku cerita sejarah masa lampau",
+        "pajangan hiasan di lemari buku",
+        "petunjuk jalan kebenaran hidup",
+        "pelengkap upacara adat keluarga"
+      ],
+      "answer": 2,
+      "explanation": "Kitab suci menjadi pedoman hidup (hudan lin-nas) agar selamat dunia akhirat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap seorang muslim terhadap kitab-kitab sebelum Al-Qur'an adalah ...",
+      "options": [
+        "mengingkari dan menolak ajarannya",
+        "mengamalkan seluruh hukum lamanya",
+        "menganggap kitab tersebut palsu",
+        "meyakini keberadaannya dengan baik"
+      ],
+      "answer": 3,
+      "explanation": "Kita wajib mengimani keberadaannya tetapi syariatnya disempurnakan Al-Qur'an.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mukjizat terbesar yang diberikan Allah kepada Nabi Muhammad saw adalah ...",
+      "options": [
+        "kitab suci Al-Qur'an al-Karim",
+        "membelah lautan merah luas",
+        "tongkat yang menjadi ular",
+        "menyembuhkan penyakit lepra"
+      ],
+      "answer": 0,
+      "explanation": "Al-Qur'an adalah mukjizat abadi yang terpelihara hingga akhir zaman.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Wahyu Al-Qur'an pertama kali diturunkan kepada Rasulullah saw di ...",
+      "options": [
+        "Gua Tsur di Madinah",
+        "Gua Hira di Jabal Nur",
+        "Bukit Shafa di Makkah",
+        "Padang Arafah Makkah"
+      ],
+      "answer": 1,
+      "explanation": "Surah Al-'Alaq ayat 1-5 turun saat beliau berkhalwat di Gua Hira.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Cara mencintai kitab suci Al-Qur'an dalam kehidupan sehari-hari adalah ...",
+      "options": [
+        "hanya menyimpannya di tempat tinggi",
+        "membaca saat ada perlombaan saja",
+        "rajin membaca dan mengamalkannya",
+        "menghafal semata untuk dipuji orang"
+      ],
+      "answer": 2,
+      "explanation": "Mencintai Al-Qur'an diwujudkan dengan tilawah, tadabbur, dan amal saleh.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Nama lain Al-Qur'an 'Al-Huda' memiliki arti ...",
+      "options": [
+        "pembeda benar salah",
+        "penyembuh luka hati",
+        "cahaya yang benderang",
+        "petunjuk bagi manusia"
+      ],
+      "answer": 3,
+      "explanation": "Al-Huda bermakna petunjuk jalan lurus bagi manusia beriman.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Nama lain Al-Qur'an 'Al-Furqan' memiliki arti ...",
+      "options": [
+        "pembeda hak dan batil",
+        "penawar bagi penyakit",
+        "peringatan yang abadi",
+        "bacaan yang mulia"
+      ],
+      "answer": 0,
+      "explanation": "Al-Furqan berarti pembeda antara perkara yang benar dan perkara yang batil.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Keaslian dan kesucian kitab suci Al-Qur'an dijamin terpelihara langsung oleh ...",
+      "options": [
+        "para ilmuwan muslim dunia",
+        "Allah Subhanahu wa Ta'ala",
+        "pemerintah negara Islam",
+        "organisasi dakwah internasional"
+      ],
+      "answer": 1,
+      "explanation": "Allah berjanji dalam surah Al-Hijr ayat 9 untuk menjaga keaslian Al-Qur'an.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kitab Zabur diturunkan kepada Nabi Dawud a.s. berisi tentang ...",
+      "options": [
+        "hukum perang dan perdagangan",
+        "kisah-kisah para raja dunia",
+        "doa, zikir, dan pengagungan Allah",
+        "ramalan peristiwa masa depan"
+      ],
+      "answer": 2,
+      "explanation": "Zabur berisi pujian, zikir, dan munajat Nabi Dawud a.s. kepada Allah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Nabi yang menerima suhuf menurut Al-Qur'an di antaranya adalah Nabi ...",
+      "options": [
+        "Isa a.s. dan Yahya a.s.",
+        "Yusuf a.s. dan Ya'qub a.s.",
+        "Nuh a.s. dan Luth a.s.",
+        "Ibrahim a.s. dan Musa a.s."
+      ],
+      "answer": 3,
+      "explanation": "Al-Qur'an menyebutkan 'Suhuful Ibrahim wa Musa'.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Alasan syariat dalam kitab-kitab suci sebelum Al-Qur'an tidak berlaku lagi bagi umat Islam adalah ...",
+      "options": [
+        "telah disempurnakan oleh Al-Qur'an",
+        "kitab dahulu bukan dari wahyu Allah",
+        "umat manusia dahulu tak punya aturan",
+        "ajaran para nabi terdahulu sangat beda"
+      ],
+      "answer": 0,
+      "explanation": "Al-Qur'an menyempurnakan seluruh syariat sebelumnya dan berlaku universal.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap tepat seorang pelajar saat melihat mushaf Al-Qur'an tergeletak di lantai adalah ...",
+      "options": [
+        "membiarkannya karena bukan milik sendiri",
+        "mengambilnya lalu menaruh di tempat tinggi",
+        "melangkahinya karena terburu-buru",
+        "menyuruh adik kelas memindahkannya"
+      ],
+      "answer": 1,
+      "explanation": "Menghormati mushaf Al-Qur'an adalah bagian dari pengagungan syiar Allah.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Manfaat membaca Al-Qur'an dengan tartil dan memahami terjemahannya adalah ...",
+      "options": [
+        "mendapat kekayaan instan di dunia",
+        "terbebas dari semua tugas sekolah",
+        "memperoleh petunjuk dan ketenangan batin",
+        "bisa mengalahkan teman saat debat"
+      ],
+      "answer": 2,
+      "explanation": "Membaca dengan tadabbur menuntun hati menuju akhlak mulia dan keselamatan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pernyataan yang membuktikan bahwa Al-Qur'an adalah mukjizat abadi adalah ...",
+      "options": [
+        "hanya cocok untuk orang padang pasir",
+        "isinya berubah sesuai zaman",
+        "hanya bisa dibaca oleh para ulama",
+        "bahasa indah dan relevan sepanjang zaman"
+      ],
+      "answer": 3,
+      "explanation": "Al-Qur'an mukjizat abadi karena terjaga keasliannya dan relevan sepanjang zaman.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dalam surah Al-Baqarah ayat 2 ditegaskan bahwa Al-Qur'an tidak ada keraguan padanya. Maknanya adalah ...",
+      "options": [
+        "seluruh ajaran Al-Qur'an mutlak benar",
+        "manusia boleh memilih ayat yang disukai",
+        "isi Al-Qur'an karya manusia cerdas",
+        "hanya berlaku saat Nabi Muhammad hidup"
+      ],
+      "answer": 0,
+      "explanation": "Tiada keraguan membuktikan bahwa Al-Qur'an murni kalamullah yang mutlak benar.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Secara bahasa kata 'amanah' memiliki arti ...",
+      "options": [
+        "dapat dipercaya",
+        "mudah berjanji",
+        "selalu menang",
+        "pandai bicara"
+      ],
+      "answer": 0,
+      "explanation": "Amanah berarti jujur, bertanggung jawab, dan dapat dipercaya.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Lawan atau kebalikan dari sifat amanah adalah ...",
+      "options": [
+        "kufur",
+        "khianat",
+        "dusta",
+        "kikir"
+      ],
+      "answer": 1,
+      "explanation": "Lawan kata amanah adalah khianat, yaitu mengingkari kepercayaan.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh perilaku amanah seorang murid saat berada di sekolah adalah ...",
+      "options": [
+        "mencontek saat ujian akhir",
+        "mencoret-coret meja belajar",
+        "menjalankan tugas piket kelas",
+        "membolos saat jam pelajaran"
+      ],
+      "answer": 2,
+      "explanation": "Menjalankan piket kelas dengan penuh tanggung jawab adalah contoh amanah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika dititipi pesan oleh orang tua untuk guru, sikap kita sebaiknya ...",
+      "options": [
+        "melupakan pesan tersebut",
+        "mengubah isi pesan sesuka hati",
+        "merahasiakan dari guru sekolah",
+        "menyampaikan pesan dengan tepat"
+      ],
+      "answer": 3,
+      "explanation": "Pesan atau titipan wajib disampaikan kepada yang berhak menerima.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Menjaga rahasia pribadi yang diceritakan oleh sahabat karib merupakan cermin ...",
+      "options": [
+        "sikap amanah",
+        "sikap sombong",
+        "sikap riya'",
+        "sikap kikir"
+      ],
+      "answer": 0,
+      "explanation": "Menjaga rahasia orang lain adalah bagian dari memegang amanah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tubuh yang sehat dan akal yang cerdas merupakan amanah dari ...",
+      "options": [
+        "para guru di sekolah",
+        "Allah Subhanahu wa Ta'ala",
+        "teman-teman bermain",
+        "masyarakat sekitar"
+      ],
+      "answer": 1,
+      "explanation": "Kesehatan dan akal adalah nikmat amanah Allah yang harus disyukuri.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Orang yang selalu memegang amanah dengan baik akan ...",
+      "options": [
+        "dijauhi oleh teman-temannya",
+        "mengalami banyak kerugian",
+        "disenangi dan dipercaya orang",
+        "mendapatkan cemoohan warga"
+      ],
+      "answer": 2,
+      "explanation": "Sikap amanah mendatangkan kepercayaan dan cinta dari sesama manusia.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengembalikan buku perpustakaan tepat waktu dalam keadaan rapi mencerminkan ...",
+      "options": [
+        "kemalasan dalam belajar",
+        "ketakutan kepada penjaga",
+        "keinginan untuk disanjung",
+        "tanggung jawab dan amanah"
+      ],
+      "answer": 3,
+      "explanation": "Menjaga barang pinjaman adalah wujud amanah seorang pelajar.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Gelar yang diberikan penduduk Makkah kepada Nabi Muhammad saw karena kejujurannya adalah ...",
+      "options": [
+        "Al-Amin",
+        "As-Siddiq",
+        "Al-Faruq",
+        "Dzulnurain"
+      ],
+      "answer": 0,
+      "explanation": "Al-Amin artinya orang yang sangat terpercaya dan memegang amanah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jika kita berjanji kepada seorang teman, maka janji tersebut wajib ...",
+      "options": [
+        "dilupakan begitu saja",
+        "ditepati dengan baik",
+        "diabaikan jika repot",
+        "dibatalkan sepihak"
+      ],
+      "answer": 1,
+      "explanation": "Janji adalah utang yang wajib ditepati sesuai ajaran Islam.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Contoh amanah terhadap Allah Subhanahu wa Ta'ala dalam kehidupan sehari-hari adalah ...",
+      "options": [
+        "berbuat curang saat ujian",
+        "membantah perintah orang tua",
+        "melaksanakan salat lima waktu",
+        "menghamburkan uang jajan"
+      ],
+      "answer": 2,
+      "explanation": "Menjalankan perintah ibadah adalah wujud amanah hamba kepada Penciptanya.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Menggunakan waktu belajar di sekolah untuk bermain game di ponsel merupakan bentuk ...",
+      "options": [
+        "kreativitas seorang pelajar",
+        "hiburan yang wajib dilakukan",
+        "tindakan yang sangat terpuji",
+        "pengkhianatan terhadap amanah"
+      ],
+      "answer": 3,
+      "explanation": "Menyia-nyiakan waktu belajar adalah bentuk lalai terhadap amanah belajar.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hikmah yang dirasakan oleh orang yang selalu amanah dalam kehidupannya adalah ...",
+      "options": [
+        "hidup tenteram dan disayangi Allah",
+        "mendapatkan banyak musuh di mana-mana",
+        "selalu merasa cemas dan ketakutan",
+        "kehilangan seluruh harta bendanya"
+      ],
+      "answer": 0,
+      "explanation": "Orang yang amanah hidupnya tenang karena tidak menanggung beban dosa khianat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika menemukan dompet berisi uang di halaman sekolah, sikap murid yang amanah adalah ...",
+      "options": [
+        "mengambil uangnya untuk jajan kantin",
+        "menyerahkannya kepada bapak guru",
+        "menyembunyikannya di dalam tas sekolah",
+        "membagikan uang tersebut kepada teman"
+      ],
+      "answer": 1,
+      "explanation": "Menemukan barang temuan wajib diserahkan kepada pihak yang berwenang.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Salah satu tanda orang munafik menurut sabda Rasulullah saw adalah jika dipercaya ia ...",
+      "options": [
+        "menepati",
+        "berzikir",
+        "berkhianat",
+        "bersedekah"
+      ],
+      "answer": 2,
+      "explanation": "Rasulullah saw bersabda: tanda munafik ada 3, salah satunya jika dipercaya ia berkhianat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Menjaga kelestarian lingkungan dan tidak merusak fasilitas umum merupakan amanah kepada ...",
+      "options": [
+        "diri sendiri semata",
+        "para penjaga keamanan",
+        "keluarga terdekat saja",
+        "alam dan masyarakat luas"
+      ],
+      "answer": 3,
+      "explanation": "Fasilitas umum adalah amanah bersama untuk dijaga dan dirawat bersama.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Seorang bendahara kelas yang amanah akan mencatat uang kas kelas dengan ...",
+      "options": [
+        "jujur, rapi, dan transparan",
+        "mengurangi jumlah catatan kas",
+        "memakai uang kas untuk pribadi",
+        "merahasiakan catatan dari teman"
+      ],
+      "answer": 0,
+      "explanation": "Bendahara wajib melaporkan keuangan dengan jujur dan terbuka.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Amanah terhadap diri sendiri dapat diwujudkan dengan cara ...",
+      "options": [
+        "tidur larut malam setiap hari",
+        "menjaga kesehatan dan rajin belajar",
+        "makan sembarangan sepanjang hari",
+        "bermalas-malasan sepanjang hari"
+      ],
+      "answer": 1,
+      "explanation": "Merawat tubuh dan mengasah ilmu adalah amanah bagi diri sendiri.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Akibat buruk yang menimpa orang yang suka berkhianat dalam pergaulan adalah ...",
+      "options": [
+        "semakin banyak teman yang mendekat",
+        "dihormati oleh seluruh masyarakat",
+        "hilang kepercayaan orang lain kepadanya",
+        "kehidupannya menjadi penuh berkah"
+      ],
+      "answer": 2,
+      "explanation": "Sekali berkhianat, orang lain akan sulit percaya lagi di kemudian hari.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perilaku amanah sangat erat kaitannya dengan kejujuran, sebab orang yang amanah pasti ...",
+      "options": [
+        "suka menyembunyikan fakta nyata",
+        "mencari keuntungan dengan menipu",
+        "bermuka dua di depan orang lain",
+        "berkata benar dan bertindak lurus"
+      ],
+      "answer": 3,
+      "explanation": "Kejujuran adalah pondasi utama lahirnya sifat amanah yang kokoh.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Roni diminta ibunya membeli obat di apotek dan menerima uang kembalian. Sikap Roni yang amanah adalah ...",
+      "options": [
+        "menyerahkan semua uang kembalian ke ibu",
+        "mengambil sebagian kembalian diam-diam",
+        "menyimpan kembalian di sakunya untuk jajan",
+        "berbohong bahwa obatnya tidak ada kembalian"
+      ],
+      "answer": 0,
+      "explanation": "Mengembalikan hak secara utuh merupakan ujian integritas amanah anak.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Analisis perilaku: Mengapa sifat amanah menjadi kunci kesuksesan para Rasul dalam berdakwah?",
+      "options": [
+        "para Rasul punya harta sangat melimpah",
+        "umat percaya ajarannya murni dari Allah",
+        "para Rasul punya pasukan sangat besar",
+        "para Rasul memaksa manusia dengan kuasa"
+      ],
+      "answer": 1,
+      "explanation": "Kepercayaan umat lahir dari rekam jejak amanah para Rasul yang tanpa cela.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Seorang siswa meminjam buku catatan temannya untuk disalin. Tindakan yang mencerminkan amanah adalah ...",
+      "options": [
+        "meminjamkan ke orang lain tanpa izin",
+        "merobek lembaran buku yang dirasa bagus",
+        "menjaga buku dan mengembalikan segera",
+        "menunda pengembalian hingga berminggu-minggu"
+      ],
+      "answer": 2,
+      "explanation": "Menjaga fisik buku pinjaman dan tepat waktu mengembalikannya adalah amanah.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kaitan antara perilaku amanah seorang pelajar dengan masa depannya adalah ...",
+      "options": [
+        "menjadikan dirinya sombong karena jujur",
+        "menjamin kaya tanpa perlu bekerja keras",
+        "membuatnya dijauhi karena terlalu kaku",
+        "membentuk karakter jujur berintegritas"
+      ],
+      "answer": 3,
+      "explanation": "Integritas moral sejak dini adalah modal utama kepemimpinan masa depan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jika seorang pemimpin menyalahgunakan wewenangnya untuk kepentingan pribadi, maka ia telah ...",
+      "options": [
+        "mengkhianati rakyat dan berdosa besar",
+        "cerdas memanfaatkan peluang yang ada",
+        "menjalankan tugas dengan sangat cerdik",
+        "membuktikan kehebatan keluarganya"
+      ],
+      "answer": 0,
+      "explanation": "Korupsi wewenang adalah dosa khianat terbesar terhadap amanah kepemimpinan.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bilal bin Rabah berasal dari negeri ...",
+      "options": [
+        "Habasyah (Ethiopia)",
+        "Mesir kuno",
+        "Yaman selatan",
+        "Persia timur"
+      ],
+      "answer": 0,
+      "explanation": "Bilal bin Rabah r.a. berasal dari negeri Habasyah (sekarang Ethiopia).",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebelum memeluk Islam dan dimerdekakan, status sosial Bilal bin Rabah adalah ...",
+      "options": [
+        "saudagar kaya raya",
+        "seorang budak sahaya",
+        "panglima perang Quraisy",
+        "kepala suku kabilah"
+      ],
+      "answer": 1,
+      "explanation": "Bilal adalah budak sahaya milik seorang tokoh kafir Quraisy.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Majikan kafir Quraisy yang menyiksa Bilal bin Rabah bernama ...",
+      "options": [
+        "Abu Lahab",
+        "Abu Jahal",
+        "Umayyah bin Khalaf",
+        "Walid bin Mughirah"
+      ],
+      "answer": 2,
+      "explanation": "Umayyah bin Khalaf adalah majikan kejam yang menyiksa Bilal.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bentuk siksaan yang dialami Bilal di padang pasir Makkah yang terik adalah ...",
+      "options": [
+        "dibuang ke dalam sumur tua",
+        "diikat di atas pohon kurma",
+        "ditenggelamkan ke sungai dalam",
+        "dadanya ditindih batu besar panas"
+      ],
+      "answer": 3,
+      "explanation": "Bilal dibaringkan di padang pasir panas dan dadanya ditindih batu besar.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ucapan yang terus keluar dari lisan Bilal saat disiksa mempertahankan iman adalah ...",
+      "options": [
+        "Ahad, Ahad!",
+        "Allahu Akbar!",
+        "La ilaha illallah!",
+        "Subhanallah!"
+      ],
+      "answer": 0,
+      "explanation": "Bilal menegaskan keesaan Allah dengan berseru 'Ahad, Ahad' (Allah Maha Esa).",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Arti dari perkataan 'Ahad' yang diucapkan Bilal bin Rabah adalah Allah Maha ...",
+      "options": [
+        "Besar",
+        "Esa (Satu)",
+        "Suci",
+        "Adil"
+      ],
+      "answer": 1,
+      "explanation": "'Ahad' bermakna Maha Esa, tiada sekutu bagi Allah Subhanahu wa Ta'ala.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sahabat mulia yang memerdekakan Bilal bin Rabah dengan membelinya adalah ...",
+      "options": [
+        "Umar bin Khattab",
+        "Utsman bin Affan",
+        "Abu Bakar ash-Shiddiq",
+        "Ali bin Abi Thalib"
+      ],
+      "answer": 2,
+      "explanation": "Abu Bakar r.a. menebus dan memerdekakan Bilal demi membela iman.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tugas mulia yang dipercayakan Rasulullah saw kepada Bilal bin Rabah adalah ...",
+      "options": [
+        "penulis wahyu Al-Qur'an",
+        "pemimpin pasukan perang",
+        "bendahara baitul mal",
+        "muazin pertama dalam Islam"
+      ],
+      "answer": 3,
+      "explanation": "Bilal diangkat menjadi muazin pertama karena suaranya yang lantang dan merdu.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap teladan utama dari kisah perjuangan Bilal bin Rabah adalah ...",
+      "options": [
+        "teguh mempertahankan akidah",
+        "gemar mengumpulkan harta",
+        "suka membalas dendam",
+        "mudah putus asa saat sedih"
+      ],
+      "answer": 0,
+      "explanation": "Keteguhan tauhid Bilal menjadi teladan kesabaran dan ketabahan sejati.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Peristiwa azan pertama kali yang dikumandangkan oleh Bilal terjadi di kota ...",
+      "options": [
+        "Makkah al-Mukarramah",
+        "Madinah al-Munawwarah",
+        "Thaif pegunungan",
+        "Habasyah benua Afrika"
+      ],
+      "answer": 1,
+      "explanation": "Syariat azan pertama kali disyariatkan dan dikumandangkan di Madinah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa Umayyah bin Khalaf begitu marah saat mengetahui Bilal masuk Islam?",
+      "options": [
+        "karena Bilal mencuri perhiasan majikannya",
+        "karena Bilal menolak membersihkan kandang",
+        "menganggap budak tak berhak memilih agama",
+        "karena Bilal melarikan diri ke luar Makkah"
+      ],
+      "answer": 2,
+      "explanation": "Kaum kafir memandang rendah budak dan menuntut ketaatan menyembah berhala.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Siksaan fisik yang pedih tidak mampu menggoyahkan keimanan Bilal karena ...",
+      "options": [
+        "Bilal punya tubuh kebal rasa sakit",
+        "Bilal diiming-imingi harta oleh sahabat",
+        "Bilal tak merasa terik matahari Makkah",
+        "keimanan telah meresap kuat di hati"
+      ],
+      "answer": 3,
+      "explanation": "Cahaya tauhid di hati Bilal lebih kuat dari penderitaan fisik yang dialaminya.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap Abu Bakar ash-Shiddiq yang mengeluarkan banyak harta untuk memerdekakan Bilal menunjukkan ...",
+      "options": [
+        "kasih sayang persaudaraan muslim",
+        "keinginan dipuji oleh kafir Quraisy",
+        "taktik politik memperbanyak pengikut",
+        "kegemaran membeli budak pekerja"
+      ],
+      "answer": 0,
+      "explanation": "Tindakan Abu Bakar bukti solidaritas ukhuwah Islamiyah tanpa memandang ras.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pelajaran berharga mengenai persamaan derajat manusia dalam Islam dari kisah Bilal adalah ...",
+      "options": [
+        "orang berkulit hitam tak boleh memimpin",
+        "kemuliaan diukur dari ketaqwaan kepada Allah",
+        "keturunan bangsawan lebih mulia",
+        "harta kekayaan menentukan keimanan"
+      ],
+      "answer": 1,
+      "explanation": "Islam menghapus diskriminasi warna kulit; yang paling mulia adalah yang bertakwa.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika kota Makkah berhasil dibebaskan (Fathu Makkah), Rasulullah saw memerintahkan Bilal untuk ...",
+      "options": [
+        "memimpin pertempuran melawan musuh",
+        "membakar rumah kaum kafir Quraisy",
+        "mengumandangkan azan di atas Ka'bah",
+        "menghukum para majikan yang kejam"
+      ],
+      "answer": 2,
+      "explanation": "Azan Bilal di atas Ka'bah melambangkan kemenangan tauhid atas kemusyrikan.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Nilai cinta dan kelembutan (KBC) yang tercermin dalam kisah penyelamatan Bilal adalah ...",
+      "options": [
+        "membiarkan derita orang lain",
+        "menertawakan orang yang diuji cobaan",
+        "menghindari orang yang lemah di jalan",
+        "membela orang tertindas dengan nyata"
+      ],
+      "answer": 3,
+      "explanation": "Membela sesama hamba Allah yang dizalimi adalah inti cinta dalam Islam.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Keteguhan Bilal membuktikan bahwa kemerdekaan jiwa yang hakiki adalah ...",
+      "options": [
+        "hanya tunduk dan beribadah kepada Allah",
+        "bebas berbuat maksiat tanpa aturan",
+        "punya kekayaan melimpah dan mewah",
+        "mampu mengalahkan semua musuh"
+      ],
+      "answer": 0,
+      "explanation": "Jiwa Bilal merdeka karena hanya menyembah Allah, meski raganya diperbudak.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Setelah Rasulullah saw wafat, Bilal merasa sangat sedih sehingga ia ...",
+      "options": [
+        "kembali menjadi budak di Habasyah",
+        "sulit mengumandangkan azan teringat Nabi",
+        "berhenti mengerjakan salat lima waktu",
+        "menyalahkan sahabat yang masih hidup"
+      ],
+      "answer": 1,
+      "explanation": "Kerinduan mendalam membuat suara Bilal tercekat tangis setiap teringat Rasulullah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap kita ketika menghadapi ejekan atau cemoohan karena menjalankan perintah agama adalah ...",
+      "options": [
+        "membalas mengejek dengan kata kotor",
+        "berhenti beribadah karena merasa malu",
+        "bersabar dan tetap istiqamah",
+        "marah dan mengajak berkelahi"
+      ],
+      "answer": 2,
+      "explanation": "Meneladani Bilal berarti tabah menghadapi rintangan demi mempertahankan iman.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kisah ketabahan Bilal bin Rabah tercatat abadi dalam sejarah Islam sebagai simbol ...",
+      "options": [
+        "kemenangan bangsawan atas jelata",
+        "keberhasilan perdagangan antarbangsa",
+        "kekuatan fisik tak terkalahkan",
+        "keteguhan tauhid anti diskriminasi"
+      ],
+      "answer": 3,
+      "explanation": "Bilal adalah ikon keteguhan akidah tauhid dan kesetaraan derajat manusia.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Konsep kesetaraan dalam Islam terbukti saat Bilal diangkat menjadi muazin, yaitu ...",
+      "options": [
+        "Islam memuliakan iman dan kualitas azan",
+        "Nabi ingin menyenangkan orang Habasyah",
+        "Quraisy menolak tugas kumandangkan azan",
+        "Bilal membayar uang kepada pimpinan"
+      ],
+      "answer": 0,
+      "explanation": "Pengangkatan Bilal meruntuhkan sekat kasta feodal jahiliyah Makkah.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Refleksi moral: Apa yang membuat kalimat 'Ahad, Ahad' yang diucapkan Bilal begitu menggetarkan hati?",
+      "options": [
+        "mantra khusus dari dukun sakti",
+        "lahir dari ketulusan iman yang sangat kokoh",
+        "diucap agar majikannya merasa takut",
+        "sandi rahasia meminta bantuan teman"
+      ],
+      "answer": 1,
+      "explanation": "Kalimat tauhid yang murni dari lubuk hati memiliki kekuatan spiritual agung.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tindakan Abu Bakar r.a. memerdekakan Bilal dengan harga berlipat ganda mengajarkan kita untuk ...",
+      "options": [
+        "buang uang agar dikenal sangat dermawan",
+        "mencari untung saat menolong orang lain",
+        "rela berkorban harta demi saudara beriman",
+        "mementingkan diri di atas nyawa orang"
+      ],
+      "answer": 2,
+      "explanation": "Pengorbanan harta demi menyelamatkan akidah saudara adalah investasi akhirat.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap mental yang harus dimiliki pelajar muslim saat berada di lingkungan yang kurang mendukung ibadah adalah ...",
+      "options": [
+        "ikut kebiasaan buruk lingkungan sekitar",
+        "mengurung diri dan menolak bergaul",
+        "pura-pura tak mengenal ajaran agama",
+        "percaya diri dan tidak terbawa arus buruk"
+      ],
+      "answer": 3,
+      "explanation": "Keteguhan Bilal menginspirasi pelajar tetap percaya diri menjaga identitas muslim.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Analisis karakter: Mengapa ketabahan Bilal bin Rabah relevan dipelajari oleh anak zaman sekarang?",
+      "options": [
+        "melatih daya tahan teguh membela kebenaran",
+        "karena sering ada perbudakan padang pasir",
+        "harus belajar cara menahan batu di dada",
+        "hanya dongeng masa lalu yang menghibur"
+      ],
+      "answer": 0,
+      "explanation": "Kisah Bilal mengajarkan ketangguhan mental memegang prinsip moral dan agama.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sikap enggan berbagi dan menahan harta yang semestinya dikeluarkan disebut ...",
+      "options": [
+        "kikir atau bakhil",
+        "qana'ah berhemat",
+        "dermawan sakhi",
+        "tawadhu rendah hati"
+      ],
+      "answer": 0,
+      "explanation": "Kikir atau bakhil adalah sifat pelit dan enggan bersedekah di jalan Allah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengingkari atau tidak mensyukuri nikmat yang telah diberikan Allah disebut ...",
+      "options": [
+        "syukur nikmat",
+        "kufur nikmat",
+        "taubat nasuha",
+        "tasbih nikmat"
+      ],
+      "answer": 1,
+      "explanation": "Kufur nikmat adalah sikap tidak berterima kasih atas anugerah rezeki Allah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Tokoh pada zaman Rasulullah saw yang terkenal kufur nikmat karena hartanya adalah ...",
+      "options": [
+        "Bilal bin Rabah",
+        "Salman al-Farisi",
+        "Tsa'labah bin Hathib",
+        "Abu Dzar al-Ghifari"
+      ],
+      "answer": 2,
+      "explanation": "Tsa'labah bin Hathib berubah menjadi kikir setelah diberi kekayaan melimpah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebelum menjadi kaya raya, kondisi kehidupan Tsa'labah adalah ...",
+      "options": [
+        "saudagar kaya raya",
+        "pejabat istana raja",
+        "panglima perang gagah",
+        "sangat miskin dan fakir"
+      ],
+      "answer": 3,
+      "explanation": "Awalnya Tsa'labah hidup sangat miskin dan pakaian salatnya bergantian dengan istri.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Doa yang dimohonkan Tsa'labah kepada Rasulullah saw adalah agar diberi ...",
+      "options": [
+        "harta kekayaan melimpah",
+        "ilmu agama yang tinggi",
+        "kemenangan dalam perang",
+        "umur yang sangat panjang"
+      ],
+      "answer": 0,
+      "explanation": "Tsa'labah mendesak Rasulullah saw agar mendoakannya menjadi orang kaya.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Hewan ternak yang dipelihara Tsa'labah hingga berkembang biak sangat banyak adalah ...",
+      "options": [
+        "unta merah",
+        "kambing ternak",
+        "kuda perang",
+        "sapi perah"
+      ],
+      "answer": 1,
+      "explanation": "Kambing ternak Tsa'labah berkembang sangat banyak memenuhi lembah Madinah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Setelah kaya raya, perubahan buruk yang terjadi pada ibadah Tsa'labah adalah ...",
+      "options": [
+        "semakin rajin ke masjid",
+        "banyak bersedekah ke fakir",
+        "mulai meninggalkan salat berjamaah",
+        "menghafalkan seluruh Al-Qur'an"
+      ],
+      "answer": 2,
+      "explanation": "Karena sibuk mengurus ternak, Tsa'labah lalai salat berjamaah hingga salat Jumat.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kewajiban harta yang ditolak oleh Tsa'labah saat utusan Nabi datang adalah ...",
+      "options": [
+        "kewajiban membayar pajak",
+        "kewajiban memberi pinjaman",
+        "kewajiban berqurban sapi",
+        "kewajiban membayar zakat"
+      ],
+      "answer": 3,
+      "explanation": "Tsa'labah menolak membayar zakat dan menganggapnya seperti upeti zaman jahiliyah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Lawan dari sifat kikir atau bakhil adalah sifat ...",
+      "options": [
+        "dermawan (sakhi)",
+        "takabur sombong",
+        "tamak serakah",
+        "riya' pamer"
+      ],
+      "answer": 0,
+      "explanation": "Lawan dari kikir adalah dermawan, yaitu gemar menolong sesama.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ucapan syukur yang semestinya diucapkan seorang hamba saat mendapat nikmat adalah ...",
+      "options": [
+        "Astaghfirullah",
+        "Alhamdulillah",
+        "Innalillahi",
+        "Naudzubillah"
+      ],
+      "answer": 1,
+      "explanation": "Alhamdulillah adalah ungkapan syukur tahmid atas segala nikmat Allah.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Peringatan Rasulullah saw kepada Tsa'labah sebelum mendoakannya menjadi kaya adalah ...",
+      "options": [
+        "jangan pelihara kambing di Madinah",
+        "orang miskin tak akan masuk surga",
+        "harta sedikit disyukuri lebih baik dari lalai",
+        "kekayaan membuat manusia jadi sakti"
+      ],
+      "answer": 2,
+      "explanation": "Rasulullah saw mengingatkan bahaya fitnah kekayaan yang melalaikan ibadah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebab utama Tsa'labah menolak membayar zakat kepada utusan Rasulullah saw adalah ...",
+      "options": [
+        "ia tidak punya uang sama sekali",
+        "seluruh ternaknya mati terkena wabah",
+        "ia tidak mengetahui hukum zakat",
+        "rasa kikir dan cinta dunia"
+      ],
+      "answer": 3,
+      "explanation": "Penyakit cinta harta berlebihan membuat Tsa'labah enggan mengeluarkan zakat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Akibat penolakan zakat oleh Tsa'labah, Allah menurunkan wahyu yang mencela perbuatannya dalam surah ...",
+      "options": [
+        "At-Taubah ayat 75-76",
+        "Al-Baqarah ayat 183",
+        "Ali Imran ayat 102",
+        "An-Nur ayat 31"
+      ],
+      "answer": 0,
+      "explanation": "Surah At-Taubah ayat 75-76 menegur kemunafikan orang yang ingkar janji zakat.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ketika Tsa'labah menyesal dan membawa zakatnya kepada Rasulullah saw, sikap Nabi adalah ...",
+      "options": [
+        "menerima zakatnya dengan senyuman",
+        "menolak zakatnya atas perintah Allah",
+        "membagi zakatnya kepada sahabat",
+        "memaafkannya dan diangkat jadi pejabat"
+      ],
+      "answer": 1,
+      "explanation": "Allah melarang Nabi saw menerima zakat Tsa'labah sebagai hukuman pembangkangannya.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Harta kekayaan yang kita miliki pada hakikatnya merupakan ...",
+      "options": [
+        "hasil murni kepintaran diri kita",
+        "hak mutlak bebas dipakai apa saja",
+        "titipan Allah sebagai ujian iman",
+        "tanda bahwa kita paling mulia"
+      ],
+      "answer": 2,
+      "explanation": "Harta adalah amanah titipan Allah untuk menguji kedermawanan manusia.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Bahaya sifat kikir bagi kehidupan bermasyarakat adalah ...",
+      "options": [
+        "membuat suasana lingkungan damai",
+        "meningkatkan kerukunan tetangga",
+        "menciptakan lapangan kerja warga",
+        "memicu kecemburuan sosial"
+      ],
+      "answer": 3,
+      "explanation": "Sikap kikir menimbulkan kebencian sosial antara orang kaya dan orang miskin.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Cara mensyukuri nikmat anggota badan yang diberikan Allah adalah ...",
+      "options": [
+        "menggunakannya untuk amal saleh",
+        "memamerkan di medsos demi tenar",
+        "menggunakannya untuk bermalas-malasan",
+        "memakainya untuk menyakiti teman"
+      ],
+      "answer": 0,
+      "explanation": "Syukur anggota badan dilakukan dengan beramal kebaikan di jalan Allah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Janji Allah kepada orang yang pandai mensyukuri nikmat-Nya adalah ...",
+      "options": [
+        "mengurangi nikmat yang diberikan",
+        "pasti menambah nikmat-Nya",
+        "memberikan azab pedih di dunia",
+        "membiarkannya hidup susah"
+      ],
+      "answer": 1,
+      "explanation": "Allah berjanji dalam surah Ibrahim ayat 7 akan menambah nikmat hamba yang bersyukur.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kisah Tsa'labah memberikan pelajaran berharga agar kita tidak mudah ...",
+      "options": [
+        "berteman dengan pemelihara ternak",
+        "bekerja keras mencari nafkah",
+        "mengingkari janji kepada Allah",
+        "mendoakan kebaikan bagi sesama"
+      ],
+      "answer": 2,
+      "explanation": "Kisah Tsa'labah adalah peringatan keras terhadap bahaya ingkar janji pada Allah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sedekah yang dikeluarkan oleh orang yang dermawan tidak akan mengurangi hartanya, melainkan ...",
+      "options": [
+        "membuat jatuh miskin terlantar",
+        "menghilangkan tabungan masa depan",
+        "menimbulkan penyesalan di hati",
+        "membersihkan harta dan berkah"
+      ],
+      "answer": 3,
+      "explanation": "Sedekah membersihkan jiwa dan mengembangkan keberkahan harta di sisi Allah.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perbedaan mendasar antara berhemat dengan bersikap kikir adalah ...",
+      "options": [
+        "hemat tahan yang sia-sia, kikir tahan hak",
+        "keduanya perbuatan tercela dalam agama",
+        "hemat untuk kaya, kikir untuk miskin",
+        "keduanya sama-sama wajib dihindari"
+      ],
+      "answer": 0,
+      "explanation": "Hemat adalah bijak menggunakan harta, sedangkan kikir adalah menolak hak wajib.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Mengapa penyesalan Tsa'labah di akhir hayatnya tidak lagi bermanfaat?",
+      "options": [
+        "semua kambingnya dicuri orang lain",
+        "karena pintu tobat zakat telah ditutup",
+        "ia tak mau mengaku salah pada sahabat",
+        "khalifah tidak butuh tambahan harta"
+      ],
+      "answer": 1,
+      "explanation": "Penyesalan yang terlambat setelah datangnya ketetapan Allah tidak berguna.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Analisis perilaku: Seseorang selalu mengeluh atas uang sakunya padahal teman lainnya tidak punya uang jajan. Perilaku ini mencerminkan ...",
+      "options": [
+        "sikap cerdas menuntut hak ke orang tua",
+        "kejujuran dalam berekspresi",
+        "kufur nikmat dan kurang rasa qana'ah",
+        "tanda akan menjadi orang sukses"
+      ],
+      "answer": 2,
+      "explanation": "Kurang bersyukur dan selalu melihat ke atas melahirkan kufur nikmat.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Strategi efektif melatih diri anak usia sekolah agar terhindar dari sifat kikir adalah ...",
+      "options": [
+        "simpan seluruh uang saku tanpa berbagi",
+        "minta traktiran ke teman di kantin",
+        "beli semua mainan tanpa berpikir panjang",
+        "menyisihkan uang saku untuk kotak amal"
+      ],
+      "answer": 3,
+      "explanation": "Membiasakan sedekah sejak dini mengikis benih kekikiran dalam jiwa anak.",
+      "difficulty": 3,
+      "timeLimit": 20
+    },
+    {
+      "question": "Kaitan antara syukur nikmat dengan ketenangan jiwa manusia adalah ...",
+      "options": [
+        "membuat hati merasa cukup dan damai",
+        "membuat orang berhenti mencari nafkah",
+        "membuat orang merasa paling hebat",
+        "menghilangkan niat berbuat baik"
+      ],
+      "answer": 0,
+      "explanation": "Rasa syukur melahirkan ketenangan karena selalu merasa cukup atas pemberian Allah.",
+      "difficulty": 3,
+      "timeLimit": 20
+    }
+  ]
+}

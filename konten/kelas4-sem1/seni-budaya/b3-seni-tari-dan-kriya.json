@@ -1,0 +1,418 @@
+[
+  {
+    "question": "Tiga unsur utama yang tidak dapat dipisahkan dalam seni tari adalah ...",
+    "options": [
+      "wiraga, wirama, dan wirasa",
+      "warna, bidang, dan bentuk",
+      "panjang, lebar, dan tinggi",
+      "teks, dialog, dan panggung"
+    ],
+    "answer": 0,
+    "explanation": "Wiraga (raga gerak), wirama (irama pengiring), wirasa (ekspresi penghayatan rasa).",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Unsur seni tari yang berkaitan dengan keterampilan gerak tubuh penari disebut ...",
+    "options": [
+      "wirama (irama musik)",
+      "wiraga (raga gerak)",
+      "wirasa (penghayatan rasa)",
+      "wibawa (keberanian diri)"
+    ],
+    "answer": 1,
+    "explanation": "Wiraga mengukur keluwesan, ketepatan, dan penguasaan teknik gerak tubuh.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Unsur seni tari yang menilai keserasian antara gerak penari dengan irama musik pengiring adalah ...",
+    "options": [
+      "wiraga (gerak badan)",
+      "wirasa (ekspresi jiwa)",
+      "wirama (irama ketukan)",
+      "wirupa (tata rias busana)"
+    ],
+    "answer": 2,
+    "explanation": "Wirama menuntut penari menari tepat pada ketukan tempo melodi pengiring.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Unsur seni tari yang menilai kemampuan penari mengekspresikan karakter dan perasaan tarian adalah ...",
+    "options": [
+      "wiraga (gerak raga)",
+      "wirama (ketukan musik)",
+      "wirupa (tata rias panggung)",
+      "wirasa (rasa penjiwaan)"
+    ],
+    "answer": 3,
+    "explanation": "Wirasa terpancar dari mimik wajah, pandangan mata, dan kedalaman penghayatan emosi.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Garis lintasan imajiner yang dilalui penari saat berpindah tempat di atas panggung disebut ...",
+    "options": [
+      "pola lantai",
+      "tata panggung",
+      "garis birama",
+      "level gerak"
+    ],
+    "answer": 0,
+    "explanation": "Pola lantai menata formasi pergerakan penari agar sajian tarian lebih indah dan rapi.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Dua jenis pola lantai dasar dalam seni tari adalah ...",
+    "options": [
+      "garis tebal dan garis putus-putus",
+      "garis lurus dan garis lengkung",
+      "garis tinggi dan garis rendah",
+      "garis acak dan garis bintik"
+    ],
+    "answer": 1,
+    "explanation": "Garis lurus (vertikal, horizontal, diagonal) dan garis lengkung (lingkaran, lengkung).",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Tari Saman dari daerah Aceh ditarikan secara berkelompok dengan pola lantai lurus berbentuk ...",
+    "options": [
+      "lingkaran memusat",
+      "garis vertikal membujur",
+      "garis horizontal mendatar",
+      "pola zig-zag menyebar"
+    ],
+    "answer": 2,
+    "explanation": "Penari Saman duduk bersimpuh rapat dalam satu deretan garis lurus horizontal.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Benda atau alat pelengkap yang digunakan penari untuk memperkuat karakter tarian disebut ...",
+    "options": [
+      "tata rias wajah",
+      "lampu sorot pentas",
+      "pakaian penonton",
+      "properti tari"
+    ],
+    "answer": 3,
+    "explanation": "Selendang, piring, kipas, payung, dan topeng adalah aneka ragam properti tari.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Tari Piring adalah tarian tradisional khas Minangkabau yang menggunakan properti utama berupa ...",
+    "options": [
+      "dua buah piring porselen",
+      "sebilah keris pusaka",
+      "kipas lipat bergambar",
+      "payung kertas warna"
+    ],
+    "answer": 0,
+    "explanation": "Penari mengayunkan piring di kedua belah telapak tangan dengan lincah tanpa jatuh.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Karya seni kriya yang dibuat dengan menyilangkan bilah-bilah bahan secara teratur disebut seni ...",
+    "options": [
+      "merajut",
+      "menganyam",
+      "mencetak",
+      "memahat"
+    ],
+    "answer": 1,
+    "explanation": "Anyaman dibuat dari lungsi dan pakan yang disusupkan silang bergantian.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Karya seni rupa dua dimensi yang dibuat dengan menempelkan serpihan bahan sejenis pada pola gambar disebut ...",
+    "options": [
+      "anyaman",
+      "patung pahat",
+      "kolase",
+      "gerabah tanah"
+    ],
+    "answer": 2,
+    "explanation": "Kolase memanfaatkan potongan kertas, dedaunan kering, atau biji-bijian yang dilem.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Bahan alam yang sering digunakan untuk membuat anyaman tradisional di Indonesia adalah ...",
+    "options": [
+      "kawat besi dan seng",
+      "kaca dan porselen",
+      "plastik dan karet ban",
+      "janur kelapa dan bambu"
+    ],
+    "answer": 3,
+    "explanation": "Bambu, janur, pandan, dan rotan adalah serat alam primadona anyaman Nusantara.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Tingkat ketinggian gerak penari dari permukaan lantai panggung disebut ...",
+    "options": [
+      "level gerak tari",
+      "tempo gerak tari",
+      "dinamika panggung",
+      "volume suara tari"
+    ],
+    "answer": 0,
+    "explanation": "Level tari terbagi menjadi tiga: level tinggi (melompat), sedang, dan rendah.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Gerak tari yang dilakukan penari dengan posisi duduk bersimpuh di atas lantai termasuk level ...",
+    "options": [
+      "sedang",
+      "rendah",
+      "tinggi",
+      "campuran acak"
+    ],
+    "answer": 1,
+    "explanation": "Level rendah dilakukan menyentuh lantai tanpa posisi berdiri (seperti Tari Saman).",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Gerak tari yang dilakukan penari saat berdiri tegak lalu melompat ke udara termasuk level ...",
+    "options": [
+      "rendah",
+      "sedang",
+      "tinggi",
+      "dasar tanah"
+    ],
+    "answer": 2,
+    "explanation": "Level tinggi dilakukan dengan melayang, melompat, atau menjinjitkan kaki ke atas.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Pola lantai garis lurus vertikal pada seni tari memberikan kesan pesan visual yang bermakna ...",
+    "options": [
+      "lemah gemulai dan lentur",
+      "sangat kacau dan gelisah",
+      "santai dan tanpa arah tujuan",
+      "kuat, teguh, dan mendalam"
+    ],
+    "answer": 3,
+    "explanation": "Garis vertikal melambangkan hubungan lurus yang kokoh, sakral, dan berwibawa.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Pola lantai garis lengkung atau lingkaran dalam seni tari memberi kesan visual yang ...",
+    "options": [
+      "lembut, luwes, dan manis",
+      "kaku, keras, dan tegang",
+      "menakutkan dan menyeramkan",
+      "terburu-buru tanpa aturan"
+    ],
+    "answer": 0,
+    "explanation": "Lengkungan melambangkan keluwesan, kehangatan persaudaraan, dan kebersamaan.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Tari Kecak dari Bali menggunakan pola lantai yang sangat khas dan unik yaitu berbentuk ...",
+    "options": [
+      "garis lurus satu baris",
+      "lingkaran mengelilingi api",
+      "segitiga sama sisi sempit",
+      "garis kotak berpetak-petak"
+    ],
+    "answer": 1,
+    "explanation": "Puluhan penari pria duduk melingkar sambil menyerukan 'cak-cak-cak' berirama ritmis.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Tata rias wajah (make up) dalam pementasan seni tari berfungsi untuk ...",
+    "options": [
+      "menutupi seluruh identitas penari",
+      "membuat penari tampak seperti robot",
+      "memperjelas karakter tokoh tarian",
+      "menggantikan peran musik pengiring"
+    ],
+    "answer": 2,
+    "explanation": "Tata rias karakter membedakan tokoh protagonis ramah, ksatria gagah, atau raksasa jahat.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Dua bagian utama pita atau bilah dalam teknik membuat anyaman dasar disebut ...",
+    "options": [
+      "kain dan benang rajut",
+      "jarum dan gunting potong",
+      "lem dan bidang kertas",
+      "pakan dan lungsi"
+    ],
+    "answer": 3,
+    "explanation": "Lungsi adalah pita vertikal tetap, pakan adalah pita horizontal yang disisipkan.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Teknik dasar anyaman tunggal dilakukan dengan pola susupan bilah pita secara ...",
+    "options": [
+      "satu bilah angkat satu bilah tindih",
+      "dua bilah angkat dua bilah tindih",
+      "tiga bilah angkat satu bilah tindih",
+      "semua bilah ditumpuk sekaligus"
+    ],
+    "answer": 0,
+    "explanation": "Anyaman tunggal (bintang 1): satu pakan menyusup di bawah satu lungsi teratur.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Perbedaan utama antara karya seni tempel kolase dan mozaik adalah ...",
+    "options": [
+      "kolase selalu dari kain, mozaik selalu dari kayu",
+      "kolase dari aneka bahan, mozaik bahan seragam",
+      "kolase dipahat pisau, mozaik digores cat air",
+      "keduanya sama sekali tidak menggunakan lem perekat"
+    ],
+    "answer": 1,
+    "explanation": "Mozaik memakai kepingan bahan sewarna/sejenis berukuran teratur (keping kaca/kertas).",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Teknik montase dibuat dengan cara menyusun dan menempelkan potongan gambar dari ...",
+    "options": [
+      "satu lembar kertas polos yang digunting",
+      "daun-daun basah yang baru dipetik",
+      "berbagai sumber majalah atau foto cetak",
+      "pasir pantai yang ditaburkan rata"
+    ],
+    "answer": 2,
+    "explanation": "Montase memadukan beberapa gambar yang sudah jadi dari media cetak menjadi cerita baru.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Fungsi musik pengiring (iringan musik) dalam pementasan seni tari adalah ...",
+    "options": [
+      "mengalihkan perhatian penonton dari penari",
+      "membuat penari tidak perlu menghafal gerak",
+      "menggantikan properti busana penari",
+      "mempertegas dinamika dan ritme gerak tari"
+    ],
+    "answer": 3,
+    "explanation": "Iringan musik menghidupkan suasana dan mengunci ketepatan ketukan gerak penari.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Karya seni kriya anyaman janur kelapa yang sering digunakan masyarakat saat hari raya Idulfitri adalah ...",
+    "options": [
+      "selongsong ketupat",
+      "topi caping tani",
+      "tikar tidur gulung",
+      "wadah bakul nasi"
+    ],
+    "answer": 0,
+    "explanation": "Anyaman selongsong ketupat dari janur adalah warisan kriya kuliner Nusantara.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Sikap gotong royong dalam mempersiapkan pementasan seni tari di sekolah diwujudkan dengan ...",
+    "options": [
+      "berebut ingin menari di posisi paling depan",
+      "saling membantu menyiapkan kostum dan properti",
+      "menolak ikut gladi bersih latihan bersama",
+      "mengejek kostum penari kelompok lain"
+    ],
+    "answer": 1,
+    "explanation": "Kekompakan kelompok menjadi penentu suksesnya pergelaran karya seni bersama.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Analisis koreografi: Mengapa variasi level (tinggi, sedang, rendah) sangat diperlukan dalam tarian kelompok?",
+    "options": [
+      "agar panggung tidak roboh karena beban tari",
+      "karena penari bertubuh pendek harus di lantai",
+      "agar penampilan tidak monoton dan lebih dinamis",
+      "supaya penari tidak merasa kehausan"
+    ],
+    "answer": 2,
+    "explanation": "Perbedaan level menciptakan kedalaman visual panggung yang estetis dan memikat.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Evaluasi keselamatan: Apa yang harus diperhatikan oleh penari Tari Piring saat mengayunkan piringnya?",
+    "options": [
+      "melempar piring setinggi langit-langit gedung",
+      "meminyaki piring agar licin saat digerakkan",
+      "menutup kedua mata saat berputar kencang",
+      "keseimbangan genggaman cincin jari dan ritme ayun"
+    ],
+    "answer": 3,
+    "explanation": "Konsentrasi dan kontrol cengkeraman jari mencegah piring melayang membahayakan kawan.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Perbandingan kriya: Mengapa daun pandan kering harus diserut dan dilemaskan sebelum dianyam?",
+    "options": [
+      "agar lentur, tidak mudah patah, dan rapi",
+      "supaya aromanya menjadi sangat menyengat",
+      "karena daun pandan harus berwarna hitam pekat",
+      "agar daun pandan tidak dimakan oleh serangga"
+    ],
+    "answer": 0,
+    "explanation": "Proses pelenturan memudahkan serat disusupkan tanpa sobek atau retak getas.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Kritik kelestarian: Bagaimana sikap generasi muda pelajar terhadap kepunahan seni tari tradisional daerah?",
+    "options": [
+      "menganggap tarian tradisional kuno dan memalukan",
+      "giat mempelajari, mementaskan, dan mempromosikannya",
+      "menghapus materi tarian dari kurikulum sekolah",
+      "meniru tarian modern asing tanpa disaring moral"
+    ],
+    "answer": 1,
+    "explanation": "Melestarikan warisan leluhur adalah bukti cinta tanah air dan jati diri bangsa.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Refleksi Kurikulum Berbasis Cinta (KBC): Tari bertema kepedulian lingkungan (ekologi) mengajarkan ...",
+    "options": [
+      "menguasai sumber daya alam demi keuntungan ego",
+      "mengeksploitasi hutan lindung demi tambang",
+      "menyayangi flora, fauna, dan kelestarian rimba",
+      "ketakutan berlebihan terhadap hewan hutan"
+    ],
+    "answer": 2,
+    "explanation": "Bahasa gerak seni tari menyuarakan pesan damai dan kasih sayang bagi bumi pertiwi.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Penerapan nilai ekonomis: Karya seni anyaman dan kolase dari limbah sampah daur ulang memiliki nilai tambah berupa ...",
+    "options": [
+      "membuat rumah menjadi semakin kotor berdebu",
+      "menghabiskan seluruh uang tabungan keluarga",
+      "mewajibkan orang tua membeli mesin pabrik",
+      "mengurangi pencemaran lingkungan dan bernilai jual"
+    ],
+    "answer": 3,
+    "explanation": "Kriya daur ulang mengasah kecerdasan ekologis sekaligus jiwa kewirausahaan kreatif.",
+    "difficulty": 3,
+    "timeLimit": 25
+  }
+]

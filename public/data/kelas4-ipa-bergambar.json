@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "class": "Kelas 4 SD",
+  "subject": "IPA",
+  "questions": [
+    {
+      "question": "Hewan pada gambar adalah ...",
+      "image": {
+        "url": "https://cdn.jsdelivr.net/npm/@twemoji/svg@latest/1f981.svg",
+        "alt": "Kepala singa"
+      },
+      "options": [
+        "Singa",
+        "Harimau",
+        "Kuda",
+        "Serigala"
+      ],
+      "answer": 0,
+      "explanation": "Hewan bersurai itu adalah singa.",
+      "difficulty": 1,
+      "tts": true
+    },
+    {
+      "question": "Hewan pada gambar termasuk pemakan ...",
+      "image": {
+        "url": "https://cdn.jsdelivr.net/npm/@twemoji/svg@latest/1f404.svg",
+        "alt": "Sapi"
+      },
+      "options": [
+        "Daging",
+        "Tumbuhan",
+        "Daging dan tumbuhan",
+        "Serangga"
+      ],
+      "answer": 1,
+      "explanation": "Sapi memakan tumbuhan, jadi herbivora.",
+      "difficulty": 1
+    },
+    {
+      "question": "Hewan pada gambar bernapas menggunakan ...",
+      "image": {
+        "url": "https://cdn.jsdelivr.net/npm/@twemoji/svg@latest/1f41f.svg",
+        "alt": "Ikan"
+      },
+      "options": [
+        "Paru-paru",
+        "Insang",
+        "Kulit",
+        "Hidung"
+      ],
+      "answer": 1,
+      "explanation": "Ikan bernapas dengan insang.",
+      "difficulty": 2
+    },
+    {
+      "question": "Tumbuhan pada gambar umumnya hidup di daerah ...",
+      "image": {
+        "url": "https://cdn.jsdelivr.net/npm/@twemoji/svg@latest/1f335.svg",
+        "alt": "Kaktus"
+      },
+      "options": [
+        "Kutub",
+        "Gurun",
+        "Rawa",
+        "Laut"
+      ],
+      "answer": 1,
+      "explanation": "Kaktus tahan kering sehingga hidup di gurun.",
+      "difficulty": 2
+    },
+    {
+      "question": "Benda langit pada gambar mengelilingi Bumi. Namanya ...",
+      "image": {
+        "url": "https://cdn.jsdelivr.net/npm/@twemoji/svg@latest/1f319.svg",
+        "alt": "Bulan sabit"
+      },
+      "options": [
+        "Bulan",
+        "Matahari",
+        "Mars",
+        "Bintang"
+      ],
+      "answer": 0,
+      "explanation": "Bulan adalah satelit alami Bumi.",
+      "difficulty": 1
+    },
+    {
+      "question": "Benda langit pada gambar adalah sumber ... utama di Bumi.",
+      "image": {
+        "url": "https://cdn.jsdelivr.net/npm/@twemoji/svg@latest/2600.svg",
+        "alt": "Matahari"
+      },
+      "options": [
+        "Air",
+        "Cahaya dan panas",
+        "Suara",
+        "Angin"
+      ],
+      "answer": 1,
+      "explanation": "Matahari memberi cahaya dan panas.",
+      "difficulty": 2
+    }
+  ]
+}

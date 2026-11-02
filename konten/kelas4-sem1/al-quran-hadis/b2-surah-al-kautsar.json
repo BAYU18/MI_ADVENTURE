@@ -1,0 +1,314 @@
+[
+  {
+    "question": "Arti dari nama surah Al-Kautsar adalah ...",
+    "options": [
+      "Nikmat yang banyak",
+      "Sungai di dunia",
+      "Harta melimpah",
+      "Unta merah"
+    ],
+    "answer": 0,
+    "explanation": "Al-Kautsar bermakna anugerah dan nikmat yang sangat banyak.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Surah Al-Kautsar adalah surah terpendek dalam Al-Qur'an yang terdiri dari ...",
+    "options": [
+      "2 ayat",
+      "3 ayat",
+      "4 ayat",
+      "5 ayat"
+    ],
+    "answer": 1,
+    "explanation": "Surah Al-Kautsar terdiri dari 3 ayat pendek.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Dalam mushaf Al-Qur'an, surah Al-Kautsar menempati urutan surah ke- ...",
+    "options": [
+      "107",
+      "109",
+      "108",
+      "110"
+    ],
+    "answer": 2,
+    "explanation": "Surah Al-Kautsar adalah surah ke-108.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Berdasarkan tempat turunnya, surah Al-Kautsar tergolong surah ...",
+    "options": [
+      "Madaniyyah",
+      "Baghdadiyyah",
+      "Yamaniyyah",
+      "Makkiyyah"
+    ],
+    "answer": 3,
+    "explanation": "Surah Al-Kautsar diturunkan di kota Makkah sebelum Nabi hijrah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Lafaz ayat pertama surah Al-Kautsar berbunyi ...",
+    "options": [
+      "Inna a'thainakal kautsar",
+      "Fashalli lirabbika wanhar",
+      "Inna syani'aka huwal abtar",
+      "Li ila fi quraisy"
+    ],
+    "answer": 0,
+    "explanation": "Ayat pertama diawali dengan 'Inna a'thainakal kautsar'.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Dua perintah utama Allah dalam ayat ke-2 surah Al-Kautsar adalah ...",
+    "options": [
+      "puasa dan berzakat",
+      "salat dan berkurban",
+      "haji dan sedekah",
+      "membaca Al-Qur'an"
+    ],
+    "answer": 1,
+    "explanation": "'Fashalli lirabbika wanhar' memerintahkan salat dan menyembelih kurban.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Arti dari kata 'wanhar' pada ayat kedua surah Al-Kautsar adalah ...",
+    "options": [
+      "dan berpuasalah",
+      "dan bersedekahlah",
+      "dan berkurbanlah",
+      "dan berwudhulah"
+    ],
+    "answer": 2,
+    "explanation": "Nahar berarti menyembelih hewan kurban karena Allah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Lafaz ayat ke-3 surah Al-Kautsar berbunyi ...",
+    "options": [
+      "Inna a'thainakal kautsar",
+      "Fashalli lirabbika wanhar",
+      "Walam yakun lahu kufuwan",
+      "Inna syani'aka huwal abtar"
+    ],
+    "answer": 3,
+    "explanation": "Ayat ke-3 berbunyi 'Inna syani'aka huwal abtar'.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Arti kata 'al-abtar' dalam surah Al-Kautsar adalah ...",
+    "options": [
+      "terputus dari rahmat",
+      "orang yang cerdas",
+      "pemimpin kabilah",
+      "saudagar ternak"
+    ],
+    "answer": 0,
+    "explanation": "'Al-abtar' artinya terputus garis keturunan atau terputus dari rahmat Allah.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Nama telaga yang dianugerahkan Allah kepada Rasulullah saw di surga adalah ...",
+    "options": [
+      "Telaga Zamzam",
+      "Telaga Al-Kautsar",
+      "Telaga Nil",
+      "Telaga Firdaus"
+    ],
+    "answer": 1,
+    "explanation": "Al-Kautsar juga nama telaga agung milik Nabi saw di surga.",
+    "difficulty": 1,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sebab turunnya (asbabun nuzul) surah Al-Kautsar berkaitan dengan ...",
+    "options": [
+      "peristiwa perang Khandaq di Madinah",
+      "pembangunan Ka'bah oleh suku Quraisy",
+      "ejekan kaum kafir atas wafatnya putra Nabi",
+      "kedatangan kafilah dagang dari Syam"
+    ],
+    "answer": 2,
+    "explanation": "Kaum kafir mengejek Nabi terputus keturunannya setelah putranya wafat.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Surah Al-Kautsar diturunkan oleh Allah untuk menghibur dan membela ...",
+    "options": [
+      "Nabi Ibrahim a.s.",
+      "Abu Bakar ash-Shiddiq",
+      "Umar bin Khattab",
+      "Nabi Muhammad saw"
+    ],
+    "answer": 3,
+    "explanation": "Allah menghibur Rasulullah saw atas celaan dan cemoohan kaum kafir.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Perintah salat dan kurban dalam surah Al-Kautsar harus didasari niat ...",
+    "options": [
+      "ikhlas semata-mata karena Allah",
+      "mencari pujian dari para tetangga",
+      "pamer hewan kurban paling besar",
+      "mengikuti kebiasaan nenek moyang"
+    ],
+    "answer": 0,
+    "explanation": "Ibadah salat dan kurban wajib murni ditujukan hanya untuk Rabb semesta alam.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Tokoh kafir Quraisy yang mengejek Nabi saw dengan sebutan 'abtar' adalah ...",
+    "options": [
+      "Abu Bakar ash-Shiddiq",
+      "Al-'Ash bin Wa'il",
+      "Hamzah bin Abdul Muthalib",
+      "Utsman bin Mazh'un"
+    ],
+    "answer": 1,
+    "explanation": "Al-'Ash bin Wa'il mengejek Nabi saat putra beliau Qasim/Ibrahim wafat.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Ancaman Allah kepada orang-orang yang membenci Rasulullah saw adalah ...",
+    "options": [
+      "mereka akan menjadi penguasa di dunia",
+      "mereka akan mendapatkan umur yang panjang",
+      "mereka yang sebenarnya terputus dari rahmat",
+      "mereka akan dihormati oleh seluruh kabilah"
+    ],
+    "answer": 2,
+    "explanation": "Pembenci Nabi hakikatnya terputus dari kebaikan dan rahmat Allah.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Waktu pelaksanaan penyembelihan hewan kurban menurut syariat Islam adalah pada hari ...",
+    "options": [
+      "Idul Fitri dan malam takbiran",
+      "Maulid Nabi dan Isra' Mi'raj",
+      "Tahun Baru Hijriyah 1 Muharram",
+      "Idul Adha dan hari Tasyrik"
+    ],
+    "answer": 3,
+    "explanation": "Kurban disembelih pada 10 Dzulhijjah dan hari Tasyrik (11, 12, 13 Dzulhijjah).",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Cara mensyukuri nikmat yang banyak menurut surah Al-Kautsar adalah ...",
+    "options": [
+      "mendekatkan diri pada Allah dan berbagi",
+      "menyimpan harta tanpa mau bersedekah",
+      "membelanjakan uang untuk hal sia-sia",
+      "merasa nikmat adalah hasil usaha sendiri"
+    ],
+    "answer": 0,
+    "explanation": "Syukur diwujudkan dengan salat (ibadah vertikal) dan kurban (sosial).",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Ciri air di Telaga Al-Kautsar menurut sabda Rasulullah saw adalah ...",
+    "options": [
+      "berwarna merah pekat seperti anggur",
+      "lebih putih dari susu dan lebih manis",
+      "sangat pahit rasanya untuk diminum",
+      "berbusa dan sangat panas suhunya"
+    ],
+    "answer": 1,
+    "explanation": "Air Telaga Al-Kautsar sangat sejuk, manis, dan wangi melebihi kasturi.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Hikmah ibadah kurban bagi masyarakat kurang mampu adalah ...",
+    "options": [
+      "menambah beban hidup keluarga miskin",
+      "mewajibkan orang miskin membeli kambing",
+      "merasakan nikmat menyantap daging kurban",
+      "mengurangi stok pangan di pasar ternak"
+    ],
+    "answer": 2,
+    "explanation": "Kurban menghadirkan kebahagiaan dan perbaikan gizi kaum dhuafa.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Perilaku seorang pelajar yang mengamalkan surah Al-Kautsar adalah ...",
+    "options": [
+      "menghabiskan bekal sendiri diam-diam",
+      "mengejek teman yang tidak bawa uang jajan",
+      "menolak berbagi alat tulis di kelas",
+      "gemar berbagi bekal makanan kepada teman"
+    ],
+    "answer": 3,
+    "explanation": "Berbagi makanan kepada sesama adalah cermin pengamalan surah Al-Kautsar.",
+    "difficulty": 2,
+    "timeLimit": 20
+  },
+  {
+    "question": "Hubungan filosofis antara ibadah salat dan ibadah kurban pada ayat ke-2 adalah ...",
+    "options": [
+      "seimbang ibadah vertikal dan aksi sosial",
+      "keduanya upacara adat masyarakat Arab",
+      "salat untuk miskin, kurban untuk kaya",
+      "kurban menghapus kewajiban salat fardhu"
+    ],
+    "answer": 0,
+    "explanation": "Salat menegakkan tauhid (hablun minallah), kurban menebar kasih (hablun minannas).",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Bagaimana surah Al-Kautsar membantah ukuran kemuliaan menurut kaum kafir Quraisy?",
+    "options": [
+      "kemuliaan diukur dari jumlah anak laki-laki",
+      "kemuliaan pada risalah dan amal kebajikan",
+      "keturunan menjamin keselamatan di akhirat",
+      "kemuliaan dari menang perlombaan dagang"
+    ],
+    "answer": 1,
+    "explanation": "Kemuliaan hakiki adalah iman dan amal saleh, bukan banyaknya keturunan.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Nilai cinta dan keikhlasan (KBC) dalam surah Al-Kautsar terwujud saat ...",
+    "options": [
+      "memilih hewan kurban yang sakit-sakitan",
+      "menulis nama sendiri pada kulit hewan kurban",
+      "berkurban dengan hewan terbaik tanpa pamrih",
+      "menjual daging kurban untuk keuntungan diri"
+    ],
+    "answer": 2,
+    "explanation": "Kurban yang diterima lahir dari cinta dan ketulusan niat karena Allah Ta'ala.",
+    "difficulty": 3,
+    "timeLimit": 20
+  },
+  {
+    "question": "Sikap seorang mukmin ketika menghadapi celaan atau ejekan dari orang lain adalah ...",
+    "options": [
+      "membalas mencela dengan kata-kata kasar",
+      "putus asa dan berhenti berbuat baik",
+      "mengancam orang yang mengejek dengan fisik",
+      "bersabar, salat, dan menebar kebaikan"
+    ],
+    "answer": 3,
+    "explanation": "Meneladani Nabi saw: membalas celaan dengan tawakal, salat, dan amal kebajikan.",
+    "difficulty": 3,
+    "timeLimit": 20
+  }
+]

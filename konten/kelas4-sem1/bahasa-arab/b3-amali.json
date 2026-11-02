@@ -1,0 +1,431 @@
+[
+  {
+    "question": "Kata أَمَلِي (amalii) dalam bahasa Indonesia memiliki arti ...",
+    "options": [
+      "cita-cita atau harapanku",
+      "nama panggilanku",
+      "alamat tempat tinggalku",
+      "keluarga besarku"
+    ],
+    "answer": 0,
+    "explanation": "Amalii (أَمَلِي) bermakna impian, harapan, atau cita-cita masa depan.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Kata فِي الْمُسْتَقْبَلِ (fiil mustaqbali) memiliki arti ...",
+    "options": [
+      "di masa lalu dahulu",
+      "di masa depan kelak",
+      "di hari kemarin",
+      "pada pagi hari ini"
+    ],
+    "answer": 1,
+    "explanation": "Al-Mustaqbal bermakna masa depan yang akan datang.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Ungkapan bahasa Arab 'أُرِيدُ أَنْ أَكُونَ ...' memiliki arti ...",
+    "options": [
+      "Saya telah menjadi ...",
+      "Kamu tidak boleh menjadi ...",
+      "Saya ingin menjadi ...",
+      "Mereka sedang melihat ..."
+    ],
+    "answer": 2,
+    "explanation": "Uriidu an akuuna adalah kalimat ekspresi menyatakan cita-cita profesi.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Jika Ahmad ingin bercita-cita menjadi dokter, ia mengucapkan ...",
+    "options": [
+      "أُرِيدُ أَنْ أَكُونَ شُرْطِيًّا",
+      "أُرِيدُ أَنْ أَكُونَ طَيَّارًا",
+      "أُرِيدُ أَنْ أَكُونَ فَلَّاحًا",
+      "أُرِيدُ أَنْ أَكُونَ طَبِيبًا"
+    ],
+    "answer": 3,
+    "explanation": "Thabiiban (طَبِيبًا) bermakna dokter.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Jika Aisyah bercita-cita menjadi guru perempuan, ia mengucapkan ...",
+    "options": [
+      "أُرِيدُ أَنْ أَكُونَ مُدَرِّسَةً",
+      "أُرِيدُ أَنْ أَكُونَ مُدَرِّسًا",
+      "أُرِيدُ أَنْ أَكُونَ شُرْطِيًّا",
+      "أُرِيدُ أَنْ أَكُونَ جُنْدِيًّا"
+    ],
+    "answer": 0,
+    "explanation": "Untuk perempuan (muannats) menggunakan akhiran ta' marbuthah: mudarrisatan.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Pertanyaan yang tepat untuk menanyakan cita-cita kepada teman adalah ...",
+    "options": [
+      "مَا اسْمُ أُخْتِكَ؟",
+      "مَا أَمَلُكَ فِي الْمُسْتَقْبَلِ؟",
+      "أَيْنَ تَدْرُسُ الْآنَ؟",
+      "كَمْ سَاعَةً تَنَامُ؟"
+    ],
+    "answer": 1,
+    "explanation": "Maa amaluka fiil mustaqbal artinya apa cita-citamu di masa depan.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Cita-cita menjadi pilot dalam bahasa Arab dinyatakan dengan ungkapan ...",
+    "options": [
+      "أُرِيدُ أَنْ أَكُونَ بَحَّارًا",
+      "أُرِيدُ أَنْ أَكُونَ خَيَّاطًا",
+      "أُرِيدُ أَنْ أَكُونَ طَيَّارًا",
+      "أُرِيدُ أَنْ أَكُونَ نَجَّارًا"
+    ],
+    "answer": 2,
+    "explanation": "Thoyyaaran (طَيَّارًا) artinya pilot penerbang.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Arti dari ungkapan mahfuzhat 'مَنْ جَدَّ وَجَدَ' adalah ...",
+    "options": [
+      "Waktu itu bagaikan sebilah pedang",
+      "Kebersihan adalah sebagian dari iman",
+      "Menuntut ilmu itu hukumnya wajib",
+      "Barang siapa bersungguh-sungguh, dapatlah ia"
+    ],
+    "answer": 3,
+    "explanation": "Man jadda wajada adalah pepatah motivasi ketekunan menggapai cita-cita.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Kata مُهَنْدِسًا (muhandisan) dalam konteks cita-cita bermakna ...",
+    "options": [
+      "insinyur atau arsitek teknik",
+      "atlet olahraga lari",
+      "seniman pelukis kanvas",
+      "pedagang pakaian jadi"
+    ],
+    "answer": 0,
+    "explanation": "Muhandis bermakna insinyur perancang bangunan atau teknologi.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Jika seorang siswa ingin menjadi polisi untuk menjaga keamanan, ia berkata ...",
+    "options": [
+      "أُرِيدُ أَنْ أَكُونَ طَبَّاخًا",
+      "أُرِيدُ أَنْ أَكُونَ شُرْطِيًّا",
+      "أُرِيدُ أَنْ أَكُونَ سَائِقًا",
+      "أُرِيدُ أَنْ أَكُونَ حَلَّاقًا"
+    ],
+    "answer": 1,
+    "explanation": "Syurthiyyan (شُرْطِيًّا) bermakna polisi penegak hukum.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Cita-cita menjadi seorang dosen atau guru besar disebut ...",
+    "options": [
+      "جُنْدِيًّا (prajurit)",
+      "فَلَّاحًا (petani)",
+      "أُسْتَاذًا (ustadz/profesor)",
+      "تَاجِرًا (pedagang)"
+    ],
+    "answer": 2,
+    "explanation": "Ustaadz (أُسْتَاذٌ) adalah gelar pendidik atau profesor terhormat.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Kalimat 'أَحْمَدُ يُحِبُّ الْقِرَاءَةَ' memiliki arti ...",
+    "options": [
+      "Ahmad suka berenang di kolam",
+      "Ahmad sedang tidur lelap",
+      "Ahmad pergi berbelanja",
+      "Ahmad gemar membaca buku"
+    ],
+    "answer": 3,
+    "explanation": "Yuhibbul qiraa'ah bermakna menyukai aktivitas membaca.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Kata نَاجِحٌ (naajihun) dalam menggapai cita-cita memiliki arti ...",
+    "options": [
+      "sukses dan berhasil",
+      "malas dan putus asa",
+      "ketinggalan zaman",
+      "tergesa-gesa terburu"
+    ],
+    "answer": 0,
+    "explanation": "Naajih (نَاجِحٌ) artinya orang yang meraih kesuksesan.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Lengkapi kalimat: 'فَاطِمَةُ تُحِبُّ الرَّسْمَ، تُرِيدُ أَنْ تَكُونَ ...'. Profesi yang sesuai adalah ...",
+    "options": [
+      "طَبِيبَةً (dokter wanita)",
+      "رَسَّامَةً (pelukis perempuan)",
+      "شُرْطِيَّةً (polisi wanita)",
+      "مُهَنْدِسَةً (arsitek wanita)"
+    ],
+    "answer": 1,
+    "explanation": "Ar-Rasmu artinya menggambar, profesinya adalah rassaamah (pelukis).",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Perhatikan dialog: 'لِمَاذَا تُرِيدُ أَنْ تَكُونَ طَبِيبًا؟ - لِأَنِّي أُرِيدُ أَنْ ...'. Jawaban alasan yang mulia adalah ...",
+    "options": [
+      "أَبِيعَ الْفَوَاكِهَ (menjual aneka buah)",
+      "أَسُوقَ الطَّائِرَةَ (menerbangkan pesawat)",
+      "أُعَالِجَ الْمَرْضَى (mengobati pasien sakit)",
+      "أَزْرَعَ الرُّزَّ (menanam padi di sawah)"
+    ],
+    "answer": 2,
+    "explanation": "Tujuan luhur seorang dokter adalah merawat dan mengobati orang sakit.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Makna dari ungkapan: 'أَتَعَلَّمُ بِجِدٍّ لِأَنَالَ أَمَلِي' adalah ...",
+    "options": [
+      "Saya bermain bola bersama teman sebangku",
+      "Saya membantu orang tua berdagang di pasar",
+      "Saya bangun pagi lalu segera berolahraga",
+      "Saya belajar tekun demi meraih cita-citaku"
+    ],
+    "answer": 3,
+    "explanation": "Niat belajar sungguh-sungguh (bi jiddin) untuk mencapai harapan.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Jika seorang siswi ditanya 'مَا أَمَلُكِ فِي الْمُسْتَقْبَلِ؟', bentuk kata kerja yang ia gunakan adalah ...",
+    "options": [
+      "أُرِيدُ أَنْ أَكُونَ ...",
+      "تُرِيدُ أَنْ تَكُونَ ...",
+      "يُرِيدُ أَنْ يَكُونَ ...",
+      "نُرِيدُ أَنْ نَكُونَ ..."
+    ],
+    "answer": 0,
+    "explanation": "Dhamir orang pertama tunggal 'ana' (saya) selalu mengawali dengan uriidu an akuuna.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Pasangan cita-cita dan tempat pengabdian yang paling tepat adalah ...",
+    "options": [
+      "مُدَرِّسٌ - فِي الْمَطَارِ",
+      "طَبِيبٌ - فِي الْمُسْتَشْفَى",
+      "طَيَّارٌ - فِي الْمَدْرَسَةِ",
+      "فَلَّاحٌ - فِي الْمَكْتَبِ"
+    ],
+    "answer": 1,
+    "explanation": "Thabiib (dokter) berikhtiar di mustasyfa (rumah sakit).",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Makna kata kerja 'يَبْنِي' dalam kalimat 'الْمُهَنْدِسُ يَبْنِي الْعِمَارَةَ' adalah ...",
+    "options": [
+      "merobohkan jembatan lama",
+      "mengecat dinding sekolah",
+      "membangun gedung megah",
+      "membersihkan halaman rumah"
+    ],
+    "answer": 2,
+    "explanation": "Yabnii (يَبْنِي) artinya merancang dan mendirikan konstruksi bangunan.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Arti dari ungkapan 'أَمَلِي أَنْ أَكُونَ جُنْدِيًّا لِأُدَافِعَ عَنِ الْوَطَنِ' adalah ...",
+    "options": [
+      "Cita-citaku menjadi nahkoda kapal pesiar",
+      "Cita-citaku menjadi pengusaha yang kaya",
+      "Cita-citaku membuka restoran masakan",
+      "Cita-citaku tentara pembela tanah air"
+    ],
+    "answer": 3,
+    "explanation": "Li udaafi'a 'anil wathan artinya untuk membela tanah air Indonesia tercinta.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Lafal pepatah Arab: 'الوقت كالسيف' mengajarkan kepada penuntut ilmu agar ...",
+    "options": [
+      "menghargai waktu dengan disiplin belajar",
+      "selalu membawa senjata tajam",
+      "bermain pedang di tanah lapang",
+      "menghabiskan waktu dengan tidur"
+    ],
+    "answer": 0,
+    "explanation": "Pepatah 'waktu laksana pedang' menekankan pentingnya manajemen waktu.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Susunan kalimat yang benar dari: [أَنْ - أُرِيدُ - أَكُونَ - شُرْطِيًّا - نَاجِحًا] adalah ...",
+    "options": [
+      "أَكُونَ شُرْطِيًّا أُرِيدُ أَنْ نَاجِحًا",
+      "أُرِيدُ أَنْ أَكُونَ شُرْطِيًّا نَاجِحًا",
+      "شُرْطِيًّا نَاجِحًا أُرِيدُ أَكُونَ أَنْ",
+      "أَنْ أُرِيدُ نَاجِحًا أَكُونَ شُرْطِيًّا"
+    ],
+    "answer": 1,
+    "explanation": "Struktur pola yang baku: Uriidu an akuuna syurthiyyan naajihan.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Perhatikan kalimat: 'أُحِبُّ أَنْ أَقْرَأَ الْكُتُبَ كُلَّ يَوْمٍ'. Aktivitas yang dilakukan setiap hari adalah ...",
+    "options": [
+      "menulis surat kabar daerah",
+      "mendengarkan siaran radio",
+      "membaca buku ilmu pengetahuan",
+      "menonton film kartun anak"
+    ],
+    "answer": 2,
+    "explanation": "Aqra-ul kutuba bermakna membaca buku-buku faedah.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Lengkapi kalimat: 'عَلِيٌّ يُحِبُّ الطَّيَرَانَ، أَمَلُهُ أَنْ يَكُونَ ...'. Pilihan tepat adalah ...",
+    "options": [
+      "فَلَّاحًا (petani sawah)",
+      "خَيَّاطًا (penjahit baju)",
+      "تَاجِرًا (pedagang pasar)",
+      "طَيَّارًا (pilot penerbang)"
+    ],
+    "answer": 3,
+    "explanation": "Thayaran berkaitan dengan dunia dirgantara, cita-citanya menjadi thoyyar.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Bentuk muannats dari ungkapan 'أُرِيدُ أَنْ أَكُونَ شُرْطِيًّا' bagi seorang anak perempuan adalah ...",
+    "options": [
+      "أُرِيدُ أَنْ أَكُونَ شُرْطِيَّةً",
+      "أُرِيدُ أَنْ أَكُونَ شُرْطِيًّا",
+      "تُرِيدُ أَنْ تَكُونَ شُرْطِيًّا",
+      "يُرِيدُ أَنْ يَكُونَ شُرْطِيَّةً"
+    ],
+    "answer": 0,
+    "explanation": "Muannats menambahkan ta' marbuthah berharakat fathatain: syurthiyyatan.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Arti kata جِدٌّ (jiddun) dalam proses belajar menggapai impian adalah ...",
+    "options": [
+      "kebimbangan dan keraguan hati",
+      "kesungguhan dan ketekunan tekad",
+      "keterpaksaan menjalankan tugas",
+      "kelalaian mengerjakan PR"
+    ],
+    "answer": 1,
+    "explanation": "Jiddun artinya keseriusan dan kerja keras pantang putus asa.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Analisis sintaksis: Mengapa kata setelah 'أَنْ أَكُونَ' memiliki akhiran harakat fathatain (manshub), seperti pada 'طَبِيبًا'?",
+    "options": [
+      "karena berkedudukan sebagai fail marfu'",
+      "karena didahului oleh huruf jar kasrah",
+      "karena berkedudukan sebagai khabar kaana yang manshub",
+      "karena berupa kata sifat yang majzum"
+    ],
+    "answer": 2,
+    "explanation": "Dalam kaidah nahwu, khabar kaana (dan saudaranya) berhukum manshub (fathatain).",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Perhatikan teks: 'حَسَنٌ يَتَعَلَّمُ اللُّغَةَ الْعَرَبِيَّةَ بِجِدٍّ. أَمَلُهُ أَنْ يَكُونَ مُتَرْجِمًا لِيَخْدُمَ دِينَهُ وَوَطَنَهُ'. Apa tujuan Hasan?",
+    "options": [
+      "mencari gaji yang sangat tinggi di luar negeri",
+      "berwisata keliling dunia tanpa bekerja",
+      "membeli mobil mewah dari hasil terjemahan",
+      "menjadi penerjemah pembela agama dan bangsa"
+    ],
+    "answer": 3,
+    "explanation": "Teks menyebutkan 'mutarjiman li yakhduma diinahu wa wathanahu'.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Sikap seorang santri ketika cita-citanya berbeda dengan pilihan teman sekelasnya adalah ...",
+    "options": [
+      "saling mendoakan dan saling menghargai pilihan",
+      "mengejek cita-cita teman yang sederhana",
+      "memaksa teman mengikuti cita-citanya sendiri",
+      "merasa dirinya paling hebat di antara semua"
+    ],
+    "answer": 0,
+    "explanation": "Keragaman profesi saling melengkapi kebutuhan kemaslahatan umat.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Korelasi Kurikulum Berbasis Cinta (KBC) dalam meraih cita-cita adalah ...",
+    "options": [
+      "mengejar kekayaan demi merendahkan orang lain",
+      "mendasari impian dengan cinta melayani sesama",
+      "mencari pujian dan ketenaran di media sosial",
+      "memanfaatkan jabatan untuk menindas sesama"
+    ],
+    "answer": 1,
+    "explanation": "Cita-cita yang luhur berakar dari cinta kepada Allah dan kemanfaatan bagi sesama.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Bagaimana cara seorang siswa mengamalkan nilai 'Man Jadda Wajada' saat menemui materi pelajaran yang sulit?",
+    "options": [
+      "meninggalkan buku dan bermain ponsel seharian",
+      "menyalahkan kurikulum yang dianggap berat",
+      "pantang menyerah, mengulang bacaan, dan bertanya",
+      "meminta orang lain mengerjakan seluruh tugasnya"
+    ],
+    "answer": 2,
+    "explanation": "Ketekunan sejati dibuktikan dengan daya tahan menghadapi rintangan intelektual.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Perhatikan paragraf: 'زَيْنَبُ تُرِيدُ أَنْ تَكُونَ عَالِمَةً فِي الْفَلَكِ لِتَتَفَكَّرَ فِي خَلْقِ السَّمَاوَاتِ وَالْأَرْضِ'. Karakter yang tampak pada Zainab adalah ...",
+    "options": [
+      "keinginan menjadi manusia pertama di planet mars",
+      "rasa sombong karena menguasai ilmu antariksa",
+      "ketakutan melihat fenomena gerhana bintang",
+      "kecintaan pada sains untuk mengagungkan kebesaran Allah"
+    ],
+    "answer": 3,
+    "explanation": "Tadabbur alam semesta menguatkan tauhid dan kecintaan kepada Sang Pencipta.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Refleksi etika: Apa yang harus dilakukan seorang muslim jika setelah berusaha keras, takdir menentukan ia bekerja di bidang lain?",
+    "options": [
+      "bersyukur, berhusnudzon pada ketetapan Allah, dan amanah",
+      "marah dan berhenti beribadah kepada Allah",
+      "berputus asa dan menyalahkan semua keadaan",
+      "menghalalkan segala cara agar ambisi tercapai"
+    ],
+    "answer": 0,
+    "explanation": "Tawakal sejati: ridha pada takdir Allah setelah ikhtiar optimal dijalankan.",
+    "difficulty": 3,
+    "timeLimit": 25
+  }
+]

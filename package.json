@@ -1,0 +1,10 @@
+{
+  "name": "play-printshare",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "check:schema": "node scripts/check-schema.js",
+    "test": "node --test"
+  }
+}

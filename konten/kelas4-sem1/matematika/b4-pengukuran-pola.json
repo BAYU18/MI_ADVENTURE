@@ -1,0 +1,463 @@
+{
+  "class": "Kelas 4 SD",
+  "subjectSlug": "matematika",
+  "batch": "b4-pengukuran-pola",
+  "count": 35,
+  "questions": [
+    {
+      "question": "Keliling persegi dengan panjang sisi 6 cm adalah ...",
+      "options": [
+        "24 cm",
+        "36 cm",
+        "12 cm",
+        "18 cm"
+      ],
+      "answer": 0,
+      "explanation": "Keliling persegi = 4 × sisi = 4 × 6 = 24 cm.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Luas persegi dengan panjang sisi 5 cm adalah ...",
+      "options": [
+        "20 cm²",
+        "25 cm²",
+        "10 cm²",
+        "30 cm²"
+      ],
+      "answer": 1,
+      "explanation": "Luas persegi = sisi × sisi = 5 × 5 = 25 cm².",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Panjang 2 meter sama dengan ...",
+      "options": [
+        "20 cm",
+        "2.000 cm",
+        "200 cm",
+        "20.000 cm"
+      ],
+      "answer": 2,
+      "explanation": "1 meter = 100 cm, jadi 2 meter = 200 cm.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Berat 3 kilogram sama dengan ...",
+      "options": [
+        "300 gram",
+        "30 gram",
+        "30.000 gram",
+        "3.000 gram"
+      ],
+      "answer": 3,
+      "explanation": "1 kg = 1.000 gram, jadi 3 kg = 3.000 gram.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Keliling persegi panjang dengan panjang 8 cm dan lebar 4 cm adalah ...",
+      "options": [
+        "24 cm",
+        "32 cm",
+        "16 cm",
+        "28 cm"
+      ],
+      "answer": 0,
+      "explanation": "Keliling = 2 × (p + l) = 2 × (8 + 4) = 2 × 12 = 24 cm.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Luas persegi panjang dengan panjang 10 cm dan lebar 6 cm adalah ...",
+      "options": [
+        "32 cm²",
+        "60 cm²",
+        "16 cm²",
+        "50 cm²"
+      ],
+      "answer": 1,
+      "explanation": "Luas = panjang × lebar = 10 × 6 = 60 cm².",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Lanjutan pola bilangan 3, 6, 9, 12, ... adalah ...",
+      "options": [
+        "14",
+        "16",
+        "15",
+        "18"
+      ],
+      "answer": 2,
+      "explanation": "Pola bertambah 3 setiap suku.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Lanjutan pola bilangan 2, 4, 8, 16, ... adalah ...",
+      "options": [
+        "24",
+        "30",
+        "20",
+        "32"
+      ],
+      "answer": 3,
+      "explanation": "Pola dikali 2 setiap suku.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Satuan baku untuk mengukur luas ruangan adalah ...",
+      "options": [
+        "Meter persegi (m²)",
+        "Meter (m)",
+        "Kilogram (kg)",
+        "Liter (l)"
+      ],
+      "answer": 0,
+      "explanation": "Luas diukur dalam satuan persegi seperti m² atau cm².",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "1 jam sama dengan ...",
+      "options": [
+        "100 menit",
+        "60 menit",
+        "30 menit",
+        "3.600 menit"
+      ],
+      "answer": 1,
+      "explanation": "1 jam terdiri atas 60 menit.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pola bilangan 50, 45, 40, 35, ... memiliki aturan ...",
+      "options": [
+        "Bertambah 5",
+        "Dibagi 5",
+        "Berkurang 5",
+        "Berkurang 10"
+      ],
+      "answer": 2,
+      "explanation": "Setiap langkah dikurangi 5.",
+      "difficulty": 1,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebuah persegi panjang memiliki keliling 30 cm. Jika panjangnya 9 cm, lebarnya adalah ...",
+      "options": [
+        "5 cm",
+        "7 cm",
+        "8 cm",
+        "6 cm"
+      ],
+      "answer": 3,
+      "explanation": "p + l = 30 ÷ 2 = 15. Maka l = 15 − 9 = 6 cm.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Luas sebuah persegi adalah 64 cm². Panjang sisi persegi tersebut adalah ...",
+      "options": [
+        "8 cm",
+        "6 cm",
+        "7 cm",
+        "9 cm"
+      ],
+      "answer": 0,
+      "explanation": "sisi = akar dari 64 = 8 cm karena 8 × 8 = 64.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Ibu membeli 2 kg beras dan 500 gram gula pasir. Berat belanjaan ibu seluruhnya adalah ...",
+      "options": [
+        "2.050 gram",
+        "2.500 gram",
+        "2.100 gram",
+        "3.000 gram"
+      ],
+      "answer": 1,
+      "explanation": "2 kg = 2.000 g. 2.000 g + 500 g = 2.500 gram.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Dua utas tali memiliki panjang 150 cm dan 2,5 meter. Panjang kedua tali jika disambung adalah ...",
+      "options": [
+        "350 cm",
+        "450 cm",
+        "400 cm",
+        "300 cm"
+      ],
+      "answer": 2,
+      "explanation": "2,5 m = 250 cm. 150 cm + 250 cm = 400 cm.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Perhatikan pola: 4, 9, 14, 19, ... Suku ke-6 dari pola tersebut adalah ...",
+      "options": [
+        "24",
+        "34",
+        "28",
+        "29"
+      ],
+      "answer": 3,
+      "explanation": "Suku ke-5 = 19 + 5 = 24. Suku ke-6 = 24 + 5 = 29.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebuah meja berbentuk persegi panjang dengan panjang 120 cm dan lebar 80 cm. Keliling meja adalah ...",
+      "options": [
+        "400 cm",
+        "200 cm",
+        "9.600 cm",
+        "300 cm"
+      ],
+      "answer": 0,
+      "explanation": "Keliling = 2 × (120 + 80) = 2 × 200 = 400 cm.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Lantai kamar berbentuk persegi dengan sisi 4 meter. Luas lantai kamar tersebut adalah ...",
+      "options": [
+        "8 m²",
+        "16 m²",
+        "12 m²",
+        "20 m²"
+      ],
+      "answer": 1,
+      "explanation": "Luas = 4 × 4 = 16 m².",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Lanjutan dari pola bilangan 1, 4, 9, 16, ... adalah ...",
+      "options": [
+        "20",
+        "24",
+        "25",
+        "30"
+      ],
+      "answer": 2,
+      "explanation": "Pola bilangan kuadrat: 1², 2², 3², 4², 5² = 25.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebuah kebun jagung berukuran panjang 15 m dan lebar 10 m dipagari kawat. Panjang kawat yang diperlukan adalah ...",
+      "options": [
+        "150 m",
+        "25 m",
+        "60 m",
+        "50 m"
+      ],
+      "answer": 3,
+      "explanation": "Keliling kebun = 2 × (15 + 10) = 50 m.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jarak rumah Andi ke sekolah adalah 1 km 250 m. Jarak tersebut setara dengan ...",
+      "options": [
+        "1.250 m",
+        "1.025 m",
+        "1.205 m",
+        "1.500 m"
+      ],
+      "answer": 0,
+      "explanation": "1 km = 1.000 m. 1.000 m + 250 m = 1.250 m.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Sebuah pita panjangnya 3 meter dipotong menjadi 6 bagian sama panjang. Panjang tiap potongan adalah ...",
+      "options": [
+        "30 cm",
+        "50 cm",
+        "60 cm",
+        "40 cm"
+      ],
+      "answer": 1,
+      "explanation": "3 m = 300 cm. 300 ÷ 6 = 50 cm.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Pola bilangan: 100, 92, 84, 76, ... Angka berikutnya adalah ...",
+      "options": [
+        "70",
+        "66",
+        "68",
+        "72"
+      ],
+      "answer": 2,
+      "explanation": "Pola selalu berkurang 8. 76 − 8 = 68.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Suatu persegi memiliki keliling 48 cm. Luas persegi tersebut adalah ...",
+      "options": [
+        "120 cm²",
+        "96 cm²",
+        "160 cm²",
+        "144 cm²"
+      ],
+      "answer": 3,
+      "explanation": "Sisi = 48 ÷ 4 = 12 cm. Luas = 12 × 12 = 144 cm².",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Jika berat sekarung beras adalah 25 kg dan beras dimasak 1 kg per hari, beras akan habis dalam waktu ...",
+      "options": [
+        "25 hari",
+        "20 hari",
+        "30 hari",
+        "15 hari"
+      ],
+      "answer": 0,
+      "explanation": "25 kg ÷ 1 kg/hari = 25 hari.",
+      "difficulty": 2,
+      "timeLimit": 20
+    },
+    {
+      "question": "Keliling sebuah persegi panjang adalah 40 cm. Jika panjangnya 4 cm lebih panjang dari lebarnya, luasnya adalah ...",
+      "options": [
+        "84 cm²",
+        "96 cm²",
+        "100 cm²",
+        "90 cm²"
+      ],
+      "answer": 1,
+      "explanation": "p + l = 20. Jika p = l + 4, maka 2l + 4 = 20 -> l = 8, p = 12. Luas = 12 × 8 = 96 cm².",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Dua persegi memiliki panjang sisi masing-masing 4 cm dan 8 cm. Perbandingan luas kedua persegi tersebut adalah ...",
+      "options": [
+        "1 : 2",
+        "1 : 8",
+        "1 : 4",
+        "1 : 16"
+      ],
+      "answer": 2,
+      "explanation": "Luas 1 = 16 cm², Luas 2 = 64 cm². Perbandingan 16 : 64 = 1 : 4.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Sebuah kolam renang berbentuk persegi panjang berukuran 20 m × 10 m. Di sekeliling kolam dibuat jalan setapak selebar 1 m. Luas jalan setapak adalah ...",
+      "options": [
+        "60 m²",
+        "70 m²",
+        "54 m²",
+        "64 m²"
+      ],
+      "answer": 3,
+      "explanation": "Luas luar = 22 × 12 = 264 m². Luas kolam = 20 × 10 = 200 m². Luas jalan = 264 − 200 = 64 m².",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Perhatikan pola: 2, 3, 5, 8, 12, ... Dua suku berikutnya adalah ...",
+      "options": [
+        "17 dan 23",
+        "16 dan 22",
+        "17 dan 24",
+        "18 dan 25"
+      ],
+      "answer": 0,
+      "explanation": "Selisih bertambah 1: +1, +2, +3, +4, +5 (12+5=17), +6 (17+6=23).",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Pak Toni memasang ubin di ruang tamu berukuran 6 m × 4 m. Jika ukuran tiap ubin 40 cm × 40 cm, banyak ubin yang dibutuhkan adalah ...",
+      "options": [
+        "120 buah",
+        "150 buah",
+        "160 buah",
+        "200 buah"
+      ],
+      "answer": 1,
+      "explanation": "Luas ruangan = 600 × 400 = 240.000 cm². Luas ubin = 40 × 40 = 1.600 cm². Banyak ubin = 240.000 ÷ 1.600 = 150 buah.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Sebuah kawat sepanjang 60 cm dibentuk menjadi persegi panjang dengan lebar 10 cm. Luas persegi panjang tersebut adalah ...",
+      "options": [
+        "150 cm²",
+        "300 cm²",
+        "200 cm²",
+        "250 cm²"
+      ],
+      "answer": 2,
+      "explanation": "Keliling = 60 cm. p + l = 30 cm -> p = 20 cm. Luas = 20 × 10 = 200 cm².",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Pola bilangan segitiga: 1, 3, 6, 10, ... Nilai suku ke-7 dari pola ini adalah ...",
+      "options": [
+        "21",
+        "25",
+        "30",
+        "28"
+      ],
+      "answer": 3,
+      "explanation": "Suku ke-n = n×(n+1)/2. Suku ke-7 = 7 × 8 / 2 = 28.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Roni bersepeda menempuh jarak 4,5 km dalam waktu 30 menit. Berapa meter jarak yang ditempuh setiap menitnya?",
+      "options": [
+        "150 meter",
+        "120 meter",
+        "180 meter",
+        "200 meter"
+      ],
+      "answer": 0,
+      "explanation": "4,5 km = 4.500 m. Jarak per menit = 4.500 ÷ 30 = 150 meter.",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Sebuah lapangan berbentuk persegi memiliki keliling yang sama dengan persegi panjang berukuran 16 m × 8 m. Luas lapangan persegi adalah ...",
+      "options": [
+        "128 m²",
+        "144 m²",
+        "160 m²",
+        "100 m²"
+      ],
+      "answer": 1,
+      "explanation": "Keliling persegi panjang = 2 × (16 + 8) = 48 m. Sisi persegi = 48 ÷ 4 = 12 m. Luas = 12 × 12 = 144 m².",
+      "difficulty": 3,
+      "timeLimit": 35
+    },
+    {
+      "question": "Perhatikan pola: 3, 7, 15, 31, ... Suku berikutnya dari pola tersebut adalah ...",
+      "options": [
+        "55",
+        "60",
+        "63",
+        "64"
+      ],
+      "answer": 2,
+      "explanation": "Aturan: (angka × 2) + 1. Suku berikutnya = (31 × 2) + 1 = 63.",
+      "difficulty": 3,
+      "timeLimit": 35
+    }
+  ]
+}

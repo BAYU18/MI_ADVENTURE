@@ -1,0 +1,151 @@
+{
+  "version": 1,
+  "class": "Kelas 5 SD",
+  "subject": "Bahasa Indonesia",
+  "questions": [
+    {
+      "question": "Lawan kata (antonim) dari \"rajin\" adalah ...",
+      "options": [
+        "Malas",
+        "Giat",
+        "Tekun",
+        "Ulet"
+      ],
+      "answer": 0,
+      "explanation": "Rajin berlawanan dengan malas.",
+      "difficulty": 1
+    },
+    {
+      "question": "Persamaan kata (sinonim) dari \"indah\" adalah ...",
+      "options": [
+        "Buruk",
+        "Kotor",
+        "Cantik",
+        "Sempit"
+      ],
+      "answer": 2,
+      "explanation": "Indah bersinonim dengan cantik.",
+      "difficulty": 1
+    },
+    {
+      "question": "Penulisan kata baku yang benar adalah ...",
+      "options": [
+        "Apotik",
+        "Apotek",
+        "Apotex",
+        "Apothek"
+      ],
+      "answer": 1,
+      "explanation": "Bentuk baku: apotek.",
+      "difficulty": 2
+    },
+    {
+      "question": "Kalimat dengan penggunaan huruf kapital yang benar adalah ...",
+      "options": [
+        "Aku tinggal di kota bandung.",
+        "aku tinggal di Kota Bandung.",
+        "Aku tinggal di Kota Bandung.",
+        "aku tinggal di kota bandung."
+      ],
+      "answer": 2,
+      "explanation": "Huruf kapital dipakai di awal kalimat dan nama geografi.",
+      "difficulty": 2
+    },
+    {
+      "question": "Tanda baca di akhir kalimat tanya adalah ...",
+      "options": [
+        "Titik (.)",
+        "Tanda tanya (?)",
+        "Tanda seru (!)",
+        "Koma (,)"
+      ],
+      "answer": 1,
+      "explanation": "Kalimat tanya diakhiri tanda tanya.",
+      "difficulty": 1
+    },
+    {
+      "question": "Gagasan utama dalam sebuah paragraf disebut ...",
+      "options": [
+        "Ide pokok",
+        "Ide pendukung",
+        "Kesimpulan",
+        "Ilustrasi"
+      ],
+      "answer": 0,
+      "explanation": "Ide pokok = gagasan utama paragraf.",
+      "difficulty": 2
+    },
+    {
+      "question": "Kata ulang \"buku-buku\" menyatakan makna ...",
+      "options": [
+        "Satu",
+        "Tidak ada",
+        "Sedikit",
+        "Banyak (jamak)"
+      ],
+      "answer": 3,
+      "explanation": "Kata ulang pada benda menyatakan jamak.",
+      "difficulty": 2
+    },
+    {
+      "question": "Imbuhan pada kata \"membaca\" adalah ...",
+      "options": [
+        "ber-",
+        "me-",
+        "di-",
+        "ter-"
+      ],
+      "answer": 1,
+      "explanation": "Membaca = me- + baca.",
+      "difficulty": 2
+    },
+    {
+      "question": "Satu bait pantun terdiri atas ... baris.",
+      "options": [
+        "2",
+        "3",
+        "4",
+        "6"
+      ],
+      "answer": 2,
+      "explanation": "Pantun umumnya terdiri atas 4 baris.",
+      "difficulty": 2
+    },
+    {
+      "question": "\"Ia berhati batu.\" Majas yang digunakan adalah ...",
+      "options": [
+        "Hiperbola",
+        "Metafora",
+        "Personifikasi",
+        "Ironi"
+      ],
+      "answer": 1,
+      "explanation": "Hati disamakan dengan batu tanpa kata pembanding: metafora.",
+      "difficulty": 3
+    },
+    {
+      "question": "Tokoh utama dalam sebuah cerita adalah ...",
+      "options": [
+        "Orang yang paling berperan dalam cerita",
+        "Penulis cerita",
+        "Pembaca cerita",
+        "Penerbit buku"
+      ],
+      "answer": 0,
+      "explanation": "Tokoh utama paling banyak berperan dalam alur cerita.",
+      "difficulty": 1
+    },
+    {
+      "question": "Kata tanya yang digunakan untuk menanyakan tempat adalah ...",
+      "options": [
+        "Kapan",
+        "Siapa",
+        "Mengapa",
+        "Di mana"
+      ],
+      "answer": 3,
+      "explanation": "Di mana = menanyakan tempat.",
+      "difficulty": 1
+    }
+  ]
+}

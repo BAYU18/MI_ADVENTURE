@@ -1,0 +1,418 @@
+[
+  {
+    "question": "Where do you sleep at night? In the ...",
+    "options": [
+      "bedroom",
+      "kitchen",
+      "bathroom",
+      "garage"
+    ],
+    "answer": 0,
+    "explanation": "Kamar tidur dalam bahasa Inggris adalah 'bedroom'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Where does mother cook delicious meals? In the ...",
+    "options": [
+      "living room",
+      "kitchen",
+      "bedroom",
+      "garden"
+    ],
+    "answer": 1,
+    "explanation": "Dapur tempat memasak makanan disebut 'kitchen'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Where do you take a bath and brush your teeth? In the ...",
+    "options": [
+      "dining room",
+      "bedroom",
+      "bathroom",
+      "garage"
+    ],
+    "answer": 2,
+    "explanation": "Kamar mandi tempat membersihkan diri disebut 'bathroom'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Where does the family gather to watch television? In the ...",
+    "options": [
+      "bathroom",
+      "garage",
+      "kitchen",
+      "living room"
+    ],
+    "answer": 3,
+    "explanation": "Ruang keluarga tempat berkumpul dan menonton TV adalah 'living room'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "Where does father park his car or motorcycle? In the ...",
+    "options": [
+      "garage",
+      "bedroom",
+      "bathroom",
+      "dining room"
+    ],
+    "answer": 0,
+    "explanation": "Garasi tempat memarkir kendaraan disebut 'garage'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "The cat is sleeping ... the table. (di bawah)",
+    "options": [
+      "on",
+      "under",
+      "in",
+      "above"
+    ],
+    "answer": 1,
+    "explanation": "Preposisi 'di bawah' adalah 'under'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "The vase of flowers is ... the table. (di atas)",
+    "options": [
+      "in",
+      "under",
+      "on",
+      "behind"
+    ],
+    "answer": 2,
+    "explanation": "Preposisi 'di atas' menempel permukaan adalah 'on'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "The fish is swimming ... the aquarium. (di dalam)",
+    "options": [
+      "on",
+      "under",
+      "between",
+      "in"
+    ],
+    "answer": 3,
+    "explanation": "Preposisi 'di dalam' ruang atau wadah adalah 'in'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "The broom is ... the door. (di belakang)",
+    "options": [
+      "behind",
+      "in front of",
+      "under",
+      "on"
+    ],
+    "answer": 0,
+    "explanation": "Preposisi 'di belakang' adalah 'behind'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "The teacher is standing ... the classroom. (di depan)",
+    "options": [
+      "behind",
+      "in front of",
+      "under",
+      "between"
+    ],
+    "answer": 1,
+    "explanation": "Preposisi 'di depan' adalah 'in front of'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "The bedside table is ... the bed. (di samping)",
+    "options": [
+      "under",
+      "inside",
+      "beside",
+      "behind"
+    ],
+    "answer": 2,
+    "explanation": "Preposisi 'di samping' atau di sebelah adalah 'beside' / 'next to'.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "What is the meaning of 'dining room'?",
+    "options": [
+      "ruang tamu",
+      "kamar tidur",
+      "dapur memasak",
+      "ruang makan"
+    ],
+    "answer": 3,
+    "explanation": "'Dining room' adalah ruangan tempat menyantap makanan bersama.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "What furniture do you sit on in the living room?",
+    "options": [
+      "sofa",
+      "wardrobe",
+      "refrigerator",
+      "stove"
+    ],
+    "answer": 0,
+    "explanation": "'Sofa' adalah kursi busa empuk tempat duduk di ruang tamu.",
+    "difficulty": 1,
+    "timeLimit": 25
+  },
+  {
+    "question": "The ball is ... the two boxes. (di antara dua benda)",
+    "options": [
+      "behind",
+      "between",
+      "in front of",
+      "under"
+    ],
+    "answer": 1,
+    "explanation": "Preposisi 'di antara dua objek' adalah 'between'.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Where do you keep fresh vegetables and cold milk in the kitchen?",
+    "options": [
+      "in the wardrobe",
+      "under the pillow",
+      "in the refrigerator",
+      "on the roof"
+    ],
+    "answer": 2,
+    "explanation": "Kulkas/lemari es ('refrigerator') menjaga makanan tetap segar.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Where do you hang your clean clothes and school uniform?",
+    "options": [
+      "in the stove",
+      "in the bathtub",
+      "under the mat",
+      "in the wardrobe"
+    ],
+    "answer": 3,
+    "explanation": "Lemari pakaian tempat menggantung baju adalah 'wardrobe'.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Complete the sentence: 'The kitchen is ... the dining room.'",
+    "options": [
+      "next to",
+      "under",
+      "inside",
+      "above"
+    ],
+    "answer": 0,
+    "explanation": "'Next to' bermakna berdampingan di sebelah ruangan lain.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Ahmad: 'Where is my school bag?' - Mother: 'It is ... the chair.'",
+    "options": [
+      "between",
+      "on",
+      "inside of",
+      "through"
+    ],
+    "answer": 1,
+    "explanation": "Tas sekolah diletakkan di atas kursi memakai preposisi 'on'.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Translate into English: 'Ada sebuah lampu gantung di atas meja makan.'",
+    "options": [
+      "There are a lamp under the dining table.",
+      "There is a lamp inside the dining table.",
+      "There is a lamp above the dining table.",
+      "There are lamps behind the dining table."
+    ],
+    "answer": 2,
+    "explanation": "Posisi melayang di atas tanpa menempel menggunakan 'above'.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Translate into English: 'Kucing itu sedang bersembunyi di belakang lemari.'",
+    "options": [
+      "The cat is hiding under the wardrobe.",
+      "The cat is hiding in front of the wardrobe.",
+      "The cat is hiding on the wardrobe.",
+      "The cat is hiding behind the wardrobe."
+    ],
+    "answer": 3,
+    "explanation": "'Di belakang lemari' diterjemahkan 'behind the wardrobe'.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Describe the room: 'There is a stove, a pan, and a refrigerator.' This room is a ...",
+    "options": [
+      "kitchen",
+      "bedroom",
+      "garage",
+      "bathroom"
+    ],
+    "answer": 0,
+    "explanation": "Kompor, wajan, dan kulkas berada di dapur ('kitchen').",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Describe the room: 'There is a bed, a pillow, and a study desk.' This room is a ...",
+    "options": [
+      "living room",
+      "bedroom",
+      "kitchen",
+      "dining room"
+    ],
+    "answer": 1,
+    "explanation": "Tempat tidur, bantal, dan meja belajar berada di kamar tidur ('bedroom').",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Which preposition means the opposite of 'in front of'?",
+    "options": [
+      "beside",
+      "under",
+      "behind",
+      "between"
+    ],
+    "answer": 2,
+    "explanation": "Lawan kata dari 'di depan' (in front of) adalah 'di belakang' (behind).",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Which preposition means the opposite of 'under'?",
+    "options": [
+      "in",
+      "behind",
+      "beside",
+      "on / above"
+    ],
+    "answer": 3,
+    "explanation": "Lawan kata dari 'di bawah' (under) adalah 'di atas' (on/above).",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Arrange into a good sentence: 'garden - the - is - house - behind - the'",
+    "options": [
+      "The garden is behind the house.",
+      "The garden behind is the house.",
+      "Behind the house the garden is.",
+      "The house is the garden behind."
+    ],
+    "answer": 0,
+    "explanation": "Susunan yang benar: The garden is behind the house.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Arrange into a good sentence: 'shoes - are - the - bed - under - the'",
+    "options": [
+      "The shoes under are the bed.",
+      "The shoes are under the bed.",
+      "Under the bed are shoes the.",
+      "The bed are the shoes under."
+    ],
+    "answer": 1,
+    "explanation": "Susunan yang benar: The shoes are under the bed.",
+    "difficulty": 2,
+    "timeLimit": 25
+  },
+  {
+    "question": "Reading comprehension: 'Fajar puts his shoes under the bench, his bag on the desk, and his jacket behind the door. Where is his bag?'",
+    "options": [
+      "under the bench",
+      "behind the door",
+      "on the desk",
+      "in the drawer"
+    ],
+    "answer": 2,
+    "explanation": "Berdasarkan teks, tas ('his bag') diletakkan di atas meja ('on the desk').",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Spatial reasoning: 'The bank is between the post office and the library. Where is the bank?'",
+    "options": [
+      "behind the post office",
+      "inside the library building",
+      "across from the bus station",
+      "in the middle of the post office and the library"
+    ],
+    "answer": 3,
+    "explanation": "'Between' menunjukkan posisi di tengah-tengah antara dua tempat.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "House layout analysis: 'If the garage is beside the house, father can park his car ...'",
+    "options": [
+      "safely next to the house",
+      "inside the bedroom",
+      "on the kitchen roof",
+      "under the living room table"
+    ],
+    "answer": 0,
+    "explanation": "Garasi di sebelah rumah memberikan akses parkir yang aman di samping bangunan.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Sentence correction: 'The dog is sleeping in the chair floor under.'",
+    "options": [
+      "The dog sleeping under is the chair.",
+      "The dog is sleeping under the chair.",
+      "Under the chair sleeping is the dog.",
+      "The chair is sleeping under the dog."
+    ],
+    "answer": 1,
+    "explanation": "Urutan yang benar: Subjek + to be + verb-ing + preposisi tempat.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Value integration: Keeping our bedroom tidy, clean, and organized shows ...",
+    "options": [
+      "laziness and carelessness",
+      "fear of darkness",
+      "responsibility and self-discipline",
+      "waste of free time"
+    ],
+    "answer": 2,
+    "explanation": "Merapikan kamar tidur sendiri melatih tanggung jawab dan kemandirian hidup.",
+    "difficulty": 3,
+    "timeLimit": 25
+  },
+  {
+    "question": "Environmental care: Planting flowers and trees in the garden in front of the house helps ...",
+    "options": [
+      "make the house hot and crowded",
+      "destroy the fence of the house",
+      "attract harmful snakes and pests",
+      "make the air fresh, cool, and beautiful"
+    ],
+    "answer": 3,
+    "explanation": "Menghijaukan taman pekarangan rumah menyegarkan udara dan menyejukkan pandangan.",
+    "difficulty": 3,
+    "timeLimit": 25
+  }
+]
