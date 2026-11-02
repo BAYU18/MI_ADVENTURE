@@ -958,7 +958,7 @@ Screens.subjects = {
         </div>
       `;
 
-      $('.subject-card', box).forEach(card => {
+      $$('.subject-card', box).forEach(card => {
         card.onclick = async () => {
           const sid = parseInt(card.dataset.id, 10);
           if (window.Sfx) Sfx.play('select');
@@ -1046,14 +1046,14 @@ Screens.subjects = {
         </div>
       `;
 
-      $('.sub-chip', box).forEach(chip => {
+      $$('.sub-chip', box).forEach(chip => {
         chip.onclick = () => {
           this.selectedSubjectId = parseInt(chip.dataset.id, 10);
           this.loadCampaignMap();
         };
       });
 
-      $('.campaign-node-btn', box).forEach(btn => {
+      $$('.campaign-node-btn', box).forEach(btn => {
         btn.onclick = async () => {
           const unlocked = btn.dataset.unlocked === '1';
           const nodeKey = btn.dataset.key;
@@ -1067,7 +1067,7 @@ Screens.subjects = {
         };
       });
 
-      $('.btn-view-comic', box).forEach(btn => {
+      $$('.btn-view-comic', box).forEach(btn => {
         btn.onclick = () => {
           const theme = btn.dataset.theme || 'hutan';
           const comicPanels = window.StoryData?.STORY?.[theme]?.comic || [
@@ -2069,7 +2069,7 @@ Screens.battle = {
       isResolved = true;
       clearInterval(timerInterval);
 
-      $('#event-modal button').forEach(b => b.disabled = true);
+      $$('#event-modal button').forEach(b => b.disabled = true);
 
       try {
         const res = await API.resolveEvent(this.session.id, evt.id, isTimeout ? 'TIMEOUT' : choice);
@@ -2106,7 +2106,7 @@ Screens.battle = {
       btnSkip.onclick = () => resolveChoice('SKIP');
     }
 
-    $('.btn-merchant-deal', modal).forEach(b => {
+    $$('.btn-merchant-deal', modal).forEach(b => {
       b.onclick = () => {
         const dealId = b.dataset.dealId;
         if (dealId) resolveChoice(dealId);
