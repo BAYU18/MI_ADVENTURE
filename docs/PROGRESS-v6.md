@@ -16,7 +16,8 @@
   - ✅ 2026-11-03 05:26 — shared/progression.js, tests/progression.test.js, scripts/sim-boss.js · npm test · 67/67 tes lulus (10 progression test lulus)
 - [x] **T-02** Migrasi aditif idempoten kolom `game_sessions` (+ `player_skills.level` bila belum ada) dengan backup; perbarui `scripts/check-schema.js` _(Spek: G.1 · Bukti: `node scripts/check-schema.js` lulus; sesi IN_PROGRESS lama tetap terbaca)_ <!--tries:1-->
   - ✅ 2026-11-03 05:29 — lib/db.js, scripts/check-schema.js · node scripts/check-schema.js lulus 100% · sesi lama terbaca aman
-- [ ] **G-0** GERBANG 0: `npm test` + `check-schema` + `smoke-test-v4` hijau; commit
+- [x] **G-0** GERBANG 0: `npm test` + `check-schema` + `smoke-test-v4` hijau; commit <!--tries:1-->
+  - ✅ 2026-11-03 05:29 — npm test (67 passed), check-schema (100% valid), smoke-test-v4 (15/15 passed)
 
 ## Fase 1 — Level kemampuan (B) dan menu Laporan (A)
 - [ ] **T-10** B: `computeSubjectAbilities(playerId)` di `lib/db.js` memakai `Progression.abilityScore/sortAbilities` + `GET /api/report/abilities` _(Spek: B.1, B.2 · Bukti: uji data campuran → urutan NAIK, `INSUFFICIENT`/`NONE` di akhir, `lowestSubjectId` benar)_
