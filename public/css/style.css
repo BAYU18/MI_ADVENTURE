@@ -1645,3 +1645,121 @@ body {
   position: relative;
   z-index: 1;
 }
+
+/* ============================================================
+   Boss Tiers & Auroras (v6 / Fitur C & D)
+   ============================================================ */
+.tier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: 0.72rem;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+.tier-common { background: #9aa5b1; }
+.tier-rare   { background: #3b82f6; box-shadow: 0 0 8px rgba(59, 130, 246, 0.5); }
+.tier-epic   { background: #a855f7; box-shadow: 0 0 10px rgba(168, 85, 247, 0.6); }
+.tier-legend { background: #f59e0b; box-shadow: 0 0 12px rgba(245, 158, 11, 0.7); }
+
+.boss-hits-left {
+  display: inline-flex;
+  align-items: center;
+}
+
+.fatigue-banner {
+  background: var(--c-danger, #ef4444);
+  color: #fff;
+  animation: pulse-danger 1s infinite alternate;
+}
+
+.pity-badge {
+  background: #f59e0b;
+  color: #fff;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+}
+
+@keyframes auraPulse {
+  0%, 100% { transform: scale(1); opacity: 0.65; }
+  50% { transform: scale(1.06); opacity: 0.95; }
+}
+
+@keyframes sparkFloat {
+  0%, 100% { transform: translateY(0); opacity: 0.8; }
+  50% { transform: translateY(-3px); opacity: 1; }
+}
+
+.aura-rare {
+  transform-origin: 100px 110px;
+  animation: auraPulse 3s ease-in-out infinite;
+}
+
+.aura-epic {
+  transform-origin: 100px 110px;
+  animation: auraPulse 2.2s ease-in-out infinite;
+}
+
+.aura-legend {
+  transform-origin: 100px 110px;
+  animation: auraPulse 1.6s ease-in-out infinite;
+}
+
+.tier-sparks {
+  transform-origin: 100px 100px;
+  animation: sparkFloat 2s ease-in-out infinite;
+}
+
+.legend-sparks {
+  animation-duration: 1.4s;
+}
+
+.tier-crown {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.boss-intro-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 120;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: fadeIn 0.2s ease-out;
+}
+.boss-intro-overlay.dismissing {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in;
+}
+.boss-intro-card {
+  background: var(--c-surface, #1e293b);
+  border: 1px solid var(--c-surface-strong, #334155);
+  border-radius: var(--radius, 16px);
+  padding: 20px;
+  max-width: 300px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aura-rare, .aura-epic, .aura-legend, .tier-sparks, .legend-sparks, .boss-intro-overlay, .fatigue-banner {
+    animation: none !important;
+  }
+}
+
+body.reduced-motion .aura-rare,
+body.reduced-motion .aura-epic,
+body.reduced-motion .aura-legend,
+body.reduced-motion .tier-sparks,
+body.reduced-motion .legend-sparks,
+body.reduced-motion .boss-intro-overlay,
+body.reduced-motion .fatigue-banner {
+  animation: none !important;
+}

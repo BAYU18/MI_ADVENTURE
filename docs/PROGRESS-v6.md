@@ -57,7 +57,8 @@
   - ✅ 2026-11-03 07:28 — lib/db.js, tests/session-refill.test.js · node --test tests/session-refill.test.js && npm test · 113/113 pass, refill 5 soal sisa <= 2, maxQuestions cap, evaluasi bintang OUT_OF_QUESTIONS
 - [x] **T-33** C: hadiah koin/XP × pengali tier (setelah bonus lain), `bossByTier` benar di laporan _(Spek: C.3 · Bukti: kemenangan tiap tier → hadiah sesuai; laporan menghitung tier)_ <!--tries:1-->
   - ✅ 2026-11-03 07:33 — lib/db.js, tests/rewards-tier.test.js · node --test tests/rewards-tier.test.js && npm test · 120/120 pass, pengali koin & XP per tier common/rare/epic/legend, campaign first clear tetap, bossByTier laporan presisi
-- [ ] **T-34** C/D: UI — lencana tier, aura monster di `monsters.js` (common/rare/epic/legend), bilah HP berbingkai tier + "Sisa maks. X jawaban benar", intro boss, banner kelelahan, lencana Serangan Balik _(Spek: C.4, D.1, D.3 · Bukti: uji manual 4 tier di 320×568; hemat animasi mati)_
+- [x] **T-34** C/D: UI — lencana tier, aura monster di `monsters.js` (common/rare/epic/legend), bilah HP berbingkai tier + "Sisa maks. X jawaban benar", intro boss, banner kelelahan, lencana Serangan Balik _(Spek: C.4, D.1, D.3 · Bukti: uji manual 4 tier di 320×568; hemat animasi mati)_ <!--tries:1-->
+  - ✅ 2026-11-03 07:45 — Lencana tier (common/rare/epic/legend), aura SVG monster, HP berbingkai tier + Sisa maks. X jawaban benar, intro boss, banner kelelahan, lencana Serangan Balik, reduced-motion. Uji tests/ui-boss.test.js (4/4 pass) & npm test (124/124 pass).
 - [ ] **T-35** C/D: perbarui `scripts/test-gameplay-e2e.js` & `smoke-test-v4.js` agar menyelesaikan sesi bertier yang lebih panjang; jalankan `scripts/sim-boss.js` _(Spek: D.5, H · Bukti: e2e 12 mapel hijau; simulasi dalam pita penerimaan)_
 - [ ] **G-3** GERBANG 3: `npm test` + `check-schema` + `smoke-test-v4` + e2e + skenario H.3–H.8, H.11 lulus; commit
 

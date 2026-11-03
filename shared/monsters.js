@@ -239,9 +239,60 @@
     const c = palette(m.color);
     const clipId = `clip-m${m.id || 1}`;
     const sizeAttr = opts && opts.size ? `width="${opts.size}" height="${opts.size}"` : '';
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" ${sizeAttr} role="img" aria-label="${m.name}">
-<defs><clipPath id="${clipId}">${bodyShape(m.body, '')}</clipPath></defs>
+
+    const tier = (opts && opts.tier ? String(opts.tier).toLowerCase() : (m.tier ? String(m.tier).toLowerCase() : 'common'));
+
+    let tierDefs = '';
+    let tierAura = '';
+    let tierCrown = '';
+    let tierSparks = '';
+
+    if (tier === 'rare') {
+      tierDefs = `<radialGradient id="rare-aura-${m.id || 1}" cx="50%" cy="50%" r="50%">
+  <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.5"/>
+  <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+</radialGradient>`;
+      tierAura = `<circle class="aura-rare" cx="100" cy="110" r="82" fill="url(#rare-aura-${m.id || 1})"/>`;
+    } else if (tier === 'epic') {
+      tierDefs = `<radialGradient id="epic-aura-${m.id || 1}" cx="50%" cy="50%" r="50%">
+  <stop offset="0%" stop-color="#a855f7" stop-opacity="0.6"/>
+  <stop offset="100%" stop-color="#a855f7" stop-opacity="0"/>
+</radialGradient>`;
+      tierAura = `<circle class="aura-epic" cx="100" cy="110" r="86" fill="url(#epic-aura-${m.id || 1})"/>`;
+      tierSparks = `<g class="tier-sparks" fill="#e9d5ff">
+  <polygon points="40,65 43,70 48,72 43,74 40,79 37,74 32,72 37,70" opacity="0.85"/>
+  <polygon points="160,55 162,59 166,61 162,63 160,67 158,63 154,61 158,59" opacity="0.85"/>
+  <polygon points="165,130 167,133 170,135 167,137 165,140 163,137 160,135 163,133" opacity="0.75"/>
+  <polygon points="35,135 37,138 40,140 37,142 35,145 33,142 30,140 33,138" opacity="0.75"/>
+</g>`;
+    } else if (tier === 'legend') {
+      tierDefs = `<radialGradient id="legend-aura-${m.id || 1}" cx="50%" cy="50%" r="50%">
+  <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.7"/>
+  <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+</radialGradient>`;
+      tierAura = `<circle class="aura-legend" cx="100" cy="110" r="90" fill="url(#legend-aura-${m.id || 1})"/>`;
+      tierCrown = `<g class="tier-crown" fill="#fbbf24" stroke="#78350f" stroke-width="2" stroke-linejoin="round">
+  <polygon points="85,32 80,16 90,23 100,12 110,23 120,16 115,32"/>
+  <circle cx="80" cy="16" r="2.5" fill="#fef08a" stroke="#78350f" stroke-width="1"/>
+  <circle cx="100" cy="12" r="3" fill="#fef08a" stroke="#78350f" stroke-width="1"/>
+  <circle cx="120" cy="16" r="2.5" fill="#fef08a" stroke="#78350f" stroke-width="1"/>
+  <circle cx="100" cy="23" r="2" fill="#ef4444"/>
+</g>`;
+      tierSparks = `<g class="tier-sparks legend-sparks" fill="#fef08a">
+  <polygon points="45,45 48,51 54,54 48,57 45,63 42,57 36,54 42,51"/>
+  <polygon points="155,42 158,47 163,50 158,53 155,58 152,53 147,50 152,47"/>
+  <polygon points="168,110 170,114 174,116 170,118 168,122 166,118 162,116 166,114"/>
+  <polygon points="32,110 34,114 38,116 34,118 32,122 30,118 26,116 30,114"/>
+</g>`;
+    }
+
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" ${sizeAttr} role="img" aria-label="${m.name}" data-tier="${tier}">
+<defs>
+  <clipPath id="${clipId}">${bodyShape(m.body, '')}</clipPath>
+  ${tierDefs}
+</defs>
 <ellipse cx="100" cy="184" rx="58" ry="8" fill="#000" opacity=".18"/>
+${tierAura}
 <g class="monster-body">
 ${backExtras(m.extra, c)}
 ${headPiece(m.head, c)}
@@ -250,7 +301,10 @@ ${bodyDecor(m.extra, c, clipId)}
 ${frontExtras(m.extra, c)}
 ${eyes(m.eyes)}
 ${mouth(m.mouth)}
-</g></svg>`;
+${tierCrown}
+</g>
+${tierSparks}
+</svg>`;
   }
   return { THEMES, MONSTERS, renderMonster, renderMonsterSvg: renderMonster };
 });

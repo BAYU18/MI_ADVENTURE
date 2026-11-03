@@ -1672,7 +1672,25 @@ Screens.battle = {
     }
   },
 
+  _introShown: {},
+  _introTimer: null,
+
+  dismissIntro() {
+    if (this._introTimer) {
+      clearTimeout(this._introTimer);
+      this._introTimer = null;
+    }
+    const introEl = document.getElementById('boss-intro');
+    if (introEl) {
+      introEl.classList.add('dismissing');
+      setTimeout(() => {
+        if (introEl && introEl.parentNode) introEl.remove();
+      }, 200);
+    }
+  },
+
   destroy() {
+    this.dismissIntro();
     this.stopTimer();
     this.stopHeartbeat();
   },
@@ -1712,6 +1730,10 @@ Screens.battle = {
 
     const bossHp = s.bossHp ?? s.boss?.hp ?? 0;
     const bossMaxHp = s.bossMaxHp ?? s.boss?.maxHp ?? 100;
+    const tier = (s.bossTier || s.boss?.tier || s.boss_tier || 'common').toLowerCase();
+    const tierInfo = (window.Progression?.BOSS_TIERS?.[tier]) || { id: tier, label: tier.toUpperCase(), icon: '⚪', color: '#9aa5b1' };
+    const hitsNeeded = s.hitsNeeded ?? s.boss?.hitsNeeded ?? Math.ceil(bossMaxHp / 20);
+    const hitsLeft = s.hitsLeft ?? s.boss?.hitsLeft ?? Math.ceil(bossHp / 20);
     const monsterDef = (s.monster && s.monster.color) ? s.monster : (Monsters.MONSTERS.find(x => x.id === (s.monster?.id || s.boss?.id || s.monster_id) || (s.boss?.name && x.name === s.boss.name)) || Monsters.MONSTERS[0]);
     const monsterObj = { ...monsterDef, ...(s.boss || {}), ...(s.monster || {}) };
 
@@ -1740,19 +1762,27 @@ Screens.battle = {
 
         <!-- BOSS CARD -->
         <div class="boss-card" style="position:relative">
-          <div class="boss-svg-box ${(s.bossPhase === 2 || s.boss?.phase === 2) ? 'boss-enraged' : ''}" id="boss-svg-slot">${s.boss?.svg || Monsters.renderMonster(monsterObj, { size: 76 })}</div>
+          <div class="boss-svg-box ${(s.bossPhase === 2 || s.boss?.phase === 2) ? 'boss-enraged' : ''}" id="boss-svg-slot">${s.boss?.svg || Monsters.renderMonster(monsterObj, { size: 76, tier })}</div>
           <div class="boss-info">
-            <div class="boss-header">
-              <span class="boss-name" id="boss-name-label">${esc(monsterObj.name)} ${(s.bossPhase === 2 || s.boss?.phase === 2) ? '🔥' : ''}</span>
+            <div class="boss-header" style="align-items:center;gap:6px">
+              <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+                <span class="boss-name" id="boss-name-label">${esc(monsterObj.name)} ${(s.bossPhase === 2 || s.boss?.phase === 2) ? '🔥' : ''}</span>
+                <span class="chip tier-badge boss-tier-badge tier-${tier}" id="boss-tier-badge" data-testid="boss-tier-badge" style="background:${tierInfo.color};color:#fff;font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:12px">${tierInfo.icon} ${tierInfo.label}</span>
+              </div>
               <span class="boss-theme-tag">${esc(monsterObj.theme || 'Arena')}</span>
             </div>
             <div class="boss-weak-tag" id="boss-weak-intro" style="font-size:0.75rem;color:var(--c-warning,#f59e0b);margin-top:2px">Titik lemah: <strong>${esc(s.weakTopic || s.boss?.weakTopic || 'Soal Sulit')}</strong> 🎯</div>
-            <div class="hp-track" style="margin-top:4px">
+            <div class="hp-track" style="margin-top:4px;border:2px solid ${tierInfo.color};border-radius:999px;padding:1px">
               <div class="hp-fill" id="boss-hp-bar" style="width:${(bossHp / bossMaxHp) * 100}%"></div>
             </div>
-            <div class="hp-label">
+            <div class="hp-label" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
               <span>HP Bos</span>
+              <span class="boss-hits-left" id="boss-hits-left" data-testid="boss-hits-left" style="font-size:0.75rem;font-weight:700;color:${tierInfo.color}">Sisa maks. <span id="boss-hits-left-val">${hitsLeft}</span> jawaban benar</span>
               <span id="boss-hp-text">${bossHp} / ${bossMaxHp}</span>
+            </div>
+            <div style="display:flex;gap:6px;margin-top:4px;flex-wrap:wrap">
+              <span class="chip danger fatigue-banner" id="boss-fatigue-banner" data-testid="boss-fatigue-banner" style="${(s.fatigue_applied || s.fatigueApplied) ? 'display:inline-flex' : 'display:none'};font-size:0.75rem;font-weight:700">Boss mulai kelelahan! 😮‍💨</span>
+              <span class="chip warning pity-badge" id="pity-badge" data-testid="pity-badge" style="${(s.pity || s.wrong_streak >= 3 || s.wrongStreak >= 3) ? 'display:inline-flex' : 'display:none'};font-size:0.75rem;font-weight:700">💪 Serangan Balik</span>
             </div>
           </div>
           <div id="damage-floater-slot"></div>
@@ -1809,8 +1839,37 @@ Screens.battle = {
           <!-- FEEDBACK & NEXT -->
           <div id="fb-slot" style="flex:0 0 auto"></div>
         </div>
+
+        ${!Screens.battle._introShown?.[s.id] ? `
+        <div class="boss-intro-overlay" id="boss-intro" data-testid="boss-intro" onclick="Screens.battle.dismissIntro()">
+          <div class="boss-intro-card" onclick="event.stopPropagation()">
+            <div style="margin:0 auto 10px auto;width:96px;height:96px">${Monsters.renderMonster(monsterObj, { size: 96, tier })}</div>
+            <div style="display:flex;justify-content:center;margin-bottom:6px">
+              <span class="chip tier-badge tier-${tier}" style="background:${tierInfo.color};color:#fff;font-size:0.8rem;font-weight:800;padding:3px 10px;border-radius:12px">
+                ${tierInfo.icon} ${tierInfo.label}
+              </span>
+            </div>
+            <h2 style="color:#fff;margin:0 0 6px 0;font-size:1.3rem;font-weight:800">${esc(monsterObj.name)}</h2>
+            <p style="color:var(--c-muted);margin:0 0 14px 0;font-size:0.88rem">
+              Kalahkan dengan maks. <strong style="color:${tierInfo.color}">${hitsNeeded}</strong> jawaban benar!
+            </p>
+            <button class="btn primary small" id="btn-intro-dismiss" onclick="Screens.battle.dismissIntro()" style="width:100%;font-weight:700">
+              Mulai Bertarung ⚔️
+            </button>
+          </div>
+        </div>
+        ` : ''}
       </section>
     `;
+
+    if (!Screens.battle._introShown?.[s.id]) {
+      Screens.battle._introShown = Screens.battle._introShown || {};
+      Screens.battle._introShown[s.id] = true;
+      if (this._introTimer) clearTimeout(this._introTimer);
+      this._introTimer = setTimeout(() => {
+        this.dismissIntro();
+      }, 2200);
+    }
 
     $('#btn-abandon').onclick = () => {
       if (confirm('Yakin ingin menyerah? Pertarungan ini akan dibatalkan.')) {
@@ -2401,6 +2460,24 @@ Screens.battle = {
     const curBossMax = s.bossMaxHp ?? s.boss?.maxHp ?? 100;
     $('#boss-hp-bar').style.width = `${(curBossHp / curBossMax) * 100}%`;
     $('#boss-hp-text').textContent = `${curBossHp} / ${curBossMax}`;
+
+    const curHitsLeft = res.boss?.hitsLeft ?? Math.ceil(curBossHp / 20);
+    const hitsLeftValEl = $('#boss-hits-left-val');
+    if (hitsLeftValEl) hitsLeftValEl.textContent = curHitsLeft;
+
+    if (res.fatigue?.applied || res.fatigueApplied || s.fatigue_applied) {
+      const fb = $('#boss-fatigue-banner');
+      if (fb) fb.style.display = 'inline-flex';
+    }
+
+    const isPity = !!(res.pity || res.session?.pity || (res.session?.wrongStreak >= 3) || (res.session?.wrong_streak >= 3));
+    const pb = $('#pity-badge');
+    if (pb) pb.style.display = isPity ? 'inline-flex' : 'none';
+
+    if (res.refill?.added > 0) {
+      $('#q-counter').textContent = `Soal ${s.currentIndex + 1}/${s.totalQuestions}`;
+      if (window.toast) toast(`🔥 Soal ditambah +${res.refill.added} untuk menuntaskan bos!`);
+    }
 
     const curPlayerHp = res.playerHp ?? s.playerHp ?? 0;
     const curPlayerMax = s.playerMaxHp ?? 100;
@@ -3109,8 +3186,10 @@ Screens.result = {
 
     const stars = s.stars !== undefined ? s.stars : (r.rewards?.stars || 0);
     const starsStr = stars > 0 ? '⭐'.repeat(stars) : '☆☆☆';
+    const tier = (s.bossTier || s.boss?.tier || s.boss_tier || 'common').toLowerCase();
+    const tierInfo = (window.Progression?.BOSS_TIERS?.[tier]) || { id: tier, label: tier.toUpperCase(), icon: '⚪', color: '#9aa5b1' };
     const monsterDef = (s.monster && s.monster.color) ? s.monster : (Monsters.MONSTERS.find(x => x.id === (s.monster?.id || s.boss?.id || s.monster_id)) || Monsters.MONSTERS[0]);
-    const monsterSvg = s.boss?.svg || Monsters.renderMonster(monsterDef, { size: 140 });
+    const monsterSvg = s.boss?.svg || Monsters.renderMonster(monsterDef, { size: 140, tier });
 
     const xpEarned = s.xpEarned !== undefined ? s.xpEarned : (s.xp_earned !== undefined ? s.xp_earned : (r.rewards?.xp ?? 0));
     const coinsEarned = s.coinsEarned !== undefined ? s.coinsEarned : (s.coins_earned !== undefined ? s.coins_earned : (r.rewards?.coins ?? 0));
@@ -3148,6 +3227,11 @@ Screens.result = {
         </p>
 
         <div class="card" style="padding:16px;width:min(340px,100%);text-align:center;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong)">
+          <div style="display:flex;justify-content:center;margin-bottom:8px">
+            <span class="chip tier-badge boss-tier-badge tier-${tier}" id="result-boss-tier" data-testid="boss-tier-badge" style="background:${tierInfo.color};color:#fff;font-size:0.75rem;font-weight:700;padding:2px 10px;border-radius:12px">
+              ${tierInfo.icon} ${tierInfo.label}
+            </span>
+          </div>
           <div style="margin:0 auto 10px auto;width:140px;height:140px">${monsterSvg}</div>
           <div style="font-size:1.8rem;margin-bottom:8px">${starsStr}</div>
           <div style="display:flex;justify-content:space-around;font-size:.9rem;padding:10px 0;border-top:1px solid rgba(255,255,255,.1)">
