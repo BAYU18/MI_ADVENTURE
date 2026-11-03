@@ -1613,6 +1613,32 @@ Screens.peta = Screens.subjects;
    SCREEN: Battle (Server-Authoritative Arena)
    ============================================================ */
 Screens.battle = {
+  renderEnergyPips(cur, max) {
+    const val = Number(cur) || 0;
+    const capacity = Number(max) || 5;
+    const pipW = capacity > 8 ? 4 : 6;
+    const pipH = 8;
+    let html = '';
+    for (let i = 0; i < capacity; i++) {
+      const filled = i < val;
+      const col = filled ? '#38bdf8' : 'rgba(255,255,255,0.18)';
+      html += '<span class="energy-pip" style="width:' + pipW + 'px;height:' + pipH + 'px;background:' + col + ';border-radius:2px;display:inline-block"></span>';
+    }
+    return html;
+  },
+
+  updateEnergyGauge(energy) {
+    const val = (typeof energy === 'object' && energy !== null) ? energy.value : (energy ?? 2);
+    const max = (typeof energy === 'object' && energy !== null) ? energy.max : 5;
+    const valEl = document.getElementById('energy-value');
+    if (valEl) valEl.textContent = val + '/' + max;
+    const oldValEl = document.getElementById('energy-val');
+    if (oldValEl) oldValEl.textContent = val;
+    const pipsEl = document.getElementById('energy-pips');
+    if (pipsEl) pipsEl.innerHTML = this.renderEnergyPips(val, max);
+    const fabEl = document.getElementById('skill-fab-energy');
+    if (fabEl) fabEl.textContent = val;
+  },
   session: null,
   skills: [],
   isUsingSkill: false,
@@ -1690,7 +1716,13 @@ Screens.battle = {
         <div class="hud" style="margin-bottom:0">
           <button class="icon-btn" id="btn-abandon" title="Menyerah">✕</button>
           <div style="display:flex;align-items:center;gap:6px">
-            <div class="chip accent" id="energy-gauge" data-testid="energy-gauge" style="font-weight:800">⚡ <span id="energy-val">${s.energy ?? 2}</span>/5</div>
+            <div class="chip accent energy-bar" id="energy-gauge" data-testid="energy-bar" style="font-weight:800;display:inline-flex;align-items:center;gap:4px">
+              ⚡ <span id="energy-value" data-testid="energy-value">${typeof s.energy === 'object' ? s.energy.value : (s.energy ?? 2)}/${typeof s.energy === 'object' ? s.energy.max : (s.energyMax || 5)}</span>
+              <span id="energy-val" style="display:none">${typeof s.energy === 'object' ? s.energy.value : (s.energy ?? 2)}</span>
+              <div class="energy-pips" id="energy-pips" style="display:inline-flex;gap:2px;flex-wrap:wrap;max-width:85px">
+                ${Screens.battle.renderEnergyPips(typeof s.energy === 'object' ? s.energy.value : (s.energy ?? 2), typeof s.energy === 'object' ? s.energy.max : (s.energyMax || 5))}
+              </div>
+            </div>
             <span class="combo-meter tier-1" id="combo-meter" data-testid="combo-meter" style="${s.streak >= 3 ? '' : 'display:none'}">🔥 COMBO <span id="combo-n">${s.streak}</span>×!</span>
             <span class="chip accent" id="streak-chip" style="${s.streak >= 2 && s.streak < 3 ? '' : 'display:none'}">🔥 <span id="streak-n">${s.streak}</span></span>
             <span class="hud-title" id="q-counter">Soal ${s.currentIndex + 1}/${s.totalQuestions}</span>
@@ -2379,8 +2411,7 @@ Screens.battle = {
     }
 
     // Update Energy Gauge & Skills Deck
-    const eg = $('#energy-val');
-    if (eg) eg.textContent = s.energy ?? 2;
+    this.updateEnergyGauge(res.energy || s.energy);
     if (res.skills) {
       this.skills = res.skills;
     } else if (res.session && res.session.skills) {
@@ -2870,6 +2901,7 @@ Screens.battle = {
       if (res && res.ok) {
         if (window.Sfx) Sfx.play('select');
         s.energy = res.energy ? res.energy.value : s.energy;
+        this.updateEnergyGauge(res.energy || s.energy);
         this.skills = res.skills || (res.session && res.session.skills) || this.skills;
 
         const eg = $('#energy-val');
@@ -3039,6 +3071,17 @@ Screens.result = {
   show(res) {
     this.data = res;
     if (res?.player && window.Player) {
+      const oldLevel = Player.data?.level || 1;
+      const newLevel = res.player.level || oldLevel;
+      if (newLevel > oldLevel && window.Progression) {
+        const oldMax = Progression.energyMaxForLevel(oldLevel);
+        const newMax = Progression.energyMaxForLevel(newLevel);
+        if (newMax > oldMax) {
+          setTimeout(() => {
+            if (window.toast) toast('⚡ Kapasitas energi naik jadi ' + newMax + ' ⚡!');
+          }, 800);
+        }
+      }
       Player.data = { ...Player.data, ...res.player };
     }
     go('result');
@@ -3318,6 +3361,27 @@ Screens.profil = {
           </div>
         </div>
       </div>
+      
+      <!-- ENERGY CAPACITY CARD (v6 Fitur F.3) -->
+      ${(() => {
+        const energyMax = p.energyMax || (window.Progression ? Progression.energyMaxForLevel(p.level || 1) : 5);
+        const nextEnergy = p.nextEnergyLevel !== undefined ? p.nextEnergyLevel : (window.Progression ? Progression.nextEnergyLevel(p.level || 1) : null);
+        let energyInfoText = 'Kapasitas energi: ' + energyMax + ' ⚡ per battle';
+        if (nextEnergy) {
+          energyInfoText += ' — naik jadi ' + nextEnergy.energyMax + ' ⚡ di Level ' + nextEnergy.level;
+        } else {
+          energyInfoText += ' — Kapasitas maksimum ⚡';
+        }
+        return `
+          <div class="card" data-testid="profile-energy-info" style="padding:12px 14px;background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.2);border-radius:14px;display:flex;align-items:center;gap:10px;margin-top:10px">
+            <span style="font-size:1.4rem">⚡</span>
+            <div style="font-size:0.82rem;color:#e2e8f0;line-height:1.4">
+              <strong style="color:#38bdf8">${energyInfoText}</strong>
+            </div>
+          </div>
+        `;
+      })()}
+  
 
       <!-- STATS GRID 2x2 -->
       <h3 style="font-size:0.95rem;margin:10px 0 6px 4px;color:var(--c-muted)">📊 Statistik Petualangan</h3>

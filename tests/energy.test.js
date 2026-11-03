@@ -174,4 +174,15 @@ test('T-20 / Skenario H.10: Energi per Level Profil, Snapshot, Clamping, dan Res
     assert.equal(oldState.energy.max, 5, 'Sesi lama dengan energy_max NULL harus fallback ke 5');
     assert.equal(oldState.energy.value, 3);
   });
+
+  await t.test('6. UI Sanity: energy-bar, energy-value, profile-energy-info, capacity toast', () => {
+    const appJsPath = path.join(__dirname, '..', 'public', 'js', 'app.js');
+    const appJs = fs.readFileSync(appJsPath, 'utf8');
+
+    assert.ok(appJs.includes('data-testid="energy-bar"'), 'app.js harus memuat data-testid="energy-bar"');
+    assert.ok(appJs.includes('data-testid="energy-value"'), 'app.js harus memuat data-testid="energy-value"');
+    assert.ok(appJs.includes('data-testid="profile-energy-info"'), 'app.js harus memuat data-testid="profile-energy-info"');
+    assert.ok(appJs.includes('renderEnergyPips'), 'app.js harus memiliki fungsi renderEnergyPips');
+    assert.ok(appJs.includes('Kapasitas energi naik jadi'), 'app.js harus memuat toast peningkatan kapasitas energi');
+  });
 });

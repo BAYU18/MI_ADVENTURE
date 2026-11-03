@@ -36,7 +36,8 @@
 ## Fase 2 — Energi per level (F) dan upgrade skill (E)
 - [x] **T-20** F: server — `energy_max` snapshot saat `start`, semua penambahan energi di-clamp, perolehan +1 per 3 jawaban benar bila belum ada aturan reguler, `GET /api/me` + `energyMax`/`nextEnergyLevel`, Pedagang saat penuh _(Spek: F.1, F.2 · Bukti: tes Lv 1/5/6/11/36 + clamp + resume)_ <!--tries:1-->
   - ✅ 2026-11-03 06:09 — lib/db.js, tests/energy.test.js · node --test tests/energy.test.js · energy_max snapshot saat start, clamping energi ke energy_max, +1 per 3 benar, GET /api/me energyMax & nextEnergyLevel, merchant deal filter
-- [ ] **T-21** F: UI — bilah energi `nilai/kapasitas` muat di 320 px, info kapasitas & level berikutnya di profil, toast "Kapasitas energi naik" di layar hasil _(Spek: F.3 · Bukti: uji manual)_
+- [x] **T-21** F: UI — bilah energi `nilai/kapasitas` muat di 320 px, info kapasitas & level berikutnya di profil, toast "Kapasitas energi naik" di layar hasil _(Spek: F.3 · Bukti: uji manual)_ <!--tries:1-->
+  - ✅ 2026-11-03 06:12 — public/js/app.js, tests/energy.test.js · node --test tests/energy.test.js · bilah energi nilai/kapasitas dengan pip muat di 320px, info kapasitas & level berikutnya di profil, toast peningkatan kapasitas energi di layar hasil
 - [ ] **T-22** E: DIAGNOSIS upgrade skill — reproduksi lewat curl + UI, 5 kasus, periksa 12 dugaan; TANPA ubah kode _(Spek: E.1 · Bukti: tabel kasus→gejala→akar masalah di catatan)_
 - [ ] **T-23** E: server — upgrade atomik 1 transaksi (level + koin + idempotensi sukses-saja), `GET /api/skills` dengan `canUpgrade/reason`, efek battle mengikuti level skill + snapshot loadout _(Spek: E.2, E.4 · Bukti: skenario H.9 sisi server; invarian saldo koin utuh)_
 - [ ] **T-24** E: UI layar Skill — pip level, efek sekarang→berikutnya, tombol Upgrade + konfirmasi, toast alasan, kunci saat request, badge `Lv n` di battle _(Spek: E.3 · Bukti: uji manual end-to-end; akar masalah T-22 tertutup)_
