@@ -28,7 +28,8 @@
   - ✅ 2026-11-03 05:58 — public/js/app.js, public/index.html, public/sw.js · node --test tests/ui-report.test.js · header, navigasi minggu, lencana Sementara, 6 kartu ringkasan, grafik SVG 7 hari, keadaan kosong terverifikasi
 - [x] **T-13** B: bagian Level Kemampuan di layar Laporan (urut naik, bilah, lencana level, 🎯 Fokus latihan + tombol Latihan, detail, ❓ penjelasan, status kurang data/belum dicoba) _(Spek: B.3 · Bukti: uji manual; mapel terendah memulai sesi mapel itu)_ <!--tries:1-->
   - ✅ 2026-11-03 05:58 — public/js/app.js · node --test tests/ui-report.test.js · bagian level kemampuan urut naik, bilah progres, lencana level, fokus latihan, tombol latihan, modal detail & help
-- [ ] **T-14** A: topik perlu dibimbing/dikuasai, pujian & saran, Bagikan/Salin/Cabut tautan, portal `/r/{token}` memuat `abilities` + `bossByTier` _(Spek: A.1, A.2 · Bukti: token cabut ditolak; portal tampil benar)_
+- [x] **T-14** A: topik perlu dibimbing/dikuasai, pujian & saran, Bagikan/Salin/Cabut tautan, portal `/r/{token}` memuat `abilities` + `bossByTier` _(Spek: A.1, A.2 · Bukti: token cabut ditolak; portal tampil benar)_ <!--tries:1-->
+  - ✅ 2026-11-03 05:59 — server.js, public/js/app.js · node --test tests/ui-report.test.js · topik dibimbing/dikuasai, pujian & saran, bagikan/salin/cabut tautan, portal /r/{token} memuat abilities + bossByTier & cabut ditolak 404
 - [ ] **G-1** GERBANG 1: `npm test` + `check-schema` + skenario H.1, H.2 + tanpa regresi laporan mingguan lama; commit
 
 ## Fase 2 — Energi per level (F) dan upgrade skill (E)
