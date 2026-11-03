@@ -59,7 +59,8 @@
   - ✅ 2026-11-03 07:33 — lib/db.js, tests/rewards-tier.test.js · node --test tests/rewards-tier.test.js && npm test · 120/120 pass, pengali koin & XP per tier common/rare/epic/legend, campaign first clear tetap, bossByTier laporan presisi
 - [x] **T-34** C/D: UI — lencana tier, aura monster di `monsters.js` (common/rare/epic/legend), bilah HP berbingkai tier + "Sisa maks. X jawaban benar", intro boss, banner kelelahan, lencana Serangan Balik _(Spek: C.4, D.1, D.3 · Bukti: uji manual 4 tier di 320×568; hemat animasi mati)_ <!--tries:1-->
   - ✅ 2026-11-03 07:45 — Lencana tier (common/rare/epic/legend), aura SVG monster, HP berbingkai tier + Sisa maks. X jawaban benar, intro boss, banner kelelahan, lencana Serangan Balik, reduced-motion. Uji tests/ui-boss.test.js (4/4 pass) & npm test (124/124 pass).
-- [ ] **T-35** C/D: perbarui `scripts/test-gameplay-e2e.js` & `smoke-test-v4.js` agar menyelesaikan sesi bertier yang lebih panjang; jalankan `scripts/sim-boss.js` _(Spek: D.5, H · Bukti: e2e 12 mapel hijau; simulasi dalam pita penerimaan)_
+- [x] **T-35** C/D: perbarui `scripts/test-gameplay-e2e.js` & `smoke-test-v4.js` agar menyelesaikan sesi bertier yang lebih panjang; jalankan `scripts/sim-boss.js` _(Spek: D.5, H · Bukti: e2e 12 mapel hijau; simulasi dalam pita penerimaan)_ <!--tries:1-->
+  - ✅ 2026-11-03 07:53 — Uji E2E 12 mapel hijau, sesi bertier panjang penuh diselesaikan hingga WON, smoke-test-v4 lulus 15/15, dan sim-boss.js tepat berada pada pita penerimaan D.5.
 - [ ] **G-3** GERBANG 3: `npm test` + `check-schema` + `smoke-test-v4` + e2e + skenario H.3–H.8, H.11 lulus; commit
 
 ## Fase 4 — Penutup dan deploy

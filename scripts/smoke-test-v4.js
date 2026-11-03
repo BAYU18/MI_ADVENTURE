@@ -141,7 +141,7 @@ async function runAllTests() {
     // UJI 7: Upgrade Skill: koin terpotong, level naik, max level guard
     // ----------------------------------------------------
     const skBefore = (await request('GET', '/api/skills', null, { 'X-Player-Token': playerToken })).body.skills.find(x => x.id === 'eliminate_one');
-    const upgRes = await request('POST', `/api/skills/eliminate_one/upgrade`, {}, { 'X-Player-Token': playerToken });
+    const upgRes = await request('POST', `/api/skills/eliminate_one/upgrade`, {}, { 'X-Player-Token': playerToken, 'Idempotency-Key': `idem-upg-${Date.now()}` });
     const skAfter = (await request('GET', '/api/skills', null, { 'X-Player-Token': playerToken })).body.skills.find(x => x.id === 'eliminate_one');
     const u7Ok = upgRes.status === 200 && upgRes.body.ok && (skAfter.level === skBefore.level + 1);
     record('UJI-07', 'Upgrade Skill memotong koin & menaikkan level', u7Ok, `Level: ${skBefore.level} -> ${skAfter.level}`);
@@ -180,8 +180,10 @@ async function runAllTests() {
     // UJI 11: HUD Pertempuran: Energi awal 2/5 & loadout skill terpasang
     // ----------------------------------------------------
     const battleSess = (await request('POST', '/api/game/start', { subjectId: 'matematika' }, { 'X-Player-Token': freshTok })).body.session;
-    const u11Ok = battleSess.energy === 2 && Array.isArray(battleSess.loadout) && battleSess.loadout.length === 3;
-    record('UJI-11', 'Sesi Pertempuran memuat Energi 2/5 & 3 Tombol Skill', u11Ok, `Energi: ${battleSess.energy}/5, Loadout: ${battleSess.loadout.length} slot`);
+    const curEnergy = typeof battleSess.energy === 'object' ? battleSess.energy.value : battleSess.energy;
+    const maxEnergy = typeof battleSess.energy === 'object' ? battleSess.energy.max : 5;
+    const u11Ok = curEnergy === 2 && maxEnergy === 5 && Array.isArray(battleSess.loadout) && battleSess.loadout.length === 3;
+    record('UJI-11', 'Sesi Pertempuran memuat Energi 2/5 & 3 Tombol Skill', u11Ok, `Energi: ${curEnergy}/${maxEnergy}, Loadout: ${battleSess.loadout.length} slot`);
 
     // ----------------------------------------------------
     // UJI 12: Pemakaian Skill eliminate_one: 1 opsi salah dicoret & ditolak jika dipilih
