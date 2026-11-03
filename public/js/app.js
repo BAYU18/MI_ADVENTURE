@@ -2932,10 +2932,10 @@ Screens.profil = {
       </div>
 
       <!-- FILTER KATEGORI -->
-      <div style="display:flex;justify-content:space-between;align-items:center;margin:6px 0 2px 2px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin:6px 0 2px 2px;flex:0 0 auto;flex-shrink:0">
         <div style="font-size:0.75rem;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:0.5px">📁 Kategori Item</div>
       </div>
-      <div class="skin-filter-bar" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch">
+      <div class="skin-filter-bar" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;flex:0 0 auto;flex-shrink:0;min-height:44px">
         <button class="btn small skin-cat-btn ${this.skinCatFilter === 'ALL' ? 'active' : 'ghost'}" data-cat="ALL" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Semua</button>
         <button class="btn small skin-cat-btn ${this.skinCatFilter === 'hat' ? 'active' : 'ghost'}" data-cat="hat" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Topi</button>
         <button class="btn small skin-cat-btn ${this.skinCatFilter === 'outfit' ? 'active' : 'ghost'}" data-cat="outfit" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Pakaian</button>
@@ -3281,24 +3281,26 @@ Screens.profil = {
     if (!this.shopCatFilter) this.shopCatFilter = 'ALL';
 
     slot.innerHTML = `
-      <!-- FILTER KATEGORI TOKO (DI PALING ATAS AGAR LANGSUNG TERLIHAT) -->
-      <div style="display:flex;justify-content:space-between;align-items:center;margin:2px 0 6px 2px">
-        <div style="font-size:0.75rem;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:0.5px">📁 Kategori Toko</div>
-      </div>
-      <div class="shop-filter-bar" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch">
-        <button class="btn small shop-cat-btn ${this.shopCatFilter === 'ALL' ? 'active' : 'ghost'}" data-cat="ALL" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Semua (${items.length})</button>
-        <button class="btn small shop-cat-btn ${this.shopCatFilter === 'hat' ? 'active' : 'ghost'}" data-cat="hat" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Topi</button>
-        <button class="btn small shop-cat-btn ${this.shopCatFilter === 'outfit' ? 'active' : 'ghost'}" data-cat="outfit" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Pakaian</button>
-        <button class="btn small shop-cat-btn ${this.shopCatFilter === 'weapon' ? 'active' : 'ghost'}" data-cat="weapon" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Senjata</button>
-        <button class="btn small shop-cat-btn ${this.shopCatFilter === 'pet' ? 'active' : 'ghost'}" data-cat="pet" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Hewan</button>
-        <button class="btn small shop-cat-btn ${this.shopCatFilter === 'bg' ? 'active' : 'ghost'}" data-cat="bg" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Latar</button>
-        <button class="btn small shop-cat-btn ${this.shopCatFilter === 'frame' ? 'active' : 'ghost'}" data-cat="frame" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Bingkai</button>
-        <button class="btn small shop-cat-btn ${this.shopCatFilter === 'title' ? 'active' : 'ghost'}" data-cat="title" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Gelar</button>
-        <button class="btn small shop-cat-btn ${this.shopCatFilter === 'permanent' ? 'active' : 'ghost'}" data-cat="permanent" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Upgrade</button>
+      <!-- FILTER KATEGORI TOKO (DI PALING ATAS DENGAN WADAH STABIL BEBAS CRUSH) -->
+      <div class="shop-filter-section" style="flex:0 0 auto;flex-shrink:0;display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin:2px 0 2px 2px">
+          <div style="font-size:0.75rem;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:0.5px">📁 Kategori Toko</div>
+        </div>
+        <div class="shop-filter-bar" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch;flex:0 0 auto;flex-shrink:0;min-height:48px">
+          <button class="btn small shop-cat-btn ${this.shopCatFilter === 'ALL' ? 'active' : 'ghost'}" data-cat="ALL" style="flex:0 0 auto;white-space:nowrap;padding:6px 14px">Semua (${items.length})</button>
+          <button class="btn small shop-cat-btn ${this.shopCatFilter === 'hat' ? 'active' : 'ghost'}" data-cat="hat" style="flex:0 0 auto;white-space:nowrap;padding:6px 14px">Topi</button>
+          <button class="btn small shop-cat-btn ${this.shopCatFilter === 'outfit' ? 'active' : 'ghost'}" data-cat="outfit" style="flex:0 0 auto;white-space:nowrap;padding:6px 14px">Pakaian</button>
+          <button class="btn small shop-cat-btn ${this.shopCatFilter === 'weapon' ? 'active' : 'ghost'}" data-cat="weapon" style="flex:0 0 auto;white-space:nowrap;padding:6px 14px">Senjata</button>
+          <button class="btn small shop-cat-btn ${this.shopCatFilter === 'pet' ? 'active' : 'ghost'}" data-cat="pet" style="flex:0 0 auto;white-space:nowrap;padding:6px 14px">Hewan</button>
+          <button class="btn small shop-cat-btn ${this.shopCatFilter === 'bg' ? 'active' : 'ghost'}" data-cat="bg" style="flex:0 0 auto;white-space:nowrap;padding:6px 14px">Latar</button>
+          <button class="btn small shop-cat-btn ${this.shopCatFilter === 'frame' ? 'active' : 'ghost'}" data-cat="frame" style="flex:0 0 auto;white-space:nowrap;padding:6px 14px">Bingkai</button>
+          <button class="btn small shop-cat-btn ${this.shopCatFilter === 'title' ? 'active' : 'ghost'}" data-cat="title" style="flex:0 0 auto;white-space:nowrap;padding:6px 14px">Gelar</button>
+          <button class="btn small shop-cat-btn ${this.shopCatFilter === 'permanent' ? 'active' : 'ghost'}" data-cat="permanent" style="flex:0 0 auto;white-space:nowrap;padding:6px 14px">Upgrade</button>
+        </div>
       </div>
 
-      <!-- MYSTERY BOX CARD (Tampil saat kategori 'Semua' aktif) -->
-      <div id="shop-box-container" style="display:${this.shopCatFilter === 'ALL' ? 'block' : 'none'};margin-top:4px">
+      <!-- MYSTERY BOX CARD (Tampil saat kategori 'Semua' aktif, di bawah filter dengan margin aman) -->
+      <div id="shop-box-container" style="display:${this.shopCatFilter === 'ALL' ? 'block' : 'none'};flex:0 0 auto;flex-shrink:0;margin-top:8px">
         <div class="card" style="padding:14px;background:linear-gradient(135deg, rgba(245,158,11,0.12), rgba(168,85,247,0.12));border:1px solid rgba(245,158,11,0.3);border-radius:var(--radius);text-align:center">
           <div style="font-size:2.2rem;margin-bottom:2px">🎁</div>
           <h3 style="font-size:1.05rem;margin:0 0 4px 0;color:#fff">Kotak Misteri Ajaib</h3>

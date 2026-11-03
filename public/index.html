@@ -9,19 +9,19 @@
   <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <title>Petualangan Pelajar</title>
-  <link rel="stylesheet" href="css/style.css?v=20261103v10">
+  <link rel="stylesheet" href="css/style.css?v=20261103v11">
 </head>
 <body>
   <div id="app" data-testid="screen-home" class="m-play" aria-live="polite"></div>
   <div id="toast" role="status" aria-live="polite"></div>
-  <script src="/shared/gameplay.js?v=20261103v10"></script>
-  <script src="/shared/grading.js?v=20261103v10"></script>
-  <script src="js/monsters.js?v=20261103v10"></script>
-  <script src="js/audio.js?v=20261103v10"></script>
-  <script src="js/avatar.js?v=20261103v10"></script>
-  <script src="/shared/story.js?v=20261103v10"></script>
-  <script src="js/feedback.js?v=20261103v10"></script>
-  <script src="js/app.js?v=20261103v10"></script>
+  <script src="/shared/gameplay.js?v=20261103v11"></script>
+  <script src="/shared/grading.js?v=20261103v11"></script>
+  <script src="js/monsters.js?v=20261103v11"></script>
+  <script src="js/audio.js?v=20261103v11"></script>
+  <script src="js/avatar.js?v=20261103v11"></script>
+  <script src="/shared/story.js?v=20261103v11"></script>
+  <script src="js/feedback.js?v=20261103v11"></script>
+  <script src="js/app.js?v=20261103v11"></script>
   <script>
     if ('serviceWorker' in navigator) {
       let refreshing = false;
@@ -32,7 +32,7 @@
         }
       });
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js?v=20261103v10').then(reg => {
+        navigator.serviceWorker.register('/sw.js?v=20261103v11').then(reg => {
           reg.update();
         }).catch(err => console.warn('[SW reg fail]', err));
       });

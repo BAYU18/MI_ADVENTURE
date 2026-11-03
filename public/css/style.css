@@ -1597,3 +1597,36 @@ body {
 .item-card:hover .skin-thumbnail-box {
   transform: scale(1.05);
 }
+
+
+/* ============================================================
+   Profile & Shop Filter Bar Fix (Prevent Flexbox Squashing)
+   ============================================================ */
+.shop-filter-section,
+.shop-filter-bar,
+.skin-filter-bar,
+.skin-owner-filter-bar,
+#shop-box-container {
+  flex: 0 0 auto !important;
+  flex-shrink: 0 !important;
+}
+
+.shop-filter-bar,
+.skin-filter-bar,
+.skin-owner-filter-bar {
+  min-height: 48px;
+  position: relative;
+  z-index: 2;
+  scrollbar-width: none;
+}
+
+.shop-filter-bar::-webkit-scrollbar,
+.skin-filter-bar::-webkit-scrollbar,
+.skin-owner-filter-bar::-webkit-scrollbar {
+  display: none;
+}
+
+#shop-box-container {
+  position: relative;
+  z-index: 1;
+}
