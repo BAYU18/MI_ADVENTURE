@@ -3281,23 +3281,11 @@ Screens.profil = {
     if (!this.shopCatFilter) this.shopCatFilter = 'ALL';
 
     slot.innerHTML = `
-      <!-- MYSTERY BOX CARD -->
-      <div class="card" style="padding:16px;background:linear-gradient(135deg, rgba(245,158,11,0.12), rgba(168,85,247,0.12));border:1px solid rgba(245,158,11,0.3);border-radius:var(--radius);text-align:center">
-        <div style="font-size:2.4rem;margin-bottom:4px">🎁</div>
-        <h3 style="font-size:1.1rem;margin:0 0 4px 0;color:#fff">Kotak Misteri Ajaib</h3>
-        <p style="font-size:0.82rem;color:var(--c-muted);margin:0 0 12px 0;line-height:1.4">
-          Dapatkan 1 skin acak untuk memperkeren avatarmu! Jika item sudah dimiliki, 20 koin dikembalikan otomatis.
-        </p>
-        <button class="btn ${canAffordBox ? 'primary' : 'secondary'} block" id="btn-buy-box" data-testid="buy-mystery-box" ${!canAffordBox ? 'disabled' : ''}>
-          ${canAffordBox ? `Buka Kotak (${boxPrice} 🪙)` : `Kurang ${boxPrice - playerCoins} 🪙`}
-        </button>
-      </div>
-
-      <!-- FILTER KATEGORI TOKO -->
-      <div style="display:flex;justify-content:space-between;align-items:center;margin:12px 0 4px 2px">
+      <!-- FILTER KATEGORI TOKO (DI PALING ATAS AGAR LANGSUNG TERLIHAT) -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin:2px 0 6px 2px">
         <div style="font-size:0.75rem;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:0.5px">📁 Kategori Toko</div>
       </div>
-      <div class="shop-filter-bar" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch">
+      <div class="shop-filter-bar" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch">
         <button class="btn small shop-cat-btn ${this.shopCatFilter === 'ALL' ? 'active' : 'ghost'}" data-cat="ALL" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Semua (${items.length})</button>
         <button class="btn small shop-cat-btn ${this.shopCatFilter === 'hat' ? 'active' : 'ghost'}" data-cat="hat" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Topi</button>
         <button class="btn small shop-cat-btn ${this.shopCatFilter === 'outfit' ? 'active' : 'ghost'}" data-cat="outfit" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Pakaian</button>
@@ -3309,8 +3297,22 @@ Screens.profil = {
         <button class="btn small shop-cat-btn ${this.shopCatFilter === 'permanent' ? 'active' : 'ghost'}" data-cat="permanent" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Upgrade</button>
       </div>
 
+      <!-- MYSTERY BOX CARD (Tampil saat kategori 'Semua' aktif) -->
+      <div id="shop-box-container" style="display:${this.shopCatFilter === 'ALL' ? 'block' : 'none'};margin-top:4px">
+        <div class="card" style="padding:14px;background:linear-gradient(135deg, rgba(245,158,11,0.12), rgba(168,85,247,0.12));border:1px solid rgba(245,158,11,0.3);border-radius:var(--radius);text-align:center">
+          <div style="font-size:2.2rem;margin-bottom:2px">🎁</div>
+          <h3 style="font-size:1.05rem;margin:0 0 4px 0;color:#fff">Kotak Misteri Ajaib</h3>
+          <p style="font-size:0.8rem;color:var(--c-muted);margin:0 0 10px 0;line-height:1.4">
+            Dapatkan 1 skin acak untuk memperkeren avatarmu! Jika item sudah dimiliki, 20 koin dikembalikan otomatis.
+          </p>
+          <button class="btn ${canAffordBox ? 'primary' : 'secondary'} block" id="btn-buy-box" data-testid="buy-mystery-box" ${!canAffordBox ? 'disabled' : ''}>
+            ${canAffordBox ? `Buka Kotak (${boxPrice} 🪙)` : `Kurang ${boxPrice - playerCoins} 🪙`}
+          </button>
+        </div>
+      </div>
+
       <!-- KATALOG ITEM TOKO GRID -->
-      <div class="shop-grid" id="shop-items-grid" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(135px, 1fr));gap:8px"></div>
+      <div class="shop-grid" id="shop-items-grid" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(135px, 1fr));gap:8px;margin-top:8px"></div>
     `;
 
     const renderShopItems = () => {
@@ -3421,6 +3423,8 @@ Screens.profil = {
           if (b === btn) { b.classList.remove('ghost'); b.classList.add('active'); }
           else { b.classList.add('ghost'); b.classList.remove('active'); }
         });
+        const boxCont = $('#shop-box-container');
+        if (boxCont) boxCont.style.display = this.shopCatFilter === 'ALL' ? 'block' : 'none';
         renderShopItems();
       };
     });
