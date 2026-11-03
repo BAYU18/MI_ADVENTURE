@@ -1157,7 +1157,8 @@ Screens.battle = {
 
     const bossHp = s.bossHp ?? s.boss?.hp ?? 0;
     const bossMaxHp = s.bossMaxHp ?? s.boss?.maxHp ?? 100;
-    const monsterObj = s.monster || s.boss || Monsters.MONSTERS[0];
+    const monsterDef = (s.monster && s.monster.color) ? s.monster : (Monsters.MONSTERS.find(x => x.id === (s.monster?.id || s.boss?.id || s.monster_id) || (s.boss?.name && x.name === s.boss.name)) || Monsters.MONSTERS[0]);
+    const monsterObj = { ...monsterDef, ...(s.boss || {}), ...(s.monster || {}) };
 
     app.innerHTML = `
       <section class="screen active stack" data-testid="battle-root" style="gap:8px">
@@ -1178,7 +1179,7 @@ Screens.battle = {
 
         <!-- BOSS CARD -->
         <div class="boss-card" style="position:relative">
-          <div class="boss-svg-box ${(s.bossPhase === 2 || s.boss?.phase === 2) ? 'boss-enraged' : ''}" id="boss-svg-slot">${Monsters.renderMonster(monsterObj, { size: 76 })}</div>
+          <div class="boss-svg-box ${(s.bossPhase === 2 || s.boss?.phase === 2) ? 'boss-enraged' : ''}" id="boss-svg-slot">${s.boss?.svg || Monsters.renderMonster(monsterObj, { size: 76 })}</div>
           <div class="boss-info">
             <div class="boss-header">
               <span class="boss-name" id="boss-name-label">${esc(monsterObj.name)} ${(s.bossPhase === 2 || s.boss?.phase === 2) ? '🔥' : ''}</span>
@@ -2523,7 +2524,8 @@ Screens.result = {
     }
 
     const starsStr = s.stars > 0 ? '⭐'.repeat(s.stars) : '☆☆☆';
-    const monsterSvg = Monsters.renderMonster(s.monster, { size: 140 });
+    const monsterDef = (s.monster && s.monster.color) ? s.monster : (Monsters.MONSTERS.find(x => x.id === (s.monster?.id || s.boss?.id || s.monster_id)) || Monsters.MONSTERS[0]);
+    const monsterSvg = s.boss?.svg || Monsters.renderMonster(monsterDef, { size: 140 });
 
     // Child-Friendly Defeat / Victory Messages & Study Tips (K / T-26)
     const accuracy = (s.totalQuestions > 0) ? ((s.correctCount || 0) / s.totalQuestions) : 0;

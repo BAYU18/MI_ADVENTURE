@@ -126,7 +126,8 @@
     const f = (n) => Math.round(255 * (l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)))));
     return '#' + [f(0), f(8), f(4)].map((v) => v.toString(16).padStart(2, '0')).join('');
   };
-  function palette([h, s, l]) {
+  function palette(col) {
+    const [h, s, l] = (Array.isArray(col) && col.length >= 3) ? col : [116, 62, 48];
     return {
       main: hsl(h, s, l),
       dark: hsl(h, Math.min(s + 5, 90), Math.max(l - 24, 12)),
@@ -225,10 +226,20 @@
     }
     return '';
   }
-  function renderMonster(m) {
+  function renderMonster(m, opts = {}) {
+    if (!m) m = MONSTERS[0];
+    if (typeof m === 'number') m = MONSTERS.find(x => x.id === m) || MONSTERS[0];
+    if (typeof m === 'string') m = MONSTERS.find(x => x.name && x.name.toLowerCase() === m.toLowerCase()) || MONSTERS[0];
+    if (!m.color || !m.body) {
+      const full = MONSTERS.find(x => x.id === m.id || (m.name && x.name && x.name.toLowerCase() === m.name.toLowerCase())) ||
+                   MONSTERS.find(x => x.theme === m.theme) ||
+                   MONSTERS[0];
+      m = { ...full, ...m, color: m.color || full.color, body: m.body || full.body, head: m.head || full.head, eyes: m.eyes || full.eyes, mouth: m.mouth || full.mouth, extra: m.extra || full.extra };
+    }
     const c = palette(m.color);
-    const clipId = `clip-m${m.id}`;
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="${m.name}">
+    const clipId = `clip-m${m.id || 1}`;
+    const sizeAttr = opts && opts.size ? `width="${opts.size}" height="${opts.size}"` : '';
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" ${sizeAttr} role="img" aria-label="${m.name}">
 <defs><clipPath id="${clipId}">${bodyShape(m.body, '')}</clipPath></defs>
 <ellipse cx="100" cy="184" rx="58" ry="8" fill="#000" opacity=".18"/>
 <g class="monster-body">
