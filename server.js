@@ -612,10 +612,10 @@ const server = http.createServer(async (req, res) => {
   if (pathname === '/api/report/week' && method === 'GET') {
     const playerAuth = getPlayerFromReq(req);
     if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
-    const offset = parseInt(query.offset || 0, 10);
-    const weekKey = query.weekKey || query.week;
+    const offset = query.offset !== undefined ? parseInt(query.offset, 10) : undefined;
+    const weekParam = query.week || query.weekKey;
     try {
-      const rep = db.getWeeklyReport(playerAuth.id, { offset, weekKey });
+      const rep = db.getWeeklyReport(playerAuth.id, { offset, week: weekParam, weekKey: weekParam });
       return json(res, { ok: true, report: rep });
     } catch (e) {
       return err(res, e.message, 400);
