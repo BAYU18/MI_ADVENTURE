@@ -1399,13 +1399,16 @@ Screens.subjects = {
           <span class="chip accent">🪙 <span id="hdr-coins">${Player.coins()}</span></span>
         </div>
 
-        <!-- Sakelar Mode: Bebas | Cerita (T-35) -->
+        <!-- Sakelar Mode: Bebas | Cerita | Fun -->
         <div style="display:flex;background:rgba(255,255,255,0.08);padding:4px;border-radius:12px;gap:4px">
           <button class="btn small ${this.viewMode === 'bebas' ? 'primary' : 'ghost'}" id="mode-toggle-bebas" data-testid="mode-toggle-bebas" style="flex:1;font-weight:700">
             ⚔️ Mode Bebas
           </button>
           <button class="btn small ${this.viewMode === 'cerita' ? 'primary' : 'ghost'}" id="mode-toggle-cerita" data-testid="mode-toggle-cerita" style="flex:1;font-weight:700">
             🗺️ Mode Cerita
+          </button>
+          <button class="btn small ${this.viewMode === 'fun' ? 'primary' : 'ghost'}" id="mode-toggle-fun" data-testid="mode-toggle-fun" style="flex:1;font-weight:700">
+            🎉 Mode Fun
           </button>
         </div>
 
@@ -1424,17 +1427,27 @@ Screens.subjects = {
     $('#tab-k4').onclick = () => { this.currentClassId = 1; this.renderContent(); };
     $('#tab-k5').onclick = () => { this.currentClassId = 2; this.renderContent(); };
 
+    const updateModeToggles = () => {
+      $('#mode-toggle-bebas').className = `btn small ${this.viewMode === 'bebas' ? 'primary' : 'ghost'}`;
+      $('#mode-toggle-cerita').className = `btn small ${this.viewMode === 'cerita' ? 'primary' : 'ghost'}`;
+      $('#mode-toggle-fun').className = `btn small ${this.viewMode === 'fun' ? 'primary' : 'ghost'}`;
+    };
+
     $('#mode-toggle-bebas').onclick = () => {
       this.viewMode = 'bebas';
-      $('#mode-toggle-bebas').className = 'btn small primary';
-      $('#mode-toggle-cerita').className = 'btn small ghost';
+      updateModeToggles();
       this.renderContent();
     };
 
     $('#mode-toggle-cerita').onclick = () => {
       this.viewMode = 'cerita';
-      $('#mode-toggle-bebas').className = 'btn small ghost';
-      $('#mode-toggle-cerita').className = 'btn small primary';
+      updateModeToggles();
+      this.renderContent();
+    };
+
+    $('#mode-toggle-fun').onclick = () => {
+      this.viewMode = 'fun';
+      updateModeToggles();
       this.renderContent();
     };
 
@@ -1460,7 +1473,17 @@ Screens.subjects = {
         return;
       }
 
+      const isFun = this.viewMode === 'fun';
       box.innerHTML = `
+        ${isFun ? `
+          <div style="background:linear-gradient(135deg,rgba(168,85,247,0.2) 0%,rgba(236,72,153,0.15) 100%);border:1px solid rgba(168,85,247,0.3);border-radius:12px;padding:10px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px">
+            <span style="font-size:1.8rem">🎉</span>
+            <div>
+              <div style="font-weight:800;color:#fff;font-size:0.95rem">Mode Fun (5 Variasi Tipe Soal)</div>
+              <div style="font-size:0.8rem;color:var(--c-muted)">Menghadirkan Pilihan Ganda, Benar/Salah, Mengurutkan, Menjodohkan, & Isian Singkat. Tanpa Skill, Koin 0.5×!</div>
+            </div>
+          </div>
+        ` : ''}
         <div class="stack" style="gap:12px">
           ${subjects.map(s => {
             const starsStr = s.bestStars > 0 ? '⭐'.repeat(s.bestStars) + '☆'.repeat(3 - s.bestStars) : '☆☆☆';
@@ -1479,7 +1502,7 @@ Screens.subjects = {
                     ${starsStr} · Menang: ${s.wins || 0}×
                   </div>
                 </div>
-                <button class="btn secondary" data-testid="start-battle" style="pointer-events:none">Lawan ⚔️</button>
+                <button class="btn ${isFun ? 'primary' : 'secondary'}" data-testid="start-battle" style="pointer-events:none">${isFun ? 'Mainkan 🎉' : 'Lawan ⚔️'}</button>
               </div>
             `;
           }).join('')}
@@ -1490,7 +1513,11 @@ Screens.subjects = {
         card.onclick = async () => {
           const sid = parseInt(card.dataset.id, 10);
           if (window.Sfx) Sfx.play('select');
-          await Screens.battle.start(sid);
+          if (this.viewMode === 'fun') {
+            await Screens.battle.start(sid, { mode: 'FUN' });
+          } else {
+            await Screens.battle.start(sid, { mode: 'BATTLE' });
+          }
         };
       });
     } catch (e) {
@@ -1814,6 +1841,7 @@ Screens.battle = {
               <div style="display:flex;align-items:center;gap:6px">
                 <span style="font-size:.75rem;color:var(--c-muted)">${esc(s.subject.name)}</span>
                 <span class="chip info" id="q-type-badge" data-testid="q-type-badge" style="font-size:0.7rem;font-weight:700;padding:2px 8px">PILIHAN GANDA</span>
+                ${s.mode === 'FUN' ? '<span class="chip" id="mode-fun-badge" style="background:#a855f7;color:#fff;font-size:0.7rem;font-weight:700;padding:2px 8px">🎉 MODE FUN</span>' : ''}
                 <span class="chip warning" id="review-badge" data-testid="review-badge" style="display:none;font-size:0.7rem;font-weight:700;padding:2px 8px">🔄 ULANGAN BERJARAK</span>
                 <span class="chip danger" id="weak-badge" data-testid="weak-badge" style="display:none;font-size:0.7rem;font-weight:700;padding:2px 8px;background:var(--c-danger,#ef4444);color:#fff">🎯 TITIK LEMAH</span>
                 <span class="chip warning" id="bonus-badge" data-testid="bonus-badge" style="display:none;font-size:0.7rem;font-weight:700;padding:2px 8px;background:#f59e0b;color:#fff">⭐ BONUS</span>
@@ -1826,7 +1854,7 @@ Screens.battle = {
           </div>
 
           <!-- FLOATING SKILL BUTTON (DI KANAN BAWAH) -->
-          <button class="skill-fab" id="skill-fab" data-testid="skill-fab" type="button" onclick="Screens.battle.openSkillBubblePopup()" title="Pilih & Gunakan Skill Petarung">
+          <button class="skill-fab" id="skill-fab" data-testid="skill-fab" type="button" onclick="Screens.battle.openSkillBubblePopup()" title="Pilih & Gunakan Skill Petarung" style="${s.mode === 'FUN' ? 'display:none !important;' : ''}">
             <span>⚡</span>
             <span>Skill</span>
             <span id="skill-fab-energy" class="skill-energy-pill" style="margin-left:2px">${(typeof s.energy === 'object' && s.energy !== null) ? (s.energy.value ?? 2) : (s.energy ?? 2)}</span>
@@ -2889,6 +2917,10 @@ Screens.battle = {
 
   applySkillBarVisibility() {
     const fab = $('#skill-fab');
+    if (this.session && this.session.mode === 'FUN') {
+      if (fab) fab.style.display = 'none';
+      return;
+    }
     if (fab) {
       fab.style.display = 'flex';
       const energyVal = (typeof this.session?.energy === 'object' && this.session?.energy !== null)
@@ -2912,6 +2944,10 @@ Screens.battle = {
   },
 
   openSkillBubblePopup() {
+    if (this.session && this.session.mode === 'FUN') {
+      toast('Skill tidak dapat digunakan di Mode Fun! 🎉');
+      return;
+    }
     if (this.isAnswering) {
       toast('Tunggu jawaban saat ini selesai!');
       return;
