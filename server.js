@@ -561,20 +561,28 @@ const server = http.createServer(async (req, res) => {
   if (pathname.startsWith('/api/skills/') && pathname.endsWith('/upgrade') && method === 'POST') {
     const playerAuth = getPlayerFromReq(req);
     if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+
     const idemKey = req.headers['idempotency-key'];
-    if (idemKey) {
-      const cached = db.getIdempotency(playerAuth.id, idemKey);
-      if (cached) return json(res, cached.response, cached.statusCode);
+    if (!idemKey) {
+      return err(res, 'Header Idempotency-Key wajib disertakan', 400, 'IDEMPOTENCY_KEY_REQUIRED');
     }
+
+    const cached = db.getIdempotency(playerAuth.id, idemKey);
+    if (cached) return json(res, cached.response, cached.statusCode);
+
     const parts = pathname.split('/');
     const skillId = parts[3];
+
     try {
       const resUp = db.upgradeSkill(playerAuth.id, skillId);
-      if (idemKey) db.saveIdempotency(playerAuth.id, idemKey, pathname, 200, resUp);
+      db.saveIdempotency(playerAuth.id, idemKey, pathname, 200, resUp);
+      console.log(`[SKILL_UPGRADE] player=${playerAuth.id} skill=${skillId} level=${resUp.skill ? resUp.skill.level : resUp.level} coins=${resUp.coins}`);
       return json(res, resUp);
     } catch (e) {
-      if (e.code === 'INSUFFICIENT_COINS') return err(res, 'Koin tidak cukup', 422, 'INSUFFICIENT_COINS');
-      return err(res, e.message, 400);
+      if (e.code === 'SKILL_NOT_OWNED') return err(res, 'Skill ini belum kamu miliki', 404, 'SKILL_NOT_OWNED');
+      if (e.code === 'MAX_LEVEL' || e.code === 'MAX_LEVEL_REACHED') return err(res, 'Skill sudah mencapai level maksimum', 409, 'MAX_LEVEL');
+      if (e.code === 'INSUFFICIENT_COINS' || e.code === 'NOT_ENOUGH_COINS') return err(res, 'Koin tidak cukup', 422, 'NOT_ENOUGH_COINS');
+      return err(res, e.message, 400, e.code || 'BAD_REQUEST');
     }
   }
 
@@ -1085,23 +1093,27 @@ const server = http.createServer(async (req, res) => {
 });
 
 
-// Cron: Tiap Senin 06:00 WIB buat WeeklyReport untuk pemain yang aktif minggu lalu (J.3)
-setInterval(() => {
-  const now = new Date();
-  const wib = new Date(now.getTime() + 7 * 3600 * 1000);
-  if (wib.getUTCDay() === 1 && wib.getUTCHours() === 6 && wib.getUTCMinutes() === 0) {
-    try {
-      db.generateAllWeeklyReports();
-      console.log('[CRON] Weekly reports auto-generated at Monday 06:00 WIB');
-    } catch (e) {
-      console.error('[CRON] Failed to auto-generate weekly reports:', e.message);
+if (require.main === module) {
+  // Cron: Tiap Senin 06:00 WIB buat WeeklyReport untuk pemain yang aktif minggu lalu (J.3)
+  setInterval(() => {
+    const now = new Date();
+    const wib = new Date(now.getTime() + 7 * 3600 * 1000);
+    if (wib.getUTCDay() === 1 && wib.getUTCHours() === 6 && wib.getUTCMinutes() === 0) {
+      try {
+        db.generateAllWeeklyReports();
+        console.log('[CRON] Weekly reports auto-generated at Monday 06:00 WIB');
+      } catch (e) {
+        console.error('[CRON] Failed to auto-generate weekly reports:', e.message);
+      }
     }
-  }
-}, 60000);
+  }, 60000).unref();
 
-server.listen(PORT, HOST, () => {
-  console.log(`[petualangan-pelajar] Server running on http://${HOST}:${PORT}`);
-});
+  server.listen(PORT, HOST, () => {
+    console.log(`[petualangan-pelajar] Server running on http://${HOST}:${PORT}`);
+  });
+}
+
+module.exports = server;
 
 
 function renderShareReportHtml(report) {
