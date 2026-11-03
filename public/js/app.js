@@ -1927,6 +1927,11 @@ Screens.battle = {
     const q = s.currentQuestion;
     if (!q) return;
 
+    const battleRoot = document.querySelector('[data-testid="battle-root"]') || document.querySelector('.screen.active');
+    if (battleRoot) {
+      battleRoot.classList.remove('answer-blink-correct', 'answer-blink-wrong', 'short-active', 'mobile-keyboard-active');
+    }
+
     if (this._vvCleanup) {
       try { this._vvCleanup(); } catch (e) {}
       this._vvCleanup = null;
@@ -2246,17 +2251,65 @@ Screens.battle = {
         }
       };
 
-      // Support visualViewport to keep input visible on mobile virtual keyboard
+      // Dukungan tampilan mobile/keyboard Android agar soal tetap terlihat saat mengetik
+      const battleRoot = document.querySelector('[data-testid="battle-root"]') || document.querySelector('.screen.active');
+
+      const handleFocus = () => {
+        if (battleRoot) battleRoot.classList.add('short-active');
+        setTimeout(() => {
+          const qCard = document.querySelector('.qcard');
+          if (qCard) {
+            qCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 80);
+      };
+
+      const handleBlur = () => {
+        setTimeout(() => {
+          if (document.activeElement !== input && battleRoot) {
+            battleRoot.classList.remove('short-active', 'mobile-keyboard-active');
+          }
+        }, 150);
+      };
+
+      input.addEventListener('focus', handleFocus);
+      input.addEventListener('blur', handleBlur);
+
+      // Support visualViewport to keep question & input visible on mobile virtual keyboard
       if (window.visualViewport) {
         const handleVvResize = () => {
-          if (document.activeElement === input) {
+          if (document.activeElement === input && battleRoot) {
+            const isKb = window.visualViewport.height < (window.innerHeight * 0.85);
+            if (isKb) {
+              battleRoot.classList.add('mobile-keyboard-active');
+            } else {
+              battleRoot.classList.remove('mobile-keyboard-active');
+            }
             setTimeout(() => {
-              input.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }, 60);
+              const qCard = document.querySelector('.qcard');
+              if (qCard) {
+                qCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }, 80);
           }
         };
         window.visualViewport.addEventListener('resize', handleVvResize);
-        this._vvCleanup = () => window.visualViewport.removeEventListener('resize', handleVvResize);
+        this._vvCleanup = () => {
+          try {
+            window.visualViewport.removeEventListener('resize', handleVvResize);
+            input.removeEventListener('focus', handleFocus);
+            input.removeEventListener('blur', handleBlur);
+            if (battleRoot) battleRoot.classList.remove('short-active', 'mobile-keyboard-active');
+          } catch (e) {}
+        };
+      } else {
+        this._vvCleanup = () => {
+          try {
+            input.removeEventListener('focus', handleFocus);
+            input.removeEventListener('blur', handleBlur);
+            if (battleRoot) battleRoot.classList.remove('short-active', 'mobile-keyboard-active');
+          } catch (e) {}
+        };
       }
     }
 
@@ -2313,6 +2366,9 @@ Screens.battle = {
   async handleOptionClick(chosenIndex, btnEl) {
     if (this.isAnswering) return;
     if (btnEl && (btnEl.classList.contains('eliminated') || btnEl.disabled)) return;
+    if (document.activeElement && typeof document.activeElement.blur === 'function') {
+      document.activeElement.blur();
+    }
     this.isAnswering = true;
     this.stopTimer();
     if (window.Sfx) Sfx.play('tap');
@@ -2368,6 +2424,14 @@ Screens.battle = {
     const s = res.session;
     this.session = s;
     if (res.player) Player.data = res.player;
+
+    // Efek visual border berkedip hijau (benar) atau merah (salah/waktu habis)
+    const battleRoot = document.querySelector('[data-testid="battle-root"]') || document.querySelector('.screen.active');
+    if (battleRoot) {
+      battleRoot.classList.remove('answer-blink-correct', 'answer-blink-wrong', 'short-active', 'mobile-keyboard-active');
+      void battleRoot.offsetWidth; // Force reflow agar animasi berkedip berulang dapat di-trigger kembali
+      battleRoot.classList.add(res.isCorrect ? 'answer-blink-correct' : 'answer-blink-wrong');
+    }
 
     if (res.alreadyAnswered) {
       toast('Soal telah terjawab sebelumnya. Melanjutkan...');
@@ -2588,6 +2652,10 @@ Screens.battle = {
     const goNext = () => {
       if (nextTimeout) clearTimeout(nextTimeout);
       if (nextInterval) clearInterval(nextInterval);
+      const battleRoot = document.querySelector('[data-testid="battle-root"]') || document.querySelector('.screen.active');
+      if (battleRoot) {
+        battleRoot.classList.remove('answer-blink-correct', 'answer-blink-wrong', 'short-active', 'mobile-keyboard-active');
+      }
       if (isOver) {
         Screens.result.show(res);
       } else if (res.event) {

@@ -52,13 +52,18 @@
       const val = typeData.numeric.value;
       const tol = typeof typeData.numeric.tolerance === 'number' ? typeData.numeric.tolerance : 0.0001;
       const userNum = parseNumberId(userAns);
-      const ok = userNum !== null && Math.abs(userNum - val) <= tol;
-      return {
-        correct: ok,
-        score: ok ? 1.0 : 0,
-        userValue: userNum,
-        reveal: String(val)
-      };
+      const ok = userNum !== null && (
+        Math.abs(userNum - val) <= tol ||
+        (parseNumberId(val) !== null && Math.abs(userNum - parseNumberId(val)) <= tol)
+      );
+      if (ok) {
+        return {
+          correct: true,
+          score: 1.0,
+          userValue: userNum,
+          reveal: String(val)
+        };
+      }
     }
 
     const accepted = Array.isArray(typeData.accepted)
