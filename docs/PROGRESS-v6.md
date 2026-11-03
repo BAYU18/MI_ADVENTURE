@@ -26,7 +26,8 @@
   - ✅ 2026-11-03 05:44 — lib/reports.js, lib/db.js, server.js, tests/report-v2.test.js · node --test tests/report-v2.test.js lulus · format v2 terverifikasi untuk pemain baru, pemain berdata, dan migrasi laporan v1
 - [x] **T-12** A: kartu menu `menu-report` → layar Laporan: header + navigasi minggu + lencana Sementara + 6 kartu ringkasan + grafik SVG 7 hari + keadaan kosong _(Spek: A.1 · Bukti: uji manual 320×568 & 430×932)_ <!--tries:1-->
   - ✅ 2026-11-03 05:58 — public/js/app.js, public/index.html, public/sw.js · node --test tests/ui-report.test.js · header, navigasi minggu, lencana Sementara, 6 kartu ringkasan, grafik SVG 7 hari, keadaan kosong terverifikasi
-- [ ] **T-13** B: bagian Level Kemampuan di layar Laporan (urut naik, bilah, lencana level, 🎯 Fokus latihan + tombol Latihan, detail, ❓ penjelasan, status kurang data/belum dicoba) _(Spek: B.3 · Bukti: uji manual; mapel terendah memulai sesi mapel itu)_
+- [x] **T-13** B: bagian Level Kemampuan di layar Laporan (urut naik, bilah, lencana level, 🎯 Fokus latihan + tombol Latihan, detail, ❓ penjelasan, status kurang data/belum dicoba) _(Spek: B.3 · Bukti: uji manual; mapel terendah memulai sesi mapel itu)_ <!--tries:1-->
+  - ✅ 2026-11-03 05:58 — public/js/app.js · node --test tests/ui-report.test.js · bagian level kemampuan urut naik, bilah progres, lencana level, fokus latihan, tombol latihan, modal detail & help
 - [ ] **T-14** A: topik perlu dibimbing/dikuasai, pujian & saran, Bagikan/Salin/Cabut tautan, portal `/r/{token}` memuat `abilities` + `bossByTier` _(Spek: A.1, A.2 · Bukti: token cabut ditolak; portal tampil benar)_
 - [ ] **G-1** GERBANG 1: `npm test` + `check-schema` + skenario H.1, H.2 + tanpa regresi laporan mingguan lama; commit
 
