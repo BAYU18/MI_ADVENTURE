@@ -3715,6 +3715,284 @@ Screens.profil = {
     };
   },
 
+  openSelectSkillForSlotModal(slotIdx, loadout, skillsList) {
+    const existing = $('.modal-mask');
+    if (existing) existing.remove();
+
+    const currentSkillId = loadout[slotIdx] || null;
+    const currentSkill = currentSkillId ? skillsList.find(s => s.id === currentSkillId) : null;
+    const ownedSkills = skillsList.filter(s => s.owned);
+    const slotLabel = `Slot ${slotIdx + 1}`;
+
+    const modal = document.createElement('div');
+    modal.className = 'modal-mask active';
+    modal.setAttribute('data-testid', 'modal-select-skill-for-slot');
+    modal.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(5,8,20,0.8);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn 0.2s ease;';
+
+    modal.innerHTML = `
+      <div class="modal card" style="max-width:390px;width:100%;max-height:85vh;padding:20px;border:1px solid var(--c-surface-strong);box-shadow:0 20px 40px rgba(0,0,0,0.8);border-radius:20px;background:linear-gradient(165deg, #27235a, #1a1b3d);display:flex;flex-direction:column;gap:12px;overflow:hidden">
+        <!-- HEADER -->
+        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:10px">
+          <div>
+            <h3 style="font-size:1.1rem;margin:0;color:#fff;display:flex;align-items:center;gap:6px">
+              🎯 Ganti Skill ${slotLabel}
+            </h3>
+            <div style="font-size:0.75rem;color:var(--c-muted);margin-top:2px">
+              ${currentSkill ? `Saat ini: <b>${currentSkill.icon || '⚡'} ${esc(currentSkill.name)}</b> (Lv. ${currentSkill.level})` : 'Saat ini slot masih kosong'}
+            </div>
+          </div>
+          <button class="icon-btn" id="modal-close-btn" style="width:32px;height:32px;font-size:1.1rem;color:var(--c-muted);border:none;background:transparent;cursor:pointer">✕</button>
+        </div>
+
+        <!-- SKILL LIST (SCROLLABLE) -->
+        <div style="overflow-y:auto;max-height:55vh;display:flex;flex-direction:column;gap:8px;padding-right:4px">
+          ${ownedSkills.length === 0 ? `
+            <div style="text-align:center;padding:24px 12px;color:var(--c-muted);font-size:0.85rem">
+              Belum ada skill yang kamu miliki.
+            </div>
+          ` : ownedSkills.map(sk => {
+            const isThisSlot = sk.id === currentSkillId;
+            const equippedSlotIdx = loadout.indexOf(sk.id);
+            const isEquippedElsewhere = equippedSlotIdx !== -1 && equippedSlotIdx !== slotIdx;
+
+            let actionHtml = '';
+            if (isThisSlot) {
+              actionHtml = `<span class="chip good" style="font-size:0.72rem;padding:4px 8px;white-space:nowrap">Terpasang</span>`;
+            } else if (isEquippedElsewhere) {
+              actionHtml = `
+                <button class="btn small ghost btn-pick-skill" data-id="${sk.id}" data-action="swap" style="font-size:0.75rem;white-space:nowrap;border-color:#f59e0b;color:#f59e0b;padding:4px 10px">
+                  Tukar (Slot ${equippedSlotIdx + 1})
+                </button>
+              `;
+            } else {
+              actionHtml = `
+                <button class="btn small primary btn-pick-skill" data-id="${sk.id}" data-action="equip" style="font-size:0.75rem;white-space:nowrap;padding:4px 12px">
+                  Gunakan
+                </button>
+              `;
+            }
+
+            return `
+              <div class="card skill-pick-item" data-id="${sk.id}" style="padding:10px 12px;background:rgba(255,255,255,0.04);border:1px solid ${isThisSlot ? 'var(--c-primary)' : 'rgba(255,255,255,0.08)'};border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer">
+                <div style="display:flex;align-items:center;gap:10px;overflow:hidden">
+                  <div style="font-size:1.6rem;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;flex:0 0 auto">
+                    ${sk.icon || '⚡'}
+                  </div>
+                  <div style="overflow:hidden">
+                    <div style="display:flex;align-items:center;gap:6px">
+                      <strong style="color:#fff;font-size:0.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(sk.name)}</strong>
+                      <span style="font-size:0.72rem;color:var(--c-primary);font-weight:700">Lv.${sk.level}</span>
+                    </div>
+                    <div style="font-size:0.72rem;color:var(--c-muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px">
+                      ${esc(sk.effectNow || sk.descNow || sk.desc || '')}
+                    </div>
+                  </div>
+                </div>
+                <div style="flex:0 0 auto">
+                  ${actionHtml}
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        <!-- FOOTER / UNEQUIP BUTTON -->
+        <div style="display:flex;gap:8px;align-items:center;border-top:1px solid rgba(255,255,255,0.08);padding-top:10px;margin-top:2px">
+          ${currentSkill ? `
+            <button class="btn small ghost" id="btn-unequip-slot" style="color:#ef4444;border-color:rgba(239,68,68,0.3);font-size:0.78rem">
+              🗑️ Lepas Skill
+            </button>
+          ` : ''}
+          <div style="flex:1"></div>
+          <button class="btn small ghost" id="modal-cancel-btn" style="font-size:0.8rem">Tutup</button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    const closeModal = () => modal.remove();
+    const closeBtn = $('#modal-close-btn', modal);
+    if (closeBtn) closeBtn.onclick = closeModal;
+    const cancelBtn = $('#modal-cancel-btn', modal);
+    if (cancelBtn) cancelBtn.onclick = closeModal;
+    modal.onclick = (e) => {
+      if (e.target === modal) closeModal();
+    };
+
+    // Unequip handler
+    const unequipBtn = $('#btn-unequip-slot', modal);
+    if (unequipBtn) {
+      unequipBtn.onclick = async () => {
+        unequipBtn.disabled = true;
+        unequipBtn.textContent = 'Melepas...';
+        const newLoadout = [...loadout];
+        newLoadout[slotIdx] = null;
+        try {
+          await API.updateLoadout(newLoadout.filter(Boolean));
+          toast(`Skill berhasil dilepas dari ${slotLabel}! ✨`);
+          closeModal();
+          await this.renderActiveTab();
+        } catch (err) {
+          toast('Gagal melepas skill: ' + (err.message || err.code));
+          unequipBtn.disabled = false;
+          unequipBtn.textContent = '🗑️ Lepas Skill';
+        }
+      };
+    }
+
+    // Pick skill handlers (both button click and card click)
+    $$('.skill-pick-item', modal).forEach(card => {
+      card.onclick = async (e) => {
+        const skillId = card.dataset.id;
+        if (skillId === currentSkillId) {
+          return;
+        }
+
+        const pickedSkill = skillsList.find(s => s.id === skillId);
+        if (!pickedSkill) return;
+
+        const btn = card.querySelector('.btn-pick-skill');
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = '...';
+        }
+
+        const newLoadout = [loadout[0] || null, loadout[1] || null, loadout[2] || null];
+        const otherIdx = newLoadout.indexOf(skillId);
+        if (otherIdx !== -1) {
+          newLoadout[otherIdx] = currentSkillId;
+        }
+        newLoadout[slotIdx] = skillId;
+
+        try {
+          await API.updateLoadout(newLoadout.filter(Boolean));
+          toast(`Skill ${pickedSkill.name} berhasil dipasang di ${slotLabel}! 🎯`);
+          closeModal();
+          await this.renderActiveTab();
+        } catch (err) {
+          toast('Gagal mengganti skill: ' + (err.message || err.code));
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = 'Gunakan';
+          }
+        }
+      };
+    });
+  },
+
+  openSelectSlotToReplaceModal(skillToEquip, loadout, skillsList) {
+    const existing = $('.modal-mask');
+    if (existing) existing.remove();
+
+    const modal = document.createElement('div');
+    modal.className = 'modal-mask active';
+    modal.setAttribute('data-testid', 'modal-select-slot-to-replace');
+    modal.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(5,8,20,0.8);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn 0.2s ease;';
+
+    modal.innerHTML = `
+      <div class="modal card" style="max-width:380px;width:100%;max-height:85vh;padding:20px;border:1px solid var(--c-surface-strong);box-shadow:0 20px 40px rgba(0,0,0,0.8);border-radius:20px;background:linear-gradient(165deg, #27235a, #1a1b3d);display:flex;flex-direction:column;gap:12px;overflow:hidden">
+        <!-- HEADER -->
+        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:10px">
+          <div>
+            <h3 style="font-size:1.1rem;margin:0;color:#fff;display:flex;align-items:center;gap:6px">
+              🎯 Pasang ${esc(skillToEquip.name)}
+            </h3>
+            <div style="font-size:0.75rem;color:var(--c-muted);margin-top:2px">
+              Pilih slot loadout aktif yang ingin kamu ganti:
+            </div>
+          </div>
+          <button class="icon-btn" id="modal-close-btn" style="width:32px;height:32px;font-size:1.1rem;color:var(--c-muted);border:none;background:transparent;cursor:pointer">✕</button>
+        </div>
+
+        <!-- NEW SKILL PREVIEW -->
+        <div style="padding:10px 12px;background:rgba(124, 58, 237, 0.12);border:1px solid rgba(124, 58, 237, 0.3);border-radius:12px;display:flex;align-items:center;gap:10px">
+          <span style="font-size:1.8rem">${skillToEquip.icon || '⚡'}</span>
+          <div>
+            <div style="font-weight:700;color:#fff;font-size:0.9rem">${esc(skillToEquip.name)} <span style="color:var(--c-primary);font-size:0.75rem">Lv.${skillToEquip.level || 1}</span></div>
+            <div style="font-size:0.73rem;color:#cbd5e1;line-height:1.3">${esc(skillToEquip.effectNow || skillToEquip.descNow || skillToEquip.desc || '')}</div>
+          </div>
+        </div>
+
+        <!-- 3 SLOTS LIST -->
+        <div style="display:flex;flex-direction:column;gap:8px">
+          ${[0, 1, 2].map(idx => {
+            const currentSkillId = loadout[idx] || null;
+            const currentSkill = currentSkillId ? skillsList.find(s => s.id === currentSkillId) : null;
+            const isEmpty = !currentSkill;
+
+            return `
+              <div class="card slot-pick-item" data-slot="${idx}" style="padding:12px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;transition:all 0.15s ease">
+                <div style="display:flex;align-items:center;gap:12px">
+                  <div style="width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px dashed ${isEmpty ? 'rgba(255,255,255,0.2)' : 'var(--c-primary)'};display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex:0 0 auto">
+                    ${currentSkill ? currentSkill.icon : '➕'}
+                  </div>
+                  <div>
+                    <div style="font-size:0.75rem;color:var(--c-primary);font-weight:700">Slot ${idx + 1}</div>
+                    <div style="font-size:0.88rem;font-weight:700;color:#fff">
+                      ${currentSkill ? esc(currentSkill.name) : '<span style="color:var(--c-muted)">(Kosong)</span>'}
+                    </div>
+                    <div style="font-size:0.7rem;color:var(--c-muted)">
+                      ${currentSkill ? `Lv. ${currentSkill.level}` : 'Siap diisi'}
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <button class="btn small ${isEmpty ? 'good' : 'primary'} btn-replace-slot" data-slot="${idx}" style="font-size:0.78rem;padding:6px 12px;white-space:nowrap">
+                    ${isEmpty ? 'Isi Slot' : `Ganti Slot ${idx + 1}`}
+                  </button>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        <!-- FOOTER -->
+        <div style="display:flex;justify-content:flex-end;border-top:1px solid rgba(255,255,255,0.08);padding-top:10px;margin-top:2px">
+          <button class="btn small ghost" id="modal-cancel-btn" style="font-size:0.8rem">Batal</button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    const closeModal = () => modal.remove();
+    const closeBtn = $('#modal-close-btn', modal);
+    if (closeBtn) closeBtn.onclick = closeModal;
+    const cancelBtn = $('#modal-cancel-btn', modal);
+    if (cancelBtn) cancelBtn.onclick = closeModal;
+    modal.onclick = (e) => {
+      if (e.target === modal) closeModal();
+    };
+
+    $$('.slot-pick-item', modal).forEach(card => {
+      card.onclick = async () => {
+        const targetIdx = parseInt(card.dataset.slot, 10);
+        const btn = card.querySelector('.btn-replace-slot');
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = 'Memproses...';
+        }
+
+        const newLoadout = [loadout[0] || null, loadout[1] || null, loadout[2] || null];
+        newLoadout[targetIdx] = skillToEquip.id;
+
+        try {
+          await API.updateLoadout(newLoadout.filter(Boolean));
+          toast(`🎯 ${skillToEquip.name} berhasil dipasang di Slot ${targetIdx + 1}!`);
+          closeModal();
+          await this.renderActiveTab();
+        } catch (err) {
+          toast('Gagal memasang skill: ' + (err.message || err.code));
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = `Ganti Slot ${targetIdx + 1}`;
+          }
+        }
+      };
+    });
+  },
+
   async render(app, params = {}) {
     if (params.tab) this.activeTab = params.tab;
 
@@ -4191,18 +4469,28 @@ Screens.profil = {
     slot.innerHTML = `
       <!-- LOADOUT 3 SLOT -->
       <div class="card" style="padding:14px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong)">
-        <h3 style="font-size:0.95rem;margin:0 0 10px 0;color:#fff">🎯 Loadout Skill Laga (3 Slot)</h3>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <h3 style="font-size:0.95rem;margin:0;color:#fff">🎯 Loadout Skill Laga (3 Slot)</h3>
+          <span style="font-size:0.75rem;color:var(--c-muted)">Ketuk slot untuk ganti</span>
+        </div>
         <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:8px">
           ${[0, 1, 2].map(idx => {
             const skillId = loadout[idx];
             const sk = skillId ? skillsList.find(x => x.id === skillId) : null;
             return `
-              <div class="loadout-slot card" data-testid="loadout-slot-${idx}" style="padding:10px 4px;background:rgba(255,255,255,0.04);border:1px dashed ${sk ? 'var(--c-primary)' : 'rgba(255,255,255,0.2)'};border-radius:12px;text-align:center">
+              <div class="loadout-slot card ${sk ? 'loadout-slot-card filled' : 'loadout-slot-card'}"
+                data-idx="${idx}"
+                data-testid="loadout-slot-${idx}"
+                role="button"
+                tabindex="0"
+                style="padding:10px 4px;border-radius:12px;text-align:center;cursor:pointer;position:relative"
+                title="Ketuk untuk ganti skill Slot ${idx + 1}">
                 <div style="font-size:1.5rem">${sk ? sk.icon : '➕'}</div>
                 <div style="font-size:0.75rem;font-weight:700;color:#fff;margin:2px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
                   ${sk ? esc(sk.name) : `Slot ${idx + 1}`}
                 </div>
                 <div style="font-size:0.7rem;color:var(--c-muted)">${sk ? `Lv. ${sk.level}` : 'Kosong'}</div>
+                <div style="font-size:0.65rem;color:var(--c-primary);margin-top:2px;font-weight:600">🔄 Ganti</div>
               </div>
             `;
           }).join('')}
@@ -4334,25 +4622,21 @@ Screens.profil = {
       };
     });
 
-    // Wire Equip to loadout
+    // Wire Click on Loadout Slot (Tap slot opens modal to pick skill)
+    $$('.loadout-slot').forEach(slotEl => {
+      slotEl.onclick = () => {
+        const idx = parseInt(slotEl.dataset.idx, 10);
+        this.openSelectSkillForSlotModal(idx, loadout, skillsList);
+      };
+    });
+
+    // Wire Equip to loadout (Click Pasang button opens modal to pick slot)
     $$('.btn-equip-skill').forEach(btn => {
-      btn.onclick = async () => {
+      btn.onclick = () => {
         const skillId = btn.dataset.id;
-        const newLoadout = [...loadout];
-        if (newLoadout.length < 3) {
-          newLoadout.push(skillId);
-        } else {
-          newLoadout[2] = skillId;
-        }
-        btn.disabled = true;
-        try {
-          await API.updateLoadout(newLoadout);
-          toast('Loadout skill berhasil diperbarui! 🎯');
-          await this.renderActiveTab();
-        } catch (e) {
-          toast('Gagal memperbarui loadout: ' + (e.message || e.code));
-          btn.disabled = false;
-        }
+        const sk = skillsList.find(x => x.id === skillId);
+        if (!sk) return;
+        this.openSelectSlotToReplaceModal(sk, loadout, skillsList);
       };
     });
   },
