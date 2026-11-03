@@ -4,7 +4,7 @@
  * Menyediakan caching asset statis untuk kecepatan & kesiapan offline
  */
 
-const CACHE_NAME = 'pp-v4.0.0-20261102';
+const CACHE_NAME = 'pp-v4.2.0-20261103';
 
 const PRECACHE_ASSETS = [
   '/',
@@ -96,22 +96,19 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 3. Static Assets: Stale-While-Revalidate
+  // 3. Static Assets: Network-First dengan fallback cache
   event.respondWith(
-    caches.match(req).then((cachedResponse) => {
-      const fetchPromise = fetch(req)
-        .then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200) {
-            const clone = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(req, clone));
-          }
-          return networkResponse;
-        })
-        .catch(() => {
-          // Abaikan network fail jika sudah ada cachedResponse
-        });
-
-      return cachedResponse || fetchPromise;
-    })
+    fetch(req)
+      .then((networkResponse) => {
+        if (networkResponse && networkResponse.status === 200) {
+          const clone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, clone));
+        }
+        return networkResponse;
+      })
+      .catch(async () => {
+        const cached = await caches.match(req);
+        if (cached) return cached;
+      })
   );
 });

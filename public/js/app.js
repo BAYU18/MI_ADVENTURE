@@ -2901,27 +2901,31 @@ Screens.profil = {
       </div>
 
       <!-- FILTER KEPEMILIKAN (OWNED / UNOWNED) -->
-      <div style="display:flex;justify-content:space-between;align-items:center;margin:6px 0 2px 2px">
-        <div style="font-size:0.75rem;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:0.5px">Status Kepemilikan</div>
-      </div>
-      <div class="skin-owner-filter-bar" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px">
-        <button class="btn small skin-owner-btn ${this.skinOwnerFilter === 'all' ? 'active' : 'ghost'}" data-owner="all" data-testid="filter-owner-all">Semua (${countAll})</button>
-        <button class="btn small skin-owner-btn ${this.skinOwnerFilter === 'owned' ? 'active' : 'ghost'}" data-owner="owned" data-testid="filter-owner-owned">✅ Dimiliki (${countOwned})</button>
-        <button class="btn small skin-owner-btn ${this.skinOwnerFilter === 'unowned' ? 'active' : 'ghost'}" data-owner="unowned" data-testid="filter-owner-unowned">🔒 Belum Dimiliki (${countUnowned})</button>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid var(--c-surface-strong);border-radius:var(--radius);padding:10px 12px;margin:4px 0 6px 0;display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:0.8rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:6px">
+            🏷️ Status Kepemilikan:
+          </span>
+        </div>
+        <div class="skin-owner-filter-bar" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;-webkit-overflow-scrolling:touch">
+          <button class="btn small skin-owner-btn ${this.skinOwnerFilter === 'all' ? 'active' : 'ghost'}" data-owner="all" data-testid="filter-owner-all" style="flex:0 0 auto;white-space:nowrap;padding:6px 14px">Semua (${countAll})</button>
+          <button class="btn small skin-owner-btn ${this.skinOwnerFilter === 'owned' ? 'active' : 'ghost'}" data-owner="owned" data-testid="filter-owner-owned" style="flex:0 0 auto;white-space:nowrap;padding:6px 14px">✅ Dimiliki (${countOwned})</button>
+          <button class="btn small skin-owner-btn ${this.skinOwnerFilter === 'unowned' ? 'active' : 'ghost'}" data-owner="unowned" data-testid="filter-owner-unowned" style="flex:0 0 auto;white-space:nowrap;padding:6px 14px">🔒 Belum Dimiliki (${countUnowned})</button>
+        </div>
       </div>
 
       <!-- FILTER KATEGORI -->
       <div style="display:flex;justify-content:space-between;align-items:center;margin:6px 0 2px 2px">
-        <div style="font-size:0.75rem;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:0.5px">Kategori Item</div>
+        <div style="font-size:0.75rem;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:0.5px">📁 Kategori Item</div>
       </div>
-      <div class="skin-filter-bar" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px">
-        <button class="btn small skin-cat-btn ${this.skinCatFilter === 'ALL' ? 'active' : 'ghost'}" data-cat="ALL">Semua</button>
-        <button class="btn small skin-cat-btn ${this.skinCatFilter === 'hat' ? 'active' : 'ghost'}" data-cat="hat">Topi</button>
-        <button class="btn small skin-cat-btn ${this.skinCatFilter === 'outfit' ? 'active' : 'ghost'}" data-cat="outfit">Pakaian</button>
-        <button class="btn small skin-cat-btn ${this.skinCatFilter === 'weapon' ? 'active' : 'ghost'}" data-cat="weapon">Senjata</button>
-        <button class="btn small skin-cat-btn ${this.skinCatFilter === 'pet' ? 'active' : 'ghost'}" data-cat="pet">Hewan</button>
-        <button class="btn small skin-cat-btn ${this.skinCatFilter === 'bg' ? 'active' : 'ghost'}" data-cat="bg">Latar</button>
-        <button class="btn small skin-cat-btn ${this.skinCatFilter === 'frame' ? 'active' : 'ghost'}" data-cat="frame">Bingkai</button>
+      <div class="skin-filter-bar" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch">
+        <button class="btn small skin-cat-btn ${this.skinCatFilter === 'ALL' ? 'active' : 'ghost'}" data-cat="ALL" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Semua</button>
+        <button class="btn small skin-cat-btn ${this.skinCatFilter === 'hat' ? 'active' : 'ghost'}" data-cat="hat" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Topi</button>
+        <button class="btn small skin-cat-btn ${this.skinCatFilter === 'outfit' ? 'active' : 'ghost'}" data-cat="outfit" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Pakaian</button>
+        <button class="btn small skin-cat-btn ${this.skinCatFilter === 'weapon' ? 'active' : 'ghost'}" data-cat="weapon" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Senjata</button>
+        <button class="btn small skin-cat-btn ${this.skinCatFilter === 'pet' ? 'active' : 'ghost'}" data-cat="pet" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Hewan</button>
+        <button class="btn small skin-cat-btn ${this.skinCatFilter === 'bg' ? 'active' : 'ghost'}" data-cat="bg" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Latar</button>
+        <button class="btn small skin-cat-btn ${this.skinCatFilter === 'frame' ? 'active' : 'ghost'}" data-cat="frame" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Bingkai</button>
       </div>
 
       <!-- GRID ITEM MILIK -->

@@ -1033,10 +1033,12 @@ const server = http.createServer(async (req, res) => {
 
     const ext = path.extname(filePath).toLowerCase();
     const contentType = MIME[ext] || 'application/octet-stream';
+    const isNoCache = ext === '.html' || pathname === '/sw.js' || ext === '.js' || ext === '.css' || ext === '.json' || ext === '.webmanifest';
     res.writeHead(200, {
       'Content-Type': contentType,
       'Content-Length': stats.size,
-      'Cache-Control': ext === '.html' ? 'no-cache' : 'public, max-age=3600',
+      'Cache-Control': isNoCache ? 'no-cache, no-store, must-revalidate, max-age=0' : 'public, max-age=86400',
+      'Pragma': isNoCache ? 'no-cache' : 'public',
     });
     fs.createReadStream(filePath).pipe(res);
   });
