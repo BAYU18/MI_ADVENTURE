@@ -159,10 +159,18 @@ const API = {
     return this.req(`/api/campaign?subjectId=${encodeURIComponent(subjectId)}`);
   },
 
-  async getWeeklyReport(offset = 0, weekKey = '') {
+  async getSubjectAbilities() {
+    return this.req('/api/report/abilities');
+  },
+
+  async getWeeklyReport(offset = 0, weekKey = '', week = '') {
     let url = `/api/report/week?offset=${encodeURIComponent(offset)}`;
     if (weekKey) url += `&weekKey=${encodeURIComponent(weekKey)}`;
     return this.req(url);
+  },
+
+  async getShareReport(token) {
+    return this.req(`/r/${encodeURIComponent(token)}?json=1`);
   },
 
   async createReportShare() {
@@ -507,186 +515,695 @@ Screens.auth = {
 /* ============================================================
    SCREEN: Laporan Mingguan Siswa & Portal Berbagi (J.1, J.2 / T-38)
    ============================================================ */
-Screens.laporan = {
+/* ============================================================
+   SCREEN: Laporan Belajar Siswa & Kemampuan Mapel (v6 Fitur A, B)
+   ============================================================ */
+Screens.report = {
   currentOffset: 0,
   reportData: null,
 
-  async render(app) {
+  async render(app, params = {}) {
+    this.currentOffset = typeof params.offset === 'number' ? params.offset : 0;
     app.innerHTML = `
-      <section class="screen active stack" style="gap:12px;padding-bottom:24px">
+      <section class="screen active stack" data-testid="screen-report" style="gap:12px;padding-bottom:32px;max-width:540px;margin:0 auto">
+        <!-- HUD Header -->
         <div class="hud" style="margin-bottom:0">
-          <button class="icon-btn" id="rep-back">←</button>
-          <h2 class="hud-title">Laporan Mingguanku</h2>
-          <span class="chip accent">📊 Pekan</span>
+          <button class="icon-btn" id="rep-back" data-testid="rep-back">←</button>
+          <h2 class="hud-title">📊 Laporan Belajar</h2>
+          <button class="icon-btn" id="rep-help-btn" data-testid="btn-ability-help" title="Penjelasan Skor" style="font-size:1.1rem">❓</button>
         </div>
 
-        <div style="display:flex;gap:6px">
-          <button class="btn small ${this.currentOffset === 0 ? 'primary' : 'ghost'}" id="btn-rep-current" style="flex:1;font-weight:700">
-            Minggu Ini
-          </button>
-          <button class="btn small ${this.currentOffset === -1 ? 'primary' : 'ghost'}" id="btn-rep-prev" style="flex:1;font-weight:700">
-            Minggu Lalu
-          </button>
+        <!-- Week Navigator -->
+        <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:8px 12px">
+          <button class="btn small ghost" id="report-week-prev" data-testid="report-week-prev" style="min-width:44px;font-weight:800;font-size:1.1rem;padding:6px 12px">◀</button>
+          <div style="text-align:center;flex:1;padding:0 8px">
+            <div id="report-week-label" style="font-weight:700;font-size:0.92rem;color:#fff;display:flex;align-items:center;justify-content:center;gap:6px">
+              Memuat...
+            </div>
+            <div id="report-date-range" style="font-size:0.75rem;color:var(--c-muted);margin-top:2px">
+              ...
+            </div>
+          </div>
+          <button class="btn small ghost" id="report-week-next" data-testid="report-week-next" style="min-width:44px;font-weight:800;font-size:1.1rem;padding:6px 12px">▶</button>
         </div>
 
-        <div id="rep-content-slot" class="stack" style="gap:12px">
-          <div style="text-align:center;padding:40px;color:var(--c-muted)">Memuat laporan belajarmu... 📊</div>
+        <!-- Dynamic Content Body -->
+        <div id="report-content" class="stack" style="gap:12px">
+          <div style="text-align:center;padding:40px 10px;color:var(--c-muted)">
+            <span class="spinner"></span>
+            <div style="margin-top:8px;font-size:0.85rem">Mengumpulkan data petualangan...</div>
+          </div>
         </div>
       </section>
     `;
 
-    $('#rep-back').onclick = () => { if (window.Sfx) Sfx.play('tap'); go('home'); };
-    $('#btn-rep-current').onclick = () => {
-      this.currentOffset = 0;
-      $('#btn-rep-current').className = 'btn small primary';
-      $('#btn-rep-prev').className = 'btn small ghost';
-      this.loadReport();
-    };
-    $('#btn-rep-prev').onclick = () => {
-      this.currentOffset = -1;
-      $('#btn-rep-current').className = 'btn small ghost';
-      $('#btn-rep-prev').className = 'btn small primary';
-      this.loadReport();
+    $('#rep-back').onclick = () => {
+      if (window.Sfx) Sfx.play('tap');
+      go('home');
     };
 
-    await this.loadReport();
+    $('#rep-help-btn').onclick = () => {
+      if (window.Sfx) Sfx.play('tap');
+      this.showHelpModal();
+    };
+
+    $('#report-week-prev').onclick = () => {
+      if (window.Sfx) Sfx.play('tap');
+      this.currentOffset--;
+      this.loadWeek(this.currentOffset);
+    };
+
+    $('#report-week-next').onclick = () => {
+      if (this.currentOffset >= 0) return;
+      if (window.Sfx) Sfx.play('tap');
+      this.currentOffset++;
+      this.loadWeek(this.currentOffset);
+    };
+
+    await this.loadWeek(this.currentOffset);
   },
 
-  async loadReport() {
-    const slot = $('#rep-content-slot');
-    try {
-      const res = await API.getWeeklyReport(this.currentOffset);
-      const rep = res.report;
-      this.reportData = rep;
-      const t = rep.totals || {};
+  async loadWeek(offset) {
+    const nextBtn = $('#report-week-next');
+    if (nextBtn) {
+      nextBtn.disabled = (offset >= 0);
+      nextBtn.style.opacity = (offset >= 0) ? '0.3' : '1';
+      nextBtn.style.pointerEvents = (offset >= 0) ? 'none' : 'auto';
+    }
 
-      const subjectsHtml = (rep.subjects || []).map(s => {
-        const pct = Math.round((s.accuracy || 0) * 100);
-        const trendIcon = s.trend === 'up' ? '📈 Naik' : (s.trend === 'down' ? '📉 Turun' : '➖ Stabil');
-        return `
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.04);border-radius:12px;border:1px solid rgba(255,255,255,0.06)">
-            <div>
-              <strong style="font-size:0.95rem;color:#fff">${esc(s.name)}</strong>
-              <div style="font-size:0.75rem;color:var(--c-muted)">${s.answered} Soal Dijawab</div>
-            </div>
-            <div style="text-align:right">
-              <span style="font-size:1.1rem;font-weight:800;color:var(--c-primary)">${pct}%</span>
-              <div style="font-size:0.7rem;color:var(--c-muted)">${trendIcon}</div>
-            </div>
+    const contentEl = $('#report-content');
+    if (!contentEl) return;
+
+    try {
+      const res = await API.getWeeklyReport(offset);
+      if (!res.ok || !res.report) {
+        contentEl.innerHTML = `
+          <div class="card" style="text-align:center;padding:30px 16px">
+            <p style="color:var(--c-danger);font-weight:700">Gagal memuat laporan.</p>
+            <button class="btn small" onclick="Screens.report.loadWeek(${offset})">Coba Lagi</button>
           </div>
         `;
-      }).join('');
+        return;
+      }
 
-      slot.innerHTML = `
-        <!-- Ringkasan Angka -->
+      this.reportData = res.report;
+      this.renderReportBody(res.report, offset);
+    } catch (e) {
+      contentEl.innerHTML = `
+        <div class="card" style="text-align:center;padding:30px 16px">
+          <p style="color:var(--c-danger);font-weight:700">Terjadi kesalahan: ${e.message}</p>
+          <button class="btn small" onclick="Screens.report.loadWeek(${offset})">Coba Lagi</button>
+        </div>
+      `;
+    }
+  },
+
+  formatPeriodIndo(fromStr, toStr) {
+    if (!fromStr || !toStr) return '';
+    try {
+      const months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+      const days = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+      const d1 = new Date(fromStr + 'T00:00:00+07:00');
+      const d2 = new Date(toStr + 'T23:59:59+07:00');
+      const day1 = days[d1.getDay()];
+      const day2 = days[d2.getDay()];
+      const date1 = d1.getDate();
+      const date2 = d2.getDate();
+      const m1 = months[d1.getMonth()];
+      const m2 = months[d2.getMonth()];
+      const y2 = d2.getFullYear();
+
+      if (m1 === m2) {
+        return `${day1} ${date1} – ${day2} ${date2} ${m2} ${y2}`;
+      }
+      return `${day1} ${date1} ${m1} – ${day2} ${date2} ${m2} ${y2}`;
+    } catch (e) {
+      return `${fromStr} s/d ${toStr}`;
+    }
+  },
+
+  renderReportBody(rep, offset) {
+    const isCurrentWeek = (offset === 0) || Boolean(rep.partial);
+    const weekLabelEl = $('#report-week-label');
+    const dateRangeEl = $('#report-date-range');
+    const contentEl = $('#report-content');
+
+    const periodText = this.formatPeriodIndo(rep.from, rep.to);
+
+    if (weekLabelEl) {
+      weekLabelEl.innerHTML = `
+        <span>Pekan ${rep.week || ''}</span>
+        ${isCurrentWeek ? '<span class="badge small" data-testid="report-partial-badge" style="background:#0284c7;color:#fff;font-size:0.68rem;padding:2px 6px;border-radius:6px;font-weight:700">Sementara</span>' : ''}
+      `;
+    }
+    if (dateRangeEl) {
+      dateRangeEl.textContent = periodText;
+    }
+
+    const s = rep.summary || {
+      answered: 0, correct: 0, accuracy: 0, minutes: 0, sessions: 0, activeDays: 0,
+      bossDefeated: 0, bossByTier: { common: 0, rare: 0, epic: 0, legend: 0 }, coins: 0, xp: 0
+    };
+
+    const prev = rep.prev || null;
+    let accDeltaHtml = '';
+    let ansDeltaHtml = '';
+    if (prev) {
+      const dAcc = s.accuracy - prev.accuracy;
+      const dAns = s.answered - prev.answered;
+      if (dAcc !== 0) {
+        const sign = dAcc > 0 ? '▲' : '▼';
+        accDeltaHtml = `<span style="font-size:0.75rem;color:var(--c-muted);margin-left:4px">${sign}${Math.abs(dAcc)}%</span>`;
+      }
+      if (dAns !== 0) {
+        const sign = dAns > 0 ? '▲' : '▼';
+        ansDeltaHtml = `<span style="font-size:0.75rem;color:var(--c-muted);margin-left:4px">${sign}${Math.abs(dAns)}</span>`;
+      }
+    }
+
+    const bossTiers = s.bossByTier || { common: 0, rare: 0, epic: 0, legend: 0 };
+    const tierChips = [];
+    if (bossTiers.common > 0) tierChips.push(`<span style="font-size:0.7rem;background:rgba(255,255,255,0.08);padding:2px 6px;border-radius:6px">⚪ ${bossTiers.common}</span>`);
+    if (bossTiers.rare > 0) tierChips.push(`<span style="font-size:0.7rem;background:rgba(59,130,246,0.18);color:#60a5fa;padding:2px 6px;border-radius:6px">🔵 ${bossTiers.rare}</span>`);
+    if (bossTiers.epic > 0) tierChips.push(`<span style="font-size:0.7rem;background:rgba(168,85,247,0.18);color:#c084fc;padding:2px 6px;border-radius:6px">🟣 ${bossTiers.epic}</span>`);
+    if (bossTiers.legend > 0) tierChips.push(`<span style="font-size:0.7rem;background:rgba(234,179,8,0.18);color:#fde047;padding:2px 6px;border-radius:6px">🟡 ${bossTiers.legend}</span>`);
+
+    const abilities = rep.abilities || [];
+    const weak = rep.weakTopics || [];
+    const mastered = rep.masteredTopics || [];
+    const praise = rep.praise || [];
+    const advice = rep.advice || [];
+
+    // Empty state check
+    const isEmpty = (s.answered === 0);
+
+    let html = '';
+
+    if (isEmpty) {
+      html += `
+        <div class="card" data-testid="report-empty" style="text-align:center;padding:36px 16px;background:var(--c-surface);border-radius:18px;border:1px dashed var(--c-surface-strong)">
+          <div style="font-size:3rem;margin-bottom:8px">🎒✨</div>
+          <h3 style="font-size:1.15rem;font-weight:800;color:#fff;margin:0 0 6px 0">Belum Ada Petualangan Minggu Ini</h3>
+          <p style="font-size:0.85rem;color:var(--c-muted);max-width:320px;margin:0 auto 18px auto;line-height:1.4">
+            Ayo mulai petualangan belajar sekarang untuk mengumpulkan koin, menaikkan level kemampuan, dan mengalahkan boss!
+          </p>
+          <button class="btn primary" id="rep-empty-start" style="padding:10px 24px;font-weight:700">
+            🚀 Mulai Petualangan
+          </button>
+        </div>
+      `;
+    } else {
+      // 1. Summary 6 Cards
+      html += `
+        <div class="card" data-testid="report-summary" style="background:var(--c-surface);border:1px solid var(--c-surface-strong);border-radius:18px;padding:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+            <h3 style="font-size:0.95rem;font-weight:800;color:#fff;margin:0">Ringkasan Aktivitas</h3>
+            <span style="font-size:0.75rem;color:var(--c-muted)">${s.coins || 0} 🪙 · ${s.xp || 0} XP</span>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:8px">
+            <!-- 1. Soal Dijawab -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:10px 8px;text-align:center">
+              <div style="font-size:1.25rem;font-weight:800;color:#fff">${s.answered}${ansDeltaHtml}</div>
+              <div style="font-size:0.72rem;color:var(--c-muted);margin-top:2px">Soal Dijawab</div>
+            </div>
+
+            <!-- 2. Akurasi -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:10px 8px;text-align:center">
+              <div style="font-size:1.25rem;font-weight:800;color:#10b981">${s.accuracy}%${accDeltaHtml}</div>
+              <div style="font-size:0.72rem;color:var(--c-muted);margin-top:2px">Akurasi</div>
+            </div>
+
+            <!-- 3. Waktu Belajar -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:10px 8px;text-align:center">
+              <div style="font-size:1.25rem;font-weight:800;color:#f59e0b">${s.minutes} <span style="font-size:0.75rem;font-weight:400">mnt</span></div>
+              <div style="font-size:0.72rem;color:var(--c-muted);margin-top:2px">Waktu Belajar</div>
+            </div>
+
+            <!-- 4. Sesi Main -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:10px 8px;text-align:center">
+              <div style="font-size:1.25rem;font-weight:800;color:#8b5cf6">${s.sessions}</div>
+              <div style="font-size:0.72rem;color:var(--c-muted);margin-top:2px">Sesi Main</div>
+            </div>
+
+            <!-- 5. Hari Aktif -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:10px 8px;text-align:center">
+              <div style="font-size:1.25rem;font-weight:800;color:#38bdf8">${s.activeDays}<span style="font-size:0.75rem;font-weight:400">/7</span></div>
+              <div style="font-size:0.72rem;color:var(--c-muted);margin-top:2px">Hari Aktif</div>
+            </div>
+
+            <!-- 6. Boss Dikalahkan -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:10px 8px;text-align:center">
+              <div style="font-size:1.25rem;font-weight:800;color:#ef4444">${s.bossDefeated}</div>
+              <div style="font-size:0.72rem;color:var(--c-muted);margin-top:2px">Boss Kalah</div>
+            </div>
+          </div>
+
+          ${tierChips.length > 0 ? `
+            <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);flex-wrap:wrap">
+              <span style="font-size:0.72rem;color:var(--c-muted)">Rincian Boss:</span>
+              ${tierChips.join('')}
+            </div>
+          ` : ''}
+        </div>
+      `;
+
+      // 2. Grafik 7 Hari (SVG inline)
+      html += this.render7DayChart(rep.daily || []);
+    }
+
+    // 3. Level Kemampuan per Mapel (Urut Naik)
+    html += this.renderAbilitiesSection(abilities, rep.lowestSubjectId);
+
+    // 4. Topik Perlu Dibimbing & Dikuasai
+    if (weak.length > 0 || mastered.length > 0) {
+      html += `
         <div class="card" style="background:var(--c-surface);border:1px solid var(--c-surface-strong);border-radius:18px;padding:16px">
-          <div style="font-size:0.8rem;text-transform:uppercase;color:var(--c-muted);font-weight:700;margin-bottom:10px">
-            Pekan Mulai: ${rep.weekStart}
+          <div style="display:flex;flex-direction:column;gap:14px">
+            ${weak.length > 0 ? `
+              <div data-testid="report-weak-topics">
+                <div style="font-size:0.88rem;font-weight:800;color:#f87171;margin-bottom:8px;display:flex;align-items:center;gap:6px">
+                  <span>⚠️</span>
+                  <span>Topik Perlu Dibimbing (Maks 5)</span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  ${weak.map(w => `
+                    <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);padding:8px 12px;border-radius:10px;font-size:0.82rem;display:flex;justify-content:space-between;align-items:center">
+                      <div>
+                        <strong style="color:#fff">${esc(w.subject)}</strong> · ${esc(w.topic)}
+                      </div>
+                      <div style="color:#fca5a5;font-weight:700;font-size:0.78rem">
+                        ${w.accuracy}% (${w.attempts} soal)
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+            ${mastered.length > 0 ? `
+              <div data-testid="report-mastered-topics">
+                <div style="font-size:0.88rem;font-weight:800;color:#10b981;margin-bottom:8px;display:flex;align-items:center;gap:6px">
+                  <span>✨</span>
+                  <span>Topik yang Sudah Dikuasai (Maks 5)</span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  ${mastered.map(m => `
+                    <div style="background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);padding:8px 12px;border-radius:10px;font-size:0.82rem;display:flex;justify-content:space-between;align-items:center">
+                      <div>
+                        <strong style="color:#fff">${esc(m.subject)}</strong> · ${esc(m.topic)}
+                      </div>
+                      <div style="color:#6ee7b7;font-weight:700;font-size:0.78rem">
+                        Dikuasai (${m.count} soal)
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
           </div>
-          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:12px">
-            <div style="background:rgba(255,255,255,0.04);padding:10px;border-radius:12px;text-align:center">
-              <div style="font-size:1.5rem;font-weight:800;color:#38bdf8">${t.minutes || 0} Menit</div>
-              <div style="font-size:0.75rem;color:var(--c-muted)">Waktu Belajar Aktif</div>
+        </div>
+      `;
+    }
+
+    // 5. Pujian & Saran
+    html += `
+      <div class="card" data-testid="report-praise" style="background:var(--c-surface);border:1px solid var(--c-surface-strong);border-radius:18px;padding:16px">
+        <h3 style="font-size:0.95rem;font-weight:800;color:#fff;margin:0 0 10px 0">Pujian & Saran Belajar</h3>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          ${praise.map(p => `
+            <div style="display:flex;align-items:flex-start;gap:8px;background:rgba(56,189,248,0.06);padding:8px 10px;border-radius:10px;border-left:3px solid #38bdf8">
+              <span style="font-size:1.1rem">🌟</span>
+              <span style="font-size:0.85rem;color:#e2e8f0;line-height:1.4">${esc(p)}</span>
             </div>
-            <div style="background:rgba(255,255,255,0.04);padding:10px;border-radius:12px;text-align:center">
-              <div style="font-size:1.5rem;font-weight:800;color:#10b981">${Math.round((t.accuracy || 0) * 100)}%</div>
-              <div style="font-size:0.75rem;color:var(--c-muted)">Akurasi Jawaban</div>
-            </div>
-            <div style="background:rgba(255,255,255,0.04);padding:10px;border-radius:12px;text-align:center">
-              <div style="font-size:1.5rem;font-weight:800;color:#f59e0b">${t.sessions || 0}</div>
-              <div style="font-size:0.75rem;color:var(--c-muted)">Sesi Selesai</div>
-            </div>
-            <div style="background:rgba(255,255,255,0.04);padding:10px;border-radius:12px;text-align:center">
-              <div style="font-size:1.5rem;font-weight:800;color:#a855f7">${t.bossDefeated || 0} 👑</div>
-              <div style="font-size:0.75rem;color:var(--c-muted)">Boss Ditaklukkan</div>
-            </div>
+          `).join('')}
+          <div data-testid="report-advice" style="display:flex;flex-direction:column;gap:8px">
+            ${advice.map(a => `
+              <div style="display:flex;align-items:flex-start;gap:8px;background:rgba(251,191,36,0.06);padding:8px 10px;border-radius:10px;border-left:3px solid #fbbf24">
+                <span style="font-size:1.1rem">💡</span>
+                <span style="font-size:0.85rem;color:#fef08a;line-height:1.4">${esc(a)}</span>
+              </div>
+            `).join('')}
           </div>
-          <div style="font-size:0.8rem;color:var(--c-muted);text-align:center">
-            ⭐ ${t.stars || 0} Bintang · 🔥 Kombo Terbaik: ${t.bestStreak || 0}
+        </div>
+      </div>
+    `;
+
+    // 6. Bagikan ke Orang Tua
+    html += `
+      <div class="card" style="background:var(--c-surface);border:1px solid var(--c-surface-strong);border-radius:18px;padding:16px;text-align:center">
+        <h3 style="font-size:0.95rem;font-weight:800;color:#fff;margin:0 0 4px 0">Bagikan Laporan ke Orang Tua</h3>
+        <p style="font-size:0.78rem;color:var(--c-muted);margin:0 0 12px 0">Orang tua dapat melihat rangkuman ini tanpa login via tautan rahasia (aktif 7 hari).</p>
+        <div id="share-action-box">
+          <button class="btn primary" id="btn-share-report" data-testid="report-share-btn" style="width:100%;min-height:44px;font-weight:700">
+            🔗 Buat Tautan Berbagi
+          </button>
+        </div>
+      </div>
+    `;
+
+    contentEl.innerHTML = html;
+
+    // Attach event listeners
+    const startBtn = $('#rep-empty-start');
+    if (startBtn) {
+      startBtn.onclick = () => {
+        if (window.Sfx) Sfx.play('tap');
+        go('subjects');
+      };
+    }
+
+    const shareBtn = $('#btn-share-report');
+    if (shareBtn) {
+      shareBtn.onclick = () => this.handleShareReport();
+    }
+
+    this.bindAbilityActions(abilities, rep.lowestSubjectId);
+  },
+
+  render7DayChart(daily) {
+    if (!Array.isArray(daily) || daily.length === 0) return '';
+
+    const dayLabels = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
+    const maxAns = Math.max(1, ...daily.map(d => d.answered || 0));
+
+    const bars = daily.map((d, i) => {
+      const ans = d.answered || 0;
+      const h = Math.round((ans / maxAns) * 65);
+      const y = 80 - h;
+      const x = 20 + i * 40;
+      const acc = d.answered > 0 ? Math.round((d.correct / d.answered) * 100) : 0;
+      const dotColor = acc >= 75 ? '#10b981' : (acc >= 50 ? '#38bdf8' : (acc > 0 ? '#f59e0b' : '#64748b'));
+
+      return `
+        <g>
+          <title>${dayLabels[i]}: ${ans} soal (${acc}% benar)</title>
+          <rect x="${x}" y="${y}" width="22" height="${h}" rx="4" fill="url(#repBarGrad)" opacity="0.9" />
+          ${ans > 0 ? `<circle cx="${x + 11}" cy="${Math.max(12, y - 6)}" r="3.5" fill="${dotColor}" />` : ''}
+          <text x="${x + 11}" y="95" text-anchor="middle" font-size="9" fill="var(--c-muted)">${dayLabels[i]}</text>
+        </g>
+      `;
+    }).join('');
+
+    return `
+      <div class="card" data-testid="report-chart" style="background:var(--c-surface);border:1px solid var(--c-surface-strong);border-radius:18px;padding:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <h3 style="font-size:0.95rem;font-weight:800;color:#fff;margin:0">Grafik 7 Hari</h3>
+          <div style="display:flex;align-items:center;gap:8px;font-size:0.72rem;color:var(--c-muted)">
+            <span style="display:flex;align-items:center;gap:3px"><span style="width:7px;height:7px;background:#38bdf8;border-radius:2px;display:inline-block"></span> Soal</span>
+            <span style="display:flex;align-items:center;gap:3px"><span style="width:7px;height:7px;background:#10b981;border-radius:50%;display:inline-block"></span> Akurasi</span>
           </div>
         </div>
 
-        <!-- Performa Pelajaran -->
-        ${subjectsHtml ? `
-          <div class="card" style="background:var(--c-surface);border:1px solid var(--c-surface-strong);border-radius:18px;padding:16px">
-            <h3 style="font-size:1rem;font-weight:800;color:#fff;margin:0 0 10px 0">Performa Mata Pelajaran</h3>
-            <div style="display:flex;flex-direction:column;gap:8px">
-              ${subjectsHtml}
-            </div>
-          </div>
-        ` : ''}
-
-        <!-- Catatan Perkembangan -->
-        <div class="card" style="background:var(--c-surface);border:1px solid var(--c-surface-strong);border-radius:18px;padding:16px">
-          <h3 style="font-size:1rem;font-weight:800;color:#fff;margin:0 0 10px 0">Catatan Perkembangan</h3>
-          <div style="display:flex;flex-direction:column;gap:8px;font-size:0.88rem">
-            <div>
-              <span style="color:#10b981;font-weight:700">✓ Sudah Dikuasai:</span>
-              <span style="color:#e2e8f0;margin-left:4px">${rep.strengths?.length ? rep.strengths.join(', ') : 'Belum ada data topik'}</span>
-            </div>
-            <div>
-              <span style="color:#f59e0b;font-weight:700">⚠ Perlu Latihan Lagi:</span>
-              <span style="color:#e2e8f0;margin-left:4px">${rep.needsWork?.length ? rep.needsWork.join(', ') : 'Tidak ada (Hebat!)'}</span>
-            </div>
-            <div style="background:rgba(56,189,248,0.08);border-left:3px solid #38bdf8;padding:8px 10px;border-radius:0 8px 8px 0;margin-top:4px">
-              <strong style="color:#38bdf8;font-size:0.75rem">💡 TIP BELAJAR:</strong>
-              <div style="color:#e2e8f0;font-size:0.85rem;margin-top:2px">${esc(rep.tip || '')}</div>
-            </div>
-          </div>
+        <div style="background:rgba(0,0,0,0.2);border-radius:12px;padding:6px 0;overflow-x:auto">
+          <svg viewBox="0 0 300 105" width="100%" height="105" aria-label="Grafik soal dijawab dan akurasi 7 hari">
+            <defs>
+              <linearGradient id="repBarGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#38bdf8"/>
+                <stop offset="100%" stop-color="#0284c7"/>
+              </linearGradient>
+            </defs>
+            <line x1="15" y1="80" x2="285" y2="80" stroke="rgba(255,255,255,0.08)" stroke-dasharray="3,3" />
+            ${bars}
+          </svg>
         </div>
+      </div>
+    `;
+  },
 
-        <!-- Berbagi Tautan ke Orang Tua -->
-        <div class="card" style="background:var(--c-surface);border:1px solid var(--c-surface-strong);border-radius:18px;padding:16px;text-align:center">
-          <h3 style="font-size:1rem;font-weight:800;color:#fff;margin:0 0 6px 0">Bagikan ke Orang Tua / Wali</h3>
-          <p style="font-size:0.8rem;color:var(--c-muted);margin:0 0 12px 0">Orang tua dapat melihat laporan ini tanpa perlu login (tautan aktif 7 hari).</p>
-          <div id="share-action-box">
-            <button class="btn primary" id="btn-share-report" data-testid="btn-share-report" style="width:100%;font-weight:700">
-              🔗 Buat Tautan Berbagi
-            </button>
+  renderAbilitiesSection(abilities, lowestSubjectId) {
+    if (!Array.isArray(abilities) || abilities.length === 0) {
+      return `
+        <div class="card" data-testid="ability-list" style="background:var(--c-surface);border:1px solid var(--c-surface-strong);border-radius:18px;padding:16px;text-align:center">
+          <h3 style="font-size:0.95rem;font-weight:800;color:#fff;margin:0 0 6px 0">🎯 Level Kemampuan per Mapel</h3>
+          <p style="font-size:0.82rem;color:var(--c-muted);margin:0">Main dulu yuk, nanti kemampuanmu muncul di sini.</p>
+        </div>
+      `;
+    }
+
+    const itemsHtml = abilities.map(item => {
+      const isNone = item.status === 'NONE';
+      const isInsufficient = item.status === 'INSUFFICIENT';
+      const isMeasured = item.status === 'MEASURED';
+      const isLowest = isMeasured && (item.subjectId === lowestSubjectId);
+
+      let levelColor = '#64748b';
+      if (item.level === 5) levelColor = '#eab308';
+      else if (item.level === 4) levelColor = '#a855f7';
+      else if (item.level === 3) levelColor = '#3b82f6';
+      else if (item.level === 2) levelColor = '#10b981';
+
+      let statusSubtext = '';
+      if (isNone) {
+        statusSubtext = '<span style="color:var(--c-muted)">Belum dicoba — ayo mulai!</span>';
+      } else if (isInsufficient) {
+        statusSubtext = `<span style="color:#f59e0b">Baru ${item.attempts}/8 jawaban — lanjut main untuk melihat levelmu</span>`;
+      } else {
+        statusSubtext = `<span>Akurasi ${item.accuracy}% · Dikuasai ${item.mastery}% (${item.attempts} jawaban)</span>`;
+      }
+
+      const scoreDisplay = isMeasured ? `${item.score}` : '-';
+      const barWidth = isMeasured ? `${Math.max(4, item.score)}%` : '0%';
+
+      return `
+        <div class="ability-row" data-testid="ability-row-${item.subjectId}" data-subject-id="${item.subjectId}" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:12px;margin-bottom:8px;cursor:pointer;transition:all 0.2s ease">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="font-size:1.5rem">${item.icon || '📚'}</span>
+              <div>
+                <div style="display:flex;align-items:center;gap:6px">
+                  <span style="font-weight:800;font-size:0.95rem;color:#fff">${esc(item.name)}</span>
+                  ${isLowest ? '<span class="badge small" style="background:#f43f5e;color:#fff;font-size:0.65rem;padding:2px 6px;border-radius:6px;font-weight:700">🎯 Fokus Latihan</span>' : ''}
+                </div>
+                <div style="font-size:0.75rem;color:var(--c-muted);margin-top:2px">
+                  ${statusSubtext}
+                </div>
+              </div>
+            </div>
+
+            <div style="text-align:right">
+              <div style="font-size:1.15rem;font-weight:900;color:${isMeasured ? levelColor : 'var(--c-muted)'}">
+                ${scoreDisplay}<span style="font-size:0.75rem;font-weight:400;color:var(--c-muted)">/100</span>
+              </div>
+              <div style="font-size:0.72rem;font-weight:700;color:${levelColor};margin-top:2px">
+                ${item.levelIcon || '🌱'} ${item.levelName || 'Pemula'}
+              </div>
+            </div>
+          </div>
+
+          <!-- Progress Bar -->
+          <div style="height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;margin-bottom:6px">
+            <div style="width:${barWidth};height:100%;background:${levelColor};border-radius:3px;transition:width 0.4s ease"></div>
+          </div>
+
+          <!-- Action Row for Lowest or None -->
+          ${(isLowest || isNone) ? `
+            <div style="display:flex;justify-content:flex-end;margin-top:8px">
+              <button class="btn small primary btn-practice-subject" data-subject-id="${item.subjectId}" style="padding:4px 12px;font-size:0.78rem;font-weight:700">
+                ${isLowest ? `🎯 Latihan ${esc(item.name)}` : '🚀 Mulai Mapel'}
+              </button>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }).join('');
+
+    return `
+      <div class="card" data-testid="ability-list" style="background:var(--c-surface);border:1px solid var(--c-surface-strong);border-radius:18px;padding:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <h3 style="font-size:0.95rem;font-weight:800;color:#fff;margin:0">🎯 Level Kemampuan per Mapel</h3>
+          <button class="btn small ghost" id="btn-why-ability" style="font-size:0.75rem;padding:2px 8px;color:#38bdf8">❓ Info Skor</button>
+        </div>
+        <p style="font-size:0.75rem;color:var(--c-muted);margin:0 0 12px 0">
+          Urut dari nilai terkecil (paling butuh latihan). Ketuk mapel untuk rincian.
+        </p>
+        <div style="display:flex;flex-direction:column">
+          ${itemsHtml}
+        </div>
+      </div>
+    `;
+  },
+
+  bindAbilityActions(abilities, lowestSubjectId) {
+    const whyBtn = $('#btn-why-ability');
+    if (whyBtn) {
+      whyBtn.onclick = () => {
+        if (window.Sfx) Sfx.play('tap');
+        this.showHelpModal();
+      };
+    }
+
+    // Row clicks -> detail modal
+    document.querySelectorAll('.ability-row').forEach(row => {
+      row.onclick = (e) => {
+        if (e.target.closest('.btn-practice-subject')) return;
+        const sId = parseInt(row.getAttribute('data-subject-id'), 10);
+        const item = abilities.find(a => a.subjectId === sId);
+        if (item) {
+          if (window.Sfx) Sfx.play('tap');
+          this.showAbilityDetailModal(item);
+        }
+      };
+    });
+
+    // Practice buttons
+    document.querySelectorAll('.btn-practice-subject').forEach(btn => {
+      btn.onclick = async (e) => {
+        e.stopPropagation();
+        const sId = parseInt(btn.getAttribute('data-subject-id'), 10);
+        if (window.Sfx) Sfx.play('tap');
+        if (Screens.battle && Screens.battle.start) {
+          await Screens.battle.start(sId);
+        } else {
+          go('campaign', { subjectId: sId });
+        }
+      };
+    });
+  },
+
+  async handleShareReport() {
+    const box = $('#share-action-box');
+    if (!box) return;
+    box.innerHTML = '<span class="spinner"></span> Membuat tautan...';
+
+    try {
+      const res = await API.createReportShare();
+      if (!res.ok || !res.token) {
+        box.innerHTML = '<p style="color:var(--c-danger);font-size:0.8rem">Gagal membuat tautan berbagi.</p>';
+        return;
+      }
+
+      const fullUrl = `${window.location.origin}/r/${res.token}`;
+      const expDate = res.expiresAt ? new Date(res.expiresAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) : '7 hari';
+
+      box.innerHTML = `
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;text-align:left">
+          <div style="font-size:0.75rem;color:var(--c-muted);margin-bottom:6px">Tautan Rahasia (Kedaluwarsa: ${expDate}):</div>
+          <div style="display:flex;gap:6px;margin-bottom:10px">
+            <input type="text" id="share-link-input" data-testid="report-share-url" value="${fullUrl}" readonly style="flex:1;background:#0f172a;border:1px solid #334155;border-radius:8px;padding:6px 10px;font-size:0.75rem;color:#38bdf8;font-family:monospace" />
+            <button class="btn small secondary" id="btn-copy-share" style="padding:6px 12px;font-size:0.75rem">📋 Salin</button>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:0.72rem;color:var(--c-muted)">Hanya yang punya tautan bisa melihat</span>
+            <button class="btn small danger ghost" id="btn-revoke-share" data-testid="report-share-revoke" style="font-size:0.72rem;padding:4px 8px">🚫 Cabut Tautan</button>
           </div>
         </div>
       `;
 
-      const btnShare = $('#btn-share-report');
-      if (btnShare) {
-        btnShare.onclick = async () => {
-          try {
-            const s = await API.createReportShare();
-            const fullUrl = window.location.origin + s.url;
-            $('#share-action-box').innerHTML = `
-              <div style="display:flex;flex-direction:column;gap:8px">
-                <input type="text" readonly value="${fullUrl}" id="share-url-input" style="width:100%;padding:10px;border-radius:10px;background:#0f172a;color:#38bdf8;border:1px solid rgba(255,255,255,0.15);font-size:0.85rem;text-align:center">
-                <div style="display:flex;gap:8px">
-                  <button class="btn secondary small" id="btn-copy-share" style="flex:1">📋 Salin Tautan</button>
-                  <button class="btn ghost small" id="btn-revoke-share" style="color:var(--c-bad)">Cabut Tautan ✕</button>
-                </div>
-              </div>
-            `;
-            $('#btn-copy-share').onclick = () => {
-              navigator.clipboard.writeText(fullUrl).then(() => toast('Tautan disalin!'));
-            };
-            $('#btn-revoke-share').onclick = async () => {
-              if (confirm('Yakin ingin mencabut tautan berbagi ini?')) {
-                await API.revokeReportShare();
-                toast('Tautan berbagi dicabut.');
-                this.loadReport();
-              }
-            };
-          } catch (e) {
-            toast('Gagal membuat tautan berbagi: ' + e.message);
-          }
-        };
-      }
+      $('#btn-copy-share').onclick = () => {
+        const input = $('#share-link-input');
+        input.select();
+        navigator.clipboard.writeText(fullUrl).then(() => {
+          if (window.toast) toast('Tautan disalin ke clipboard! 📋');
+        }).catch(() => {
+          if (window.toast) toast('Silakan salin tautan secara manual');
+        });
+      };
 
+      $('#btn-revoke-share').onclick = async () => {
+        if (!confirm('Yakin ingin mencabut tautan berbagi ini? Tautan sebelumnya tidak akan bisa dibuka lagi.')) return;
+        try {
+          await API.revokeReportShare();
+          if (window.toast) toast('Tautan berbagi telah dicabut.');
+          this.renderReportBody(this.reportData, this.currentOffset);
+        } catch (e) {
+          if (window.toast) toast('Gagal mencabut: ' + e.message);
+        }
+      };
     } catch (e) {
-      slot.innerHTML = `<div style="text-align:center;padding:40px;color:var(--c-bad)">Gagal memuat laporan: ${esc(e.message)}</div>`;
+      box.innerHTML = `<p style="color:var(--c-danger);font-size:0.8rem">Gagal: ${e.message}</p>`;
     }
+  },
+
+  showAbilityDetailModal(item) {
+    const modal = document.createElement('div');
+    modal.className = 'modal-mask active';
+    modal.innerHTML = `
+      <div class="modal" style="max-width:380px;padding:20px;text-align:left">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:1.8rem">${item.icon || '📚'}</span>
+            <div>
+              <h3 style="font-size:1.1rem;font-weight:800;color:#fff;margin:0">${esc(item.name)}</h3>
+              <div style="font-size:0.8rem;color:var(--c-muted)">Level Kemampuan</div>
+            </div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:1.4rem;font-weight:900;color:#38bdf8">${item.score !== null ? item.score : '-'}<span style="font-size:0.8rem;font-weight:400;color:var(--c-muted)">/100</span></div>
+            <div style="font-size:0.75rem;font-weight:700;color:#38bdf8">${item.levelIcon || '🌱'} ${item.levelName || 'Pemula'}</div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px;background:rgba(255,255,255,0.03);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);margin-bottom:12px">
+          <div style="display:flex;justify-content:space-between;font-size:0.82rem">
+            <span style="color:var(--c-muted)">Penguasaan Leitner (60%):</span>
+            <strong style="color:#fff">${item.mastery !== undefined ? item.mastery + '%' : '-'}</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.82rem">
+            <span style="color:var(--c-muted)">Akurasi Terkini (30%):</span>
+            <strong style="color:#10b981">${item.accuracy !== undefined ? item.accuracy + '%' : '-'}</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.82rem">
+            <span style="color:var(--c-muted)">Soal Pernah Dijawab:</span>
+            <strong style="color:#fff">${item.answeredDistinct || 0} / ${item.totalQuestions || 0}</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.82rem">
+            <span style="color:var(--c-muted)">Total Jawaban (Attempts):</span>
+            <strong style="color:#fff">${item.attempts || 0}</strong>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;font-size:0.8rem;color:var(--c-muted);line-height:1.4">
+          💡 <em>Semakin sering menjawab benar di kotak Leitner tinggi, semakin cepat levelmu naik.</em>
+        </div>
+
+        <div style="display:flex;gap:8px;margin-top:16px">
+          <button class="btn secondary" id="modal-close" style="flex:1">Tutup</button>
+          <button class="btn primary" id="modal-practice" style="flex:1">🎯 Latihan</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    modal.querySelector('#modal-close').onclick = () => modal.remove();
+    modal.querySelector('#modal-practice').onclick = async () => {
+      modal.remove();
+      if (window.Sfx) Sfx.play('tap');
+      if (Screens.battle && Screens.battle.start) {
+        await Screens.battle.start(item.subjectId);
+      } else {
+        go('campaign', { subjectId: item.subjectId });
+      }
+    };
+  },
+
+  showHelpModal() {
+    const modal = document.createElement('div');
+    modal.className = 'modal-mask active';
+    modal.innerHTML = `
+      <div class="modal" style="max-width:380px;padding:20px;text-align:left">
+        <h3 style="font-size:1.1rem;font-weight:800;color:#fff;margin:0 0 10px 0">❓ Cara Level Dihitung</h3>
+        <p style="font-size:0.84rem;color:var(--c-muted);line-height:1.5;margin:0 0 12px 0">
+          Skor kemampuan (0–100) mengukur seberapa mendalam kamu menguasai suatu mata pelajaran:
+        </p>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:0.82rem;background:rgba(255,255,255,0.04);padding:10px 12px;border-radius:12px;margin-bottom:12px">
+          <div><strong style="color:#38bdf8">1. Penguasaan Materi (60%):</strong> Seberapa sering kamu mengingat soal dengan benar di kotak memori (SRS).</div>
+          <div><strong style="color:#10b981">2. Akurasi Terkini (30%):</strong> Ketepatan jawaban pada 40 soal terbaru.</div>
+          <div><strong style="color:#f59e0b">3. Cakupan Bank Soal (10%):</strong> Berapa banyak variasi soal yang sudah kamu coba.</div>
+        </div>
+        <div style="font-size:0.8rem;color:var(--c-muted);margin-bottom:16px">
+          🌱 Pemula (0-19) · 🧭 Penjelajah (20-39) · ⚔️ Petualang (40-59) · 🛡️ Ahli (60-79) · 👑 Master (80-100).
+        </div>
+        <button class="btn primary block" id="modal-help-close" style="width:100%">Mengerti 👍</button>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    modal.querySelector('#modal-help-close').onclick = () => modal.remove();
   }
 };
 
-/* ============================================================
-   SCREEN: Home
-   ============================================================ */
+Screens.laporan = Screens.report;
+
 Screens.home = {
   async render(app) {
     const p = Player.data;
@@ -779,6 +1296,7 @@ Screens.home = {
     };
 
     $('#m-play').onclick = () => { if (window.Sfx) Sfx.play('tap'); go('subjects'); };
+    $('#m-report').onclick = () => { if (window.Sfx) Sfx.play('tap'); go('report'); };
     $('#m-practice').onclick = () => { if (window.Sfx) Sfx.play('tap'); go('subjects', { mode: 'PRACTICE' }); };
     $('#m-profile').onclick = () => { if (window.Sfx) Sfx.play('tap'); go('profil', { tab: 'ringkasan' }); };
     $('#m-skin').onclick = () => { if (window.Sfx) Sfx.play('tap'); go('profil', { tab: 'skin' }); };
@@ -3746,7 +4264,9 @@ window.addEventListener('DOMContentLoaded', async () => {
   await Player.init();
 
   // Render initial screen based on URL path
-  if (window.location.pathname === '/profil' || window.location.pathname.startsWith('/profil')) {
+  if (window.location.pathname.startsWith('/r/')) {
+    go('report');
+  } else if (window.location.pathname === '/profil' || window.location.pathname.startsWith('/profil')) {
     go('profil', { tab: 'ringkasan' });
   } else {
     go('home');

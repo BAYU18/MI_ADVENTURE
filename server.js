@@ -622,6 +622,33 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
+
+  // GET /r/:token (Public Report Share Portal)
+  if (pathname.startsWith('/r/') && method === 'GET') {
+    const token = pathname.replace('/r/', '').trim();
+    const shareRes = db.getReportByShareToken(token);
+    const wantsJson = (req.headers.accept && req.headers.accept.includes('application/json')) || query.json === '1';
+
+    if (!shareRes) {
+      if (wantsJson) return err(res, 'Tautan tidak ditemukan atau telah dicabut', 404, 'NOT_FOUND');
+      res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
+      return res.end('<!DOCTYPE html><html><head><meta charset="utf-8"><title>Tautan Tidak Ditemukan</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><style>body{font-family:system-ui,sans-serif;background:#0f172a;color:#f8fafc;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;padding:20px;box-sizing:border-box;text-align:center}.card{background:#1e293b;border:1px solid #334155;border-radius:16px;padding:32px 24px;max-width:400px;width:100%}h1{font-size:1.3rem;margin:0 0 12px;color:#f87171}p{font-size:0.9rem;color:#94a3b8;line-height:1.5}</style></head><body><div class="card"><h1>🔒 Tautan Tidak Ditemukan</h1><p>Tautan laporan ini tidak valid atau telah dicabut oleh siswa.</p></div></body></html>');
+    }
+
+    if (shareRes.expired) {
+      if (wantsJson) return err(res, 'Tautan laporan ini sudah kedaluwarsa', 410, 'EXPIRED');
+      res.writeHead(410, { 'Content-Type': 'text/html; charset=utf-8' });
+      return res.end('<!DOCTYPE html><html><head><meta charset="utf-8"><title>Tautan Kedaluwarsa</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><style>body{font-family:system-ui,sans-serif;background:#0f172a;color:#f8fafc;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;padding:20px;box-sizing:border-box;text-align:center}.card{background:#1e293b;border:1px solid #334155;border-radius:16px;padding:32px 24px;max-width:400px;width:100%}h1{font-size:1.3rem;margin:0 0 12px;color:#fbbf24}p{font-size:0.9rem;color:#94a3b8;line-height:1.5}</style></head><body><div class="card"><h1>⏰ Tautan Kedaluwarsa</h1><p>Masa berlaku tautan laporan ini telah berakhir.</p></div></body></html>');
+    }
+
+    if (wantsJson) {
+      return json(res, shareRes);
+    }
+
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    return res.end(renderShareReportHtml(shareRes.report));
+  }
+
   // POST /api/report/share
   if (pathname === '/api/report/share' && method === 'POST') {
     const playerAuth = getPlayerFromReq(req);
@@ -1075,3 +1102,125 @@ setInterval(() => {
 server.listen(PORT, HOST, () => {
   console.log(`[petualangan-pelajar] Server running on http://${HOST}:${PORT}`);
 });
+
+
+function renderShareReportHtml(report) {
+  const nick = (report.player && report.player.nick) ? report.player.nick : 'Siswa';
+  const week = report.week || '';
+  const from = report.from || '';
+  const to = report.to || '';
+  const s = report.summary || {};
+  const bossTiers = s.bossByTier || { common: 0, rare: 0, epic: 0, legend: 0 };
+  const abilities = report.abilities || [];
+  const daily = report.daily || [];
+  const weak = report.weakTopics || [];
+  const mastered = report.masteredTopics || [];
+  const praise = report.praise || [];
+  const advice = report.advice || [];
+
+  const maxDay = Math.max(1, ...daily.map(d => d.answered || 0));
+  const dayNames = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
+  const chartBars = daily.map((d, i) => {
+    const ans = d.answered || 0;
+    const barH = Math.round((ans / maxDay) * 75);
+    const y = 85 - barH;
+    const x = 20 + i * 40;
+    const acc = d.answered > 0 ? Math.round((d.correct / d.answered) * 100) : 0;
+    const accColor = acc >= 75 ? '#10b981' : (acc >= 50 ? '#38bdf8' : (acc > 0 ? '#f59e0b' : '#64748b'));
+    return '<g>' +
+      '<rect x="' + x + '" y="' + y + '" width="24" height="' + barH + '" rx="4" fill="url(#barGrad)" opacity="0.85">' +
+      '<title>' + dayNames[i] + ': ' + ans + ' soal (' + acc + '% akurasi)</title></rect>' +
+      (ans > 0 ? '<circle cx="' + (x + 12) + '" cy="' + Math.max(10, y - 8) + '" r="4" fill="' + accColor + '" />' : '') +
+      '<text x="' + (x + 12) + '" y="102" text-anchor="middle" font-size="10" fill="#94a3b8">' + dayNames[i] + '</text>' +
+      '</g>';
+  }).join('');
+
+  const abilityRows = abilities.map(item => {
+    const isNone = item.status === 'NONE';
+    const isIns = item.status === 'INSUFFICIENT';
+    const scoreText = (item.score !== null && item.score !== undefined) ? item.score : '-';
+    const color = item.level === 5 ? '#eab308' : (item.level === 4 ? '#a855f7' : (item.level === 3 ? '#3b82f6' : (item.level === 2 ? '#10b981' : '#64748b')));
+    const desc = isNone ? 'Belum pernah dicoba' : (isIns ? 'Baru ' + item.attempts + '/8 jawaban' : 'Akurasi ' + item.accuracy + '% · Dikuasai ' + item.mastery + '%');
+    return '<div style="background:#1e293b;border:1px solid #334155;border-radius:12px;padding:12px;margin-bottom:8px">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">' +
+      '<div style="display:flex;align-items:center;gap:8px">' +
+      '<span style="font-size:1.3rem">' + (item.icon || '📚') + '</span>' +
+      '<div>' +
+      '<div style="font-weight:700;font-size:0.95rem;color:#f8fafc">' + item.name + '</div>' +
+      '<div style="font-size:0.75rem;color:#94a3b8">' + desc + '</div>' +
+      '</div></div>' +
+      '<div style="text-align:right">' +
+      '<div style="font-size:1rem;font-weight:800;color:' + color + '">' + scoreText + '<span style="font-size:0.75rem;font-weight:400;color:#94a3b8">/100</span></div>' +
+      '<div style="font-size:0.75rem;font-weight:600;color:' + color + '">' + (item.levelIcon || '🌱') + ' ' + (item.levelName || 'Pemula') + '</div>' +
+      '</div></div>' +
+      '<div style="height:6px;background:#0f172a;border-radius:3px;overflow:hidden">' +
+      '<div style="width:' + (item.score || 0) + '%;height:100%;background:' + color + ';border-radius:3px"></div>' +
+      '</div></div>';
+  }).join('');
+
+  return '<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><title>Laporan Belajar - ' + nick + '</title>' +
+    '<meta name="viewport" content="width=device-width, initial-scale=1.0">' +
+    '<style>' +
+    'body{font-family:system-ui,-apple-system,sans-serif;background:#0b1120;color:#f8fafc;margin:0;padding:16px;display:flex;justify-content:center}' +
+    '.container{max-width:500px;width:100%;display:flex;flex-direction:column;gap:14px}' +
+    '.card{background:#1e293b;border:1px solid #334155;border-radius:16px;padding:16px}' +
+    '.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}' +
+    '.stat-card{background:#0f172a;border:1px solid #334155;border-radius:12px;padding:10px;text-align:center}' +
+    '.stat-val{font-size:1.25rem;font-weight:800;color:#38bdf8}' +
+    '.stat-lbl{font-size:0.72rem;color:#94a3b8;margin-top:2px}' +
+    '.tier-chip{display:inline-flex;align-items:center;gap:4px;padding:2px 6px;border-radius:6px;font-size:0.72rem;background:rgba(255,255,255,0.06)}' +
+    'h2,h3{margin:0;font-weight:800}' +
+    '</style></head><body>' +
+    '<div class="container">' +
+    '<div style="text-align:center;padding:10px 0">' +
+    '<div style="font-size:0.8rem;text-transform:uppercase;letter-spacing:1px;color:#38bdf8;font-weight:700">Petualangan Pelajar · Laporan Siswa</div>' +
+    '<h2 style="font-size:1.35rem;margin:4px 0 2px">' + nick + '</h2>' +
+    '<div style="font-size:0.82rem;color:#94a3b8">Periode: ' + from + ' – ' + to + ' (' + week + ')</div>' +
+    '</div>' +
+    '<div class="card">' +
+    '<h3 style="font-size:0.95rem;margin-bottom:12px">📊 Ringkasan Pekan Ini</h3>' +
+    '<div class="grid-3" style="margin-bottom:8px">' +
+    '<div class="stat-card"><div class="stat-val">' + (s.answered || 0) + '</div><div class="stat-lbl">Soal Dijawab</div></div>' +
+    '<div class="stat-card"><div class="stat-val" style="color:#10b981">' + (s.accuracy || 0) + '%</div><div class="stat-lbl">Akurasi</div></div>' +
+    '<div class="stat-card"><div class="stat-val" style="color:#fbbf24">' + (s.minutes || 0) + 'm</div><div class="stat-lbl">Waktu Belajar</div></div>' +
+    '</div>' +
+    '<div class="grid-3">' +
+    '<div class="stat-card"><div class="stat-val" style="color:#a855f7">' + (s.sessions || 0) + '</div><div class="stat-lbl">Sesi Main</div></div>' +
+    '<div class="stat-card"><div class="stat-val" style="color:#38bdf8">' + (s.activeDays || 0) + '/7</div><div class="stat-lbl">Hari Aktif</div></div>' +
+    '<div class="stat-card"><div class="stat-val" style="color:#f43f5e">' + (s.bossDefeated || 0) + '</div><div class="stat-lbl">Boss Kalah</div></div>' +
+    '</div>' +
+    ((s.bossDefeated || 0) > 0 ? ('<div style="display:flex;justify-content:center;gap:6px;margin-top:10px;flex-wrap:wrap">' +
+      '<span class="tier-chip">⚪ Common: ' + (bossTiers.common || 0) + '</span>' +
+      '<span class="tier-chip">🔵 Rare: ' + (bossTiers.rare || 0) + '</span>' +
+      '<span class="tier-chip">🟣 Epic: ' + (bossTiers.epic || 0) + '</span>' +
+      '<span class="tier-chip">🟡 Legend: ' + (bossTiers.legend || 0) + '</span>' +
+      '</div>') : '') +
+    '</div>' +
+    '<div class="card">' +
+    '<h3 style="font-size:0.95rem;margin-bottom:8px">📈 Aktivitas 7 Hari</h3>' +
+    '<div style="background:#0f172a;border-radius:12px;padding:8px 4px">' +
+    '<svg viewBox="0 0 300 115" width="100%" height="110" aria-label="Grafik aktivitas 7 hari">' +
+    '<defs><linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#0284c7"/></linearGradient></defs>' +
+    '<line x1="15" y1="85" x2="285" y2="85" stroke="#334155" stroke-dasharray="3,3" />' +
+    chartBars +
+    '</svg></div></div>' +
+    '<div class="card">' +
+    '<h3 style="font-size:0.95rem;margin-bottom:4px">🎯 Level Kemampuan per Mapel</h3>' +
+    '<p style="font-size:0.75rem;color:#94a3b8;margin:0 0 12px 0">Diurutkan dari mata pelajaran yang paling membutuhkan latihan.</p>' +
+    (abilityRows || '<div style="color:#94a3b8;font-size:0.85rem">Belum ada data kemampuan.</div>') +
+    '</div>' +
+    ((weak.length > 0 || mastered.length > 0) ? ('<div class="card">' +
+      (weak.length > 0 ? ('<h3 style="font-size:0.95rem;color:#f87171;margin-bottom:8px">⚠️ Topik Perlu Dibimbing</h3><div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px">' +
+        weak.map(w => '<div style="background:#0f172a;border-left:3px solid #f87171;padding:6px 10px;border-radius:6px;font-size:0.8rem"><strong>' + w.subject + '</strong> · ' + w.topic + ' — akurasi ' + w.accuracy + '% (' + w.attempts + ' jawaban)</div>').join('') + '</div>') : '') +
+      (mastered.length > 0 ? ('<h3 style="font-size:0.95rem;color:#10b981;margin-bottom:8px">✨ Topik Sudah Dikuasai</h3><div style="display:flex;flex-direction:column;gap:6px">' +
+        mastered.map(m => '<div style="background:#0f172a;border-left:3px solid #10b981;padding:6px 10px;border-radius:6px;font-size:0.8rem"><strong>' + m.subject + '</strong> · ' + m.topic + ' — dikuasai (' + m.count + ' soal)</div>').join('') + '</div>') : '') +
+      '</div>') : '') +
+    ((praise.length > 0 || advice.length > 0) ? ('<div class="card">' +
+      '<h3 style="font-size:0.95rem;margin-bottom:10px">💬 Catatan Belajar</h3>' +
+      '<div style="display:flex;flex-direction:column;gap:8px">' +
+      praise.map(p => '<div style="background:#0f172a;border-left:3px solid #38bdf8;padding:8px 10px;border-radius:8px;font-size:0.82rem">🌟 ' + p + '</div>').join('') +
+      advice.map(a => '<div style="background:#0f172a;border-left:3px solid #fbbf24;padding:8px 10px;border-radius:8px;font-size:0.82rem;color:#fef08a">💡 ' + a + '</div>').join('') +
+      '</div></div>') : '') +
+    '<div style="text-align:center;padding:16px 0;font-size:0.75rem;color:#64748b">Portal Laporan Orang Tua & Guru · Petualangan Pelajar</div>' +
+    '</div></body></html>';
+}

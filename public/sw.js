@@ -4,7 +4,7 @@
  * Menyediakan caching asset statis untuk kecepatan & kesiapan offline
  */
 
-const CACHE_NAME = 'pp-v4.2.0-20261103v11';
+const CACHE_NAME = 'pp-v6.0.0-20261103v12';
 
 const PRECACHE_ASSETS = [
   '/',
@@ -16,6 +16,7 @@ const PRECACHE_ASSETS = [
   '/js/audio.js',
   '/js/app.js',
   '/js/admin.js',
+  '/shared/progression.js',
   '/manifest.webmanifest',
   '/icons/icon.svg',
   '/icons/icon-192.png',
