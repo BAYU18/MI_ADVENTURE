@@ -2618,6 +2618,8 @@ Screens.result = {
    ============================================================ */
 Screens.profil = {
   activeTab: 'ringkasan',
+  skinCatFilter: 'ALL',
+  skinOwnerFilter: 'all',
   profileData: null,
   inventoryData: null,
   shopData: null,
@@ -2858,98 +2860,219 @@ Screens.profil = {
       return;
     }
 
-    const currentAvatar = this.avatarDraft || {};
+    // Pastikan avatarDraft sinkron dengan inventory / profile
+    if (!this.avatarDraft || Object.keys(this.avatarDraft).length === 0) {
+      if (inv.avatar && Object.keys(inv.avatar).length > 0) {
+        this.avatarDraft = JSON.parse(JSON.stringify(inv.avatar));
+      } else if (this.profileData?.avatar && Object.keys(this.profileData.avatar).length > 0) {
+        this.avatarDraft = JSON.parse(JSON.stringify(this.profileData.avatar));
+      } else {
+        const derived = {};
+        for (const it of (inv.items || [])) {
+          if (it.equipped && it.slot) derived[it.slot] = it.id;
+        }
+        this.avatarDraft = derived;
+      }
+    }
+
     const items = inv.items || [];
+    if (!this.skinCatFilter) this.skinCatFilter = 'ALL';
+    if (!this.skinOwnerFilter) this.skinOwnerFilter = 'all';
+
+    const countAll = items.length;
+    const countOwned = items.filter(it => it.owned).length;
+    const countUnowned = items.filter(it => !it.owned).length;
 
     slot.innerHTML = `
       <!-- AVATAR LIVE PREVIEW -->
       <div class="card" style="padding:16px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);text-align:center">
         <div id="avatar-live-box" style="width:130px;height:130px;margin:0 auto;border-radius:24px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;overflow:hidden">
-          ${Avatar.renderAvatar(currentAvatar)}
+          ${Avatar.renderAvatar(this.avatarDraft || {})}
         </div>
         <div style="margin-top:8px;font-size:0.85rem;color:var(--c-muted)">Pratinjau Avatar Langsung</div>
       </div>
 
+      <!-- FILTER KEPEMILIKAN (OWNED / UNOWNED) -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin:6px 0 2px 2px">
+        <div style="font-size:0.75rem;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:0.5px">Status Kepemilikan</div>
+      </div>
+      <div class="skin-owner-filter-bar" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px">
+        <button class="btn small skin-owner-btn ${this.skinOwnerFilter === 'all' ? 'active' : 'ghost'}" data-owner="all" data-testid="filter-owner-all">Semua (${countAll})</button>
+        <button class="btn small skin-owner-btn ${this.skinOwnerFilter === 'owned' ? 'active' : 'ghost'}" data-owner="owned" data-testid="filter-owner-owned">✅ Dimiliki (${countOwned})</button>
+        <button class="btn small skin-owner-btn ${this.skinOwnerFilter === 'unowned' ? 'active' : 'ghost'}" data-owner="unowned" data-testid="filter-owner-unowned">🔒 Belum Dimiliki (${countUnowned})</button>
+      </div>
+
       <!-- FILTER KATEGORI -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin:6px 0 2px 2px">
+        <div style="font-size:0.75rem;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:0.5px">Kategori Item</div>
+      </div>
       <div class="skin-filter-bar" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px">
-        <button class="btn small skin-cat-btn active" data-cat="ALL">Semua</button>
-        <button class="btn small skin-cat-btn ghost" data-cat="hat">Topi</button>
-        <button class="btn small skin-cat-btn ghost" data-cat="outfit">Pakaian</button>
-        <button class="btn small skin-cat-btn ghost" data-cat="weapon">Senjata</button>
-        <button class="btn small skin-cat-btn ghost" data-cat="pet">Hewan</button>
-        <button class="btn small skin-cat-btn ghost" data-cat="bg">Latar</button>
-        <button class="btn small skin-cat-btn ghost" data-cat="frame">Bingkai</button>
+        <button class="btn small skin-cat-btn ${this.skinCatFilter === 'ALL' ? 'active' : 'ghost'}" data-cat="ALL">Semua</button>
+        <button class="btn small skin-cat-btn ${this.skinCatFilter === 'hat' ? 'active' : 'ghost'}" data-cat="hat">Topi</button>
+        <button class="btn small skin-cat-btn ${this.skinCatFilter === 'outfit' ? 'active' : 'ghost'}" data-cat="outfit">Pakaian</button>
+        <button class="btn small skin-cat-btn ${this.skinCatFilter === 'weapon' ? 'active' : 'ghost'}" data-cat="weapon">Senjata</button>
+        <button class="btn small skin-cat-btn ${this.skinCatFilter === 'pet' ? 'active' : 'ghost'}" data-cat="pet">Hewan</button>
+        <button class="btn small skin-cat-btn ${this.skinCatFilter === 'bg' ? 'active' : 'ghost'}" data-cat="bg">Latar</button>
+        <button class="btn small skin-cat-btn ${this.skinCatFilter === 'frame' ? 'active' : 'ghost'}" data-cat="frame">Bingkai</button>
       </div>
 
       <!-- GRID ITEM MILIK -->
       <div class="skin-grid" id="skin-items-grid" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(130px, 1fr));gap:8px"></div>
     `;
 
-    const renderItems = (catFilter = 'ALL') => {
+    const renderItems = () => {
       const grid = $('#skin-items-grid');
       if (!grid) return;
-      const filtered = catFilter === 'ALL' ? items : items.filter(it => it.slot === catFilter);
+
+      let filtered = items;
+      if (this.skinCatFilter !== 'ALL') {
+        filtered = filtered.filter(it => it.slot === this.skinCatFilter);
+      }
+      if (this.skinOwnerFilter === 'owned') {
+        filtered = filtered.filter(it => it.owned);
+      } else if (this.skinOwnerFilter === 'unowned') {
+        filtered = filtered.filter(it => !it.owned);
+      }
 
       if (filtered.length === 0) {
-        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--c-muted)">Tidak ada item untuk kategori ini.</div>`;
+        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:24px;color:var(--c-muted)">Tidak ada skin dalam filter ini.</div>`;
         return;
       }
 
       grid.innerHTML = filtered.map(it => {
-        const isEquipped = currentAvatar[it.slot] === it.id;
+        const isEquipped = Boolean(this.avatarDraft && this.avatarDraft[it.slot] === it.id);
         const rarityColor = it.rarity === 'LEGENDARY' ? '#f59e0b' : it.rarity === 'EPIC' ? '#a855f7' : it.rarity === 'RARE' ? '#3b82f6' : '#94a3b8';
+
+        let actionHtml = '';
+        if (isEquipped) {
+          actionHtml = `
+            <div style="display:flex;gap:4px;justify-content:center;align-items:center">
+              <span class="chip good" style="font-size:0.75rem;padding:3px 8px">Terpasang</span>
+              <button class="btn small ghost item-unequip-btn" data-testid="item-unequip-${it.id}" data-slot="${it.slot}" title="Lepas skin ini" style="padding:2px 6px;font-size:0.75rem">Lepas</button>
+            </div>
+          `;
+        } else if (it.owned) {
+          actionHtml = `<button class="btn small primary block item-equip-btn" data-testid="item-equip-${it.id}" data-id="${it.id}" data-slot="${it.slot}">Pakai</button>`;
+        } else {
+          // Belum dimiliki: tombol terkunci dan tidak bisa diklik
+          actionHtml = `<button class="btn small disabled block item-locked-btn" disabled aria-disabled="true" style="opacity:0.4;cursor:not-allowed;pointer-events:none;background:rgba(255,255,255,0.06);color:var(--c-muted)" title="Item belum dimiliki">🔒 Belum Dimiliki</button>`;
+        }
 
         return `
           <div class="card item-card" data-testid="item-card-${it.id}" style="padding:10px;background:var(--c-surface);border-radius:var(--radius);border:1px solid ${isEquipped ? 'var(--c-primary)' : 'var(--c-surface-strong)'};text-align:center;display:flex;flex-direction:column;gap:6px">
-            <div style="font-size:0.7rem;font-weight:700;color:${rarityColor}">${it.rarity}</div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:0.7rem;font-weight:700;color:${rarityColor}">${it.rarity}</span>
+              ${it.owned ? `<span style="font-size:0.65rem;color:var(--c-good)">✓ Milik</span>` : `<span style="font-size:0.65rem;color:var(--c-muted)">🔒 Belum</span>`}
+            </div>
             <div style="font-weight:700;font-size:0.85rem;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(it.name)}</div>
             <div style="font-size:0.75rem;color:var(--c-muted)">${esc(it.slot)}</div>
             <div style="margin-top:auto;padding-top:4px">
-              ${isEquipped
-                ? `<span class="chip good" style="font-size:0.75rem;padding:3px 8px">Terpasang</span>`
-                : `<button class="btn small primary block" data-testid="item-equip-${it.id}" data-id="${it.id}" data-slot="${it.slot}">Pakai</button>`
-              }
+              ${actionHtml}
             </div>
           </div>
         `;
       }).join('');
 
-      $$('#skin-items-grid button[data-testid^="item-equip-"]').forEach(btn => {
+      // Tombol Equip
+      $$('#skin-items-grid .item-equip-btn').forEach(btn => {
         btn.onclick = async () => {
           const itemId = btn.dataset.id;
           const slot = btn.dataset.slot;
-          currentAvatar[slot] = itemId;
-          this.avatarDraft = currentAvatar;
+
+          // Clone state tanpa memutasi draft sebelum request berhasil
+          const nextAvatar = { ...(this.avatarDraft || {}) };
+          nextAvatar[slot] = itemId;
 
           btn.disabled = true;
           btn.textContent = 'Memasang...';
 
           try {
-            await API.updateAvatar(currentAvatar);
+            const res = await API.updateAvatar(nextAvatar);
+            const savedAvatar = res?.avatar || nextAvatar;
+            this.avatarDraft = savedAvatar;
+            if (this.profileData) this.profileData.avatar = savedAvatar;
+            if (Player.data) Player.data.avatar = savedAvatar;
+
+            if (this.inventoryData?.items) {
+              this.inventoryData.items.forEach(i => {
+                if (i.slot === slot) {
+                  i.equipped = (i.id === itemId);
+                }
+              });
+            }
+
             toast('Skin berhasil dipakai! ✨');
-            if (this.profileData) this.profileData.avatar = currentAvatar;
-            $('#avatar-live-box').innerHTML = Avatar.renderAvatar(currentAvatar);
-            renderItems(catFilter);
+            const previewEl = $('#avatar-live-box');
+            if (previewEl && window.Avatar) previewEl.innerHTML = Avatar.renderAvatar(savedAvatar);
+            renderItems();
           } catch (e) {
-            toast('Gagal memasang skin: ' + (e.message || e.code));
+            toast('Gagal memasang skin: ' + (e.message || e.code || 'Item belum dimiliki'));
             btn.disabled = false;
             btn.textContent = 'Pakai';
           }
         };
       });
+
+      // Tombol Lepas (Unequip)
+      $$('#skin-items-grid .item-unequip-btn').forEach(btn => {
+        btn.onclick = async () => {
+          const slot = btn.dataset.slot;
+
+          const nextAvatar = { ...(this.avatarDraft || {}) };
+          delete nextAvatar[slot];
+
+          btn.disabled = true;
+          btn.textContent = '...';
+
+          try {
+            const res = await API.updateAvatar(nextAvatar);
+            const savedAvatar = res?.avatar || nextAvatar;
+            this.avatarDraft = savedAvatar;
+            if (this.profileData) this.profileData.avatar = savedAvatar;
+            if (Player.data) Player.data.avatar = savedAvatar;
+
+            if (this.inventoryData?.items) {
+              this.inventoryData.items.forEach(i => {
+                if (i.slot === slot) i.equipped = false;
+              });
+            }
+
+            toast('Skin berhasil dilepas.');
+            const previewEl = $('#avatar-live-box');
+            if (previewEl && window.Avatar) previewEl.innerHTML = Avatar.renderAvatar(savedAvatar);
+            renderItems();
+          } catch (e) {
+            toast('Gagal melepas skin: ' + (e.message || e.code));
+            btn.disabled = false;
+            btn.textContent = 'Lepas';
+          }
+        };
+      });
     };
+
+    $$('.skin-owner-btn').forEach(btn => {
+      btn.onclick = () => {
+        this.skinOwnerFilter = btn.dataset.owner;
+        $$('.skin-owner-btn').forEach(b => {
+          if (b === btn) { b.classList.remove('ghost'); b.classList.add('active'); }
+          else { b.classList.add('ghost'); b.classList.remove('active'); }
+        });
+        renderItems();
+      };
+    });
 
     $$('.skin-cat-btn').forEach(btn => {
       btn.onclick = () => {
+        this.skinCatFilter = btn.dataset.cat;
         $$('.skin-cat-btn').forEach(b => {
           if (b === btn) { b.classList.remove('ghost'); b.classList.add('active'); }
           else { b.classList.add('ghost'); b.classList.remove('active'); }
         });
-        renderItems(btn.dataset.cat);
+        renderItems();
       };
     });
 
-    renderItems('ALL');
+    renderItems();
   },
 
   async renderTabSkill(slot) {
