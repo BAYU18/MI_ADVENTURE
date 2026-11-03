@@ -211,6 +211,11 @@ const API = {
     return this.req(`/api/game/${sessionId}/abandon`, { method: 'POST' });
   },
 
+  async getWrongQuestions(sessionId) {
+    const res = await this.req(`/api/game/${sessionId}/wrong`);
+    return res.wrongQuestions || [];
+  },
+
   async getDex() {
     const res = await this.req('/api/dex');
     return res.monsters || [];
@@ -530,7 +535,7 @@ Screens.report = {
   async render(app, params = {}) {
     this.currentOffset = typeof params.offset === 'number' ? params.offset : 0;
     app.innerHTML = `
-      <section class="screen active stack" data-testid="screen-report" style="gap:12px;padding-bottom:32px;max-width:540px;margin:0 auto">
+      <section class="screen active stack screen-scrollable" data-testid="screen-report" style="gap:12px;padding-bottom:calc(110px + env(safe-area-inset-bottom, 24px));max-width:540px;margin:0 auto;overflow-y:auto !important;overflow-x:hidden !important;-webkit-overflow-scrolling:touch !important;touch-action:pan-y !important;height:100%">
         <!-- HUD Header -->
         <div class="hud" style="margin-bottom:0">
           <button class="icon-btn" id="rep-back" data-testid="rep-back">←</button>
@@ -1643,6 +1648,8 @@ Screens.battle = {
     if (pipsEl) pipsEl.innerHTML = this.renderEnergyPips(val, max);
     const fabEl = document.getElementById('skill-fab-energy');
     if (fabEl) fabEl.textContent = val;
+    const pillEl = document.getElementById('skill-btn-energy-pill');
+    if (pillEl) pillEl.textContent = val + ' ⚡';
   },
   session: null,
   skills: [],
@@ -1818,18 +1825,11 @@ Screens.battle = {
             <div id="q-image-slot"></div>
           </div>
 
-          <!-- SKILLS PANEL CONTAINER -->
-          <div class="skill-panel-container" id="skill-panel-container">
-            <button class="skill-toggle-btn" id="skill-toggle-btn" data-testid="skill-toggle" type="button">
-              <span>⚡</span> <span id="skill-toggle-label">Skill ▾</span>
-            </button>
-            <div class="skill-deck-wrapper" id="skill-deck-wrapper">
-              <div class="battle-skills-deck" id="battle-skills-slot" style="margin-top:4px;margin-bottom:2px"></div>
-            </div>
-          </div>
-          <!-- FLOATING CHIP WHEN HIDDEN -->
-          <button class="skill-fab" id="skill-fab" data-testid="skill-fab" type="button" style="display:none">
-            <span>⚡</span><span id="skill-fab-energy">${s.energy ?? 2}</span>
+          <!-- FLOATING SKILL BUTTON (DI KANAN BAWAH) -->
+          <button class="skill-fab" id="skill-fab" data-testid="skill-fab" type="button" onclick="Screens.battle.openSkillBubblePopup()" title="Pilih & Gunakan Skill Petarung">
+            <span>⚡</span>
+            <span>Skill</span>
+            <span id="skill-fab-energy" class="skill-energy-pill" style="margin-left:2px">${(typeof s.energy === 'object' && s.energy !== null) ? (s.energy.value ?? 2) : (s.energy ?? 2)}</span>
             <span class="skill-fab-dot" id="skill-fab-dot" style="display:none"></span>
           </button>
 
@@ -1883,9 +1883,9 @@ Screens.battle = {
     };
 
     const toggleBtn = $('#skill-toggle-btn');
-    if (toggleBtn) toggleBtn.onclick = () => this.toggleSkillBar();
+    if (toggleBtn) toggleBtn.onclick = () => this.openSkillBubblePopup();
     const fabBtn = $('#skill-fab');
-    if (fabBtn) fabBtn.onclick = () => this.toggleSkillBar();
+    if (fabBtn) fabBtn.onclick = () => this.openSkillBubblePopup();
 
     if (s.pendingEvent) {
       this.showEventModal(s.pendingEvent);
@@ -1905,6 +1905,7 @@ Screens.battle = {
     }
 
     this.isAnswering = false;
+    this.closeSkillBubblePopup();
     $('#q-counter').textContent = `Soal ${s.currentIndex + 1}/${s.totalQuestions}`;
     $('#q-text').textContent = q.text;
     $('#fb-slot').innerHTML = '';
@@ -2295,8 +2296,29 @@ Screens.battle = {
       const result = await API.answerQuestion(this.session.id, this.session.currentIndex, chosenIndex);
       this.applyAnswerResult(result, chosenIndex, btnEl);
     } catch (e) {
+      if (e.message && (e.message.includes('ALREADY_ANSWERED') || e.code === 'ALREADY_ANSWERED')) {
+        toast('Soal telah terjawab sebelumnya. Memperbarui status...');
+        try {
+          const syncRes = await API.req('/api/game/' + this.session.id);
+          if (syncRes && syncRes.session) {
+            this.session = syncRes.session;
+            if (this.session.status === 'IN_PROGRESS') {
+              this.renderCurrentQuestion();
+              return;
+            } else {
+              go('home');
+              return;
+            }
+          }
+        } catch (syncErr) {
+          console.warn('Sync session error:', syncErr);
+        }
+      }
       toast('Gagal mengirim jawaban: ' + e.message);
       this.isAnswering = false;
+      $$('#options-slot button, #options-slot input').forEach(b => {
+        if (!b.classList.contains('eliminated')) b.disabled = false;
+      });
     }
   },
 
@@ -2314,9 +2336,21 @@ Screens.battle = {
   },
 
   applyAnswerResult(res, chosenIndex, chosenBtn) {
+    this.closeSkillBubblePopup();
     const s = res.session;
     this.session = s;
     if (res.player) Player.data = res.player;
+
+    if (res.alreadyAnswered) {
+      toast('Soal telah terjawab sebelumnya. Melanjutkan...');
+      const isOver = s.status === 'WON' || s.status === 'LOST';
+      if (!isOver) {
+        setTimeout(() => {
+          this.renderCurrentQuestion();
+        }, 600);
+        return;
+      }
+    }
 
     const outcome = res.outcome; // CRITICAL, NORMAL, SLOW, WRONG, TIMEOUT
     const correctIdx = (res.reveal && res.reveal.correctDisplayIndex !== undefined)
@@ -2507,6 +2541,8 @@ Screens.battle = {
     const isOver = isWin || isLost;
 
     if (isOver) {
+      const fab = $('#skill-fab');
+      if (fab) fab.style.display = 'none';
       this.stopHeartbeat();
     }
 
@@ -2517,7 +2553,7 @@ Screens.battle = {
       : outcome === 'TIMEOUT_AWAY' ? (res.notice || 'Kamu pergi cukup lama, soal dilewati.')
       : 'Kurang tepat! Bos menyerangmu!';
 
-    const canAutoNext = !isOver && (Settings.get().autoNext !== false);
+    const canAutoNext = !isOver;
     let nextTimeout = null;
     let nextInterval = null;
 
@@ -2534,26 +2570,31 @@ Screens.battle = {
     };
 
     $('#fb-slot').innerHTML = `
-      <div class="feedback ${outcome === 'WRONG' || outcome === 'TIMEOUT' ? 'no' : 'ok'}" style="margin-top:10px;padding:12px;border-radius:14px;background:rgba(255,255,255,.08);display:flex;flex-direction:column;gap:8px">
+      <div class="feedback ${outcome === 'WRONG' || outcome === 'TIMEOUT' ? 'no' : 'ok'}" style="margin-top:10px;padding:12px;border-radius:14px;background:rgba(255,255,255,.08);display:flex;flex-direction:column;gap:8px;cursor:${!isOver ? 'pointer' : 'default'}" title="${!isOver ? 'Ketuk untuk langsung lanjut' : ''}">
         <div style="display:flex;align-items:center;gap:12px">
           <span style="font-size:1.6rem">${outcome === 'WRONG' || outcome === 'TIMEOUT' ? '💔' : (outcome === 'TIMEOUT_AWAY' ? '⏳' : '⭐')}</span>
           <div class="grow">
             <strong style="color:#fff">${res.notice ? esc(res.notice) : fbTitle}</strong>
             ${res.explanation ? `<div style="font-size:.8rem;color:var(--c-muted);margin-top:2px">${esc(res.explanation)}</div>` : ''}
           </div>
-          <button class="btn small ${isOver ? 'primary' : 'secondary'}" id="btn-next">
-            ${isOver ? 'Lihat Hasil 🏆' : 'Lanjut ➔'}
-          </button>
+          ${isOver ? `
+            <button class="btn small primary" id="btn-next" data-testid="btn-next">
+              Lihat Hasil 🏆
+            </button>
+          ` : ''}
         </div>
         ${canAutoNext ? `
-          <div class="auto-next-bar" style="height:4px;background:rgba(255,255,255,0.15);border-radius:2px;overflow:hidden;cursor:pointer" title="Klik untuk lanjut segera">
+          <div class="auto-next-bar" style="height:4px;background:rgba(255,255,255,0.15);border-radius:2px;overflow:hidden;cursor:pointer" title="Ketuk untuk lanjut segera">
             <div id="auto-next-fill" style="width:100%;height:100%;background:var(--c-primary,#10b981);transition:width 0.1s linear"></div>
           </div>
         ` : ''}
       </div>
     `;
 
-    $('#btn-next').onclick = goNext;
+    const nextBtn = $('#btn-next');
+    if (nextBtn) nextBtn.onclick = goNext;
+    const fbBox = $('#fb-slot .feedback');
+    if (fbBox && !isOver) fbBox.onclick = goNext;
     const barEl = $('.auto-next-bar');
     if (barEl) barEl.onclick = goNext;
 
@@ -2847,36 +2888,12 @@ Screens.battle = {
   },
 
   applySkillBarVisibility() {
-    const hidden = !!Settings.get().skillBarHidden;
-    const wrapper = $('#skill-deck-wrapper');
     const fab = $('#skill-fab');
-    const toggleLabel = $('#skill-toggle-label');
-    const reduced = !!Settings.get().reducedMotion;
-
-    if (wrapper) {
-      if (reduced) {
-        wrapper.style.transition = 'none';
-      } else {
-        wrapper.style.transition = 'opacity 150ms ease, transform 150ms ease, max-height 150ms ease';
-      }
-      if (hidden) {
-        wrapper.classList.add('hidden');
-        wrapper.setAttribute('aria-hidden', 'true');
-        wrapper.setAttribute('inert', '');
-      } else {
-        wrapper.classList.remove('hidden');
-        wrapper.removeAttribute('aria-hidden');
-        wrapper.removeAttribute('inert');
-      }
-    }
-
-    if (toggleLabel) {
-      toggleLabel.textContent = hidden ? 'Skill ▸' : 'Skill ▾';
-    }
-
     if (fab) {
-      fab.style.display = hidden ? 'flex' : 'none';
-      const energyVal = this.session?.energy ?? 2;
+      fab.style.display = 'flex';
+      const energyVal = (typeof this.session?.energy === 'object' && this.session?.energy !== null)
+        ? (this.session.energy.value ?? 2)
+        : (this.session?.energy ?? 2);
       const fabEnergy = $('#skill-fab-energy');
       if (fabEnergy) fabEnergy.textContent = energyVal;
 
@@ -2893,6 +2910,141 @@ Screens.battle = {
     this.applySkillBarVisibility();
     API.saveSettings({ skillBarHidden: next }).catch(() => {});
   },
+
+  openSkillBubblePopup() {
+    if (this.isAnswering) {
+      toast('Tunggu jawaban saat ini selesai!');
+      return;
+    }
+    this.closeSkillBubblePopup();
+
+    const s = this.session;
+    if (!s) return;
+
+    const curEnergy = (typeof s.energy === 'object' && s.energy !== null) ? (s.energy.value ?? 2) : (s.energy ?? 2);
+    const maxEnergy = (typeof s.energy === 'object' && s.energy !== null) ? (s.energy.max ?? 5) : (s.energyMax || 5);
+
+    const DESCS = {
+      eliminate_one: 'Mencoret 1 pilihan jawaban yang salah sehingga pilihan lebih sedikit.',
+      eagle_eye: 'Mata elang tajam mencoret 2 pilihan jawaban yang salah sekaligus.',
+      heal: 'Memulihkan HP pemain agar dapat bertahan lebih lama menghadapi bos.',
+      shield: 'Membentuk perisai pelindung untuk menyerap serangan berikutnya dari bos.',
+      power_strike: 'Meningkatkan daya serang ke bos berlipat ganda jika jawaban benar.',
+      time_freeze: 'Membekukan waktu dan memberikan tambahan detik pada soal aktif.'
+    };
+
+    const skills = this.skills || [];
+    const modal = document.createElement('div');
+    modal.className = 'skill-modal-backdrop';
+    modal.id = 'skill-modal-backdrop';
+    modal.setAttribute('data-testid', 'skill-bubble-modal');
+
+    let skillCardsHtml = '';
+    if (skills.length === 0) {
+      skillCardsHtml = '<div style="text-align:center;padding:24px 10px;color:var(--c-muted)">Belum ada skill yang terpasang pada petualangan ini.</div>';
+    } else {
+      skillCardsHtml = skills.map(sk => {
+        const id = sk.id;
+        const name = sk.name || id;
+        const icon = sk.icon || '✨';
+        const cost = sk.cost ?? 1;
+        const usesLeft = sk.usesLeft ?? 3;
+        const usable = !!sk.usable && !this.isAnswering && !this.isUsingSkill;
+        const reason = sk.reason || null;
+        const desc = sk.description || sk.effectDesc || DESCS[id] || 'Gunakan skill ini untuk membantumu memenangkan pertempuran.';
+        const reasonMsg = (window.GameplayConfig && GameplayConfig.SKILL_REASON_TEXT && GameplayConfig.SKILL_REASON_TEXT[reason])
+          || (reason === 'NO_ENERGY' ? `⚡ Butuh ${cost} Energi (tersedia ${curEnergy})`
+            : reason === 'NOT_APPLICABLE' ? 'Skill ini tidak dapat digunakan pada tipe soal ini.'
+            : reason === 'ALREADY_USED' ? 'Batas pemakaian skill ini sudah habis!'
+            : reason === 'WRONG_STATE' ? 'Tunggu giliran soal berikutnya ya!'
+            : reason === 'EVENT_PENDING' ? 'Selesaikan kejutan terlebih dahulu!'
+            : reason === 'NOTHING_TO_ELIMINATE' ? 'Pilihan salah sudah habis dicoret!'
+            : 'Belum bisa digunakan saat ini.');
+
+        return `
+          <div class="skill-card-item ${usable ? 'usable' : 'dimmed'}" data-skill-id="${id}">
+            <div class="skill-card-top">
+              <div class="skill-card-title-wrap">
+                <div class="skill-card-icon">${icon}</div>
+                <div>
+                  <div class="skill-card-name">${esc(name)}</div>
+                  <div style="font-size:0.75rem;color:var(--c-muted)">Level ${sk.level || 1}</div>
+                </div>
+              </div>
+              <div class="skill-card-badges">
+                <span class="skill-badge-cost">⚡ ${cost} Energi</span>
+                <span class="skill-badge-uses">Sisa ${usesLeft}×</span>
+              </div>
+            </div>
+            <div class="skill-desc-text">
+              ${esc(desc)}
+            </div>
+            <div style="display:flex;justify-content:flex-end;align-items:center;margin-top:2px;gap:8px">
+              ${usable ? `
+                <button type="button" class="btn primary small btn-activate-skill" data-skill-id="${id}" style="padding:6px 14px;font-weight:700;font-size:0.85rem">
+                  ⚡ Gunakan Skill
+                </button>
+              ` : `
+                <span style="font-size:0.75rem;color:#f87171;font-weight:600">${esc(reasonMsg)}</span>
+              `}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    modal.innerHTML = `
+      <div class="skill-bubble-card" onclick="event.stopPropagation()">
+        <div class="skill-bubble-header">
+          <h3 class="skill-bubble-title">
+            <span>⚡</span>
+            <span>Skill Petarung</span>
+          </h3>
+          <button type="button" class="icon-btn small" id="btn-close-skill-modal" title="Tutup" style="width:30px;height:30px;font-size:0.9rem">✕</button>
+        </div>
+
+        <div class="skill-energy-banner">
+          <span>⚡ Energi Tersedia</span>
+          <span style="font-size:0.95rem;font-weight:800">${curEnergy} / ${maxEnergy}</span>
+        </div>
+
+        <div class="stack" style="gap:10px;overflow-y:auto;max-height:55vh;padding-right:2px">
+          ${skillCardsHtml}
+        </div>
+
+        <div style="display:flex;justify-content:center;margin-top:4px">
+          <button type="button" class="btn ghost small" id="btn-close-skill-modal-footer" style="padding:6px 20px;font-size:0.85rem">
+            Tutup
+          </button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    modal.onclick = (e) => {
+      if (e.target === modal) this.closeSkillBubblePopup();
+    };
+
+    const closeBtn = $('#btn-close-skill-modal');
+    if (closeBtn) closeBtn.onclick = () => this.closeSkillBubblePopup();
+    const closeFooterBtn = $('#btn-close-skill-modal-footer');
+    if (closeFooterBtn) closeFooterBtn.onclick = () => this.closeSkillBubblePopup();
+
+    $$('.btn-activate-skill', modal).forEach(btn => {
+      btn.onclick = async () => {
+        const skillId = btn.dataset.skillId;
+        this.closeSkillBubblePopup();
+        await this.useBattleSkill(skillId, btn);
+      };
+    });
+  },
+
+  closeSkillBubblePopup() {
+    const m = $('#skill-modal-backdrop');
+    if (m) m.remove();
+  },
+
 
   async renderSkillsDeck() {
     const slot = $('#battle-skills-slot');
@@ -2983,7 +3135,8 @@ Screens.battle = {
 
       if (res && res.ok) {
         if (window.Sfx) Sfx.play('select');
-        s.energy = res.energy ? res.energy.value : s.energy;
+        this.closeSkillBubblePopup();
+        s.energy = (res.energy && typeof res.energy === 'object') ? res.energy.value : (res.energy || s.energy);
         this.updateEnergyGauge(res.energy || s.energy);
         this.skills = res.skills || (res.session && res.session.skills) || this.skills;
 
@@ -3150,6 +3303,105 @@ Screens.showComicModal = function (panels, theme, monsterObj) {
    SCREEN: Result (Hasil Pertarungan)
    ============================================================ */
 Screens.result = {
+  showWrongQuestionsModal(wrongQuestions) {
+    const old = $('#wrong-questions-modal');
+    if (old) old.remove();
+
+    const modal = document.createElement('div');
+    modal.id = 'wrong-questions-modal';
+    modal.className = 'modal-mask active';
+    modal.setAttribute('data-testid', 'wrong-questions-modal');
+    modal.style.cssText = 'position:fixed;inset:0;background:rgba(5,8,20,0.85);backdrop-filter:blur(8px);z-index:10000;display:flex;align-items:center;justify-content:center;padding:14px;animation:fadeIn 0.2s ease;';
+
+    const itemsHtml = wrongQuestions.map((q) => {
+      const isTimeout = q.outcome && q.outcome.startsWith('TIMEOUT');
+      return `
+        <div class="card" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">
+            <span class="chip accent" style="font-size:0.75rem;font-weight:800;padding:2px 8px;border-radius:8px">
+              Soal #${q.questionNumber}
+            </span>
+            <span class="chip danger" style="font-size:0.72rem;font-weight:700;padding:2px 8px;border-radius:8px;background:${isTimeout ? 'rgba(245,158,11,0.2)' : 'rgba(239,68,68,0.2)'};color:${isTimeout ? '#fbbf24' : '#f87171'}">
+              ${isTimeout ? '⏰ Waktu Habis' : '❌ Kurang Tepat'}
+            </span>
+          </div>
+
+          <div style="font-size:0.95rem;font-weight:700;color:#f1f5f9;line-height:1.4">
+            ${esc(q.text)}
+          </div>
+
+          ${q.imageUrl ? `
+            <div style="text-align:center;margin:2px 0">
+              <img src="${esc(q.imageUrl)}" alt="Gambar Soal" style="max-height:130px;max-width:100%;border-radius:10px;object-fit:contain" loading="lazy">
+            </div>
+          ` : ''}
+
+          <div style="display:flex;flex-direction:column;gap:6px;margin-top:2px">
+            <div style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);border-radius:10px;padding:8px 10px;font-size:0.85rem;color:#fca5a5;display:flex;align-items:center;gap:6px">
+              <span>❌</span>
+              <div>
+                <span style="font-size:0.75rem;color:#f87171;font-weight:700;display:block">Jawaban Kamu:</span>
+                <span style="font-weight:700">${esc(q.playerAnswer)}</span>
+              </div>
+            </div>
+
+            <div style="background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.3);border-radius:10px;padding:8px 10px;font-size:0.85rem;color:#86efac;display:flex;align-items:center;gap:6px">
+              <span>✅</span>
+              <div>
+                <span style="font-size:0.75rem;color:#4ade80;font-weight:700;display:block">Kunci Jawaban yang Benar:</span>
+                <span style="font-weight:700">${esc(q.correctAnswer)}</span>
+              </div>
+            </div>
+          </div>
+
+          ${q.explanation ? `
+            <div style="background:rgba(56,189,248,0.08);border-left:3px solid #38bdf8;border-radius:8px;padding:8px 10px;font-size:0.82rem;color:#bae6fd;line-height:1.4;margin-top:2px">
+              <div style="font-weight:800;font-size:0.75rem;color:#38bdf8;margin-bottom:2px">💡 Penjelasan / Pembahasan:</div>
+              ${esc(q.explanation)}
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }).join('');
+
+    modal.innerHTML = `
+      <div class="card" onclick="event.stopPropagation()" style="max-width:440px;width:100%;max-height:86vh;background:linear-gradient(165deg, #1e1b4b, #0f172a);border:2px solid rgba(239,68,68,0.45);box-shadow:0 16px 40px rgba(0,0,0,0.8);border-radius:22px;padding:18px 14px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:10px">
+          <div>
+            <h3 style="margin:0;font-size:1.15rem;font-weight:800;color:#f87171;display:flex;align-items:center;gap:6px">
+              <span>📖</span>
+              <span>Pembahasan Soal Salah</span>
+            </h3>
+            <div style="font-size:0.75rem;color:var(--c-muted);margin-top:2px">
+              Ada ${wrongQuestions.length} soal yang perlu kamu pelajari lagi
+            </div>
+          </div>
+          <button type="button" class="icon-btn small" id="btn-close-wrong-modal-x" title="Tutup" style="width:30px;height:30px;font-size:0.9rem">✕</button>
+        </div>
+
+        <div class="stack" style="gap:12px;overflow-y:auto;flex:1 1 auto;padding-right:2px;-webkit-overflow-scrolling:touch">
+          ${itemsHtml}
+        </div>
+
+        <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:10px">
+          <button type="button" class="btn primary small" id="btn-close-wrong-modal-ok" style="width:100%;font-weight:700;padding:10px;font-size:0.9rem">
+            Saya Mengerti & Tutup 📚
+          </button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    modal.onclick = (e) => {
+      if (e.target === modal) modal.remove();
+    };
+    const closeX = $('#btn-close-wrong-modal-x');
+    if (closeX) closeX.onclick = () => modal.remove();
+    const closeOk = $('#btn-close-wrong-modal-ok');
+    if (closeOk) closeOk.onclick = () => modal.remove();
+  },
+
   data: null,
   show(res) {
     this.data = res;
@@ -3264,7 +3516,7 @@ Screens.result = {
         ` : ''}
         <div class="stack" style="width:min(340px,100%);gap:10px;margin-top:10px">
           <button class="btn block primary" id="btn-replay" data-testid="btn-retry">▶ Coba Lagi</button>
-          ${!isWon ? `<button class="btn block secondary" id="btn-review-wrong">📖 Lihat Soal yang Salah</button>` : ''}
+          <button class="btn block secondary" id="btn-review-wrong" data-testid="btn-review-wrong">📖 Lihat Soal yang Salah</button>
           <button class="btn block ghost" id="btn-menu">🏠 Kembali ke Menu</button>
         </div>
       </section>
@@ -3281,7 +3533,27 @@ Screens.result = {
 
     $('#btn-replay').onclick = () => { if (window.Sfx) Sfx.play('tap'); go('subjects'); };
     const btnWrong = $('#btn-review-wrong');
-    if (btnWrong) btnWrong.onclick = () => { toast('Fitur pembahasan soal salah aktif'); };
+    if (btnWrong) {
+      btnWrong.onclick = async () => {
+        if (window.Sfx) Sfx.play('tap');
+        const origText = btnWrong.textContent;
+        btnWrong.disabled = true;
+        btnWrong.textContent = '⏳ Memuat Soal Salah...';
+        try {
+          const list = await API.getWrongQuestions(s.id);
+          if (!list || list.length === 0) {
+            toast('Luar biasa! Tidak ada soal yang salah pada petualangan ini! 🌟');
+            return;
+          }
+          this.showWrongQuestionsModal(list);
+        } catch (e) {
+          toast('Gagal memuat pembahasan: ' + e.message);
+        } finally {
+          btnWrong.disabled = false;
+          btnWrong.textContent = origText;
+        }
+      };
+    }
     $('#btn-menu').onclick = () => { if (window.Sfx) Sfx.play('tap'); go('home'); };
   }
 };

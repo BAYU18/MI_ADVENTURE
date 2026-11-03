@@ -55,11 +55,22 @@ body {
   height: 100%;
   height: 100dvh;
   max-height: 100dvh;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   display: none;
   flex-direction: column;
   padding: calc(var(--pad) + env(safe-area-inset-top)) var(--pad) calc(var(--pad) + env(safe-area-inset-bottom));
   animation: screenIn .25s ease;
+}
+.screen.screen-scrollable,
+.screen[data-testid="screen-report"],
+.screen.has-scroll {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
 }
 .screen.active { display: flex; }
 @keyframes screenIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
@@ -1264,7 +1275,7 @@ body {
 }
 .skill-fab {
   position: fixed;
-  bottom: 20px;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
   right: 18px;
   z-index: 100;
   background: linear-gradient(135deg, #f59e0b, #d97706);
@@ -1762,4 +1773,163 @@ body.reduced-motion .legend-sparks,
 body.reduced-motion .boss-intro-overlay,
 body.reduced-motion .fatigue-banner {
   animation: none !important;
+}
+
+
+/* ---------- Skill Bubble Popup & Cards ---------- */
+.skill-modal-backdrop {
+  z-index: 10000;
+  padding: var(--pad);
+  position: fixed;
+  inset: 0;
+  background: rgba(5,8,20,.78);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn .18s ease;
+}
+.skill-bubble-card {
+  width: min(440px, 100%);
+  max-height: 86vh;
+  background: linear-gradient(165deg, #1e1b4b, #0f172a);
+  border: 2px solid rgba(245, 158, 11, 0.45);
+  border-radius: 22px;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.65), 0 0 24px rgba(245, 158, 11, 0.18);
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  animation: screenIn .2s ease;
+}
+.skill-bubble-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding-bottom: 10px;
+}
+.skill-bubble-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--c-primary, #f59e0b);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.skill-energy-banner {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 12px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fde047;
+}
+.skill-card-item {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.skill-card-item.usable {
+  border-color: rgba(56, 189, 248, 0.4);
+  background: rgba(56, 189, 248, 0.06);
+}
+.skill-card-item.dimmed {
+  opacity: 0.65;
+}
+.skill-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+.skill-card-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.skill-card-icon {
+  font-size: 1.5rem;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
+}
+.skill-card-name {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #fff;
+}
+.skill-card-badges {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.skill-badge-cost {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 99px;
+}
+.skill-badge-uses {
+  background: rgba(255,255,255,0.08);
+  color: var(--c-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 99px;
+}
+.skill-desc-text {
+  font-size: 0.82rem;
+  color: #cbd5e1;
+  line-height: 1.4;
+  padding: 6px 10px;
+  background: rgba(0,0,0,0.22);
+  border-radius: 10px;
+  border-left: 3px solid var(--c-info, #38bdf8);
+}
+.bubble-trigger-btn {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(217, 119, 6, 0.2)) !important;
+  border: 1px solid rgba(245, 158, 11, 0.5) !important;
+  color: #fde047 !important;
+  font-weight: 700 !important;
+  padding: 8px 16px !important;
+  border-radius: 99px !important;
+  font-size: 0.85rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3) !important;
+  transition: all 0.15s ease !important;
+}
+.bubble-trigger-btn:hover {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.4), rgba(217, 119, 6, 0.3)) !important;
+  transform: translateY(-1px);
+}
+.skill-energy-pill {
+  background: #f59e0b;
+  color: #000;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 99px;
+  margin-left: 2px;
 }

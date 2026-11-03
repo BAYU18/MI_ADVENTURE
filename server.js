@@ -906,6 +906,16 @@ const server = http.createServer(async (req, res) => {
       }
     }
 
+        // GET /api/game/:id/wrong or /api/game/:id/review
+    if ((action === 'wrong' || action === 'review') && method === 'GET') {
+      try {
+        const wrongQuestions = db.getSessionWrongQuestions(sessionId, playerAuth.id);
+        return json(res, { ok: true, wrongQuestions });
+      } catch (e) {
+        return err(res, e.message, 400);
+      }
+    }
+
     // POST /api/game/:id/abandon
     if (action === 'abandon' && method === 'POST') {
       try {
