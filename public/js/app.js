@@ -2425,12 +2425,13 @@ Screens.battle = {
     this.session = s;
     if (res.player) Player.data = res.player;
 
-    // Efek visual border berkedip hijau (benar) atau merah (salah/waktu habis)
+    // Efek visual border berkedip hijau (benar) atau merah (salah/waktu habis) - 60fps GPU compositor
     const battleRoot = document.querySelector('[data-testid="battle-root"]') || document.querySelector('.screen.active');
     if (battleRoot) {
       battleRoot.classList.remove('answer-blink-correct', 'answer-blink-wrong', 'short-active', 'mobile-keyboard-active');
-      void battleRoot.offsetWidth; // Force reflow agar animasi berkedip berulang dapat di-trigger kembali
-      battleRoot.classList.add(res.isCorrect ? 'answer-blink-correct' : 'answer-blink-wrong');
+      requestAnimationFrame(() => {
+        battleRoot.classList.add(res.isCorrect ? 'answer-blink-correct' : 'answer-blink-wrong');
+      });
     }
 
     if (res.alreadyAnswered) {

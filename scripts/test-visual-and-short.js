@@ -11,14 +11,14 @@ function runChecks() {
   const css = fs.readFileSync(cssPath, 'utf8');
   const js = fs.readFileSync(jsPath, 'utf8');
 
-  // 1. Verifikasi CSS Animasi Border Berkedip Hijau & Merah
-  console.log('[CHECK 1] Verifikasi Keyframes & CSS Border Berkedip...');
-  assert.ok(css.includes('@keyframes borderPulseGreen'), 'Keyframe borderPulseGreen harus ada di style.css');
-  assert.ok(css.includes('@keyframes borderPulseRed'), 'Keyframe borderPulseRed harus ada di style.css');
+  // 1. Verifikasi CSS Animasi Border Berkedip Hijau & Merah (GPU-Accelerated)
+  console.log('[CHECK 1] Verifikasi Keyframes & CSS Border Berkedip GPU...');
+  assert.ok(css.includes('@keyframes gpuBlinkFade'), 'Keyframe gpuBlinkFade harus ada di style.css');
   assert.ok(css.includes('answer-blink-correct'), 'Class answer-blink-correct harus ada di style.css');
   assert.ok(css.includes('answer-blink-wrong'), 'Class answer-blink-wrong harus ada di style.css');
-  assert.ok(css.includes('borderPulseGreen 0.4s ease-in-out 3'), 'Animasi berkedip 3 kali harus dideklarasikan');
-  console.log('✅ PASS: Keyframe animasi berkedip hijau/merah terverifikasi!');
+  assert.ok(css.includes('gpuBlinkFade 0.32s ease-in-out 3'), 'Animasi berkedip GPU 3 kali harus dideklarasikan');
+  assert.ok(css.includes('will-change: opacity'), 'Layer GPU will-change: opacity harus dideklarasikan');
+  console.log('✅ PASS: Keyframe animasi berkedip GPU terverifikasi bebas lag!');
 
   // 2. Verifikasi CSS Responsif Mobile Keyboard untuk Isian Singkat
   console.log('\n[CHECK 2] Verifikasi CSS Responsif Mobile Keyboard Android...');

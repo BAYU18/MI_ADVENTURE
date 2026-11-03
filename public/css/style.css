@@ -2014,78 +2014,70 @@ body.reduced-motion .fatigue-banner {
 }
 
 /* ============================================================
-   EFEK VISUAL BERKEDIP JAWABAN BENAR / SALAH (Semua Border)
+   EFEK VISUAL BERKEDIP JAWABAN BENAR / SALAH (GPU-ACCELERATED)
+   Ringan, 60fps murni via hardware compositor, tanpa repaint
    ============================================================ */
 
-@keyframes borderPulseGreen {
+@keyframes gpuBlinkFade {
   0% {
-    border-color: rgba(34, 197, 94, 0.25);
-    box-shadow: 0 0 0 rgba(34, 197, 94, 0);
+    opacity: 0;
   }
-  30%, 70% {
-    border-color: #22c55e !important;
-    box-shadow: 0 0 16px rgba(34, 197, 94, 0.85), inset 0 0 10px rgba(34, 197, 94, 0.4) !important;
+  25%, 75% {
+    opacity: 1;
   }
   100% {
-    border-color: rgba(34, 197, 94, 0.25);
-    box-shadow: 0 0 0 rgba(34, 197, 94, 0);
+    opacity: 0;
   }
 }
 
-@keyframes borderPulseRed {
-  0% {
-    border-color: rgba(239, 68, 68, 0.25);
-    box-shadow: 0 0 0 rgba(239, 68, 68, 0);
-  }
-  30%, 70% {
-    border-color: #ef4444 !important;
-    box-shadow: 0 0 16px rgba(239, 68, 68, 0.85), inset 0 0 10px rgba(239, 68, 68, 0.4) !important;
-  }
-  100% {
-    border-color: rgba(239, 68, 68, 0.25);
-    box-shadow: 0 0 0 rgba(239, 68, 68, 0);
-  }
+/* Layer border viewport layar arena */
+.screen[data-testid="battle-root"]::after {
+  content: '';
+  position: fixed;
+  inset: 4px;
+  border-radius: 16px;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 9999;
+  will-change: opacity;
+  transform: translateZ(0);
 }
 
-/* Screen root container border */
-.screen[data-testid="battle-root"] {
-  border: 3px solid transparent;
-  border-radius: calc(var(--radius) + 4px);
-  transition: border-color .15s, box-shadow .15s;
-  box-sizing: border-box;
-}
-
+/* Layer border kartu bos & kartu soal */
+.boss-card,
 .qcard {
-  border: 2px solid transparent;
-  transition: border-color .15s, box-shadow .15s;
+  position: relative;
 }
 
-/* Correct Answer: Semua Border Berkedip Hijau 3x */
-.screen[data-testid="battle-root"].answer-blink-correct {
-  animation: borderPulseGreen 0.4s ease-in-out 3 !important;
-}
-.answer-blink-correct .boss-card,
-.answer-blink-correct .qcard,
-.answer-blink-correct .opt.correct,
-.answer-blink-correct .tf-btn.correct,
-.answer-blink-correct .order-card.correct,
-.answer-blink-correct .match-card.correct,
-.answer-blink-correct .short-input {
-  animation: borderPulseGreen 0.4s ease-in-out 3 !important;
+.boss-card::after,
+.qcard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 10;
+  will-change: opacity;
+  transform: translateZ(0);
 }
 
-/* Wrong / Timeout Answer: Semua Border Berkedip Merah 3x */
-.screen[data-testid="battle-root"].answer-blink-wrong {
-  animation: borderPulseRed 0.4s ease-in-out 3 !important;
+/* JAWABAN BENAR (Berkedip Hijau 3x) */
+.answer-blink-correct::after,
+.answer-blink-correct .boss-card::after,
+.answer-blink-correct .qcard::after {
+  border: 3px solid #22c55e;
+  box-shadow: 0 0 14px rgba(34, 197, 94, 0.75), inset 0 0 10px rgba(34, 197, 94, 0.35);
+  animation: gpuBlinkFade 0.32s ease-in-out 3;
 }
-.answer-blink-wrong .boss-card,
-.answer-blink-wrong .qcard,
-.answer-blink-wrong .opt.wrong,
-.answer-blink-wrong .tf-btn.wrong,
-.answer-blink-wrong .order-card.revealed,
-.answer-blink-wrong .match-card.revealed,
-.answer-blink-wrong .short-input {
-  animation: borderPulseRed 0.4s ease-in-out 3 !important;
+
+/* JAWABAN SALAH / WAKTU HABIS (Berkedip Merah 3x) */
+.answer-blink-wrong::after,
+.answer-blink-wrong .boss-card::after,
+.answer-blink-wrong .qcard::after {
+  border: 3px solid #ef4444;
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.75), inset 0 0 10px rgba(239, 68, 68, 0.35);
+  animation: gpuBlinkFade 0.32s ease-in-out 3;
 }
 
 /* ============================================================
