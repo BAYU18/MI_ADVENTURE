@@ -2642,6 +2642,7 @@ Screens.profil = {
   activeTab: 'ringkasan',
   skinCatFilter: 'ALL',
   skinOwnerFilter: 'all',
+  shopCatFilter: 'ALL',
   profileData: null,
   inventoryData: null,
   shopData: null,
@@ -2942,6 +2943,8 @@ Screens.profil = {
         <button class="btn small skin-cat-btn ${this.skinCatFilter === 'pet' ? 'active' : 'ghost'}" data-cat="pet" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Hewan</button>
         <button class="btn small skin-cat-btn ${this.skinCatFilter === 'bg' ? 'active' : 'ghost'}" data-cat="bg" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Latar</button>
         <button class="btn small skin-cat-btn ${this.skinCatFilter === 'frame' ? 'active' : 'ghost'}" data-cat="frame" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Bingkai</button>
+        <button class="btn small skin-cat-btn ${this.skinCatFilter === 'title' ? 'active' : 'ghost'}" data-cat="title" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Gelar</button>
+        <button class="btn small skin-cat-btn ${this.skinCatFilter === 'permanent' ? 'active' : 'ghost'}" data-cat="permanent" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Upgrade</button>
       </div>
 
       <!-- GRID ITEM MILIK -->
@@ -2982,8 +2985,8 @@ Screens.profil = {
         } else if (it.owned) {
           actionHtml = `<button class="btn small primary block item-equip-btn" data-testid="item-equip-${it.id}" data-id="${it.id}" data-slot="${it.slot}">Pakai</button>`;
         } else {
-          // Belum dimiliki: tombol terkunci dan tidak bisa diklik
-          actionHtml = `<button class="btn small disabled block item-locked-btn" disabled aria-disabled="true" style="opacity:0.4;cursor:not-allowed;pointer-events:none;background:rgba(255,255,255,0.06);color:var(--c-muted)" title="Item belum dimiliki">🔒 Belum Dimiliki</button>`;
+          // Belum dimiliki: tombol shortcut untuk beli di Toko
+          actionHtml = `<button class="btn small secondary block btn-goto-shop" data-id="${it.id}" data-slot="${it.slot}" title="Beli skin ini di Toko" style="font-size:0.75rem;padding:4px 6px">🛒 Beli di Toko</button>`;
         }
 
         return `
@@ -3004,6 +3007,20 @@ Screens.profil = {
           </div>
         `;
       }).join('');
+
+      // Tombol Beli di Toko dari Tab Belum Dimiliki
+      $$('#skin-items-grid .btn-goto-shop').forEach(btn => {
+        btn.onclick = () => {
+          const slot = btn.dataset.slot || 'ALL';
+          this.activeTab = 'toko';
+          this.shopCatFilter = slot;
+          $$('.tab-btn').forEach(b => {
+            if (b.dataset.tab === 'toko') { b.classList.remove('ghost'); b.classList.add('active'); }
+            else { b.classList.add('ghost'); b.classList.remove('active'); }
+          });
+          this.renderActiveTab();
+        };
+      });
 
       // Tombol Equip
       $$('#skin-items-grid .item-equip-btn').forEach(btn => {
@@ -3261,6 +3278,8 @@ Screens.profil = {
     const canAffordBox = playerCoins >= boxPrice;
     const items = shopRes.items || [];
 
+    if (!this.shopCatFilter) this.shopCatFilter = 'ALL';
+
     slot.innerHTML = `
       <!-- MYSTERY BOX CARD -->
       <div class="card" style="padding:16px;background:linear-gradient(135deg, rgba(245,158,11,0.12), rgba(168,85,247,0.12));border:1px solid rgba(245,158,11,0.3);border-radius:var(--radius);text-align:center">
@@ -3274,36 +3293,93 @@ Screens.profil = {
         </button>
       </div>
 
-      <!-- KATALOG ITEM SKIN -->
-      <h3 style="font-size:0.95rem;margin:12px 0 6px 4px;color:var(--c-muted)">🎒 Katalog Skin & Item</h3>
-      <div class="shop-grid" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(135px, 1fr));gap:8px">
-        ${items.length === 0
-          ? `<div style="grid-column:1/-1;text-align:center;padding:24px;color:var(--c-muted)">Semua item toko telah dimiliki! Hebat! 🎉</div>`
-          : items.map(it => {
-            const canAfford = playerCoins >= it.price;
-            const rarityColor = it.rarity === 'LEGENDARY' ? '#f59e0b' : it.rarity === 'EPIC' ? '#a855f7' : it.rarity === 'RARE' ? '#3b82f6' : '#94a3b8';
-            return `
-              <div class="card item-card" data-testid="item-card-${it.id}" style="padding:10px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);text-align:center;display:flex;flex-direction:column;gap:6px">
-                <div style="font-size:0.7rem;font-weight:700;color:${rarityColor}">${it.rarity}</div>
-                <!-- THUMBNAIL TOKO -->
-                <div class="skin-thumbnail-box" style="width:68px;height:68px;margin:2px auto;border-radius:14px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:inset 0 2px 6px rgba(0,0,0,0.3)">
-                  ${window.Avatar ? Avatar.renderThumbnail(it.id, it.slot) : '🎒'}
-                </div>
-                <div style="font-weight:700;font-size:0.85rem;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(it.name)}</div>
-                <div style="font-size:0.75rem;color:var(--c-muted)">${esc(it.slot)}</div>
-                <div style="font-size:0.85rem;font-weight:700;color:#fbbf24;margin-top:auto">🪙 ${it.price}</div>
-                <button class="btn small ${canAfford ? 'primary' : 'secondary'} block"
-                  data-testid="item-buy-${it.id}"
-                  data-id="${it.id}"
-                  ${!canAfford ? 'disabled' : ''}>
-                  ${canAfford ? `Beli` : `Kurang ${it.price - playerCoins} 🪙`}
-                </button>
-              </div>
-            `;
-          }).join('')
-        }
+      <!-- FILTER KATEGORI TOKO -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin:12px 0 4px 2px">
+        <div style="font-size:0.75rem;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:0.5px">📁 Kategori Toko</div>
       </div>
+      <div class="shop-filter-bar" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch">
+        <button class="btn small shop-cat-btn ${this.shopCatFilter === 'ALL' ? 'active' : 'ghost'}" data-cat="ALL" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Semua (${items.length})</button>
+        <button class="btn small shop-cat-btn ${this.shopCatFilter === 'hat' ? 'active' : 'ghost'}" data-cat="hat" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Topi</button>
+        <button class="btn small shop-cat-btn ${this.shopCatFilter === 'outfit' ? 'active' : 'ghost'}" data-cat="outfit" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Pakaian</button>
+        <button class="btn small shop-cat-btn ${this.shopCatFilter === 'weapon' ? 'active' : 'ghost'}" data-cat="weapon" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Senjata</button>
+        <button class="btn small shop-cat-btn ${this.shopCatFilter === 'pet' ? 'active' : 'ghost'}" data-cat="pet" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Hewan</button>
+        <button class="btn small shop-cat-btn ${this.shopCatFilter === 'bg' ? 'active' : 'ghost'}" data-cat="bg" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Latar</button>
+        <button class="btn small shop-cat-btn ${this.shopCatFilter === 'frame' ? 'active' : 'ghost'}" data-cat="frame" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Bingkai</button>
+        <button class="btn small shop-cat-btn ${this.shopCatFilter === 'title' ? 'active' : 'ghost'}" data-cat="title" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Gelar</button>
+        <button class="btn small shop-cat-btn ${this.shopCatFilter === 'permanent' ? 'active' : 'ghost'}" data-cat="permanent" style="flex:0 0 auto;white-space:nowrap;padding:6px 12px">Upgrade</button>
+      </div>
+
+      <!-- KATALOG ITEM TOKO GRID -->
+      <div class="shop-grid" id="shop-items-grid" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(135px, 1fr));gap:8px"></div>
     `;
+
+    const renderShopItems = () => {
+      const grid = $('#shop-items-grid');
+      if (!grid) return;
+
+      let filtered = items;
+      if (this.shopCatFilter !== 'ALL') {
+        filtered = filtered.filter(it => it.slot === this.shopCatFilter);
+      }
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:24px;color:var(--c-muted)">Tidak ada item untuk kategori ini.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(it => {
+        const canAfford = playerCoins >= it.price;
+        const rarityColor = it.rarity === 'LEGENDARY' ? '#f59e0b' : it.rarity === 'EPIC' ? '#a855f7' : it.rarity === 'RARE' ? '#3b82f6' : '#94a3b8';
+        return `
+          <div class="card item-card" data-testid="item-card-${it.id}" style="padding:10px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);text-align:center;display:flex;flex-direction:column;gap:6px">
+            <div style="font-size:0.7rem;font-weight:700;color:${rarityColor}">${it.rarity}</div>
+            <!-- THUMBNAIL TOKO -->
+            <div class="skin-thumbnail-box" style="width:68px;height:68px;margin:2px auto;border-radius:14px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:inset 0 2px 6px rgba(0,0,0,0.3)">
+              ${window.Avatar ? Avatar.renderThumbnail(it.id, it.slot) : '🎒'}
+            </div>
+            <div style="font-weight:700;font-size:0.85rem;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(it.name)}</div>
+            <div style="font-size:0.75rem;color:var(--c-muted)">${esc(it.slot)}</div>
+            <div style="font-size:0.85rem;font-weight:700;color:#fbbf24;margin-top:auto">🪙 ${it.price}</div>
+            <button class="btn small ${canAfford ? 'primary' : 'secondary'} block item-shop-buy-btn"
+              data-testid="item-buy-${it.id}"
+              data-id="${it.id}"
+              ${!canAfford ? 'disabled' : ''}>
+              ${canAfford ? `Beli` : `Kurang ${it.price - playerCoins} 🪙`}
+            </button>
+          </div>
+        `;
+      }).join('');
+
+      // Wire item-shop-buy-btn
+      $$('.item-shop-buy-btn', grid).forEach(btn => {
+        btn.onclick = () => {
+          const itemId = btn.dataset.id;
+          const it = items.find(x => x.id === itemId);
+          if (!it) return;
+
+          const thumbPreview = window.Avatar ? Avatar.renderThumbnail(it.id, it.slot) : '🎒';
+          this.showConfirmModal(
+            `Beli ${it.name}?`,
+            `Beli ${it.name} (${it.rarity}) seharga ${it.price} koin?`,
+            `Beli (${it.price} 🪙)`,
+            async () => {
+              const idemKey = `buy-${it.id}-${Date.now()}`;
+              const res = await API.buyShopItem(it.id, idemKey);
+              if (res.ok) {
+                toast(`Berhasil membeli ${it.name}! Cek di tab Skin. 🎒`);
+                if (Player.data) Player.data.coins = res.coins;
+                if (this.profileData?.player) this.profileData.player.coins = res.coins;
+                const coinEl = $('#prof-coins-val');
+                if (coinEl) coinEl.textContent = res.coins;
+                await this.loadData();
+                await this.renderActiveTab();
+              }
+            },
+            thumbPreview
+          );
+        };
+      });
+    };
 
     // Wire Buy Mystery Box
     const buyBoxBtn = $('#btn-buy-box');
@@ -3337,35 +3413,19 @@ Screens.profil = {
       };
     }
 
-    // Wire Buy Item Buttons
-    $$('.shop-grid button[data-testid^="item-buy-"]').forEach(btn => {
+    // Wire Category Filter Buttons in Toko
+    $$('.shop-cat-btn').forEach(btn => {
       btn.onclick = () => {
-        const itemId = btn.dataset.id;
-        const it = items.find(x => x.id === itemId);
-        if (!it) return;
-
-        const thumbPreview = window.Avatar ? Avatar.renderThumbnail(it.id, it.slot) : '🎒';
-        this.showConfirmModal(
-          `Beli ${it.name}?`,
-          `Beli ${it.name} (${it.rarity}) seharga ${it.price} koin?`,
-          `Beli (${it.price} 🪙)`,
-          async () => {
-            const idemKey = `buy-${it.id}-${Date.now()}`;
-            const res = await API.buyShopItem(it.id, idemKey);
-            if (res.ok) {
-              toast(`Berhasil membeli ${it.name}! Cek di tab Skin. 🎒`);
-              if (Player.data) Player.data.coins = res.coins;
-              if (this.profileData?.player) this.profileData.player.coins = res.coins;
-              const coinEl = $('#prof-coins-val');
-              if (coinEl) coinEl.textContent = res.coins;
-              await this.loadData();
-              await this.renderActiveTab();
-            }
-          },
-          thumbPreview
-        );
+        this.shopCatFilter = btn.dataset.cat;
+        $$('.shop-cat-btn').forEach(b => {
+          if (b === btn) { b.classList.remove('ghost'); b.classList.add('active'); }
+          else { b.classList.add('ghost'); b.classList.remove('active'); }
+        });
+        renderShopItems();
       };
     });
+
+    renderShopItems();
   },
 
   async renderTabRiwayat(slot) {
