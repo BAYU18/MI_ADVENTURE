@@ -9,13 +9,18 @@ const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-function toast(msg) {
+function toast(msg, testId = null) {
   const t = $('#toast');
   if (!t) return;
   t.textContent = msg;
+  if (testId) t.setAttribute('data-testid', testId);
+  else t.removeAttribute('data-testid');
   t.classList.add('show');
   clearTimeout(toast._t);
-  toast._t = setTimeout(() => t.classList.remove('show'), 2200);
+  toast._t = setTimeout(() => {
+    t.classList.remove('show');
+    if (testId) t.removeAttribute('data-testid');
+  }, 2200);
 }
 
 /* ---------- Local Settings & Auth Cache ---------- */
@@ -2857,6 +2862,7 @@ Screens.battle = {
           type="button">
           <span class="skill-cost-badge">⚡${cost}</span>
           <span class="skill-icon">${icon}</span>
+          <span class="skill-level-badge">Lv.${sk.level || 1}</span>
           <span class="skill-uses-badge">x${usesLeft}</span>
         </button>
       `;
@@ -3211,13 +3217,13 @@ Screens.profil = {
   historyData: null,
   avatarDraft: null,
 
-  showConfirmModal(title, message, confirmText, onConfirm, previewHtml = '') {
+  showConfirmModal(title, message, confirmText, onConfirm, previewHtml = '', testId = 'confirm-modal') {
     const existing = $('.modal-mask');
     if (existing) existing.remove();
 
     const modal = document.createElement('div');
     modal.className = 'modal-mask active';
-    modal.setAttribute('data-testid', 'confirm-modal');
+    modal.setAttribute('data-testid', testId);
     modal.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(5,8,20,0.8);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn 0.2s ease;';
     modal.innerHTML = `
       <div class="modal card" data-testid="confirm-modal" style="max-width:340px;text-align:center;padding:22px 20px;border:1px solid var(--c-surface-strong);box-shadow:0 20px 40px rgba(0,0,0,0.8);border-radius:20px;background:linear-gradient(165deg, #27235a, #1a1b3d)">
@@ -3226,7 +3232,7 @@ Screens.profil = {
         <p style="font-size:0.9rem;color:var(--c-muted);margin:0 0 16px 0;line-height:1.4">${esc(message)}</p>
         <div style="display:flex;gap:10px;justify-content:center">
           <button class="btn ghost small grow" id="modal-cancel">Batal</button>
-          <button class="btn primary small grow" id="modal-confirm">${esc(confirmText || 'Lanjutkan')}</button>
+          <button class="btn primary small grow" id="modal-confirm" data-testid="${testId}">${esc(confirmText || 'Lanjutkan')}</button>
         </div>
       </div>
     `;
@@ -3749,10 +3755,25 @@ Screens.profil = {
 
     const cardsContainer = $('#skills-cards-list');
     cardsContainer.innerHTML = skillsList.map(s => {
-      const isMax = s.level >= 5;
+      const isMax = s.level >= (s.maxLevel || 5);
       const cost = s.upgradeCost || 0;
-      const canAfford = playerCoins >= cost;
       const isEquipped = loadout.includes(s.id);
+
+      const pipsFilled = '●'.repeat(Math.min(5, Math.max(1, s.level || 1)));
+      const pipsEmpty = '○'.repeat(Math.max(0, 5 - (s.level || 1)));
+      const pipsStr = pipsFilled + pipsEmpty;
+
+      let effectDesc = '';
+      if (isMax) {
+        effectDesc = `<b>Efek:</b> ${esc(s.effectNow || s.descNow || s.desc || '')} <span style="color:#10b981;font-weight:700">(Maksimum 🎉)</span>`;
+      } else {
+        const nextEff = s.effectNext || s.descNext || '';
+        effectDesc = `<b>Efek:</b> ${esc(s.effectNow || s.descNow || s.desc || '')}${nextEff ? ` <span style="color:var(--c-primary);font-weight:700">→</span> <span style="color:#e2e8f0">${esc(nextEff)}</span>` : ''}`;
+      }
+
+      const costEnergy = s.costEnergy || s.cost || 1;
+      const canUpgrade = Boolean(s.canUpgrade);
+      const btnLabel = isMax ? 'Sudah Maksimum 🎉' : (!s.owned ? 'Belum Terbuka' : `Upgrade — ${cost} 🪙`);
 
       return `
         <div class="card skill-card" data-testid="skill-card-${s.id}" style="padding:14px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);display:flex;flex-direction:column;gap:8px">
@@ -3761,8 +3782,9 @@ Screens.profil = {
               <span style="font-size:1.6rem">${s.icon || '⚡'}</span>
               <div>
                 <strong style="color:#fff;font-size:0.95rem">${esc(s.name)}</strong>
-                <div style="font-size:0.75rem;color:var(--c-muted)">
-                  ${s.unlocked ? `<span style="color:var(--c-primary);font-weight:700">Lv. ${s.level}/5</span>` : `<span style="color:#ef4444">Terkunci (Buka di Lv. ${s.unlockLevel})</span>`}
+                <div style="font-size:0.75rem;color:var(--c-muted);margin-top:2px">
+                  <span data-testid="skill-level-${s.id}" style="color:var(--c-primary);font-weight:700">${pipsStr} Lv ${s.level || 1}/5</span>
+                  ${!s.owned ? ` · <span style="color:#ef4444">Buka di Lv. ${s.unlockLevel}</span>` : ''}
                 </div>
               </div>
             </div>
@@ -3770,23 +3792,21 @@ Screens.profil = {
           </div>
 
           <div style="font-size:0.82rem;color:#cbd5e1;line-height:1.35">
-            <b>Efek:</b> ${esc(s.descCurrent || s.description || 'Efek taktis')}
+            ${effectDesc}
           </div>
 
-          ${!isMax && s.descNext ? `
-            <div style="font-size:0.78rem;color:var(--c-muted)">
-              <b>Berikutnya (Lv.${s.level + 1}):</b> ${esc(s.descNext)}
-            </div>
-          ` : ''}
+          <div style="font-size:0.75rem;color:var(--c-muted)">
+            ⚡ Biaya pemakaian: <strong>${costEnergy} energi</strong> per laga
+          </div>
 
           <div style="display:flex;gap:8px;align-items:center;margin-top:4px">
-            <button class="btn small grow ${isMax ? 'ghost' : (!canAfford ? 'secondary' : 'primary')}"
-              data-testid="skill-upgrade-${s.id}"
+            <button class="btn small grow skill-upgrade-btn ${canUpgrade ? 'primary' : 'secondary dimmed'}"
+              data-testid="skill-upgrade-btn-${s.id}"
               data-id="${s.id}"
-              ${isMax || !canAfford || !s.unlocked ? 'disabled' : ''}>
-              ${isMax ? 'MAX' : (!canAfford ? `Kurang ${cost - playerCoins} 🪙` : `Upgrade (${cost} 🪙)`)}
+              aria-disabled="${!canUpgrade}">
+              ${esc(btnLabel)}
             </button>
-            ${s.unlocked && !isEquipped ? `
+            ${s.owned && !isEquipped ? `
               <button class="btn small ghost btn-equip-skill" data-id="${s.id}">Pasang</button>
             ` : ''}
           </div>
@@ -3795,27 +3815,60 @@ Screens.profil = {
     }).join('');
 
     // Wire Upgrade Buttons
-    $$('#skills-cards-list button[data-testid^="skill-upgrade-"]').forEach(btn => {
+    $$('#skills-cards-list button[data-testid^="skill-upgrade-btn-"]').forEach(btn => {
       btn.onclick = () => {
         const skillId = btn.dataset.id;
         const sk = skillsList.find(x => x.id === skillId);
         if (!sk) return;
 
+        const isAriaDisabled = btn.getAttribute('aria-disabled') === 'true';
+        if (isAriaDisabled || !sk.canUpgrade) {
+          let reasonMsg = 'Skill belum dapat ditingkatkan';
+          if (sk.reason === 'NOT_OWNED' || !sk.owned) {
+            reasonMsg = 'Skill ini belum kamu miliki';
+          } else if (sk.reason === 'MAX_LEVEL' || sk.level >= 5) {
+            reasonMsg = 'Sudah level maksimum 🎉';
+          } else if (sk.reason === 'NOT_ENOUGH_COINS' || playerCoins < (sk.upgradeCost || 0)) {
+            const kurang = Math.max(1, (sk.upgradeCost || 0) - playerCoins);
+            reasonMsg = `Koin belum cukup — kurang ${kurang} 🪙`;
+          }
+          toast(reasonMsg, 'skill-upgrade-toast');
+          return;
+        }
+
+        // Active upgrade button -> confirm dialog
+        const cost = sk.upgradeCost || 0;
         this.showConfirmModal(
           `Upgrade ${sk.name}?`,
-          `Tingkatkan skill ${sk.name} ke Level ${sk.level + 1} dengan biaya ${sk.upgradeCost} 🪙?`,
-          `Upgrade (${sk.upgradeCost} 🪙)`,
+          `Upgrade ${sk.name} ke Lv ${sk.level + 1}? −${cost} 🪙`,
+          `Upgrade (${cost} 🪙)`,
           async () => {
-            const idemKey = `upg-${sk.id}-${sk.level}-${Date.now()}`;
-            const upgRes = await API.upgradeSkill(sk.id, idemKey);
-            if (upgRes.ok) {
-              toast(`Skill ${sk.name} berhasil naik ke Level ${upgRes.newLevel}! ✨`);
-              if (Player.data) Player.data.coins = upgRes.coins;
-              const coinEl = $('#prof-coins-val');
-              if (coinEl) coinEl.textContent = upgRes.coins;
-              await this.renderActiveTab();
+            btn.disabled = true;
+            btn.textContent = 'Memproses...';
+            const idemKey = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : (`upg-${sk.id}-${sk.level + 1}-${Date.now()}`);
+            try {
+              const upgRes = await API.upgradeSkill(sk.id, idemKey);
+              if (upgRes.ok) {
+                toast(`Skill ${sk.name} berhasil naik ke Level ${upgRes.skill ? upgRes.skill.level : upgRes.newLevel}! ✨`);
+                if (Player.data) Player.data.coins = upgRes.coins;
+                if (this.profileData?.player) this.profileData.player.coins = upgRes.coins;
+                const coinEl = $('#prof-coins-val');
+                if (coinEl) coinEl.textContent = upgRes.coins;
+                $$('.coins-val').forEach(el => el.textContent = upgRes.coins);
+                await this.renderActiveTab();
+              } else {
+                toast(upgRes.error?.message || 'Gagal upgrade skill', 'skill-upgrade-toast');
+                btn.disabled = false;
+                btn.textContent = `Upgrade — ${cost} 🪙`;
+              }
+            } catch (err) {
+              toast('Gagal, coba lagi', 'skill-upgrade-toast');
+              btn.disabled = false;
+              btn.textContent = `Upgrade — ${cost} 🪙`;
             }
-          }
+          },
+          sk.icon || '⚡',
+          'skill-upgrade-confirm'
         );
       };
     });

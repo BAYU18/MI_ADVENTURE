@@ -43,7 +43,8 @@
   - ✅ 2026-11-03 06:15 — scripts/diagnose-t22.js · 5 kasus diuji lewat reproduksi curl/db · tabel kasus-gejala-akar masalah tercatat di note (Dugaan 2, 5, 6, 7, 8, 9, 10 terbukti)
 - [x] **T-23** E: server — upgrade atomik 1 transaksi (level + koin + idempotensi sukses-saja), `GET /api/skills` dengan `canUpgrade/reason`, efek battle mengikuti level skill + snapshot loadout _(Spek: E.2, E.4 · Bukti: skenario H.9 sisi server; invarian saldo koin utuh)_ <!--tries:1-->
   - ✅ 2026-11-03 06:31 — Atomic upgrade in BEGIN IMMEDIATE transaction, coin invariant verified, Idempotency-Key mandatory 400, canUpgrade/reason, loadout snapshot level preserved in battle, eliminate_one free uses Lv3=1 Lv5=2 verified in tests/skills-v6.test.js (9/9 pass)
-- [ ] **T-24** E: UI layar Skill — pip level, efek sekarang→berikutnya, tombol Upgrade + konfirmasi, toast alasan, kunci saat request, badge `Lv n` di battle _(Spek: E.3 · Bukti: uji manual end-to-end; akar masalah T-22 tertutup)_
+- [x] **T-24** E: UI layar Skill — pip level, efek sekarang→berikutnya, tombol Upgrade + konfirmasi, toast alasan, kunci saat request, badge `Lv n` di battle _(Spek: E.3 · Bukti: uji manual end-to-end; akar masalah T-22 tertutup)_ <!--tries:1-->
+  - ✅ 2026-11-03 06:35 — Skill tab UI implemented with level pips ●●○○○, effect now->next, testids skill-card, skill-level, skill-upgrade-btn, aria-disabled toast reasons (NOT_OWNED, MAX_LEVEL, NOT_ENOUGH_COINS), confirmation modal skill-upgrade-confirm, battle Lv n badge on skill buttons, verified in tests/ui-skills.test.js
 - [ ] **G-2** GERBANG 2: `npm test` + `check-schema` + skenario H.9, H.10 + `smoke-test-v4` hijau; commit
 
 ## Fase 3 — Boss bertier (C) dan darah boss adaptif (D)
