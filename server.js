@@ -955,7 +955,8 @@ const server = http.createServer(async (req, res) => {
   }
 
   if ((pathname === '/api/admin/overview' || pathname === '/api/admin/stats') && method === 'GET') {
-    return json(res, { ok: true, ...db.getAdminOverview() });
+    const ov = db.getAdminOverview();
+    return json(res, { ok: true, overview: ov, ...ov });
   }
 
   if (pathname.startsWith('/api/admin/')) {
@@ -991,22 +992,24 @@ const server = http.createServer(async (req, res) => {
       if (!qid) return err(res, 'id diperlukan', 400);
       return json(res, db.adminDeleteQuestion(qid));
     }
-    if (pathname === '/api/admin/questions/export' && method === 'GET') {
-      const sid = parseInt(query.subjectId, 10);
+    if ((pathname === '/api/admin/questions/export' || pathname === '/api/admin/export') && method === 'GET') {
+      const sid = parseInt(query.subjectId || query.subject_id, 10);
       if (!sid) return err(res, 'subjectId diperlukan', 400);
       try {
-        return json(res, db.adminExportQuestions(sid));
+        const exported = db.adminExportQuestions(sid);
+        return json(res, { ok: true, ...exported });
       } catch (e) {
         return err(res, e.message, 400);
       }
     }
-    if (pathname === '/api/admin/questions/import' && method === 'POST') {
-      const sid = parseInt(query.subjectId, 10);
-      if (!sid) return err(res, 'subjectId diperlukan', 400);
+    if ((pathname === '/api/admin/questions/import' || pathname === '/api/admin/import') && method === 'POST') {
       try {
         const body = await parseBody(req);
-        const questions = Array.isArray(body) ? body : body.questions;
-        return json(res, db.adminImportQuestions(sid, questions));
+        const sid = parseInt(query.subjectId || query.subject_id || (body && (body.subjectId || body.subject_id)), 10);
+        if (!sid) return err(res, 'subjectId diperlukan', 400);
+        const questions = Array.isArray(body) ? body : (body && (body.questions || body.data) ? (body.questions || body.data) : []);
+        const result = db.adminImportQuestions(sid, questions);
+        return json(res, { ok: true, ...result });
       } catch (e) {
         return err(res, e.message, 400);
       }

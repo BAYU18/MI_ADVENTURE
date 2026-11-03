@@ -151,12 +151,65 @@
   async function loadOverview() {
     try {
       const res = await api('/api/admin/overview');
-      if (res.ok) {
-        state.overview = res.overview;
+      if (res) {
+        state.overview = res.overview || res;
+        render();
       }
     } catch (err) {
       console.error('[overview error]', err);
     }
+  }
+
+  async function loadReports(classId) {
+    const cid = classId || state.selectedReportClassId || (state.classes.length > 0 ? state.classes[0].id : 1);
+    state.selectedReportClassId = cid;
+    state.loadingReports = true;
+    render();
+    try {
+      const res = await api(`/api/admin/reports?classId=${cid}`);
+      if (res && res.ok) {
+        state.reportsList = res.reports || [];
+      } else {
+        state.reportsList = [];
+      }
+    } catch (err) {
+      console.error('[reports error]', err);
+      toast('Gagal memuat laporan: ' + err.message, 'error');
+      state.reportsList = [];
+    } finally {
+      state.loadingReports = false;
+      render();
+    }
+  }
+
+  async function generateWeeklyReports() {
+    state.loadingReports = true;
+    render();
+    try {
+      const res = await api('/api/admin/reports/generate-weekly', { method: 'POST' });
+      if (res && res.ok) {
+        toast('Laporan mingguan seluruh siswa berhasil dikompilasi!', 'success');
+        await loadReports(state.selectedReportClassId);
+      }
+    } catch (err) {
+      toast('Gagal mengompilasi laporan: ' + err.message, 'error');
+      state.loadingReports = false;
+      render();
+    }
+  }
+
+  function exportReportsCsv() {
+    const cid = state.selectedReportClassId || (state.classes.length > 0 ? state.classes[0].id : 1);
+    const cls = state.classes.find(c => c.id === cid);
+    const clsName = cls ? cls.name.toLowerCase().replace(/[^a-z0-9]/g, '-') : `kelas-${cid}`;
+    const url = `/api/admin/reports/csv?classId=${cid}`;
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `laporan-mingguan-${clsName}-${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    toast('Mengunduh berkas laporan CSV...', 'info');
   }
 
   async function loadClassesAndSubjects() {
@@ -269,8 +322,8 @@
       return;
     }
     try {
-      const res = await api(`/api/admin/export?subjectId=${state.selectedSubjectId}`);
-      if (res.ok) {
+      const res = await api(`/api/admin/questions/export?subjectId=${state.selectedSubjectId}`);
+      if (res && (res.ok || res.questions)) {
         const jsonStr = JSON.stringify(res, null, 2);
         const blob = new Blob([jsonStr], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
@@ -282,7 +335,8 @@
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
-        toast(`Berhasil mengekspor ${res.totalQuestions || 0} soal`, 'success');
+        const count = res.totalQuestions !== undefined ? res.totalQuestions : (Array.isArray(res.questions) ? res.questions.length : 0);
+        toast(`Berhasil mengekspor ${count} soal`, 'success');
       }
     } catch (err) {
       toast('Gagal ekspor: ' + err.message, 'error');
@@ -291,14 +345,14 @@
 
   async function importQuestions(subjectId, questionsList) {
     try {
-      const res = await api('/api/admin/import', {
+      const res = await api(`/api/admin/questions/import?subjectId=${subjectId}`, {
         method: 'POST',
         body: {
           subjectId,
           questions: questionsList,
         },
       });
-      if (res.ok) {
+      if (res && res.ok) {
         toast(`Import selesai: ${res.imported || 0} baru, ${res.updated || 0} diperbarui`, 'success');
         state.modal = null;
         state.modalData = null;
@@ -411,12 +465,24 @@
         </div>
       </div>
 
-      <!-- Navigation Tabs -->
-      <div class="adm-tabs" style="margin-top:4px">
-        <button type="button" class="${curTab === 'overview' ? 'active' : ''}" data-tab="overview">📊 Ringkasan</button>
-        <button type="button" class="${curTab === 'questions' ? 'active' : ''}" data-tab="questions">📚 Bank Soal</button>
-        <button type="button" class="${curTab === 'players' ? 'active' : ''}" data-tab="players">👥 Siswa & Kata Sandi</button>
-        <button type="button" class="${curTab === 'reports' ? 'active' : ''}" data-tab="reports">📈 Laporan Mingguan</button>
+      <!-- Navigation Tabs (Presisi & Sama Besar) -->
+      <div class="adm-tabs">
+        <button type="button" class="${curTab === 'overview' ? 'active' : ''}" data-tab="overview">
+          <span class="tab-icon">📊</span>
+          <span class="tab-label">Ringkasan</span>
+        </button>
+        <button type="button" class="${curTab === 'questions' ? 'active' : ''}" data-tab="questions">
+          <span class="tab-icon">📚</span>
+          <span class="tab-label">Bank Soal</span>
+        </button>
+        <button type="button" class="${curTab === 'players' ? 'active' : ''}" data-tab="players">
+          <span class="tab-icon">👥</span>
+          <span class="tab-label">Siswa & Sandi</span>
+        </button>
+        <button type="button" class="${curTab === 'reports' ? 'active' : ''}" data-tab="reports">
+          <span class="tab-icon">📈</span>
+          <span class="tab-label">Laporan Mingguan</span>
+        </button>
       </div>
 
       <!-- Tab Content Area -->
@@ -424,6 +490,7 @@
         ${curTab === 'overview' ? renderOverviewContent() : ''}
         ${curTab === 'questions' ? renderQuestionsContent() : ''}
         ${curTab === 'players' ? renderPlayersContent() : ''}
+        ${curTab === 'reports' ? renderReportsContent() : ''}
       </div>
     `;
 
@@ -461,43 +528,47 @@
     };
 
     return `
-      <!-- Stats Cards -->
+      <!-- Stats Cards (Klik untuk membuka menu terkait) -->
       <div class="stat-grid">
-        <div class="stat-card">
+        <div class="stat-card clickable" data-nav="players" title="Klik untuk membuka Siswa & Kata Sandi">
           <div class="lbl">Total Siswa Terdaftar</div>
           <div class="val">👥 ${ov.totalPlayers || 0}</div>
+          <div class="link-hint">Buka Data Siswa →</div>
         </div>
-        <div class="stat-card">
+        <div class="stat-card clickable" data-nav="questions" title="Klik untuk membuka Bank Soal">
           <div class="lbl">Total Bank Soal Aktif</div>
           <div class="val">📚 ${ov.totalQuestions || 0}</div>
+          <div class="link-hint">Kelola Bank Soal →</div>
         </div>
-        <div class="stat-card">
+        <div class="stat-card clickable" data-nav="reports" title="Klik untuk membuka Laporan Mingguan">
           <div class="lbl">Total Sesi Battle</div>
           <div class="val">⚔️ ${ov.totalSessions || 0}</div>
+          <div class="link-hint">Buka Laporan Aktivitas →</div>
         </div>
-        <div class="stat-card">
+        <div class="stat-card clickable" data-nav="reports" title="Klik untuk membuka Laporan Mingguan">
           <div class="lbl">Rata-rata Akurasi Jawaban</div>
           <div class="val">🎯 ${ov.accuracyPct || 0}%</div>
+          <div class="link-hint">Lihat Evaluasi Nilai →</div>
         </div>
       </div>
 
-      <!-- Quick Action Guide -->
+      <!-- Quick Action Guide (Interaktif & Terhubung) -->
       <div style="background:var(--c-surface);border:1px solid var(--c-surface-strong);border-radius:var(--radius);padding:20px;display:flex;flex-direction:column;gap:12px">
         <h3 style="margin:0;font-size:1.1rem;color:var(--c-primary)">📖 Panduan Penggunaan Portal Guru</h3>
         <p style="margin:0;color:var(--c-muted);font-size:.9rem;line-height:1.5">
-          Selamat datang di panel kontrol edukasi. Anda dapat mengelola materi pembelajaran, menyusun dan mengimpor bank soal, serta membantu siswa yang mengalami kendala login.
+          Selamat datang di panel kontrol edukasi. Anda dapat mengelola materi pembelajaran, menyusun dan mengimpor bank soal, serta memantau perkembangan nilai belajar siswa secara langsung.
         </p>
         <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:12px;margin-top:6px">
-          <div style="background:rgba(0,0,0,.25);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,.05)">
-            <strong style="color:#fbbf24;display:block;margin-bottom:4px">1. Kelola Bank Soal</strong>
+          <div class="stat-card clickable" data-nav="questions" style="background:rgba(0,0,0,.25);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,.05)">
+            <strong style="color:#fbbf24;display:block;margin-bottom:4px">1. Kelola Bank Soal →</strong>
             <span style="font-size:.84rem;color:var(--c-muted)">Buka tab <strong>Bank Soal</strong> untuk menambah atau mengedit pertanyaan kuis berdasarkan mata pelajaran dan kelas siswa.</span>
           </div>
-          <div style="background:rgba(0,0,0,.25);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,.05)">
-            <strong style="color:#38bdf8;display:block;margin-bottom:4px">2. Import & Export JSON</strong>
+          <div class="stat-card clickable" data-nav="questions-import" style="background:rgba(0,0,0,.25);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,.05)">
+            <strong style="color:#38bdf8;display:block;margin-bottom:4px">2. Import & Export JSON →</strong>
             <span style="font-size:.84rem;color:var(--c-muted)">Gunakan fitur import JSON untuk memasukkan puluhan soal sekaligus dari format standar kuis kurikulum merdeka.</span>
           </div>
-          <div style="background:rgba(0,0,0,.25);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,.05)">
-            <strong style="color:#4ade80;display:block;margin-bottom:4px">3. Reset Sandi Siswa</strong>
+          <div class="stat-card clickable" data-nav="players" style="background:rgba(0,0,0,.25);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,.05)">
+            <strong style="color:#4ade80;display:block;margin-bottom:4px">3. Reset Sandi Siswa →</strong>
             <span style="font-size:.84rem;color:var(--c-muted)">Jika siswa lupa kata sandi akunnya, buka tab <strong>Siswa & Kata Sandi</strong> lalu klik tombol kunci untuk mengatur sandi baru instan.</span>
           </div>
         </div>
@@ -766,7 +837,142 @@
     `;
   }
 
+  function renderReportsContent() {
+    const classId = state.selectedReportClassId || (state.classes.length > 0 ? state.classes[0].id : 1);
+    const reports = state.reportsList || [];
+
+    return `
+      <!-- Toolbar Reports -->
+      <div style="background:var(--c-surface);border:1px solid var(--c-surface-strong);border-radius:var(--radius);padding:14px 18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <label style="font-size:.85rem;font-weight:700;color:var(--c-muted)">Pilih Tingkat Kelas:</label>
+          <select id="sel-report-class" style="background:rgba(0,0,0,.35);color:var(--c-text);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:6px 12px;font-size:.85rem">
+            ${state.classes.map(c => `
+              <option value="${c.id}" ${c.id === classId ? 'selected' : ''}>${escapeHtml(c.name)}</option>
+            `).join('')}
+          </select>
+          <span style="font-size:.85rem;color:var(--c-muted)">• ${reports.length} Siswa Terdata</span>
+        </div>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button id="btn-export-reports-csv" class="btn small" style="background:rgba(34,197,94,.2);color:#4ade80;border:0;border-radius:10px;cursor:pointer">
+            📥 Unduh CSV
+          </button>
+          <button id="btn-generate-reports" class="btn small" style="background:rgba(245,158,11,.2);color:#fbbf24;border:0;border-radius:10px;cursor:pointer">
+            ⚡ Kompilasi Ulang
+          </button>
+          <button id="btn-refresh-reports" class="btn small" style="background:var(--c-surface);color:var(--c-text);border:0;border-radius:10px;cursor:pointer">
+            🔄 Muat Ulang
+          </button>
+        </div>
+      </div>
+
+      <!-- Reports Table -->
+      <div class="table-wrap">
+        <table class="adm-table">
+          <thead>
+            <tr>
+              <th style="width:48px;text-align:center">#</th>
+              <th>Nama / Nick Siswa</th>
+              <th style="width:110px;text-align:center">Sesi Battle</th>
+              <th style="width:120px;text-align:center">Menit Belajar</th>
+              <th style="width:130px;text-align:center">Rata-rata Akurasi</th>
+              <th style="width:130px;text-align:center">Tren</th>
+              <th style="width:200px">Mapel Terlemah</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${state.loadingReports ? `
+              <tr>
+                <td colspan="7" style="text-align:center;padding:40px;color:var(--c-muted)">
+                  Memuat data laporan mingguan...
+                </td>
+              </tr>
+            ` : reports.length === 0 ? `
+              <tr>
+                <td colspan="7" style="text-align:center;padding:40px;color:var(--c-muted)">
+                  Belum ada aktivitas mingguan tercatat untuk kelas ini. Klik tombol <strong>Kompilasi Ulang</strong> untuk memperbarui data.
+                </td>
+              </tr>
+            ` : reports.map((r, idx) => {
+              const accPct = Math.round((r.accuracy || 0) * 100);
+              let trendBadge = '<span class="badge yellow">🟡 Stabil</span>';
+              if (r.trend === 'up') trendBadge = '<span class="badge green">🟢 Meningkat</span>';
+              else if (r.trend === 'down') trendBadge = '<span class="badge red">🔴 Menurun</span>';
+
+              const accColor = accPct >= 80 ? '#4ade80' : (accPct >= 60 ? '#fbbf24' : '#f87171');
+
+              return `
+                <tr>
+                  <td style="text-align:center;color:var(--c-muted)">${idx + 1}</td>
+                  <td>
+                    <div style="font-weight:700;color:var(--c-text)">${escapeHtml(r.nick)}</div>
+                  </td>
+                  <td style="text-align:center;font-weight:700">${r.sessions || 0}</td>
+                  <td style="text-align:center;color:var(--c-muted)">${r.minutes || 0} mnt</td>
+                  <td style="text-align:center">
+                    <span style="font-weight:800;color:${accColor}">${accPct}%</span>
+                  </td>
+                  <td style="text-align:center">${trendBadge}</td>
+                  <td>
+                    ${r.weakestSubject && r.weakestSubject !== '-' ? `
+                      <span class="badge red" style="font-size:.78rem">⚠️ ${escapeHtml(r.weakestSubject)}</span>
+                    ` : `
+                      <span style="color:var(--c-muted);font-size:.8rem">-</span>
+                    `}
+                  </td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+  }
+
   function attachTabListeners() {
+    // Quick Action & Card Navigation (Data Ringkasan Link)
+    root.querySelectorAll('[data-nav]').forEach(el => {
+      el.addEventListener('click', () => {
+        const target = el.getAttribute('data-nav');
+        if (target === 'questions-import') {
+          state.activeTab = 'questions';
+          render();
+          openImportModal();
+        } else if (target) {
+          state.activeTab = target;
+          if (target === 'players' && state.players.length === 0) loadPlayers();
+          else if (target === 'reports') loadReports();
+          render();
+        }
+      });
+    });
+
+    // Reports Listeners
+    const selRepClass = document.getElementById('sel-report-class');
+    if (selRepClass) {
+      selRepClass.addEventListener('change', (e) => {
+        const cid = parseInt(e.target.value, 10);
+        state.selectedReportClassId = cid;
+        loadReports(cid);
+      });
+    }
+
+    const btnExportReportsCsv = document.getElementById('btn-export-reports-csv');
+    if (btnExportReportsCsv) {
+      btnExportReportsCsv.addEventListener('click', exportReportsCsv);
+    }
+
+    const btnGenerateReports = document.getElementById('btn-generate-reports');
+    if (btnGenerateReports) {
+      btnGenerateReports.addEventListener('click', generateWeeklyReports);
+    }
+
+    const btnRefreshReports = document.getElementById('btn-refresh-reports');
+    if (btnRefreshReports) {
+      btnRefreshReports.addEventListener('click', () => loadReports(state.selectedReportClassId));
+    }
+
     // Class dropdown change
     const selClass = document.getElementById('sel-class');
     if (selClass) {
