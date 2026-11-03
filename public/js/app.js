@@ -2649,15 +2649,17 @@ Screens.profil = {
   historyData: null,
   avatarDraft: null,
 
-  showConfirmModal(title, message, confirmText, onConfirm) {
+  showConfirmModal(title, message, confirmText, onConfirm, previewHtml = '') {
     const existing = $('.modal-mask');
     if (existing) existing.remove();
 
     const modal = document.createElement('div');
     modal.className = 'modal-mask active';
     modal.setAttribute('data-testid', 'confirm-modal');
+    modal.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(5,8,20,0.8);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn 0.2s ease;';
     modal.innerHTML = `
-      <div class="modal card" data-testid="confirm-modal" style="max-width:340px;text-align:center;padding:20px;border:1px solid var(--c-surface-strong)">
+      <div class="modal card" data-testid="confirm-modal" style="max-width:340px;text-align:center;padding:22px 20px;border:1px solid var(--c-surface-strong);box-shadow:0 20px 40px rgba(0,0,0,0.8);border-radius:20px;background:linear-gradient(165deg, #27235a, #1a1b3d)">
+        ${previewHtml ? `<div style="width:76px;height:76px;margin:0 auto 12px auto;border-radius:18px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(255,255,255,0.12);box-shadow:inset 0 2px 6px rgba(0,0,0,0.3)">${previewHtml}</div>` : ''}
         <h3 style="font-size:1.15rem;margin:0 0 8px 0;color:#fff">${esc(title)}</h3>
         <p style="font-size:0.9rem;color:var(--c-muted);margin:0 0 16px 0;line-height:1.4">${esc(message)}</p>
         <div style="display:flex;gap:10px;justify-content:center">
@@ -2990,6 +2992,10 @@ Screens.profil = {
               <span style="font-size:0.7rem;font-weight:700;color:${rarityColor}">${it.rarity}</span>
               ${it.owned ? `<span style="font-size:0.65rem;color:var(--c-good)">✓ Milik</span>` : `<span style="font-size:0.65rem;color:var(--c-muted)">🔒 Belum</span>`}
             </div>
+            <!-- THUMBNAIL SKIN -->
+            <div class="skin-thumbnail-box" style="width:68px;height:68px;margin:2px auto;border-radius:14px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:inset 0 2px 6px rgba(0,0,0,0.3)">
+              ${window.Avatar ? Avatar.renderThumbnail(it.id, it.slot) : '🎒'}
+            </div>
             <div style="font-weight:700;font-size:0.85rem;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(it.name)}</div>
             <div style="font-size:0.75rem;color:var(--c-muted)">${esc(it.slot)}</div>
             <div style="margin-top:auto;padding-top:4px">
@@ -3249,7 +3255,8 @@ Screens.profil = {
       return;
     }
 
-    const playerCoins = Player.data?.coins ?? 0;
+    const playerCoins = (shopRes && typeof shopRes.coins === 'number') ? shopRes.coins : (Player.data?.coins ?? 0);
+    if (Player.data) Player.data.coins = playerCoins;
     const boxPrice = shopRes.mysteryBoxPrice || 60;
     const canAffordBox = playerCoins >= boxPrice;
     const items = shopRes.items || [];
@@ -3278,6 +3285,10 @@ Screens.profil = {
             return `
               <div class="card item-card" data-testid="item-card-${it.id}" style="padding:10px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);text-align:center;display:flex;flex-direction:column;gap:6px">
                 <div style="font-size:0.7rem;font-weight:700;color:${rarityColor}">${it.rarity}</div>
+                <!-- THUMBNAIL TOKO -->
+                <div class="skin-thumbnail-box" style="width:68px;height:68px;margin:2px auto;border-radius:14px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:inset 0 2px 6px rgba(0,0,0,0.3)">
+                  ${window.Avatar ? Avatar.renderThumbnail(it.id, it.slot) : '🎒'}
+                </div>
                 <div style="font-weight:700;font-size:0.85rem;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(it.name)}</div>
                 <div style="font-size:0.75rem;color:var(--c-muted)">${esc(it.slot)}</div>
                 <div style="font-size:0.85rem;font-weight:700;color:#fbbf24;margin-top:auto">🪙 ${it.price}</div>
@@ -3307,6 +3318,7 @@ Screens.profil = {
             const res = await API.buyMysteryBox(idemKey);
             if (res.ok) {
               if (Player.data) Player.data.coins = res.coins;
+              if (this.profileData?.player) this.profileData.player.coins = res.coins;
               const coinEl = $('#prof-coins-val');
               if (coinEl) coinEl.textContent = res.coins;
 
@@ -3316,9 +3328,11 @@ Screens.profil = {
                 ? `Kamu mendapatkan ${it.name} (Duplikat). +${res.refund} koin dikembalikan!`
                 : `Selamat! Kamu mendapatkan ${it.name} (${it.rarity})! 🎉`;
               toast(msg);
+              await this.loadData();
               await this.renderActiveTab();
             }
-          }
+          },
+          '<div style="font-size:2.8rem">🎁</div>'
         );
       };
     }
@@ -3330,6 +3344,7 @@ Screens.profil = {
         const it = items.find(x => x.id === itemId);
         if (!it) return;
 
+        const thumbPreview = window.Avatar ? Avatar.renderThumbnail(it.id, it.slot) : '🎒';
         this.showConfirmModal(
           `Beli ${it.name}?`,
           `Beli ${it.name} (${it.rarity}) seharga ${it.price} koin?`,
@@ -3340,11 +3355,14 @@ Screens.profil = {
             if (res.ok) {
               toast(`Berhasil membeli ${it.name}! Cek di tab Skin. 🎒`);
               if (Player.data) Player.data.coins = res.coins;
+              if (this.profileData?.player) this.profileData.player.coins = res.coins;
               const coinEl = $('#prof-coins-val');
               if (coinEl) coinEl.textContent = res.coins;
+              await this.loadData();
               await this.renderActiveTab();
             }
-          }
+          },
+          thumbPreview
         );
       };
     });

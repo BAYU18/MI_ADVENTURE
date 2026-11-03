@@ -85,6 +85,121 @@ ${HAT[a.hat] || ''}${WEAPON[a.weapon] || ''}${pet}</g>
 ${frameSvg}</svg>`;
 }
 
+function renderThumbnail(itemId, slot) {
+  if (!itemId) return `<div style="font-size:1.8rem;display:flex;align-items:center;justify-content:center;height:100%">🎒</div>`;
+
+  // 1. HAT
+  if (slot === 'hat' || HAT[itemId]) {
+    const hatSvg = HAT[itemId] || '';
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="40 0 120 125" width="100%" height="100%">
+      <rect x="40" y="0" width="120" height="125" rx="18" fill="rgba(255,255,255,0.04)"/>
+      <circle cx="100" cy="88" r="34" fill="#F2B98C" stroke="${K}" stroke-width="3" opacity="0.9"/>
+      <circle cx="89" cy="90" r="3.5" fill="${K}"/><circle cx="111" cy="90" r="3.5" fill="${K}"/>
+      <path d="M94 100Q100 106 106 100" stroke="${K}" stroke-width="3" fill="none" stroke-linecap="round"/>
+      ${hatSvg}
+    </svg>`;
+  }
+
+  // 2. OUTFIT
+  if (slot === 'outfit' || OUTFIT[itemId]) {
+    const back = OUTFIT_BACK[itemId] || '';
+    const front = OUTFIT[itemId] || '';
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="40 85 120 115" width="100%" height="100%">
+      <rect x="40" y="85" width="120" height="115" rx="18" fill="rgba(255,255,255,0.04)"/>
+      ${back}
+      <circle cx="100" cy="96" r="22" fill="#F2B98C" stroke="${K}" stroke-width="3" opacity="0.6"/>
+      <ellipse cx="62" cy="144" rx="9" ry="16" fill="#F2B98C" ${st}/>
+      <ellipse cx="138" cy="144" rx="9" ry="16" fill="#F2B98C" ${st}/>
+      <rect x="70" y="126" width="60" height="50" rx="14" fill="#FF8A3D" ${st}/>
+      ${front}
+    </svg>`;
+  }
+
+  // 3. WEAPON
+  if (slot === 'weapon' || WEAPON[itemId]) {
+    const wSvg = WEAPON[itemId] || '';
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="125 75 75 105" width="100%" height="100%">
+      <rect x="125" y="75" width="75" height="105" rx="16" fill="rgba(255,255,255,0.04)"/>
+      <circle cx="152" cy="150" r="10" fill="#F2B98C" stroke="${K}" stroke-width="3" opacity="0.7"/>
+      ${wSvg}
+    </svg>`;
+  }
+
+  // 4. PET
+  if (slot === 'pet' || PET[itemId]) {
+    const code = PET[itemId] || '1f43e';
+    const emojiMap = {
+      pet_cat: '🐱', pet_dog: '🐶', pet_penguin: '🐧',
+      pet_fox: '🦊', pet_owl: '🦉', pet_dragon: '🐲'
+    };
+    const emoji = emojiMap[itemId] || '🐾';
+    return `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;position:relative">
+      <div style="position:absolute;inset:4px;border-radius:14px;background:radial-gradient(circle, rgba(245,158,11,0.2) 0%, transparent 70%)"></div>
+      <img src="${TWEMOJI}/${code}.svg" alt="${emoji}" style="width:48px;height:48px;position:relative;z-index:1;filter:drop-shadow(0 4px 6px rgba(0,0,0,0.4))" onerror="this.outerHTML='<span style=\\'font-size:2.4rem\\'>${emoji}</span>'">
+    </div>`;
+  }
+
+  // 5. BG
+  if (slot === 'bg' || BG[itemId]) {
+    const [g1, g2] = BG[itemId] || BG.bg_meadow;
+    const bgIcons = {
+      bg_meadow: '🌿', bg_sky: '☀️', bg_sunset: '🌅',
+      bg_candy: '🍭', bg_cave: '💎', bg_night: '✨'
+    };
+    const icon = bgIcons[itemId] || '🎨';
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+      <defs>
+        <linearGradient id="thumb_bg_${itemId}" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="${g1}"/>
+          <stop offset="100%" stop-color="${g2}"/>
+        </linearGradient>
+      </defs>
+      <rect width="100" height="100" rx="16" fill="url(#thumb_bg_${itemId})"/>
+      <circle cx="50" cy="50" r="28" fill="rgba(255,255,255,0.18)"/>
+      <text x="50" y="58" font-size="28" text-anchor="middle" dominant-baseline="middle">${icon}</text>
+    </svg>`;
+  }
+
+  // 6. FRAME
+  if (slot === 'frame' || FRAME[itemId]) {
+    const fSvg = FRAME[itemId] || FRAME.frame_wood;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+      <rect width="200" height="200" rx="26" fill="rgba(255,255,255,0.03)"/>
+      <circle cx="100" cy="100" r="42" fill="#F2B98C" stroke="${K}" stroke-width="3" opacity="0.65"/>
+      <circle cx="88" cy="98" r="4" fill="${K}" opacity="0.8"/>
+      <circle cx="112" cy="98" r="4" fill="${K}" opacity="0.8"/>
+      <path d="M92 110Q100 118 108 110" stroke="${K}" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.8"/>
+      ${fSvg}
+    </svg>`;
+  }
+
+  // 7. TITLE
+  if (slot === 'title' || (itemId && itemId.startsWith('title_'))) {
+    const titles = {
+      title_rookie: { icon: '🥉', label: 'Pemula', col: '#d97706' },
+      title_hunter: { icon: '🏹', label: 'Hunter', col: '#3b82f6' },
+      title_sage:   { icon: '📜', label: 'Sage', col: '#8b5cf6' },
+      title_combo:  { icon: '🔥', label: 'Combo', col: '#ef4444' },
+      title_king:   { icon: '👑', label: 'King', col: '#f59e0b' },
+    };
+    const t = titles[itemId] || { icon: '🏅', label: 'Gelar', col: '#10b981' };
+    return `<div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 80%);border-radius:14px">
+      <div style="font-size:2rem;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.5))">${t.icon}</div>
+      <div style="font-size:0.65rem;font-weight:800;color:${t.col};margin-top:4px;letter-spacing:0.5px">${t.label}</div>
+    </div>`;
+  }
+
+  // 8. PERMANENT
+  if (slot === 'permanent' || itemId === 'slot_skill_4') {
+    return `<div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg, rgba(168,85,247,0.2), rgba(245,158,11,0.2));border-radius:14px">
+      <div style="font-size:2rem;line-height:1">⚡</div>
+      <div style="font-size:0.65rem;font-weight:800;color:#f59e0b;margin-top:4px">+1 SLOT</div>
+    </div>`;
+  }
+
+  return `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:var(--c-muted)">🎒</div>`;
+}
+
   const Avatar = {
     SKINS,
     HAIRS,
@@ -94,7 +209,8 @@ ${frameSvg}</svg>`;
     OUTFIT,
     WEAPON,
     FRAME,
-    renderAvatar
+    renderAvatar,
+    renderThumbnail
   };
 
   if (typeof module !== 'undefined' && module.exports) {
