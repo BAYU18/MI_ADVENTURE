@@ -127,7 +127,7 @@ const rawB3 = [
   { q: "Hasil dari 5/8 − 2/8 = ...", c: "3/8", w: ["3/16", "7/8", "2/8"], e: "Penyebut sama: (5 − 2)/8 = 3/8.", d: 1 },
   { q: "Pecahan 6/9 disederhanakan menjadi ...", c: "2/3", w: ["3/4", "1/3", "3/5"], e: "Bagi pembilang dan penyebut dengan FPB 3: 6÷3 / 9÷3 = 2/3.", d: 1 },
   { q: "Bentuk desimal dari 1/2 adalah ...", c: "0,5", w: ["0,2", "0,05", "0,12"], e: "1/2 = 5/10 = 0,5.", d: 1 },
-  { q: "Pecahan yang memiliki nilai terbesar adalah ...", c: "3/4", w: ["1/4", "2/4", "1/2"], e: "3/4 bernilai 0,75, lebih besar dari 1/4 (0,25) dan 2/4 (0,50).", d: 1 },
+  { q: "Pecahan yang memiliki nilai terbesar adalah ...", c: "3/4", w: ["1/4", "1/3", "1/2"], e: "3/4 bernilai 0,75, lebih besar dari 1/4 (0,25) dan 2/4 (0,50).", d: 1 },
 
   // d2
   { q: "Pecahan yang senilai dengan 3/4 adalah ...", c: "9/12", w: ["6/10", "8/12", "9/16"], e: "3/4 × 3/3 = 9/12.", d: 2 },

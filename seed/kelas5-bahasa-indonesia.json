@@ -42,13 +42,13 @@
     {
       "question": "Kalimat dengan penggunaan huruf kapital yang benar adalah ...",
       "options": [
-        "Aku tinggal di kota bandung.",
-        "aku tinggal di Kota Bandung.",
+        "Paman pergi berlibur ke danau Toba.",
+        "kemarin sore kami belajar kelompok.",
         "Aku tinggal di Kota Bandung.",
-        "aku tinggal di kota bandung."
+        "Ayah membaca Surat kabar di teras."
       ],
       "answer": 2,
-      "explanation": "Huruf kapital dipakai di awal kalimat dan nama geografi.",
+      "explanation": "Huruf kapital dipakai di awal kalimat ('Aku') dan huruf pertama nama geografi ('Kota Bandung'). Pengecoh lain salah pada huruf kecil di awal kalimat atau huruf kapital pada kata benda umum.",
       "difficulty": 2
     },
     {
