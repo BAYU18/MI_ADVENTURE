@@ -45,7 +45,8 @@
   - ✅ 2026-11-03 06:31 — Atomic upgrade in BEGIN IMMEDIATE transaction, coin invariant verified, Idempotency-Key mandatory 400, canUpgrade/reason, loadout snapshot level preserved in battle, eliminate_one free uses Lv3=1 Lv5=2 verified in tests/skills-v6.test.js (9/9 pass)
 - [x] **T-24** E: UI layar Skill — pip level, efek sekarang→berikutnya, tombol Upgrade + konfirmasi, toast alasan, kunci saat request, badge `Lv n` di battle _(Spek: E.3 · Bukti: uji manual end-to-end; akar masalah T-22 tertutup)_ <!--tries:1-->
   - ✅ 2026-11-03 06:35 — Skill tab UI implemented with level pips ●●○○○, effect now->next, testids skill-card, skill-level, skill-upgrade-btn, aria-disabled toast reasons (NOT_OWNED, MAX_LEVEL, NOT_ENOUGH_COINS), confirmation modal skill-upgrade-confirm, battle Lv n badge on skill buttons, verified in tests/ui-skills.test.js
-- [ ] **G-2** GERBANG 2: `npm test` + `check-schema` + skenario H.9, H.10 + `smoke-test-v4` hijau; commit
+- [x] **G-2** GERBANG 2: `npm test` + `check-schema` + skenario H.9, H.10 + `smoke-test-v4` hijau; commit <!--tries:1-->
+  - ✅ 2026-11-03 06:35 — Gate 2 GREEN: npm test (95/95 pass, 0 fail), check-schema 100% valid, smoke-test-v4 15/15 pass, scenarios H.9 & H.10 fully verified
 
 ## Fase 3 — Boss bertier (C) dan darah boss adaptif (D)
 - [ ] **T-30** C/D: server — pilih tier (kampanye = peta, Mode Bebas = bobot level profil), `bossStats` (N dari kemampuan mapel, `boss_max_hp = N×20`), simpan kolom sesi, respons `boss{…}`, kompatibel sesi lama (`NULL`), bank soal kecil _(Spek: C.2, D.1 · Bukti: skenario H.3, H.4, H.8)_
