@@ -51,7 +51,8 @@
 ## Fase 3 — Boss bertier (C) dan darah boss adaptif (D)
 - [x] **T-30** C/D: server — pilih tier (kampanye = peta, Mode Bebas = bobot level profil), `bossStats` (N dari kemampuan mapel, `boss_max_hp = N×20`), simpan kolom sesi, respons `boss{…}`, kompatibel sesi lama (`NULL`), bank soal kecil _(Spek: C.2, D.1 · Bukti: skenario H.3, H.4, H.8)_ <!--tries:1-->
   - ✅ 2026-11-03 06:46 — Tier selection and bossStats verified in tests/boss-tier.test.js
-- [ ] **T-31** D: server — `hitDamage` + `applyBossDamage` (lantai 1 hit, plafon 4×, lantai 15 benar), pity, `monster_damage`, kelelahan boss sekali saat Fase Marah _(Spek: D.2, D.3 · Bukti: skenario H.4, H.5, H.6)_
+- [x] **T-31** D: server — `hitDamage` + `applyBossDamage` (lantai 1 hit, plafon 4×, lantai 15 benar), pity, `monster_damage`, kelelahan boss sekali saat Fase Marah _(Spek: D.2, D.3 · Bukti: skenario H.4, H.5, H.6)_ <!--tries:1-->
+  - ✅ 2026-11-03 07:08 — hitDamage and applyBossDamage (floor 20, ceiling 4x, floor 15 hits), pity after 3 wrong (1.5x), monster_damage, boss fatigue at angry phase start verified in tests/boss-damage.test.js (7/7 pass)
 - [ ] **T-32** D: server — panjang sesi dinamis: `planned`, isi ulang 5 soal, `maxQuestions` → jalur bintang yang ada, komposisi soal terjaga, resume memulihkan `boss_*` _(Spek: D.4 · Bukti: skenario H.7)_
 - [ ] **T-33** C: hadiah koin/XP × pengali tier (setelah bonus lain), `bossByTier` benar di laporan _(Spek: C.3 · Bukti: kemenangan tiap tier → hadiah sesuai; laporan menghitung tier)_
 - [ ] **T-34** C/D: UI — lencana tier, aura monster di `monsters.js` (common/rare/epic/legend), bilah HP berbingkai tier + "Sisa maks. X jawaban benar", intro boss, banner kelelahan, lencana Serangan Balik _(Spek: C.4, D.1, D.3 · Bukti: uji manual 4 tier di 320×568; hemat animasi mati)_
