@@ -999,19 +999,25 @@ Screens.subjects = {
         <div class="campaign-path-root" style="display:flex;flex-direction:column;gap:20px;padding:8px 0">
           ${campData.chapters.map(ch => {
             return `
-              <div class="chapter-card card" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:18px;padding:16px">
-                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:8px">
-                  <div>
-                    <span style="font-size:0.75rem;text-transform:uppercase;color:var(--c-muted);font-weight:700">Bab ${ch.n}</span>
-                    <h3 style="font-size:1.15rem;font-weight:800;color:#fff;margin:2px 0">${esc(ch.title)}</h3>
+              <div class="chapter-card card" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:18px;padding:14px;overflow:hidden">
+                <!-- Banner Gambar Peta Tema Wilayah -->
+                <div class="chapter-map-banner" style="position:relative;height:120px;border-radius:14px;overflow:hidden;margin-bottom:14px;border:1px solid rgba(255,255,255,0.12);box-shadow:0 4px 12px rgba(0,0,0,0.3)">
+                  <img src="/img/maps/map_${esc(ch.theme)}.jpg" alt="${esc(ch.title)}" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85)" onerror="this.src='/img/maps/map_hutan.jpg'">
+                  <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.35) 60%, transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:10px 14px">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-end">
+                      <div>
+                        <span style="font-size:0.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--c-primary,#10b981);font-weight:800">Bab ${ch.n} · Peta Wilayah</span>
+                        <h3 style="font-size:1.15rem;font-weight:800;color:#fff;margin:2px 0;text-shadow:0 2px 4px rgba(0,0,0,0.8)">${esc(ch.title)}</h3>
+                      </div>
+                      ${ch.completed ? `
+                        <button class="btn small secondary btn-view-comic" data-theme="${ch.theme}" data-testid="btn-view-comic" style="font-size:0.8rem;padding:4px 10px;background:rgba(15,23,42,0.8);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.2)">
+                          📖 Lihat Cerita
+                        </button>
+                      ` : `
+                        <span class="chip" style="font-size:0.75rem;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.2)">${ch.nodes.filter(n => n.cleared).length}/4 Selesai</span>
+                      `}
+                    </div>
                   </div>
-                  ${ch.completed ? `
-                    <button class="btn small secondary btn-view-comic" data-theme="${ch.theme}" data-testid="btn-view-comic" style="font-size:0.8rem;padding:4px 10px">
-                      📖 Lihat Cerita
-                    </button>
-                  ` : `
-                    <span class="chip" style="font-size:0.75rem;background:rgba(255,255,255,0.08)">${ch.nodes.filter(n => n.cleared).length}/4 Selesai</span>
-                  `}
                 </div>
 
                 <!-- Jalur Berkelok (Vertical Winding Path: left, center, right, boss) -->
@@ -2446,10 +2452,18 @@ Screens.showComicModal = function (panels, theme, monsterObj) {
         <div style="font-size:0.8rem;text-transform:uppercase;color:var(--c-primary,#10b981);font-weight:800;letter-spacing:1px">
           Panel ${currentPanel + 1} dari ${totalPanels}
         </div>
-        <h2 style="font-size:1.35rem;font-weight:800;color:#fff;margin:4px 0 14px 0">${esc(p.title || 'Epilog Bab')}</h2>
+        <h2 style="font-size:1.35rem;font-weight:800;color:#fff;margin:4px 0 10px 0">${esc(p.title || 'Epilog Bab')}</h2>
 
-        <div style="background:rgba(255,255,255,0.05);border-radius:18px;padding:16px;margin-bottom:16px;min-height:140px;display:flex;flex-direction:column;justify-content:center;align-items:center">
-          <div style="font-size:3.5rem;margin-bottom:8px">📖</div>
+        <!-- MAP ILLUSTRATION HEADER -->
+        <div style="width:100%;height:130px;border-radius:14px;overflow:hidden;margin-bottom:12px;position:relative;border:1px solid rgba(255,255,255,0.15);box-shadow:0 4px 12px rgba(0,0,0,0.4)">
+          <img src="/img/maps/map_${esc(theme || 'hutan')}.jpg" alt="Peta Cerita" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.src='/img/maps/map_hutan.jpg'">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(15,23,42,0.85) 0%, transparent 60%)"></div>
+          <div style="position:absolute;bottom:6px;left:10px;font-size:0.75rem;font-weight:700;color:var(--c-primary,#10b981);text-shadow:0 2px 4px rgba(0,0,0,0.8)">
+            Wilayah: ${esc(window.CampaignConfig?.CAMPAIGN?.themeTitles?.[theme] || theme || 'Petualangan')}
+          </div>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.05);border-radius:18px;padding:14px;margin-bottom:16px;min-height:90px;display:flex;flex-direction:column;justify-content:center;align-items:center">
           <p style="font-size:0.95rem;line-height:1.5;color:#e2e8f0;margin:0">${esc(p.text || '')}</p>
         </div>
 
