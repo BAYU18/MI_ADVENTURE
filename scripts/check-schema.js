@@ -70,7 +70,18 @@ const columnChecks = [
   { table: 'player_question_stats', col: 'mastered' },
   { table: 'player_subject_progress', col: 'pace_factor' },
   { table: 'players', col: 'settings_json' },
-  { table: 'subjects', col: 'grade' }
+  { table: 'subjects', col: 'grade' },
+  // v6
+  { table: 'game_sessions', col: 'boss_tier' },
+  { table: 'game_sessions', col: 'boss_hits_needed' },
+  { table: 'game_sessions', col: 'boss_hit_unit' },
+  { table: 'game_sessions', col: 'monster_damage' },
+  { table: 'game_sessions', col: 'max_questions' },
+  { table: 'game_sessions', col: 'correct_count' },
+  { table: 'game_sessions', col: 'wrong_streak' },
+  { table: 'game_sessions', col: 'fatigue_applied' },
+  { table: 'game_sessions', col: 'energy_max' },
+  { table: 'player_skills', col: 'level' }
 ];
 
 for (const item of columnChecks) {

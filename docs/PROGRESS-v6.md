@@ -14,7 +14,8 @@
   - ✅ 2026-11-03 05:25 — Audit komprehensif selesai · backup data/play.db.bak-20261103_122200 · npm test + check-schema + smoke-test-v4 100% hijau
 - [x] **T-01** Salin persis `shared/progression.js` (Lampiran A), `tests/progression.test.js` (B), `scripts/sim-boss.js` (C); bila `economy.js`/`gameplay.js` sudah punya padanan, jadikan itu sumber tunggal _(Spek: Aturan kerja 3 · Bukti: `npm test` hijau termasuk 10 uji progression)_ <!--tries:1-->
   - ✅ 2026-11-03 05:26 — shared/progression.js, tests/progression.test.js, scripts/sim-boss.js · npm test · 67/67 tes lulus (10 progression test lulus)
-- [ ] **T-02** Migrasi aditif idempoten kolom `game_sessions` (+ `player_skills.level` bila belum ada) dengan backup; perbarui `scripts/check-schema.js` _(Spek: G.1 · Bukti: `node scripts/check-schema.js` lulus; sesi IN_PROGRESS lama tetap terbaca)_
+- [x] **T-02** Migrasi aditif idempoten kolom `game_sessions` (+ `player_skills.level` bila belum ada) dengan backup; perbarui `scripts/check-schema.js` _(Spek: G.1 · Bukti: `node scripts/check-schema.js` lulus; sesi IN_PROGRESS lama tetap terbaca)_ <!--tries:1-->
+  - ✅ 2026-11-03 05:29 — lib/db.js, scripts/check-schema.js · node scripts/check-schema.js lulus 100% · sesi lama terbaca aman
 - [ ] **G-0** GERBANG 0: `npm test` + `check-schema` + `smoke-test-v4` hijau; commit
 
 ## Fase 1 — Level kemampuan (B) dan menu Laporan (A)
