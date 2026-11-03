@@ -595,6 +595,19 @@ const server = http.createServer(async (req, res) => {
   }
 
 
+
+  // GET /api/report/abilities
+  if (pathname === '/api/report/abilities' && method === 'GET') {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    try {
+      const resData = db.computeSubjectAbilities(playerAuth.id);
+      return json(res, resData);
+    } catch (e) {
+      return err(res, e.message, 400);
+    }
+  }
+
   // GET /api/report/week
   if (pathname === '/api/report/week' && method === 'GET') {
     const playerAuth = getPlayerFromReq(req);

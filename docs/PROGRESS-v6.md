@@ -20,7 +20,8 @@
   - ✅ 2026-11-03 05:29 — npm test (67 passed), check-schema (100% valid), smoke-test-v4 (15/15 passed)
 
 ## Fase 1 — Level kemampuan (B) dan menu Laporan (A)
-- [ ] **T-10** B: `computeSubjectAbilities(playerId)` di `lib/db.js` memakai `Progression.abilityScore/sortAbilities` + `GET /api/report/abilities` _(Spek: B.1, B.2 · Bukti: uji data campuran → urutan NAIK, `INSUFFICIENT`/`NONE` di akhir, `lowestSubjectId` benar)_
+- [x] **T-10** B: `computeSubjectAbilities(playerId)` di `lib/db.js` memakai `Progression.abilityScore/sortAbilities` + `GET /api/report/abilities` _(Spek: B.1, B.2 · Bukti: uji data campuran → urutan NAIK, `INSUFFICIENT`/`NONE` di akhir, `lowestSubjectId` benar)_ <!--tries:1-->
+  - ✅ 2026-11-03 05:36 — lib/db.js, lib/reports.js, server.js, tests/abilities.test.js · node --test tests/abilities.test.js lulus · urutan NAIK, INSUFFICIENT/NONE di akhir, lowestSubjectId benar
 - [ ] **T-11** A: `GET /api/report/week?week=` — minggu berjalan dikompilasi langsung (`partial:true`), minggu lampau memakai/upsert `weekly_reports` `v:2`; semua field A.2 termasuk `abilities`, `bossByTier`, `daily`, `weakTopics`, `praise/advice` _(Spek: A.2 · Bukti: respons pemain baru & pemain berdata; laporan `v1` lama tidak error)_
 - [ ] **T-12** A: kartu menu `menu-report` → layar Laporan: header + navigasi minggu + lencana Sementara + 6 kartu ringkasan + grafik SVG 7 hari + keadaan kosong _(Spek: A.1 · Bukti: uji manual 320×568 & 430×932)_
 - [ ] **T-13** B: bagian Level Kemampuan di layar Laporan (urut naik, bilah, lencana level, 🎯 Fokus latihan + tombol Latihan, detail, ❓ penjelasan, status kurang data/belum dicoba) _(Spek: B.3 · Bukti: uji manual; mapel terendah memulai sesi mapel itu)_
