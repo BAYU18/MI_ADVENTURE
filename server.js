@@ -503,7 +503,7 @@ const server = http.createServer(async (req, res) => {
       return json(res, resBuy);
     } catch (e) {
       if (e.code === 'INSUFFICIENT_COINS') return err(res, 'Koin tidak cukup', 422, 'INSUFFICIENT_COINS');
-      if (e.code === 'ITEM_ALREADY_OWNED') return err(res, 'Item sudah dimiliki', 409, 'ITEM_ALREADY_OWNED');
+      if (e.code === 'ITEM_ALREADY_OWNED') return err(res, 'Item sudah dimiliki', 422, 'ITEM_ALREADY_OWNED');
       return err(res, e.message, 400);
     }
   }
@@ -584,7 +584,11 @@ const server = http.createServer(async (req, res) => {
     if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
     try {
       const activeData = db.getActiveSession(playerAuth.id);
-      return json(res, activeData);
+      return json(res, {
+        ...activeData,
+        session: activeData.active?.session || null,
+        ok: true
+      });
     } catch (e) {
       return err(res, e.message, 400);
     }
@@ -656,7 +660,26 @@ const server = http.createServer(async (req, res) => {
 
     try {
       const body = await parseBody(req);
-      const subjectId = parseInt(body.subjectId, 10);
+      let subjectId = parseInt(body.subjectId, 10);
+      if (!Number.isFinite(subjectId) || subjectId <= 0) {
+        if (typeof body.subjectId === 'string' && body.subjectId.trim()) {
+          const rawSlug = body.subjectId.trim().toLowerCase();
+          const p = db.getPlayerById(playerAuth.id);
+          const pClassId = p ? p.classId : 1;
+          const matchSub = db.getDb().prepare(`
+            SELECT id FROM subjects 
+            WHERE LOWER(name) = ? AND (class_id = ? OR class_id IS NULL) AND is_active = 1
+            LIMIT 1
+          `).get(rawSlug, pClassId) || db.getDb().prepare(`
+            SELECT id FROM subjects 
+            WHERE LOWER(name) = ? AND is_active = 1
+            LIMIT 1
+          `).get(rawSlug);
+          if (matchSub) {
+            subjectId = matchSub.id;
+          }
+        }
+      }
       if (!Number.isFinite(subjectId) || subjectId <= 0) {
         return err(res, 'Mata pelajaran tidak valid', 400, 'INVALID_SUBJECT');
       }
@@ -802,7 +825,9 @@ const server = http.createServer(async (req, res) => {
       }
       try {
         const body = await parseBody(req);
-        const resAns = db.answerQuestion(sessionId, playerAuth.id, body.questionId ?? body.questionIndex, body.choice ?? body.chosenIndex);
+        const qIdent = body.questionId ?? body.questionIndex ?? null;
+        const chosen = body.choice ?? body.chosenIndex ?? body.selectedIndex ?? body.selected ?? body.answer;
+        const resAns = db.answerQuestion(sessionId, playerAuth.id, qIdent, chosen);
         if (idemKey) db.saveIdempotency(playerAuth.id, idemKey, pathname, 200, resAns);
         return json(res, resAns);
       } catch (e) {
