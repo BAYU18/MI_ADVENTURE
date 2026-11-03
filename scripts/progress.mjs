@@ -1,186 +1,99 @@
 #!/usr/bin/env node
+// scripts/progress.mjs — pengelola ceklis docs/PROGRESS-v6.md (tanpa dependensi). Jalankan: npm run progress -- <perintah>
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const rootDir = path.resolve(__dirname, '..');
-const progressFile = path.join(rootDir, 'docs', 'PROGRESS-v5.md');
+const FILE = process.env.PROGRESS_FILE || 'docs/PROGRESS-v6.md';
+const MAX_TRIES = 2;                                   // percobaan maks per tugas sebelum wajib diblokir
+const LINE = /^- \[([ ~x!])\] \*\*((?:T|G)-\d+)\*\*/;
+const die = (m) => { console.error('✖ ' + m); process.exit(1); };
+const read = () => { if (!fs.existsSync(FILE)) die(`${FILE} belum ada. Jalankan: npm run progress -- init <file-dokumen-v6.md>`); return fs.readFileSync(FILE, 'utf8').split('\n'); };
+const write = (l) => fs.writeFileSync(FILE, l.join('\n'));
+const stamp = () => new Date().toISOString().slice(0, 16).replace('T', ' ');
+const tasks = (lines) => lines.map((t, i) => { const m = LINE.exec(t); return m ? { i, st: m[1], id: m[2] } : null; }).filter(Boolean);
+const triesOf = (t) => Number(/<!--tries:(\d+)-->/.exec(t)?.[1] ?? 0);
+const withState = (t, st) => t.replace(/^- \[[ ~x!]\]/, `- [${st}]`);
+const withTries = (t, n) => t.replace(/\s*<!--tries:\d+-->/, '') + ` <!--tries:${n}-->`;
+const find = (ts, id) => ts.find((t) => t.id === id) ?? die(`ID tidak ditemukan: ${id}`);
+const nextOf = (ts) => ts.find((t) => t.st === '~') ?? ts.find((t) => t.st === ' ');   // tugas [~] (belum tuntas) selalu didahulukan
+const addNote = (lines, i, note) => { let j = i + 1; while (lines[j]?.startsWith('  - ')) j++; lines.splice(j, 0, `  - ${note}`); };
+const templateBody = (docPath) => {
+  const doc = fs.readFileSync(docPath, 'utf8'); const a = doc.lastIndexOf('@@TEMPLATE-START@@'); const b = doc.lastIndexOf('@@TEMPLATE-END@@');
+  if (a < 0 || b < 0) die('Penanda template tidak ditemukan di dokumen.');
+  const body = doc.slice(doc.indexOf('\n', a) + 1, b).replace(/\n[^\n]*$/, '\n');
+  if (!/\*\*T-00\*\*/.test(body)) die('Template kosong/salah — periksa Lampiran F.'); return body;
+};
+const [cmd, a1, ...rest] = process.argv.slice(2);
+const force = rest.includes('--force'); const text = rest.filter((x) => x !== '--force').join(' ').trim();
 
-function ensureDocs() {
-  const docsDir = path.join(rootDir, 'docs');
-  if (!fs.existsSync(docsDir)) {
-    fs.mkdirSync(docsDir, { recursive: true });
-  }
+function status(lines) {
+  const ts = tasks(lines); const c = { ' ': 0, '~': 0, x: 0, '!': 0 }; ts.forEach((t) => c[t.st]++);
+  const nx = nextOf(ts); const pct = Math.round((c.x / ts.length) * 100);
+  console.log(`Progres: ${c.x}/${ts.length} selesai (${pct}%) · sedang: ${c['~']} · diblokir: ${c['!']} · belum: ${c[' ']}`);
+  console.log(nx ? `BERIKUTNYA → ${lines[nx.i].replace(/\s*<!--.*?-->/, '')}` : '🎉 Semua tugas selesai/diblokir. Kirim Laporan Akhir (Bagian 14).');
 }
 
-function readProgress() {
-  ensureDocs();
-  if (!fs.existsSync(progressFile)) {
-    return '';
+switch (cmd) {
+  case 'init': {
+    if (!a1) die('Pakai: init <file-dokumen-v6.md>');
+    if (fs.existsSync(FILE)) die(`${FILE} sudah ada — JANGAN ditimpa. Pakai: status / next (atau sync <doc> bila dokumen diperbarui)`);
+    const body = templateBody(a1);
+    fs.mkdirSync(path.dirname(FILE), { recursive: true }); fs.writeFileSync(FILE, body); console.log(`✔ ${FILE} dibuat.`); status(read()); break;
   }
-  return fs.readFileSync(progressFile, 'utf8');
-}
-
-function writeProgress(content) {
-  ensureDocs();
-  fs.writeFileSync(progressFile, content, 'utf8');
-}
-
-const args = process.argv.slice(2);
-const command = args[0] || 'status';
-
-if (command === 'init') {
-  if (fs.existsSync(progressFile)) {
-    console.log('docs/PROGRESS-v5.md sudah ada.');
-    process.exit(0);
-  }
-  // Will be written by caller or template
-  console.log('Initialized progress file.');
-  process.exit(0);
-}
-
-if (command === 'status') {
-  const content = readProgress();
-  if (!content) {
-    console.log('Belum ada docs/PROGRESS-v5.md');
-    process.exit(0);
-  }
-  const lines = content.split('\n');
-  let active = null;
-  let next = null;
-  let doneCount = 0;
-  let totalCount = 0;
-
-  for (const line of lines) {
-    const match = line.match(/^-\s*\[([ x~!])\]\s*\*\*([A-Za-z0-9_-]+):?\*\*/);
-    if (match) {
-      totalCount++;
-      const status = match[1];
-      const id = match[2];
-      if (status === 'x') {
-        doneCount++;
-      } else if (status === '~') {
-        active = id;
-      } else if (status === ' ' && !next && !active) {
-        next = id;
+  case 'sync': {   // tambahkan tugas BARU dari dokumen yang diperbarui; tugas lama (apa pun statusnya) tidak disentuh
+    if (!a1) die('Pakai: sync <file-dokumen-v6.md>');
+    const l = read(); const tl = templateBody(a1).split('\n'); const have = new Set(tasks(l).map((t) => t.id)); const added = [];
+    let prev = null; let hdr = null;
+    for (const line of tl) {
+      if (line.startsWith('## ')) { hdr = line; continue; }
+      const m = LINE.exec(line); if (!m) continue; const id = m[2];
+      if (!have.has(id)) {
+        const cur = tasks(l); let idx;
+        if (prev) { const pt = cur.find((t) => t.id === prev); idx = pt.i + 1; while (l[idx]?.startsWith('  - ')) idx++; } else idx = cur[0].i;
+        const ins = !hdr || l.includes(hdr) ? [line] : ['', hdr, line];
+        l.splice(idx, 0, ...ins); have.add(id); added.push(id);
       }
+      prev = id;
     }
+    write(l); console.log(added.length ? `✔ ditambahkan: ${added.join(', ')}` : 'Tidak ada tugas baru — ceklis sudah mutakhir.'); status(read()); break;
   }
-
-  console.log(`📊 Progres v5.2: ${doneCount}/${totalCount} selesai (${totalCount ? Math.round((doneCount / totalCount) * 100) : 0}%)`);
-  if (active) {
-    console.log(`⏳ Sedang Dikerjakan: ${active}`);
-  } else if (next) {
-    console.log(`▶️ Tugas Berikutnya: ${next}`);
-  } else {
-    console.log('🎉 Semua tugas selesai atau terkondisi!');
+  case 'status': status(read()); break;
+  case 'next': { const l = read(); const n = nextOf(tasks(l)); console.log(n ? l[n.i] : 'Tidak ada tugas tersisa.'); break; }
+  case 'start': {
+    const l = read(); const ts = tasks(l); const t = find(ts, a1);
+    if (t.st === 'x') die(`${a1} SUDAH SELESAI. Jangan dikerjakan ulang. Jalankan: status`);
+    if (t.st === '!') die(`${a1} berstatus DIBLOKIR. Lanjut ke tugas berikutnya (status).`);
+    const other = ts.find((x) => x.st === '~' && x.id !== a1); if (other) die(`${other.id} masih berjalan. Selesaikan (done) atau blokir (block) dulu.`);
+    const nx = nextOf(ts); if (!force && t.st !== '~' && nx.id !== a1) die(`Urutan: tugas berikutnya adalah ${nx.id}, bukan ${a1}.`);
+    const n = triesOf(l[t.i]) + (t.st === '~' ? 0 : 1);
+    if (n > MAX_TRIES) die(`${a1} sudah dicoba ${MAX_TRIES}×. Jalankan: block ${a1} "alasan" lalu lanjut tugas lain.`);
+    l[t.i] = withTries(withState(l[t.i], '~'), n); write(l); console.log(`▶ ${a1} dimulai (percobaan ${n}/${MAX_TRIES}).`); break;
   }
-  process.exit(0);
+  case 'note': { const l = read(); const t = find(tasks(l), a1); if (!text) die('Catatan kosong.'); addNote(l, t.i, `📝 ${stamp()} — ${text}`); write(l); console.log('✔ catatan ditambah.'); break; }
+  case 'done': {
+    const l = read(); const ts = tasks(l); const t = find(ts, a1);
+    if (t.st === 'x') { console.log(`${a1} sudah selesai sebelumnya — tidak ada yang diubah.`); break; }
+    if (!text) die('Bukti wajib: done <ID> "file yang diubah · perintah tes · hasil"');
+    if (t.st !== '~' && nextOf(ts)?.id !== a1 && !force) die(`${a1} belum dimulai (start) dan bukan tugas berikutnya.`);
+    l[t.i] = withState(l[t.i], 'x'); addNote(l, t.i, `✅ ${stamp()} — ${text}`); write(l); console.log(`✔ ${a1} SELESAI.`); status(read()); break;
+  }
+  case 'block': {
+    const l = read(); const t = find(tasks(l), a1); if (!text) die('Alasan wajib: block <ID> "alasan"');
+    l[t.i] = withState(l[t.i], '!'); addNote(l, t.i, `⛔ ${stamp()} — ${text}`); write(l); console.log(`⛔ ${a1} diblokir.`); status(read()); break;
+  }
+  case 'handoff': {
+    const l = read(); const k = l.findIndex((x) => x.trim() === '<!--HANDOFF-->'); if (k < 0) die('Penanda HANDOFF hilang.');
+    const ho = [a1, ...rest].filter(Boolean).join(' ').trim(); if (!ho) die('Isi handoff kosong.'); l[k + 1] = `> ${stamp()} — ${ho}`; write(l); console.log('✔ handoff diperbarui.'); break;
+  }
+  case 'check': {
+    const l = read(); const ts = tasks(l); const bad = [];
+    const block = (i) => { const o = []; for (let j = i + 1; l[j]?.startsWith('  - '); j++) o.push(l[j]); return o; };
+    if (ts.filter((t) => t.st === '~').length > 1) bad.push('Lebih dari satu tugas berstatus [~].');
+    for (const t of ts) {
+      if (t.st === 'x' && !block(t.i).some((x) => x.startsWith('  - ✅'))) bad.push(`${t.id} [x] tanpa bukti.`);
+      if (t.st === '!' && !block(t.i).some((x) => x.startsWith('  - ⛔'))) bad.push(`${t.id} [!] tanpa alasan.`);
+    }
+    if (bad.length) die(bad.join('\n')); console.log('✔ ceklis valid.'); break;
+  }
+  default: console.log('Perintah: init <doc> | sync <doc> | status | next | start <ID> | note <ID> "teks" | done <ID> "bukti" | block <ID> "alasan" | handoff "teks" | check');
 }
-
-if (command === 'start') {
-  const taskId = args[1];
-  if (!taskId) {
-    console.error('Harap sebutkan taskId, misal: npm run progress -- start T-00');
-    process.exit(1);
-  }
-  let content = readProgress();
-  // Check if any task is already in progress
-  if (content.includes('[~]')) {
-    const activeMatch = content.match(/-\s*\[~\]\s*\*\*([A-Za-z0-9_-]+):?\*\*/);
-    const activeId = activeMatch ? activeMatch[1] : 'lain';
-    if (activeId !== taskId) {
-      console.error(`Error: Tugas ${activeId} masih berstatus [~]. Selesaikan dahulu dengan 'done ${activeId}'`);
-      process.exit(1);
-    }
-  }
-
-  const taskRegex = new RegExp(`(-\\s*\\[)[ \\!](]\\s*\\*\\*${taskId}:?\\*\\*)`);
-  if (!taskRegex.test(content)) {
-    if (new RegExp(`(-\\s*\\[x]\\s*\\*\\*${taskId}:?\\*\\*)`).test(content)) {
-      console.error(`Error: Tugas ${taskId} sudah selesai [x] dan tidak boleh diulang.`);
-      process.exit(1);
-    }
-    if (new RegExp(`(-\\s*\\[~\\]\\s*\\*\\*${taskId}:?\\*\\*)`).test(content)) {
-      console.log(`Tugas ${taskId} sudah dalam status [~].`);
-      process.exit(0);
-    }
-    console.error(`Error: Tugas ${taskId} tidak ditemukan.`);
-    process.exit(1);
-  }
-
-  content = content.replace(taskRegex, `$1~$2`);
-  writeProgress(content);
-  console.log(`✅ Tugas ${taskId} sekarang berstatus [~] (in-progress).`);
-  process.exit(0);
-}
-
-if (command === 'done') {
-  const taskId = args[1];
-  const evidence = args[2] || 'Selesai terverifikasi';
-  if (!taskId) {
-    console.error('Harap sebutkan taskId dan bukti, misal: npm run progress -- done T-00 "file diubah..."');
-    process.exit(1);
-  }
-  let content = readProgress();
-  const taskRegex = new RegExp(`(-\\s*\\[)[ ~](]\\s*\\*\\*${taskId}:?\\*\\*)`);
-  if (!taskRegex.test(content)) {
-    console.error(`Error: Tugas ${taskId} tidak dalam status [ ] atau [~].`);
-    process.exit(1);
-  }
-
-  content = content.replace(taskRegex, `$1x$2`);
-  // Append evidence note if possible
-  const lines = content.split('\n');
-  const newLines = [];
-  for (let i = 0; i < lines.length; i++) {
-    newLines.push(lines[i]);
-    if (lines[i].includes(`**${taskId}:**`) || lines[i].includes(`**${taskId}**`)) {
-      newLines.push(`  - *Bukti:* ${evidence}`);
-    }
-  }
-  writeProgress(newLines.join('\n'));
-  console.log(`🎉 Tugas ${taskId} ditandai [x] selesai.`);
-  process.exit(0);
-}
-
-if (command === 'note') {
-  const taskId = args[1];
-  const note = args[2] || '';
-  if (!taskId) {
-    console.error('Harap sebutkan taskId dan catatan.');
-    process.exit(1);
-  }
-  let content = readProgress();
-  const lines = content.split('\n');
-  const newLines = [];
-  for (let i = 0; i < lines.length; i++) {
-    newLines.push(lines[i]);
-    if (lines[i].includes(`**${taskId}:**`) || lines[i].includes(`**${taskId}**`)) {
-      newLines.push(`  - *Catatan:* ${note}`);
-    }
-  }
-  writeProgress(newLines.join('\n'));
-  console.log(`📝 Catatan untuk ${taskId} berhasil ditambahkan.`);
-  process.exit(0);
-}
-
-if (command === 'block') {
-  const taskId = args[1];
-  const reason = args[2] || 'Ditunda';
-  if (!taskId) {
-    console.error('Harap sebutkan taskId dan alasan.');
-    process.exit(1);
-  }
-  let content = readProgress();
-  const taskRegex = new RegExp(`(-\\s*\\[)[ ~](]\\s*\\*\\*${taskId}:?\\*\\*)`);
-  content = content.replace(taskRegex, `$1!$2`);
-  writeProgress(content);
-  console.log(`⚠️ Tugas ${taskId} ditandai [!] (${reason}).`);
-  process.exit(0);
-}
-
-console.log(`Perintah tidak dikenal: ${command}`);
-process.exit(1);
