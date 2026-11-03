@@ -30,7 +30,8 @@
   - ✅ 2026-11-03 05:58 — public/js/app.js · node --test tests/ui-report.test.js · bagian level kemampuan urut naik, bilah progres, lencana level, fokus latihan, tombol latihan, modal detail & help
 - [x] **T-14** A: topik perlu dibimbing/dikuasai, pujian & saran, Bagikan/Salin/Cabut tautan, portal `/r/{token}` memuat `abilities` + `bossByTier` _(Spek: A.1, A.2 · Bukti: token cabut ditolak; portal tampil benar)_ <!--tries:1-->
   - ✅ 2026-11-03 05:59 — server.js, public/js/app.js · node --test tests/ui-report.test.js · topik dibimbing/dikuasai, pujian & saran, bagikan/salin/cabut tautan, portal /r/{token} memuat abilities + bossByTier & cabut ditolak 404
-- [ ] **G-1** GERBANG 1: `npm test` + `check-schema` + skenario H.1, H.2 + tanpa regresi laporan mingguan lama; commit
+- [x] **G-1** GERBANG 1: `npm test` + `check-schema` + skenario H.1, H.2 + tanpa regresi laporan mingguan lama; commit <!--tries:1-->
+  - ✅ 2026-11-03 05:59 — npm test (74/74 passed), check-schema (100% valid), skenario H.1 & H.2 passed, tanpa regresi laporan mingguan lama
 
 ## Fase 2 — Energi per level (F) dan upgrade skill (E)
 - [ ] **T-20** F: server — `energy_max` snapshot saat `start`, semua penambahan energi di-clamp, perolehan +1 per 3 jawaban benar bila belum ada aturan reguler, `GET /api/me` + `energyMax`/`nextEnergyLevel`, Pedagang saat penuh _(Spek: F.1, F.2 · Bukti: tes Lv 1/5/6/11/36 + clamp + resume)_
