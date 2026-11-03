@@ -1479,8 +1479,8 @@ Screens.subjects = {
           <div style="background:linear-gradient(135deg,rgba(168,85,247,0.2) 0%,rgba(236,72,153,0.15) 100%);border:1px solid rgba(168,85,247,0.3);border-radius:12px;padding:10px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px">
             <span style="font-size:1.8rem">🎉</span>
             <div>
-              <div style="font-weight:800;color:#fff;font-size:0.95rem">Mode Fun (5 Variasi Tipe Soal)</div>
-              <div style="font-size:0.8rem;color:var(--c-muted)">Menghadirkan Pilihan Ganda, Benar/Salah, Mengurutkan, Menjodohkan, & Isian Singkat. Tanpa Skill, Koin 0.5×!</div>
+              <div style="font-weight:800;color:#fff;font-size:0.95rem">Mode Fun (4 Variasi Tipe Soal)</div>
+              <div style="font-size:0.8rem;color:var(--c-muted)">Menghadirkan Benar/Salah, Mengurutkan, Menjodohkan, &amp; Isian Singkat (Tanpa Pilihan Ganda/MCQ). Tanpa Skill, Koin 0.5×!</div>
             </div>
           </div>
         ` : ''}
