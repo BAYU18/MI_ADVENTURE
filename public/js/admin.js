@@ -1505,16 +1505,51 @@
     if (state.modal === 'import') {
       const curSubj = state.subjects.find(s => s.id === state.modalData.subjectId);
       backdrop.innerHTML = `
-        <div class="modal" style="width:min(600px, 100%)">
+        <div class="modal" style="width:min(720px, 100%);max-height:92vh;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding:20px">
           <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:10px">
-            <h3 style="margin:0;font-size:1.15rem;color:var(--c-primary)">📥 Import Bank Soal JSON</h3>
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:1.4rem">📥</span>
+              <div>
+                <h3 style="margin:0;font-size:1.15rem;color:var(--c-primary)">Import Bank Soal JSON</h3>
+                <div style="font-size:.78rem;color:var(--c-muted)">Target Mapel: <strong style="color:var(--c-text)">${curSubj ? escapeHtml(curSubj.name) : '-'}</strong></div>
+              </div>
+            </div>
             <button id="modal-close-btn" style="background:transparent;border:0;color:var(--c-muted);font-size:1.4rem;cursor:pointer">&times;</button>
           </div>
 
-          <div style="font-size:.85rem;color:var(--c-muted);margin:8px 0">
-            Target Mapel: <strong style="color:var(--c-text)">${curSubj ? escapeHtml(curSubj.name) : '-'}</strong>
+          <!-- Petunjuk & Tombol Template Cepat -->
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 14px">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+              <strong style="color:var(--c-primary);font-size:.85rem">💡 Panduan Format & Contoh Soal:</strong>
+              <div style="display:flex;gap:6px">
+                <button type="button" id="btn-use-sample-json" class="btn small" style="background:rgba(56,189,248,.18);color:#38bdf8;border:0;border-radius:8px;padding:4px 10px;cursor:pointer;font-weight:700">
+                  📋 Isi Contoh ke Kotak
+                </button>
+                <button type="button" id="btn-dl-template-json" class="btn small" style="background:rgba(245,158,11,.18);color:#fbbf24;border:0;border-radius:8px;padding:4px 10px;cursor:pointer;font-weight:700">
+                  📥 Unduh File .json
+                </button>
+              </div>
+            </div>
+            <div style="font-size:.8rem;color:var(--c-muted);line-height:1.4">
+              Pilih tab di bawah untuk melihat struktur JSON tiap tipe soal (MCQ, Benar/Salah, Mengurutkan, Menjodohkan, Isian Singkat):
+            </div>
+
+            <!-- Mini Tabs Contoh Tipe Soal -->
+            <div style="display:flex;gap:4px;margin-top:8px;overflow-x:auto;padding-bottom:4px" id="sample-tabs">
+              <button type="button" class="btn-sample-tab active" data-type="MCQ" style="background:var(--c-surface-strong);color:var(--c-primary);border:1px solid var(--c-primary);border-radius:6px;padding:4px 8px;font-size:.76rem;cursor:pointer;font-weight:700">Pilihan Ganda (MCQ)</button>
+              <button type="button" class="btn-sample-tab" data-type="TRUE_FALSE" style="background:var(--c-surface);color:var(--c-muted);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:4px 8px;font-size:.76rem;cursor:pointer">Benar / Salah</button>
+              <button type="button" class="btn-sample-tab" data-type="ORDERING" style="background:var(--c-surface);color:var(--c-muted);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:4px 8px;font-size:.76rem;cursor:pointer">Mengurutkan</button>
+              <button type="button" class="btn-sample-tab" data-type="MATCHING" style="background:var(--c-surface);color:var(--c-muted);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:4px 8px;font-size:.76rem;cursor:pointer">Menjodohkan</button>
+              <button type="button" class="btn-sample-tab" data-type="SHORT" style="background:var(--c-surface);color:var(--c-muted);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:4px 8px;font-size:.76rem;cursor:pointer">Isian Singkat</button>
+            </div>
+
+            <!-- Box Preview Code Contoh -->
+            <div style="position:relative;margin-top:6px">
+              <pre id="sample-code-box" style="background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:10px 12px;font-family:monospace;font-size:.76rem;color:#e2e8f0;margin:0;max-height:130px;overflow-y:auto;white-space:pre-wrap"></pre>
+            </div>
           </div>
 
+          <!-- Input File & Textarea -->
           <div style="display:flex;flex-direction:column;gap:12px">
             <div class="field">
               <label>1. Pilih File .json dari Komputer</label>
@@ -1523,12 +1558,12 @@
 
             <div class="field">
               <label for="txt-import-json">2. Atau Tempel (Paste) Konten JSON di Sini</label>
-              <textarea id="txt-import-json" rows="6" placeholder='[\n  {\n    "text": "Hasil dari 5 + 5 adalah...",\n    "type": "SHORT",\n    "typeData": { "numeric": { "value": 10 } }\n  }\n]' style="font-family:monospace;font-size:.8rem"></textarea>
+              <textarea id="txt-import-json" rows="6" placeholder='Tempel kode JSON di sini atau klik tombol "Isi Contoh ke Kotak" di atas...' style="font-family:monospace;font-size:.8rem;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:10px;color:var(--c-text)"></textarea>
             </div>
 
             <div id="import-preview-box" style="display:none;padding:10px;border-radius:10px;font-size:.84rem"></div>
 
-            <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:6px">
+            <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:4px">
               <button type="button" id="modal-cancel-btn" class="btn small" style="background:var(--c-surface);color:var(--c-muted);border:0;border-radius:10px;cursor:pointer">Batal</button>
               <button type="button" id="btn-submit-import" class="btn small" style="background:var(--c-good);color:#052e16;font-weight:800;border:0;border-radius:10px;cursor:pointer">
                 Mulai Import Soal
@@ -1544,6 +1579,172 @@
       const fileInp = document.getElementById('inp-import-file');
       const txtInp = document.getElementById('txt-import-json');
       const prevBox = document.getElementById('import-preview-box');
+      const sampleCodeBox = document.getElementById('sample-code-box');
+
+      const SAMPLE_SNIPPETS = {
+        MCQ: `[
+  {
+    "text": "Berapakah hasil dari 25 + 15?",
+    "type": "MCQ",
+    "options": ["30", "35", "40", "45"],
+    "answerIndex": 2,
+    "explanation": "25 + 15 = 40. Pilihan C benar.",
+    "difficulty": 1
+  }
+]`,
+        TRUE_FALSE: `[
+  {
+    "text": "Matahari terbit dari arah timur.",
+    "type": "TRUE_FALSE",
+    "typeData": { "correctAnswer": true },
+    "explanation": "Matahari selalu terbit dari arah timur.",
+    "difficulty": 1
+  }
+]`,
+        ORDERING: `[
+  {
+    "text": "Urutkan tahapan metamorfosis kupu-kupu dari awal:",
+    "type": "ORDERING",
+    "typeData": {
+      "items": ["Telur", "Ulat (Larva)", "Kepompong (Pupa)", "Kupu-kupu Dewasa"]
+    },
+    "explanation": "Metamorfosis: Telur -> Ulat -> Kepompong -> Kupu-kupu.",
+    "difficulty": 2
+  }
+]`,
+        MATCHING: `[
+  {
+    "text": "Jodohkan nama hewan dengan jenis makanannya:",
+    "type": "MATCHING",
+    "typeData": {
+      "pairs": [
+        { "left": "Sapi", "right": "Rumput" },
+        { "left": "Harimau", "right": "Daging" },
+        { "left": "Ayam", "right": "Biji-bijian" }
+      ]
+    },
+    "explanation": "Sapi herbivora, harimau karnivora, ayam omnivora.",
+    "difficulty": 2
+  }
+]`,
+        SHORT: `[
+  {
+    "text": "Ibu kota negara Indonesia saat ini adalah ...",
+    "type": "SHORT",
+    "typeData": {
+      "isNumeric": false,
+      "accepted": ["Jakarta", "DKI Jakarta"]
+    },
+    "explanation": "Ibu kota Indonesia adalah Jakarta.",
+    "difficulty": 1
+  },
+  {
+    "text": "Berapakah nilai dari 12 x 8?",
+    "type": "SHORT",
+    "typeData": {
+      "isNumeric": true,
+      "numeric": { "value": 96, "tolerance": 0.01 }
+    },
+    "explanation": "12 x 8 = 96.",
+    "difficulty": 1
+  }
+]`
+      };
+
+      const FULL_SAMPLE_JSON = JSON.stringify([
+        {
+          "text": "Berapakah hasil dari 25 + 15?",
+          "type": "MCQ",
+          "options": ["30", "35", "40", "45"],
+          "answerIndex": 2,
+          "explanation": "25 + 15 = 40. Pilihan C benar.",
+          "difficulty": 1
+        },
+        {
+          "text": "Matahari terbit dari arah timur.",
+          "type": "TRUE_FALSE",
+          "typeData": { "correctAnswer": true },
+          "explanation": "Matahari selalu terbit dari arah timur.",
+          "difficulty": 1
+        },
+        {
+          "text": "Urutkan tahapan metamorfosis kupu-kupu dari awal:",
+          "type": "ORDERING",
+          "typeData": {
+            "items": ["Telur", "Ulat (Larva)", "Kepompong (Pupa)", "Kupu-kupu Dewasa"]
+          },
+          "explanation": "Metamorfosis: Telur -> Ulat -> Kepompong -> Kupu-kupu.",
+          "difficulty": 2
+        },
+        {
+          "text": "Jodohkan nama hewan dengan jenis makanannya:",
+          "type": "MATCHING",
+          "typeData": {
+            "pairs": [
+              { "left": "Sapi", "right": "Rumput" },
+              { "left": "Harimau", "right": "Daging" },
+              { "left": "Ayam", "right": "Biji-bijian" }
+            ]
+          },
+          "explanation": "Sapi herbivora, harimau karnivora, ayam omnivora.",
+          "difficulty": 2
+        },
+        {
+          "text": "Ibu kota negara Indonesia saat ini adalah ...",
+          "type": "SHORT",
+          "typeData": {
+            "isNumeric": false,
+            "accepted": ["Jakarta", "DKI Jakarta"]
+          },
+          "explanation": "Ibu kota Indonesia adalah Jakarta.",
+          "difficulty": 1
+        }
+      ], null, 2);
+
+      // Display default sample
+      sampleCodeBox.textContent = SAMPLE_SNIPPETS.MCQ;
+
+      // Handle sample tabs
+      document.querySelectorAll('.btn-sample-tab').forEach(tabBtn => {
+        tabBtn.addEventListener('click', () => {
+          document.querySelectorAll('.btn-sample-tab').forEach(b => {
+            b.classList.remove('active');
+            b.style.background = 'var(--c-surface)';
+            b.style.color = 'var(--c-muted)';
+            b.style.borderColor = 'rgba(255,255,255,.1)';
+            b.style.fontWeight = 'normal';
+          });
+          tabBtn.classList.add('active');
+          tabBtn.style.background = 'var(--c-surface-strong)';
+          tabBtn.style.color = 'var(--c-primary)';
+          tabBtn.style.borderColor = 'var(--c-primary)';
+          tabBtn.style.fontWeight = '700';
+
+          const qType = tabBtn.getAttribute('data-type');
+          sampleCodeBox.textContent = SAMPLE_SNIPPETS[qType] || '';
+        });
+      });
+
+      // Quick Fill Sample
+      document.getElementById('btn-use-sample-json').addEventListener('click', () => {
+        txtInp.value = FULL_SAMPLE_JSON;
+        parseRaw(FULL_SAMPLE_JSON);
+        toast('Contoh format 5 tipe soal berhasil dimasukkan!', 'success');
+      });
+
+      // Download Template
+      document.getElementById('btn-dl-template-json').addEventListener('click', () => {
+        const blob = new Blob([FULL_SAMPLE_JSON], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'template-bank-soal-5-tipe.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        toast('File template template-bank-soal-5-tipe.json berhasil diunduh', 'success');
+      });
 
       function validateQuestionItem(qItem, rowNum) {
         if (!qItem || typeof qItem !== 'object') {

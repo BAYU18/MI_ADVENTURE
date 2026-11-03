@@ -1,0 +1,69 @@
+[
+  {
+    "text": "Berapakah hasil dari 25 + 15?",
+    "type": "MCQ",
+    "options": ["30", "35", "40", "45"],
+    "answerIndex": 2,
+    "explanation": "25 + 15 = 40. Pilihan C benar.",
+    "difficulty": 1
+  },
+  {
+    "text": "Matahari terbit dari arah timur.",
+    "type": "TRUE_FALSE",
+    "typeData": {
+      "correctAnswer": true
+    },
+    "explanation": "Matahari selalu terbit dari arah timur.",
+    "difficulty": 1
+  },
+  {
+    "text": "Urutkan tahapan metamorfosis kupu-kupu dari awal:",
+    "type": "ORDERING",
+    "typeData": {
+      "items": [
+        "Telur",
+        "Ulat (Larva)",
+        "Kepompong (Pupa)",
+        "Kupu-kupu Dewasa"
+      ]
+    },
+    "explanation": "Metamorfosis: Telur -> Ulat -> Kepompong -> Kupu-kupu.",
+    "difficulty": 2
+  },
+  {
+    "text": "Jodohkan nama hewan dengan jenis makanannya:",
+    "type": "MATCHING",
+    "typeData": {
+      "pairs": [
+        { "left": "Sapi", "right": "Rumput" },
+        { "left": "Harimau", "right": "Daging" },
+        { "left": "Ayam", "right": "Biji-bijian" }
+      ]
+    },
+    "explanation": "Sapi herbivora, harimau karnivora, ayam omnivora.",
+    "difficulty": 2
+  },
+  {
+    "text": "Ibu kota negara Indonesia saat ini adalah ...",
+    "type": "SHORT",
+    "typeData": {
+      "isNumeric": false,
+      "accepted": ["Jakarta", "DKI Jakarta"]
+    },
+    "explanation": "Ibu kota Indonesia saat ini adalah Jakarta.",
+    "difficulty": 1
+  },
+  {
+    "text": "Berapakah nilai dari 12 x 8?",
+    "type": "SHORT",
+    "typeData": {
+      "isNumeric": true,
+      "numeric": {
+        "value": 96,
+        "tolerance": 0.01
+      }
+    },
+    "explanation": "12 x 8 = 96.",
+    "difficulty": 1
+  }
+]
