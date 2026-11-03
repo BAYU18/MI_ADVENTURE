@@ -2506,13 +2506,16 @@ Screens.result = {
   data: null,
   show(res) {
     this.data = res;
+    if (res?.player && window.Player) {
+      Player.data = { ...Player.data, ...res.player };
+    }
     go('result');
   },
 
   render(app) {
     const r = this.data;
     if (!r) return go('subjects');
-    const s = r.session;
+    const s = r.session || {};
     const isWon = s.status === 'WON';
 
     if (isWon) {
@@ -2523,9 +2526,14 @@ Screens.result = {
       else if (window.Sfx) Sfx.play('lose');
     }
 
-    const starsStr = s.stars > 0 ? '⭐'.repeat(s.stars) : '☆☆☆';
+    const stars = s.stars !== undefined ? s.stars : (r.rewards?.stars || 0);
+    const starsStr = stars > 0 ? '⭐'.repeat(stars) : '☆☆☆';
     const monsterDef = (s.monster && s.monster.color) ? s.monster : (Monsters.MONSTERS.find(x => x.id === (s.monster?.id || s.boss?.id || s.monster_id)) || Monsters.MONSTERS[0]);
     const monsterSvg = s.boss?.svg || Monsters.renderMonster(monsterDef, { size: 140 });
+
+    const xpEarned = s.xpEarned !== undefined ? s.xpEarned : (s.xp_earned !== undefined ? s.xp_earned : (r.rewards?.xp ?? 0));
+    const coinsEarned = s.coinsEarned !== undefined ? s.coinsEarned : (s.coins_earned !== undefined ? s.coins_earned : (r.rewards?.coins ?? 0));
+    const maxStreak = s.maxStreak !== undefined ? s.maxStreak : (s.max_streak || 0);
 
     // Child-Friendly Defeat / Victory Messages & Study Tips (K / T-26)
     const accuracy = (s.totalQuestions > 0) ? ((s.correctCount || 0) / s.totalQuestions) : 0;
@@ -2545,7 +2553,7 @@ Screens.result = {
     } else {
       const theme = s.monster?.theme || 'hutan';
       const defeatLines = window.StoryData?.STORY?.[theme]?.defeat || [];
-      defeatQuote = defeatLines.length > 0 ? Screens.battle.pickLine(defeatLines, 0) : `Luar biasa! Kamu berhasil menaklukkan ${esc(s.monster.name)}!`;
+      defeatQuote = defeatLines.length > 0 ? Screens.battle.pickLine(defeatLines, 0) : `Luar biasa! Kamu berhasil menaklukkan ${esc(s.monster?.name || 'Monster')}!`;
     }
 
     app.innerHTML = `
@@ -2564,15 +2572,15 @@ Screens.result = {
           <div style="display:flex;justify-content:space-around;font-size:.9rem;padding:10px 0;border-top:1px solid rgba(255,255,255,.1)">
             <div>
               <div style="color:var(--c-muted);font-size:.75rem">XP Didapat</div>
-              <strong style="color:var(--c-good)">+${s.xpEarned} XP</strong>
+              <strong style="color:var(--c-good)">+${xpEarned} XP</strong>
             </div>
             <div>
               <div style="color:var(--c-muted);font-size:.75rem">Koin</div>
-              <strong style="color:var(--c-primary)">+${s.coinsEarned} 🪙</strong>
+              <strong style="color:var(--c-primary)">+${coinsEarned} 🪙</strong>
             </div>
             <div>
               <div style="color:var(--c-muted);font-size:.75rem">Max Combo</div>
-              <strong style="color:var(--c-info)">🔥 ${s.maxStreak}×</strong>
+              <strong style="color:var(--c-info)">🔥 ${maxStreak}×</strong>
             </div>
           </div>
           ${studyTip ? `
