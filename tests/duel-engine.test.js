@@ -10,7 +10,7 @@ const {
 test('konstanta duel', () => {
   assert.equal(C.MAX_HP, 100);
   assert.equal(C.DAMAGE_PER_CORRECT, 10);
-  assert.equal(C.NORMAL_PHASE_MS, 600_000);
+  assert.equal(C.NORMAL_PHASE_MS, 180_000);
   assert.equal(C.DEATHMATCH_QUESTION_MS, 30_000);
   assert.equal(C.RECONNECT_WINDOW_MS, 120_000);
   assert.equal(C.REWARD_COINS_WIN, 15);

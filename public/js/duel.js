@@ -11,11 +11,77 @@
   let currentLoadedQ = null;
   let eliminatedOpts = [];
   let isSubmitting = false;
+  let lastMyHp = null;
+  let lastOppHp = null;
+  let bannerTimer = null;
 
   function stopAllTimers() {
     if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
     if (countdownTimer) { clearInterval(countdownTimer); countdownTimer = null; }
     if (heartbeatTimer) { clearInterval(heartbeatTimer); heartbeatTimer = null; }
+    if (bannerTimer) { clearTimeout(bannerTimer); bannerTimer = null; }
+  }
+
+  function showActionBanner(type, text) {
+    const banner = document.getElementById('duel-action-banner');
+    if (!banner) return;
+    if (bannerTimer) clearTimeout(bannerTimer);
+    banner.className = `duel-action-banner ${type}`;
+    banner.textContent = text;
+    bannerTimer = setTimeout(() => {
+      if (banner) banner.className = 'duel-action-banner';
+    }, 2500);
+  }
+
+  function triggerAttackEffect(damage) {
+    const arena = document.querySelector('.duel-arena-card');
+    const oppCombatant = document.querySelector('.duel-combatant.opp');
+    if (arena) {
+      arena.classList.remove('screen-attack-flash');
+      void arena.offsetWidth;
+      arena.classList.add('screen-attack-flash');
+      setTimeout(() => arena?.classList.remove('screen-attack-flash'), 650);
+    }
+    if (oppCombatant) {
+      oppCombatant.classList.remove('hit-shake');
+      void oppCombatant.offsetWidth;
+      oppCombatant.classList.add('hit-shake');
+      setTimeout(() => oppCombatant?.classList.remove('hit-shake'), 500);
+
+      const floater = document.createElement('div');
+      floater.className = 'duel-damage-floater attack';
+      floater.textContent = `💥 -${damage || 10} HP`;
+      oppCombatant.appendChild(floater);
+      setTimeout(() => floater.remove(), 1000);
+    }
+    showActionBanner('attack', `⚔️ Seranganmu Berhasil! Lawan terkena -${damage || 10} HP`);
+  }
+
+  function triggerAttackedEffect(damage) {
+    const arena = document.querySelector('.duel-arena-card');
+    const myCombatant = document.querySelector('.duel-combatant.me');
+    if (arena) {
+      arena.classList.remove('screen-attacked-flash');
+      void arena.offsetWidth;
+      arena.classList.add('screen-attacked-flash');
+      setTimeout(() => arena?.classList.remove('screen-attacked-flash'), 750);
+    }
+    if (myCombatant) {
+      myCombatant.classList.remove('hit-shake');
+      void myCombatant.offsetWidth;
+      myCombatant.classList.add('hit-shake');
+      setTimeout(() => myCombatant?.classList.remove('hit-shake'), 500);
+
+      const floater = document.createElement('div');
+      floater.className = 'duel-damage-floater attacked';
+      floater.textContent = `💔 -${damage} HP`;
+      myCombatant.appendChild(floater);
+      setTimeout(() => floater.remove(), 1000);
+    }
+    if (window.Sfx) {
+      try { Sfx.play('wrong'); } catch (e) {}
+    }
+    showActionBanner('attacked', `⚠️ Kamu Terserang Lawan! HP berkurang -${damage} HP`);
   }
 
   function esc(s) {
@@ -160,6 +226,14 @@
     const hpMyPct = Math.max(0, Math.min(100, myData.hp));
     const hpOppPct = Math.max(0, Math.min(100, oppData.hp));
 
+    // Deteksi jika diserang oleh lawan (HP kita berkurang)
+    if (lastMyHp !== null && myData.hp < lastMyHp) {
+      const dmg = lastMyHp - myData.hp;
+      triggerAttackedEffect(dmg);
+    }
+    lastMyHp = myData.hp;
+    lastOppHp = oppData.hp;
+
     // Update HP & Energy bars
     const hpMeFill = document.getElementById('duel-hp-me-fill');
     const hpMeText = document.getElementById('duel-hp-me-text');
@@ -212,6 +286,9 @@
               <div id="duel-hp-opp-text" class="duel-hp-text">${oppData.hp} / 100</div>
             </div>
           </div>
+
+          <!-- Combat Action Banner -->
+          <div id="duel-action-banner" class="duel-action-banner"></div>
 
           <!-- Question Box -->
           <div id="duel-question-container" class="duel-question-box">
@@ -309,6 +386,7 @@
             if (ansRes.isCorrect) {
               btn.classList.add('correct');
               if (window.Sfx) Sfx.play('correct');
+              triggerAttackEffect(ansRes.damage || 10);
             } else {
               btn.classList.add('wrong');
               if (window.Sfx) Sfx.play('wrong');
@@ -496,6 +574,8 @@
       currentLoadedQ = null;
       eliminatedOpts = [];
       isSubmitting = false;
+      lastMyHp = null;
+      lastOppHp = null;
 
       app.innerHTML = `
         <section class="screen active stack duel-screen-root">

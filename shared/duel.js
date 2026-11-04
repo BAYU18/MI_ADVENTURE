@@ -4,7 +4,7 @@
 const C = {
   MAX_HP: 100,
   DAMAGE_PER_CORRECT: 10,
-  NORMAL_PHASE_MS: 600_000,
+  NORMAL_PHASE_MS: 180_000, // 3 menit (180 detik)
   DEATHMATCH_QUESTION_MS: 30_000, // Mulai dari 30s
   DEATHMATCH_MIN_MS: 10_000,      // Minimum waktu deathmatch
   ANSWER_TOLERANCE_MS: 1_500,

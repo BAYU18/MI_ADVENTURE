@@ -28,12 +28,21 @@
     selectedSubjectId: null,
     questions: [],
     loadingQuestions: false,
+    questionSearch: '',
+    questionTypeFilter: 'ALL',
+    questionDiffFilter: 'ALL',
+    questionSort: 'id_asc',
     players: [],
     loadingPlayers: false,
     playerSearch: '',
+    playerClassFilter: 'ALL',
+    playerSort: 'id_asc',
     reportsList: [],
     selectedReportClassId: null,
     loadingReports: false,
+    reportSearch: '',
+    reportTrendFilter: 'ALL',
+    reportSort: 'accuracy_desc',
     modal: null, // null | 'question' | 'import' | 'reset-pw'
     modalData: null,
   };
@@ -518,6 +527,22 @@
     renderModal();
   }
 
+  function rerenderKeepingFocus(activeInputId) {
+    const el = activeInputId ? document.getElementById(activeInputId) : null;
+    const sStart = el ? el.selectionStart : null;
+    const sEnd = el ? el.selectionEnd : null;
+    render();
+    if (activeInputId) {
+      const nextEl = document.getElementById(activeInputId);
+      if (nextEl) {
+        nextEl.focus();
+        if (sStart !== null && sEnd !== null) {
+          try { nextEl.setSelectionRange(sStart, sEnd); } catch (e) {}
+        }
+      }
+    }
+  }
+
   function renderLogin() {
     root.innerHTML = `
       <div style="max-width:420px;margin:50px auto;width:100%">
@@ -709,6 +734,45 @@
       else typeCounts.MCQ++;
     });
 
+    // Filter questions based on search, type, and difficulty
+    const qSearch = (state.questionSearch || '').trim().toLowerCase();
+    const qTypeF = state.questionTypeFilter || 'ALL';
+    const qDiffF = state.questionDiffFilter || 'ALL';
+    const qSort = state.questionSort || 'id_asc';
+
+    let filteredQuestions = state.questions.filter(q => {
+      // Type filter
+      const curType = (q.question_type || 'MCQ').toUpperCase();
+      if (qTypeF !== 'ALL' && curType !== qTypeF) return false;
+
+      // Difficulty filter
+      if (qDiffF !== 'ALL' && String(q.difficulty || 1) !== String(qDiffF)) return false;
+
+      // Search keyword (text, explanation, options, accepted answer)
+      if (qSearch) {
+        const textMatch = (q.text || '').toLowerCase().includes(qSearch);
+        const explMatch = (q.explanation || '').toLowerCase().includes(qSearch);
+        const optsMatch = Array.isArray(q.options) && q.options.some(opt => String(opt || '').toLowerCase().includes(qSearch));
+        let typeDataMatch = false;
+        if (q.type_data_json) {
+          typeDataMatch = q.type_data_json.toLowerCase().includes(qSearch);
+        }
+        if (!textMatch && !explMatch && !optsMatch && !typeDataMatch) return false;
+      }
+      return true;
+    });
+
+    // Sort questions
+    filteredQuestions = [...filteredQuestions].sort((a, b) => {
+      if (qSort === 'id_asc') return (a.id || 0) - (b.id || 0);
+      if (qSort === 'id_desc') return (b.id || 0) - (a.id || 0);
+      if (qSort === 'diff_asc') return (a.difficulty || 1) - (b.difficulty || 1);
+      if (qSort === 'diff_desc') return (b.difficulty || 1) - (a.difficulty || 1);
+      if (qSort === 'type_asc') return (a.question_type || 'MCQ').localeCompare(b.question_type || 'MCQ');
+      if (qSort === 'text_asc') return (a.text || '').localeCompare(b.text || '');
+      return 0;
+    });
+
     return `
       <!-- Toolbar Filters & Actions -->
       <div style="background:var(--c-surface);border:1px solid var(--c-surface-strong);border-radius:var(--radius);padding:14px 18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
@@ -768,6 +832,53 @@
         <span style="margin-left:auto;color:var(--c-muted)">Total: <strong style="color:var(--c-text)">${state.questions.length}</strong></span>
       </div>
 
+      <!-- Search, Filter & Sort Bar for Questions -->
+      <div style="margin-top:12px;background:var(--c-surface);border:1px solid var(--c-surface-strong);border-radius:var(--radius);padding:12px 18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex:1">
+          <input type="text" id="inp-search-question" placeholder="🔍 Cari teks soal, jawaban, atau pembahasan..." value="${escapeHtml(state.questionSearch)}" style="background:rgba(0,0,0,.35);color:var(--c-text);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:7px 12px;font-size:.85rem;min-width:260px;flex:1">
+
+          <div style="display:flex;align-items:center;gap:6px">
+            <label style="font-size:.82rem;font-weight:700;color:var(--c-muted)">Tipe:</label>
+            <select id="sel-filter-question-type" style="background:rgba(0,0,0,.35);color:var(--c-text);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:6px 10px;font-size:.85rem">
+              <option value="ALL" ${qTypeF === 'ALL' ? 'selected' : ''}>Semua Tipe (${state.questions.length})</option>
+              <option value="MCQ" ${qTypeF === 'MCQ' ? 'selected' : ''}>MCQ (${typeCounts.MCQ})</option>
+              <option value="TRUE_FALSE" ${qTypeF === 'TRUE_FALSE' ? 'selected' : ''}>TRUE/FALSE (${typeCounts.TRUE_FALSE})</option>
+              <option value="ORDERING" ${qTypeF === 'ORDERING' ? 'selected' : ''}>ORDERING (${typeCounts.ORDERING})</option>
+              <option value="MATCHING" ${qTypeF === 'MATCHING' ? 'selected' : ''}>MATCHING (${typeCounts.MATCHING})</option>
+              <option value="SHORT" ${qTypeF === 'SHORT' ? 'selected' : ''}>SHORT (${typeCounts.SHORT})</option>
+            </select>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:6px">
+            <label style="font-size:.82rem;font-weight:700;color:var(--c-muted)">Tingkat:</label>
+            <select id="sel-filter-question-diff" style="background:rgba(0,0,0,.35);color:var(--c-text);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:6px 10px;font-size:.85rem">
+              <option value="ALL" ${qDiffF === 'ALL' ? 'selected' : ''}>Semua Tingkat</option>
+              <option value="1" ${qDiffF === '1' ? 'selected' : ''}>Tier 1 (Mudah)</option>
+              <option value="2" ${qDiffF === '2' ? 'selected' : ''}>Tier 2 (Sedang)</option>
+              <option value="3" ${qDiffF === '3' ? 'selected' : ''}>Tier 3 (Sulit)</option>
+              <option value="4" ${qDiffF === '4' ? 'selected' : ''}>Tier 4 (Tinggi)</option>
+              <option value="5" ${qDiffF === '5' ? 'selected' : ''}>Tier 5 (Master)</option>
+            </select>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:6px">
+            <label style="font-size:.82rem;font-weight:700;color:var(--c-muted)">Urutkan:</label>
+            <select id="sel-sort-question" style="background:rgba(0,0,0,.35);color:var(--c-text);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:6px 10px;font-size:.85rem">
+              <option value="id_asc" ${qSort === 'id_asc' ? 'selected' : ''}>ID (Terkecil - Awal)</option>
+              <option value="id_desc" ${qSort === 'id_desc' ? 'selected' : ''}>ID (Terbesar - Akhir)</option>
+              <option value="diff_asc" ${qSort === 'diff_asc' ? 'selected' : ''}>Tingkat (Mudah → Sulit)</option>
+              <option value="diff_desc" ${qSort === 'diff_desc' ? 'selected' : ''}>Tingkat (Sulit → Mudah)</option>
+              <option value="type_asc" ${qSort === 'type_asc' ? 'selected' : ''}>Tipe Soal (A-Z)</option>
+              <option value="text_asc" ${qSort === 'text_asc' ? 'selected' : ''}>Teks Soal (A-Z)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="font-size:.84rem;color:var(--c-muted);white-space:nowrap">
+          Menampilkan: <strong style="color:var(--c-text)">${filteredQuestions.length}</strong> / ${state.questions.length} soal
+        </div>
+      </div>
+
       <!-- Question List Table -->
       <div class="table-wrap">
         <table class="adm-table">
@@ -796,7 +907,13 @@
                   </button>
                 </td>
               </tr>
-            ` : state.questions.map((q, idx) => {
+            ` : filteredQuestions.length === 0 ? `
+              <tr>
+                <td colspan="5" style="text-align:center;padding:40px;color:var(--c-muted)">
+                  Tidak ada soal yang cocok dengan filter atau kata kunci pencarian.
+                </td>
+              </tr>
+            ` : filteredQuestions.map((q, idx) => {
               const qType = (q.question_type || 'MCQ').toUpperCase();
               let typeData = {};
               if (q.type_data_json) {
@@ -891,19 +1008,101 @@
   }
 
   function renderPlayersContent() {
-    const qSearch = state.playerSearch.toLowerCase();
-    const filtered = state.players.filter(p => !qSearch || p.nick.toLowerCase().includes(qSearch));
+    const qSearch = (state.playerSearch || '').trim().toLowerCase();
+    const pClassF = state.playerClassFilter || 'ALL';
+    const pSort = state.playerSort || 'id_asc';
+
+    let filtered = state.players.filter(p => {
+      // Class filter
+      const pClasses = (p.classes && p.classes.length > 0)
+        ? p.classes
+        : (p.class_id ? [{ id: p.class_id, name: (state.classes.find(c => c.id === p.class_id) || {}).name || `Kelas ${p.class_id}` }] : []);
+
+      if (pClassF === 'NONE') {
+        if (pClasses.length > 0) return false;
+      } else if (pClassF !== 'ALL') {
+        const hasClass = pClasses.some(c => String(c.id) === String(pClassF));
+        if (!hasClass) return false;
+      }
+
+      // Search keyword (nick, id, or enrolled class name)
+      if (qSearch) {
+        const nickMatch = (p.nick || '').toLowerCase().includes(qSearch);
+        const idMatch = String(p.id).includes(qSearch);
+        const classMatch = pClasses.some(c => (c.name || '').toLowerCase().includes(qSearch));
+        if (!nickMatch && !idMatch && !classMatch) return false;
+      }
+
+      return true;
+    });
+
+    // Sort
+    filtered = [...filtered].sort((a, b) => {
+      if (pSort === 'id_asc') return (a.id || 0) - (b.id || 0);
+      if (pSort === 'id_desc') return (b.id || 0) - (a.id || 0);
+      if (pSort === 'nick_asc') return (a.nick || '').localeCompare(b.nick || '');
+      if (pSort === 'nick_desc') return (b.nick || '').localeCompare(a.nick || '');
+      if (pSort === 'level_desc') return (b.level || 1) - (a.level || 1);
+      if (pSort === 'level_asc') return (a.level || 1) - (b.level || 1);
+      if (pSort === 'xp_desc') return (b.xp || 0) - (a.xp || 0);
+      if (pSort === 'xp_asc') return (a.xp || 0) - (b.xp || 0);
+      if (pSort === 'coins_desc') return (b.coins || 0) - (a.coins || 0);
+      if (pSort === 'coins_asc') return (a.coins || 0) - (b.coins || 0);
+      if (pSort === 'active_desc') {
+        const tA = a.last_login_at ? new Date(a.last_login_at).getTime() : 0;
+        const tB = b.last_login_at ? new Date(b.last_login_at).getTime() : 0;
+        return tB - tA;
+      }
+      if (pSort === 'active_asc') {
+        const tA = a.last_login_at ? new Date(a.last_login_at).getTime() : 0;
+        const tB = b.last_login_at ? new Date(b.last_login_at).getTime() : 0;
+        return tA - tB;
+      }
+      return 0;
+    });
 
     return `
-      <!-- Toolbar Players -->
+      <!-- Toolbar Players with Search, Filter & Sort -->
       <div style="background:var(--c-surface);border:1px solid var(--c-surface-strong);border-radius:var(--radius);padding:14px 18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
-        <div style="display:flex;align-items:center;gap:10px">
-          <input type="text" id="inp-search-player" placeholder="Cari nama / nick siswa..." value="${escapeHtml(state.playerSearch)}" style="background:rgba(0,0,0,.35);color:var(--c-text);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:8px 12px;font-size:.85rem;min-width:240px">
-          <span style="font-size:.85rem;color:var(--c-muted)">Total: ${filtered.length} siswa</span>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex:1">
+          <input type="text" id="inp-search-player" placeholder="🔍 Cari nama siswa, ID, atau kelas..." value="${escapeHtml(state.playerSearch)}" style="background:rgba(0,0,0,.35);color:var(--c-text);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:8px 12px;font-size:.85rem;min-width:230px;flex:1">
+
+          <div style="display:flex;align-items:center;gap:6px">
+            <label style="font-size:.82rem;font-weight:700;color:var(--c-muted)">Kelas:</label>
+            <select id="sel-filter-player-class" style="background:rgba(0,0,0,.35);color:var(--c-text);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:7px 10px;font-size:.85rem">
+              <option value="ALL" ${pClassF === 'ALL' ? 'selected' : ''}>Semua Kelas (${state.players.length})</option>
+              <option value="NONE" ${pClassF === 'NONE' ? 'selected' : ''}>Belum Punya Kelas</option>
+              ${state.classes.map(c => `
+                <option value="${c.id}" ${String(c.id) === String(pClassF) ? 'selected' : ''}>${escapeHtml(c.name)}</option>
+              `).join('')}
+            </select>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:6px">
+            <label style="font-size:.82rem;font-weight:700;color:var(--c-muted)">Urutkan:</label>
+            <select id="sel-sort-player" style="background:rgba(0,0,0,.35);color:var(--c-text);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:7px 10px;font-size:.85rem">
+              <option value="id_asc" ${pSort === 'id_asc' ? 'selected' : ''}>ID (Terkecil → Terbesar)</option>
+              <option value="id_desc" ${pSort === 'id_desc' ? 'selected' : ''}>ID (Terbesar → Terkecil)</option>
+              <option value="nick_asc" ${pSort === 'nick_asc' ? 'selected' : ''}>Nama / Nick (A-Z)</option>
+              <option value="nick_desc" ${pSort === 'nick_desc' ? 'selected' : ''}>Nama / Nick (Z-A)</option>
+              <option value="level_desc" ${pSort === 'level_desc' ? 'selected' : ''}>Level RPG (Tertinggi)</option>
+              <option value="level_asc" ${pSort === 'level_asc' ? 'selected' : ''}>Level RPG (Terendah)</option>
+              <option value="xp_desc" ${pSort === 'xp_desc' ? 'selected' : ''}>Total XP (Terbanyak)</option>
+              <option value="xp_asc" ${pSort === 'xp_asc' ? 'selected' : ''}>Total XP (Terkecil)</option>
+              <option value="coins_desc" ${pSort === 'coins_desc' ? 'selected' : ''}>Koin 🪙 (Terbanyak)</option>
+              <option value="coins_asc" ${pSort === 'coins_asc' ? 'selected' : ''}>Koin 🪙 (Terkecil)</option>
+              <option value="active_desc" ${pSort === 'active_desc' ? 'selected' : ''}>Terakhir Aktif (Terbaru)</option>
+              <option value="active_asc" ${pSort === 'active_asc' ? 'selected' : ''}>Terakhir Aktif (Terlama)</option>
+            </select>
+          </div>
         </div>
-        <button id="btn-refresh-players" class="btn small" style="background:var(--c-surface);color:var(--c-text);border:0;border-radius:10px;cursor:pointer">
-          🔄 Muat Ulang Data
-        </button>
+
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font-size:.85rem;color:var(--c-muted)">Menampilkan: <strong style="color:var(--c-text)">${filtered.length}</strong> / ${state.players.length} siswa</span>
+          <button id="btn-refresh-players" class="btn small" style="background:var(--c-surface);color:var(--c-text);border:0;border-radius:10px;cursor:pointer">
+            🔄 Muat Ulang
+          </button>
+        </div>
       </div>
 
       <!-- Player List Table -->
@@ -987,6 +1186,35 @@
   function renderReportsContent() {
     const classId = state.selectedReportClassId || (state.classes.length > 0 ? state.classes[0].id : 1);
     const reports = state.reportsList || [];
+    const rSearch = (state.reportSearch || '').trim().toLowerCase();
+    const rTrendF = state.reportTrendFilter || 'ALL';
+    const rSort = state.reportSort || 'accuracy_desc';
+
+    let filteredReports = reports.filter(r => {
+      // Trend filter
+      if (rTrendF !== 'ALL' && (r.trend || 'stable') !== rTrendF) return false;
+
+      // Search filter (nick or weakest subject)
+      if (rSearch) {
+        const nickMatch = (r.nick || '').toLowerCase().includes(rSearch);
+        const subjMatch = (r.weakestSubject || '').toLowerCase().includes(rSearch);
+        if (!nickMatch && !subjMatch) return false;
+      }
+      return true;
+    });
+
+    // Sort
+    filteredReports = [...filteredReports].sort((a, b) => {
+      if (rSort === 'accuracy_desc') return (b.accuracy || 0) - (a.accuracy || 0);
+      if (rSort === 'accuracy_asc') return (a.accuracy || 0) - (b.accuracy || 0);
+      if (rSort === 'sessions_desc') return (b.sessions || 0) - (a.sessions || 0);
+      if (rSort === 'sessions_asc') return (a.sessions || 0) - (b.sessions || 0);
+      if (rSort === 'minutes_desc') return (b.minutes || 0) - (a.minutes || 0);
+      if (rSort === 'minutes_asc') return (a.minutes || 0) - (b.minutes || 0);
+      if (rSort === 'nick_asc') return (a.nick || '').localeCompare(b.nick || '');
+      if (rSort === 'nick_desc') return (b.nick || '').localeCompare(a.nick || '');
+      return 0;
+    });
 
     return `
       <!-- Toolbar Reports -->
@@ -1011,6 +1239,41 @@
           <button id="btn-refresh-reports" class="btn small" style="background:var(--c-surface);color:var(--c-text);border:0;border-radius:10px;cursor:pointer">
             🔄 Muat Ulang
           </button>
+        </div>
+      </div>
+
+      <!-- Search, Filter & Sort Bar for Reports -->
+      <div style="margin-top:12px;background:var(--c-surface);border:1px solid var(--c-surface-strong);border-radius:var(--radius);padding:12px 18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex:1">
+          <input type="text" id="inp-search-report" placeholder="🔍 Cari nama siswa atau mapel lemah..." value="${escapeHtml(state.reportSearch)}" style="background:rgba(0,0,0,.35);color:var(--c-text);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:7px 12px;font-size:.85rem;min-width:240px;flex:1">
+
+          <div style="display:flex;align-items:center;gap:6px">
+            <label style="font-size:.82rem;font-weight:700;color:var(--c-muted)">Tren:</label>
+            <select id="sel-filter-report-trend" style="background:rgba(0,0,0,.35);color:var(--c-text);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:6px 10px;font-size:.85rem">
+              <option value="ALL" ${rTrendF === 'ALL' ? 'selected' : ''}>Semua Tren</option>
+              <option value="up" ${rTrendF === 'up' ? 'selected' : ''}>🟢 Meningkat</option>
+              <option value="stable" ${rTrendF === 'stable' ? 'selected' : ''}>🟡 Stabil</option>
+              <option value="down" ${rTrendF === 'down' ? 'selected' : ''}>🔴 Menurun</option>
+            </select>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:6px">
+            <label style="font-size:.82rem;font-weight:700;color:var(--c-muted)">Urutkan:</label>
+            <select id="sel-sort-report" style="background:rgba(0,0,0,.35);color:var(--c-text);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:6px 10px;font-size:.85rem">
+              <option value="accuracy_desc" ${rSort === 'accuracy_desc' ? 'selected' : ''}>Akurasi (Tertinggi → Terendah)</option>
+              <option value="accuracy_asc" ${rSort === 'accuracy_asc' ? 'selected' : ''}>Akurasi (Terendah → Tertinggi)</option>
+              <option value="sessions_desc" ${rSort === 'sessions_desc' ? 'selected' : ''}>Sesi Battle (Terbanyak)</option>
+              <option value="sessions_asc" ${rSort === 'sessions_asc' ? 'selected' : ''}>Sesi Battle (Terkecil)</option>
+              <option value="minutes_desc" ${rSort === 'minutes_desc' ? 'selected' : ''}>Menit Belajar (Terlama)</option>
+              <option value="minutes_asc" ${rSort === 'minutes_asc' ? 'selected' : ''}>Menit Belajar (Tersingkat)</option>
+              <option value="nick_asc" ${rSort === 'nick_asc' ? 'selected' : ''}>Nama Siswa (A-Z)</option>
+              <option value="nick_desc" ${rSort === 'nick_desc' ? 'selected' : ''}>Nama Siswa (Z-A)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="font-size:.84rem;color:var(--c-muted);white-space:nowrap">
+          Menampilkan: <strong style="color:var(--c-text)">${filteredReports.length}</strong> / ${reports.length} siswa
         </div>
       </div>
 
@@ -1041,7 +1304,13 @@
                   Belum ada aktivitas mingguan tercatat untuk kelas ini. Klik tombol <strong>Kompilasi Ulang</strong> untuk memperbarui data.
                 </td>
               </tr>
-            ` : reports.map((r, idx) => {
+            ` : filteredReports.length === 0 ? `
+              <tr>
+                <td colspan="7" style="text-align:center;padding:40px;color:var(--c-muted)">
+                  Tidak ada data siswa yang cocok dengan filter atau kata kunci pencarian.
+                </td>
+              </tr>
+            ` : filteredReports.map((r, idx) => {
               const accPct = Math.round((r.accuracy || 0) * 100);
               let trendBadge = '<span class="badge yellow">🟡 Stabil</span>';
               if (r.trend === 'up') trendBadge = '<span class="badge green">🟢 Meningkat</span>';
@@ -1120,6 +1389,31 @@
       btnRefreshReports.addEventListener('click', () => loadReports(state.selectedReportClassId));
     }
 
+    // Report search, filter & sort
+    const inpSearchRep = document.getElementById('inp-search-report');
+    if (inpSearchRep) {
+      inpSearchRep.addEventListener('input', (e) => {
+        state.reportSearch = e.target.value;
+        rerenderKeepingFocus('inp-search-report');
+      });
+    }
+
+    const selFilterRepTrend = document.getElementById('sel-filter-report-trend');
+    if (selFilterRepTrend) {
+      selFilterRepTrend.addEventListener('change', (e) => {
+        state.reportTrendFilter = e.target.value;
+        render();
+      });
+    }
+
+    const selSortRep = document.getElementById('sel-sort-report');
+    if (selSortRep) {
+      selSortRep.addEventListener('change', (e) => {
+        state.reportSort = e.target.value;
+        render();
+      });
+    }
+
     // Class dropdown change
     const selClass = document.getElementById('sel-class');
     if (selClass) {
@@ -1186,6 +1480,39 @@
       btnExportQ.addEventListener('click', exportQuestions);
     }
 
+    // Question search, filter & sort
+    const inpSearchQ = document.getElementById('inp-search-question');
+    if (inpSearchQ) {
+      inpSearchQ.addEventListener('input', (e) => {
+        state.questionSearch = e.target.value;
+        rerenderKeepingFocus('inp-search-question');
+      });
+    }
+
+    const selFilterQType = document.getElementById('sel-filter-question-type');
+    if (selFilterQType) {
+      selFilterQType.addEventListener('change', (e) => {
+        state.questionTypeFilter = e.target.value;
+        render();
+      });
+    }
+
+    const selFilterQDiff = document.getElementById('sel-filter-question-diff');
+    if (selFilterQDiff) {
+      selFilterQDiff.addEventListener('change', (e) => {
+        state.questionDiffFilter = e.target.value;
+        render();
+      });
+    }
+
+    const selSortQ = document.getElementById('sel-sort-question');
+    if (selSortQ) {
+      selSortQ.addEventListener('change', (e) => {
+        state.questionSort = e.target.value;
+        render();
+      });
+    }
+
     // Edit question buttons
     root.querySelectorAll('.btn-edit-q').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1203,13 +1530,28 @@
       });
     });
 
-    // Player search input
+    // Player search, filter & sort
     const inpSearch = document.getElementById('inp-search-player');
     if (inpSearch) {
       inpSearch.addEventListener('input', (e) => {
         state.playerSearch = e.target.value;
-        const tbody = root.querySelector('tbody');
-        if (tbody) render();
+        rerenderKeepingFocus('inp-search-player');
+      });
+    }
+
+    const selFilterPClass = document.getElementById('sel-filter-player-class');
+    if (selFilterPClass) {
+      selFilterPClass.addEventListener('change', (e) => {
+        state.playerClassFilter = e.target.value;
+        render();
+      });
+    }
+
+    const selSortP = document.getElementById('sel-sort-player');
+    if (selSortP) {
+      selSortP.addEventListener('change', (e) => {
+        state.playerSort = e.target.value;
+        render();
       });
     }
 
