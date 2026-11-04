@@ -978,9 +978,44 @@ const server = http.createServer(async (req, res) => {
         return err(res, e.message, 400);
       }
     }
+    if ((pathname === '/api/admin/classes' || pathname.startsWith('/api/admin/classes/')) && method === 'DELETE') {
+      let cid = parseInt(query.id || query.classId, 10);
+      if (!cid && pathname.startsWith('/api/admin/classes/')) {
+        cid = parseInt(pathname.split('/').pop(), 10);
+      }
+      if (!cid) return err(res, 'ID kelas diperlukan', 400);
+      try {
+        const result = db.adminDeleteClass(cid);
+        return json(res, { ok: true, ...result });
+      } catch (e) {
+        return err(res, e.message, 400);
+      }
+    }
     if (pathname === '/api/admin/subjects' && method === 'GET') {
       const cid = query.classId ? parseInt(query.classId, 10) : null;
       return json(res, { ok: true, subjects: db.adminGetSubjects(cid) });
+    }
+    if ((pathname === '/api/admin/subjects' || pathname === '/api/admin/subject') && method === 'POST') {
+      try {
+        const body = await parseBody(req);
+        const saved = db.adminSaveSubject(body);
+        return json(res, { ok: true, subject: saved });
+      } catch (e) {
+        return err(res, e.message, 400);
+      }
+    }
+    if ((pathname === '/api/admin/subjects' || pathname === '/api/admin/subject' || pathname.startsWith('/api/admin/subjects/') || pathname.startsWith('/api/admin/subject/')) && method === 'DELETE') {
+      let sid = parseInt(query.id || query.subjectId, 10);
+      if (!sid && (pathname.startsWith('/api/admin/subjects/') || pathname.startsWith('/api/admin/subject/'))) {
+        sid = parseInt(pathname.split('/').pop(), 10);
+      }
+      if (!sid) return err(res, 'ID mata pelajaran diperlukan', 400);
+      try {
+        const result = db.adminDeleteSubject(sid);
+        return json(res, { ok: true, ...result });
+      } catch (e) {
+        return err(res, e.message, 400);
+      }
     }
     if (pathname === '/api/admin/questions' && method === 'GET') {
       const sid = parseInt(query.subjectId, 10);
@@ -996,8 +1031,11 @@ const server = http.createServer(async (req, res) => {
         return err(res, e.message, 400);
       }
     }
-    if (pathname === '/api/admin/questions' && method === 'DELETE') {
-      const qid = parseInt(query.id, 10);
+    if ((pathname === '/api/admin/questions' || pathname === '/api/admin/question' || pathname.startsWith('/api/admin/questions/') || pathname.startsWith('/api/admin/question/')) && method === 'DELETE') {
+      let qid = parseInt(query.id, 10);
+      if (!qid && (pathname.startsWith('/api/admin/questions/') || pathname.startsWith('/api/admin/question/'))) {
+        qid = parseInt(pathname.split('/').pop(), 10);
+      }
       if (!qid) return err(res, 'id diperlukan', 400);
       return json(res, db.adminDeleteQuestion(qid));
     }

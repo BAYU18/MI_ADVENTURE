@@ -359,6 +359,78 @@
     }
   }
 
+  async function deleteSelectedClass() {
+    const curClass = state.classes.find(c => c.id === state.selectedClassId);
+    if (!curClass) {
+      return toast('Pilih kelas yang ingin dihapus terlebih dahulu', 'error');
+    }
+
+    const curSubs = getFilteredSubjects();
+    const subCount = curSubs.length;
+    const msg = `Apakah Anda yakin ingin menghapus kelas "${curClass.name}"?\n\n⚠️ PERINGATAN: ${subCount > 0 ? `${subCount} mata pelajaran dan semua bank soal di dalamnya` : 'Semua data di dalam kelas ini'} akan ikut terhapus secara permanen!`;
+    if (!confirm(msg)) return;
+
+    try {
+      const res = await api(`/api/admin/classes?id=${curClass.id}`, {
+        method: 'DELETE'
+      });
+      if (res && res.ok) {
+        toast(`Kelas "${curClass.name}" berhasil dihapus`, 'success');
+        await loadClassesAndSubjects();
+        if (state.classes.length > 0) {
+          state.selectedClassId = state.classes[0].id;
+          const avail = getFilteredSubjects();
+          if (avail.length > 0) {
+            state.selectedSubjectId = avail[0].id;
+            await loadQuestions(state.selectedSubjectId);
+          } else {
+            state.selectedSubjectId = null;
+            state.questions = [];
+          }
+        } else {
+          state.selectedClassId = null;
+          state.selectedSubjectId = null;
+          state.questions = [];
+        }
+        render();
+      }
+    } catch (err) {
+      toast('Gagal menghapus kelas: ' + err.message, 'error');
+    }
+  }
+
+  async function deleteSelectedSubject() {
+    const curSubj = state.subjects.find(s => s.id === state.selectedSubjectId);
+    if (!curSubj) {
+      return toast('Pilih mata pelajaran yang ingin dihapus terlebih dahulu', 'error');
+    }
+
+    const qCount = curSubj.question_count_actual || state.questions.length || 0;
+    const msg = `Apakah Anda yakin ingin menghapus mata pelajaran "${curSubj.name}"?\n\n⚠️ PERINGATAN: ${qCount > 0 ? `${qCount} soal di dalamnya` : 'Mata pelajaran ini'} akan ikut terhapus secara permanen!`;
+    if (!confirm(msg)) return;
+
+    try {
+      const res = await api(`/api/admin/subjects?id=${curSubj.id}`, {
+        method: 'DELETE'
+      });
+      if (res && res.ok) {
+        toast(`Mata pelajaran "${curSubj.name}" berhasil dihapus`, 'success');
+        await loadClassesAndSubjects();
+        const avail = getFilteredSubjects();
+        if (avail.length > 0) {
+          state.selectedSubjectId = avail[0].id;
+          await loadQuestions(state.selectedSubjectId);
+        } else {
+          state.selectedSubjectId = null;
+          state.questions = [];
+        }
+        render();
+      }
+    } catch (err) {
+      toast('Gagal menghapus pelajaran: ' + err.message, 'error');
+    }
+  }
+
   async function exportQuestions() {
     if (!state.selectedSubjectId) {
       toast('Pilih mata pelajaran terlebih dahulu', 'error');
@@ -663,6 +735,15 @@
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button id="btn-add-class" class="btn small" style="background:rgba(168,85,247,.2);color:#c084fc;border:0;border-radius:10px;cursor:pointer;font-weight:700">
             🏫 Tambah Kelas
+          </button>
+          <button id="btn-delete-class" class="btn small" style="background:rgba(239,68,68,.15);color:#f87171;border:0;border-radius:10px;cursor:pointer;font-weight:700" ${!state.selectedClassId ? 'disabled' : ''} title="Hapus kelas yang sedang dipilih">
+            🗑️ Hapus Kelas
+          </button>
+          <button id="btn-add-subject" class="btn small" style="background:rgba(59,130,246,.2);color:#60a5fa;border:0;border-radius:10px;cursor:pointer;font-weight:700">
+            📚 Tambah Pelajaran
+          </button>
+          <button id="btn-delete-subject" class="btn small" style="background:rgba(239,68,68,.15);color:#f87171;border:0;border-radius:10px;cursor:pointer;font-weight:700" ${!state.selectedSubjectId ? 'disabled' : ''} title="Hapus mata pelajaran yang sedang dipilih">
+            🗑️ Hapus Pelajaran
           </button>
           <button id="btn-add-q" class="btn small" style="background:var(--c-good);color:#052e16;font-weight:800;border:0;border-radius:10px;cursor:pointer">
             ➕ Tambah Soal
@@ -1051,6 +1132,21 @@
       btnAddClass.addEventListener('click', () => openClassModal());
     }
 
+    const btnDeleteClass = document.getElementById('btn-delete-class');
+    if (btnDeleteClass) {
+      btnDeleteClass.addEventListener('click', () => deleteSelectedClass());
+    }
+
+    const btnAddSubject = document.getElementById('btn-add-subject');
+    if (btnAddSubject) {
+      btnAddSubject.addEventListener('click', () => openSubjectModal());
+    }
+
+    const btnDeleteSubject = document.getElementById('btn-delete-subject');
+    if (btnDeleteSubject) {
+      btnDeleteSubject.addEventListener('click', () => deleteSelectedSubject());
+    }
+
     const btnAddQ = document.getElementById('btn-add-q');
     if (btnAddQ) {
       btnAddQ.addEventListener('click', () => openQuestionModal());
@@ -1160,6 +1256,14 @@
   function openClassModal() {
     state.modal = 'add-class';
     state.modalData = {};
+    renderModal();
+  }
+
+  function openSubjectModal() {
+    state.modal = 'add-subject';
+    state.modalData = {
+      classId: state.selectedClassId || (state.classes.length > 0 ? state.classes[0].id : null)
+    };
     renderModal();
   }
 
@@ -1302,6 +1406,174 @@
           if (submitBtn) {
             submitBtn.disabled = false;
             submitBtn.textContent = 'Simpan Kelas';
+          }
+        }
+      });
+      return;
+    }
+
+    if (state.modal === 'add-subject') {
+      const targetClassId = state.modalData.classId || state.selectedClassId;
+      const monsterThemes = [
+        { id: 'hutan', label: '🌲 Hutan' },
+        { id: 'gua', label: '🪨 Gua' },
+        { id: 'api', label: '🔥 Api' },
+        { id: 'es', label: '❄️ Es' },
+        { id: 'mesin', label: '⚙️ Mesin' },
+        { id: 'langit', label: '☁️ Langit' },
+        { id: 'rawa', label: '🌿 Rawa' },
+        { id: 'hantu', label: '👻 Hantu' },
+        { id: 'manis', label: '🍭 Manis' },
+      ];
+      const quickIcons = ['📚', '📖', '🔬', '➗', '🌿', '🕌', '📜', '🎨', '⚽', '🗣️', '🌙', '⚖️', '🌍', '📐', '🧪'];
+
+      backdrop.innerHTML = `
+        <div class="modal" style="width:min(480px, 100%);max-height:90vh;overflow-y:auto">
+          <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:10px">
+            <h3 style="margin:0;font-size:1.15rem;color:var(--c-primary)">📚 Tambah Mata Pelajaran Baru</h3>
+            <button id="modal-close-btn" style="background:transparent;border:0;color:var(--c-muted);font-size:1.4rem;cursor:pointer">&times;</button>
+          </div>
+
+          <form id="form-add-subject" style="display:flex;flex-direction:column;gap:13px;margin-top:14px">
+            <div class="field">
+              <label for="inp-subj-class">Kelas Tujuan <span style="color:#ef4444">*</span></label>
+              <select id="inp-subj-class" style="width:100%;background:rgba(0,0,0,.35);color:var(--c-text);border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:7px 10px;font-size:.85rem">
+                ${state.classes.map(c => `
+                  <option value="${c.id}" ${c.id === targetClassId ? 'selected' : ''}>${escapeHtml(c.name)}</option>
+                `).join('')}
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="inp-subj-name">Nama Mata Pelajaran <span style="color:#ef4444">*</span></label>
+              <input type="text" id="inp-subj-name" required placeholder="Contoh: Ilmu Pengetahuan Alam, PJOK, dsb." autocomplete="off">
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div class="field">
+                <label for="inp-subj-icon">Icon / Emoji</label>
+                <input type="text" id="inp-subj-icon" value="📚" style="text-align:center;font-size:1.2rem">
+                <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">
+                  ${quickIcons.map(ic => `
+                    <button type="button" class="quick-icon-btn" data-icon="${ic}" style="background:rgba(255,255,255,.08);border:0;border-radius:4px;padding:2px 5px;cursor:pointer;font-size:1rem">${ic}</button>
+                  `).join('')}
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="inp-subj-color">Warna Tema</label>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <input type="color" id="inp-subj-color" value="#3b82f6" style="width:42px;height:38px;padding:0;border:0;border-radius:6px;cursor:pointer;background:transparent">
+                  <input type="text" id="inp-subj-color-hex" value="#3b82f6" style="flex:1;font-size:.85rem">
+                </div>
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div class="field">
+                <label for="inp-subj-theme">Tema Monster</label>
+                <select id="inp-subj-theme" style="width:100%;background:rgba(0,0,0,.35);color:var(--c-text);border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:7px 10px;font-size:.85rem">
+                  ${monsterThemes.map(mt => `
+                    <option value="${mt.id}">${mt.label}</option>
+                  `).join('')}
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="inp-subj-grade">Tingkat / Grade</label>
+                <input type="number" id="inp-subj-grade" value="4" min="1" max="12" step="1">
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div class="field">
+                <label for="inp-subj-qcount">Soal / Sesi Pertarungan</label>
+                <input type="number" id="inp-subj-qcount" value="10" min="5" max="50" step="1">
+              </div>
+
+              <div class="field">
+                <label for="inp-subj-timelimit">Batas Waktu (Detik)</label>
+                <input type="number" id="inp-subj-timelimit" value="20" min="5" max="120" step="1">
+              </div>
+            </div>
+
+            <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:8px">
+              <button type="button" id="modal-cancel-btn" class="btn small" style="background:var(--c-surface);color:var(--c-muted);border:0;border-radius:10px;cursor:pointer">Batal</button>
+              <button type="submit" id="btn-submit-subject" class="btn small" style="background:var(--c-primary);color:#1c1206;font-weight:800;border:0;border-radius:10px;cursor:pointer">
+                Simpan Pelajaran
+              </button>
+            </div>
+          </form>
+        </div>
+      `;
+
+      document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+      document.getElementById('modal-cancel-btn').addEventListener('click', closeModal);
+
+      // Quick icons click
+      backdrop.querySelectorAll('.quick-icon-btn').forEach(b => {
+        b.addEventListener('click', () => {
+          document.getElementById('inp-subj-icon').value = b.getAttribute('data-icon');
+        });
+      });
+
+      // Color sync
+      const inpColor = document.getElementById('inp-subj-color');
+      const inpColorHex = document.getElementById('inp-subj-color-hex');
+      if (inpColor && inpColorHex) {
+        inpColor.addEventListener('input', () => { inpColorHex.value = inpColor.value; });
+        inpColorHex.addEventListener('input', () => { inpColor.value = inpColorHex.value; });
+      }
+
+      // Form submit
+      document.getElementById('form-add-subject').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const classId = parseInt(document.getElementById('inp-subj-class').value, 10);
+        const name = document.getElementById('inp-subj-name').value.trim();
+        const icon = document.getElementById('inp-subj-icon').value.trim() || '📚';
+        const color = document.getElementById('inp-subj-color-hex').value.trim() || '#3b82f6';
+        const monsterTheme = document.getElementById('inp-subj-theme').value || 'hutan';
+        const grade = parseInt(document.getElementById('inp-subj-grade').value, 10) || 4;
+        const questionCount = parseInt(document.getElementById('inp-subj-qcount').value, 10) || 10;
+        const timeLimitSec = parseInt(document.getElementById('inp-subj-timelimit').value, 10) || 20;
+
+        if (!classId) return toast('Pilih kelas tujuan', 'error');
+        if (!name) return toast('Nama mata pelajaran tidak boleh kosong', 'error');
+
+        const submitBtn = document.getElementById('btn-submit-subject');
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Menyimpan...';
+        }
+
+        try {
+          const res = await api('/api/admin/subjects', {
+            method: 'POST',
+            body: {
+              classId,
+              name,
+              icon,
+              color,
+              monsterTheme,
+              grade,
+              questionCount,
+              timeLimitSec
+            }
+          });
+          if (res && res.ok && res.subject) {
+            toast(`Mata pelajaran "${res.subject.name}" berhasil dibuat!`, 'success');
+            closeModal();
+            await loadClassesAndSubjects();
+            state.selectedClassId = res.subject.class_id;
+            state.selectedSubjectId = res.subject.id;
+            await loadQuestions(state.selectedSubjectId);
+            render();
+          }
+        } catch (err) {
+          toast(err.message || 'Gagal menambahkan mata pelajaran', 'error');
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Simpan Pelajaran';
           }
         }
       });
