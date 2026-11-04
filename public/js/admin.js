@@ -69,14 +69,44 @@
       .replace(/'/g, '&#39;');
   }
 
+  /* ── Token Storage (Dual Cookie + Bearer Token) ── */
+  const TOKEN_KEY = 'pp_admin_token';
+
+  function getStoredToken() {
+    try {
+      return localStorage.getItem(TOKEN_KEY) || sessionStorage.getItem(TOKEN_KEY) || null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function setStoredToken(token) {
+    try {
+      if (token) {
+        localStorage.setItem(TOKEN_KEY, token);
+        sessionStorage.setItem(TOKEN_KEY, token);
+      } else {
+        localStorage.removeItem(TOKEN_KEY);
+        sessionStorage.removeItem(TOKEN_KEY);
+      }
+    } catch (e) {}
+  }
+
   /* ── API Client ── */
   async function api(path, options = {}) {
+    const token = getStoredToken();
+    const customHeaders = options.headers || {};
+    const headers = {
+      'Accept': 'application/json',
+      ...customHeaders,
+    };
+    if (token && !headers['Authorization']) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
     const opts = {
-      credentials: 'same-origin',
-      headers: {
-        'Accept': 'application/json',
-        ...(options.headers || {}),
-      },
+      credentials: 'include',
+      headers,
       ...options,
     };
     if (opts.body && typeof opts.body === 'object' && !(opts.body instanceof FormData)) {
@@ -88,12 +118,19 @@
       const res = await fetch(path, opts);
       const data = await res.json().catch(() => ({}));
       if (res.status === 401) {
+        if (path === '/api/admin/login') {
+          // Kesalahan kredensial saat login
+          const msg = (data.error && data.error.message) || (typeof data.error === 'string' ? data.error : 'Username atau kata sandi admin salah');
+          throw new Error(msg);
+        }
+        setStoredToken(null);
         state.admin = null;
         render();
         throw new Error('Sesi admin berakhir. Silakan login kembali.');
       }
       if (!res.ok) {
-        throw new Error(data.error || `HTTP ${res.status}`);
+        const msg = (data.error && data.error.message) || (typeof data.error === 'string' ? data.error : `HTTP ${res.status}`);
+        throw new Error(msg);
       }
       return data;
     } catch (err) {
@@ -111,9 +148,11 @@
         state.admin = res.admin;
         await Promise.all([loadOverview(), loadClassesAndSubjects()]);
       } else {
+        setStoredToken(null);
         state.admin = null;
       }
     } catch (e) {
+      setStoredToken(null);
       state.admin = null;
     } finally {
       state.loading = false;
@@ -128,6 +167,9 @@
         body: { username, password },
       });
       if (res.ok && res.admin) {
+        if (res.token) {
+          setStoredToken(res.token);
+        }
         state.admin = res.admin;
         toast('Selamat datang, ' + res.admin.username, 'success');
         await Promise.all([loadOverview(), loadClassesAndSubjects()]);
@@ -142,6 +184,7 @@
     try {
       await api('/api/admin/logout', { method: 'POST' });
     } catch (e) {}
+    setStoredToken(null);
     state.admin = null;
     state.modal = null;
     toast('Berhasil keluar dari admin');
@@ -420,7 +463,7 @@
             </div>
             <div class="field">
               <label for="adm-pass">Kata Sandi (Password)</label>
-              <input type="password" id="adm-pass" required autocomplete="current-password" placeholder="Masukkan password admin" value="admin12345">
+              <input type="password" id="adm-pass" required autocomplete="current-password" placeholder="Masukkan password admin" value="admin123">
             </div>
             <button type="submit" class="btn" style="background:var(--c-primary);color:#1c1206;font-weight:800;padding:12px;border:0;border-radius:12px;cursor:pointer;margin-top:8px">
               Masuk ke Portal Admin
