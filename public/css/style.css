@@ -2568,7 +2568,6 @@ body.reduced-motion .fatigue-banner {
 
 .duel-skills-row {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
   gap: 6px;
   margin-top: 10px;
 }
@@ -2587,7 +2586,14 @@ body.reduced-motion .fatigue-banner {
   transition: all 0.15s;
 }
 
-.duel-skill-btn:hover {
+.duel-skill-btn.disabled,
+.duel-skill-btn[aria-disabled="true"] {
+  opacity: 0.45;
+  filter: grayscale(0.5);
+  cursor: not-allowed;
+}
+
+.duel-skill-btn:not(.disabled):hover {
   background: rgba(255, 255, 255, 0.08);
   border-color: #fbbf24;
 }
@@ -2595,6 +2601,7 @@ body.reduced-motion .fatigue-banner {
 .duel-skill-btn .sk-icon { font-size: 1.1rem; }
 .duel-skill-btn .sk-name { font-size: 0.65rem; color: #cbd5e1; }
 .duel-skill-btn .sk-cost { font-size: 0.62rem; color: #fbbf24; font-weight: 700; }
+.duel-skill-btn .sk-uses { font-size: 0.62rem; font-weight: 700; }
 
 .duel-modal-overlay {
   position: fixed;

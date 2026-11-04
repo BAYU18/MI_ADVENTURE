@@ -178,6 +178,7 @@
         phaseLabel.className = `duel-phase-tag ${s.phase === 'DEATHMATCH' ? 'deathmatch' : 'normal'}`;
         phaseLabel.textContent = s.phase === 'DEATHMATCH' ? '🔥 DEATHMATCH' : '⏳ NORMAL';
       }
+      renderDuelSkills(s);
       updateCountdown();
     } else {
       // First full layout render
@@ -218,23 +219,7 @@
           </div>
 
           <!-- Skill Bar -->
-          <div class="duel-skills-row" id="duel-skills-row">
-            <button class="duel-skill-btn" data-skill="heal" title="Heal +25 HP (Biaya: 2 ⚡)">
-              <span class="sk-icon">🩹</span><span class="sk-name">Sembuh</span><span class="sk-cost">2⚡</span>
-            </button>
-            <button class="duel-skill-btn" data-skill="shield" title="Perisai +20 (Biaya: 2 ⚡)">
-              <span class="sk-icon">🛡️</span><span class="sk-name">Perisai</span><span class="sk-cost">2⚡</span>
-            </button>
-            <button class="duel-skill-btn" data-skill="power_strike" title="Power Strike 2x Damage (Biaya: 2 ⚡)">
-              <span class="sk-icon">⚡</span><span class="sk-name">Kritis</span><span class="sk-cost">2⚡</span>
-            </button>
-            <button class="duel-skill-btn" data-skill="eliminate_one" title="Coret 1 Pilihan Salah (Biaya: 1 ⚡)">
-              <span class="sk-icon">🎯</span><span class="sk-name">Coret</span><span class="sk-cost">1⚡</span>
-            </button>
-            <button class="duel-skill-btn" data-skill="lucky_pouch" title="Kantung Koin +5 (Biaya: 1 ⚡)">
-              <span class="sk-icon">💰</span><span class="sk-name">Koin</span><span class="sk-cost">1⚡</span>
-            </button>
-          </div>
+          <div class="duel-skills-row" id="duel-skills-row"></div>
 
           <!-- Bottom controls -->
           <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
@@ -244,7 +229,7 @@
         </div>
       `;
 
-      attachSkillEvents();
+      renderDuelSkills(s);
       updateCountdown();
 
       const btnFf = document.getElementById('btn-duel-forfeit');
@@ -343,28 +328,103 @@
     }
   }
 
-  function attachSkillEvents() {
+  function renderDuelSkills(s) {
+    const row = document.getElementById('duel-skills-row');
+    if (!row) return;
+
+    const meSide = s?.you;
+    const myData = (meSide === 'challenger') ? s?.challenger : s?.challenged;
+    const myEnergy = myData?.energy ?? 0;
+    const skills = s?.skills || [];
+
+    if (skills.length === 0) {
+      row.style.gridTemplateColumns = '1fr';
+      row.innerHTML = `<div style="text-align:center;font-size:0.75rem;color:var(--c-muted);padding:6px">Belum ada skill di loadout Battle vs Player</div>`;
+      return;
+    }
+
+    const colCount = Math.min(skills.length, 4);
+    row.style.gridTemplateColumns = `repeat(${colCount}, 1fr)`;
+
+    row.innerHTML = skills.map(sk => {
+      const usesLeft = Number.isFinite(sk.usesLeft) ? sk.usesLeft : (sk.maxUses || 2);
+      const isUsable = sk.usable && usesLeft > 0 && myEnergy >= sk.cost;
+      const title = `${esc(sk.name)} (Lv.${sk.level}): ${sk.cost}⚡ · Sisa: ${usesLeft}/${sk.maxUses || 2}`;
+
+      return `
+        <button class="duel-skill-btn ${isUsable ? '' : 'disabled'}"
+          data-skill="${sk.id}"
+          data-cost="${sk.cost}"
+          data-level="${sk.level || 1}"
+          data-uses-left="${usesLeft}"
+          data-reason="${sk.reason || ''}"
+          title="${title}"
+          ${isUsable ? '' : 'aria-disabled="true"'}>
+          <span class="sk-icon">${sk.icon || '⚡'}</span>
+          <span class="sk-name" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%">${esc(sk.name)}</span>
+          <div style="display:flex;align-items:center;justify-content:center;gap:4px;font-size:0.6rem;margin-top:2px">
+            <span class="sk-cost">${sk.cost}⚡</span>
+            <span class="sk-uses" style="color:${usesLeft > 0 ? '#38bdf8' : '#ef4444'};font-weight:700">x${usesLeft}</span>
+          </div>
+        </button>
+      `;
+    }).join('');
+
+    attachSkillEvents(s);
+  }
+
+  function attachSkillEvents(s) {
     document.querySelectorAll('.duel-skill-btn').forEach(b => {
       b.onclick = async () => {
         const skillId = b.getAttribute('data-skill');
+        const skillLv = parseInt(b.getAttribute('data-level') || '1', 10);
+        const usesLeft = parseInt(b.getAttribute('data-uses-left') || '0', 10);
+        const cost = parseInt(b.getAttribute('data-cost') || '1', 10);
+
+        const meSide = s?.you;
+        const myData = (meSide === 'challenger') ? s?.challenger : s?.challenged;
+        const currentEnergy = myData?.energy ?? 0;
+
+        if (usesLeft <= 0) {
+          if (window.toast) window.toast('Pemakaian skill ini sudah habis!');
+          return;
+        }
+        if (currentEnergy < cost) {
+          if (window.toast) window.toast(`Energi tidak cukup! Butuh ${cost} ⚡`);
+          return;
+        }
+
         if (skillId === 'eliminate_one') {
-          // Eliminate one option locally
+          // Eliminate 1 option locally
           const optBtns = Array.from(document.querySelectorAll('.duel-opt-btn:not(.eliminated):not(.selected)'));
           if (optBtns.length > 2) {
             const toEliminate = optBtns[Math.floor(Math.random() * optBtns.length)];
             toEliminate.classList.add('eliminated');
             toEliminate.disabled = true;
           }
+        } else if (skillId === 'eagle_eye') {
+          // Eliminate up to 2 options locally
+          const optBtns = Array.from(document.querySelectorAll('.duel-opt-btn:not(.eliminated):not(.selected)'));
+          if (optBtns.length > 2) {
+            const countToElim = Math.min(2, optBtns.length - 2);
+            const shuffled = optBtns.sort(() => 0.5 - Math.random());
+            for (let i = 0; i < countToElim; i++) {
+              shuffled[i].classList.add('eliminated');
+              shuffled[i].disabled = true;
+            }
+          }
         }
 
         try {
           const res = await window.API.req(`/api/duels/${currentDuelId}/skill`, {
             method: 'POST',
-            body: JSON.stringify({ skillId, skillLv: 1, orderIndex: currentLoadedQ || 0 })
+            body: JSON.stringify({ skillId, skillLv, orderIndex: currentLoadedQ || 0 })
           });
           if (res.code === 'OK') {
             if (window.toast) window.toast(`Skill ${skillId} berhasil digunakan!`);
             pollState();
+          } else {
+            if (window.toast) window.toast(`Gagal: ${res.reason || res.code}`);
           }
         } catch (e) {
           if (window.toast) window.toast(e.message || 'Gagal menggunakan skill');

@@ -561,13 +561,16 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  if ((pathname === '/api/loadout' && (method === 'PUT' || method === 'POST'))) {
+  if (((pathname === '/api/loadout' || pathname === '/api/duel-loadout' || pathname === '/api/loadout/duel') && (method === 'PUT' || method === 'POST'))) {
     const playerAuth = getPlayerFromReq(req);
     if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
     try {
       const body = await parseBody(req);
-      const loadout = db.updateLoadout(playerAuth.id, body.slots);
-      return json(res, { ok: true, loadout });
+      const isDuel = body.type === 'duel' || pathname.includes('duel');
+      const loadout = isDuel
+        ? db.updateDuelLoadout(playerAuth.id, body.slots)
+        : db.updateLoadout(playerAuth.id, body.slots);
+      return json(res, { ok: true, loadout, type: isDuel ? 'duel' : 'adventure' });
     } catch (e) {
       return err(res, e.message, 400);
     }

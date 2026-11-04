@@ -92,7 +92,10 @@ function energyCost(skillId) {
 }
 
 // Pemakaian skill — bersifat murni; database dipakai penegakan atomik (UNIQUE) di lib/db-duel.js.
-function canUseSkill(duel, playerIsChallenger, skillId, skillLv, energy, energyMax, used) {
+function canUseSkill(duel, playerIsChallenger, skillId, skillLv, energy, energyMax, used, maxUses) {
+  if (maxUses !== undefined && (used || 0) >= maxUses) {
+    return { ok: false, reason: 'ALREADY_USED' };
+  }
   if (!Number.isFinite(energy) || energy < energyCost(skillId)) {
     return { ok: false, reason: 'NO_ENERGY' };
   }
@@ -103,6 +106,7 @@ function canUseSkill(duel, playerIsChallenger, skillId, skillLv, energy, energyM
     energy,
     energyMax,
     usedCount: (used || 0),
+    maxUses,
   };
   const result = evaluation({ ...effective, skill: skillId });
   return result.ok === false ? { ok: false, reason: result.reason } : { ok: true, ...result };

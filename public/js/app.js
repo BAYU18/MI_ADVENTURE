@@ -283,10 +283,12 @@ const API = {
     return this.req('/api/skills');
   },
 
-  async updateLoadout(slots) {
+  async updateLoadout(slots, opts = {}) {
+    const payload = { slots };
+    if (opts.type) payload.type = opts.type;
     return this.req('/api/loadout', {
       method: 'PUT',
-      body: JSON.stringify({ slots }),
+      body: JSON.stringify(payload),
     });
   },
 
@@ -3775,14 +3777,15 @@ Screens.profil = {
     };
   },
 
-  openSelectSkillForSlotModal(slotIdx, loadout, skillsList) {
+  openSelectSkillForSlotModal(slotIdx, loadout, skillsList, mode = 'adventure', maxSlots = 3) {
     const existing = $('.modal-mask');
     if (existing) existing.remove();
 
     const currentSkillId = loadout[slotIdx] || null;
     const currentSkill = currentSkillId ? skillsList.find(s => s.id === currentSkillId) : null;
     const ownedSkills = skillsList.filter(s => s.owned);
-    const slotLabel = `Slot ${slotIdx + 1}`;
+    const modeLabel = mode === 'duel' ? 'Battle vs Player' : 'Petualangan';
+    const slotLabel = `Slot ${slotIdx + 1} (${modeLabel})`;
 
     const modal = document.createElement('div');
     modal.className = 'modal-mask active';
@@ -3798,7 +3801,7 @@ Screens.profil = {
               🎯 Ganti Skill ${slotLabel}
             </h3>
             <div style="font-size:0.75rem;color:var(--c-muted);margin-top:2px">
-              ${currentSkill ? `Saat ini: <b>${currentSkill.icon || '⚡'} ${esc(currentSkill.name)}</b> (Lv. ${currentSkill.level})` : 'Saat ini slot masih kosong'}
+              ${currentSkill ? `Saat ini: <b>${currentSkill.icon || '⚡'} ${esc(currentSkill.name)}</b> (Lv. ${currentSkill.level} · Maks: ${currentSkill.usesPerBattle || 2}×)` : 'Saat ini slot masih kosong'}
             </div>
           </div>
           <button class="icon-btn" id="modal-close-btn" style="width:32px;height:32px;font-size:1.1rem;color:var(--c-muted);border:none;background:transparent;cursor:pointer">✕</button>
@@ -3842,6 +3845,7 @@ Screens.profil = {
                     <div style="display:flex;align-items:center;gap:6px">
                       <strong style="color:#fff;font-size:0.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(sk.name)}</strong>
                       <span style="font-size:0.72rem;color:var(--c-primary);font-weight:700">Lv.${sk.level}</span>
+                      <span style="font-size:0.68rem;color:#38bdf8">(${sk.usesPerBattle || 2}×)</span>
                     </div>
                     <div style="font-size:0.72rem;color:var(--c-muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px">
                       ${esc(sk.effectNow || sk.descNow || sk.desc || '')}
@@ -3886,10 +3890,10 @@ Screens.profil = {
       unequipBtn.onclick = async () => {
         unequipBtn.disabled = true;
         unequipBtn.textContent = 'Melepas...';
-        const newLoadout = [...loadout];
+        const newLoadout = Array.from({ length: maxSlots }, (_, i) => loadout[i] || null);
         newLoadout[slotIdx] = null;
         try {
-          await API.updateLoadout(newLoadout.filter(Boolean));
+          await API.updateLoadout(newLoadout.filter(Boolean), { type: mode });
           toast(`Skill berhasil dilepas dari ${slotLabel}! ✨`);
           closeModal();
           await this.renderActiveTab();
@@ -3918,7 +3922,7 @@ Screens.profil = {
           btn.textContent = '...';
         }
 
-        const newLoadout = [loadout[0] || null, loadout[1] || null, loadout[2] || null];
+        const newLoadout = Array.from({ length: maxSlots }, (_, i) => loadout[i] || null);
         const otherIdx = newLoadout.indexOf(skillId);
         if (otherIdx !== -1) {
           newLoadout[otherIdx] = currentSkillId;
@@ -3926,7 +3930,7 @@ Screens.profil = {
         newLoadout[slotIdx] = skillId;
 
         try {
-          await API.updateLoadout(newLoadout.filter(Boolean));
+          await API.updateLoadout(newLoadout.filter(Boolean), { type: mode });
           toast(`Skill ${pickedSkill.name} berhasil dipasang di ${slotLabel}! 🎯`);
           closeModal();
           await this.renderActiveTab();
@@ -3941,14 +3945,17 @@ Screens.profil = {
     });
   },
 
-  openSelectSlotToReplaceModal(skillToEquip, loadout, skillsList) {
+  openSelectSlotToReplaceModal(skillToEquip, loadout, skillsList, mode = 'adventure', maxSlots = 3) {
     const existing = $('.modal-mask');
     if (existing) existing.remove();
 
+    const modeLabel = mode === 'duel' ? 'Battle vs Player' : 'Petualangan';
     const modal = document.createElement('div');
     modal.className = 'modal-mask active';
     modal.setAttribute('data-testid', 'modal-select-slot-to-replace');
     modal.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(5,8,20,0.8);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn 0.2s ease;';
+
+    const slotIndices = Array.from({ length: maxSlots }, (_, i) => i);
 
     modal.innerHTML = `
       <div class="modal card" style="max-width:380px;width:100%;max-height:85vh;padding:20px;border:1px solid var(--c-surface-strong);box-shadow:0 20px 40px rgba(0,0,0,0.8);border-radius:20px;background:linear-gradient(165deg, #27235a, #1a1b3d);display:flex;flex-direction:column;gap:12px;overflow:hidden">
@@ -3959,7 +3966,7 @@ Screens.profil = {
               🎯 Pasang ${esc(skillToEquip.name)}
             </h3>
             <div style="font-size:0.75rem;color:var(--c-muted);margin-top:2px">
-              Pilih slot loadout aktif yang ingin kamu ganti:
+              Pilih slot loadout ${esc(modeLabel)} aktif yang ingin kamu isi:
             </div>
           </div>
           <button class="icon-btn" id="modal-close-btn" style="width:32px;height:32px;font-size:1.1rem;color:var(--c-muted);border:none;background:transparent;cursor:pointer">✕</button>
@@ -3969,14 +3976,14 @@ Screens.profil = {
         <div style="padding:10px 12px;background:rgba(124, 58, 237, 0.12);border:1px solid rgba(124, 58, 237, 0.3);border-radius:12px;display:flex;align-items:center;gap:10px">
           <span style="font-size:1.8rem">${skillToEquip.icon || '⚡'}</span>
           <div>
-            <div style="font-weight:700;color:#fff;font-size:0.9rem">${esc(skillToEquip.name)} <span style="color:var(--c-primary);font-size:0.75rem">Lv.${skillToEquip.level || 1}</span></div>
+            <div style="font-weight:700;color:#fff;font-size:0.9rem">${esc(skillToEquip.name)} <span style="color:var(--c-primary);font-size:0.75rem">Lv.${skillToEquip.level || 1}</span> <span style="color:#38bdf8;font-size:0.72rem">(Maks: ${skillToEquip.usesPerBattle || 2}×)</span></div>
             <div style="font-size:0.73rem;color:#cbd5e1;line-height:1.3">${esc(skillToEquip.effectNow || skillToEquip.descNow || skillToEquip.desc || '')}</div>
           </div>
         </div>
 
-        <!-- 3 SLOTS LIST -->
+        <!-- SLOTS LIST -->
         <div style="display:flex;flex-direction:column;gap:8px">
-          ${[0, 1, 2].map(idx => {
+          ${slotIndices.map(idx => {
             const currentSkillId = loadout[idx] || null;
             const currentSkill = currentSkillId ? skillsList.find(s => s.id === currentSkillId) : null;
             const isEmpty = !currentSkill;
@@ -3993,7 +4000,7 @@ Screens.profil = {
                       ${currentSkill ? esc(currentSkill.name) : '<span style="color:var(--c-muted)">(Kosong)</span>'}
                     </div>
                     <div style="font-size:0.7rem;color:var(--c-muted)">
-                      ${currentSkill ? `Lv. ${currentSkill.level}` : 'Siap diisi'}
+                      ${currentSkill ? `Lv. ${currentSkill.level} · Maks: ${currentSkill.usesPerBattle || 2}×` : 'Siap diisi'}
                     </div>
                   </div>
                 </div>
@@ -4034,12 +4041,16 @@ Screens.profil = {
           btn.textContent = 'Memproses...';
         }
 
-        const newLoadout = [loadout[0] || null, loadout[1] || null, loadout[2] || null];
+        const newLoadout = Array.from({ length: maxSlots }, (_, i) => loadout[i] || null);
+        const existingIdx = newLoadout.indexOf(skillToEquip.id);
+        if (existingIdx !== -1) {
+          newLoadout[existingIdx] = null;
+        }
         newLoadout[targetIdx] = skillToEquip.id;
 
         try {
-          await API.updateLoadout(newLoadout.filter(Boolean));
-          toast(`🎯 ${skillToEquip.name} berhasil dipasang di Slot ${targetIdx + 1}!`);
+          await API.updateLoadout(newLoadout.filter(Boolean), { type: mode });
+          toast(`🎯 ${skillToEquip.name} berhasil dipasang di Slot ${targetIdx + 1} (${modeLabel})!`);
           closeModal();
           await this.renderActiveTab();
         } catch (err) {
@@ -4523,19 +4534,37 @@ Screens.profil = {
     }
 
     const playerCoins = Player.data?.coins ?? 0;
-    const loadout = skillsRes.loadout || [];
+    const maxSlots = skillsRes.slots || (skillsRes.hasSlot4 ? 4 : 3);
+    const slotIndices = Array.from({ length: maxSlots }, (_, i) => i);
+    this.activeLoadoutMode = this.activeLoadoutMode || 'adventure';
+    const activeMode = this.activeLoadoutMode;
+    const adventureLoadout = skillsRes.rawLoadout || skillsRes.loadout || [];
+    const duelLoadout = skillsRes.rawDuelLoadout || skillsRes.duelLoadout || adventureLoadout;
+    const activeLoadout = activeMode === 'duel' ? duelLoadout : adventureLoadout;
     const skillsList = skillsRes.skills || [];
 
     slot.innerHTML = `
-      <!-- LOADOUT 3 SLOT -->
+      <!-- SWITCHER LOADOUT (PETUALANGAN VS BATTLE VS PLAYER) -->
+      <div style="display:flex;gap:8px;background:rgba(255,255,255,0.06);padding:4px;border-radius:12px;margin-bottom:12px">
+        <button class="btn small ${activeMode === 'adventure' ? 'primary' : 'ghost'} btn-loadout-mode" data-mode="adventure" style="flex:1;font-weight:700;font-size:0.8rem">
+          🗺️ Petualangan
+        </button>
+        <button class="btn small ${activeMode === 'duel' ? 'primary' : 'ghost'} btn-loadout-mode" data-mode="duel" style="flex:1;font-weight:700;font-size:0.8rem">
+          ⚔️ Battle vs Player
+        </button>
+      </div>
+
+      <!-- LOADOUT SLOTS -->
       <div class="card" style="padding:14px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong)">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-          <h3 style="font-size:0.95rem;margin:0;color:#fff">🎯 Loadout Skill Laga (3 Slot)</h3>
+          <h3 style="font-size:0.95rem;margin:0;color:#fff">
+            ${activeMode === 'duel' ? '⚔️ Loadout Battle vs Player' : '🎯 Loadout Petualangan'} (${maxSlots} Slot)
+          </h3>
           <span style="font-size:0.75rem;color:var(--c-muted)">Ketuk slot untuk ganti</span>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:8px">
-          ${[0, 1, 2].map(idx => {
-            const skillId = loadout[idx];
+        <div style="display:grid;grid-template-columns:repeat(${maxSlots}, 1fr);gap:8px">
+          ${slotIndices.map(idx => {
+            const skillId = activeLoadout[idx];
             const sk = skillId ? skillsList.find(x => x.id === skillId) : null;
             return `
               <div class="loadout-slot card ${sk ? 'loadout-slot-card filled' : 'loadout-slot-card'}"
@@ -4550,6 +4579,7 @@ Screens.profil = {
                   ${sk ? esc(sk.name) : `Slot ${idx + 1}`}
                 </div>
                 <div style="font-size:0.7rem;color:var(--c-muted)">${sk ? `Lv. ${sk.level}` : 'Kosong'}</div>
+                ${sk ? `<div style="font-size:0.65rem;color:#38bdf8;font-weight:700">Maks: ${sk.usesPerBattle || 2}×</div>` : ''}
                 <div style="font-size:0.65rem;color:var(--c-primary);margin-top:2px;font-weight:600">🔄 Ganti</div>
               </div>
             `;
@@ -4566,7 +4596,7 @@ Screens.profil = {
     cardsContainer.innerHTML = skillsList.map(s => {
       const isMax = s.level >= (s.maxLevel || 5);
       const cost = s.upgradeCost || 0;
-      const isEquipped = loadout.includes(s.id);
+      const isEquipped = activeLoadout.includes(s.id);
 
       const pipsFilled = '●'.repeat(Math.min(5, Math.max(1, s.level || 1)));
       const pipsEmpty = '○'.repeat(Math.max(0, 5 - (s.level || 1)));
@@ -4597,7 +4627,7 @@ Screens.profil = {
                 </div>
               </div>
             </div>
-            ${isEquipped ? `<span class="chip good" style="font-size:0.75rem">Dipasang</span>` : ''}
+            ${isEquipped ? `<span class="chip good" style="font-size:0.75rem">Dipasang (${activeMode === 'duel' ? 'PvP' : 'Petualangan'})</span>` : ''}
           </div>
 
           <div style="font-size:0.82rem;color:#cbd5e1;line-height:1.35">
@@ -4605,7 +4635,7 @@ Screens.profil = {
           </div>
 
           <div style="font-size:0.75rem;color:var(--c-muted)">
-            ⚡ Biaya pemakaian: <strong>${costEnergy} energi</strong> per laga
+            ⚡ Biaya pemakaian: <strong>${costEnergy} energi</strong> · 🔄 Pemakaian: <strong>${s.usesPerBattle || 2}×</strong> per laga
           </div>
 
           <div style="display:flex;gap:8px;align-items:center;margin-top:4px">
@@ -4622,6 +4652,14 @@ Screens.profil = {
         </div>
       `;
     }).join('');
+
+    // Wire Mode Switcher Buttons
+    $$('.btn-loadout-mode', slot).forEach(btn => {
+      btn.onclick = () => {
+        this.activeLoadoutMode = btn.dataset.mode;
+        this.renderTabSkill(slot);
+      };
+    });
 
     // Wire Upgrade Buttons
     $$('#skills-cards-list button[data-testid^="skill-upgrade-btn-"]').forEach(btn => {
@@ -4686,7 +4724,7 @@ Screens.profil = {
     $$('.loadout-slot').forEach(slotEl => {
       slotEl.onclick = () => {
         const idx = parseInt(slotEl.dataset.idx, 10);
-        this.openSelectSkillForSlotModal(idx, loadout, skillsList);
+        this.openSelectSkillForSlotModal(idx, activeLoadout, skillsList, activeMode, maxSlots);
       };
     });
 
@@ -4696,7 +4734,7 @@ Screens.profil = {
         const skillId = btn.dataset.id;
         const sk = skillsList.find(x => x.id === skillId);
         if (!sk) return;
-        this.openSelectSlotToReplaceModal(sk, loadout, skillsList);
+        this.openSelectSlotToReplaceModal(sk, activeLoadout, skillsList, activeMode, maxSlots);
       };
     });
   },

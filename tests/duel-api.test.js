@@ -32,7 +32,7 @@ test('Duel HTTP API Integration', async (t) => {
     testServer.close();
     if (pA?.id && pB?.id) {
       const rawDb = db.getDb();
-      if (duelId) rawDb.prepare('DELETE FROM duels WHERE id=?').run(duelId);
+      rawDb.prepare('DELETE FROM duels WHERE challenger_id IN (?, ?) OR challenged_id IN (?, ?)').run(pA.id, pB.id, pA.id, pB.id);
       rawDb.prepare('DELETE FROM friendships WHERE player_id IN (?, ?) OR friend_id IN (?, ?)').run(pA.id, pB.id, pA.id, pB.id);
       rawDb.prepare('DELETE FROM friend_requests WHERE from_player_id IN (?, ?) OR to_player_id IN (?, ?)').run(pA.id, pB.id, pA.id, pB.id);
       rawDb.prepare('DELETE FROM players WHERE id IN (?, ?)').run(pA.id, pB.id);
@@ -176,5 +176,98 @@ test('Duel HTTP API Integration', async (t) => {
     assert.equal(res.status, 200);
     assert.ok(Array.isArray(res.body.history));
     assert.ok(res.body.history.some(x => x.id === duelId));
+  });
+
+  await t.test('12. Loadout Duel & Enforce maxUses serta slot aturan petualangan', async () => {
+    // Check GET /api/skills
+    const skRes = await api(port, '/api/skills', { token: tokenA });
+    assert.equal(skRes.status, 200);
+    assert.ok(Array.isArray(skRes.body.duelLoadout));
+    assert.equal(skRes.body.slots, 3);
+
+    // Update duel loadout to ['heal', 'eliminate_one', 'eagle_eye']
+    const upRes = await api(port, '/api/loadout', {
+      method: 'PUT',
+      token: tokenA,
+      body: { slots: ['heal', 'eliminate_one', 'eagle_eye'], type: 'duel' },
+    });
+    assert.equal(upRes.status, 200);
+    assert.equal(upRes.body.type, 'duel');
+    assert.deepEqual(upRes.body.loadout, ['heal', 'eliminate_one', 'eagle_eye']);
+
+    // Check with 4th slot item
+    const rawDb = db.getDb();
+    rawDb.prepare("INSERT INTO player_items(player_id, item_id, is_equipped) VALUES(?, 'slot_skill_4', 1) ON CONFLICT DO NOTHING").run(pA.id);
+    const skRes4 = await api(port, '/api/skills', { token: tokenA });
+    assert.equal(skRes4.body.slots, 4);
+
+    // Update duel loadout with 4 slots
+    const upRes4 = await api(port, '/api/loadout', {
+      method: 'PUT',
+      token: tokenA,
+      body: { slots: ['heal', 'eliminate_one', 'eagle_eye', 'shield'], type: 'duel' },
+    });
+    assert.equal(upRes4.status, 200);
+    assert.deepEqual(upRes4.body.loadout, ['heal', 'eliminate_one', 'eagle_eye', 'shield']);
+
+    // Create a new duel to test skill usage & maxUses
+    const challengeRes = await api(port, '/api/duels/challenge', {
+      method: 'POST',
+      token: tokenA,
+      body: { friendId: pB.id, subjectId: sid },
+    });
+    const dId2 = challengeRes.body.duelId;
+    await api(port, `/api/duels/${dId2}/respond`, {
+      method: 'POST',
+      token: tokenB,
+      body: { action: 'ACCEPT' },
+    });
+
+    // Check duel state skills
+    const stA = await api(port, `/api/duels/${dId2}/state`, { token: tokenA });
+    assert.ok(Array.isArray(stA.body.skills));
+    assert.equal(stA.body.skills.length, 4);
+    const healSk = stA.body.skills.find(s => s.id === 'heal');
+    assert.ok(healSk);
+    assert.equal(healSk.maxUses, 2);
+    assert.equal(healSk.usesLeft, 2);
+
+    // Give player enough energy to test uses
+    rawDb.prepare("UPDATE duels SET energy_challenger=10, energy_max_challenger=10 WHERE id=?").run(dId2);
+
+    // Try using a skill not in loadout (e.g. power_strike)
+    const badSk = await api(port, `/api/duels/${dId2}/skill`, {
+      method: 'POST',
+      token: tokenA,
+      body: { skillId: 'power_strike', orderIndex: 0 },
+    });
+    assert.equal(badSk.status, 400);
+    assert.equal(badSk.body.error?.details?.reason, 'NOT_IN_LOADOUT');
+
+    // Use heal 1st time
+    const h1 = await api(port, `/api/duels/${dId2}/skill`, {
+      method: 'POST',
+      token: tokenA,
+      body: { skillId: 'heal', orderIndex: 0 },
+    });
+    assert.equal(h1.status, 200);
+    assert.equal(h1.body.code, 'OK');
+
+    // Use heal 2nd time (reaches maxUses = 2)
+    const h2 = await api(port, `/api/duels/${dId2}/skill`, {
+      method: 'POST',
+      token: tokenA,
+      body: { skillId: 'heal', orderIndex: 0 },
+    });
+    assert.equal(h2.status, 200);
+
+    // Use heal 3rd time -> should reject with ALREADY_USED
+    const h3 = await api(port, `/api/duels/${dId2}/skill`, {
+      method: 'POST',
+      token: tokenA,
+      body: { skillId: 'heal', orderIndex: 0 },
+    });
+    assert.equal(h3.status, 400);
+    assert.equal(h3.body.error?.details?.reason, 'ALREADY_USED');
   });
 });
