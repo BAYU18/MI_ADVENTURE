@@ -4,7 +4,7 @@
  * Menyediakan caching asset statis untuk kecepatan & kesiapan offline
  */
 
-const CACHE_NAME = 'pp-v7.0.0-20261104v2';
+const CACHE_NAME = 'pp-v7.0.0-20261104v3';
 
 const PRECACHE_ASSETS = [
   '/',

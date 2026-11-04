@@ -531,11 +531,11 @@
           <form id="admin-login-form" style="display:flex;flex-direction:column;gap:14px">
             <div class="field">
               <label for="adm-user">Nama Pengguna (Username)</label>
-              <input type="text" id="adm-user" required autocomplete="username" placeholder="Masukkan username admin" value="admin">
+              <input type="text" id="adm-user" required autocomplete="username" placeholder="Masukkan username admin" value="">
             </div>
             <div class="field">
               <label for="adm-pass">Kata Sandi (Password)</label>
-              <input type="password" id="adm-pass" required autocomplete="current-password" placeholder="Masukkan password admin" value="admin123">
+              <input type="password" id="adm-pass" required autocomplete="current-password" placeholder="Masukkan password admin" value="">
             </div>
             <button type="submit" class="btn" style="background:var(--c-primary);color:#1c1206;font-weight:800;padding:12px;border:0;border-radius:12px;cursor:pointer;margin-top:8px">
               Masuk ke Portal Admin

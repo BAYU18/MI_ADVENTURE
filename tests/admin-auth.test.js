@@ -27,14 +27,14 @@ function makeRequest(options, body) {
 test('Admin Auth & Token Bearer Integration', async (t) => {
   const PORT = 3002;
 
-  await t.test('1. Login dengan admin:admin123 berhasil', async () => {
+  await t.test('1. Login dengan admin:jabar2020 berhasil', async () => {
     const res = await makeRequest({
       hostname: '127.0.0.1',
       port: PORT,
       path: '/api/admin/login',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-    }, { username: 'admin', password: 'admin123' });
+    }, { username: 'admin', password: 'jabar2020' });
 
     assert.equal(res.status, 200);
     assert.equal(res.body.ok, true);
@@ -43,19 +43,18 @@ test('Admin Auth & Token Bearer Integration', async (t) => {
     assert.ok(res.headers['set-cookie'], 'Set-Cookie harus ada');
   });
 
-  await t.test('2. Login dengan admin:admin12345 berhasil (fallback toleransi)', async () => {
+  await t.test('2. Login dengan kata sandi lama (admin123) ditolak 401', async () => {
     const res = await makeRequest({
       hostname: '127.0.0.1',
       port: PORT,
       path: '/api/admin/login',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-    }, { username: 'admin', password: 'admin12345' });
+    }, { username: 'admin', password: 'admin123' });
 
-    assert.equal(res.status, 200);
-    assert.equal(res.body.ok, true);
-    assert.equal(res.body.admin.username, 'admin');
-    assert.ok(res.body.token, 'Token harus disertakan');
+    assert.equal(res.status, 401);
+    assert.equal(res.body.ok, false);
+    assert.equal(res.body.error.code, 'INVALID_CREDENTIALS');
   });
 
   await t.test('3. Login dengan kata sandi salah mengembalikan 401 dengan INVALID_CREDENTIALS', async () => {
