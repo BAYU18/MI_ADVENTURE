@@ -5,6 +5,7 @@
   let pollTimer = null;
   let countdownTimer = null;
   let heartbeatTimer = null;
+  let serverOffset = 0;
   let currentDuelId = null;
   let currentState = null;
   let currentLoadedQ = null;
@@ -23,11 +24,70 @@
     }[c]));
   }
 
+  function updateCountdown() {
+    const timerEl = document.getElementById('duel-timer-val');
+    if (!timerEl || !currentState || currentState.status !== 'ACTIVE') {
+      if (timerEl && currentState?.status !== 'ACTIVE') timerEl.textContent = '--:--';
+      return;
+    }
+
+    const now = Date.now() + serverOffset;
+    let targetTime = null;
+    const isDeathmatch = (currentState.phase === 'DEATHMATCH');
+
+    if (isDeathmatch) {
+      if (currentState.questionDeadlineAt) {
+        targetTime = new Date(currentState.questionDeadlineAt).getTime();
+      }
+    } else {
+      if (currentState.normalEndsAt) {
+        targetTime = new Date(currentState.normalEndsAt).getTime();
+      }
+    }
+
+    if (!targetTime || !Number.isFinite(targetTime)) {
+      timerEl.textContent = '--:--';
+      return;
+    }
+
+    const remainingMs = Math.max(0, targetTime - now);
+    const totalSec = Math.floor(remainingMs / 1000);
+    const min = Math.floor(totalSec / 60);
+    const sec = totalSec % 60;
+    const timeStr = `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+
+    timerEl.textContent = timeStr;
+
+    if (isDeathmatch || totalSec <= 30) {
+      timerEl.style.color = '#ef4444';
+      timerEl.style.textShadow = '0 0 8px rgba(239, 68, 68, 0.6)';
+    } else if (totalSec <= 60) {
+      timerEl.style.color = '#f59e0b';
+      timerEl.style.textShadow = '0 0 6px rgba(245, 158, 11, 0.4)';
+    } else {
+      timerEl.style.color = '#fff';
+      timerEl.style.textShadow = 'none';
+    }
+
+    if (remainingMs <= 0 && !isSubmitting) {
+      pollState();
+    }
+  }
+
+  function startCountdown() {
+    if (countdownTimer) return;
+    updateCountdown();
+    countdownTimer = setInterval(updateCountdown, 1000);
+  }
+
   async function pollState() {
     if (!currentDuelId) return;
     try {
       const res = await window.API.req(`/api/duels/${currentDuelId}/state`);
       if (res.code === 'OK' || res.status) {
+        if (res.serverTime) {
+          serverOffset = new Date(res.serverTime).getTime() - Date.now();
+        }
         currentState = res;
         renderDuelState(res);
       }
@@ -118,6 +178,7 @@
         phaseLabel.className = `duel-phase-tag ${s.phase === 'DEATHMATCH' ? 'deathmatch' : 'normal'}`;
         phaseLabel.textContent = s.phase === 'DEATHMATCH' ? '🔥 DEATHMATCH' : '⏳ NORMAL';
       }
+      updateCountdown();
     } else {
       // First full layout render
       appEl.innerHTML = `
@@ -184,6 +245,7 @@
       `;
 
       attachSkillEvents();
+      updateCountdown();
 
       const btnFf = document.getElementById('btn-duel-forfeit');
       if (btnFf) {
@@ -198,6 +260,8 @@
         };
       }
     }
+
+    startCountdown();
 
     // Load question if index changed
     const targetQIdx = s.question?.orderIndex ?? 0;
@@ -366,6 +430,7 @@
   window.Screens.duel = {
     render(app, params) {
       stopAllTimers();
+      serverOffset = 0;
       currentDuelId = params?.duelId;
       currentState = null;
       currentLoadedQ = null;

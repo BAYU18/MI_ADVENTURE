@@ -24,8 +24,19 @@ test('Duel HTTP API Integration', async (t) => {
   await new Promise(r => testServer.listen(0, '127.0.0.1', r));
   const port = testServer.address().port;
 
+  let pA = null;
+  let pB = null;
+  let duelId = null;
+
   t.after(() => {
     testServer.close();
+    if (pA?.id && pB?.id) {
+      const rawDb = db.getDb();
+      if (duelId) rawDb.prepare('DELETE FROM duels WHERE id=?').run(duelId);
+      rawDb.prepare('DELETE FROM friendships WHERE player_id IN (?, ?) OR friend_id IN (?, ?)').run(pA.id, pB.id, pA.id, pB.id);
+      rawDb.prepare('DELETE FROM friend_requests WHERE from_player_id IN (?, ?) OR to_player_id IN (?, ?)').run(pA.id, pB.id, pA.id, pB.id);
+      rawDb.prepare('DELETE FROM players WHERE id IN (?, ?)').run(pA.id, pB.id);
+    }
   });
 
   const stamp = Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 6);
@@ -36,12 +47,12 @@ test('Duel HTTP API Integration', async (t) => {
   const regA = await api(port, '/api/register', { method: 'POST', body: { nick: nickA, password: 'password123' } });
   assert.equal(regA.status, 200);
   const tokenA = regA.body.token;
-  const pA = regA.body.player;
+  pA = regA.body.player;
 
   const regB = await api(port, '/api/register', { method: 'POST', body: { nick: nickB, password: 'password123' } });
   assert.equal(regB.status, 200);
   const tokenB = regB.body.token;
-  const pB = regB.body.player;
+  pB = regB.body.player;
 
   // Make them friends
   const reqFriend = await api(port, '/api/friends/request', { method: 'POST', token: tokenA, body: { nick: nickB } });
@@ -57,8 +68,6 @@ test('Duel HTTP API Integration', async (t) => {
     const rawDb = db.getDb();
     sid = rawDb.prepare('SELECT id FROM subjects LIMIT 1').get()?.id;
   }
-
-  let duelId = null;
 
   await t.test('1. A menantang B via POST /api/duels/challenge', async () => {
     const res = await api(port, '/api/duels/challenge', {
@@ -104,6 +113,8 @@ test('Duel HTTP API Integration', async (t) => {
     assert.equal(res.body.challenger.hp, 100);
     assert.equal(res.body.challenged.hp, 100);
     assert.equal(res.body.you, 'challenger');
+    assert.ok(res.body.normalEndsAt);
+    assert.ok(res.body.serverTime);
     assert.equal(res.body.answer_index, undefined); // Anti-cheat
   });
 
@@ -166,9 +177,4 @@ test('Duel HTTP API Integration', async (t) => {
     assert.ok(Array.isArray(res.body.history));
     assert.ok(res.body.history.some(x => x.id === duelId));
   });
-
-  // Cleanup
-  const rawDb = db.getDb();
-  rawDb.prepare('DELETE FROM duels WHERE id=?').run(duelId);
-  rawDb.prepare('DELETE FROM players WHERE id IN (?, ?)').run(pA.id, pB.id);
 });
