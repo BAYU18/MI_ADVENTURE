@@ -1851,7 +1851,7 @@ Screens.battle = {
             <span class="hud-title" id="q-counter">Soal ${s.currentIndex + 1}/${s.totalQuestions}</span>
           </div>
           <div style="display:flex;align-items:center;gap:6px">
-            <span class="chip info" id="active-shield-chip" style="display:none">🛡️ <span id="shield-val">0</span></span>
+            <span class="chip info" id="active-shield-chip" style="${((s.flags && s.flags.shield > 0) || (s.shield > 0)) ? '' : 'display:none'}">🛡️ <span id="shield-val">${(s.flags && s.flags.shield) || s.shield || 0}</span></span>
             <span class="chip info" id="player-hp-label">❤️ <span id="player-hp-val">${s.playerHp}</span>/${s.playerMaxHp}</span>
           </div>
         </div>
@@ -2598,17 +2598,37 @@ Screens.battle = {
       if (window.Feedback) Feedback.sfx('correct');
       else if (window.Sfx) Sfx.play('correct');
     } else if (outcome === 'WRONG') {
-      this.showDamageFloater(`❌ SALAH! -${res.playerDamage}`, 'miss');
-      if (window.Feedback) Feedback.sfx('wrong');
-      else if (window.Sfx) Sfx.play('wrong');
+      if (res.dodged) {
+        this.showDamageFloater('💨 HINDARAN! 0 DMG', 'heal');
+        toast('Refleks hebat! Kamu berhasil menghindari serangan! 💨');
+      } else {
+        this.showDamageFloater(`❌ SALAH! -${res.damageToPlayer ?? res.playerDamage}`, 'miss');
+        if (window.Feedback) Feedback.sfx('wrong');
+        else if (window.Sfx) Sfx.play('wrong');
+      }
     } else if (outcome === 'TIMEOUT') {
-      this.showDamageFloater(`⏰ HABIS! -${res.playerDamage}`, 'miss');
-      if (window.Feedback) Feedback.sfx('wrong');
-      else if (window.Sfx) Sfx.play('wrong');
+      if (res.dodged) {
+        this.showDamageFloater('💨 HINDARAN! 0 DMG', 'heal');
+        toast('HINDARAN! 💨 Serangan monster luput!');
+      } else {
+        this.showDamageFloater(`⏰ HABIS! -${res.damageToPlayer ?? res.playerDamage}`, 'miss');
+        if (window.Feedback) Feedback.sfx('wrong');
+        else if (window.Sfx) Sfx.play('wrong');
+      }
     } else if (outcome === 'TIMEOUT_AWAY') {
       this.showDamageFloater(`⏳ PERGI LAMA!`, 'miss');
       if (window.Feedback) Feedback.sfx('wrong');
       else if (window.Sfx) Sfx.play('wrong');
+    }
+
+    // Update in-battle shield chip from answer response
+    if (res.shield !== undefined) {
+      const sc = $('#active-shield-chip');
+      if (sc) {
+        sc.style.display = res.shield > 0 ? 'inline-flex' : 'none';
+        const sv = $('#shield-val');
+        if (sv) sv.textContent = res.shield;
+      }
     }
 
     // Boss Enrage Banner & Phase 2 Transition (C.1 / T-23)
@@ -4307,13 +4327,57 @@ Screens.profil = {
     const countOwned = items.filter(it => it.owned).length;
     const countUnowned = items.filter(it => !it.owned).length;
 
+    const calcCurrentPassives = (av) => {
+      const eqIds = ['hat', 'outfit', 'weapon', 'pet', 'bg', 'frame', 'title']
+        .map(sl => av[sl])
+        .filter(Boolean);
+      return (window.Passives && Passives.calculatePassives)
+        ? Passives.calculatePassives(eqIds, items)
+        : (this.inventoryData?.passives || { dodgeRate: 0, startShield: 0, critChance: 0, bonusTime: 0, activeSets: [], badges: [] });
+    };
+
+    let curP = calcCurrentPassives(this.avatarDraft || {});
+    const buildSetHtml = (p) => (p.activeSets && p.activeSets.length > 0)
+      ? p.activeSets.map(s => `<span class="chip" style="background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid rgba(245,158,11,0.4);font-size:0.68rem;font-weight:700;padding:2px 8px">${esc(s.icon)} ${esc(s.name)}</span>`).join(' ')
+      : '';
+
     slot.innerHTML = `
-      <!-- AVATAR LIVE PREVIEW -->
-      <div class="card" style="padding:16px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);text-align:center">
-        <div id="avatar-live-box" style="width:130px;height:130px;margin:0 auto;border-radius:24px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;overflow:hidden">
-          ${Avatar.renderAvatar(this.avatarDraft || {})}
+      <!-- AVATAR LIVE PREVIEW & RPG PASSIVES OVERVIEW (COMPACT) -->
+      <div class="card" id="skin-hero-dashboard" style="padding:12px 14px;background:linear-gradient(135deg, rgba(30,41,59,0.85), rgba(15,23,42,0.92));border:1px solid rgba(255,255,255,0.12);border-radius:var(--radius);display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+        <div style="display:flex;flex-direction:column;align-items:center;flex:0 0 auto">
+          <div id="avatar-live-box" style="width:96px;height:96px;border-radius:20px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(255,255,255,0.14);box-shadow:0 4px 14px rgba(0,0,0,0.35)">
+            ${Avatar.renderAvatar(this.avatarDraft || {})}
+          </div>
+          <span style="font-size:0.7rem;color:var(--c-muted);margin-top:4px">Avatar Aktif</span>
         </div>
-        <div style="margin-top:8px;font-size:0.85rem;color:var(--c-muted)">Pratinjau Avatar Langsung</div>
+
+        <div class="grow" style="min-width:190px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;gap:6px">
+            <span style="font-size:0.82rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:4px">
+              🛡️ Atribut Pasif Skin RPG
+            </span>
+            <div id="skin-active-sets">${buildSetHtml(curP)}</div>
+          </div>
+          
+          <div id="skin-stats-grid" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(75px, 1fr));gap:6px">
+            <div style="background:rgba(255,255,255,0.05);padding:5px 6px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);text-align:center">
+              <div style="font-size:0.65rem;color:#94a3b8">Hindaran</div>
+              <div id="stat-dodge-val" style="font-size:0.82rem;font-weight:800;color:#34d399">💨 ${Math.round(curP.dodgeRate * 100)}%</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.05);padding:5px 6px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);text-align:center">
+              <div style="font-size:0.65rem;color:#94a3b8">Perisai Awal</div>
+              <div id="stat-shield-val" style="font-size:0.82rem;font-weight:800;color:#38bdf8">🛡️ +${curP.startShield} HP</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.05);padding:5px 6px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);text-align:center">
+              <div style="font-size:0.65rem;color:#94a3b8">Kritis</div>
+              <div id="stat-crit-val" style="font-size:0.82rem;font-weight:800;color:#facc15">⚡ ${Math.round(curP.critChance * 100)}%</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.05);padding:5px 6px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);text-align:center">
+              <div style="font-size:0.65rem;color:#94a3b8">Waktu Soal</div>
+              <div id="stat-time-val" style="font-size:0.82rem;font-weight:800;color:#a78bfa">⏳ +${curP.bonusTime}s</div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- FILTER KEPEMILIKAN (OWNED / UNOWNED) -->
@@ -4389,7 +4453,7 @@ Screens.profil = {
         }
 
         return `
-          <div class="card item-card" data-testid="item-card-${it.id}" style="padding:10px;background:var(--c-surface);border-radius:var(--radius);border:1px solid ${isEquipped ? 'var(--c-primary)' : 'var(--c-surface-strong)'};text-align:center;display:flex;flex-direction:column;gap:6px">
+          <div class="card item-card" data-testid="item-card-${it.id}" style="padding:10px;background:var(--c-surface);border-radius:var(--radius);border:1px solid ${isEquipped ? 'var(--c-primary)' : 'var(--c-surface-strong)'};text-align:center;display:flex;flex-direction:column;gap:5px">
             <div style="display:flex;justify-content:space-between;align-items:center">
               <span style="font-size:0.7rem;font-weight:700;color:${rarityColor}">${it.rarity}</span>
               ${it.owned ? `<span style="font-size:0.65rem;color:var(--c-good)">✓ Milik</span>` : `<span style="font-size:0.65rem;color:var(--c-muted)">🔒 Belum</span>`}
@@ -4399,7 +4463,10 @@ Screens.profil = {
               ${window.Avatar ? Avatar.renderThumbnail(it.id, it.slot) : '🎒'}
             </div>
             <div style="font-weight:700;font-size:0.85rem;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(it.name)}</div>
-            <div style="font-size:0.75rem;color:var(--c-muted)">${esc(it.slot)}</div>
+            <!-- RPG PASSIVE BADGE -->
+            ${it.passive ? `<div style="font-size:0.7rem;font-weight:700;color:#38bdf8;background:rgba(56,189,248,0.1);padding:2px 6px;border-radius:6px;border:1px solid rgba(56,189,248,0.25);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${esc(it.passive.desc)}">${esc(it.passive.desc)}</div>` : ''}
+            <!-- LORE FLAVOR TEXT -->
+            <div style="font-size:0.68rem;color:var(--c-muted);line-height:1.2;height:2.4em;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical" title="${esc(it.lore || '')}">${esc(it.lore || it.slot)}</div>
             <div style="margin-top:auto;padding-top:4px">
               ${actionHtml}
             </div>
@@ -4452,6 +4519,12 @@ Screens.profil = {
             toast('Skin berhasil dipakai! ✨');
             const previewEl = $('#avatar-live-box');
             if (previewEl && window.Avatar) previewEl.innerHTML = Avatar.renderAvatar(savedAvatar);
+            const updatedStats = calcCurrentPassives(savedAvatar);
+            const sDodge = $('#stat-dodge-val'); if (sDodge) sDodge.textContent = `💨 ${Math.round(updatedStats.dodgeRate * 100)}%`;
+            const sShield = $('#stat-shield-val'); if (sShield) sShield.textContent = `🛡️ +${updatedStats.startShield} HP`;
+            const sCrit = $('#stat-crit-val'); if (sCrit) sCrit.textContent = `⚡ ${Math.round(updatedStats.critChance * 100)}%`;
+            const sTime = $('#stat-time-val'); if (sTime) sTime.textContent = `⏳ +${updatedStats.bonusTime}s`;
+            const sSets = $('#skin-active-sets'); if (sSets) sSets.innerHTML = buildSetHtml(updatedStats);
             renderItems();
           } catch (e) {
             toast('Gagal memasang skin: ' + (e.message || e.code || 'Item belum dimiliki'));
@@ -4814,14 +4887,17 @@ Screens.profil = {
         const canAfford = playerCoins >= it.price;
         const rarityColor = it.rarity === 'LEGENDARY' ? '#f59e0b' : it.rarity === 'EPIC' ? '#a855f7' : it.rarity === 'RARE' ? '#3b82f6' : '#94a3b8';
         return `
-          <div class="card item-card" data-testid="item-card-${it.id}" style="padding:10px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);text-align:center;display:flex;flex-direction:column;gap:6px">
+          <div class="card item-card" data-testid="item-card-${it.id}" style="padding:10px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);text-align:center;display:flex;flex-direction:column;gap:5px">
             <div style="font-size:0.7rem;font-weight:700;color:${rarityColor}">${it.rarity}</div>
             <!-- THUMBNAIL TOKO -->
             <div class="skin-thumbnail-box" style="width:68px;height:68px;margin:2px auto;border-radius:14px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:inset 0 2px 6px rgba(0,0,0,0.3)">
               ${window.Avatar ? Avatar.renderThumbnail(it.id, it.slot) : '🎒'}
             </div>
             <div style="font-weight:700;font-size:0.85rem;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(it.name)}</div>
-            <div style="font-size:0.75rem;color:var(--c-muted)">${esc(it.slot)}</div>
+            <!-- RPG PASSIVE BADGE -->
+            ${it.passive ? `<div style="font-size:0.7rem;font-weight:700;color:#fbbf24;background:rgba(251,191,36,0.1);padding:2px 6px;border-radius:6px;border:1px solid rgba(251,191,36,0.25);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${esc(it.passive.desc)}">${esc(it.passive.desc)}</div>` : ''}
+            <!-- LORE FLAVOR TEXT -->
+            <div style="font-size:0.68rem;color:var(--c-muted);line-height:1.2;height:2.4em;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical" title="${esc(it.lore || '')}">${esc(it.lore || it.slot)}</div>
             <div style="font-size:0.85rem;font-weight:700;color:#fbbf24;margin-top:auto">🪙 ${it.price}</div>
             <button class="btn small ${canAfford ? 'primary' : 'secondary'} block item-shop-buy-btn"
               data-testid="item-buy-${it.id}"
@@ -4841,9 +4917,11 @@ Screens.profil = {
           if (!it) return;
 
           const thumbPreview = window.Avatar ? Avatar.renderThumbnail(it.id, it.slot) : '🎒';
+          const pDesc = it.passive ? `<div style="margin:8px 0;padding:6px 10px;background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.3);border-radius:8px;color:#38bdf8;font-size:0.82rem;font-weight:800">✨ Efek Pasif: ${esc(it.passive.desc)}</div>` : '';
+          const lDesc = it.lore ? `<p style="font-size:0.78rem;color:var(--c-muted);font-style:italic;margin:6px 0">${esc(it.lore)}</p>` : '';
           this.showConfirmModal(
             `Beli ${it.name}?`,
-            `Beli ${it.name} (${it.rarity}) seharga ${it.price} koin?`,
+            `${pDesc}${lDesc}<div style="margin-top:8px">Beli ${it.name} (${it.rarity}) seharga <strong style="color:#fbbf24">${it.price} 🪙</strong>?</div>`,
             `Beli (${it.price} 🪙)`,
             async () => {
               const idemKey = `buy-${it.id}-${Date.now()}`;

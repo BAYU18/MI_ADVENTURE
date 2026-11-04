@@ -388,6 +388,17 @@
         <div class="duel-options-grid">${optsHtml}</div>
       `;
 
+      if (Array.isArray(qData.eliminated) && qData.eliminated.length > 0) {
+        qData.eliminated.forEach(i => {
+          const b = qBox.querySelector(`.duel-opt-btn[data-idx="${i}"]`);
+          if (b) {
+            b.classList.add('eliminated');
+            b.setAttribute('aria-disabled', 'true');
+            b.disabled = true;
+          }
+        });
+      }
+
       qBox.querySelectorAll('.duel-opt-btn').forEach(btn => {
         btn.onclick = async () => {
           if (isSubmitting) return;
@@ -410,10 +421,25 @@
             if (ansRes.isCorrect) {
               btn.classList.add('correct');
               if (window.Sfx) Sfx.play('correct');
-              triggerAttackEffect(ansRes.damage || 10);
+              if (ansRes.dodged) {
+                if (window.toast) window.toast('Lawan berhasil HINDARAN! 💨 (0 Damage)');
+              } else if (ansRes.isCrit) {
+                if (window.toast) window.toast('CRITICAL HIT! ⚡ Damage berlipat ganda!');
+                triggerAttackEffect(ansRes.damage || 15);
+              } else {
+                triggerAttackEffect(ansRes.damage || 10);
+              }
+              if (ansRes.dragon) {
+                if (window.toast) window.toast('Semburan Naga Mungil! 🔥 (+20 DMG)');
+              }
             } else {
               btn.classList.add('wrong');
               if (window.Sfx) Sfx.play('wrong');
+              if (ansRes.dodged) {
+                if (window.toast) window.toast('HINDARAN! 💨 Kamu terhindar dari serangan!');
+              } else {
+                triggerHurtEffect();
+              }
             }
 
             setTimeout(() => {
@@ -496,34 +522,25 @@
           return;
         }
 
-        if (skillId === 'eliminate_one') {
-          // Eliminate 1 option locally
-          const optBtns = Array.from(document.querySelectorAll('.duel-opt-btn:not(.eliminated):not(.selected)'));
-          if (optBtns.length > 2) {
-            const toEliminate = optBtns[Math.floor(Math.random() * optBtns.length)];
-            toEliminate.classList.add('eliminated');
-            toEliminate.disabled = true;
-          }
-        } else if (skillId === 'eagle_eye') {
-          // Eliminate up to 2 options locally
-          const optBtns = Array.from(document.querySelectorAll('.duel-opt-btn:not(.eliminated):not(.selected)'));
-          if (optBtns.length > 2) {
-            const countToElim = Math.min(2, optBtns.length - 2);
-            const shuffled = optBtns.sort(() => 0.5 - Math.random());
-            for (let i = 0; i < countToElim; i++) {
-              shuffled[i].classList.add('eliminated');
-              shuffled[i].disabled = true;
-            }
-          }
-        }
-
         try {
           const res = await window.API.req(`/api/duels/${currentDuelId}/skill`, {
             method: 'POST',
             body: JSON.stringify({ skillId, skillLv, orderIndex: currentLoadedQ || 0 })
           });
           if (res.code === 'OK') {
-            if (window.toast) window.toast(`Skill ${skillId} berhasil digunakan!`);
+            if (Array.isArray(res.eliminated) && res.eliminated.length > 0) {
+              res.eliminated.forEach(idx => {
+                const optBtn = document.querySelector(`.duel-opt-btn[data-idx="${idx}"]`);
+                if (optBtn) {
+                  optBtn.classList.add('eliminated');
+                  optBtn.setAttribute('aria-disabled', 'true');
+                  optBtn.disabled = true;
+                }
+              });
+              if (window.toast) window.toast(`🎯 ${res.eliminated.length} opsi salah dicoret!`);
+            } else {
+              if (window.toast) window.toast(`Skill ${skillId} berhasil digunakan!`);
+            }
             pollState();
           } else {
             if (window.toast) window.toast(`Gagal: ${res.reason || res.code}`);

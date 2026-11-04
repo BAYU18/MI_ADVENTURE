@@ -1123,12 +1123,16 @@ const server = http.createServer(async (req, res) => {
       const mappedOptions = order.map(i => rawOpts[i]);
       let typeData = null;
       try { if (q.type_data_json) typeData = JSON.parse(q.type_data_json); } catch {}
+      const elimCol = (meSide === 'challenger' ? dq.eliminated_challenger_json : dq.eliminated_challenged_json);
+      let eliminated = [];
+      try { eliminated = JSON.parse(elimCol || '[]'); } catch {}
       return json(res, {
         ok: true,
         code: 'OK',
         orderIndex: idx,
         text: q.text,
         options: mappedOptions,
+        eliminated,
         questionType: q.question_type,
         typeData
       });

@@ -1,3 +1,4 @@
+const { SET_BONUSES, calculatePassives } = (typeof require !== 'undefined') ? require('./passives') : ((typeof window !== 'undefined' && window.Passives) ? window.Passives : { SET_BONUSES: [], calculatePassives: () => ({}) });
 'use strict';
 
 const ECONOMY = {
@@ -23,64 +24,551 @@ const ECONOMY = {
 };
 
 const ITEMS = [
-  // --- HATS ---
-  { id: 'hat_explorer', slot: 'hat', name: 'Topi Penjelajah', rarity: 'COMMON', isStarter: true },
-  { id: 'hat_headphones', slot: 'hat', name: 'Headphone Keren', rarity: 'COMMON', isStarter: false },
-  { id: 'hat_chef', slot: 'hat', name: 'Topi Koki', rarity: 'COMMON', isStarter: false },
-  { id: 'hat_pirate', slot: 'hat', name: 'Topi Bajak Laut', rarity: 'RARE', isStarter: false },
-  { id: 'hat_knight', slot: 'hat', name: 'Helm Ksatria', rarity: 'RARE', isStarter: false },
-  { id: 'hat_bunny', slot: 'hat', name: 'Telinga Kelinci', rarity: 'RARE', isStarter: false },
-  { id: 'hat_wizard', slot: 'hat', name: 'Topi Penyihir', rarity: 'EPIC', isStarter: false },
-  { id: 'hat_crown', slot: 'hat', name: 'Mahkota Emas', rarity: 'LEGENDARY', isStarter: false },
-
-  // --- OUTFITS ---
-  { id: 'outfit_vest', slot: 'outfit', name: 'Rompi Rimba', rarity: 'COMMON', isStarter: true },
-  { id: 'outfit_stripes', slot: 'outfit', name: 'Kaos Belang', rarity: 'COMMON', isStarter: false },
-  { id: 'outfit_labcoat', slot: 'outfit', name: 'Jas Ilmuwan', rarity: 'COMMON', isStarter: false },
-  { id: 'outfit_cape', slot: 'outfit', name: 'Jubah Pahlawan', rarity: 'RARE', isStarter: false },
-  { id: 'outfit_armor', slot: 'outfit', name: 'Zirah Baja', rarity: 'EPIC', isStarter: false },
-  { id: 'outfit_robe', slot: 'outfit', name: 'Jubah Bintang', rarity: 'EPIC', isStarter: false },
-
-  // --- WEAPONS / TOOLS ---
-  { id: 'weapon_book', slot: 'weapon', name: 'Buku Ajaib', rarity: 'COMMON', isStarter: false },
-  { id: 'weapon_telescope', slot: 'weapon', name: 'Teropong Bintang', rarity: 'COMMON', isStarter: false },
-  { id: 'weapon_shield', slot: 'weapon', name: 'Perisai Biru', rarity: 'RARE', isStarter: false },
-  { id: 'weapon_sword', slot: 'weapon', name: 'Pedang Perak', rarity: 'RARE', isStarter: false },
-  { id: 'weapon_wand', slot: 'weapon', name: 'Tongkat Bintang', rarity: 'EPIC', isStarter: false },
-
-  // --- PETS ---
-  { id: 'pet_cat', slot: 'pet', name: 'Kucing Oren', rarity: 'COMMON', isStarter: false },
-  { id: 'pet_dog', slot: 'pet', name: 'Anjing Ceria', rarity: 'COMMON', isStarter: false },
-  { id: 'pet_penguin', slot: 'pet', name: 'Pinguin Lucu', rarity: 'RARE', isStarter: false },
-  { id: 'pet_fox', slot: 'pet', name: 'Rubah Cerdik', rarity: 'RARE', isStarter: false },
-  { id: 'pet_owl', slot: 'pet', name: 'Burung Hantu Bijak', rarity: 'EPIC', isStarter: false },
-  { id: 'pet_dragon', slot: 'pet', name: 'Naga Mungil', rarity: 'LEGENDARY', isStarter: false },
-
-  // --- BACKGROUNDS ---
-  { id: 'bg_meadow', slot: 'bg', name: 'Padang Rumput', rarity: 'COMMON', isStarter: true },
-  { id: 'bg_sky', slot: 'bg', name: 'Langit Cerah', rarity: 'COMMON', isStarter: false },
-  { id: 'bg_sunset', slot: 'bg', name: 'Senja Hangat', rarity: 'RARE', isStarter: false },
-  { id: 'bg_candy', slot: 'bg', name: 'Negeri Permen', rarity: 'RARE', isStarter: false },
-  { id: 'bg_cave', slot: 'bg', name: 'Gua Misterius', rarity: 'EPIC', isStarter: false },
-  { id: 'bg_night', slot: 'bg', name: 'Malam Berbintang', rarity: 'EPIC', isStarter: false },
-
-  // --- FRAMES (BINGKAI AVATAR) ---
-  { id: 'frame_wood', slot: 'frame', name: 'Bingkai Kayu', rarity: 'COMMON', isStarter: true },
-  { id: 'frame_leaf', slot: 'frame', name: 'Bingkai Daun Rimbun', rarity: 'COMMON', isStarter: false },
-  { id: 'frame_silver', slot: 'frame', name: 'Bingkai Perak Bersinar', rarity: 'RARE', isStarter: false },
-  { id: 'frame_flame', slot: 'frame', name: 'Bingkai Api Berkobar', rarity: 'RARE', isStarter: false },
-  { id: 'frame_gold', slot: 'frame', name: 'Bingkai Emas Kerajaan', rarity: 'EPIC', isStarter: false },
-  { id: 'frame_rainbow', slot: 'frame', name: 'Bingkai Pelangi Ajaib', rarity: 'LEGENDARY', isStarter: false },
-
-  // --- TITLES (GELAR PETUALANG) ---
-  { id: 'title_rookie', slot: 'title', name: 'Pelajar Pemula', rarity: 'COMMON', isStarter: true },
-  { id: 'title_hunter', slot: 'title', name: 'Pemburu Monster', rarity: 'RARE', isStarter: false },
-  { id: 'title_sage', slot: 'title', name: 'Cendekiawan Cilik', rarity: 'RARE', isStarter: false },
-  { id: 'title_combo', slot: 'title', name: 'Raja Combo', rarity: 'EPIC', isStarter: false },
-  { id: 'title_king', slot: 'title', name: 'Penakluk Monsterdex', rarity: 'LEGENDARY', isStarter: false },
-
-  // --- PERMANENT SHOP UPGRADES ---
-  { id: 'slot_skill_4', slot: 'permanent', name: 'Slot Skill Tambahan (Slot ke-4)', rarity: 'EPIC', price: 400, isStarter: false },
+  {
+    "id": "hat_explorer",
+    "slot": "hat",
+    "name": "Topi Penjelajah",
+    "rarity": "COMMON",
+    "isStarter": true,
+    "passive": {
+      "dodgeRate": 0.01,
+      "desc": "Hindaran +1%"
+    },
+    "lore": "Topi rimba tahan banting. Memberi 1% peluang menghindari damage saat salah menjawab."
+  },
+  {
+    "id": "hat_headphones",
+    "slot": "hat",
+    "name": "Headphone Keren",
+    "rarity": "COMMON",
+    "isStarter": false,
+    "passive": {
+      "bonusTime": 1,
+      "desc": "Fokus Waktu +1 Detik"
+    },
+    "lore": "Dentuman musik santai membuat pemain tenang, menambah +1 detik pada timer soal."
+  },
+  {
+    "id": "hat_chef",
+    "slot": "hat",
+    "name": "Topi Koki",
+    "rarity": "COMMON",
+    "isStarter": false,
+    "passive": {
+      "coinBonus": 0.02,
+      "desc": "Bonus Koin +2%"
+    },
+    "lore": "Semangat pantang menyerah juru masak, meningkatkan drop koin sebesar 2%."
+  },
+  {
+    "id": "hat_pirate",
+    "slot": "hat",
+    "name": "Topi Bajak Laut",
+    "rarity": "RARE",
+    "isStarter": false,
+    "passive": {
+      "dodgeRate": 0.03,
+      "coinBonus": 0.05,
+      "desc": "Hindaran +3% & Koin +5%"
+    },
+    "lore": "Kelincahan kapten laut menghindari jebakan dan insting mencari harta karun."
+  },
+  {
+    "id": "hat_knight",
+    "slot": "hat",
+    "name": "Helm Ksatria",
+    "rarity": "RARE",
+    "isStarter": false,
+    "passive": {
+      "dodgeRate": 0.04,
+      "startShield": 5,
+      "desc": "Hindaran +4% & Perisai +5 HP"
+    },
+    "lore": "Baja tempaan benteng kerajaan menyerap benturan pertama dalam duel."
+  },
+  {
+    "id": "hat_bunny",
+    "slot": "hat",
+    "name": "Telinga Kelinci",
+    "rarity": "RARE",
+    "isStarter": false,
+    "passive": {
+      "dodgeRate": 0.05,
+      "desc": "Hindaran +5%"
+    },
+    "lore": "Refleks pendengaran yang sangat tajam, lincah melompati kesalahan soal."
+  },
+  {
+    "id": "hat_wizard",
+    "slot": "hat",
+    "name": "Topi Penyihir",
+    "rarity": "EPIC",
+    "isStarter": false,
+    "passive": {
+      "dodgeRate": 0.07,
+      "freeEnergyChance": 0.1,
+      "desc": "Hindaran +7% & Hemat Energi 10%"
+    },
+    "lore": "Aura sihir arkana melindungi pemakainya dan memberi 10% peluang gratis energi skill."
+  },
+  {
+    "id": "hat_crown",
+    "slot": "hat",
+    "name": "Mahkota Emas",
+    "rarity": "LEGENDARY",
+    "isStarter": false,
+    "passive": {
+      "dodgeRate": 0.1,
+      "bonusTime": 2,
+      "desc": "Hindaran +10% & Waktu +2 Detik"
+    },
+    "lore": "Karisma agung sang juara sejati! Peluang hindaran 10% dan ketenangan waktu +2 detik."
+  },
+  {
+    "id": "outfit_vest",
+    "slot": "outfit",
+    "name": "Rompi Rimba",
+    "rarity": "COMMON",
+    "isStarter": true,
+    "passive": {
+      "startShield": 5,
+      "desc": "Perisai Awal +5 HP"
+    },
+    "lore": "Bahan kanvas tebal memberi perisai darurat 5 HP di awal duel/boss."
+  },
+  {
+    "id": "outfit_stripes",
+    "slot": "outfit",
+    "name": "Kaos Belang",
+    "rarity": "COMMON",
+    "isStarter": false,
+    "passive": {
+      "dodgeRate": 0.01,
+      "desc": "Hindaran +1%"
+    },
+    "lore": "Pola belang yang mengaburkan fokus lawan, memberi 1% hindaran."
+  },
+  {
+    "id": "outfit_labcoat",
+    "slot": "outfit",
+    "name": "Jas Ilmuwan",
+    "rarity": "COMMON",
+    "isStarter": false,
+    "passive": {
+      "bonusTime": 1,
+      "desc": "Fokus Waktu +1 Detik"
+    },
+    "lore": "Kerapian berpikir seorang peneliti menambah waktu analisis +1 detik."
+  },
+  {
+    "id": "outfit_cape",
+    "slot": "outfit",
+    "name": "Jubah Pahlawan",
+    "rarity": "RARE",
+    "isStarter": false,
+    "passive": {
+      "startShield": 12,
+      "desc": "Perisai Awal +12 HP"
+    },
+    "lore": "Kain berkibar gagah yang menahan pukulan pertama lawan sebesar 12 HP."
+  },
+  {
+    "id": "outfit_armor",
+    "slot": "outfit",
+    "name": "Zirah Baja",
+    "rarity": "EPIC",
+    "isStarter": false,
+    "passive": {
+      "startShield": 25,
+      "damageReduction": 2,
+      "desc": "Perisai Awal +25 HP & Reduksi Damage -2"
+    },
+    "lore": "Plat baja kokoh! Memberikan 25 Perisai dan mengurangi damage masuk sebesar 2 poin."
+  },
+  {
+    "id": "outfit_robe",
+    "slot": "outfit",
+    "name": "Jubah Bintang",
+    "rarity": "EPIC",
+    "isStarter": false,
+    "passive": {
+      "startShield": 15,
+      "comboRegen": {
+        "combo": 3,
+        "hp": 3
+      },
+      "desc": "Perisai Awal +15 HP & Regen 3 HP / 3 Combo"
+    },
+    "lore": "Ditenun dari debu galaksi. Memberikan 15 perisai dan memulihkan 3 HP tiap 3 combo."
+  },
+  {
+    "id": "weapon_book",
+    "slot": "weapon",
+    "name": "Buku Ajaib",
+    "rarity": "COMMON",
+    "isStarter": false,
+    "passive": {
+      "correctDamageBonus": 1,
+      "desc": "Damage Jawaban Benar +1"
+    },
+    "lore": "Catatan rumus sakti menambah 1 poin serangan pada setiap jawaban benar."
+  },
+  {
+    "id": "weapon_telescope",
+    "slot": "weapon",
+    "name": "Teropong Bintang",
+    "rarity": "COMMON",
+    "isStarter": false,
+    "passive": {
+      "critChance": 0.02,
+      "desc": "Critical Chance +2%"
+    },
+    "lore": "Melihat kelemahan lawan dari kejauhan, peluang serangan kritis 2% (damage x1.5)."
+  },
+  {
+    "id": "weapon_shield",
+    "slot": "weapon",
+    "name": "Perisai Biru",
+    "rarity": "RARE",
+    "isStarter": false,
+    "passive": {
+      "startShield": 10,
+      "dodgeRate": 0.02,
+      "desc": "Perisai Awal +10 HP & Hindaran +2%"
+    },
+    "lore": "Tameng kokoh penjaga ketertiban duel."
+  },
+  {
+    "id": "weapon_sword",
+    "slot": "weapon",
+    "name": "Pedang Perak",
+    "rarity": "RARE",
+    "isStarter": false,
+    "passive": {
+      "critChance": 0.05,
+      "critMultiplier": 1.75,
+      "desc": "Critical Chance +5% (Dmg x1.75)"
+    },
+    "lore": "Tebasan kilat perak memberikan 5% peluang Critical Hit (damage x1.75)."
+  },
+  {
+    "id": "weapon_wand",
+    "slot": "weapon",
+    "name": "Tongkat Bintang",
+    "rarity": "EPIC",
+    "isStarter": false,
+    "passive": {
+      "critChance": 0.08,
+      "critMultiplier": 2,
+      "desc": "Critical Chance +8% (Dmg x2.0)"
+    },
+    "lore": "Pusaran energi komet! 8% peluang critical dengan daya hancur berlipat ganda."
+  },
+  {
+    "id": "pet_cat",
+    "slot": "pet",
+    "name": "Kucing Oren",
+    "rarity": "COMMON",
+    "isStarter": false,
+    "passive": {
+      "coinBonus": 0.03,
+      "desc": "Koin Drop +3%"
+    },
+    "lore": "Kucing pembawa hoki legendaris yang gemar mengais koin ekstra."
+  },
+  {
+    "id": "pet_dog",
+    "slot": "pet",
+    "name": "Anjing Ceria",
+    "rarity": "COMMON",
+    "isStarter": false,
+    "passive": {
+      "winHeal": 2,
+      "desc": "Pemulihan +2 HP saat Menang Duel/Boss"
+    },
+    "lore": "Gonggongan semangat memulihkan stamina pemain setelah pertarungan sengit."
+  },
+  {
+    "id": "pet_penguin",
+    "slot": "pet",
+    "name": "Pinguin Lucu",
+    "rarity": "RARE",
+    "isStarter": false,
+    "passive": {
+      "freezeTimeBonus": 1.5,
+      "desc": "Waktu Beku Alami +1.5 Detik"
+    },
+    "lore": "Hawa dingin pinguin membuat timer lawan atau boss bergerak lebih lambat."
+  },
+  {
+    "id": "pet_fox",
+    "slot": "pet",
+    "name": "Rubah Cerdik",
+    "rarity": "RARE",
+    "isStarter": false,
+    "passive": {
+      "comboEnergyChance": {
+        "combo": 3,
+        "chance": 0.15
+      },
+      "desc": "Peluang +1 Energi 15% Tiap 3 Combo"
+    },
+    "lore": "Kecerdikan rubah mencuri momentum untuk memulihkan energi skill."
+  },
+  {
+    "id": "pet_owl",
+    "slot": "pet",
+    "name": "Burung Hantu Bijak",
+    "rarity": "EPIC",
+    "isStarter": false,
+    "passive": {
+      "streakProtectChance": 0.5,
+      "desc": "Proteksi Streak 1x (Peluang 50%)"
+    },
+    "lore": "Kebijaksanaan malam: jika salah 1x, combo streak berpeluang 50% tidak langsung hangus."
+  },
+  {
+    "id": "pet_dragon",
+    "slot": "pet",
+    "name": "Naga Mungil",
+    "rarity": "LEGENDARY",
+    "isStarter": false,
+    "passive": {
+      "dragonBreathChance": 0.1,
+      "dragonBreathDamage": 20,
+      "desc": "Semburan Api Naga (10% Chance Deal 20 Dmg)"
+    },
+    "lore": "Saat menjawab benar, 10% peluang naga menyemburkan api instan 20 damage!"
+  },
+  {
+    "id": "bg_meadow",
+    "slot": "bg",
+    "name": "Padang Rumput",
+    "rarity": "COMMON",
+    "isStarter": true,
+    "passive": {
+      "bonusTime": 0.5,
+      "desc": "Stabilisator Fokus (Waktu +0.5 Detik)"
+    },
+    "lore": "Hawa sejuk rumput hijau menenangkan detak jantung saat berhitung."
+  },
+  {
+    "id": "bg_sky",
+    "slot": "bg",
+    "name": "Langit Cerah",
+    "rarity": "COMMON",
+    "isStarter": false,
+    "passive": {
+      "coinBonus": 0.02,
+      "desc": "Bonus Koin +2%"
+    },
+    "lore": "Cakrawala biru luas membuka pandangan rezeki berlimpah."
+  },
+  {
+    "id": "bg_sunset",
+    "slot": "bg",
+    "name": "Senja Hangat",
+    "rarity": "RARE",
+    "isStarter": false,
+    "passive": {
+      "startShield": 8,
+      "desc": "Perisai Sore +8 HP"
+    },
+    "lore": "Cahaya tembaga senja meredam serangan pertama lawan."
+  },
+  {
+    "id": "bg_candy",
+    "slot": "bg",
+    "name": "Negeri Permen",
+    "rarity": "RARE",
+    "isStarter": false,
+    "passive": {
+      "comboRegen": {
+        "combo": 4,
+        "hp": 3
+      },
+      "desc": "Gula Semangat (+3 HP Tiap 4 Combo)"
+    },
+    "lore": "Ledakan energi manis memulihkan HP pemain saat bermain cepat."
+  },
+  {
+    "id": "bg_cave",
+    "slot": "bg",
+    "name": "Gua Misterius",
+    "rarity": "EPIC",
+    "isStarter": false,
+    "passive": {
+      "dodgeRate": 0.05,
+      "desc": "Gema Kristal (Hindaran +5%)"
+    },
+    "lore": "Pantulan gema kristal membingungkan musuh dan menepis kesalahan."
+  },
+  {
+    "id": "bg_night",
+    "slot": "bg",
+    "name": "Malam Berbintang",
+    "rarity": "EPIC",
+    "isStarter": false,
+    "passive": {
+      "critChance": 0.04,
+      "bonusTime": 1,
+      "desc": "Meditasi Bintang (Critical +4% & Waktu +1 Detik)"
+    },
+    "lore": "Konsentrasi tingkat tinggi di bawah taburan konstelasi bintang."
+  },
+  {
+    "id": "frame_wood",
+    "slot": "frame",
+    "name": "Bingkai Kayu",
+    "rarity": "COMMON",
+    "isStarter": true,
+    "passive": {
+      "xpBonus": 0.01,
+      "desc": "Bonus EXP +1%"
+    },
+    "lore": "Serat kayu jati tua menyerap pengalaman belajar secara konsisten."
+  },
+  {
+    "id": "frame_leaf",
+    "slot": "frame",
+    "name": "Bingkai Daun Rimbun",
+    "rarity": "COMMON",
+    "isStarter": false,
+    "passive": {
+      "healOnCorrect": 1,
+      "desc": "Pemulihan +1 HP Tiap Soal Benar"
+    },
+    "lore": "Kesegaran alam meregenerasi vitalitas sedikit demi sedikit."
+  },
+  {
+    "id": "frame_silver",
+    "slot": "frame",
+    "name": "Bingkai Perak Bersinar",
+    "rarity": "RARE",
+    "isStarter": false,
+    "passive": {
+      "xpBonus": 0.03,
+      "coinBonus": 0.03,
+      "desc": "Bonus EXP +3% & Koin +3%"
+    },
+    "lore": "Kilau kemilau perak mengundang apresiasi dan hadiah melimpah."
+  },
+  {
+    "id": "frame_flame",
+    "slot": "frame",
+    "name": "Bingkai Api Berkobar",
+    "rarity": "RARE",
+    "isStarter": false,
+    "passive": {
+      "comboDamageBonus": {
+        "minCombo": 3,
+        "bonus": 2
+      },
+      "desc": "Damage Ekstra +2 Saat Combo > 3"
+    },
+    "lore": "Semangat membara melipatgandakan daya hancur saat beruntun benar."
+  },
+  {
+    "id": "frame_gold",
+    "slot": "frame",
+    "name": "Bingkai Emas Kerajaan",
+    "rarity": "EPIC",
+    "isStarter": false,
+    "passive": {
+      "xpBonus": 0.05,
+      "dodgeRate": 0.03,
+      "desc": "Bonus EXP +5% & Hindaran +3%"
+    },
+    "lore": "Lambang aristokrat pejuang yang tangguh dan terhormat."
+  },
+  {
+    "id": "frame_rainbow",
+    "slot": "frame",
+    "name": "Bingkai Pelangi Ajaib",
+    "rarity": "LEGENDARY",
+    "isStarter": false,
+    "passive": {
+      "dodgeRate": 0.03,
+      "critChance": 0.03,
+      "startShield": 5,
+      "coinBonus": 0.05,
+      "desc": "All Stats (+3% Dodge, +3% Crit, +5 Shield, +5% Koin)"
+    },
+    "lore": "Pancaran spektrum magis legendaris yang meningkatkan seluruh aspek petarung."
+  },
+  {
+    "id": "title_rookie",
+    "slot": "title",
+    "name": "Pelajar Pemula",
+    "rarity": "COMMON",
+    "isStarter": true,
+    "passive": {
+      "coinBonus": 0.02,
+      "desc": "Semangat Belajar (+2% Koin)"
+    },
+    "lore": "Langkah awal yang penuh rasa ingin tahu."
+  },
+  {
+    "id": "title_hunter",
+    "slot": "title",
+    "name": "Pemburu Monster",
+    "rarity": "RARE",
+    "isStarter": false,
+    "passive": {
+      "bossDamageBonusPercent": 0.1,
+      "desc": "Bane of Beasts (+10% Damage ke Boss)"
+    },
+    "lore": "Spesialis penakluk monster alam liar, serangan ke boss meningkat tajam."
+  },
+  {
+    "id": "title_sage",
+    "slot": "title",
+    "name": "Cendekiawan Cilik",
+    "rarity": "RARE",
+    "isStarter": false,
+    "passive": {
+      "bonusTime": 2,
+      "desc": "Analisis Cepat (Waktu +2 Detik)"
+    },
+    "lore": "Otak cemerlang yang mampu mengurai soal tersulit dalam hitungan detik."
+  },
+  {
+    "id": "title_combo",
+    "slot": "title",
+    "name": "Raja Combo",
+    "rarity": "EPIC",
+    "isStarter": false,
+    "passive": {
+      "comboDamagePercent": 0.05,
+      "desc": "Combo Multiplier (+5% Damage per Tingkat Combo)"
+    },
+    "lore": "Semakin panjang streak benar, semakin mematikan serangan yang diluncurkan!"
+  },
+  {
+    "id": "title_king",
+    "slot": "title",
+    "name": "Penakluk Monsterdex",
+    "rarity": "LEGENDARY",
+    "isStarter": false,
+    "passive": {
+      "dodgeRate": 0.05,
+      "lastStand": true,
+      "desc": "Gelar Legenda (Hindaran +5% & Darah Terakhir)"
+    },
+    "lore": "Jika HP mencapai 0, bertahan dengan 1 HP untuk satu kesempatan terakhir (1x per battle)."
+  },
+  {
+    "id": "slot_skill_4",
+    "slot": "permanent",
+    "name": "Slot Skill Tambahan (Slot ke-4)",
+    "rarity": "EPIC",
+    "price": 400,
+    "isStarter": false,
+    "passive": {
+      "desc": "Membuka slot ke-4 untuk membawa 4 skill"
+    },
+    "lore": "Sabuk keahlian tambahan yang ditempa oleh pandai besi kerajaan."
+  }
 ];
 
 const SKILL_MAX_LEVEL = 5;
@@ -314,4 +802,6 @@ module.exports = {
   HAIRS,
   BG_COLORS,
   BOSS_MOVES,
+  SET_BONUSES,
+  calculatePassives,
 };
