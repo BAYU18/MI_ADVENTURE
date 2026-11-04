@@ -1372,33 +1372,47 @@ body {
   pointer-events: none;
 }
 .skill-fab {
-  position: fixed;
-  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
-  right: 18px;
-  z-index: 100;
+  position: static;
   background: linear-gradient(135deg, #f59e0b, #d97706);
   color: #0f172a;
-  border: 2px solid #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.75);
   border-radius: 99px;
-  padding: 8px 14px;
+  padding: 3px 9px;
+  height: 28px;
   font-weight: 800;
-  font-size: 0.85rem;
-  display: flex;
+  font-size: 0.78rem;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.5);
-  transition: transform 0.15s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  transition: transform 0.12s ease, opacity 0.12s ease;
+  user-select: none;
+  flex-shrink: 0;
 }
 .skill-fab:active {
-  transform: scale(0.92);
+  transform: scale(0.93);
+}
+.skill-fab-badge,
+.skill-fab .skill-energy-pill {
+  background: #0f172a;
+  color: #fbbf24;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 99px;
+  min-width: 16px;
+  text-align: center;
+  line-height: 1.2;
+  margin-left: 1px;
 }
 .skill-fab-dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   background: #22c55e;
   border-radius: 50%;
   box-shadow: 0 0 6px #22c55e;
+  flex-shrink: 0;
 }
 .battle-skills-deck {
   display: flex;

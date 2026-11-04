@@ -1899,9 +1899,9 @@ Screens.battle = {
         <!-- QUESTION CARD -->
         <div class="qwrap grow" style="display:flex;flex-direction:column;min-height:0">
           <div class="qcard q-scroll-box" style="padding:14px;flex:1 1 auto;overflow-y:auto;max-height:100%">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-              <div style="display:flex;align-items:center;gap:6px">
-                <span style="font-size:.75rem;color:var(--c-muted)">${esc(s.subject.name)}</span>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:6px">
+              <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-width:0;flex:1">
+                <span style="font-size:.75rem;color:var(--c-muted);white-space:nowrap">${esc(s.subject.name)}</span>
                 <span class="chip info" id="q-type-badge" data-testid="q-type-badge" style="font-size:0.7rem;font-weight:700;padding:2px 8px">PILIHAN GANDA</span>
                 ${s.mode === 'FUN' ? '<span class="chip" id="mode-fun-badge" style="background:#a855f7;color:#fff;font-size:0.7rem;font-weight:700;padding:2px 8px">🎉 MODE FUN</span>' : ''}
                 <span class="chip warning" id="review-badge" data-testid="review-badge" style="display:none;font-size:0.7rem;font-weight:700;padding:2px 8px">🔄 ULANGAN BERJARAK</span>
@@ -1909,19 +1909,20 @@ Screens.battle = {
                 <span class="chip warning" id="bonus-badge" data-testid="bonus-badge" style="display:none;font-size:0.7rem;font-weight:700;padding:2px 8px;background:#f59e0b;color:#fff">⭐ BONUS</span>
                 <span class="chip" id="mystery-badge" data-testid="mystery-badge" style="display:none;font-size:0.7rem;font-weight:700;padding:2px 8px;background:#8b5cf6;color:#fff;box-shadow:0 0 8px rgba(139,92,246,0.5)">❓ MISTERI</span>
               </div>
-              <button class="icon-btn small" id="btn-tts" title="Baca Soal" style="width:28px;height:28px;font-size:.8rem">🔊</button>
+              <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+                <button class="icon-btn small" id="btn-tts" title="Baca Soal" style="width:28px;height:28px;font-size:.8rem">🔊</button>
+                <!-- TOMBOL SKILL DI HEADER SOAL (OPSI 3 - TIDAK MENUTUPI JAWABAN) -->
+                <button class="skill-fab" id="skill-fab" data-testid="skill-fab" type="button" onclick="Screens.battle.openSkillBubblePopup()" title="Pilih & Gunakan Skill Petarung" style="${s.mode === 'FUN' ? 'display:none !important;' : ''}">
+                  <span style="font-size:0.85rem">⚡</span>
+                  <span>Skill</span>
+                  <span id="skill-fab-energy" class="skill-fab-badge">${(typeof s.energy === 'object' && s.energy !== null) ? (s.energy.value ?? 2) : (s.energy ?? 2)}</span>
+                  <span class="skill-fab-dot" id="skill-fab-dot" style="display:none"></span>
+                </button>
+              </div>
             </div>
             <p class="qtext" id="q-text" style="font-size:1.05rem;line-height:1.35;margin:0">${esc(s.currentQuestion ? s.currentQuestion.text : '...')}</p>
             <div id="q-image-slot"></div>
           </div>
-
-          <!-- FLOATING SKILL BUTTON (DI KANAN BAWAH) -->
-          <button class="skill-fab" id="skill-fab" data-testid="skill-fab" type="button" onclick="Screens.battle.openSkillBubblePopup()" title="Pilih & Gunakan Skill Petarung" style="${s.mode === 'FUN' ? 'display:none !important;' : ''}">
-            <span>⚡</span>
-            <span>Skill</span>
-            <span id="skill-fab-energy" class="skill-energy-pill" style="margin-left:2px">${(typeof s.energy === 'object' && s.energy !== null) ? (s.energy.value ?? 2) : (s.energy ?? 2)}</span>
-            <span class="skill-fab-dot" id="skill-fab-dot" style="display:none"></span>
-          </button>
 
           <!-- OPTIONS -->
           <div class="options" id="options-slot" style="margin-top:6px;margin-bottom:6px;flex:0 0 auto"></div>
@@ -3053,7 +3054,7 @@ Screens.battle = {
       return;
     }
     if (fab) {
-      fab.style.display = 'flex';
+      fab.style.display = 'inline-flex';
       const energyVal = (typeof this.session?.energy === 'object' && this.session?.energy !== null)
         ? (this.session.energy.value ?? 2)
         : (this.session?.energy ?? 2);
