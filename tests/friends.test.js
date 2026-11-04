@@ -23,6 +23,10 @@ test('db-friends: search, request, respond, presence, list, remove', () => {
   // 1. searchPlayers
   const s = dbFriends.searchPlayers(db, p2.slice(0, 5), u1.id);
   assert.ok(s.some(x => x.id === u2.id));
+  const found = s.find(x => x.id === u2.id);
+  assert.ok(found.avatar && typeof found.avatar === 'object');
+  assert.equal(found.isFriend, false);
+  assert.equal(found.isPending, false);
 
   // 2. sendRequest validation
   assert.equal(dbFriends.sendRequest(db, u1.id, 'non_existent_player_xyz').code, 'FRIEND_NOT_FOUND');

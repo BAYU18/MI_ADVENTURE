@@ -4,17 +4,35 @@
 
   let pollTimer = null;
   let presenceTimer = null;
+  let searchDebounceTimer = null;
+  let searchSeq = 0;
   let currentTab = 'friends';
 
   function stopTimers() {
     if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
     if (presenceTimer) { clearInterval(presenceTimer); presenceTimer = null; }
+    if (searchDebounceTimer) { clearTimeout(searchDebounceTimer); searchDebounceTimer = null; }
   }
 
   function esc(s) {
     return String(s ?? '').replace(/[&<>"']/g, c => ({
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
     }[c]));
+  }
+
+  function renderAvatarBadge(avatar, size = 42) {
+    let av = avatar;
+    if (typeof av === 'string') {
+      try { av = JSON.parse(av); } catch (e) { av = {}; }
+    }
+    const svg = (window.Avatar && typeof window.Avatar.renderAvatar === 'function')
+      ? window.Avatar.renderAvatar(av || {})
+      : '<span style="font-size:1.4rem">👤</span>';
+    return `
+      <div class="friend-avatar-badge" style="width:${size}px;height:${size}px;">
+        ${svg}
+      </div>
+    `;
   }
 
   function statusBadge(f) {
@@ -49,6 +67,62 @@
     renderContent(data);
   }
 
+  function renderFriendRows(friends) {
+    if (!friends || !friends.length) {
+      return '<div class="empty-state">Belum memiliki teman. Cari teman di atas!</div>';
+    }
+    return friends.map(f => `
+      <div class="friend-card" data-id="${f.id}">
+        <div class="friend-left" style="display:flex;align-items:center;gap:12px;min-width:0;">
+          ${renderAvatarBadge(f.avatar, 42)}
+          <div class="friend-info">
+            <span class="friend-nick">${esc(f.nick)}</span>
+            ${statusBadge(f)}
+          </div>
+        </div>
+        <div class="friend-actions">
+          <button class="btn primary small btn-challenge-duel" data-id="${f.id}" data-nick="${esc(f.nick)}">⚔️ Duel</button>
+          <button class="btn ghost small btn-del-friend" data-id="${f.id}" title="Hapus Teman">✕</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function renderSearchResults(list, q) {
+    if (!list.length) {
+      return `<div style="font-size:0.85rem;color:var(--c-muted);padding:10px;text-align:center">Pemain "${esc(q)}" tidak ditemukan</div>`;
+    }
+    return `
+      <div style="font-size:0.75rem;font-weight:700;color:var(--c-muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px">
+        Hasil Pencarian (${list.length}):
+      </div>
+      ${list.map(u => {
+        let actionBtn = '';
+        if (u.isFriend) {
+          actionBtn = '<span style="font-size:0.75rem;color:#34d399;font-weight:700;padding:4px 8px;background:rgba(16,185,129,0.12);border-radius:6px">Teman ✓</span>';
+        } else if (u.isPending) {
+          actionBtn = '<span style="font-size:0.75rem;color:#f59e0b;font-weight:700;padding:4px 8px;background:rgba(245,158,11,0.12);border-radius:6px">Menunggu ⏳</span>';
+        } else {
+          actionBtn = `<button class="btn primary small btn-add-player" data-nick="${esc(u.nick)}">+ Tambah</button>`;
+        }
+        return `
+          <div class="search-item-card">
+            <div class="search-item-left">
+              ${renderAvatarBadge(u.avatar, 40)}
+              <div class="search-item-meta">
+                <span class="search-item-nick">${esc(u.nick)}</span>
+                ${u.className ? `<span class="search-item-sub">${esc(u.className)}</span>` : ''}
+              </div>
+            </div>
+            <div class="search-item-actions">
+              ${actionBtn}
+            </div>
+          </div>
+        `;
+      }).join('')}
+    `;
+  }
+
   function renderContent(data) {
     const body = document.getElementById('friends-body');
     if (!body) return;
@@ -62,31 +136,25 @@
     }
 
     if (currentTab === 'friends') {
-      const rows = (data.friends || []).map(f => `
-        <div class="friend-card" data-id="${f.id}">
-          <div class="friend-info">
-            <span class="friend-nick">👤 ${esc(f.nick)}</span>
-            ${statusBadge(f)}
-          </div>
-          <div class="friend-actions">
-            <button class="btn primary small btn-challenge-duel" data-id="${f.id}" data-nick="${esc(f.nick)}">⚔️ Duel</button>
-            <button class="btn ghost small btn-del-friend" data-id="${f.id}" title="Hapus Teman">✕</button>
-          </div>
-        </div>
-      `).join('');
+      const existingInput = document.getElementById('input-friend-search');
+      const listContainer = document.querySelector('#friends-body .friends-list');
 
-      body.innerHTML = `
-        <div class="search-box-row">
-          <input type="text" id="input-friend-search" class="input-text" placeholder="Ketik nick teman (min 2 huruf)..." />
-          <button class="btn primary small" id="btn-do-search">Cari</button>
-        </div>
-        <div id="search-results-area" style="display:none;margin-bottom:12px;"></div>
-        <div class="friends-list">
-          ${rows || '<div class="empty-state">Belum memiliki teman. Cari teman di atas!</div>'}
-        </div>
-      `;
-
-      attachFriendsTabEvents(data);
+      if (existingInput && listContainer) {
+        listContainer.innerHTML = renderFriendRows(data.friends || []);
+        attachFriendsListActions();
+      } else {
+        body.innerHTML = `
+          <div class="search-box-row">
+            <input type="text" id="input-friend-search" class="input-text" placeholder="Ketik nick teman (min 2 huruf)..." autocomplete="off" />
+            <button class="btn primary small" id="btn-do-search">Cari</button>
+          </div>
+          <div id="search-results-area" style="display:none;margin-bottom:12px;"></div>
+          <div class="friends-list">
+            ${renderFriendRows(data.friends || [])}
+          </div>
+        `;
+        attachFriendsTabEvents(data);
+      }
     } else if (currentTab === 'invites') {
       const duelRows = (data.duelInvites || []).map(d => `
         <div class="invite-card duel-highlight" data-id="${d.id}">
@@ -104,9 +172,12 @@
 
       const reqRows = (data.incoming || []).map(i => `
         <div class="invite-card" data-id="${i.id}">
-          <div class="invite-info">
-            <span>👤 Permintaan Pertemanan</span>
-            <div><strong>${esc(i.nick)}</strong> ingin berteman</div>
+          <div style="display:flex;align-items:center;gap:12px;min-width:0;">
+            ${renderAvatarBadge(i.avatar, 42)}
+            <div class="invite-info">
+              <span style="font-size:0.75rem;color:var(--c-muted)">👤 Permintaan Pertemanan</span>
+              <div style="font-weight:700;color:#fff">${esc(i.nick)}</div>
+            </div>
           </div>
           <div class="invite-actions">
             <button class="btn primary small btn-accept-friend" data-id="${i.id}">✓ Terima</button>
@@ -166,54 +237,96 @@
     const inputSearch = document.getElementById('input-friend-search');
     const resArea = document.getElementById('search-results-area');
 
-    async function doSearch() {
-      const q = (inputSearch?.value || '').trim();
+    async function executeSearch(queryStr, { isExplicit = false } = {}) {
+      const q = (queryStr ?? (inputSearch?.value || '')).trim();
       if (q.length < 2) {
-        if (window.toast) window.toast('Masukkan minimal 2 huruf');
+        if (isExplicit && window.toast) {
+          window.toast('Masukkan minimal 2 huruf');
+        }
+        if (resArea) {
+          resArea.style.display = 'none';
+          resArea.innerHTML = '';
+        }
         return;
       }
-      resArea.style.display = 'block';
-      resArea.innerHTML = '<div style="font-size:0.8rem;color:var(--c-muted)">Mencari...</div>';
+
+      const seq = ++searchSeq;
+      if (resArea) {
+        resArea.style.display = 'block';
+        resArea.innerHTML = '<div style="font-size:0.85rem;color:var(--c-muted);padding:10px;text-align:center">Mencari pemain...</div>';
+      }
+
       try {
         const r = await window.API.req(`/api/friends/search?q=${encodeURIComponent(q)}`);
+        if (seq !== searchSeq) return; // Stale query dropped
         const list = r.results || [];
-        if (!list.length) {
-          resArea.innerHTML = '<div style="font-size:0.8rem;color:var(--c-muted)">Pemain tidak ditemukan</div>';
-          return;
-        }
-        resArea.innerHTML = list.map(u => `
-          <div class="search-item-row">
-            <span>👤 ${esc(u.nick)}</span>
-            <button class="btn primary small btn-add-player" data-nick="${esc(u.nick)}">+ Tambah</button>
-          </div>
-        `).join('');
+        if (!resArea) return;
+        resArea.innerHTML = renderSearchResults(list, q);
 
         resArea.querySelectorAll('.btn-add-player').forEach(b => {
           b.onclick = async () => {
             const nick = b.getAttribute('data-nick');
+            b.disabled = true;
+            b.textContent = 'Mengirim...';
             try {
               const res = await window.API.req('/api/friends/request', { method: 'POST', body: JSON.stringify({ nick }) });
               if (res.code === 'OK') {
                 if (window.toast) window.toast(`Permintaan terkirim ke ${nick}`);
-                resArea.style.display = 'none';
-                inputSearch.value = '';
+                b.textContent = 'Terkirim ✓';
+                b.classList.remove('primary');
+                b.classList.add('ghost');
                 loadData();
               }
             } catch (e) {
+              b.disabled = false;
+              b.textContent = '+ Tambah';
               if (window.toast) window.toast(e.message || 'Gagal mengirim permintaan');
             }
           };
         });
       } catch (e) {
-        resArea.innerHTML = '<div style="font-size:0.8rem;color:#f87171">Gagal mencari pemain</div>';
+        if (seq !== searchSeq) return;
+        if (resArea) {
+          resArea.innerHTML = '<div style="font-size:0.85rem;color:#f87171;padding:10px;text-align:center">Gagal mencari pemain</div>';
+        }
       }
     }
 
-    if (btnSearch) btnSearch.onclick = doSearch;
     if (inputSearch) {
-      inputSearch.onkeydown = (e) => { if (e.key === 'Enter') doSearch(); };
+      inputSearch.oninput = (e) => {
+        const val = (e.target.value || '').trim();
+        if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
+        if (val.length < 2) {
+          if (resArea) {
+            resArea.style.display = 'none';
+            resArea.innerHTML = '';
+          }
+          return;
+        }
+        searchDebounceTimer = setTimeout(() => {
+          executeSearch(val, { isExplicit: false });
+        }, 250);
+      };
+
+      inputSearch.onkeydown = (e) => {
+        if (e.key === 'Enter') {
+          if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
+          executeSearch(inputSearch.value, { isExplicit: true });
+        }
+      };
     }
 
+    if (btnSearch) {
+      btnSearch.onclick = () => {
+        if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
+        executeSearch(inputSearch?.value, { isExplicit: true });
+      };
+    }
+
+    attachFriendsListActions();
+  }
+
+  function attachFriendsListActions() {
     // Challenge Duel
     document.querySelectorAll('.btn-challenge-duel').forEach(b => {
       b.onclick = async () => {
