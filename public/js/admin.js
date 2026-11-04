@@ -661,6 +661,9 @@
         </div>
 
         <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button id="btn-add-class" class="btn small" style="background:rgba(168,85,247,.2);color:#c084fc;border:0;border-radius:10px;cursor:pointer;font-weight:700">
+            🏫 Tambah Kelas
+          </button>
           <button id="btn-add-q" class="btn small" style="background:var(--c-good);color:#052e16;font-weight:800;border:0;border-radius:10px;cursor:pointer">
             ➕ Tambah Soal
           </button>
@@ -1043,6 +1046,11 @@
     }
 
     // Question action buttons
+    const btnAddClass = document.getElementById('btn-add-class');
+    if (btnAddClass) {
+      btnAddClass.addEventListener('click', () => openClassModal());
+    }
+
     const btnAddQ = document.getElementById('btn-add-q');
     if (btnAddQ) {
       btnAddQ.addEventListener('click', () => openQuestionModal());
@@ -1149,6 +1157,12 @@
     renderModal();
   }
 
+  function openClassModal() {
+    state.modal = 'add-class';
+    state.modalData = {};
+    renderModal();
+  }
+
   function openResetPasswordModal(playerId, nick) {
     state.modal = 'reset-pw';
     state.modalData = {
@@ -1177,6 +1191,121 @@
       backdrop.id = 'admin-modal-backdrop';
       backdrop.className = 'modal-backdrop';
       document.body.appendChild(backdrop);
+    }
+
+    if (state.modal === 'add-class') {
+      const nextSort = (state.classes.length > 0)
+        ? Math.max(...state.classes.map(c => Number(c.sort_order || 0))) + 1
+        : 1;
+
+      backdrop.innerHTML = `
+        <div class="modal" style="width:min(440px, 100%)">
+          <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:10px">
+            <h3 style="margin:0;font-size:1.15rem;color:var(--c-primary)">🏫 Tambah Kelas Baru</h3>
+            <button id="modal-close-btn" style="background:transparent;border:0;color:var(--c-muted);font-size:1.4rem;cursor:pointer">&times;</button>
+          </div>
+
+          <form id="form-add-class" style="display:flex;flex-direction:column;gap:14px;margin-top:14px">
+            <div class="field">
+              <label for="inp-class-name">Nama Kelas <span style="color:#ef4444">*</span></label>
+              <input type="text" id="inp-class-name" required placeholder="Contoh: Kelas 3 SD atau Kelas 1 MI" autocomplete="off">
+            </div>
+
+            <div class="field">
+              <label for="inp-class-sort">Urutan Tampilan (Sort Order)</label>
+              <input type="number" id="inp-class-sort" value="${nextSort}" min="1" step="1">
+              <span style="font-size:.76rem;color:var(--c-muted)">Urutan posisi kelas di daftar dan filter menu.</span>
+            </div>
+
+            ${state.classes.length > 0 ? `
+              <div class="field" style="background:rgba(255,255,255,.03);padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,.08)">
+                <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:.85rem;font-weight:700">
+                  <input type="checkbox" id="chk-copy-subjects" checked>
+                  <span>Salin mata pelajaran standar dari kelas lain</span>
+                </label>
+                <div id="copy-subject-box" style="margin-top:8px">
+                  <select id="sel-copy-class" style="width:100%;background:rgba(0,0,0,.35);color:var(--c-text);border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:6px 10px;font-size:.82rem">
+                    ${state.classes.map(c => `
+                      <option value="${c.id}" ${c.id === (state.selectedClassId || state.classes[0].id) ? 'selected' : ''}>Salin dari ${escapeHtml(c.name)}</option>
+                    `).join('')}
+                  </select>
+                  <span style="font-size:.72rem;color:var(--c-muted);display:block;margin-top:4px">
+                    Mata pelajaran aktif (ikon, tema monster, dsb.) akan otomatis disalin ke kelas baru.
+                  </span>
+                </div>
+              </div>
+            ` : ''}
+
+            <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:6px">
+              <button type="button" id="modal-cancel-btn" class="btn small" style="background:var(--c-surface);color:var(--c-muted);border:0;border-radius:10px;cursor:pointer">Batal</button>
+              <button type="submit" id="btn-submit-class" class="btn small" style="background:var(--c-primary);color:#1c1206;font-weight:800;border:0;border-radius:10px;cursor:pointer">
+                Simpan Kelas
+              </button>
+            </div>
+          </form>
+        </div>
+      `;
+
+      document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+      document.getElementById('modal-cancel-btn').addEventListener('click', closeModal);
+
+      const chkCopy = document.getElementById('chk-copy-subjects');
+      const copyBox = document.getElementById('copy-subject-box');
+      if (chkCopy && copyBox) {
+        chkCopy.addEventListener('change', () => {
+          copyBox.style.display = chkCopy.checked ? 'block' : 'none';
+        });
+      }
+
+      document.getElementById('form-add-class').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('inp-class-name').value.trim();
+        const sortVal = parseInt(document.getElementById('inp-class-sort').value, 10);
+        if (!name) return toast('Nama kelas tidak boleh kosong', 'error');
+
+        const copyFromClassId = (chkCopy && chkCopy.checked)
+          ? parseInt(document.getElementById('sel-copy-class').value, 10)
+          : null;
+
+        const submitBtn = document.getElementById('btn-submit-class');
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Menyimpan...';
+        }
+
+        try {
+          const res = await api('/api/admin/classes', {
+            method: 'POST',
+            body: {
+              name,
+              sortOrder: isNaN(sortVal) ? nextSort : sortVal,
+              copyFromClassId
+            }
+          });
+          if (res && res.ok && res.class) {
+            toast(`Kelas "${res.class.name}" berhasil dibuat!`, 'success');
+            closeModal();
+            await loadClassesAndSubjects();
+            state.selectedClassId = res.class.id;
+            const avail = getFilteredSubjects();
+            if (avail.length > 0) {
+              state.selectedSubjectId = avail[0].id;
+              await loadQuestions(state.selectedSubjectId);
+            } else {
+              state.selectedSubjectId = null;
+              state.questions = [];
+            }
+            render();
+          }
+        } catch (err) {
+          toast(err.message || 'Gagal menambahkan kelas', 'error');
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Simpan Kelas';
+          }
+        }
+      });
+      return;
     }
 
     if (state.modal === 'question') {

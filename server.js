@@ -969,6 +969,15 @@ const server = http.createServer(async (req, res) => {
     if (pathname === '/api/admin/classes' && method === 'GET') {
       return json(res, { ok: true, classes: db.adminGetClasses() });
     }
+    if (pathname === '/api/admin/classes' && method === 'POST') {
+      try {
+        const body = await parseBody(req);
+        const saved = db.adminSaveClass(body);
+        return json(res, { ok: true, class: saved });
+      } catch (e) {
+        return err(res, e.message, 400);
+      }
+    }
     if (pathname === '/api/admin/subjects' && method === 'GET') {
       const cid = query.classId ? parseInt(query.classId, 10) : null;
       return json(res, { ok: true, subjects: db.adminGetSubjects(cid) });
