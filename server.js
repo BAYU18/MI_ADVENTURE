@@ -450,7 +450,20 @@ const server = http.createServer(async (req, res) => {
 
   // Classes & Subjects
   if (pathname === '/api/classes' && method === 'GET') {
+    const playerAuth = getPlayerFromReq(req);
+    if (query.all !== '1' && playerAuth && playerAuth.id) {
+      const assigned = db.getPlayerClasses(playerAuth.id);
+      if (assigned && assigned.length > 0) {
+        return json(res, { ok: true, classes: assigned });
+      }
+    }
     return json(res, { ok: true, classes: db.getClasses() });
+  }
+
+  if (pathname === '/api/player/classes' && method === 'GET') {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    return json(res, { ok: true, classes: db.getPlayerClasses(playerAuth.id) });
   }
 
   if (pathname === '/api/subjects' && method === 'GET') {
@@ -1104,6 +1117,42 @@ const server = http.createServer(async (req, res) => {
       try {
         const body = await parseBody(req);
         return json(res, db.adminResetPlayerPassword(body.id, body.newPassword));
+      } catch (e) {
+        return err(res, e.message, 400);
+      }
+    }
+    if ((pathname === '/api/admin/players/add-class' || pathname === '/api/admin/players/class/add') && method === 'POST') {
+      try {
+        const body = await parseBody(req);
+        const pid = parseInt(body.playerId || body.player_id, 10);
+        const cid = parseInt(body.classId || body.class_id, 10);
+        if (!pid || !cid) return err(res, 'playerId dan classId diperlukan', 400);
+        const updated = db.adminAddPlayerClass(pid, cid);
+        return json(res, { ok: true, classes: updated });
+      } catch (e) {
+        return err(res, e.message, 400);
+      }
+    }
+    if ((pathname === '/api/admin/players/remove-class' || pathname === '/api/admin/players/class/remove') && method === 'POST') {
+      try {
+        const body = await parseBody(req);
+        const pid = parseInt(body.playerId || body.player_id, 10);
+        const cid = parseInt(body.classId || body.class_id, 10);
+        if (!pid || !cid) return err(res, 'playerId dan classId diperlukan', 400);
+        const updated = db.adminRemovePlayerClass(pid, cid);
+        return json(res, { ok: true, classes: updated });
+      } catch (e) {
+        return err(res, e.message, 400);
+      }
+    }
+    if ((pathname === '/api/admin/players/set-classes' || pathname === '/api/admin/players/classes') && method === 'POST') {
+      try {
+        const body = await parseBody(req);
+        const pid = parseInt(body.playerId || body.player_id, 10);
+        if (!pid) return err(res, 'playerId diperlukan', 400);
+        const classIds = body.classIds || body.classes || [];
+        const updated = db.adminSetPlayerClasses(pid, classIds);
+        return json(res, { ok: true, classes: updated });
       } catch (e) {
         return err(res, e.message, 400);
       }

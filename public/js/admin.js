@@ -913,12 +913,12 @@
             <tr>
               <th style="width:48px;text-align:center">ID</th>
               <th>Nama / Nick Siswa</th>
-              <th style="width:120px">Tingkat Kelas</th>
-              <th style="width:100px">Level RPG</th>
-              <th style="width:110px">Total XP</th>
-              <th style="width:110px">Koin 🪙</th>
-              <th style="width:170px">Terakhir Aktif</th>
-              <th style="width:140px;text-align:center">Aksi</th>
+              <th style="min-width:220px">Kelas yang Diikuti</th>
+              <th style="width:90px">Level RPG</th>
+              <th style="width:100px">Total XP</th>
+              <th style="width:90px">Koin 🪙</th>
+              <th style="width:150px">Terakhir Aktif</th>
+              <th style="width:170px;text-align:center">Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -935,9 +935,10 @@
                 </td>
               </tr>
             ` : filtered.map(p => {
-              const cls = state.classes.find(c => c.id === p.class_id);
-              const clsName = cls ? cls.name : `Kelas ${p.class_id}`;
               const lastActive = p.last_login_at ? new Date(p.last_login_at).toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'short' }) : '-';
+              const pClasses = (p.classes && p.classes.length > 0)
+                ? p.classes
+                : (p.class_id ? [{ id: p.class_id, name: (state.classes.find(c => c.id === p.class_id) || {}).name || `Kelas ${p.class_id}` }] : []);
 
               return `
                 <tr>
@@ -945,15 +946,34 @@
                   <td>
                     <div style="font-weight:700;color:var(--c-text)">${escapeHtml(p.nick)}</div>
                   </td>
-                  <td><span class="badge blue">${escapeHtml(clsName)}</span></td>
+                  <td>
+                    <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+                      ${pClasses.length > 0 ? pClasses.map(c => `
+                        <span class="badge blue" style="display:inline-flex;align-items:center;gap:4px;padding:3px 7px;font-size:.76rem">
+                          🏫 ${escapeHtml(c.name)}
+                          <button type="button" class="btn-remove-pclass" data-pid="${p.id}" data-cid="${c.id}" data-cname="${escapeHtml(c.name)}" data-pnick="${escapeHtml(p.nick)}" title="Keluarkan siswa dari kelas ${escapeHtml(c.name)}" style="background:transparent;border:0;color:#f87171;cursor:pointer;padding:0 2px;font-weight:bold;line-height:1;margin-left:2px">&times;</button>
+                        </span>
+                      `).join('') : `
+                        <span style="font-size:.76rem;color:var(--c-muted);font-style:italic">Belum ada kelas</span>
+                      `}
+                      <button type="button" class="btn small btn-quick-add-class" data-pid="${p.id}" data-pnick="${escapeHtml(p.nick)}" style="background:rgba(168,85,247,.2);color:#c084fc;border:0;border-radius:6px;padding:2px 7px;cursor:pointer;font-size:.75rem;font-weight:700" title="Atur / tambah kelas untuk siswa ini">
+                        ➕ Kelas
+                      </button>
+                    </div>
+                  </td>
                   <td><span class="badge yellow">Lv. ${p.level || 1}</span></td>
                   <td style="font-weight:700;color:#38bdf8">${p.xp.toLocaleString()} XP</td>
                   <td style="font-weight:700;color:#fbbf24">🪙 ${p.coins || 0}</td>
                   <td style="font-size:.8rem;color:var(--c-muted)">${lastActive}</td>
                   <td style="text-align:center">
-                    <button class="btn small btn-reset-pw" data-pid="${p.id}" data-pnick="${escapeHtml(p.nick)}" style="background:rgba(245,158,11,.2);color:#fbbf24;border:0;border-radius:8px;cursor:pointer;padding:4px 8px" title="Atur kata sandi baru untuk siswa ini">
-                      🔑 Reset Sandi
-                    </button>
+                    <div style="display:inline-flex;gap:6px">
+                      <button class="btn small btn-manage-classes" data-pid="${p.id}" data-pnick="${escapeHtml(p.nick)}" style="background:rgba(59,130,246,.2);color:#60a5fa;border:0;border-radius:8px;cursor:pointer;padding:4px 8px;font-size:.8rem" title="Kelola kelas siswa">
+                        🏫 Kelas
+                      </button>
+                      <button class="btn small btn-reset-pw" data-pid="${p.id}" data-pnick="${escapeHtml(p.nick)}" style="background:rgba(245,158,11,.2);color:#fbbf24;border:0;border-radius:8px;cursor:pointer;padding:4px 8px;font-size:.8rem" title="Atur kata sandi baru untuk siswa ini">
+                        🔑 Sandi
+                      </button>
+                    </div>
                   </td>
                 </tr>
               `;
@@ -1207,6 +1227,42 @@
         openResetPasswordModal(pid, pnick);
       });
     });
+
+    // Remove class from player badge
+    root.querySelectorAll('.btn-remove-pclass').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const pid = parseInt(btn.getAttribute('data-pid'), 10);
+        const cid = parseInt(btn.getAttribute('data-cid'), 10);
+        const pnick = btn.getAttribute('data-pnick') || 'siswa';
+        const cname = btn.getAttribute('data-cname') || 'kelas';
+
+        if (!confirm(`Hapus kelas "${cname}" dari siswa "${pnick}"?`)) return;
+
+        try {
+          const res = await api('/api/admin/players/remove-class', {
+            method: 'POST',
+            body: { playerId: pid, classId: cid }
+          });
+          if (res && res.ok) {
+            toast(`Kelas "${cname}" dihapus dari "${pnick}"`, 'success');
+            await loadPlayers();
+            render();
+          }
+        } catch (err) {
+          toast(err.message || 'Gagal menghapus kelas dari siswa', 'error');
+        }
+      });
+    });
+
+    // Quick add class / Manage classes modal
+    root.querySelectorAll('.btn-quick-add-class, .btn-manage-classes').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const pid = parseInt(btn.getAttribute('data-pid'), 10);
+        const pnick = btn.getAttribute('data-pnick') || 'siswa';
+        openManageClassesModal(pid, pnick);
+      });
+    });
   }
 
   /* ── Modal Handling ── */
@@ -1272,6 +1328,24 @@
     state.modalData = {
       playerId,
       nick,
+    };
+    renderModal();
+  }
+
+  async function openManageClassesModal(playerId, nick) {
+    if (!state.classes || state.classes.length === 0) {
+      await loadClassesAndSubjects();
+    }
+    const player = (state.players || []).find(p => p.id === playerId);
+    const playerClassIds = player && Array.isArray(player.classes)
+      ? player.classes.map(c => Number(c.id))
+      : (player && player.class_id ? [Number(player.class_id)] : []);
+
+    state.modal = 'manage-classes';
+    state.modalData = {
+      playerId,
+      nick: nick || (player ? player.nick : `Siswa #${playerId}`),
+      selectedClassIds: new Set(playerClassIds)
     };
     renderModal();
   }
@@ -2342,6 +2416,86 @@
         const newPw = document.getElementById('inp-new-pw').value.trim();
         if (newPw.length < 4) return toast('Kata sandi minimal 4 karakter', 'error');
         resetPlayerPassword(p.playerId, newPw);
+      });
+    }
+
+    if (state.modal === 'manage-classes') {
+      const data = state.modalData;
+      const allClasses = state.classes || [];
+      const selectedSet = data.selectedClassIds;
+
+      backdrop.innerHTML = `
+        <div class="modal" style="width:min(460px, 100%)">
+          <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:10px">
+            <h3 style="margin:0;font-size:1.15rem;color:var(--c-primary)">🏫 Atur Kelas Siswa</h3>
+            <button id="modal-close-btn" style="background:transparent;border:0;color:var(--c-muted);font-size:1.4rem;cursor:pointer">&times;</button>
+          </div>
+
+          <div style="font-size:.9rem;color:var(--c-muted);margin:10px 0 6px">
+            Siswa: <strong style="color:var(--c-text)">${escapeHtml(data.nick)}</strong> (ID #${data.playerId})
+          </div>
+
+          <p style="font-size:.8rem;color:var(--c-muted);margin:0 0 12px">
+            Pilih satu atau lebih kelas yang dapat diikuti oleh siswa ini. Siswa dapat memilih dan memainkan soal dari kelas yang dicentang.
+          </p>
+
+          <form id="form-manage-classes" style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;flex-direction:column;gap:8px;max-height:240px;overflow-y:auto;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:10px">
+              ${allClasses.length === 0 ? `
+                <div style="font-size:.82rem;color:var(--c-muted);text-align:center;padding:12px">Belum ada kelas terdaftar di sistem.</div>
+              ` : allClasses.map(c => `
+                <label style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);cursor:pointer;user-select:none">
+                  <input type="checkbox" class="chk-player-class" value="${c.id}" ${selectedSet.has(Number(c.id)) ? 'checked' : ''} style="width:16px;height:16px;accent-color:var(--c-primary);cursor:pointer">
+                  <span style="font-size:.88rem;font-weight:700;color:var(--c-text);flex:1">🏫 ${escapeHtml(c.name)}</span>
+                </label>
+              `).join('')}
+            </div>
+
+            <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:10px">
+              <button type="button" id="modal-cancel-btn" class="btn small" style="background:var(--c-surface);color:var(--c-muted);border:0;border-radius:10px;cursor:pointer">Batal</button>
+              <button type="submit" id="btn-submit-manage-classes" class="btn small" style="background:var(--c-primary);color:#1c1206;font-weight:800;border:0;border-radius:10px;cursor:pointer">
+                Simpan Pilihan Kelas
+              </button>
+            </div>
+          </form>
+        </div>
+      `;
+
+      document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+      document.getElementById('modal-cancel-btn').addEventListener('click', closeModal);
+
+      document.getElementById('form-manage-classes').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const checkedBoxes = Array.from(backdrop.querySelectorAll('.chk-player-class:checked'));
+        const classIds = checkedBoxes.map(cb => parseInt(cb.value, 10));
+
+        const btnSubmit = document.getElementById('btn-submit-manage-classes');
+        if (btnSubmit) {
+          btnSubmit.disabled = true;
+          btnSubmit.textContent = 'Menyimpan...';
+        }
+
+        try {
+          const res = await api('/api/admin/players/set-classes', {
+            method: 'POST',
+            body: {
+              playerId: data.playerId,
+              classIds
+            }
+          });
+          if (res && res.ok) {
+            toast(`Kelas siswa "${data.nick}" berhasil diperbarui!`, 'success');
+            closeModal();
+            await loadPlayers();
+            render();
+          }
+        } catch (err) {
+          toast(err.message || 'Gagal memperbarui kelas siswa', 'error');
+          if (btnSubmit) {
+            btnSubmit.disabled = false;
+            btnSubmit.textContent = 'Simpan Pilihan Kelas';
+          }
+        }
       });
     }
   }

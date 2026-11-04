@@ -78,6 +78,9 @@ test('Admin Create Class (Tambah Kelas Baru)', async (t) => {
     const row = db.getDb().prepare('SELECT * FROM classes WHERE id=?').get(res.body.class.id);
     assert.ok(row);
     assert.equal(row.name, className);
+
+    // Cleanup
+    db.adminDeleteClass(res.body.class.id);
   });
 
   await t.test('4. POST /api/admin/classes dengan copyFromClassId menyalin mapel aktif', async () => {
@@ -102,6 +105,9 @@ test('Admin Create Class (Tambah Kelas Baru)', async (t) => {
     const subjects = db.getDb().prepare('SELECT * FROM subjects WHERE class_id=?').all(newClassId);
     assert.ok(subjects.length > 0, 'Mata pelajaran harus tersalin');
     assert.ok(subjects.some(s => s.name === 'Matematika'));
+
+    // Cleanup
+    db.adminDeleteClass(newClassId);
   });
 
   await t.test('5. DELETE /api/admin/classes tanpa autentikasi admin ditolak 401', async () => {
@@ -233,6 +239,9 @@ test('Admin Create Class (Tambah Kelas Baru)', async (t) => {
     assert.ok(row);
     assert.equal(row.name, subjName);
     assert.equal(row.class_id, 1);
+
+    // Cleanup
+    db.adminDeleteSubject(subjId);
   });
 
   await t.test('11. DELETE /api/admin/subjects tanpa autentikasi admin ditolak 401', async () => {
@@ -285,5 +294,111 @@ test('Admin Create Class (Tambah Kelas Baru)', async (t) => {
     assert.equal(subjRow, undefined);
     const qCount = db.getDb().prepare('SELECT count(*) as c FROM questions WHERE subject_id=?').get(subjId);
     assert.equal(qCount.c, 0);
+  });
+
+  await t.test('13. POST /api/admin/players/add-class dan remove-class', async () => {
+    const testNick = 'tp_' + Math.random().toString(36).slice(2, 8);
+    const testPlayer = db.registerPlayer(testNick, 'password123', 1);
+    assert.ok(testPlayer && testPlayer.id > 0);
+
+    // Create a new class to assign
+    const createClassRes = await makeRequest({
+      hostname: '127.0.0.1',
+      port: PORT,
+      path: '/api/admin/classes',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${adminToken}`
+      }
+    }, { name: 'Kelas Khusus ' + Date.now(), sortOrder: 80 });
+    const newCid = createClassRes.body.class.id;
+    assert.ok(newCid > 0);
+
+    // Assign new class to player
+    const addRes = await makeRequest({
+      hostname: '127.0.0.1',
+      port: PORT,
+      path: '/api/admin/players/add-class',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${adminToken}`
+      }
+    }, { playerId: testPlayer.id, classId: newCid });
+
+    assert.equal(addRes.status, 200);
+    assert.equal(addRes.body.ok, true);
+    assert.ok(Array.isArray(addRes.body.classes));
+    assert.ok(addRes.body.classes.some(c => c.id === newCid));
+
+    // Verify playerClasses in db
+    const pClasses = db.getPlayerClasses(testPlayer.id);
+    assert.ok(pClasses.some(c => c.id === newCid));
+
+    // Remove class from player
+    const remRes = await makeRequest({
+      hostname: '127.0.0.1',
+      port: PORT,
+      path: '/api/admin/players/remove-class',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${adminToken}`
+      }
+    }, { playerId: testPlayer.id, classId: newCid });
+
+    assert.equal(remRes.status, 200);
+    assert.equal(remRes.body.ok, true);
+    assert.ok(!remRes.body.classes.some(c => c.id === newCid));
+
+    // Cleanup class
+    db.adminDeleteClass(newCid);
+  });
+
+  await t.test('14. POST /api/admin/players/set-classes bulk assign', async () => {
+    const testNick = 'tb_' + Math.random().toString(36).slice(2, 8);
+    const testPlayer = db.registerPlayer(testNick, 'password123', 1);
+    assert.ok(testPlayer && testPlayer.id > 0);
+
+    const setRes = await makeRequest({
+      hostname: '127.0.0.1',
+      port: PORT,
+      path: '/api/admin/players/set-classes',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${adminToken}`
+      }
+    }, { playerId: testPlayer.id, classIds: [1, 2] });
+
+    assert.equal(setRes.status, 200);
+    assert.equal(setRes.body.ok, true);
+    assert.ok(setRes.body.classes.length >= 2);
+    assert.ok(setRes.body.classes.some(c => c.id === 1));
+    assert.ok(setRes.body.classes.some(c => c.id === 2));
+
+    // Now test GET /api/classes as authenticated player
+    const playerToken = auth.signToken({
+      type: 'player',
+      id: testPlayer.id,
+      nick: testPlayer.nick,
+      classId: testPlayer.class_id
+    });
+
+    const getClassesRes = await makeRequest({
+      hostname: '127.0.0.1',
+      port: PORT,
+      path: '/api/classes',
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${playerToken}`
+      }
+    });
+
+    assert.equal(getClassesRes.status, 200);
+    assert.ok(Array.isArray(getClassesRes.body.classes));
+    assert.ok(getClassesRes.body.classes.some(c => c.id === 1));
+    assert.ok(getClassesRes.body.classes.some(c => c.id === 2));
   });
 });

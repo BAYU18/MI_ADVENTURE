@@ -1317,7 +1317,12 @@ Screens.home = {
     $('#btn-switch-user').onclick = () => Screens.home.openAuthModal();
   },
 
-  openAuthModal() {
+  async openAuthModal() {
+    let classes = [];
+    try { classes = await API.getClasses(); } catch (e) {}
+    if (!classes || classes.length === 0) {
+      classes = [{ id: 1, name: 'Kelas 4 SD' }, { id: 2, name: 'Kelas 5 SD' }];
+    }
     const modal = document.createElement('div');
     modal.className = 'modal-mask active';
     modal.innerHTML = `
@@ -1334,8 +1339,7 @@ Screens.home = {
         <div class="field" style="margin-bottom:14px">
           <label>Tingkat Kelas</label>
           <select id="m-class">
-            <option value="1" ${Player.classId() === 1 ? 'selected' : ''}>Kelas 4 SD</option>
-            <option value="2" ${Player.classId() === 2 ? 'selected' : ''}>Kelas 5 SD</option>
+            ${classes.map(c => `<option value="${c.id}" ${Player.classId() === c.id ? 'selected' : ''}>${esc(c.name)}</option>`).join('')}
           </select>
         </div>
         <div class="modal-actions">
@@ -1386,11 +1390,28 @@ Screens.home = {
    ============================================================ */
 Screens.subjects = {
   currentClassId: 1,
+  classes: [],
   viewMode: 'bebas', // 'bebas' | 'cerita' (E.1 / T-35)
   selectedSubjectId: null,
 
   async render(app) {
-    this.currentClassId = Player.classId() || 1;
+    let classes = [];
+    try {
+      classes = await API.getClasses();
+    } catch (e) {
+      classes = [];
+    }
+    if (!classes || classes.length === 0) {
+      classes = [{ id: Player.classId() || 1, name: 'Kelas 4 SD' }];
+    }
+    this.classes = classes;
+
+    // Prefer current class if it exists in list, else player class, else first class
+    if (!this.classes.some(c => c.id === this.currentClassId)) {
+      const pCid = Player.classId();
+      this.currentClassId = this.classes.some(c => c.id === pCid) ? pCid : this.classes[0].id;
+    }
+
     app.innerHTML = `
       <section class="screen active stack" style="gap:10px">
         <div class="hud" style="margin-bottom:0">
@@ -1412,9 +1433,13 @@ Screens.subjects = {
           </button>
         </div>
 
-        <div style="display:flex;gap:8px">
-          <button class="btn small ${this.currentClassId === 1 ? '' : 'ghost'}" id="tab-k4">Kelas 4 SD</button>
-          <button class="btn small ${this.currentClassId === 2 ? '' : 'ghost'}" id="tab-k5">Kelas 5 SD</button>
+        <!-- Pilihan Kelas Dinamis -->
+        <div id="class-tabs-container" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:2px">
+          ${this.classes.map(c => `
+            <button class="btn small ${this.currentClassId === c.id ? '' : 'ghost'} tab-class-btn" ${c.id === 1 ? 'id="tab-k4"' : (c.id === 2 ? 'id="tab-k5"' : '')} data-cid="${c.id}" style="font-weight:700;white-space:nowrap">
+              🏫 ${esc(c.name)}
+            </button>
+          `).join('')}
         </div>
 
         <div class="grow" id="subjects-container" style="overflow-y:auto;padding-bottom:16px;max-height:calc(100vh - 180px)">
@@ -1424,8 +1449,17 @@ Screens.subjects = {
     `;
 
     $('#sub-back').onclick = () => { if (window.Sfx) Sfx.play('tap'); go('home'); };
-    $('#tab-k4').onclick = () => { this.currentClassId = 1; this.renderContent(); };
-    $('#tab-k5').onclick = () => { this.currentClassId = 2; this.renderContent(); };
+
+    const classContainer = $('#class-tabs-container');
+    if (classContainer) {
+      classContainer.querySelectorAll('.tab-class-btn').forEach(btn => {
+        btn.onclick = () => {
+          if (window.Sfx) Sfx.play('tap');
+          this.currentClassId = parseInt(btn.getAttribute('data-cid'), 10);
+          this.renderContent();
+        };
+      });
+    }
 
     const updateModeToggles = () => {
       $('#mode-toggle-bebas').className = `btn small ${this.viewMode === 'bebas' ? 'primary' : 'ghost'}`;
@@ -1455,8 +1489,13 @@ Screens.subjects = {
   },
 
   async renderContent() {
-    $('#tab-k4').className = `btn small ${this.currentClassId === 1 ? '' : 'ghost'}`;
-    $('#tab-k5').className = `btn small ${this.currentClassId === 2 ? '' : 'ghost'}`;
+    const classContainer = $('#class-tabs-container');
+    if (classContainer) {
+      classContainer.querySelectorAll('.tab-class-btn').forEach(btn => {
+        const cid = parseInt(btn.getAttribute('data-cid'), 10);
+        btn.className = `btn small ${this.currentClassId === cid ? '' : 'ghost'} tab-class-btn`;
+      });
+    }
     if (this.viewMode === 'cerita') {
       await this.loadCampaignMap();
     } else {
