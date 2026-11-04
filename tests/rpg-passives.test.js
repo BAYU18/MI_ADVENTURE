@@ -162,4 +162,23 @@ test('RPG Passives & Skill Elimination Suite', async (t) => {
     const flags = JSON.parse(s.flags_json);
     assert.equal(flags.shield, 35, 'Initial battle shield correctly applied');
   });
+
+  await t.test('6. Dynamic equipping & unequipping updates passives & removes unequipped attribute stats', () => {
+    const p = db.registerPlayer('dyn_p_' + Date.now(), 'pass123', 1);
+    // Starter has hat_explorer (dodgeRate: 0.01)
+    let passives = db.getPlayerPassives(p.id);
+    assert.equal(passives.dodgeRate, 0.01, 'Equipped hat_explorer gives 1% dodge');
+
+    // Unequip hat
+    const avatarWithoutHat = { outfit: 'outfit_vest', bg: 'bg_meadow', frame: 'frame_wood' };
+    db.updatePlayerAvatar(p.id, avatarWithoutHat);
+    passives = db.getPlayerPassives(p.id);
+    assert.equal(passives.dodgeRate, 0, 'Unequipped hat results in 0% dodge (data box removed)');
+
+    // Re-equip hat_explorer
+    const avatarWithHat = { ...avatarWithoutHat, hat: 'hat_explorer' };
+    db.updatePlayerAvatar(p.id, avatarWithHat);
+    passives = db.getPlayerPassives(p.id);
+    assert.equal(passives.dodgeRate, 0.01, 'Re-equipped hat results in 1% dodge again (data box appears)');
+  });
 });

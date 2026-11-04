@@ -418,7 +418,8 @@ const server = http.createServer(async (req, res) => {
     try {
       const body = await parseBody(req);
       const avatar = db.updatePlayerAvatar(playerAuth.id, body.avatar || body);
-      return json(res, { ok: true, avatar });
+      const passives = db.getPlayerPassives(playerAuth.id);
+      return json(res, { ok: true, avatar, passives });
     } catch (e) {
       if (e.code === 'ITEM_NOT_OWNED') return err(res, e.message, 422, 'ITEM_NOT_OWNED');
       return err(res, e.message, 400);

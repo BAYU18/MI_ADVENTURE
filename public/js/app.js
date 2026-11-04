@@ -4340,6 +4340,46 @@ Screens.profil = {
     const buildSetHtml = (p) => (p.activeSets && p.activeSets.length > 0)
       ? p.activeSets.map(s => `<span class="chip" style="background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid rgba(245,158,11,0.4);font-size:0.68rem;font-weight:700;padding:2px 8px">${esc(s.icon)} ${esc(s.name)}</span>`).join(' ')
       : '';
+    const buildStatsGridHtml = (p) => {
+      const cards = [];
+      if (p.dodgeRate > 0) {
+        cards.push('<div class="hero-stat-card" style="background:rgba(255,255,255,0.05);padding:5px 6px;border-radius:8px;border:1px solid rgba(52,211,153,0.35);text-align:center"><div style="font-size:0.65rem;color:#94a3b8">Hindaran</div><div id="stat-dodge-val" style="font-size:0.82rem;font-weight:800;color:#34d399">💨 ' + Math.round(p.dodgeRate * 100) + '%</div></div>');
+      }
+      if (p.startShield > 0) {
+        cards.push('<div class="hero-stat-card" style="background:rgba(255,255,255,0.05);padding:5px 6px;border-radius:8px;border:1px solid rgba(56,189,248,0.35);text-align:center"><div style="font-size:0.65rem;color:#94a3b8">Perisai Awal</div><div id="stat-shield-val" style="font-size:0.82rem;font-weight:800;color:#38bdf8">🛡️ +' + p.startShield + ' HP</div></div>');
+      }
+      if (p.critChance > 0) {
+        cards.push('<div class="hero-stat-card" style="background:rgba(255,255,255,0.05);padding:5px 6px;border-radius:8px;border:1px solid rgba(250,204,21,0.35);text-align:center"><div style="font-size:0.65rem;color:#94a3b8">Kritis</div><div id="stat-crit-val" style="font-size:0.82rem;font-weight:800;color:#facc15">⚡ ' + Math.round(p.critChance * 100) + '%</div></div>');
+      }
+      if (p.bonusTime > 0) {
+        cards.push('<div class="hero-stat-card" style="background:rgba(255,255,255,0.05);padding:5px 6px;border-radius:8px;border:1px solid rgba(167,139,250,0.35);text-align:center"><div style="font-size:0.65rem;color:#94a3b8">Waktu Soal</div><div id="stat-time-val" style="font-size:0.82rem;font-weight:800;color:#a78bfa">⏳ +' + p.bonusTime + 's</div></div>');
+      }
+      if (p.damageReduction > 0) {
+        cards.push('<div class="hero-stat-card" style="background:rgba(255,255,255,0.05);padding:5px 6px;border-radius:8px;border:1px solid rgba(96,165,250,0.35);text-align:center"><div style="font-size:0.65rem;color:#94a3b8">Reduksi Dmg</div><div id="stat-reduct-val" style="font-size:0.82rem;font-weight:800;color:#60a5fa">🔰 -' + Math.round(p.damageReduction * 100) + '%</div></div>');
+      }
+      if (p.coinBonus > 0) {
+        cards.push('<div class="hero-stat-card" style="background:rgba(255,255,255,0.05);padding:5px 6px;border-radius:8px;border:1px solid rgba(251,191,36,0.35);text-align:center"><div style="font-size:0.65rem;color:#94a3b8">Bonus Koin</div><div id="stat-coin-val" style="font-size:0.82rem;font-weight:800;color:#fbbf24">🪙 +' + Math.round(p.coinBonus * 100) + '%</div></div>');
+      }
+      if (p.xpBonus > 0) {
+        cards.push('<div class="hero-stat-card" style="background:rgba(255,255,255,0.05);padding:5px 6px;border-radius:8px;border:1px solid rgba(244,114,182,0.35);text-align:center"><div style="font-size:0.65rem;color:#94a3b8">Bonus XP</div><div id="stat-xp-val" style="font-size:0.82rem;font-weight:800;color:#f472b6">⭐ +' + Math.round(p.xpBonus * 100) + '%</div></div>');
+      }
+      if (p.correctDamageBonus > 0) {
+        cards.push('<div class="hero-stat-card" style="background:rgba(255,255,255,0.05);padding:5px 6px;border-radius:8px;border:1px solid rgba(248,113,113,0.35);text-align:center"><div style="font-size:0.65rem;color:#94a3b8">Serangan+</div><div id="stat-dmg-val" style="font-size:0.82rem;font-weight:800;color:#f87171">⚔️ +' + p.correctDamageBonus + '</div></div>');
+      }
+      if (p.dragonBreathChance > 0) {
+        cards.push('<div class="hero-stat-card" style="background:rgba(255,255,255,0.05);padding:5px 6px;border-radius:8px;border:1px solid rgba(251,146,60,0.35);text-align:center"><div style="font-size:0.65rem;color:#94a3b8">Naga Api</div><div id="stat-dragon-val" style="font-size:0.82rem;font-weight:800;color:#fb923c">🔥 ' + Math.round(p.dragonBreathChance * 100) + '%</div></div>');
+      }
+      if (p.thornsDamage > 0) {
+        cards.push('<div class="hero-stat-card" style="background:rgba(255,255,255,0.05);padding:5px 6px;border-radius:8px;border:1px solid rgba(74,222,128,0.35);text-align:center"><div style="font-size:0.65rem;color:#94a3b8">Duri Balas</div><div id="stat-thorns-val" style="font-size:0.82rem;font-weight:800;color:#4ade80">🌵 +' + p.thornsDamage + '</div></div>');
+      }
+      if (p.streakProtectChance > 0) {
+        cards.push('<div class="hero-stat-card" style="background:rgba(255,255,255,0.05);padding:5px 6px;border-radius:8px;border:1px solid rgba(129,140,248,0.35);text-align:center"><div style="font-size:0.65rem;color:#94a3b8">Lindung Combo</div><div id="stat-protect-val" style="font-size:0.82rem;font-weight:800;color:#818cf8">🛡️ ' + Math.round(p.streakProtectChance * 100) + '%</div></div>');
+      }
+      if (cards.length === 0) {
+        return '<div style="grid-column:1/-1;padding:8px 12px;background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.12);border-radius:8px;text-align:center;color:var(--c-muted);font-size:0.72rem">✨ Belum ada atribut pasif aktif. Pasang skin untuk mengaktifkan efek!</div>';
+      }
+      return cards.join('');
+    };
 
     slot.innerHTML = `
       <!-- AVATAR LIVE PREVIEW & RPG PASSIVES OVERVIEW (COMPACT) -->
@@ -4360,21 +4400,8 @@ Screens.profil = {
           </div>
           
           <div id="skin-stats-grid" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(75px, 1fr));gap:6px">
-            <div style="background:rgba(255,255,255,0.05);padding:5px 6px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);text-align:center">
-              <div style="font-size:0.65rem;color:#94a3b8">Hindaran</div>
-              <div id="stat-dodge-val" style="font-size:0.82rem;font-weight:800;color:#34d399">💨 ${Math.round(curP.dodgeRate * 100)}%</div>
-            </div>
-            <div style="background:rgba(255,255,255,0.05);padding:5px 6px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);text-align:center">
-              <div style="font-size:0.65rem;color:#94a3b8">Perisai Awal</div>
-              <div id="stat-shield-val" style="font-size:0.82rem;font-weight:800;color:#38bdf8">🛡️ +${curP.startShield} HP</div>
-            </div>
-            <div style="background:rgba(255,255,255,0.05);padding:5px 6px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);text-align:center">
-              <div style="font-size:0.65rem;color:#94a3b8">Kritis</div>
-              <div id="stat-crit-val" style="font-size:0.82rem;font-weight:800;color:#facc15">⚡ ${Math.round(curP.critChance * 100)}%</div>
-            </div>
-            <div style="background:rgba(255,255,255,0.05);padding:5px 6px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);text-align:center">
-              <div style="font-size:0.65rem;color:#94a3b8">Waktu Soal</div>
-              <div id="stat-time-val" style="font-size:0.82rem;font-weight:800;color:#a78bfa">⏳ +${curP.bonusTime}s</div>
+            ${buildStatsGridHtml(curP)}
+          </div>
             </div>
           </div>
         </div>
@@ -4516,15 +4543,19 @@ Screens.profil = {
               });
             }
 
+            const updateHeroShowcase = (savedAv, srvPassives) => {
+              const previewEl = $('#avatar-live-box');
+              if (previewEl && window.Avatar) previewEl.innerHTML = Avatar.renderAvatar(savedAv);
+              const upStats = srvPassives || calcCurrentPassives(savedAv);
+              if (this.inventoryData) this.inventoryData.passives = upStats;
+              const sGrid = $('#skin-stats-grid');
+              if (sGrid) sGrid.innerHTML = buildStatsGridHtml(upStats);
+              const sSets = $('#skin-active-sets');
+              if (sSets) sSets.innerHTML = buildSetHtml(upStats);
+            };
+
             toast('Skin berhasil dipakai! ✨');
-            const previewEl = $('#avatar-live-box');
-            if (previewEl && window.Avatar) previewEl.innerHTML = Avatar.renderAvatar(savedAvatar);
-            const updatedStats = calcCurrentPassives(savedAvatar);
-            const sDodge = $('#stat-dodge-val'); if (sDodge) sDodge.textContent = `💨 ${Math.round(updatedStats.dodgeRate * 100)}%`;
-            const sShield = $('#stat-shield-val'); if (sShield) sShield.textContent = `🛡️ +${updatedStats.startShield} HP`;
-            const sCrit = $('#stat-crit-val'); if (sCrit) sCrit.textContent = `⚡ ${Math.round(updatedStats.critChance * 100)}%`;
-            const sTime = $('#stat-time-val'); if (sTime) sTime.textContent = `⏳ +${updatedStats.bonusTime}s`;
-            const sSets = $('#skin-active-sets'); if (sSets) sSets.innerHTML = buildSetHtml(updatedStats);
+            updateHeroShowcase(savedAvatar, res?.passives);
             renderItems();
           } catch (e) {
             toast('Gagal memasang skin: ' + (e.message || e.code || 'Item belum dimiliki'));
@@ -4558,9 +4589,19 @@ Screens.profil = {
               });
             }
 
+            const updateHeroShowcase = (savedAv, srvPassives) => {
+              const previewEl = $('#avatar-live-box');
+              if (previewEl && window.Avatar) previewEl.innerHTML = Avatar.renderAvatar(savedAv);
+              const upStats = srvPassives || calcCurrentPassives(savedAv);
+              if (this.inventoryData) this.inventoryData.passives = upStats;
+              const sGrid = $('#skin-stats-grid');
+              if (sGrid) sGrid.innerHTML = buildStatsGridHtml(upStats);
+              const sSets = $('#skin-active-sets');
+              if (sSets) sSets.innerHTML = buildSetHtml(upStats);
+            };
+
             toast('Skin berhasil dilepas.');
-            const previewEl = $('#avatar-live-box');
-            if (previewEl && window.Avatar) previewEl.innerHTML = Avatar.renderAvatar(savedAvatar);
+            updateHeroShowcase(savedAvatar, res?.passives);
             renderItems();
           } catch (e) {
             toast('Gagal melepas skin: ' + (e.message || e.code));
