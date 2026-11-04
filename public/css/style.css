@@ -2766,4 +2766,50 @@ body.reduced-motion .fatigue-banner {
   color: #fca5a5;
 }
 
+/* ── Duel Challenge Setup Modal Styles ── */
+.duel-type-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: #e2e8f0;
+  user-select: none;
+  transition: all 0.15s;
+}
+.duel-type-chip:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+.duel-type-chip.active {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: #38bdf8;
+  color: #fff;
+}
+.duel-subj-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+}
+.duel-subj-item:hover {
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+}
+.duel-subj-item.selected {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.2);
+}
+
+
 

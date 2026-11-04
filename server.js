@@ -1024,7 +1024,7 @@ const server = http.createServer(async (req, res) => {
   }
 
   // ===== FITUR v7: Duel =====
-  // POST /api/duels/challenge { friendId, subjectId }
+  // POST /api/duels/challenge { friendId, subjectId, classId, questionTypes }
   if (pathname === '/api/duels/challenge' && method === 'POST') {
     const playerAuth = getPlayerFromReq(req);
     if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
@@ -1034,6 +1034,8 @@ const server = http.createServer(async (req, res) => {
         challengerId: playerAuth.id,
         friendId: Number(b?.friendId),
         subjectId: Number(b?.subjectId),
+        classId: b?.classId ? Number(b.classId) : undefined,
+        questionTypes: b?.questionTypes
       });
       if (r.code !== 'OK') return err(res, r.code, 400, r.code, r);
       return json(res, { ok: true, code: 'OK', duelId: r.duelId });
@@ -1047,10 +1049,12 @@ const server = http.createServer(async (req, res) => {
     const playerAuth = getPlayerFromReq(req);
     if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
     dbDuel.expireStaleInvites(db.getDb());
-    const rows = db.getDb().prepare(`SELECT d.id, d.subject_id, d.created_at, s.name AS subject_name,
+    const rows = db.getDb().prepare(`SELECT d.id, d.subject_id, d.class_id, d.question_types_json, d.created_at,
+                                            s.name AS subject_name, c.name AS class_name,
                                             p.nick AS from_nick FROM duels d
                                      JOIN players p ON p.id = d.challenger_id
                                      LEFT JOIN subjects s ON s.id = d.subject_id
+                                     LEFT JOIN classes c ON c.id = COALESCE(d.class_id, s.class_id)
                                      WHERE d.status='PENDING' AND d.challenged_id=? ORDER BY d.created_at DESC`)
       .all(playerAuth.id);
     return json(res, { ok: true, code: 'OK', invites: rows });
@@ -1110,14 +1114,24 @@ const server = http.createServer(async (req, res) => {
 
       const dq = db.getDb().prepare('SELECT * FROM duel_questions WHERE duel_id=? AND order_index=?').get(duelId, idx);
       if (!dq) return err(res, 'QUESTION_NOT_FOUND', 404, 'QUESTION_NOT_FOUND');
-      const q = db.getDb().prepare('SELECT text, options_json FROM questions WHERE id=?').get(dq.question_id);
+      const q = db.getDb().prepare(`SELECT text, options_json, COALESCE(question_type, 'MCQ') as question_type, type_data_json FROM questions WHERE id=?`).get(dq.question_id);
       if (!q) return err(res, 'QUESTION_NOT_FOUND', 404, 'QUESTION_NOT_FOUND');
 
       let rawOpts = [];
       try { rawOpts = JSON.parse(q.options_json); } catch {}
       const order = JSON.parse(meSide === 'challenger' ? dq.option_order_challenger_json : dq.option_order_challenged_json);
       const mappedOptions = order.map(i => rawOpts[i]);
-      return json(res, { ok: true, code: 'OK', orderIndex: idx, text: q.text, options: mappedOptions });
+      let typeData = null;
+      try { if (q.type_data_json) typeData = JSON.parse(q.type_data_json); } catch {}
+      return json(res, {
+        ok: true,
+        code: 'OK',
+        orderIndex: idx,
+        text: q.text,
+        options: mappedOptions,
+        questionType: q.question_type,
+        typeData
+      });
     }
   }
 

@@ -349,16 +349,40 @@
         return;
       }
 
-      const optsHtml = qData.options.map((optText, i) => `
-        <button class="duel-opt-btn" data-idx="${i}">
-          <span class="opt-key">${['A', 'B', 'C', 'D'][i] || i + 1}</span>
-          <span class="opt-label">${esc(optText)}</span>
-        </button>
-      `).join('');
+      const qType = (qData.questionType || 'MCQ').toUpperCase();
+      const typeLabels = {
+        'MCQ': 'PILIHAN GANDA',
+        'TRUE_FALSE': 'BENAR / SALAH',
+        'ORDERING': 'URUTKAN KARTU',
+        'MATCHING': 'PASANGKAN KATA',
+        'SHORT': 'ISIAN SINGKAT'
+      };
+      const typeBadge = `<span class="q-order-badge" style="background:rgba(56,189,248,0.15);color:#38bdf8;padding:2px 8px;border-radius:6px;font-size:0.72rem;font-weight:700">${typeLabels[qType] || qType}</span>`;
+
+      let optsHtml = '';
+      if (qType === 'TRUE_FALSE') {
+        optsHtml = qData.options.map((optText, i) => {
+          const isBenar = String(optText).toLowerCase().includes('benar') || i === 0;
+          return `
+            <button class="duel-opt-btn tf-opt-btn" data-idx="${i}" style="padding:12px;font-weight:800;font-size:1rem;border-color:${isBenar ? '#10b981' : '#ef4444'}">
+              <span style="font-size:1.15rem">${isBenar ? '✅' : '❌'}</span>
+              <span class="opt-label">${esc(optText)}</span>
+            </button>
+          `;
+        }).join('');
+      } else {
+        optsHtml = qData.options.map((optText, i) => `
+          <button class="duel-opt-btn" data-idx="${i}">
+            <span class="opt-key">${['A', 'B', 'C', 'D'][i] || i + 1}</span>
+            <span class="opt-label">${esc(optText)}</span>
+          </button>
+        `).join('');
+      }
 
       qBox.innerHTML = `
-        <div class="duel-q-header">
+        <div class="duel-q-header" style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
           <span class="q-order-badge">Soal #${idx + 1}</span>
+          ${typeBadge}
         </div>
         <div class="duel-q-text">${esc(qData.text)}</div>
         <div class="duel-options-grid">${optsHtml}</div>

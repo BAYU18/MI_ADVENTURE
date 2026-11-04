@@ -123,6 +123,24 @@
     `;
   }
 
+  function formatTypes(typesJson) {
+    if (!typesJson) return 'Semua Tipe';
+    try {
+      const arr = typeof typesJson === 'string' ? JSON.parse(typesJson) : typesJson;
+      if (!Array.isArray(arr) || !arr.length) return 'Semua Tipe';
+      const names = {
+        'MCQ': 'Pilihan Ganda',
+        'TRUE_FALSE': 'Benar/Salah',
+        'ORDERING': 'Urutkan Kartu',
+        'MATCHING': 'Pasangkan Kata',
+        'SHORT': 'Isian Singkat'
+      };
+      return arr.map(t => names[t] || t).join(', ');
+    } catch {
+      return 'Semua Tipe';
+    }
+  }
+
   function renderContent(data) {
     const body = document.getElementById('friends-body');
     if (!body) return;
@@ -161,7 +179,12 @@
           <div class="invite-info">
             <strong>⚔️ Tantangan Duel!</strong>
             <div>Dari: <strong style="color:var(--c-primary)">${esc(d.from_nick)}</strong></div>
-            <div style="font-size:0.75rem;color:var(--c-muted)">Mata Pelajaran: ${esc(d.subject_name || 'Umum')}</div>
+            <div style="font-size:0.75rem;color:var(--c-muted)">
+              🏫 <strong>${esc(d.class_name || 'Kelas Belajar')}</strong> · 📖 <strong>${esc(d.subject_name || 'Umum')}</strong>
+            </div>
+            <div style="font-size:0.72rem;color:#38bdf8;margin-top:2px">
+              🎯 Tipe Soal: <strong>${esc(formatTypes(d.question_types_json))}</strong>
+            </div>
           </div>
           <div class="invite-actions">
             <button class="btn primary small btn-accept-duel" data-id="${d.id}">Terima ⚔️</button>
@@ -427,59 +450,237 @@
     const modal = document.createElement('div');
     modal.className = 'duel-modal-overlay';
     modal.innerHTML = `
-      <div class="duel-modal-card">
-        <h3>⚔️ Tantang Duel</h3>
-        <p style="font-size:0.85rem;color:var(--c-muted);margin:4px 0 12px">Pilih mata pelajaran untuk duel dengan <strong>${esc(friendNick)}</strong>:</p>
-        <div id="modal-subjects-list" style="display:flex;flex-direction:column;gap:8px;max-height:240px;overflow-y:auto">
-          <div style="font-size:0.8rem;color:var(--c-muted)">Memuat mata pelajaran...</div>
+      <div class="duel-modal-card" style="width:min(440px, 94vw);max-height:90vh;display:flex;flex-direction:column;text-align:left;padding:18px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+          <h3 style="margin:0;font-size:1.15rem;display:flex;align-items:center;gap:6px">⚔️ Atur Tantangan Duel</h3>
+          <button type="button" id="btn-close-duel-modal-x" style="background:transparent;border:0;color:var(--c-muted);font-size:1.2rem;cursor:pointer">&times;</button>
         </div>
-        <button class="btn ghost small" id="btn-close-duel-modal" style="margin-top:12px;width:100%">Batal</button>
+        <div style="font-size:0.82rem;color:var(--c-muted);margin-bottom:12px">
+          Tantang <strong>${esc(friendNick)}</strong> dalam pertarungan kuis realtime 1v1.
+        </div>
+
+        <div style="overflow-y:auto;flex:1;padding-right:4px;display:flex;flex-direction:column;gap:14px">
+          <!-- 1. Pilih Kelas -->
+          <div>
+            <label style="font-size:0.8rem;font-weight:700;color:#cbd5e1;display:block;margin-bottom:5px">
+              🏫 1. Pilih Tingkat Kelas:
+            </label>
+            <select id="duel-pick-class" style="width:100%;background:rgba(0,0,0,0.35);color:#fff;border:1px solid rgba(255,255,255,0.2);padding:8px 10px;border-radius:10px;font-size:0.88rem">
+              <option value="">Memuat kelas...</option>
+            </select>
+          </div>
+
+          <!-- 2. Pilih Mata Pelajaran -->
+          <div>
+            <label style="font-size:0.8rem;font-weight:700;color:#cbd5e1;display:block;margin-bottom:5px">
+              📖 2. Pilih Mata Pelajaran:
+            </label>
+            <div id="modal-subjects-list" style="display:flex;flex-direction:column;gap:6px;max-height:160px;overflow-y:auto;padding-right:2px">
+              <div style="font-size:0.8rem;color:var(--c-muted)">Memuat mata pelajaran...</div>
+            </div>
+          </div>
+
+          <!-- 3. Tentukan Tipe Soal -->
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+              <label style="font-size:0.8rem;font-weight:700;color:#cbd5e1">
+                🎯 3. Tipe Soal yang Diadukan:
+              </label>
+              <div style="display:flex;gap:6px">
+                <button type="button" class="btn ghost small" id="btn-types-all" style="font-size:0.7rem;padding:2px 6px">Semua</button>
+                <button type="button" class="btn ghost small" id="btn-types-mcq" style="font-size:0.7rem;padding:2px 6px">MCQ Saja</button>
+              </div>
+            </div>
+
+            <div id="duel-type-options" style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+              <label class="duel-type-chip active">
+                <input type="checkbox" value="MCQ" checked style="accent-color:#38bdf8" />
+                <span>📝 Pilihan Ganda</span>
+              </label>
+              <label class="duel-type-chip active">
+                <input type="checkbox" value="TRUE_FALSE" checked style="accent-color:#38bdf8" />
+                <span>⚖️ Benar / Salah</span>
+              </label>
+              <label class="duel-type-chip active">
+                <input type="checkbox" value="ORDERING" checked style="accent-color:#38bdf8" />
+                <span>🔢 Urutkan Kartu</span>
+              </label>
+              <label class="duel-type-chip active">
+                <input type="checkbox" value="MATCHING" checked style="accent-color:#38bdf8" />
+                <span>🔗 Pasangkan Kata</span>
+              </label>
+              <label class="duel-type-chip active" style="grid-column: span 2">
+                <input type="checkbox" value="SHORT" checked style="accent-color:#38bdf8" />
+                <span>✍️ Isian Singkat</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tombol Aksi -->
+        <div style="margin-top:14px;display:flex;gap:8px">
+          <button class="btn ghost small" id="btn-close-duel-modal" style="flex:1">Batal</button>
+          <button class="btn primary small" id="btn-send-duel-challenge" style="flex:2;padding:10px 14px;font-weight:800;font-size:0.92rem">
+            ⚔️ Kirim Tantangan
+          </button>
+        </div>
       </div>
     `;
     document.body.appendChild(modal);
 
-    document.getElementById('btn-close-duel-modal').onclick = () => modal.remove();
+    const closeModal = () => modal.remove();
+    document.getElementById('btn-close-duel-modal').onclick = closeModal;
+    document.getElementById('btn-close-duel-modal-x').onclick = closeModal;
+
+    let selectedSubjectId = null;
+    const classSel = document.getElementById('duel-pick-class');
+
+    async function loadSubjectsForClass(cid) {
+      const listEl = document.getElementById('modal-subjects-list');
+      if (!listEl) return;
+      listEl.innerHTML = '<div style="font-size:0.8rem;color:var(--c-muted)">Memuat mata pelajaran...</div>';
+      selectedSubjectId = null;
+
+      try {
+        const subjects = await window.API.getSubjects(cid);
+        if (!subjects || !subjects.length) {
+          listEl.innerHTML = '<div style="font-size:0.8rem;color:var(--c-muted)">Belum ada mata pelajaran untuk kelas ini.</div>';
+          return;
+        }
+        listEl.innerHTML = subjects.map((s, idx) => `
+          <div class="duel-subj-item ${idx === 0 ? 'selected' : ''}" data-sid="${s.id}">
+            <span style="font-size:1.1rem">${esc(s.icon || '📖')}</span>
+            <div style="flex:1">
+              <div style="font-weight:700;font-size:0.88rem">${esc(s.name)}</div>
+              ${s.question_count ? `<div style="font-size:0.72rem;color:var(--c-muted)">${s.question_count} soal tersedia</div>` : ''}
+            </div>
+            <span class="subj-check" style="color:#10b981;font-weight:bold">${idx === 0 ? '✓' : ''}</span>
+          </div>
+        `).join('');
+
+        selectedSubjectId = subjects[0].id;
+
+        listEl.querySelectorAll('.duel-subj-item').forEach(item => {
+          item.onclick = () => {
+            listEl.querySelectorAll('.duel-subj-item').forEach(el => {
+              el.classList.remove('selected');
+              const chk = el.querySelector('.subj-check');
+              if (chk) chk.textContent = '';
+            });
+            item.classList.add('selected');
+            const myChk = item.querySelector('.subj-check');
+            if (myChk) myChk.textContent = '✓';
+            selectedSubjectId = Number(item.getAttribute('data-sid'));
+          };
+        });
+      } catch (e) {
+        listEl.innerHTML = '<div style="font-size:0.8rem;color:#f87171">Gagal memuat mata pelajaran</div>';
+      }
+    }
 
     try {
       const p = window.Player?.data;
-      const subjects = await window.API.getSubjects(p?.class_id || 1);
-      const listEl = document.getElementById('modal-subjects-list');
-      if (!listEl) return;
-      if (!subjects.length) {
-        listEl.innerHTML = '<div style="font-size:0.8rem;color:var(--c-muted)">Belum ada mata pelajaran tersedia.</div>';
-        return;
-      }
-      listEl.innerHTML = subjects.map(s => `
-        <button class="btn secondary btn-pick-subject" data-sid="${s.id}" style="text-align:left;padding:8px 12px;display:flex;align-items:center;gap:8px">
-          <span>${esc(s.icon || '📖')}</span>
-          <span style="font-weight:700">${esc(s.name)}</span>
-        </button>
+      let classes = [];
+      try {
+        const clsRes = await window.API.req('/api/classes');
+        classes = clsRes.classes || [];
+      } catch {}
+      if (!classes.length && p?.classes) classes = p.classes;
+      if (!classes.length) classes = [{ id: p?.class_id || 1, name: 'Kelas ' + (p?.class_id || 1) }];
+
+      const initialClassId = p?.class_id && classes.some(c => c.id === p.class_id)
+        ? p.class_id
+        : classes[0].id;
+
+      classSel.innerHTML = classes.map(c => `
+        <option value="${c.id}" ${c.id === initialClassId ? 'selected' : ''}>${esc(c.name)}</option>
       `).join('');
 
-      listEl.querySelectorAll('.btn-pick-subject').forEach(sb => {
-        sb.onclick = async () => {
-          const subjectId = Number(sb.getAttribute('data-sid'));
-          sb.disabled = true;
-          try {
-            const ch = await window.API.req('/api/duels/challenge', {
-              method: 'POST',
-              body: JSON.stringify({ friendId, subjectId })
-            });
-            modal.remove();
-            if (ch.code === 'OK') {
-              if (window.toast) window.toast(`Tantangan dikirim ke ${friendNick}! Menunggu respon...`);
-              stopTimers();
-              window.go('duel', { duelId: ch.duelId, waiting: true });
-            }
-          } catch (err) {
-            sb.disabled = false;
-            if (window.toast) window.toast(err.message || 'Gagal mengirim tantangan');
-          }
+      classSel.onchange = () => {
+        loadSubjectsForClass(Number(classSel.value));
+      };
+
+      await loadSubjectsForClass(Number(classSel.value));
+
+      // Question type checkboxes
+      const typeContainer = document.getElementById('duel-type-options');
+      const typeChips = typeContainer.querySelectorAll('.duel-type-chip');
+      typeChips.forEach(chip => {
+        const cb = chip.querySelector('input[type="checkbox"]');
+        cb.onchange = () => {
+          chip.classList.toggle('active', cb.checked);
         };
       });
+
+      const btnTypesAll = document.getElementById('btn-types-all');
+      if (btnTypesAll) {
+        btnTypesAll.onclick = () => {
+          typeChips.forEach(chip => {
+            const cb = chip.querySelector('input[type="checkbox"]');
+            cb.checked = true;
+            chip.classList.add('active');
+          });
+        };
+      }
+
+      const btnTypesMcq = document.getElementById('btn-types-mcq');
+      if (btnTypesMcq) {
+        btnTypesMcq.onclick = () => {
+          typeChips.forEach(chip => {
+            const cb = chip.querySelector('input[type="checkbox"]');
+            cb.checked = (cb.value === 'MCQ');
+            chip.classList.toggle('active', cb.checked);
+          });
+        };
+      }
+
+      // Send challenge button
+      const btnSubmit = document.getElementById('btn-send-duel-challenge');
+      btnSubmit.onclick = async () => {
+        if (!selectedSubjectId) {
+          if (window.toast) window.toast('Pilih mata pelajaran terlebih dahulu', 'error');
+          return;
+        }
+
+        const selectedTypes = [];
+        typeContainer.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => {
+          selectedTypes.push(cb.value);
+        });
+
+        if (selectedTypes.length === 0) {
+          if (window.toast) window.toast('Pilih minimal 1 tipe soal untuk duel', 'error');
+          return;
+        }
+
+        btnSubmit.disabled = true;
+        btnSubmit.textContent = 'Mengirim...';
+
+        try {
+          const ch = await window.API.req('/api/duels/challenge', {
+            method: 'POST',
+            body: JSON.stringify({
+              friendId,
+              classId: Number(classSel.value),
+              subjectId: selectedSubjectId,
+              questionTypes: selectedTypes
+            })
+          });
+
+          modal.remove();
+          if (ch.code === 'OK') {
+            if (window.toast) window.toast(`Tantangan dikirim ke ${friendNick}! Menunggu respon...`);
+            stopTimers();
+            window.go('duel', { duelId: ch.duelId, waiting: true });
+          }
+        } catch (err) {
+          btnSubmit.disabled = false;
+          btnSubmit.textContent = '⚔️ Kirim Tantangan';
+          if (window.toast) window.toast(err.message || 'Gagal mengirim tantangan');
+        }
+      };
     } catch (e) {
       modal.remove();
-      if (window.toast) window.toast('Gagal memuat mata pelajaran');
+      if (window.toast) window.toast('Gagal memuat opsi tantangan duel');
     }
   }
 

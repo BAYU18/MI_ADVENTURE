@@ -270,4 +270,43 @@ test('Duel HTTP API Integration', async (t) => {
     assert.equal(h3.status, 400);
     assert.equal(h3.body.error?.details?.reason, 'ALREADY_USED');
   });
+
+  await t.test('13. Tantang duel dengan spesifik classId dan questionTypes', async () => {
+    const rawDb = db.getDb();
+    rawDb.prepare('DELETE FROM duels WHERE challenger_id IN (?, ?) OR challenged_id IN (?, ?)').run(pA.id, pB.id, pA.id, pB.id);
+
+    const res = await api(port, '/api/duels/challenge', {
+      method: 'POST',
+      token: tokenA,
+      body: {
+        friendId: pB.id,
+        classId: 1,
+        subjectId: sid,
+        questionTypes: ['MCQ', 'TRUE_FALSE']
+      },
+    });
+    assert.equal(res.status, 200);
+    assert.equal(res.body.code, 'OK');
+    assert.ok(res.body.duelId);
+
+    const inv = await api(port, '/api/duels/invites', { token: tokenB });
+    assert.equal(inv.status, 200);
+    const myInv = inv.body.invites.find(x => x.id === res.body.duelId);
+    assert.ok(myInv);
+    assert.ok(myInv.class_name);
+    assert.ok(myInv.question_types_json);
+    assert.deepEqual(JSON.parse(myInv.question_types_json), ['MCQ', 'TRUE_FALSE']);
+
+    // Accept and verify duel question
+    const acc = await api(port, `/api/duels/${res.body.duelId}/respond`, {
+      method: 'POST',
+      token: tokenB,
+      body: { action: 'accept' },
+    });
+    assert.equal(acc.status, 200);
+
+    const qRes = await api(port, `/api/duels/${res.body.duelId}/question/0`, { token: tokenA });
+    assert.equal(qRes.status, 200);
+    assert.ok(qRes.body.questionType);
+  });
 });
