@@ -6,6 +6,8 @@ const url = require('node:url');
 const db = require('./lib/db');
 const auth = require('./lib/auth');
 const GameplayConfig = require('./shared/gameplay');
+const dbFriends = require('./lib/db-friends');
+const dbDuel = require('./lib/db-duel');
 
 const PORT = parseInt(process.env.PORT || '3002', 10);
 const HOST = process.env.HOST || '0.0.0.0';
@@ -339,13 +341,13 @@ const server = http.createServer(async (req, res) => {
   }
 
   // Auth: Register (Player)
-  if ((pathname === '/api/auth/register' || pathname === '/api/player/register') && method === 'POST') {
+  if ((pathname === '/api/auth/register' || pathname === '/api/player/register' || pathname === '/api/register') && method === 'POST') {
     try {
       const body = await parseBody(req);
       const player = db.registerPlayer(body.nick, body.password, body.classId);
       const token = auth.signToken({ type: 'player', id: player.id, nick: player.nick });
       const cookie = setCookieHeader('pp_player', token, 30 * 86400, isSecure);
-      return json(res, { ok: true, player, token }, 201, { 'Set-Cookie': cookie });
+      return json(res, { ok: true, code: 'OK', player, token }, 200, { 'Set-Cookie': cookie });
     } catch (e) {
       if (e.code === 'NICK_TAKEN') return err(res, 'Nick sudah digunakan', 409, 'NICK_TAKEN');
       if (e.code === 'NICK_NOT_ALLOWED') return err(res, 'Nick tidak diizinkan', 422, 'NICK_NOT_ALLOWED');
@@ -355,13 +357,13 @@ const server = http.createServer(async (req, res) => {
   }
 
   // Auth: Login (Player)
-  if ((pathname === '/api/auth/login' || pathname === '/api/player/login') && method === 'POST') {
+  if ((pathname === '/api/auth/login' || pathname === '/api/player/login' || pathname === '/api/login') && method === 'POST') {
     try {
       const body = await parseBody(req);
       const player = db.loginPlayer(body.nick, body.password);
       const token = auth.signToken({ type: 'player', id: player.id, nick: player.nick });
       const cookie = setCookieHeader('pp_player', token, 30 * 86400, isSecure);
-      return json(res, { ok: true, player, token }, 200, { 'Set-Cookie': cookie });
+      return json(res, { ok: true, code: 'OK', player, token }, 200, { 'Set-Cookie': cookie });
     } catch (e) {
       return err(res, 'Nick atau password salah', 401, 'INVALID_CREDENTIALS');
     }
@@ -946,6 +948,241 @@ const server = http.createServer(async (req, res) => {
     if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
     const monsters = db.getDex(playerAuth.id);
     return json(res, { ok: true, monsters });
+  }
+
+  // ===== FITUR v7: Pertemanan & Presence =====
+  // GET /api/friends
+  if (pathname === '/api/friends' && method === 'GET') {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    const list = dbFriends.list(db.getDb(), playerAuth.id);
+    const incoming = dbFriends.incoming(db.getDb(), playerAuth.id).map(r => ({ id: r.id, fromId: r.fromId, nick: r.nick, createdAt: r.created_at }));
+    return json(res, { ok: true, code: 'OK', friends: list, incoming });
+  }
+
+  // GET /api/friends/search?q=
+  if (pathname === '/api/friends/search' && method === 'GET') {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    const q = query.q || '';
+    const results = dbFriends.searchPlayers(db.getDb(), q, playerAuth.id);
+    return json(res, { ok: true, code: 'OK', results });
+  }
+
+  // POST /api/friends/request { nick }
+  if (pathname === '/api/friends/request' && method === 'POST') {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    try {
+      const body = await parseBody(req);
+      const r = dbFriends.sendRequest(db.getDb(), playerAuth.id, body?.nick);
+      if (r.code !== 'OK') return err(res, r.code, 400, r.code);
+      return json(res, { ok: true, code: 'OK', toId: r.toId });
+    } catch (e) {
+      return err(res, e.message, 400);
+    }
+  }
+
+  // POST /api/friends/respond { requestId, action }
+  if (pathname === '/api/friends/respond' && method === 'POST') {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    try {
+      const body = await parseBody(req);
+      const r = dbFriends.respond(db.getDb(), Number(body?.requestId), playerAuth.id, body?.action);
+      if (r.code !== 'OK') return err(res, r.code, 400, r.code);
+      return json(res, { ok: true, code: 'OK' });
+    } catch (e) {
+      return err(res, e.message, 400);
+    }
+  }
+
+  // DELETE /api/friends/:id
+  if (pathname.startsWith('/api/friends/') && pathname !== '/api/friends/search' && pathname !== '/api/friends/request' && pathname !== '/api/friends/respond' && pathname !== '/api/friends/history' && method === 'DELETE') {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    const friendId = Number(pathname.slice('/api/friends/'.length));
+    if (!Number.isInteger(friendId)) return err(res, 'BAD_REQUEST', 400, 'BAD_REQUEST');
+    dbFriends.remove(db.getDb(), playerAuth.id, friendId);
+    return json(res, { ok: true, code: 'OK' });
+  }
+
+  // POST /api/presence/ping { activity? }
+  if (pathname === '/api/presence/ping' && method === 'POST') {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    try {
+      const body = await parseBody(req);
+      dbFriends.pingPresence(db.getDb(), playerAuth.id, body?.activity);
+      return json(res, { ok: true, code: 'OK' });
+    } catch (e) {
+      return err(res, e.message, 400);
+    }
+  }
+
+  // ===== FITUR v7: Duel =====
+  // POST /api/duels/challenge { friendId, subjectId }
+  if (pathname === '/api/duels/challenge' && method === 'POST') {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    try {
+      const b = await parseBody(req);
+      const r = dbDuel.createChallenge(db.getDb(), {
+        challengerId: playerAuth.id,
+        friendId: Number(b?.friendId),
+        subjectId: Number(b?.subjectId),
+      });
+      if (r.code !== 'OK') return err(res, r.code, 400, r.code, r);
+      return json(res, { ok: true, code: 'OK', duelId: r.duelId });
+    } catch (e) {
+      return err(res, e.message, 400);
+    }
+  }
+
+  // GET /api/duels/invites
+  if (pathname === '/api/duels/invites' && method === 'GET') {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    dbDuel.expireStaleInvites(db.getDb());
+    const rows = db.getDb().prepare(`SELECT d.id, d.subject_id, d.created_at, s.name AS subject_name,
+                                            p.nick AS from_nick FROM duels d
+                                     JOIN players p ON p.id = d.challenger_id
+                                     LEFT JOIN subjects s ON s.id = d.subject_id
+                                     WHERE d.status='PENDING' AND d.challenged_id=? ORDER BY d.created_at DESC`)
+      .all(playerAuth.id);
+    return json(res, { ok: true, code: 'OK', invites: rows });
+  }
+
+  // GET /api/duels/active
+  if (pathname === '/api/duels/active' && method === 'GET') {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    const row = db.getDb().prepare(`SELECT id, status, phase FROM duels
+                                    WHERE status IN ('ACTIVE', 'PAUSED') AND (challenger_id=? OR challenged_id=?) LIMIT 1`)
+      .get(playerAuth.id, playerAuth.id);
+    return json(res, { ok: true, code: 'OK', active: row || null });
+  }
+
+  // POST /api/duels/:id/respond { action }
+  {
+    const m = pathname.match(/^\/api\/duels\/([^/]+)\/respond$/);
+    if (m && method === 'POST') {
+      const playerAuth = getPlayerFromReq(req);
+      if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+      try {
+        const b = await parseBody(req);
+        const r = dbDuel.respondInvite(db.getDb(), m[1], playerAuth.id, b?.action);
+        if (r.code !== 'OK') return err(res, r.code, 400, r.code);
+        return json(res, { ok: true, code: 'OK', duelId: m[1] });
+      } catch (e) {
+        return err(res, e.message, 400);
+      }
+    }
+  }
+
+  // GET /api/duels/:id/state
+  {
+    const m = pathname.match(/^\/api\/duels\/([^/]+)\/state$/);
+    if (m && method === 'GET') {
+      const playerAuth = getPlayerFromReq(req);
+      if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+      const r = dbDuel.getDuelState(db.getDb(), m[1], playerAuth.id);
+      if (r.code) return err(res, r.code, 400, r.code);
+      return json(res, { ok: true, code: 'OK', ...r });
+    }
+  }
+
+  // GET /api/duels/:id/question/:idx
+  {
+    const m = pathname.match(/^\/api\/duels\/([^/]+)\/question\/(\d+)$/);
+    if (m && method === 'GET') {
+      const playerAuth = getPlayerFromReq(req);
+      if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+      const duelId = m[1];
+      const idx = Number(m[2]);
+      const who = db.getDb().prepare('SELECT challenger_id, challenged_id FROM duels WHERE id=?').get(duelId);
+      if (!who) return err(res, 'DUEL_NOT_FOUND', 404, 'DUEL_NOT_FOUND');
+      const meSide = (who.challenger_id === playerAuth.id ? 'challenger' : (who.challenged_id === playerAuth.id ? 'challenged' : null));
+      if (!meSide) return err(res, 'NOT_PARTICIPANT', 403, 'NOT_PARTICIPANT');
+
+      const dq = db.getDb().prepare('SELECT * FROM duel_questions WHERE duel_id=? AND order_index=?').get(duelId, idx);
+      if (!dq) return err(res, 'QUESTION_NOT_FOUND', 404, 'QUESTION_NOT_FOUND');
+      const q = db.getDb().prepare('SELECT text, options_json FROM questions WHERE id=?').get(dq.question_id);
+      if (!q) return err(res, 'QUESTION_NOT_FOUND', 404, 'QUESTION_NOT_FOUND');
+
+      let rawOpts = [];
+      try { rawOpts = JSON.parse(q.options_json); } catch {}
+      const order = JSON.parse(meSide === 'challenger' ? dq.option_order_challenger_json : dq.option_order_challenged_json);
+      const mappedOptions = order.map(i => rawOpts[i]);
+      return json(res, { ok: true, code: 'OK', orderIndex: idx, text: q.text, options: mappedOptions });
+    }
+  }
+
+  // POST /api/duels/:id/answer { orderIndex, chosenIndex, elapsedMs }
+  {
+    const m = pathname.match(/^\/api\/duels\/([^/]+)\/answer$/);
+    if (m && method === 'POST') {
+      const playerAuth = getPlayerFromReq(req);
+      if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+      try {
+        const b = await parseBody(req);
+        const r = dbDuel.submitAnswer(db.getDb(), m[1], playerAuth.id, Number(b?.orderIndex), Number(b?.chosenIndex), Number(b?.elapsedMs) || 0);
+        if (r.code !== 'OK') return err(res, r.code, 400, r.code, { reason: r.reason });
+        return json(res, { ok: true, code: 'OK', isCorrect: r.isCorrect, damage: r.damage, phase: r.phase });
+      } catch (e) {
+        return err(res, e.message, 400);
+      }
+    }
+  }
+
+  // POST /api/duels/:id/skill { skillId, skillLv, orderIndex }
+  {
+    const m = pathname.match(/^\/api\/duels\/([^/]+)\/skill$/);
+    if (m && method === 'POST') {
+      const playerAuth = getPlayerFromReq(req);
+      if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+      try {
+        const b = await parseBody(req);
+        const r = dbDuel.useDuelSkill(db.getDb(), m[1], playerAuth.id, b?.skillId, Number(b?.skillLv) || 1, Number(b?.orderIndex));
+        if (r.code !== 'OK') return err(res, r.code, 400, r.code, { reason: r.reason });
+        return json(res, { ok: true, code: 'OK', ...r });
+      } catch (e) {
+        return err(res, e.message, 400);
+      }
+    }
+  }
+
+  // POST /api/duels/:id/reconnect
+  {
+    const m = pathname.match(/^\/api\/duels\/([^/]+)\/reconnect$/);
+    if (m && method === 'POST') {
+      const playerAuth = getPlayerFromReq(req);
+      if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+      const r = dbDuel.reconnect(db.getDb(), m[1], playerAuth.id);
+      if (r.code !== 'OK') return err(res, r.code, 400, r.code);
+      return json(res, { ok: true, code: 'OK' });
+    }
+  }
+
+  // POST /api/duels/:id/forfeit
+  {
+    const m = pathname.match(/^\/api\/duels\/([^/]+)\/forfeit$/);
+    if (m && method === 'POST') {
+      const playerAuth = getPlayerFromReq(req);
+      if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+      const r = dbDuel.forfeit(db.getDb(), m[1], playerAuth.id);
+      if (r.code !== 'OK') return err(res, r.code, 400, r.code);
+      return json(res, { ok: true, code: 'OK' });
+    }
+  }
+
+  // GET /api/friends/history?limit=
+  if (pathname === '/api/friends/history' && method === 'GET') {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    const limit = Math.min(50, Math.max(1, Number(query.limit) || 20));
+    const hist = dbDuel.history(db.getDb(), playerAuth.id, limit);
+    return json(res, { ok: true, code: 'OK', history: hist });
   }
 
   // Admin Routes

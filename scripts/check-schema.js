@@ -34,7 +34,16 @@ const requiredTables = [
   'weekly_reports',
   'report_shares',
   'class_raids',
-  'class_raid_damages'
+  'class_raid_damages',
+  // Fitur v7
+  'player_presence',
+  'friend_requests',
+  'friendships',
+  'duels',
+  'duel_questions',
+  'duel_answers',
+  'duel_skill_uses',
+  'duel_events'
 ];
 
 for (const reqT of requiredTables) {

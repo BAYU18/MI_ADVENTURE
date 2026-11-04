@@ -410,8 +410,12 @@ async function checkActiveSession() {
 }
 
 /* ---------- Screen Router ---------- */
-const Screens = {};
+const Screens = window.Screens || {};
+window.Screens = Screens;
+window.API = API;
+window.Player = Player;
 function go(name, params = {}) {
+  window.go = go;
   if (name !== 'auth' && !Player.data) {
     return go('auth');
   }
@@ -1243,12 +1247,18 @@ Screens.home = {
         <h1 class="brand" style="margin-top:-6px;font-size:1.6rem">Petualangan<br>Pelajar</h1>
         <p class="tagline" style="margin-bottom:6px">Kalahkan monster bos dengan kecerdasanmu!</p>
 
-        <!-- 8 Ubin Navigasi Responsif -->
+        <!-- Ubin Navigasi Responsif -->
         <div class="home-tiles-grid">
           <button class="menu-tile highlight" id="m-play" data-testid="menu-play">
             <span class="tile-icon">⚔️</span>
             <span class="tile-title">Petualangan</span>
             <span class="tile-desc">Lawan Bos</span>
+          </button>
+          <button class="menu-tile highlight-friends" id="m-friends" data-testid="menu-friends">
+            <span class="tile-icon">👥</span>
+            <span class="tile-title">Pertemanan</span>
+            <span class="tile-desc">Duel & Teman</span>
+            <span id="friends-home-badge" class="badge-count" style="display:none">0</span>
           </button>
           <button class="menu-tile" id="m-practice" data-testid="menu-practice">
             <span class="tile-icon">📚</span>
@@ -1306,6 +1316,8 @@ Screens.home = {
     };
 
     $('#m-play').onclick = () => { if (window.Sfx) Sfx.play('tap'); go('subjects'); };
+    const mFriends = $('#m-friends');
+    if (mFriends) mFriends.onclick = () => { if (window.Sfx) Sfx.play('tap'); go('friends'); };
     $('#m-report').onclick = () => { if (window.Sfx) Sfx.play('tap'); go('report'); };
     $('#m-practice').onclick = () => { if (window.Sfx) Sfx.play('tap'); go('subjects', { mode: 'PRACTICE' }); };
     $('#m-profile').onclick = () => { if (window.Sfx) Sfx.play('tap'); go('profil', { tab: 'ringkasan' }); };
@@ -1315,6 +1327,15 @@ Screens.home = {
     $('#m-dex').onclick = () => { if (window.Sfx) Sfx.play('tap'); go('dex'); };
     $('#m-settings').onclick = () => { if (window.Sfx) Sfx.play('tap'); go('settings'); };
     $('#btn-switch-user').onclick = () => Screens.home.openAuthModal();
+
+    API.req('/api/duels/invites').then(res => {
+      const count = res.invites?.length || 0;
+      const bEl = $('#friends-home-badge');
+      if (bEl && count > 0) {
+        bEl.textContent = count;
+        bEl.style.display = 'inline-block';
+      }
+    }).catch(() => {});
   },
 
   async openAuthModal() {
