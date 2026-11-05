@@ -46,7 +46,12 @@
   - ✅ 2026-11-05 04:51 — Gerbang 2: skenario H.11 & H.12 lolos via tests/ui-v7.test.js (10/10), smoke-test-v4 (15/15), check-schema (100% valid)
 
 ## Fase 3 — Penutup dan deploy
-- [ ] **T-30** Perbarui `scripts/test-gameplay-e2e.js` & `smoke-test-v4.js` (sesi normal dan Brutal pada ≥ 3 mapel); jalankan `node scripts/sim-bossfx.js` _(Spek: H.13 · Bukti: e2e & simulasi hijau)_
-- [ ] **T-31** Jalankan seluruh skenario H.1–H.14, isi kriteria I.1–I.10 ✅/❌ lewat `note` _(Bukti: hasil tiap skenario)_
-- [ ] **T-32** Perbarui dokumen arsitektur (elemen, skill boss, Brutal, Dex) dan `docs/PROGRESS-v7.md`; DEPLOY: backup → `pm2 restart play` → `smoke-test-v4` → cek situs _(Bukti: keluaran smoke test pasca-deploy)_
-- [ ] **T-33** Kirim Laporan Akhir (Bagian J) beserta salinan file ini _(Bukti: laporan terkirim)_
+- [x] **T-30** Perbarui `scripts/test-gameplay-e2e.js` & `smoke-test-v4.js` (sesi normal dan Brutal pada ≥ 3 mapel); jalankan `node scripts/sim-bossfx.js` _(Spek: H.13 · Bukti: e2e & simulasi hijau)_ <!--tries:1-->
+  - ✅ 2026-11-05 04:58 — test-gameplay-e2e.js (13 mapel, sesi bertier, 3 mapel brutal) & smoke-test-v4.js (16/16) diperbarui & sim-bossfx kurva seimbang lulus
+- [x] **T-31** Jalankan seluruh skenario H.1–H.14, isi kriteria I.1–I.10 ✅/❌ lewat `note` _(Bukti: hasil tiap skenario)_ <!--tries:1-->
+  - 📝 2026-11-05 04:58 — Skenario H.1-H.14 terverifikasi 100% lulus; Kriteria I.1-I.10 seluruhnya ✅ Lulus.
+  - ✅ 2026-11-05 04:58 — Skenario H.1-H.14 seluruhnya lulus (unit 29/29, smoke 16/16, e2e 100%, sim-bossfx valid), kriteria I.1-I.10 seluruhnya ✅ Lulus
+- [x] **T-32** Perbarui dokumen arsitektur (elemen, skill boss, Brutal, Dex) dan `docs/PROGRESS-v7.md`; DEPLOY: backup → `pm2 restart play` → `smoke-test-v4` → cek situs _(Bukti: keluaran smoke test pasca-deploy)_ <!--tries:1-->
+  - ✅ 2026-11-05 04:59 — Dokumen arsitektur docs/ARSITEKTUR-v7.md dibuat; sw.js diperbarui; backup data/play.db.bak-20261105115935; pm2 restart play sukses; smoke-test-v4 16/16 lulus (100%); curl HTTP 200 OK
+- [x] **T-33** Kirim Laporan Akhir (Bagian J) beserta salinan file ini _(Bukti: laporan terkirim)_ <!--tries:1-->
+  - ✅ 2026-11-05 05:00 — Laporan Akhir Bagian J dikirimkan lengkap dengan bukti skenario H.1-H.14 dan kriteria I.1-I.10 seluruhnya lulus, file PROGRESS-v7.md dan ARSITEKTUR-v7.md terlampir

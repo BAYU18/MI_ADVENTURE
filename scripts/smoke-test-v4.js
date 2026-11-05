@@ -6,6 +6,7 @@
 
 const assert = require('node:assert/strict');
 const http = require('node:http');
+const db = require('../lib/db.js');
 
 const BASE_URL = process.env.TEST_URL || 'http://localhost:3002';
 
@@ -36,7 +37,7 @@ function request(method, path, body = null, headers = {}) {
 
 async function runAllTests() {
   console.log('====================================================');
-  console.log('🚀 MEMULAI 15 KRITERIA UJI ASAP PETUALANGAN PELAJAR v4');
+  console.log('🚀 MEMULAI 16 KRITERIA UJI ASAP PETUALANGAN PELAJAR v4');
   console.log(`Target Server: ${BASE_URL}`);
   console.log('====================================================\n');
 
@@ -57,7 +58,7 @@ async function runAllTests() {
 
   // Generate unique test player
   const testPin = '888888';
-  const testNick = 'TesterV4_' + Math.floor(Math.random() * 10000);
+  const testNick = 'TesterV4_' + Date.now();
   let playerToken = '';
   let playerId = '';
 
@@ -169,7 +170,7 @@ async function runAllTests() {
     // ----------------------------------------------------
     // UJI 10: 3 Starter Skill & Loadout awal tersedia otomatis
     // ----------------------------------------------------
-    const freshNick = 'FreshPlayer_' + Math.floor(Math.random() * 10000);
+    const freshNick = 'FreshPlayer_' + Date.now();
     const freshLog = await authPlayer(freshNick);
     const freshTok = freshLog.body.token;
     const freshSk = (await request('GET', '/api/skills', null, { 'X-Player-Token': freshTok })).body;
@@ -220,19 +221,36 @@ async function runAllTests() {
     const u15Ok = unauthProf.status === 401 && unauthStart.status === 401;
     record('UJI-15', 'Non-regresi: Endpoint sensitif wajib autentikasi (HTTP 401)', u15Ok, 'Auth guard 100% aman');
 
+    // ----------------------------------------------------
+    // UJI 16: Mode Brutal: terkunci di Lv < 5 (403), aktif saat Lv >= 5 (v7)
+    // ----------------------------------------------------
+    // Selesaikan sesi aktif sebelumnya sebelum uji start sesi baru
+    if (battleSess?.id) {
+      await request('POST', `/api/game/${battleSess.id}/abandon`, {}, { 'X-Player-Token': freshTok });
+    }
+
+    const brutalLocked = await request('POST', '/api/game/start', { subjectId: 'matematika', brutal: true }, { 'X-Player-Token': freshTok });
+    const u16Locked = brutalLocked.status === 403 && (brutalLocked.body?.error?.code === 'BRUTAL_LOCKED' || brutalLocked.body?.code === 'BRUTAL_LOCKED');
+
+    db.getDb().prepare('UPDATE players SET xp = 2500 WHERE id = ?').run(freshLog.body.player.id);
+    const brutalStart = await request('POST', '/api/game/start', { subjectId: 'matematika', brutal: true }, { 'X-Player-Token': freshTok });
+    const brutalSess = brutalStart.body?.session;
+    const u16Unlocked = (brutalStart.status === 200 || brutalStart.status === 201) && Boolean(brutalSess?.brutal) && Boolean(brutalSess?.bossElement || brutalStart.body?.boss?.element);
+    record('UJI-16', 'Mode Brutal: terkunci di Lv < 5 (403), aktif saat Lv >= 5 (brutal=1 & elemen)', u16Locked && u16Unlocked, `Locked: ${u16Locked ? '403 OK' : 'FAIL'}, Unlocked: ${u16Unlocked ? 'brutal=1 OK' : 'FAIL'}`);
+
   } catch (err) {
     console.error('Fatal test error:', err);
   }
 
   console.log('\n====================================================');
-  console.log(`🏁 HASIL AKHIR UJI ASAP: ${passedCount}/15 LULUS (${Math.round((passedCount/15)*100)}%)`);
+  console.log(`🏁 HASIL AKHIR UJI ASAP: ${passedCount}/16 LULUS (${Math.round((passedCount/16)*100)}%)`);
   console.log('====================================================');
 
-  if (passedCount === 15) {
+  if (passedCount === 16) {
     console.log('🎉 SELURUH KRITERIA UJI ASAP VERSI 4 BERHASIL DILALUI DENGAN SEMPURNA!\n');
     process.exit(0);
   } else {
-    console.error(`⚠️ Terdeteksi ${15 - passedCount} kegagalan uji asap.\n`);
+    console.error(`⚠️ Terdeteksi ${16 - passedCount} kegagalan uji asap.\n`);
     process.exit(1);
   }
 }

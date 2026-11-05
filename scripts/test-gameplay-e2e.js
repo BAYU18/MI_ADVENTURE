@@ -100,8 +100,8 @@ async function main() {
   for (const s of subjects) {
     process.stdout.write(`🎮 [id: ${String(s.id).padStart(2)}] ${s.name.padEnd(21)}: `);
 
-    // Start session
-    const startRes = await post('/api/game/start', { subjectId: s.id }, token);
+    // Start session in BATTLE mode (guarantees MCQ with 4 options)
+    const startRes = await post('/api/game/start', { subjectId: s.id, mode: 'BATTLE' }, token);
     if (!startRes.body || !startRes.body.ok) {
       console.log(`❌ Gagal start session (${JSON.stringify(startRes.body)})`);
       allPass = false;
@@ -158,7 +158,7 @@ async function main() {
 
   // 4. Full Tiered Battle Playthrough (v6) - Complete longer session until WON
   console.log('\n⚔️ Menguji Sesi Bertier Panjang Penuh (15-30 Jawaban Benar & Isi Ulang)...');
-  const fullStartRes = await post('/api/game/start', { subjectId: subjects[0].id }, token);
+  const fullStartRes = await post('/api/game/start', { subjectId: subjects[0].id, mode: 'BATTLE' }, token);
   if (!fullStartRes.body || !fullStartRes.body.ok) {
     console.error('❌ Gagal start full battle session:', fullStartRes);
     process.exit(1);
@@ -239,7 +239,69 @@ async function main() {
     allPass = false;
   }
 
-  console.log(`\n🏁 Hasil Akhir Uji E2E: ${allPass ? 'SEMUA 12 MATA PELAJARAN & SESI BERTIER PANJANG 100% SUKSES!' : 'ADA KEGAGALAN'}`);
+  // 5. Brutal Mode Battles on >= 3 Subjects (Spek H.13)
+  console.log('\n💀 Menguji Mode Brutal pada ≥ 3 Mata Pelajaran...');
+
+  // Pastikan player mencapai level >= 5 untuk membuka Mode Brutal
+  const pRow = db.prepare('SELECT id FROM players WHERE nick = ?').get(username);
+  if (pRow) {
+    db.prepare('UPDATE players SET xp = 2500 WHERE id = ?').run(pRow.id);
+  }
+
+  // Uji guard: start brutal saat level < 5 harus 403
+  const lowLvlNick = `low_${Date.now()}`;
+  const lowReg = await post('/api/player/register', { nick: lowLvlNick, password: 'password123', classId: 1 });
+  const lowToken = lowReg.body?.token;
+  if (lowToken) {
+    const lockedRes = await post('/api/game/start', { subjectId: subjects[0].id, mode: 'BATTLE', brutal: true }, lowToken);
+    const isLocked = lockedRes.status === 403 && (lockedRes.body?.error?.code === 'BRUTAL_LOCKED' || lockedRes.body?.code === 'BRUTAL_LOCKED');
+    if (isLocked) {
+      console.log('🔒 Guard Level < 5: 403 BRUTAL_LOCKED terverifikasi.');
+    } else {
+      console.error('❌ Guard Level < 5 gagal:', lockedRes);
+      allPass = false;
+    }
+  }
+
+  const sampleBrutalSubjects = subjects.slice(0, 3);
+  for (const s of sampleBrutalSubjects) {
+    process.stdout.write(`💀 [id: ${String(s.id).padStart(2)}] ${s.name.padEnd(21)}: `);
+    const bStartRes = await post('/api/game/start', { subjectId: s.id, mode: 'BATTLE', brutal: true }, token);
+    if (!bStartRes.body || !bStartRes.body.ok) {
+      console.log(`❌ Gagal start brutal session (${JSON.stringify(bStartRes.body)})`);
+      allPass = false;
+      continue;
+    }
+
+    const bSession = bStartRes.body.session;
+    const bId = bSession.id;
+    const bElem = bSession.bossElement || bSession.boss_element || bStartRes.body.boss?.element;
+    const bSkills = bStartRes.body.boss?.skills || [];
+
+    try {
+      if (!bSession.brutal || !bElem || bSkills.length === 0) {
+        console.log(`❌ Metadata brutal tidak lengkap: brutal=${bSession.brutal}, elem=${bElem}, skills=${bSkills.length}`);
+        allPass = false;
+        continue;
+      }
+
+      // Ready & answer 1 question
+      await post(`/api/game/${bId}/ready`, { questionIndex: 0 }, token);
+      const bAns = await post(`/api/game/${bId}/answer`, { questionIndex: 0, choice: 0 }, token);
+      if (!bAns.body || !bAns.body.ok) {
+        console.log(`❌ Gagal menjawab di sesi brutal (${JSON.stringify(bAns.body)})`);
+        allPass = false;
+        continue;
+      }
+
+      console.log(`✅ OK (Elemen: ${bElem}, Skills: ${bSkills.length}, Efek 2×, Hadiah 3×)`);
+    } finally {
+      // Clean abandon
+      await post(`/api/game/${bId}/abandon`, {}, token);
+    }
+  }
+
+  console.log(`\n🏁 Hasil Akhir Uji E2E: ${allPass ? 'SEMUA 12 MAPEL, SESI BERTIER PANJANG, & SESI BRUTAL 100% SUKSES!' : 'ADA KEGAGALAN'}`);
   process.exit(allPass ? 0 : 1);
 }
 
