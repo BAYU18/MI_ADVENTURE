@@ -128,10 +128,9 @@
     const elKey = (B && B.elementForTheme(m.theme)) || 'nature';
     const elInfo = (B && B.ELEMENTS[elKey]) || { name: 'Alam', icon: '🌿', color: '#22C55E', title: 'Roh Rimba' };
 
-    // 4 Common (1 skill), 3 Rare (2 skill), 2 Epic (3 skill), 1 Legend (4 skill)
-    const skillCount = meta.skills;
-    const allSkills = (B && B.skillsFor(elKey, 'legend')) || [];
-    const skillsToShow = allSkills.slice(0, skillCount).map(s => {
+    // 4 Common (1 skill), 3 Rare (2 skill), 2 Epic (3 skill), 1 Legend (4 skill) dengan variasi unik per monster
+    const monsterSkills = (B && B.skillsFor(elKey, mTier, m.id)) || [];
+    const skillsToShow = monsterSkills.map(s => {
       const desc = B ? B.describeSkill(s, mTier, brutal) : s;
       return {
         id: s.id,

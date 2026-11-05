@@ -95,3 +95,46 @@ test('simulasi keseimbangan (kasus terburuk: pemain tanpa skill) — pita peneri
   assert.ok(l.avg > lb.avg);                                                                       // Brutal memang lebih sulit
   for (const t of B.TIERS) for (const br of [false, true]) { const x = avg(t, br, 0.9); assert.ok(x.avg >= 0.97 && x.min >= 0.88, `${t}/${br} @90%`); }
 });
+
+test('variasi skill: monster common, rare, epic memiliki skill & kombinasi berbeda, tidak sama persis', () => {
+  // Uji setiap elemen
+  for (let themeIdx = 0; themeIdx < 10; themeIdx++) {
+    const baseId = themeIdx * 10;
+    const el = B.ELEMENT_ORDER[themeIdx];
+
+    // 1. 4 Monster Common (#1..#4) memiliki skill yang 100% berbeda
+    const commonSkills = [1, 2, 3, 4].map(num => {
+      const mId = baseId + num;
+      const sk = B.skillsFor(el, 'common', mId);
+      assert.equal(sk.length, 1, `Monster #${mId} harus punya 1 skill common`);
+      return sk[0].id;
+    });
+    const uniqueCommon = new Set(commonSkills);
+    assert.equal(uniqueCommon.size, 4, `4 Monster Common di tema ${el} harus punya 4 skill berbeda`);
+
+    // 2. 3 Monster Rare (#5..#7) memiliki kombinasi 2 skill yang berbeda
+    const rareCombos = [5, 6, 7].map(num => {
+      const mId = baseId + num;
+      const sk = B.skillsFor(el, 'rare', mId);
+      assert.equal(sk.length, 2, `Monster #${mId} harus punya 2 skill rare`);
+      return sk.map(s => s.id).sort().join('+');
+    });
+    const uniqueRare = new Set(rareCombos);
+    assert.equal(uniqueRare.size, 3, `3 Monster Rare di tema ${el} harus punya kombinasi skill berbeda`);
+
+    // 3. 2 Monster Epic (#8..#9) memiliki kombinasi 3 skill yang berbeda
+    const epicCombos = [8, 9].map(num => {
+      const mId = baseId + num;
+      const sk = B.skillsFor(el, 'epic', mId);
+      assert.equal(sk.length, 3, `Monster #${mId} harus punya 3 skill epic`);
+      return sk.map(s => s.id).sort().join('+');
+    });
+    const uniqueEpic = new Set(epicCombos);
+    assert.equal(uniqueEpic.size, 2, `2 Monster Epic di tema ${el} harus punya kombinasi skill berbeda`);
+
+    // 4. Monster Legend (#10) memiliki seluruh 4 skill
+    const legendSkills = B.skillsFor(el, 'legend', baseId + 10);
+    assert.equal(legendSkills.length, 4, `Monster Legend #${baseId + 10} harus punya 4 skill`);
+  }
+});
+

@@ -1985,7 +1985,7 @@ Screens.battle = {
     const elemKey = s.bossElement || s.boss_element || (s.boss && s.boss.element) || (window.BossSkills && BossSkills.elementForTheme(monsterObj.theme || s.subject?.monster_theme));
     const elementInfo = (window.BossSkills && BossSkills.ELEMENTS[elemKey]) || null;
     const isBrutal = Boolean(s.brutal);
-    const bossSkills = s.boss?.skills || (window.BossSkills && elemKey && BossSkills.skillsFor(elemKey, tier).map(sk => ({ ...BossSkills.describeSkill(sk, tier, isBrutal), textBrutal: BossSkills.describeSkill(sk, tier, true).text }))) || [];
+    const bossSkills = s.boss?.skills || (window.BossSkills && elemKey && BossSkills.skillsFor(elemKey, tier, monsterObj.id).map(sk => ({ ...BossSkills.describeSkill(sk, tier, isBrutal), textBrutal: BossSkills.describeSkill(sk, tier, true).text }))) || [];
 
     app.innerHTML = `
       <section class="screen active stack ${isBrutal ? 'battle-brutal' : ''}" data-testid="battle-root" style="gap:8px">
@@ -3614,7 +3614,8 @@ Screens.battle = {
     const tier = (s.bossTier || s.boss?.tier || s.boss_tier || 'common').toLowerCase();
     const isBrutal = Boolean(s.brutal);
     const elemKey = s.bossElement || s.boss_element || (s.boss && s.boss.element) || (window.BossSkills && BossSkills.elementForTheme(s.subject?.monster_theme || s.monster?.theme));
-    const skills = s.boss?.skills || (window.BossSkills && elemKey && BossSkills.skillsFor(elemKey, tier).map(sk => ({ ...BossSkills.describeSkill(sk, tier, isBrutal), textBrutal: BossSkills.describeSkill(sk, tier, true).text }))) || [];
+    const monsterId = s.monster?.id || s.boss?.id || s.monster_id;
+    const skills = s.boss?.skills || (window.BossSkills && elemKey && BossSkills.skillsFor(elemKey, tier, monsterId).map(sk => ({ ...BossSkills.describeSkill(sk, tier, isBrutal), textBrutal: BossSkills.describeSkill(sk, tier, true).text }))) || [];
     const sk = skills.find(x => x.id === skillId) || (window.BossSkills && BossSkills.SKILL_INDEX[skillId]);
     if (!sk) return;
 
@@ -4206,7 +4207,7 @@ Screens.profil = {
               const B = typeof BossSkills !== 'undefined' ? BossSkills : null;
               const elKey = B ? B.elementForTheme(m.theme) : 'nature';
               const elInfo = (B && B.ELEMENTS[elKey]) || { name: 'Alam', icon: '🌿', color: '#22c55e' };
-              const skills = B ? B.skillsFor(elKey, tier) : [];
+              const skills = B ? B.skillsFor(elKey, tier, m.id) : [];
 
               const isThisSlot = m.id === currentMonsterId;
               const equippedSlotIdx = bossLoadout.rawSlots ? bossLoadout.rawSlots.indexOf(m.id) : -1;
@@ -6145,9 +6146,8 @@ Screens.dex = {
     const mTier = (window.DexCards && DexCards.getMonsterTier) ? DexCards.getMonsterTier(m) : (m.tier || 'common');
     const meta = (window.DexCards && DexCards.TIER_META) ? (DexCards.TIER_META[mTier] || DexCards.TIER_META.common) : { name: 'Common', icon: '⚪', color: '#94a3b8', skills: 1 };
 
-    // Sesuai rarity: Common = 1 skill, Rare = 2 skill, Epic = 3 skill, Legend = 4 skill
-    const allSkills = (B && B.skillsFor(elKey, 'legend')) || [];
-    const monsterSkills = allSkills.slice(0, meta.skills);
+    // Sesuai rarity: Common = 1 skill, Rare = 2 skill, Epic = 3 skill, Legend = 4 skill (variasi unik per monster)
+    const monsterSkills = (B && B.skillsFor(elKey, mTier, m.id)) || [];
 
     // Siluet hitam untuk boss yang belum terbuka
     const monsterSvg = isKnown

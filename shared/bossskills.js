@@ -124,7 +124,32 @@
   /* ---------- Nilai efek ---------- */
   const scale = (tier, brutal) => (TIER_POWER[tier] || 1) * (brutal ? BRUTAL.skillMult : 1);
   function effectValue(skill, tier, brutal) { const a = ARCH[skill.type]; return Math.min(a.cap, (skill.base == null ? a.base : skill.base) * scale(tier, brutal)); }
-  const skillsFor = (element, tier) => (KITS[element] || []).slice(0, SKILL_COUNT[tier] || 1);
+  function skillsFor(element, tier, monsterId) {
+    const kit = KITS[element] || [];
+    if (!kit.length) return [];
+    const count = SKILL_COUNT[tier] || 1;
+    if (monsterId == null) {
+      return kit.slice(0, count);
+    }
+    const mId = Number(monsterId);
+    const offset = (!isNaN(mId) && mId > 0) ? ((mId - 1) % 10) : 0;
+
+    if (tier === 'common') {
+      const idx = offset % kit.length;
+      return [kit[idx]].filter(Boolean);
+    } else if (tier === 'rare') {
+      const rareIdx = Math.max(0, offset - 4) % 3;
+      if (rareIdx === 0) return [kit[0], kit[1 % kit.length]].filter(Boolean);
+      if (rareIdx === 1) return [kit[1 % kit.length], kit[2 % kit.length]].filter(Boolean);
+      return [kit[2 % kit.length], kit[3 % kit.length]].filter(Boolean);
+    } else if (tier === 'epic') {
+      const epicIdx = Math.max(0, offset - 7) % 2;
+      if (epicIdx === 0) return [kit[0], kit[1 % kit.length], kit[2 % kit.length]].filter(Boolean);
+      return [kit[1 % kit.length], kit[2 % kit.length], kit[3 % kit.length]].filter(Boolean);
+    } else {
+      return kit.slice(0, count);
+    }
+  }
   const every = (s) => s.every || 1;
   const hasSkill = (skills, type) => skills.filter((s) => s.type === type);
 
@@ -133,16 +158,16 @@
   // Peringatan jurus untuk soal ke-idx (1-based). Deterministik → tanpa state tambahan; dihitung ulang saat menjawab.
   function telegraphFor(o) {
     let best = null;
-    for (const s of hasSkill(skillsFor(o.element, o.tier), 'charged_strike')) {
+    for (const s of hasSkill(skillsFor(o.element, o.tier, o.monsterId), 'charged_strike')) {
       if (o.idx % every(s) !== 0) continue;
       const v = effectValue(s, o.tier, o.brutal); const m = 1 + v;
       if (!best || m > best.mult) best = { skillId: s.id, name: s.name, icon: s.icon, mult: m, every: s.every };
     }
     return best;
   }
-  // Dipanggil saat sebuah soal DISAJIKAN. o: { element,tier,brutal,idx,fx,monsterDamage,playerHp }
+  // Dipanggil saat sebuah soal DISAJIKAN. o: { element,tier,brutal,idx,fx,monsterDamage,playerHp,monsterId }
   function onQuestionStart(o) {
-    const skills = skillsFor(o.element, o.tier); const fx = Object.assign(newFx(), o.fx); const events = []; let dotDamage = 0;
+    const skills = skillsFor(o.element, o.tier, o.monsterId); const fx = Object.assign(newFx(), o.fx); const events = []; let dotDamage = 0;
     if (fx.dotTurns > 0) {
       dotDamage = clamp(Math.ceil(o.monsterDamage * fx.dotFrac), 0, Math.max(0, o.playerHp - 1));   // DoT tidak pernah mengalahkan pemain
       fx.dotTurns -= 1; if (dotDamage > 0) events.push({ type: 'dot', skillId: fx.dotSkill, damage: dotDamage });
@@ -156,9 +181,9 @@
   }
   // Waktu akhir (dtk) dengan lantai pengaman.
   const applyTime = (baseSec, timeMult) => (timeMult >= 1 ? baseSec : Math.max(Math.min(baseSec, LIMITS.minTimeSec), Math.round(baseSec * timeMult)));
-  // Dipanggil saat jawaban SALAH. o: { element,tier,brutal,idx,phase,bossHpRatio,baseDamage,playerMaxHp,energy,fx }
+  // Dipanggil saat jawaban SALAH. o: { element,tier,brutal,idx,phase,bossHpRatio,baseDamage,playerMaxHp,energy,fx,monsterId }
   function onWrong(o) {
-    const skills = skillsFor(o.element, o.tier); const fx = Object.assign(newFx(), o.fx); const events = []; let mult = 1; let shieldMult = 1; let energyLoss = 0;
+    const skills = skillsFor(o.element, o.tier, o.monsterId); const fx = Object.assign(newFx(), o.fx); const events = []; let mult = 1; let shieldMult = 1; let energyLoss = 0;
     for (const s of skills) {
       const v = effectValue(s, o.tier, o.brutal);
       if (s.type === 'rage_damage') { const m = 1 + v * (1 - clamp(o.bossHpRatio, 0, 1)); if (m > 1.001) { mult *= m; events.push({ type: 'rage', skillId: s.id, mult: m }); } }
@@ -173,9 +198,9 @@
     if (energyLoss > 0) events.push({ type: 'energy', skillId: (hasSkill(skills, 'energy_siphon')[0] || {}).id, amount: energyLoss });
     return { damage: Math.max(1, damage), shieldMult, energyLoss, fx, events };
   }
-  // Pengubah sisi-skill pemain. o: { element,tier,brutal,phase }
+  // Pengubah sisi-skill pemain. o: { element,tier,brutal,phase,monsterId }
   function playerMods(o) {
-    const skills = skillsFor(o.element, o.tier); let healMult = 1, comboBonusMult = 1, extraCost = 0;
+    const skills = skillsFor(o.element, o.tier, o.monsterId); let healMult = 1, comboBonusMult = 1, extraCost = 0;
     for (const s of skills) {
       const v = effectValue(s, o.tier, o.brutal);
       if (s.type === 'heal_curse') healMult *= 1 - v;

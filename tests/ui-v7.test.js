@@ -232,4 +232,40 @@ test('H.12: UI Pertempuran & Mode Brutal (Spek E.1, E.2)', async (t) => {
     assert.ok(css.includes('.duel-buff-chip'), 'style.css memuat .duel-buff-chip');
     assert.ok(css.includes('.buff-pulse'), 'style.css memuat .buff-pulse');
   });
+
+  await t.test('7. Variasi Skill Unik Monster Common, Rare, dan Epic di DexCards dan Monster Detail', () => {
+    const dexcardsPath = path.join(__dirname, '..', 'public', 'js', 'dexcards.js');
+    const dexcardsJs = fs.readFileSync(dexcardsPath, 'utf8');
+    assert.ok(dexcardsJs.includes('B.skillsFor(elKey, mTier, m.id)'), 'dexcards.js memanggil skillsFor dengan m.id');
+
+    // Uji render kartu monster #1 (Lumutra) vs #2 (Akarok) -> Common beda skill
+    const DexCards = require('../public/js/dexcards.js');
+    const mockHutanMonsters = [
+      { id: 1, name: 'Lumutra', theme: 'hutan', tier: 'common', encountered: 1, defeats: 1 },
+      { id: 2, name: 'Akarok', theme: 'hutan', tier: 'common', encountered: 1, defeats: 1 },
+      { id: 5, name: 'Daunjir', theme: 'hutan', tier: 'rare', encountered: 1, defeats: 1 },
+      { id: 6, name: 'Burunggar', theme: 'hutan', tier: 'rare', encountered: 1, defeats: 1 },
+      { id: 8, name: 'Rimbazo', theme: 'hutan', tier: 'epic', encountered: 1, defeats: 1 },
+      { id: 9, name: 'Beringkus', theme: 'hutan', tier: 'epic', encountered: 1, defeats: 1 }
+    ];
+
+    const card1 = DexCards.renderList([mockHutanMonsters[0]]);
+    const card2 = DexCards.renderList([mockHutanMonsters[1]]);
+    assert.ok(card1.includes('Racun Duri'), 'Lumutra membawa skill Racun Duri');
+    assert.ok(!card1.includes('Akar Membelit'), 'Lumutra TIDAK membawa Akar Membelit');
+    assert.ok(card2.includes('Akar Membelit'), 'Akarok membawa skill Akar Membelit');
+    assert.ok(!card2.includes('Racun Duri'), 'Akarok TIDAK membawa Racun Duri');
+
+    // Uji Rare #5 vs #6
+    const card5 = DexCards.renderList([mockHutanMonsters[2]]);
+    const card6 = DexCards.renderList([mockHutanMonsters[3]]);
+    assert.ok(card5.includes('Racun Duri') && card5.includes('Akar Membelit'), 'Daunjir membawa Racun Duri + Akar Membelit');
+    assert.ok(card6.includes('Akar Membelit') && card6.includes('Serbuk Lelap'), 'Burunggar membawa Akar Membelit + Serbuk Lelap');
+
+    // Uji Epic #8 vs #9
+    const card8 = DexCards.renderList([mockHutanMonsters[4]]);
+    const card9 = DexCards.renderList([mockHutanMonsters[5]]);
+    assert.ok(card8.includes('Racun Duri') && !card8.includes('Lumut Penghisap'), 'Rimbazo membawa Racun Duri');
+    assert.ok(!card9.includes('Racun Duri') && card9.includes('Lumut Penghisap'), 'Beringkus membawa Lumut Penghisap');
+  });
 });

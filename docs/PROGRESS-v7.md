@@ -137,3 +137,25 @@
       - 14 pengujian unit khusus loadout bos PvP (slot unlock, rarity rules, defeat requirements, getDuelState, bossSkillsTriggered) lulus 100%.
       - Seluruh 64 tes duel, UI, dan skill boss lulus 100%.
   - ✅ 2026-11-05 14:32 — Seluruh 64 unit tests 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.
+- [x] **T-46** Variasi Skill Unik Monster Common, Rare, dan Epic (Tidak Sama Persis):
+  - **Permintaan**: Buat skill-skill monster common, rare, dan epic punya variasi yang berbeda, jangan dibuat sama persis.
+  - **Implementasi**:
+    - **Arsitektur Variasi Skill (`shared/bossskills.js`)**:
+      - Memperbarui fungsi `skillsFor(element, tier, monsterId)` dengan penentuan deterministik berbasis offset monster di temanya (`(mId - 1) % 10`):
+        - **Common (4 monster/tema, offset 0..3)**: Setiap monster membawa **1 skill yang 100% berbeda** (Skill 0, Skill 1, Skill 2, Skill 3).
+        - **Rare (3 monster/tema, offset 4..6)**: Setiap monster membawa **kombinasi 2 skill yang berbeda** ([Skill 0, 1], [Skill 1, 2], [Skill 2, 3]).
+        - **Epic (2 monster/tema, offset 7..8)**: Setiap monster membawa **kombinasi 3 skill yang berbeda** ([Skill 0, 1, 2], [Skill 1, 2, 3]).
+        - **Legend (1 monster/tema, offset 9)**: Membawa seluruh **4 skill penuh**.
+      - Menjamin kompatibilitas mundur saat `monsterId == null` tetap mengembalikan default kit.
+      - Meneruskan `monsterId` ke fungsi hook pertarungan: `telegraphFor`, `onQuestionStart`, `onWrong`, `playerMods`.
+    - **Backend & Hook Server (`lib/bossfx.js`, `lib/db.js`)**:
+      - `lib/bossfx.js`: Menyertakan `monsterId: row.monster_id` pada `ctxOf(row)` dan `publicView(row)` sehingga sesi pertarungan PvE menggunakan skill variasi unik monster yang dihadapi.
+      - `lib/db.js`: `getDuelBossLoadoutDetails` dan `getPlayerEquippedBossSkills` meneruskan `mId` ke `BossSkills.skillsFor(elKey, tier, mId)`.
+    - **Antarmuka Klien & Dex (`public/js/dexcards.js`, `public/js/app.js`)**:
+      - `public/js/dexcards.js`: Kartu monster kini memanggil `BossSkills.skillsFor(elKey, mTier, m.id)` sehingga tiap kartu monster di Monster Dex menampilkan variasi jurus masing-masing.
+      - `public/js/app.js`: Diperbarui pada tampilan battle HUD (`Screens.battle.render`), sheet info skill (`showBossSkillDetail`), modal pasang bos slot PvP (`openSelectBossForSlotModal`), dan modal detail bos Monster Dex (`openBossDetailModal`).
+    - **Pengujian & Verifikasi (`tests/bossskills.test.js`, `tests/ui-v7.test.js`)**:
+      - Ditambahkan uji unit di `tests/bossskills.test.js` memvalidasi keunikan skill ke-10 tema habitat (4 Common beda, 3 Rare kombinasi beda, 2 Epic kombinasi beda).
+      - Ditambahkan subtest di `tests/ui-v7.test.js` memverifikasi rendering kartu di Monster Dex (misal #1 Lumutra vs #2 Akarok, #5 Daunjir vs #6 Burunggar, #8 Rimbazo vs #9 Beringkus).
+      - Seluruh 66 unit & integration tests lulus 100%. PM2 restart sukses dan HTTP 200 OK.
+  - ✅ 2026-11-05 14:59 — Seluruh 66 unit tests 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.
