@@ -298,5 +298,12 @@ test('H.12: UI Pertempuran & Mode Brutal (Spek E.1, E.2)', async (t) => {
     assert.ok(css.includes('.btn-open-answersheet'), 'style.css memuat aturan .btn-open-answersheet');
     assert.ok(css.includes('.battle-layout-compact'), 'style.css memuat aturan .battle-layout-compact');
     assert.ok(css.includes('.options.options-grid-2x2'), 'style.css memuat aturan .options.options-grid-2x2');
+
+    // 5. Header Battle: q-counter disembunyikan (soal xx/xx tidak usah muncul) dan battle-hud menampung semua info stat
+    assert.ok(appJs.includes('class="hud battle-hud"'), 'app.js memuat kelas battle-hud');
+    assert.ok(appJs.includes('id="q-counter" style="display:none"'), 'q-counter disembunyikan agar teks Soal xx/xx tidak muncul');
+    assert.ok(css.includes('.battle-hud'), 'style.css memuat aturan .battle-hud');
+    assert.ok(css.includes('.battle-hud .hud-left'), 'style.css memuat aturan .battle-hud .hud-left');
+    assert.ok(css.includes('.battle-hud .hud-right'), 'style.css memuat aturan .battle-hud .hud-right');
   });
 });

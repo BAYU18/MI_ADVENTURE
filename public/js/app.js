@@ -2015,21 +2015,21 @@ Screens.battle = {
     app.innerHTML = `
       <section class="screen active stack battle-layout-${layout} ${isBrutal ? 'battle-brutal' : ''}" data-testid="battle-root" style="gap:8px">
         <!-- TOP HUD -->
-        <div class="hud" style="margin-bottom:0">
-          <button class="icon-btn" id="btn-abandon" title="Menyerah">✕</button>
-          <div style="display:flex;align-items:center;gap:6px">
+        <div class="hud battle-hud" id="battle-hud" style="margin-bottom:0">
+          <div class="hud-left" style="display:flex;align-items:center;gap:5px;flex-shrink:0">
+            <button class="icon-btn" id="btn-abandon" title="Menyerah" style="width:32px;height:32px;min-width:32px">✕</button>
             <div class="chip accent energy-bar" id="energy-gauge" data-testid="energy-bar" style="font-weight:800;display:inline-flex;align-items:center;gap:4px">
               ⚡ <span id="energy-value" data-testid="energy-value">${typeof s.energy === 'object' ? s.energy.value : (s.energy ?? 2)}/${typeof s.energy === 'object' ? s.energy.max : (s.energyMax || 5)}</span>
               <span id="energy-val" style="display:none">${typeof s.energy === 'object' ? s.energy.value : (s.energy ?? 2)}</span>
-              <div class="energy-pips" id="energy-pips" style="display:inline-flex;gap:2px;flex-wrap:wrap;max-width:85px">
+              <div class="energy-pips" id="energy-pips" style="display:inline-flex;gap:2px;align-items:center">
                 ${Screens.battle.renderEnergyPips(typeof s.energy === 'object' ? s.energy.value : (s.energy ?? 2), typeof s.energy === 'object' ? s.energy.max : (s.energyMax || 5))}
               </div>
             </div>
             <span class="combo-meter tier-1" id="combo-meter" data-testid="combo-meter" style="${s.streak >= 3 ? '' : 'display:none'}">🔥 COMBO <span id="combo-n">${s.streak}</span>×!</span>
             <span class="chip accent" id="streak-chip" style="${s.streak >= 2 && s.streak < 3 ? '' : 'display:none'}">🔥 <span id="streak-n">${s.streak}</span></span>
-            <span class="hud-title" id="q-counter">Soal ${s.currentIndex + 1}/${s.totalQuestions}</span>
+            <span id="q-counter" style="display:none">Soal ${s.currentIndex + 1}/${s.totalQuestions}</span>
           </div>
-          <div style="display:flex;align-items:center;gap:6px">
+          <div class="hud-right" style="display:flex;align-items:center;gap:5px;flex-shrink:0">
             <span class="chip info" id="active-shield-chip" style="${((s.flags && s.flags.shield > 0) || (s.shield > 0)) ? '' : 'display:none'}">🛡️ <span id="shield-val">${(s.flags && s.flags.shield) || s.shield || 0}</span></span>
             <span class="chip info" id="player-hp-label">❤️ <span id="player-hp-val">${s.playerHp}</span>/${s.playerMaxHp}</span>
           </div>

@@ -3188,6 +3188,49 @@ body.reduced-motion .boss-telegraph { animation: none; }
    BATTLE LAYOUTS (v7.2 - Opsi Klasik, Bottom Sheet, Kompak)
    ============================================================ */
 
+/* Battle HUD - Header Pertempuran Adaptif di Semua Mode */
+.battle-hud {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+  gap: 4px !important;
+  padding: 0 0 4px 0 !important;
+  margin-bottom: 0 !important;
+  flex-wrap: nowrap !important;
+  overflow: visible !important;
+}
+.battle-hud .hud-left,
+.battle-hud .hud-right {
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  flex-shrink: 0 !important;
+}
+.battle-hud .chip {
+  padding: 3px 8px !important;
+  font-size: 0.78rem !important;
+  border-radius: 99px !important;
+  white-space: nowrap !important;
+}
+.battle-hud #btn-abandon {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.battle-hud .energy-pips {
+  display: inline-flex !important;
+  gap: 2px !important;
+  align-items: center !important;
+}
+.battle-hud #player-hp-label {
+  font-weight: 800 !important;
+}
+
 /* Opsi 2: Mode Baca Penuh + Lembar Jawaban (Bottom Sheet Drawer) */
 .battle-layout-bottom_sheet .boss-card {
   padding: 8px 12px;
