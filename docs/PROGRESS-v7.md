@@ -199,4 +199,16 @@
        - Menambahkan subtest 8 di `tests/ui-v7.test.js` memverifikasi struktur settings, app.js layout renderer, dan CSS rules. Seluruh 30 unit & integration tests lulus 100%.
        - PM2 restart sukses dan verifikasi curl HTTP/2 200 OK.
   - ✅ 2026-11-05 15:56 — Seluruh 30 unit tests 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.
+- [x] **T-49** Perbaikan Header Layar Pertempuran Mobile di Seluruh Mode Battle:
+  - **Permintaan**: Di setiap mode tampilan battle perbaiki bagian header agar semua informasi seperti energy, streak, hp, shield terlihat; untuk soal xx/xx tidak usah muncul.
+  - **Masalah Sebelumnya**: Pada layar smartphone (lebar 360px-412px), teks `Soal xx/xx` di bar atas memakan banyak ruang (~70px) sehingga info HP pemain `❤️ 100/100` terdorong keluar layar (*overflow*) ke kanan.
+  - **Solusi & Implementasi**:
+    1. Menyembunyikan teks `Soal xx/xx` dari header (`#q-counter` diberi `style="display:none"`), sehingga ruang horizontal lega 100% tanpa risiko error referensi DOM di JS.
+    2. Menata ulang header ([`.battle-hud`](file:///home/maman/play/public/css/style.css)) dengan pembagian seimbang:
+       - Sisi Kiri (`.hud-left`): Tombol Keluar `[✕]`, Gauge Energi `⚡ 4/5` beserta pips, dan Indikator Streak / Combo `🔥`.
+       - Sisi Kanan (`.hud-right`): Indikator Perisai `🛡️ N` dan HP Pemain `❤️ HP/MaxHP`.
+    3. Menerapkan `justify-content: space-between`, `flex-wrap: nowrap`, dan padding chip optimal (`3px 8px`, font `0.78rem`) di [`public/css/style.css`](file:///home/maman/play/public/css/style.css) yang aktif di seluruh mode tampilan battle (`classic`, `bottom_sheet`, `compact`).
+    4. PWA cache busting dinaikkan ke `pp-v7.2.0-20261105v2` dan `app.js?v=20261105v13`.
+  - ✅ 2026-11-05 16:10 — Seluruh 30 unit tests 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.
+
 
