@@ -5024,8 +5024,43 @@ Screens.profil = {
 
   showShowcasePicker(slotIdx) {
     if (window.Sfx) Sfx.play('tap');
-    const unlockedBadges = this.profileData?.unlockedList || this.profileData?.badges || [];
-    const currentShowcase = this.profileData?.showcase || [null, null, null];
+    const pData = (this && this.profileData) || Screens.profil.profileData || {};
+    let unlockedBadges = (pData.unlockedList || pData.badges || []).slice();
+
+    // Fallback layer 1: if empty, extract from badgeFamilies
+    if (unlockedBadges.length === 0 && pData.badgeFamilies) {
+      for (const fam of pData.badgeFamilies) {
+        for (const tr of (fam.tiers || [])) {
+          if (tr.unlocked) {
+            unlockedBadges.push({
+              id: `${fam.id}_${tr.tier.toLowerCase()}`,
+              familyId: fam.id,
+              familyName: fam.name,
+              tier: tr.tier,
+              name: tr.name,
+              icon: tr.icon,
+              desc: tr.desc || '',
+              lore: tr.lore || '',
+              reward: tr.reward || '',
+              category: fam.category,
+              tierInfo: tr.tierInfo || (window.Badges?.TIERS ? window.Badges.TIERS[tr.tier] : null)
+            });
+          }
+        }
+      }
+    }
+
+    // Fallback layer 2: if still empty, evaluate from stats using window.Badges
+    if (unlockedBadges.length === 0 && window.Badges && typeof window.Badges.evaluateBadges === 'function') {
+      const stats = pData.stats || {};
+      const evalRes = window.Badges.evaluateBadges(stats);
+      if (evalRes && evalRes.unlockedList && evalRes.unlockedList.length > 0) {
+        unlockedBadges = evalRes.unlockedList.slice();
+      }
+    }
+
+    const currentShowcase = [...(pData.showcase || [null, null, null])];
+    while (currentShowcase.length < 3) currentShowcase.push(null);
     const currentItem = currentShowcase[slotIdx];
 
     const modalId = 'modal-showcase-picker';
@@ -5042,13 +5077,13 @@ Screens.profil = {
       badgesHtml = '<div style="text-align:center;color:var(--c-muted);padding:24px 10px;font-size:0.85rem">Belum ada lencana yang terbuka. Terus bertualang untuk membuka lencana prestasimu!</div>';
     } else {
       badgesHtml = `
-        <div style="display:grid;grid-template-columns:1fr;gap:8px;max-height:45dvh;overflow-y:auto;padding-right:4px;">
+        <div style="display:grid;grid-template-columns:1fr;gap:8px;max-height:48dvh;overflow-y:auto;padding-right:4px;">
           ${unlockedBadges.map(b => {
             const isEquippedInSlot = currentItem && currentItem.id === b.id;
             const isEquippedOther = !isEquippedInSlot && currentShowcase.some(it => it && it.id === b.id);
             return `
-              <div style="padding:10px;background:var(--c-surface);border:1px solid ${isEquippedInSlot ? 'var(--c-primary)' : 'rgba(255,255,255,0.1)'};border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:10px">
-                <div style="display:flex;align-items:center;gap:10px;min-width:0">
+              <div class="showcase-pick-row" data-badge-id="${esc(b.id)}" style="padding:10px 12px;background:var(--c-surface);border:1.5px solid ${isEquippedInSlot ? 'var(--c-primary)' : 'rgba(255,255,255,0.12)'};border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;transition:transform 0.12s ease, border-color 0.12s ease, background 0.12s ease">
+                <div style="display:flex;align-items:center;gap:10px;min-width:0;pointer-events:none">
                   <div style="width:46px;height:46px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
                     ${(window.BadgeArt && typeof window.BadgeArt.renderBadge === 'function')
                       ? BadgeArt.renderBadge(b.id || b.familyId, b.tier || 'COMMON', { size: 46, title: b.name })
@@ -5062,8 +5097,8 @@ Screens.profil = {
                 </div>
                 <div>
                   ${isEquippedInSlot
-                    ? '<span class="badge small" style="background:#10b981;color:#fff;font-size:0.7rem;padding:3px 8px;border-radius:6px">Terpasang ✓</span>'
-                    : `<button class="btn primary small btn-pick-badge" data-badge-id="${esc(b.id)}" style="padding:4px 10px;font-size:0.75rem">${isEquippedOther ? 'Pindah' : 'Pilih'}</button>`
+                    ? '<span class="badge small" style="background:#10b981;color:#fff;font-size:0.7rem;padding:4px 10px;border-radius:6px;font-weight:700">Terpasang ✓</span>'
+                    : `<button type="button" class="btn primary small btn-pick-badge" data-badge-id="${esc(b.id)}" style="padding:4px 12px;font-size:0.75rem">${isEquippedOther ? 'Pindah' : 'Pilih'}</button>`
                   }
                 </div>
               </div>
@@ -5080,14 +5115,14 @@ Screens.profil = {
             <h3 style="margin:0;font-size:1.05rem;color:#fff;font-weight:800">✨ Pasang di Showcase Slot #${slotIdx + 1}</h3>
             <div style="font-size:0.72rem;color:var(--c-muted);margin-top:2px">Pilih lencana prestasi untuk dipajang di profilmu</div>
           </div>
-          <button class="btn ghost small" id="btn-close-showcase" style="font-size:1.2rem;padding:2px 8px">✕</button>
+          <button type="button" class="btn ghost small" id="btn-close-showcase" style="font-size:1.2rem;padding:2px 8px">✕</button>
         </div>
 
         ${badgesHtml}
 
         <div style="display:flex;gap:8px;margin-top:4px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.08)">
-          ${currentItem ? `<button class="btn danger small grow" id="btn-clear-slot" style="font-size:0.8rem">Kosongkan Slot</button>` : ''}
-          <button class="btn ghost small grow" id="btn-cancel-showcase" style="font-size:0.8rem">Tutup</button>
+          ${currentItem ? `<button type="button" class="btn danger small grow" id="btn-clear-slot" style="font-size:0.8rem">Kosongkan Slot</button>` : ''}
+          <button type="button" class="btn ghost small grow" id="btn-cancel-showcase" style="font-size:0.8rem">Tutup</button>
         </div>
       </div>
     `;
@@ -5095,6 +5130,9 @@ Screens.profil = {
     document.body.appendChild(overlay);
 
     const close = () => overlay.remove();
+    overlay.onclick = (e) => {
+      if (e.target === overlay) close();
+    };
     overlay.querySelector('#btn-close-showcase').onclick = close;
     overlay.querySelector('#btn-cancel-showcase').onclick = close;
 
@@ -5102,24 +5140,36 @@ Screens.profil = {
     if (clearBtn) {
       clearBtn.onclick = async () => {
         close();
-        await this.saveShowcaseItem(slotIdx, null);
+        await Screens.profil.saveShowcaseItem(slotIdx, null);
       };
     }
 
+    const selectBadgeById = async (badgeId) => {
+      const badgeItem = unlockedBadges.find(x => x.id === badgeId);
+      if (badgeItem) {
+        if (window.Sfx) Sfx.play('tap');
+        close();
+        await Screens.profil.saveShowcaseItem(slotIdx, badgeItem);
+      }
+    };
+
+    overlay.querySelectorAll('.showcase-pick-row').forEach(row => {
+      row.onclick = async () => {
+        await selectBadgeById(row.dataset.badgeId);
+      };
+    });
+
     overlay.querySelectorAll('.btn-pick-badge').forEach(btn => {
-      btn.onclick = async () => {
-        const bId = btn.dataset.badgeId;
-        const badgeItem = unlockedBadges.find(x => x.id === bId);
-        if (badgeItem) {
-          close();
-          await this.saveShowcaseItem(slotIdx, badgeItem);
-        }
+      btn.onclick = async (e) => {
+        e.stopPropagation();
+        await selectBadgeById(btn.dataset.badgeId);
       };
     });
   },
 
   async saveShowcaseItem(slotIdx, item) {
-    const current = [...(this.profileData?.showcase || [null, null, null])];
+    const pData = (this && this.profileData) || Screens.profil.profileData || (Screens.profil.profileData = {});
+    const current = [...(pData.showcase || [null, null, null])];
     while (current.length < 3) current.push(null);
 
     // If item was in another slot, remove it from other slot
@@ -5133,9 +5183,10 @@ Screens.profil = {
 
     current[slotIdx] = item ? {
       id: item.id,
+      familyId: item.familyId || item.id.replace(/_(common|rare|epic|legend)$/i, ''),
       name: item.name,
-      icon: item.icon,
-      tier: item.tier,
+      icon: item.icon || '🏅',
+      tier: item.tier || 'COMMON',
       type: 'badge',
       desc: item.desc || ''
     } : null;
@@ -5145,14 +5196,30 @@ Screens.profil = {
         method: 'POST',
         body: JSON.stringify({ showcase: current })
       });
-      if (res.ok) {
-        if (this.profileData) this.profileData.showcase = res.showcase;
-        this.renderTabRingkasan(document.getElementById('profile-tab-content'));
+      if (res && res.ok) {
+        const updatedShowcase = res.showcase || current;
+        pData.showcase = updatedShowcase;
+        if (Screens.profil.profileData) {
+          Screens.profil.profileData.showcase = updatedShowcase;
+        }
+        if (this && this.profileData) {
+          this.profileData.showcase = updatedShowcase;
+        }
+        const contentSlot = document.getElementById('profile-tab-content');
+        if (contentSlot && Screens.profil.activeTab === 'ringkasan') {
+          Screens.profil.renderTabRingkasan(contentSlot);
+        }
+        if (window.Sfx) Sfx.play('win');
         toast('Showcase berhasil diperbarui! ✨');
       }
     } catch (e) {
-      toast('Gagal memperbarui showcase: ' + e.message, 'error');
+      console.error('Failed to save showcase:', e);
+      toast('Gagal memperbarui showcase: ' + (e.message || 'Kesalahan jaringan'), 'error');
     }
+  },
+
+  async removeShowcaseItem(slotIdx) {
+    return this.saveShowcaseItem(slotIdx, null);
   },
 
   showBadgeDetailModal(familyOrBadgeId, tierCode) {

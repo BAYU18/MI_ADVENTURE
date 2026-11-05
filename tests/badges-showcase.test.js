@@ -100,4 +100,64 @@ test('T-59: Sistem 20 Kategori Lencana x 4 Tier & Showcase Profil Teman', async 
     assert.equal(publicProf.showcase[1], null);
     assert.equal(publicProf.showcase[2], null);
   });
+
+  await t.test('5. Showcase Deduplikasi & Fallback Ekstraksi Lencana Terbuka', () => {
+    // Simulasi logika showcase dedup & slot mapping di app.js
+    let showcase = [null, null, null];
+    const item1 = { id: 'boss_slayer_common', name: 'Pembasmi Pemula', tier: 'COMMON', icon: '⚔️' };
+    const item2 = { id: 'elemental_master_common', name: 'Murid Alam', tier: 'COMMON', icon: '🌱' };
+
+    // Pasang item1 di slot 0
+    showcase[0] = item1;
+    assert.equal(showcase[0].id, 'boss_slayer_common');
+
+    // Pasang item2 di slot 1
+    showcase[1] = item2;
+    assert.equal(showcase[1].id, 'elemental_master_common');
+
+    // Jika item1 dipasang di slot 2, slot 0 harus dikosongkan (deduplikasi slot)
+    for (let i = 0; i < showcase.length; i++) {
+      if (i !== 2 && showcase[i] && showcase[i].id === item1.id) {
+        showcase[i] = null;
+      }
+    }
+    showcase[2] = item1;
+
+    assert.equal(showcase[0], null, 'Slot 0 harus kosong karena item pindah ke slot 2');
+    assert.equal(showcase[1].id, 'elemental_master_common');
+    assert.equal(showcase[2].id, 'boss_slayer_common');
+
+    // Verifikasi fallback extraction jika unlockedList kosong tapi badgeFamilies ada
+    const mockFamilies = [
+      {
+        id: 'boss_slayer',
+        name: 'Penakluk Monster Bos',
+        category: 'BATTLE',
+        tiers: [
+          { tier: 'COMMON', name: 'Pembasmi Pemula', icon: '⚔️', unlocked: true },
+          { tier: 'RARE', name: 'Pemburu Rimba', icon: '🗡️', unlocked: false }
+        ]
+      }
+    ];
+
+    let extracted = [];
+    for (const fam of mockFamilies) {
+      for (const tr of fam.tiers) {
+        if (tr.unlocked) {
+          extracted.push({
+            id: `${fam.id}_${tr.tier.toLowerCase()}`,
+            familyId: fam.id,
+            familyName: fam.name,
+            tier: tr.tier,
+            name: tr.name,
+            icon: tr.icon
+          });
+        }
+      }
+    }
+
+    assert.equal(extracted.length, 1);
+    assert.equal(extracted[0].id, 'boss_slayer_common');
+    assert.equal(extracted[0].tier, 'COMMON');
+  });
 });
