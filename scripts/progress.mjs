@@ -1,13 +1,13 @@
 #!/usr/bin/env node
-// scripts/progress.mjs — pengelola ceklis docs/PROGRESS-v6.md (tanpa dependensi). Jalankan: npm run progress -- <perintah>
+// scripts/progress.mjs — pengelola ceklis docs/PROGRESS-v7.md (tanpa dependensi). Jalankan: npm run progress -- <perintah>
 import fs from 'node:fs';
 import path from 'node:path';
 
-const FILE = process.env.PROGRESS_FILE || 'docs/PROGRESS-v6.md';
+const FILE = process.env.PROGRESS_FILE || 'docs/PROGRESS-v7.md';
 const MAX_TRIES = 2;                                   // percobaan maks per tugas sebelum wajib diblokir
 const LINE = /^- \[([ ~x!])\] \*\*((?:T|G)-\d+)\*\*/;
 const die = (m) => { console.error('✖ ' + m); process.exit(1); };
-const read = () => { if (!fs.existsSync(FILE)) die(`${FILE} belum ada. Jalankan: npm run progress -- init <file-dokumen-v6.md>`); return fs.readFileSync(FILE, 'utf8').split('\n'); };
+const read = () => { if (!fs.existsSync(FILE)) die(`${FILE} belum ada. Jalankan: npm run progress -- init <file-dokumen-v7.md>`); return fs.readFileSync(FILE, 'utf8').split('\n'); };
 const write = (l) => fs.writeFileSync(FILE, l.join('\n'));
 const stamp = () => new Date().toISOString().slice(0, 16).replace('T', ' ');
 const tasks = (lines) => lines.map((t, i) => { const m = LINE.exec(t); return m ? { i, st: m[1], id: m[2] } : null; }).filter(Boolean);
@@ -35,13 +35,13 @@ function status(lines) {
 
 switch (cmd) {
   case 'init': {
-    if (!a1) die('Pakai: init <file-dokumen-v6.md>');
+    if (!a1) die('Pakai: init <file-dokumen-v7.md>');
     if (fs.existsSync(FILE)) die(`${FILE} sudah ada — JANGAN ditimpa. Pakai: status / next (atau sync <doc> bila dokumen diperbarui)`);
     const body = templateBody(a1);
     fs.mkdirSync(path.dirname(FILE), { recursive: true }); fs.writeFileSync(FILE, body); console.log(`✔ ${FILE} dibuat.`); status(read()); break;
   }
   case 'sync': {   // tambahkan tugas BARU dari dokumen yang diperbarui; tugas lama (apa pun statusnya) tidak disentuh
-    if (!a1) die('Pakai: sync <file-dokumen-v6.md>');
+    if (!a1) die('Pakai: sync <file-dokumen-v7.md>');
     const l = read(); const tl = templateBody(a1).split('\n'); const have = new Set(tasks(l).map((t) => t.id)); const added = [];
     let prev = null; let hdr = null;
     for (const line of tl) {
