@@ -1866,6 +1866,97 @@ Screens.battle = {
     }
   },
 
+  renderPassiveBuffChips(passives) {
+    if (!passives) return '';
+    const chips = [];
+
+    if (passives.startShield) {
+      chips.push(`<span class="battle-buff-chip chip info" id="buff-startShield" data-buff="startShield" title="Perisai Awal +${passives.startShield}">🛡️ Perisai +${passives.startShield}</span>`);
+    }
+    if (passives.critChance) {
+      chips.push(`<span class="battle-buff-chip chip accent" id="buff-crit" data-buff="crit" title="Peluang Kritis +${Math.round(passives.critChance * 100)}% (Damage 1.5×)">⚡ Crit +${Math.round(passives.critChance * 100)}%</span>`);
+    }
+    if (passives.dodgeRate) {
+      chips.push(`<span class="battle-buff-chip" id="buff-dodge" data-buff="dodge" style="background:rgba(56,189,248,0.18);color:#38bdf8;border:1px solid rgba(56,189,248,0.4)" title="Peluang Hindaran +${Math.round(passives.dodgeRate * 100)}% (0 Damage)">💨 Hindaran ${Math.round(passives.dodgeRate * 100)}%</span>`);
+    }
+    if (passives.damageReduction) {
+      chips.push(`<span class="battle-buff-chip" id="buff-damageReduction" data-buff="damageReduction" style="background:rgba(148,163,184,0.18);color:#cbd5e1;border:1px solid rgba(148,163,184,0.4)" title="Reduksi Serangan -${passives.damageReduction} DMG">🛡️ Zirah -${passives.damageReduction} DMG</span>`);
+    }
+    if (passives.bonusTime) {
+      chips.push(`<span class="battle-buff-chip" id="buff-bonusTime" data-buff="bonusTime" style="background:rgba(251,191,36,0.18);color:#fbbf24;border:1px solid rgba(251,191,36,0.4)" title="Bonus Waktu +${passives.bonusTime}s">⏳ Waktu +${passives.bonusTime}s</span>`);
+    }
+    if (passives.dragonBreathChance) {
+      chips.push(`<span class="battle-buff-chip chip danger" id="buff-dragon" data-buff="dragon" title="Semburan Naga: Peluang ${Math.round(passives.dragonBreathChance * 100)}% (+${passives.dragonBreathDamage || 20} DMG Api)">🔥 Semburan Naga</span>`);
+    }
+    if (passives.healOnCorrect) {
+      chips.push(`<span class="battle-buff-chip" id="buff-healCorrect" data-buff="healCorrect" style="background:rgba(34,197,94,0.18);color:#22c55e;border:1px solid rgba(34,197,94,0.4)" title="Pemulihan Suci: +${passives.healOnCorrect} HP tiap jawaban benar">💖 Heal +${passives.healOnCorrect}</span>`);
+    }
+    if (passives.comboRegen) {
+      chips.push(`<span class="battle-buff-chip" id="buff-comboRegen" data-buff="comboRegen" style="background:rgba(34,197,94,0.18);color:#22c55e;border:1px solid rgba(34,197,94,0.4)" title="Regen HP: +${passives.comboRegen.hp} HP tiap ${passives.comboRegen.combo} combo">💖 Regen Combo</span>`);
+    }
+    if (passives.comboEnergyChance) {
+      chips.push(`<span class="battle-buff-chip" id="buff-comboEnergy" data-buff="comboEnergy" style="background:rgba(168,85,247,0.18);color:#c084fc;border:1px solid rgba(168,85,247,0.4)" title="Curi Energi: Peluang ${Math.round(passives.comboEnergyChance.chance * 100)}% (+1 ⚡) tiap ${passives.comboEnergyChance.combo} combo">🦊 Curi Energi</span>`);
+    }
+    if (passives.streakProtectChance) {
+      chips.push(`<span class="battle-buff-chip" id="buff-streakProtect" data-buff="streakProtect" style="background:rgba(168,85,247,0.18);color:#c084fc;border:1px solid rgba(168,85,247,0.4)" title="Proteksi Combo: Peluang ${Math.round(passives.streakProtectChance * 100)}% combo aman saat salah">🦉 Proteksi Combo</span>`);
+    }
+    if (passives.lastStand) {
+      chips.push(`<span class="battle-buff-chip" id="buff-lastStand" data-buff="lastStand" style="background:rgba(239,68,68,0.18);color:#f87171;border:1px solid rgba(239,68,68,0.4)" title="Darah Terakhir: Bertahan dengan 1 HP saat HP habis">🩸 Darah Terakhir</span>`);
+    }
+    if (passives.coinBonus) {
+      chips.push(`<span class="battle-buff-chip chip warning" id="buff-coinBonus" data-buff="coinBonus" title="Bonus Koin +${Math.round(passives.coinBonus * 100)}%">🪙 Koin +${Math.round(passives.coinBonus * 100)}%</span>`);
+    }
+    if (Array.isArray(passives.activeSets)) {
+      passives.activeSets.forEach(set => {
+        chips.push(`<span class="battle-buff-chip chip accent" id="buff-set-${esc(set.id)}" data-buff="set" title="${esc(set.desc || set.name)}">${esc(set.icon || '✨')} ${esc(set.name)}</span>`);
+      });
+    }
+
+    if (chips.length === 0) return '';
+    return chips.join('');
+  },
+
+  showPassiveTrigger(triggeredList) {
+    if (!Array.isArray(triggeredList) || triggeredList.length === 0) return;
+    triggeredList.forEach((tp, i) => {
+      setTimeout(() => {
+        // 1. Animated floating banner
+        const existing = $('.passive-trigger-banner');
+        if (existing) existing.remove();
+
+        const banner = document.createElement('div');
+        banner.className = 'passive-trigger-banner';
+        banner.setAttribute('data-testid', 'passive-trigger-banner');
+        banner.innerHTML = `<span style="font-size:1.1rem">${esc(tp.icon || '✨')}</span> <span><strong>${esc(tp.name)}</strong>: ${esc(tp.desc || '')}</span>`;
+        const bossCard = $('.boss-card') || document.body;
+        bossCard.appendChild(banner);
+        setTimeout(() => { if (banner && banner.parentNode) banner.remove(); }, 2100);
+
+        // 2. Pulse matching chip in buff bar
+        const chip = $(`#buff-${tp.id}`) || $(`[data-buff="${tp.id}"]`);
+        if (chip) {
+          chip.classList.remove('buff-pulse');
+          void chip.offsetWidth; // trigger reflow
+          chip.classList.add('buff-pulse');
+        }
+
+        // 3. Floater effect
+        if (tp.id === 'crit' || tp.id === 'dragon') {
+          this.showDamageFloater(`${tp.icon} ${tp.name}!`, 'crit');
+          this.animateBossShake();
+        } else if (tp.id === 'dodge') {
+          this.showDamageFloater(`💨 HINDARAN! 0 DMG`, 'heal');
+        } else if (tp.id === 'healCorrect' || tp.id === 'comboRegen') {
+          this.showDamageFloater(`💖 REGEN!`, 'heal');
+        } else if (tp.id === 'comboEnergy') {
+          this.showDamageFloater(`⚡ +1 ENERGI!`, 'energy');
+        }
+
+        if (window.toast) toast(`✨ [Pasif Skin] ${tp.icon || ''} ${tp.name}: ${tp.desc || ''}`);
+      }, i * 350);
+    });
+  },
+
   render(app) {
     const s = this.session;
     if (!s) return go('subjects');
@@ -1953,6 +2044,11 @@ Screens.battle = {
         <!-- PLAYER HP TRACK -->
         <div class="player-hp-track" style="margin-top:-2px">
           <div class="player-hp-fill" id="player-hp-bar" style="width:${(s.playerHp / s.playerMaxHp) * 100}%"></div>
+        </div>
+
+        <!-- PASSIVE BUFFS ROW (SKIN PASSIVES) -->
+        <div class="player-passives-bar" id="player-passives-bar" data-testid="player-passives-bar">
+          ${this.renderPassiveBuffChips(s.passives || Player.data?.passives)}
         </div>
 
         <!-- COUNTDOWN TIMER BAR -->
@@ -2045,6 +2141,12 @@ Screens.battle = {
     if (toggleBtn) toggleBtn.onclick = () => this.openSkillBubblePopup();
     const fabBtn = $('#skill-fab');
     if (fabBtn) fabBtn.onclick = () => this.openSkillBubblePopup();
+
+    $$('.battle-buff-chip', app).forEach(chip => {
+      chip.onclick = () => {
+        if (window.toast) toast(`✨ [Pasif Skin] ${chip.getAttribute('title') || chip.textContent}`);
+      };
+    });
 
     if (s.pendingEvent) {
       this.showEventModal(s.pendingEvent);
@@ -2720,6 +2822,20 @@ Screens.battle = {
         const sv = $('#shield-val');
         if (sv) sv.textContent = res.shield;
       }
+    }
+
+    // Trigger Passive Skill Animations & Buff Pulse from Equipped Skin
+    const trig = Array.isArray(res.triggeredPassives) ? [...res.triggeredPassives] : [];
+    if (trig.length === 0) {
+      if (res.isCrit) trig.push({ id: 'crit', name: 'Critical Hit!', icon: '⚡', desc: 'Serangan Kritis x1.5 Kena!' });
+      if (res.dodged) trig.push({ id: 'dodge', name: 'Hindaran Refleks!', icon: '💨', desc: 'Serangan Boss Luput (0 DMG)!' });
+      if (res.notice && res.notice.includes('Semburan Naga')) trig.push({ id: 'dragon', name: 'Semburan Naga!', icon: '🔥', desc: 'Semburan Api Naga!' });
+      if (res.notice && res.notice.includes('Curi Energi')) trig.push({ id: 'comboEnergy', name: 'Curi Energi!', icon: '🦊', desc: '+1 Energi!' });
+      if (res.notice && res.notice.includes('Proteksi Combo')) trig.push({ id: 'streakProtect', name: 'Proteksi Combo!', icon: '🦉', desc: 'Combo Terselamatkan!' });
+      if (res.notice && res.notice.includes('Darah Terakhir')) trig.push({ id: 'lastStand', name: 'Darah Terakhir!', icon: '🩸', desc: 'Bertahan Hidup dengan 1 HP!' });
+    }
+    if (trig.length > 0) {
+      this.showPassiveTrigger(trig);
     }
 
     // Boss Enrage Banner & Phase 2 Transition (C.1 / T-23)

@@ -3067,3 +3067,74 @@ body.reduced-motion .boss-telegraph { animation: none; }
 .boss-fx-toast.toast-status { border-color: #8b5cf6; background: rgba(88, 28, 135, 0.95); }
 .boss-fx-toast.toast-hit { border-color: #f97316; background: rgba(154, 52, 18, 0.95); }
 
+/* ============================================================
+   Skin Passive Buff Status & Trigger Animation (v7.3)
+   ============================================================ */
+.player-passives-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  padding: 4px 2px;
+  margin: 2px 0 4px 0;
+}
+.battle-buff-chip {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #f1f5f9;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  user-select: none;
+}
+.battle-buff-chip:hover {
+  transform: translateY(-1px);
+}
+.battle-buff-chip:active {
+  transform: scale(0.95);
+}
+.battle-buff-chip.buff-pulse {
+  animation: buffGlow 1.2s ease-in-out;
+}
+@keyframes buffGlow {
+  0% { transform: scale(1); box-shadow: 0 0 0 rgba(251, 191, 36, 0); }
+  30% { transform: scale(1.15); box-shadow: 0 0 16px rgba(251, 191, 36, 0.9); }
+  60% { transform: scale(1.08); box-shadow: 0 0 10px rgba(251, 191, 36, 0.6); }
+  100% { transform: scale(1); box-shadow: 0 0 0 rgba(251, 191, 36, 0); }
+}
+
+.passive-trigger-banner {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  z-index: 999;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(30, 27, 75, 0.95), rgba(76, 29, 149, 0.95));
+  border: 1px solid #fbbf24;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 800;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 16px rgba(251, 191, 36, 0.4);
+  pointer-events: none;
+  animation: passivePop 2s ease-out forwards;
+}
+@keyframes passivePop {
+  0% { opacity: 0; transform: translateX(-50%) translateY(-16px) scale(0.85); }
+  15% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1.05); }
+  25% { transform: translateX(-50%) translateY(0) scale(1); }
+  80% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-10px) scale(0.95); }
+}
+
+

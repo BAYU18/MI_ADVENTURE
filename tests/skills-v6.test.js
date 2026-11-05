@@ -314,6 +314,10 @@ test('Skenario H.9: Upgrade Skill Atomik, Idempotensi, Alasan, dan Snapshot Batt
     // Test Lv3: 1 free use
     rawDb.prepare('UPDATE player_skills SET level = 3 WHERE player_id=? AND skill_id=?').run(playerId, 'eliminate_one');
     const sessLv3 = db.startSession(playerId, subRow.id, { totalQuestions: 5 });
+    const mcqList = rawDb.prepare("SELECT id, options_json, answer_index FROM questions WHERE question_type='MCQ' LIMIT 2").all();
+    if (mcqList.length >= 2) {
+      rawDb.prepare("UPDATE session_questions SET question_id=?, option_order='[0,1,2,3]', display_json=null WHERE session_id=? AND order_index=0").run(mcqList[0].id, sessLv3.sessionId);
+    }
     rawDb.prepare('UPDATE game_sessions SET energy = 2 WHERE id=?').run(sessLv3.sessionId);
 
     // Use eliminate_one first time (free)
@@ -332,6 +336,10 @@ test('Skenario H.9: Upgrade Skill Atomik, Idempotensi, Alasan, dan Snapshot Batt
     // Test Lv5: 2 free uses
     rawDb.prepare('UPDATE player_skills SET level = 5 WHERE player_id=? AND skill_id=?').run(playerId, 'eliminate_one');
     const sessLv5 = db.startSession(playerId, subRow.id, { totalQuestions: 5 });
+    if (mcqList.length >= 2) {
+      rawDb.prepare("UPDATE session_questions SET question_id=?, option_order='[0,1,2,3]', display_json=null WHERE session_id=? AND order_index=0").run(mcqList[0].id, sessLv5.sessionId);
+      rawDb.prepare("UPDATE session_questions SET question_id=?, option_order='[0,1,2,3]', display_json=null WHERE session_id=? AND order_index=1").run(mcqList[1].id, sessLv5.sessionId);
+    }
     rawDb.prepare('UPDATE game_sessions SET energy = 2 WHERE id=?').run(sessLv5.sessionId);
 
     const useLv5_1 = db.useSkill(sessLv5.sessionId, playerId, 'eliminate_one');

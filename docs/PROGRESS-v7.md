@@ -87,3 +87,11 @@
     - Di `renderTabToko` (`app.js`): Merapikan styling kotak Efek Pasif (background amber RPG), teks lore, nama skin, lencana rarity berwarna sesuai tier, serta harga koin yang kontras.
     - Menambahkan unit test baru di `tests/ui-v7.test.js` dan menaikkan versi script di `public/index.html` menjadi `app.js?v=20261105v6`.
   - ✅ 2026-11-05 13:20 — Seluruh 30 unit tests 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.
+- [x] **T-43** Audit Bug Skill Battle (Mata Elang / `eagle_eye`) & Status Animasi Pasif Skin:
+  - **Audit & Perbaikan Bug Skill Mata Elang**:
+    - **Penyebab**: Di `lib/db.js` pada query `getSession` dan `nextQuestion`, kolom `q.answer_index` tidak disertakan dalam klausa `SELECT`. Akibatnya, `sq.answer_index` bernilai `undefined` (`ansIdx = NaN`), `correctDisplay` selalu `-1`, dan `skillAvailability` secara keliru menetapkan `usable = false` dengan alasan `NOTHING_TO_ELIMINATE` bahkan saat energi penuh dan belum ada opsi yang dicoret.
+    - **Solusi**: Menyertakan `q.answer_index` pada query `getSession` dan `nextQuestion`. Memperbaiki penanganan `power_strike` dan `second_chance` agar terproteksi dengan alasan `ALREADY_ACTIVE` jika pemain mencoba menggunakannya lebih dari 1 kali dalam giliran yang sama.
+  - **Efek & Status Pasif Skin saat Pertarungan**:
+    - **Status Buff Bar**: Ditambahkan `#player-passives-bar` di layar pertarungan di bawah darah pemain (`.battle-buff-chip`), menampilkan semua buff pasif skin yang sedang aktif (misal: `🛡️ Perisai +20`, `⚡ Crit +10%`, `💨 Hindaran 10%`, `⏳ Waktu +3s`, `🔥 Semburan Naga`, `Set Rimba/Ksatria/dll`). Chip dapat diklik untuk menampilkan tooltip detail efek.
+    - **Animasi saat Pasif Memicu**: Ditambahkan banner animasi popup `.passive-trigger-banner` yang meluncur dan memantul saat pasif aktif (misal: Semburan Naga, Critical Hit, Hindaran, Regen HP, Curi Energi, Proteksi Combo, Darah Terakhir), disertai efek berkedip/pulse pada chip pasif (`.buff-pulse`) dan floater visual.
+  - ✅ 2026-11-05 13:43 — Seluruh 40 unit tests (`ui-v7`, `bossskills`, `bossfx.glue`, `skills-v6`) 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.

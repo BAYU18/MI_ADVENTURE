@@ -167,4 +167,22 @@ test('H.12: UI Pertempuran & Mode Brutal (Spek E.1, E.2)', async (t) => {
     assert.ok(appJs.includes('Efek Pasif:'), 'deskripsi memuat Efek Pasif');
     assert.ok(appJs.includes('it.lore'), 'deskripsi memuat lore item');
   });
+
+  await t.test('5. Audit & Fix Skill Battle (Mata Elang / eagle_eye & eliminate_one) & Status Buff Pasif Skin', () => {
+    // 1. Pastikan getSession & nextQuestion memilih answer_index
+    const dbJs = fs.readFileSync(path.join(__dirname, '../lib/db.js'), 'utf8');
+    assert.ok(dbJs.includes('SELECT sq.*, q.text, q.options_json, q.answer_index,'), 'q.answer_index dipilih pada query soal');
+
+    // 2. Pastikan battle UI memuat passives bar dan buff chips
+    assert.ok(appJs.includes('data-testid="player-passives-bar"'), 'battle-root memuat player-passives-bar');
+    assert.ok(appJs.includes('renderPassiveBuffChips'), 'Screens.battle memuat renderPassiveBuffChips');
+    assert.ok(appJs.includes('showPassiveTrigger'), 'Screens.battle memuat showPassiveTrigger');
+
+    // 3. Pastikan style.css memuat animasi passives & pulse
+    assert.ok(css.includes('.player-passives-bar'), 'style.css memuat .player-passives-bar');
+    assert.ok(css.includes('.battle-buff-chip'), 'style.css memuat .battle-buff-chip');
+    assert.ok(css.includes('.passive-trigger-banner'), 'style.css memuat .passive-trigger-banner');
+    assert.ok(css.includes('buffGlow'), 'style.css memuat keyframes buffGlow');
+    assert.ok(css.includes('passivePop'), 'style.css memuat keyframes passivePop');
+  });
 });
