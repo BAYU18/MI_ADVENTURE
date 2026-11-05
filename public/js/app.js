@@ -3962,6 +3962,8 @@ Screens.profil = {
     const existing = $('.modal-mask');
     if (existing) existing.remove();
 
+    const isHtml = typeof message === 'string' && /<[a-z][\s\S]*>/i.test(message);
+
     const modal = document.createElement('div');
     modal.className = 'modal-mask active';
     modal.setAttribute('data-testid', testId);
@@ -3970,7 +3972,7 @@ Screens.profil = {
       <div class="modal card" data-testid="confirm-modal" style="max-width:340px;text-align:center;padding:22px 20px;border:1px solid var(--c-surface-strong);box-shadow:0 20px 40px rgba(0,0,0,0.8);border-radius:20px;background:linear-gradient(165deg, #27235a, #1a1b3d)">
         ${previewHtml ? `<div style="width:76px;height:76px;margin:0 auto 12px auto;border-radius:18px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(255,255,255,0.12);box-shadow:inset 0 2px 6px rgba(0,0,0,0.3)">${previewHtml}</div>` : ''}
         <h3 style="font-size:1.15rem;margin:0 0 8px 0;color:#fff">${esc(title)}</h3>
-        <p style="font-size:0.9rem;color:var(--c-muted);margin:0 0 16px 0;line-height:1.4">${esc(message)}</p>
+        <div style="font-size:0.9rem;color:var(--c-muted);margin:0 0 16px 0;line-height:1.4">${isHtml ? message : esc(message)}</div>
         <div style="display:flex;gap:10px;justify-content:center">
           <button class="btn ghost small grow" id="modal-cancel">Batal</button>
           <button class="btn primary small grow" id="modal-confirm" data-testid="${testId}">${esc(confirmText || 'Lanjutkan')}</button>
@@ -5187,11 +5189,13 @@ Screens.profil = {
           if (!it) return;
 
           const thumbPreview = window.Avatar ? Avatar.renderThumbnail(it.id, it.slot) : '🎒';
-          const pDesc = it.passive ? `<div style="margin:8px 0;padding:6px 10px;background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.3);border-radius:8px;color:#38bdf8;font-size:0.82rem;font-weight:800">✨ Efek Pasif: ${esc(it.passive.desc)}</div>` : '';
-          const lDesc = it.lore ? `<p style="font-size:0.78rem;color:var(--c-muted);font-style:italic;margin:6px 0">${esc(it.lore)}</p>` : '';
+          const rarityColor = it.rarity === 'LEGENDARY' ? '#f59e0b' : it.rarity === 'EPIC' ? '#a855f7' : it.rarity === 'RARE' ? '#3b82f6' : '#94a3b8';
+          const pDesc = it.passive ? `<div style="margin:8px 0;padding:8px 10px;background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.3);border-radius:10px;color:#fbbf24;font-size:0.82rem;font-weight:700;line-height:1.35;text-align:left">✨ Efek Pasif: ${esc(it.passive.desc)}</div>` : '';
+          const lDesc = it.lore ? `<div style="font-size:0.8rem;color:var(--c-muted);font-style:italic;margin:6px 0 10px 0;line-height:1.35;text-align:center">"${esc(it.lore)}"</div>` : '';
+          const buyPrompt = `<div style="margin-top:8px;font-size:0.92rem;color:#f1f5f9;line-height:1.4">Beli <strong style="color:#fff">${esc(it.name)}</strong> (<span style="color:${rarityColor};font-weight:800;font-size:0.8rem;letter-spacing:0.5px">${esc(it.rarity)}</span>) seharga <strong style="color:#fbbf24">${it.price} 🪙</strong>?</div>`;
           this.showConfirmModal(
             `Beli ${it.name}?`,
-            `${pDesc}${lDesc}<div style="margin-top:8px">Beli ${it.name} (${it.rarity}) seharga <strong style="color:#fbbf24">${it.price} 🪙</strong>?</div>`,
+            `${pDesc}${lDesc}${buyPrompt}`,
             `Beli (${it.price} 🪙)`,
             async () => {
               const idemKey = `buy-${it.id}-${Date.now()}`;

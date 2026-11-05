@@ -80,3 +80,10 @@
   - **3. Siluet Hitam Karakter Boss**:
     - Avatar boss yang belum terbuka (`🔒 Belum`) tidak lagi memakai ikon tanda tanya `?`, melainkan menampilkan **siluet warna hitam** (`.monster-silhouette` via `filter: brightness(0) drop-shadow(...) opacity(0.42)`) dari karakter SVG asli monster tersebut.
   - ✅ 2026-11-05 12:57 — Seluruh 29 unit tests, smoke tests, dan gameplay e2e 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.
+- [x] **T-42** Perbaikan Modal Konfirmasi Beli Skin Toko (`Screens.profil.showConfirmModal`):
+  - **Penyebab**: `showConfirmModal` membungkus pesan dengan tag `<p>` dan memanggil `esc(message)` tanpa membedakan plain-text vs string bertag HTML. Akibatnya, deskripsi efek pasif, lore, dan harga pada modal beli item toko ditampilkan mentah sebagai tag `<div style="...">...</div>`.
+  - **Solusi**:
+    - Di `showConfirmModal` (`app.js`): Mengganti kontainer `<p>` menjadi `<div>` dan menambahkan deteksi HTML (`isHtml = typeof message === 'string' && /<[a-z][\s\S]*>/i.test(message)`). Jika bertag HTML, dirender langsung tanpa escaping mentah; jika plain text, tetap di-escape secara aman.
+    - Di `renderTabToko` (`app.js`): Merapikan styling kotak Efek Pasif (background amber RPG), teks lore, nama skin, lencana rarity berwarna sesuai tier, serta harga koin yang kontras.
+    - Menambahkan unit test baru di `tests/ui-v7.test.js` dan menaikkan versi script di `public/index.html` menjadi `app.js?v=20261105v6`.
+  - ✅ 2026-11-05 13:20 — Seluruh 30 unit tests 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.

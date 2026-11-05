@@ -157,4 +157,14 @@ test('H.12: UI Pertempuran & Mode Brutal (Spek E.1, E.2)', async (t) => {
     assert.ok(appJs.includes('data-testid="dex-brutal-toggle"'));
     assert.ok(appJs.includes('id="dex-list-slot"'));
   });
+
+  await t.test('4. showConfirmModal & Shop buy dialog mendukung rich HTML tanpa escaping mentah', () => {
+    // Pastikan showConfirmModal mendeteksi tag HTML
+    assert.ok(appJs.includes('/<[a-z][\\s\\S]*>/i'), 'showConfirmModal mendeteksi format HTML');
+    assert.ok(appJs.includes('isHtml ? message : esc(message)'), 'menghindari escaping ganda saat message berupa HTML');
+
+    // Pastikan wiring tombol beli di toko membungkus detail pasif, lore, dan harga secara terstruktur
+    assert.ok(appJs.includes('Efek Pasif:'), 'deskripsi memuat Efek Pasif');
+    assert.ok(appJs.includes('it.lore'), 'deskripsi memuat lore item');
+  });
 });
