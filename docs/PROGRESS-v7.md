@@ -363,3 +363,21 @@
 
 
 
+- [x] **T-57** Penyesuaian Balancing XP Kemenangan (Target Menang ke Lv 20: Terburuk 250x, Sedang 200x, Terbaik 150x):
+  - **Permintaan**:
+    - Buat proposal dan terapkan agar kondisi paling buruk untuk naik ke Level 20 hanya butuh 250 kemenangan, kondisi sedang 200 kemenangan, dan kondisi terbaik cukup 150 kemenangan.
+  - **Akar Masalah & Solusi (Opsi 1 - Tiered Win Base XP)**:
+    - *Akar Masalah*: Sebelumnya formula kemenangan adalah `stars * 25`. Akibatnya, kemenangan 1 bintang hanya mendapatkan 25 XP (sepertiga dari 3 bintang), sehingga pada skenario terburuk pemain butuh 722 kemenangan untuk mencapai Level 20 (18.050 XP).
+    - *Rasio Target*: Untuk mencapai Lv 20 dalam 250 (1★), 200 (2★), dan 150 (3★) kemenangan, rasio XP kemenangan yang dibutuhkan adalah `1/250 : 1/200 : 1/150 = 60% : 75% : 100%`.
+    - *Solusi Bedah*:
+      1. Menambahkan konfigurasi `winByStars: { 1: 72, 2: 90, 3: 120 }` di `GAME.xp` pada [`lib/db.js`](file:///home/maman/play/lib/db.js).
+      2. Mengganti formula kemenangan di `answerQuestion` [`lib/db.js`](file:///home/maman/play/lib/db.js) menjadi `xpEarned = (winBaseXp[stars] || 72) + newStreak * 2`.
+      3. Dengan basis ini:
+         - 1 Bintang (Terburuk): 72 XP dasar $\rightarrow 250$ kemenangan ($18.000 - 18.050\text{ XP}$).
+         - 2 Bintang (Sedang): 90 XP dasar $\rightarrow 200$ kemenangan ($18.000 - 18.050\text{ XP}$).
+         - 3 Bintang (Terbaik): 120 XP dasar $\rightarrow 150$ kemenangan ($18.000 - 18.050\text{ XP}$).
+      4. Kurva level karakter (`levelFormula`) tidak diubah, sehingga progres pemain yang sudah ada di database tetap konsisten dan aman.
+    - *Pengujian*:
+      1. Menyesuaikan ekspektasi test tier rewards di [`tests/rewards-tier.test.js`](file:///home/maman/play/tests/rewards-tier.test.js) (Base 1★ = 72, streak = 1 $\rightarrow 74\text{ XP}$).
+      2. Membuat unit test dedicated di [`tests/xp-balancing.test.js`](file:///home/maman/play/tests/xp-balancing.test.js) yang memverifikasi perolehan XP dan simulasi kemenangan ke Level 20.
+  - ✅ 2026-11-05 21:10 — Seluruh unit tests XP balancing (5/5) dan rewards-tier (7/7) 100% lulus. PM2 restart & commit remote terverifikasi.

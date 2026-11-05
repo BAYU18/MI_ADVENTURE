@@ -85,8 +85,8 @@ test('T-33 / Spek C.3: Pengali Hadiah Boss Tiap Tier & Agregasi bossByTier Lapor
       const rMult = Progression.rewardMult(tier);
       // Base reward = 10, fase 2 (+15%) -> Math.round(10 * 1.15) = 12
       const expectedBossCoins = Math.round(12 * rMult.coin);
-      // xp = (stars * 25 + streak * 2) * rMult.xp. Accuracy 1/10 = 0.1 -> stars = 1, streak = 1 -> (25 + 2) = 27
-      const expectedXp = Math.round(27 * rMult.xp);
+      // Base XP 1★ = 72, streak = 1 (+2 XP) -> (72 + 2) = 74 * rMult.xp
+      const expectedXp = Math.round(74 * rMult.xp);
 
       const actualBossCoins = ans.rewards.coins - (ans.drops?.coins || 0);
       assert.equal(actualBossCoins, expectedBossCoins, `Koin kemenangan tier ${tier} harus ${expectedBossCoins}`);
