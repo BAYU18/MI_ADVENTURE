@@ -90,7 +90,11 @@ const columnChecks = [
   { table: 'game_sessions', col: 'wrong_streak' },
   { table: 'game_sessions', col: 'fatigue_applied' },
   { table: 'game_sessions', col: 'energy_max' },
-  { table: 'player_skills', col: 'level' }
+  { table: 'player_skills', col: 'level' },
+  // v7: Skill Boss per Elemen, Mode Brutal
+  { table: 'game_sessions', col: 'boss_element' },
+  { table: 'game_sessions', col: 'brutal' },
+  { table: 'game_sessions', col: 'boss_fx_json' }
 ];
 
 for (const item of columnChecks) {

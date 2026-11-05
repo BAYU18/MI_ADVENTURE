@@ -14,7 +14,8 @@
   - ✅ 2026-11-05 03:46 — Audit selesai · data/play.db.bak-20261105104605 · prasyarat v6 terverifikasi
 - [x] **T-01** Terapkan patch `Progression.hitDamage` (Lampiran D) lalu salin persis `shared/bossskills.js` (A), `lib/bossfx.js` (B), `public/js/dexcards.js` (C), `scripts/sim-bossfx.js` (E), tiga berkas tes (F); isi `THEME_ELEMENT` dari audit T-00(b) _(Spek: A.2, Lampiran · Bukti: `node --test tests/*.test.js` hijau (29 uji + uji v6); `validateThemeMap(kunciTemaNyata).ok === true`)_ <!--tries:1-->
   - ✅ 2026-11-05 03:50 — shared/bossskills.js, lib/bossfx.js, public/js/dexcards.js, scripts/sim-bossfx.js, tests/bossskills.test.js, tests/bossfx.glue.test.js · node --test tests/bossskills.test.js tests/bossfx.glue.test.js · 19 uji lulus, validateThemeMap ok: true
-- [ ] **T-02** Migrasi aditif idempoten 3 kolom `game_sessions` (`boss_element`, `brutal`, `boss_fx_json`) dengan backup; perbarui `scripts/check-schema.js` _(Spek: G.1 · Bukti: `node scripts/check-schema.js` lulus; sesi IN_PROGRESS lama tetap terbaca)_
+- [x] **T-02** Migrasi aditif idempoten 3 kolom `game_sessions` (`boss_element`, `brutal`, `boss_fx_json`) dengan backup; perbarui `scripts/check-schema.js` _(Spek: G.1 · Bukti: `node scripts/check-schema.js` lulus; sesi IN_PROGRESS lama tetap terbaca)_ <!--tries:1-->
+  - ✅ 2026-11-05 03:51 — lib/db.js, scripts/check-schema.js · node scripts/check-schema.js · 3 kolom boss_element, brutal, boss_fx_json berhasil ditambahkan dan valid
 - [ ] **G-0** GERBANG 0: `npm test` + `check-schema` + `smoke-test-v4` hijau; commit
 
 ## Fase 1 — Server (skill boss, Brutal, hadiah, Dex)
