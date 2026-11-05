@@ -410,6 +410,19 @@ const server = http.createServer(async (req, res) => {
     return json(res, profile);
   }
 
+  // Profile Showcase (PUT /api/profile/showcase or POST /api/profile/showcase)
+  if (pathname === '/api/profile/showcase' && (method === 'PUT' || method === 'POST')) {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    try {
+      const body = await parseBody(req);
+      const updated = db.updatePlayerShowcase(playerAuth.id, body.showcase || []);
+      return json(res, updated);
+    } catch (e) {
+      return err(res, e.message, 400);
+    }
+  }
+
   // Player: Avatar (PUT /api/avatar or POST /api/player/avatar)
   if (((pathname === '/api/avatar' && (method === 'PUT' || method === 'POST')) ||
        (pathname === '/api/player/avatar' && method === 'POST'))) {
@@ -1031,6 +1044,19 @@ const server = http.createServer(async (req, res) => {
     } catch (e) {
       return err(res, e.message, 400);
     }
+  }
+
+  // GET /api/friends/:id or /api/friends/:id/profile
+  if (pathname.startsWith('/api/friends/') && pathname !== '/api/friends/search' && pathname !== '/api/friends/request' && pathname !== '/api/friends/respond' && pathname !== '/api/friends/history' && method === 'GET') {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    let rawId = pathname.slice('/api/friends/'.length);
+    if (rawId.endsWith('/profile')) rawId = rawId.slice(0, -'/profile'.length);
+    const friendId = Number(rawId);
+    if (!Number.isInteger(friendId)) return err(res, 'BAD_REQUEST', 400, 'BAD_REQUEST');
+    const friendProfile = db.getPlayerPublicProfile(friendId);
+    if (!friendProfile) return err(res, 'Pemain tidak ditemukan', 404, 'PLAYER_NOT_FOUND');
+    return json(res, friendProfile);
   }
 
   // DELETE /api/friends/:id

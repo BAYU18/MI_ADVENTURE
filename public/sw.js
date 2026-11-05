@@ -4,7 +4,7 @@
  * Menyediakan caching asset statis untuk kecepatan & kesiapan offline
  */
 
-const CACHE_NAME = 'pp-v7.2.0-20261105v9';
+const CACHE_NAME = 'pp-v7.2.0-20261105v10';
 
 const PRECACHE_ASSETS = [
   '/',
@@ -20,6 +20,7 @@ const PRECACHE_ASSETS = [
   '/js/duel.js',
   '/js/dexcards.js',
   '/shared/bossskills.js',
+  '/shared/badges.js',
   '/shared/progression.js',
   '/manifest.webmanifest',
   '/icons/icon.svg',

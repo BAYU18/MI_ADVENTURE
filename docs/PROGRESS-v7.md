@@ -410,3 +410,35 @@
        - Cache busting aset dinaikkan ke `style.css?v=20261105v12` dan `app.js?v=20261105v20`.
        - Menambahkan rangkaian unit test dedicated [`tests/red-potion.test.js`](file:///home/maman/play/tests/red-potion.test.js) (6 subtest). Seluruh test suite (42/42 tests) lulus 100%.
   - ✅ 2026-11-05 21:42 — Seluruh unit tests 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.
+
+
+
+
+
+
+- [x] **T-59** Eksekusi Proposal Lencana Prestasi (20 Kategori × 4 Tier), Showcase 3 Slot di Profil, Modal Detail Teman Lengkap, & Pemisahan Statistik Bintang-Kombo:
+  - **Permintaan**:
+    1. Eksekusi `docs/PROPOSAL-BADGES-v7.md` (20 kategori lencana baru dengan tier Common, Rare, Epic, Legend).
+    2. Rapihkan halaman profil bagian menu ringkasan agar pemain bisa memasang 3 title/badge sebagai showcase; buat agar di halaman pertemanan pemain bisa melihat detail player temannya menampilkan seluruh statistik permainan, total badges yang didapat, lencana di showcase, serta total skin yang dimiliki.
+    3. Rapihkan statistik petualangan: bintang dan kombo dipisah serta ditambah statistik in-game lainnya.
+    4. Di menu profil tab ringkasan paling bawah, hilangkan loadout skill ringkas karena sudah ada menu skill tersendiri.
+  - **Implementasi**:
+    1. **Modul Lencana Prestasi Baru ([`shared/badges.js`](file:///home/maman/play/shared/badges.js))**:
+       - Mendaftarkan 20 kategori lencana tematik dalam 5 pilar (Pertempuran & Bos, Kemahiran & Fokus, Eksplorasi & Koleksi, Taktik & Skill, Kompetisi & Dedikasi), masing-masing dengan 4 tier (Common, Rare, Epic, Legend) = 80 lencana unik.
+       - Menyediakan fungsi `evaluateBadges(stats)` untuk mengevaluasi capaian lencana pemain secara dinamis dan retroaktif berdasarkan statistik bermain.
+    2. **Showcase 3 Slot & Public Profile Teman ([`lib/db.js`](file:///home/maman/play/lib/db.js), [`server.js`](file:///home/maman/play/server.js))**:
+       - Menambahkan kolom `showcase_json` pada tabel `players` dengan kuota 3 slot.
+       - Menyediakan API `POST /api/profile/showcase` dan method `updatePlayerShowcase(playerId, showcaseArray)` untuk memilih dan menyimpan lencana/title yang dipajang.
+       - Menyediakan API `GET /api/friends/:id/profile` dan method `getPlayerPublicProfile(friendId)` yang mengembalikan profil lengkap teman: avatar, level, nick, status, 3 slot showcase, total lencana terbuka (`totalBadges`), total skin kosmetik (`totalSkins`), dan statistik permainan lengkap.
+    3. **Penyempurnaan Halaman Profil Tab Ringkasan ([`public/js/app.js`](file:///home/maman/play/public/js/app.js), [`public/css/style.css`](file:///home/maman/play/public/css/style.css))**:
+       - Menambahkan kartu interaktif **✨ Panggung Kehormatan (Showcase 3 Slot)** di tab ringkasan profil dengan border warna bercahaya sesuai tier (Common/Rare/Epic/Legend) dan modal pop-up pemilih lencana (`showShowcasePicker`).
+       - Memisahkan kartu Bintang dan Rekor Kombo ke dalam grid statistik petualangan 10 kotak yang rapi dan elegan: Bos Dikalahkan, Total Bintang, Rekor Kombo, Akurasi Jawaban, Rasio Menang, Menang Brutal, Menang Duel, Jawaban Kritis, Koleksi Monster Dex, dan Hari Belajar.
+       - Menampilkan kartu 20 kategori lencana dengan indikator tier terbuka, progress bar capaian, dan modal dialog rincian 4 tier (`showBadgeFamilyDetailModal`) lengkap dengan tombol *"Pasang di Showcase"*.
+       - Menghapus komponen lama loadout skill di bagian bawah ringkasan.
+    4. **Modal Detail Profil Teman ([`public/js/friends.js`](file:///home/maman/play/public/js/friends.js))**:
+       - Menambahkan event klik pada kartu teman di daftar pertemanan untuk membuka modal `showFriendDetailModal(friendId)`.
+       - Modal menampilkan avatar besar, info level, 3 slot showcase lencana teman, total lencana terbuka (x/80), total skin dimiliki, statistik permainan lengkap, serta tombol langsung *"Tantang Duel"*.
+    5. **PWA Cache & Pengujian**:
+       - Cache busting aset dinaikkan ke `sw.js` (`pp-v7.2.0-20261105v10`), `index.html` (`app.js?v=20261105v21`, `friends.js?v=20261105v3`), dan `style.css`.
+       - Menambahkan unit test dedicated [`tests/badges-showcase.test.js`](file:///home/maman/play/tests/badges-showcase.test.js) (5 subtest). Seluruh test suite (47/47 tests) lulus 100%.
+  - ✅ 2026-11-05 22:24 — Seluruh unit tests 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.

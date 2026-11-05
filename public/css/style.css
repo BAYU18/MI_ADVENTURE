@@ -3568,3 +3568,112 @@ body.reduced-motion .boss-telegraph { animation: none; }
 .skill-title-btn:hover strong {
   color: var(--c-primary) !important;
 }
+
+/* ---------- T-59: Badge Showcase & Advanced Badge System UI ---------- */
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 6px;
+}
+.showcase-slot {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 10px 6px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  position: relative;
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.showcase-slot:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.07);
+}
+.showcase-slot.empty {
+  border-style: dashed;
+  border-color: rgba(255, 255, 255, 0.18);
+  color: var(--c-muted);
+}
+.showcase-slot.tier-common {
+  border-color: #d97706;
+  background: linear-gradient(135deg, rgba(120, 53, 15, 0.25) 0%, rgba(30, 20, 10, 0.4) 100%);
+  box-shadow: 0 0 10px rgba(217, 119, 6, 0.2);
+}
+.showcase-slot.tier-rare {
+  border-color: #38bdf8;
+  background: linear-gradient(135deg, rgba(14, 116, 144, 0.3) 0%, rgba(15, 23, 42, 0.5) 100%);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+}
+.showcase-slot.tier-epic {
+  border-color: #f59e0b;
+  background: linear-gradient(135deg, rgba(88, 28, 135, 0.35) 0%, rgba(180, 83, 9, 0.25) 100%);
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.35);
+}
+.showcase-slot.tier-legend {
+  border-color: #c084fc;
+  background: linear-gradient(135deg, rgba(76, 29, 149, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
+  box-shadow: 0 0 20px rgba(192, 132, 252, 0.45);
+}
+
+.badge-family-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-surface-strong);
+  border-radius: var(--radius);
+  padding: 12px;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.badge-family-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.profile-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+@media (min-width: 480px) {
+  .profile-stat-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.profile-stat-box {
+  background: var(--c-surface);
+  border: 1px solid var(--c-surface-strong);
+  border-radius: var(--radius);
+  padding: 12px 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+.profile-stat-box .stat-icon {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+.profile-stat-box .stat-val {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 2px 0;
+}
+.profile-stat-box .stat-label {
+  font-size: 0.72rem;
+  color: var(--c-muted);
+  white-space: nowrap;
+}

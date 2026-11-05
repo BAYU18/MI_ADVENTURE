@@ -4841,7 +4841,9 @@ Screens.profil = {
     const p = this.profileData?.player || Player.data || {};
     const stats = this.profileData?.stats || {};
     const badges = this.profileData?.badges || [];
-    const skills = this.profileData?.skills || {};
+    const badgeSummary = this.profileData?.badgeSummary || { totalUnlocked: badges.length, totalBadges: 80 };
+    const badgeFamilies = this.profileData?.badgeFamilies || [];
+    const showcase = this.profileData?.showcase || [null, null, null];
     const avatarSvg = window.Avatar ? Avatar.renderAvatar(this.profileData?.avatar || {}) : '🎒';
 
     slot.innerHTML = `
@@ -4853,7 +4855,7 @@ Screens.profil = {
         <div class="grow" style="min-width:0">
           <div style="font-weight:800;font-size:1.1rem;color:#fff">${esc(p.nick || 'Petualang')}</div>
           <div style="font-size:0.8rem;color:var(--c-muted);margin:2px 0 6px 0">
-            <span style="color:var(--c-primary);font-weight:700">Lv. ${p.level || 1}</span> · ${esc(p.title || 'Petualang Pemula')} · ${esc(p.className || 'Kelas 4 SD')}
+            <span style="color:var(--c-primary);font-weight:700">Lv. ${p.level || 1}</span> · ${esc(p.title || 'Pelajar Pemula')} · ${esc(p.className || 'Kelas 4 SD')}
           </div>
           <div class="xp-track" style="height:6px;background:rgba(255,255,255,0.1);border-radius:99px;overflow:hidden">
             <div class="xp-fill" style="width:${Math.min(100, Math.round(((p.xp || 0) / (p.xpForNext || 100)) * 100))}%"></div>
@@ -4883,79 +4885,350 @@ Screens.profil = {
           </div>
         `;
       })()}
-  
 
-      <!-- STATS GRID 2x2 -->
-      <h3 style="font-size:0.95rem;margin:10px 0 6px 4px;color:var(--c-muted)">📊 Statistik Petualangan</h3>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-        <div class="card" style="padding:12px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);text-align:center">
-          <div style="font-size:1.3rem">⚔️</div>
-          <div style="font-size:1.15rem;font-weight:800;color:#fff;margin:2px 0">${stats.bossDefeated || 0}</div>
-          <div style="font-size:0.75rem;color:var(--c-muted)">Bos Dikalahkan</div>
-        </div>
-        <div class="card" style="padding:12px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);text-align:center">
-          <div style="font-size:1.3rem">🎯</div>
-          <div style="font-size:1.15rem;font-weight:800;color:#fff;margin:2px 0">${stats.accuracy || 0}%</div>
-          <div style="font-size:0.75rem;color:var(--c-muted)">Akurasi Jawaban</div>
-        </div>
-        <div class="card" style="padding:12px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);text-align:center">
-          <div style="font-size:1.3rem">🏆</div>
-          <div style="font-size:1.15rem;font-weight:800;color:#fff;margin:2px 0">${stats.winRate || 0}%</div>
-          <div style="font-size:0.75rem;color:var(--c-muted)">Rasio Menang</div>
-        </div>
-        <div class="card" style="padding:12px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);text-align:center">
-          <div style="font-size:1.3rem">⭐</div>
-          <div style="font-size:1.15rem;font-weight:800;color:#fff;margin:2px 0">${stats.stars || 0} / 🔥 ${stats.bestStreak || 0}</div>
-          <div style="font-size:0.75rem;color:var(--c-muted)">Bintang & Best Combo</div>
-        </div>
+      <!-- SHOWCASE 3 LENCANA / GELAR -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin:14px 4px 6px 4px">
+        <h3 style="font-size:0.95rem;margin:0;color:var(--c-muted)">✨ Panggung Kehormatan (Showcase 3 Slot)</h3>
+        <span style="font-size:0.75rem;color:var(--c-primary);font-weight:700">Sentuh untuk ganti</span>
       </div>
-
-      <!-- LENCANA PRESTASI -->
-      <h3 style="font-size:0.95rem;margin:12px 0 6px 4px;color:var(--c-muted)">🏅 Lencana Prestasi (${badges.length})</h3>
-      <div class="card" style="padding:12px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong)">
-        ${badges.length === 0
-          ? `<p style="font-size:0.85rem;color:var(--c-muted);margin:0;text-align:center">Belum ada lencana. Terus kalahkan monster bos!</p>`
-          : `<div style="display:flex;flex-wrap:wrap;gap:8px">
-              ${badges.map(b => `
-                <div class="chip good" style="font-size:0.8rem;padding:6px 10px;border-radius:8px">
-                  <span>${b.icon || '🏅'}</span>
-                  <span>${esc(b.name)}</span>
-                </div>
-              `).join('')}
-            </div>`
-        }
-      </div>
-
-      <!-- LOADOUT SKILL RINGKAS -->
-      <div style="display:flex;justify-content:space-between;align-items:center;margin:12px 4px 6px 4px">
-        <h3 style="font-size:0.95rem;margin:0;color:var(--c-muted)">⚡ Loadout Skill Aktif</h3>
-        <button class="btn ghost small" id="btn-quick-manage-skills" style="padding:2px 8px;font-size:0.75rem">Atur Skill ➔</button>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:8px">
-        ${(skills.loadout || []).slice(0, 3).map((item, idx) => {
-          const s = typeof item === 'object' ? item : { id: item, name: item, icon: '⚡', level: 1 };
+      <div class="showcase-grid">
+        ${[0, 1, 2].map(slotIdx => {
+          const item = showcase[slotIdx];
+          if (!item) {
+            return `
+              <div class="showcase-slot empty" data-slot="${slotIdx}" onclick="App.showShowcasePicker(${slotIdx})">
+                <div style="font-size:1.5rem;opacity:0.4">➕</div>
+                <div style="font-size:0.72rem;font-weight:700;margin-top:4px">Slot #${slotIdx + 1}</div>
+                <div style="font-size:0.62rem;opacity:0.6">Pasang Lencana</div>
+              </div>
+            `;
+          }
+          const tierClass = item.tier ? `tier-${item.tier.toLowerCase()}` : 'tier-common';
+          const tierColor = item.tier === 'LEGEND' ? '#c084fc' : (item.tier === 'EPIC' ? '#fbbf24' : (item.tier === 'RARE' ? '#38bdf8' : '#f59e0b'));
           return `
-            <div class="card" style="padding:10px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);text-align:center">
-              <div style="font-size:1.4rem">${s.icon || '⚡'}</div>
-              <div style="font-size:0.8rem;font-weight:700;color:#fff;margin:2px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(s.name || s.id)}</div>
-              <div style="font-size:0.7rem;color:var(--c-primary)">Lv. ${s.level || 1}</div>
+            <div class="showcase-slot ${tierClass}" data-slot="${slotIdx}" onclick="App.showShowcasePicker(${slotIdx})">
+              <div style="font-size:1.8rem;line-height:1.2">${item.icon || '🏅'}</div>
+              <div style="font-size:0.78rem;font-weight:800;color:#fff;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:95%">${esc(item.name)}</div>
+              <div style="font-size:0.62rem;font-weight:700;color:${tierColor};text-transform:uppercase">${esc(item.tier || 'BADGE')}</div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+
+      <!-- STATS GRID LENGKAP (BINTANG DAN KOMBO DIPISAH) -->
+      <h3 style="font-size:0.95rem;margin:16px 0 6px 4px;color:var(--c-muted)">📊 Statistik Petualangan Lengkap</h3>
+      <div class="profile-stat-grid">
+        <div class="profile-stat-box">
+          <span class="stat-icon">⚔️</span>
+          <span class="stat-val">${stats.bossDefeated || 0}</span>
+          <span class="stat-label">Bos Dikalahkan</span>
+        </div>
+        <div class="profile-stat-box">
+          <span class="stat-icon">⭐</span>
+          <span class="stat-val">${stats.stars || 0}</span>
+          <span class="stat-label">Total Bintang</span>
+        </div>
+        <div class="profile-stat-box">
+          <span class="stat-icon">🔥</span>
+          <span class="stat-val">${stats.bestStreak || 0}×</span>
+          <span class="stat-label">Rekor Kombo</span>
+        </div>
+        <div class="profile-stat-box">
+          <span class="stat-icon">🎯</span>
+          <span class="stat-val">${stats.accuracy || 0}%</span>
+          <span class="stat-label">Akurasi Jawaban</span>
+        </div>
+        <div class="profile-stat-box">
+          <span class="stat-icon">🏆</span>
+          <span class="stat-val">${stats.winRate || 0}%</span>
+          <span class="stat-label">Rasio Menang</span>
+        </div>
+        <div class="profile-stat-box">
+          <span class="stat-icon">💀</span>
+          <span class="stat-val">${stats.brutalWins || 0}</span>
+          <span class="stat-label">Menang Brutal</span>
+        </div>
+        <div class="profile-stat-box">
+          <span class="stat-icon">🤺</span>
+          <span class="stat-val">${stats.duelWins || 0}</span>
+          <span class="stat-label">Menang Duel</span>
+        </div>
+        <div class="profile-stat-box">
+          <span class="stat-icon">⚡</span>
+          <span class="stat-val">${stats.criticalCount || 0}</span>
+          <span class="stat-label">Jawaban Kritis</span>
+        </div>
+        <div class="profile-stat-box">
+          <span class="stat-icon">📖</span>
+          <span class="stat-val">${stats.dexDefeated || 0} / 40</span>
+          <span class="stat-label">Monster Dex</span>
+        </div>
+        <div class="profile-stat-box">
+          <span class="stat-icon">📅</span>
+          <span class="stat-val">${p.dayStreak || 1} Hari</span>
+          <span class="stat-label">Hari Belajar</span>
+        </div>
+      </div>
+
+      <!-- LENCANA PRESTASI 20 KATEGORI x 4 TIER -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin:18px 4px 6px 4px">
+        <h3 style="font-size:0.95rem;margin:0;color:var(--c-muted)">🏅 Lencana Prestasi (${badgeSummary.totalUnlocked || 0} / ${badgeSummary.totalBadges || 80} Terbuka)</h3>
+        <span style="font-size:0.75rem;color:var(--c-muted)">Sentuh kartu untuk rincian</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr;gap:8px">
+        ${(badgeFamilies || []).map(f => {
+          const highest = f.highestTierInfo;
+          const nextTier = f.tiers.find(t => !t.unlocked) || f.tiers[f.tiers.length - 1];
+          const isMax = f.unlockedCount === 4;
+          return `
+            <div class="badge-family-card" onclick="App.showBadgeFamilyDetailModal('${f.id}')">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+                <div style="display:flex;align-items:center;gap:10px;min-width:0">
+                  <div style="font-size:1.8rem;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);border-radius:10px;flex-shrink:0">
+                    ${highest ? highest.icon : '🔒'}
+                  </div>
+                  <div style="min-width:0">
+                    <div style="font-weight:800;font-size:0.88rem;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(f.name)}</div>
+                    <div style="font-size:0.72rem;color:var(--c-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+                      ${highest ? `<strong style="color:${highest.color}">${highest.label}: ${esc(f.tiers.find(t => t.tier === f.highestTier)?.name || '')}</strong>` : 'Terkunci'}
+                    </div>
+                  </div>
+                </div>
+                <div style="text-align:right;flex-shrink:0">
+                  <span class="badge" style="background:${highest ? highest.color : '#475569'};color:#fff;font-size:0.68rem;padding:2px 8px;border-radius:6px;font-weight:800">
+                    ${f.unlockedCount} / 4 Tier
+                  </span>
+                  <div style="font-size:0.68rem;color:var(--c-muted);margin-top:2px">
+                    ${isMax ? '⭐ MAX' : `${f.current} / ${nextTier.target} ${f.unit || ''}`}
+                  </div>
+                </div>
+              </div>
+              <div class="xp-track" style="height:4px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden;margin-top:4px">
+                <div class="xp-fill" style="width:${isMax ? 100 : (nextTier ? nextTier.pct : 0)}%;background:${highest ? highest.color : 'var(--c-primary)'}"></div>
+              </div>
             </div>
           `;
         }).join('')}
       </div>
     `;
+  },
 
-    const qms = $('#btn-quick-manage-skills');
-    if (qms) {
-      qms.onclick = () => {
-        this.activeTab = 'skill';
-        $$('.tab-btn').forEach(b => {
-          if (b.dataset.tab === 'skill') b.className = 'btn small tab-btn active';
-          else b.className = 'btn small tab-btn ghost';
-        });
-        this.renderActiveTab();
+  showShowcasePicker(slotIdx) {
+    if (window.Sfx) Sfx.play('tap');
+    const unlockedBadges = this.profileData?.unlockedList || this.profileData?.badges || [];
+    const currentShowcase = this.profileData?.showcase || [null, null, null];
+    const currentItem = currentShowcase[slotIdx];
+
+    const modalId = 'modal-showcase-picker';
+    const oldModal = document.getElementById(modalId);
+    if (oldModal) oldModal.remove();
+
+    const overlay = document.createElement('div');
+    overlay.id = modalId;
+    overlay.className = 'confirm-overlay';
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn 0.2s ease;';
+
+    let badgesHtml = '';
+    if (unlockedBadges.length === 0) {
+      badgesHtml = '<div style="text-align:center;color:var(--c-muted);padding:24px 10px;font-size:0.85rem">Belum ada lencana yang terbuka. Terus bertualang untuk membuka lencana prestasimu!</div>';
+    } else {
+      badgesHtml = `
+        <div style="display:grid;grid-template-columns:1fr;gap:8px;max-height:45dvh;overflow-y:auto;padding-right:4px;">
+          ${unlockedBadges.map(b => {
+            const isEquippedInSlot = currentItem && currentItem.id === b.id;
+            const isEquippedOther = !isEquippedInSlot && currentShowcase.some(it => it && it.id === b.id);
+            return `
+              <div style="padding:10px;background:var(--c-surface);border:1px solid ${isEquippedInSlot ? 'var(--c-primary)' : 'rgba(255,255,255,0.1)'};border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:10px">
+                <div style="display:flex;align-items:center;gap:10px;min-width:0">
+                  <span style="font-size:1.8rem;line-height:1">${b.icon || '🏅'}</span>
+                  <div style="min-width:0">
+                    <div style="font-weight:800;font-size:0.88rem;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(b.name)}</div>
+                    <div style="font-size:0.7rem;color:${b.tierInfo ? b.tierInfo.color : '#f59e0b'};font-weight:700">${b.tier || 'COMMON'} · ${esc(b.familyName || '')}</div>
+                  </div>
+                </div>
+                <div>
+                  ${isEquippedInSlot
+                    ? '<span class="badge small" style="background:#10b981;color:#fff;font-size:0.7rem;padding:3px 8px;border-radius:6px">Terpasang ✓</span>'
+                    : `<button class="btn primary small btn-pick-badge" data-badge-id="${esc(b.id)}" style="padding:4px 10px;font-size:0.75rem">${isEquippedOther ? 'Pindah' : 'Pilih'}</button>`
+                  }
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    overlay.innerHTML = `
+      <div class="confirm-card stack" style="width:min(440px,96vw);max-height:85dvh;background:#0f172a;border:1px solid rgba(255,255,255,0.15);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 12px 36px rgba(0,0,0,0.7)">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <h3 style="margin:0;font-size:1.05rem;color:#fff;font-weight:800">✨ Pasang di Showcase Slot #${slotIdx + 1}</h3>
+            <div style="font-size:0.72rem;color:var(--c-muted);margin-top:2px">Pilih lencana prestasi untuk dipajang di profilmu</div>
+          </div>
+          <button class="btn ghost small" id="btn-close-showcase" style="font-size:1.2rem;padding:2px 8px">✕</button>
+        </div>
+
+        ${badgesHtml}
+
+        <div style="display:flex;gap:8px;margin-top:4px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.08)">
+          ${currentItem ? `<button class="btn danger small grow" id="btn-clear-slot" style="font-size:0.8rem">Kosongkan Slot</button>` : ''}
+          <button class="btn ghost small grow" id="btn-cancel-showcase" style="font-size:0.8rem">Tutup</button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    const close = () => overlay.remove();
+    overlay.querySelector('#btn-close-showcase').onclick = close;
+    overlay.querySelector('#btn-cancel-showcase').onclick = close;
+
+    const clearBtn = overlay.querySelector('#btn-clear-slot');
+    if (clearBtn) {
+      clearBtn.onclick = async () => {
+        close();
+        await this.saveShowcaseItem(slotIdx, null);
       };
     }
+
+    overlay.querySelectorAll('.btn-pick-badge').forEach(btn => {
+      btn.onclick = async () => {
+        const bId = btn.dataset.badgeId;
+        const badgeItem = unlockedBadges.find(x => x.id === bId);
+        if (badgeItem) {
+          close();
+          await this.saveShowcaseItem(slotIdx, badgeItem);
+        }
+      };
+    });
+  },
+
+  async saveShowcaseItem(slotIdx, item) {
+    const current = [...(this.profileData?.showcase || [null, null, null])];
+    while (current.length < 3) current.push(null);
+
+    // If item was in another slot, remove it from other slot
+    if (item && item.id) {
+      for (let i = 0; i < current.length; i++) {
+        if (i !== slotIdx && current[i] && current[i].id === item.id) {
+          current[i] = null;
+        }
+      }
+    }
+
+    current[slotIdx] = item ? {
+      id: item.id,
+      name: item.name,
+      icon: item.icon,
+      tier: item.tier,
+      type: 'badge',
+      desc: item.desc || ''
+    } : null;
+
+    try {
+      const res = await API.req('/api/profile/showcase', {
+        method: 'POST',
+        body: JSON.stringify({ showcase: current })
+      });
+      if (res.ok) {
+        if (this.profileData) this.profileData.showcase = res.showcase;
+        this.renderTabRingkasan(document.getElementById('profile-tab-content'));
+        toast('Showcase berhasil diperbarui! ✨');
+      }
+    } catch (e) {
+      toast('Gagal memperbarui showcase: ' + e.message, 'error');
+    }
+  },
+
+  showBadgeFamilyDetailModal(familyId) {
+    if (window.Sfx) Sfx.play('tap');
+    const f = (this.profileData?.badgeFamilies || []).find(x => x.id === familyId);
+    if (!f) return;
+
+    const modalId = 'modal-badge-family';
+    const oldModal = document.getElementById(modalId);
+    if (oldModal) oldModal.remove();
+
+    const overlay = document.createElement('div');
+    overlay.id = modalId;
+    overlay.className = 'confirm-overlay';
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn 0.2s ease;';
+
+    overlay.innerHTML = `
+      <div class="confirm-card stack" style="width:min(440px,96vw);max-height:85dvh;background:#0f172a;border:1px solid rgba(255,255,255,0.15);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 12px 36px rgba(0,0,0,0.7)">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <h3 style="margin:0;font-size:1.1rem;color:#fff;font-weight:800">${esc(f.name)}</h3>
+            <div style="font-size:0.75rem;color:var(--c-muted)">Capaian saat ini: <strong style="color:var(--c-primary)">${f.current} ${f.unit || ''}</strong></div>
+          </div>
+          <button class="btn ghost small" id="btn-close-badge-family" style="font-size:1.2rem;padding:2px 8px">✕</button>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px;overflow-y:auto;max-height:55dvh;padding-right:4px">
+          ${f.tiers.map(t => {
+            const isUnlocked = t.unlocked;
+            const tColor = t.tierInfo ? t.tierInfo.color : '#f59e0b';
+            return `
+              <div style="padding:12px;background:${isUnlocked ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.3)'};border:1.5px solid ${isUnlocked ? tColor : 'rgba(255,255,255,0.1)'};border-radius:12px;opacity:${isUnlocked ? '1' : '0.6'}">
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                  <div style="display:flex;align-items:center;gap:10px">
+                    <span style="font-size:1.8rem">${t.icon || '🏅'}</span>
+                    <div>
+                      <div style="font-weight:800;font-size:0.92rem;color:${isUnlocked ? '#fff' : '#94a3b8'}">${esc(t.name)}</div>
+                      <div style="font-size:0.7rem;font-weight:700;color:${tColor};text-transform:uppercase">${t.tier} · Syarat: ${t.target} ${f.unit || ''}</div>
+                    </div>
+                  </div>
+                  <div>
+                    ${isUnlocked
+                      ? `<span class="badge small" style="background:#10b981;color:#fff;font-size:0.68rem;padding:3px 8px;border-radius:6px;font-weight:800">TERBUKA ✓</span>`
+                      : `<span class="badge small" style="background:#475569;color:#cbd5e1;font-size:0.68rem;padding:3px 8px;border-radius:6px">${t.pct}%</span>`
+                    }
+                  </div>
+                </div>
+                <div style="font-size:0.75rem;color:var(--c-muted);margin-top:6px;line-height:1.4">${esc(t.desc)}</div>
+                ${isUnlocked ? `
+                  <div style="margin-top:8px;display:flex;justify-content:flex-end">
+                    <button class="btn secondary small btn-equip-to-showcase" data-tier="${t.tier}" data-name="${esc(t.name)}" data-icon="${t.icon || '🏅'}" style="font-size:0.72rem;padding:3px 10px">
+                      ⭐ Pasang di Showcase
+                    </button>
+                  </div>
+                ` : ''}
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        <div style="margin-top:4px">
+          <button class="btn ghost small full-width" id="btn-ok-badge-family">Tutup</button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    const close = () => overlay.remove();
+    overlay.querySelector('#btn-close-badge-family').onclick = close;
+    overlay.querySelector('#btn-ok-badge-family').onclick = close;
+
+    overlay.querySelectorAll('.btn-equip-to-showcase').forEach(btn => {
+      btn.onclick = async () => {
+        const item = {
+          id: `${f.id}_${btn.dataset.tier.toLowerCase()}`,
+          name: btn.dataset.name,
+          icon: btn.dataset.icon,
+          tier: btn.dataset.tier,
+          type: 'badge'
+        };
+        close();
+        // find first empty slot or slot 0
+        const current = [...(this.profileData?.showcase || [null, null, null])];
+        while (current.length < 3) current.push(null);
+        let targetSlot = current.findIndex(x => x === null);
+        if (targetSlot === -1) targetSlot = 0;
+        await this.saveShowcaseItem(targetSlot, item);
+      };
+    });
   },
 
   async renderTabSkin(slot) {

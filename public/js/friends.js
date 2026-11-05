@@ -73,7 +73,7 @@
     }
     return friends.map(f => `
       <div class="friend-card" data-id="${f.id}">
-        <div class="friend-left" style="display:flex;align-items:center;gap:12px;min-width:0;">
+        <div class="friend-left btn-view-friend-detail" data-id="${f.id}" title="Klik untuk lihat profil & statistik teman" style="display:flex;align-items:center;gap:12px;min-width:0;cursor:pointer;">
           ${renderAvatarBadge(f.avatar, 42)}
           <div class="friend-info">
             <span class="friend-nick">${esc(f.nick)}</span>
@@ -350,6 +350,14 @@
   }
 
   function attachFriendsListActions() {
+    // View Friend Detail
+    document.querySelectorAll('.btn-view-friend-detail').forEach(el => {
+      el.onclick = () => {
+        const friendId = Number(el.getAttribute('data-id'));
+        if (friendId) showFriendDetailModal(friendId);
+      };
+    });
+
     // Challenge Duel
     document.querySelectorAll('.btn-challenge-duel').forEach(b => {
       b.onclick = async () => {
@@ -373,6 +381,176 @@
         }
       };
     });
+  }
+
+  async function showFriendDetailModal(friendId) {
+    if (window.Sfx) window.Sfx.play('tap');
+    const modalId = 'modal-friend-detail';
+    const oldModal = document.getElementById(modalId);
+    if (oldModal) oldModal.remove();
+
+    const overlay = document.createElement('div');
+    overlay.id = modalId;
+    overlay.className = 'confirm-overlay';
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn 0.2s ease;';
+    overlay.innerHTML = `
+      <div class="confirm-card stack" style="width:min(440px,96vw);background:#0f172a;border:1px solid rgba(255,255,255,0.15);border-radius:18px;padding:24px;text-align:center;box-shadow:0 12px 36px rgba(0,0,0,0.7)">
+        <div style="color:var(--c-muted);font-size:0.9rem">Memuat profil teman...</div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    try {
+      const res = await window.API.req(`/api/friends/${friendId}/profile`);
+      if (!res || !res.ok) throw new Error('Profil tidak ditemukan');
+
+      const p = res.player || {};
+      const stats = res.stats || {};
+      const showcase = res.showcase || [null, null, null];
+      const avatarSvg = (window.Avatar && typeof window.Avatar.renderAvatar === 'function')
+        ? window.Avatar.renderAvatar(p.avatar || {})
+        : '<span style="font-size:2rem">👤</span>';
+
+      overlay.innerHTML = `
+        <div class="confirm-card stack" style="width:min(460px,96vw);max-height:88dvh;background:#0f172a;border:1px solid rgba(255,255,255,0.15);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 12px 36px rgba(0,0,0,0.7)">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <h3 style="margin:0;font-size:1.05rem;color:#fff;font-weight:800">👤 Detail Profil Teman</h3>
+            <button class="btn ghost small" id="btn-close-friend-modal" style="font-size:1.2rem;padding:2px 8px">✕</button>
+          </div>
+
+          <div style="overflow-y:auto;max-height:75dvh;padding-right:4px;display:flex;flex-direction:column;gap:12px">
+            <!-- HERO HEADER -->
+            <div style="padding:14px;background:var(--c-surface);border-radius:14px;border:1px solid rgba(255,255,255,0.1);display:flex;gap:12px;align-items:center">
+              <div style="width:64px;height:64px;border-radius:16px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0">
+                ${avatarSvg}
+              </div>
+              <div style="min-width:0;flex-grow:1">
+                <div style="font-weight:800;font-size:1.1rem;color:#fff">${esc(p.nick || 'Teman')}</div>
+                <div style="font-size:0.78rem;color:var(--c-muted);margin-top:2px">
+                  <span style="color:var(--c-primary);font-weight:700">Lv. ${p.level || 1}</span> · ${esc(p.title || 'Pelajar Pemula')} · ${esc(p.className || '')}
+                </div>
+                <div style="font-size:0.72rem;color:#38bdf8;margin-top:4px;font-weight:700">
+                  🏅 ${res.totalBadges || 0} / 80 Lencana Terbuka · 🎨 ${res.totalSkins || 0} Skin
+                </div>
+              </div>
+            </div>
+
+            <!-- SHOWCASE 3 SLOT TEMAN -->
+            <div>
+              <div style="font-size:0.8rem;font-weight:800;color:var(--c-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px">
+                ✨ Panggung Kehormatan Teman
+              </div>
+              <div class="showcase-grid">
+                ${[0, 1, 2].map(slotIdx => {
+                  const item = showcase[slotIdx];
+                  if (!item) {
+                    return `
+                      <div class="showcase-slot empty" style="cursor:default">
+                        <div style="font-size:1.3rem;opacity:0.3">🔒</div>
+                        <div style="font-size:0.68rem;color:var(--c-muted);margin-top:4px">Kosong</div>
+                      </div>
+                    `;
+                  }
+                  const tierClass = item.tier ? `tier-${item.tier.toLowerCase()}` : 'tier-common';
+                  const tierColor = item.tier === 'LEGEND' ? '#c084fc' : (item.tier === 'EPIC' ? '#fbbf24' : (item.tier === 'RARE' ? '#38bdf8' : '#f59e0b'));
+                  return `
+                    <div class="showcase-slot ${tierClass}" style="cursor:default">
+                      <div style="font-size:1.8rem;line-height:1.2">${item.icon || '🏅'}</div>
+                      <div style="font-size:0.75rem;font-weight:800;color:#fff;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:95%">${esc(item.name)}</div>
+                      <div style="font-size:0.62rem;font-weight:700;color:${tierColor};text-transform:uppercase">${esc(item.tier || 'BADGE')}</div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+
+            <!-- STATISTIK PERMAINAN LENGKAP -->
+            <div>
+              <div style="font-size:0.8rem;font-weight:800;color:var(--c-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px">
+                📊 Statistik Permainan Lengkap
+              </div>
+              <div class="profile-stat-grid">
+                <div class="profile-stat-box">
+                  <span class="stat-icon">⚔️</span>
+                  <span class="stat-val">${stats.bossDefeated || 0}</span>
+                  <span class="stat-label">Bos Dikalahkan</span>
+                </div>
+                <div class="profile-stat-box">
+                  <span class="stat-icon">⭐</span>
+                  <span class="stat-val">${stats.stars || 0}</span>
+                  <span class="stat-label">Total Bintang</span>
+                </div>
+                <div class="profile-stat-box">
+                  <span class="stat-icon">🔥</span>
+                  <span class="stat-val">${stats.bestStreak || 0}×</span>
+                  <span class="stat-label">Rekor Kombo</span>
+                </div>
+                <div class="profile-stat-box">
+                  <span class="stat-icon">🎯</span>
+                  <span class="stat-val">${stats.accuracy || 0}%</span>
+                  <span class="stat-label">Akurasi Jawaban</span>
+                </div>
+                <div class="profile-stat-box">
+                  <span class="stat-icon">🏆</span>
+                  <span class="stat-val">${stats.winRate || 0}%</span>
+                  <span class="stat-label">Rasio Menang</span>
+                </div>
+                <div class="profile-stat-box">
+                  <span class="stat-icon">💀</span>
+                  <span class="stat-val">${stats.brutalWins || 0}</span>
+                  <span class="stat-label">Menang Brutal</span>
+                </div>
+                <div class="profile-stat-box">
+                  <span class="stat-icon">🤺</span>
+                  <span class="stat-val">${stats.duelWins || 0}</span>
+                  <span class="stat-label">Menang Duel</span>
+                </div>
+                <div class="profile-stat-box">
+                  <span class="stat-icon">⚡</span>
+                  <span class="stat-val">${stats.criticalCount || 0}</span>
+                  <span class="stat-label">Jawaban Kritis</span>
+                </div>
+                <div class="profile-stat-box">
+                  <span class="stat-icon">📖</span>
+                  <span class="stat-val">${stats.dexDefeated || 0} / 40</span>
+                  <span class="stat-label">Monster Dex</span>
+                </div>
+                <div class="profile-stat-box">
+                  <span class="stat-icon">📅</span>
+                  <span class="stat-val">${p.dayStreak || 1} Hari</span>
+                  <span class="stat-label">Hari Belajar</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <div style="display:flex;gap:8px;margin-top:6px">
+              <button class="btn primary small grow" id="btn-duel-from-modal" style="padding:10px;font-size:0.85rem">⚔️ Tantang Duel</button>
+              <button class="btn ghost small grow" id="btn-close-modal-bottom" style="padding:10px;font-size:0.85rem">Tutup</button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const close = () => overlay.remove();
+      overlay.querySelector('#btn-close-friend-modal').onclick = close;
+      overlay.querySelector('#btn-close-modal-bottom').onclick = close;
+
+      const duelBtn = overlay.querySelector('#btn-duel-from-modal');
+      if (duelBtn) {
+        duelBtn.onclick = () => {
+          close();
+          showSubjectPickerModal(friendId, p.nick);
+        };
+      }
+    } catch (err) {
+      overlay.innerHTML = `
+        <div class="confirm-card stack" style="width:min(440px,96vw);background:#0f172a;border:1px solid rgba(255,255,255,0.15);border-radius:18px;padding:24px;text-align:center">
+          <div style="color:var(--c-danger);font-size:0.9rem;margin-bottom:12px">Gagal memuat profil: ${esc(err.message)}</div>
+          <button class="btn ghost small" onclick="this.closest('.confirm-overlay').remove()">Tutup</button>
+        </div>
+      `;
+    }
   }
 
   function attachInvitesTabEvents() {
