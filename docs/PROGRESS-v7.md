@@ -331,6 +331,32 @@
        - Versi aset dinaikkan ke `style.css?v=20261105v10` dan `app.js?v=20261105v18`.
        - Memperbarui pengujian di [`tests/ui-v7.test.js`](file:///home/maman/play/tests/ui-v7.test.js) memverifikasi kontras tinggi kritikal dan deduplikasi ketat pasif. Seluruh 18 tes lulus 100%.
   - ✅ 2026-11-05 17:41 — Seluruh 18 unit tests 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.
+- [x] **T-56** Perbaikan Bug Perisai Sisa 1, Notifikasi Combo Tunggal Header, Eliminasi Penguncian Sisa 1 HP Bos, dan Kesejajaran Darah Duel:
+  - **Permintaan**:
+    1. Perbaiki bug perisai di mana jika sisa 1 damage langsung ke HP dan tidak menghabiskan perisai lalu sisanya ke HP.
+    2. Di header notifikasi combo ada 2, cukup 1 saja yang gambar api + jumlah kombo.
+    3. Perbaiki bug di mana walaupun sisa darah bos 6 dan seharusnya sekali benar langsung menang, tapi malah tersisa 1 dan harus beberapa kali benar baru bos kalah.
+    4. Saat duel vs player, buat darah masing-masing sejajar dan notifikasi terkena serangan cukup 1 yang muncul dekat bar darah.
+  - **Akar Masalah & Solusi**:
+    1. **Bug Perisai Sisa 1 (`lib/db.js`)**:
+       - *Penyebab*: Saat bos memiliki skill pierce (seperti Gelatok tema Racun/Rawa di mana `shieldMult < 1`), `Math.floor(shieldLeft * shieldMult)` pada `shieldLeft = 1` menghasilkan `0` (`Math.floor(0.7) = 0`). Akibatnya `absorbed = 0`, seluruh damage masuk langsung ke HP, dan perisai macet di angka `1` tanpa pernah habis.
+       - *Solusi*: Mengubah logika penyerapan di [`lib/db.js`](file:///home/maman/play/lib/db.js) agar `effShield = Math.min(shieldLeft, Math.max(1, Math.round(shieldLeft * Math.min(1.0, shieldMult))))`. Jika `rawPlayerDamage >= shieldLeft`, perisai dipastikan **habis terpakai (0)** dan sisa damage yang tidak tertutup perisai disalurkan ke HP.
+    2. **Notifikasi Combo Tunggal di Header (`public/js/app.js`)**:
+       - *Penyebab*: Terdapat dua elemen bersamaan saat `streak >= 3` di header: `#combo-meter` (`🔥 COMBO 3×!`) dan `#streak-chip` (`🔥 3`).
+       - *Solusi*: Menyembunyikan visual `#combo-meter` di header (hanya sebagai sound trigger milestone) dan mempertahankan satu-satunya elemen combo di header yaitu `#streak-chip` berformat `🔥 <jumlah_combo>` (`font-weight: 800`).
+    3. **Eliminasi Penguncian Artifisial Sisa 1 HP Bos (`shared/progression.js`, `lib/db.js`)**:
+       - *Penyebab*: Terdapat aturan lama di `applyBossDamage` yang menahan sisa HP bos di angka 1 jika `correctCountAfter < MIN_TOTAL_HITS (15)`. Hal ini membuat pemain yang sudah menguras HP bos (misal sisa 6 HP dan terkena 20 damage) terhambat secara artifisial dan dipaksa menjawab benar berkali-kali hingga mencapai 15 benar.
+       - *Solusi*: Mengubah `applyBossDamage` di [`shared/progression.js`](file:///home/maman/play/shared/progression.js) agar mengembalikan `Math.max(0, bossHp - damage)`. Ketika damage menghabiskan HP bos (`bossHp - damage <= 0`), bos **kalah seketika (HP 0)** dan pemain langsung menang secara adil.
+    4. **Duel VS Player: Kesejajaran Bar Darah & Notifikasi Serangan Tunggal (`public/css/style.css`, `public/js/duel.js`)**:
+       - *Penyebab Bar Darah Miring*: `.duel-vs-bar` menggunakan `align-items: center`. Ketika salah satu pemain memiliki buff chips lebih banyak, tinggi kotak combatant berbeda sehingga bar darah kiri dan kanan naik/turun dan tidak sejajar.
+       - *Solusi Bar Darah Sejajar*: Menyetel `.duel-vs-bar { align-items: flex-start; }` di [`public/css/style.css`](file:///home/maman/play/public/css/style.css) serta menstandarisasi tinggi header nama (20px), bar darah (14px), dan teks HP (18px) sehingga bar darah kedua pemain berada pada garis horizontal horizontal yang sejajar sempurna.
+       - *Penyebab Notif Ganda*: Fungsi `triggerAttackEffect` dan `triggerAttackedEffect` memunculkan floater di atas bar darah SEKALIGUS banner aksi lebar di bawah (`showActionBanner`).
+       - *Solusi Notif Tunggal*: Menghapus pemanggilan banner aksi duplikat di [`public/js/duel.js`](file:///home/maman/play/public/js/duel.js). Notifikasi kini **cukup 1 floater tegas** yang muncul tepat di dekat bar darah pemain (`💥 -<dmg> HP` pada lawan dan `💔 -<dmg> HP` pada diri sendiri).
+    5. **PWA Cache Busting & Pengujian**:
+       - Service worker cache dinaikkan ke `pp-v7.2.0-20261105v8`.
+       - Versi aset dinaikkan ke `style.css?v=20261105v11`, `app.js?v=20261105v19`, dan `duel.js?v=20261105v5`.
+       - Menambahkan Subtest 11 di [`tests/ui-v7.test.js`](file:///home/maman/play/tests/ui-v7.test.js) serta memperbarui [`tests/progression.test.js`](file:///home/maman/play/tests/progression.test.js). Seluruh 40 unit dan integration tests lulus 100%.
+  - ✅ 2026-11-05 20:40 — Seluruh unit tests 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.
 
 
 

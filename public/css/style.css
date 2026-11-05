@@ -2517,9 +2517,9 @@ body.reduced-motion .fatigue-banner {
 
 .duel-vs-bar {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 8px;
+  gap: 10px;
   padding-bottom: 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -2527,12 +2527,16 @@ body.reduced-motion .fatigue-banner {
 .duel-combatant {
   flex: 1;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .combatant-name {
-  font-size: 0.8rem;
-  font-weight: 700;
-  margin-bottom: 3px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  margin-bottom: 4px;
   color: #e2e8f0;
 }
 
@@ -2541,10 +2545,11 @@ body.reduced-motion .fatigue-banner {
 }
 
 .duel-hp-track {
-  height: 12px;
+  height: 14px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 99px;
   overflow: hidden;
+  margin-bottom: 4px;
 }
 
 .duel-hp-fill {
@@ -2562,14 +2567,26 @@ body.reduced-motion .fatigue-banner {
 }
 
 .duel-hp-text {
-  font-size: 0.72rem;
+  height: 18px;
+  line-height: 18px;
+  font-size: 0.75rem;
   font-weight: 700;
   color: #94a3b8;
-  margin-top: 2px;
+  margin-top: 0;
 }
 
 .duel-combatant.opp .duel-hp-text {
   text-align: right;
+}
+
+.duel-center-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+  min-width: 84px;
+  padding-top: 2px;
 }
 
 .duel-buffs-row {
@@ -2866,30 +2883,31 @@ body.reduced-motion .fatigue-banner {
 
 .duel-damage-floater {
   position: absolute;
-  top: -14px;
+  top: 10px;
   pointer-events: none;
-  font-weight: 900;
-  font-size: 0.92rem;
-  padding: 2px 8px;
-  border-radius: 99px;
+  font-weight: 950;
+  font-size: 0.95rem;
+  padding: 3px 10px;
+  border-radius: 999px;
   z-index: 50;
   animation: duelFloatDamage 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 1), -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   white-space: nowrap;
 }
 
 .duel-damage-floater.attack {
   right: 0;
-  background: rgba(16, 185, 129, 0.95);
-  color: #fff;
-  border: 1px solid #34d399;
+  background: linear-gradient(135deg, rgba(6, 78, 59, 0.95), rgba(4, 120, 87, 0.95));
+  color: #a7f3d0;
+  border: 1.5px solid #34d399;
 }
 
 .duel-damage-floater.attacked {
   left: 0;
-  background: rgba(239, 68, 68, 0.95);
-  color: #fff;
-  border: 1px solid #f87171;
+  background: linear-gradient(135deg, rgba(127, 29, 29, 0.95), rgba(185, 28, 28, 0.95));
+  color: #fecdd3;
+  border: 1.5px solid #f87171;
 }
 
 .duel-action-banner {

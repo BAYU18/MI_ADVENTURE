@@ -2045,8 +2045,8 @@ Screens.battle = {
                 ${Screens.battle.renderEnergyPips(typeof s.energy === 'object' ? s.energy.value : (s.energy ?? 2), typeof s.energy === 'object' ? s.energy.max : (s.energyMax || 5))}
               </div>
             </div>
-            <span class="combo-meter tier-1" id="combo-meter" data-testid="combo-meter" style="${s.streak >= 3 ? '' : 'display:none'}">🔥 COMBO <span id="combo-n">${s.streak}</span>×!</span>
-            <span class="chip accent" id="streak-chip" style="${s.streak >= 2 && s.streak < 3 ? '' : 'display:none'}">🔥 <span id="streak-n">${s.streak}</span></span>
+            <span id="combo-meter" data-testid="combo-meter" style="display:none"><span id="combo-n">${s.streak}</span></span>
+            <span class="chip accent streak-badge" id="streak-chip" data-testid="streak-chip" style="${s.streak >= 2 ? '' : 'display:none'};font-weight:800">🔥 <span id="streak-n">${s.streak}</span></span>
             <span id="q-counter" style="display:none">Soal ${s.currentIndex + 1}/${s.totalQuestions}</span>
           </div>
           <div class="hud-right" style="display:flex;align-items:center;gap:5px;flex-shrink:0">
@@ -3003,19 +3003,13 @@ Screens.battle = {
 
     // Story Dialog & Pet Reactions dinonaktifkan agar tidak menghalangi arena soal
 
-    // Combo Meter (G / T-25)
+    // Combo Milestone SFX
     const comboEl = $('#combo-meter');
     const comboN = $('#combo-n');
     if (comboEl && comboN) {
-      if (res.streak >= 3) {
-        comboEl.style.display = 'inline-flex';
-        comboN.textContent = res.streak;
-        comboEl.className = 'combo-meter ' + (res.streak >= 10 ? 'tier-3' : (res.streak >= 5 ? 'tier-2' : 'tier-1'));
-        if ((res.streak === 3 || res.streak === 5 || res.streak === 10) && window.Feedback) {
-          Feedback.sfx('combo');
-        }
-      } else {
-        comboEl.style.display = 'none';
+      comboN.textContent = res.streak;
+      if ((res.streak === 3 || res.streak === 5 || res.streak === 10) && window.Feedback) {
+        Feedback.sfx('combo');
       }
     }
 

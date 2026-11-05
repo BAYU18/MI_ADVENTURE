@@ -376,4 +376,34 @@ test('H.12: UI Pertempuran & Mode Brutal (Spek E.1, E.2)', async (t) => {
     assert.ok(appJs.includes('seenCategories'), 'app.js melakukan deduplikasi ketat skill pasif berdasarkan kategori');
     assert.ok(appJs.includes("if (tp.id === 'dodge' || tp.id === 'crit') {\n          return;"), 'showPassiveTrigger tidak memunculkan floater ganda untuk dodge dan crit yang sudah ditampilkan oleh floater utama');
   });
+
+  await t.test('11. Fix Perisai, Notif Combo Tunggal Header, Eliminasi Penguncian Sisa 1 HP Boss, dan Kesejajaran Darah Duel', () => {
+    const cssPath = path.join(__dirname, '..', 'public', 'css', 'style.css');
+    const css = fs.readFileSync(cssPath, 'utf8');
+    const appPath = path.join(__dirname, '..', 'public', 'js', 'app.js');
+    const appJs = fs.readFileSync(appPath, 'utf8');
+    const dbPath = path.join(__dirname, '..', 'lib', 'db.js');
+    const dbJs = fs.readFileSync(dbPath, 'utf8');
+    const progPath = path.join(__dirname, '..', 'shared', 'progression.js');
+    const Progression = require(progPath);
+    const duelPath = path.join(__dirname, '..', 'public', 'js', 'duel.js');
+    const duelJs = fs.readFileSync(duelPath, 'utf8');
+
+    // 1. Logika perisai: saat damage >= shieldLeft, perisai pasti habis (shieldLeft = 0)
+    assert.ok(dbJs.includes('rawPlayerDamage >= shieldLeft ? shieldLeft : shieldDeducted') || dbJs.includes('rawPlayerDamage >= shieldLeft'), 'db.js memastikan perisai habis saat damage melebihi atau sama dengan perisai tersisa');
+
+    // 2. Combo header: hanya ada 1 notifikasi combo di header (gambar api + jumlah kombo)
+    assert.ok(appJs.includes('<span id="combo-meter" data-testid="combo-meter" style="display:none">'), 'combo-meter visual dinonaktifkan di header');
+    assert.ok(appJs.includes('id="streak-chip" data-testid="streak-chip"'), 'streak-chip api + jumlah kombo aktif tunggal');
+
+    // 3. Eliminasi bug sisa 1 HP boss: jika damage menghabisi HP boss, boss langsung kalah (0)
+    assert.equal(Progression.applyBossDamage(6, 20, 5), 0, 'boss langsung kalah (HP 0) saat darah 6 terkena damage 20');
+    assert.equal(Progression.applyBossDamage(1, 15, 2), 0, 'boss langsung kalah (HP 0) saat sisa darah 1');
+
+    // 4. Duel vs player: bar darah sejajar sempurna & notif serangan tunggal dekat bar darah
+    assert.ok(css.includes('.duel-vs-bar {\n  display: flex;\n  align-items: flex-start;'), 'duel-vs-bar menggunakan align-items: flex-start agar bar darah sejajar');
+    assert.ok(css.includes('.duel-hp-track {\n  height: 14px;'), 'duel-hp-track terstandarisasi');
+    assert.ok(!duelJs.includes("showActionBanner('attack', `⚔️ Seranganmu Berhasil!"), 'duel.js tidak memanggil action banner duplikat saat attack');
+    assert.ok(!duelJs.includes("showActionBanner('attacked', `⚠️ Kamu Terserang Lawan!"), 'duel.js tidak memanggil action banner duplikat saat attacked');
+  });
 });

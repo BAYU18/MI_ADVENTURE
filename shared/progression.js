@@ -107,10 +107,10 @@
     return { tier: tierId, hitsNeeded: n, hitUnit: HIT_UNIT, bossMaxHp: n * HIT_UNIT, wrongBudget: wb,
              monsterDamage: Math.ceil(playerMaxHp / wb), maxQuestions: maxQuestions(n, tierId), planned: plannedQuestions(n, tierId, abilityScoreValue) };
   }
-  // HP boss setelah menerima damage. Boss TIDAK boleh tumbang sebelum jawaban benar ke-15 (sisa HP dikunci 1).
+  // HP boss setelah menerima damage. Jika damage menghabisi HP boss (next <= 0), boss kalah seketika (0).
   function applyBossDamage(bossHp, damage, correctCountAfter) {
     const next = bossHp - damage;
-    return next <= 0 && correctCountAfter < MIN_TOTAL_HITS ? 1 : Math.max(0, next);
+    return Math.max(0, next);
   }
   const hitsLeft = (bossHp) => Math.max(0, Math.ceil(bossHp / HIT_UNIT));
   const comboMult = (streak) => 1 + Math.min(0.5, 0.1 * Math.floor(Math.max(0, streak) / 3));   // pakai pengali combo yang sudah ada bila ada (maks 1.5)

@@ -54,7 +54,6 @@
       oppCombatant.appendChild(floater);
       setTimeout(() => floater.remove(), 1000);
     }
-    showActionBanner('attack', `⚔️ Seranganmu Berhasil! Lawan terkena -${damage || 10} HP`);
   }
 
   function triggerAttackedEffect(damage) {
@@ -81,7 +80,6 @@
     if (window.Sfx) {
       try { Sfx.play('wrong'); } catch (e) {}
     }
-    showActionBanner('attacked', `⚠️ Kamu Terserang Lawan! HP berkurang -${damage} HP`);
   }
 
   function esc(s) {
