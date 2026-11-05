@@ -4896,7 +4896,7 @@ Screens.profil = {
           const item = showcase[slotIdx];
           if (!item) {
             return `
-              <div class="showcase-slot empty" data-slot="${slotIdx}" onclick="App.showShowcasePicker(${slotIdx})">
+              <div class="showcase-slot empty" data-slot="${slotIdx}" onclick="Screens.profil.showShowcasePicker(${slotIdx})">
                 <div style="font-size:1.5rem;opacity:0.4">➕</div>
                 <div style="font-size:0.72rem;font-weight:700;margin-top:4px">Slot #${slotIdx + 1}</div>
                 <div style="font-size:0.62rem;opacity:0.6">Pasang Lencana</div>
@@ -4909,7 +4909,7 @@ Screens.profil = {
             ? BadgeArt.renderBadge(item.id || item.familyId, item.tier || 'COMMON', { size: 54, title: item.name })
             : `<div style="font-size:1.8rem;line-height:1.2">${item.icon || '🏅'}</div>`;
           return `
-            <div class="showcase-slot ${tierClass}" data-slot="${slotIdx}" onclick="App.showShowcasePicker(${slotIdx})">
+            <div class="showcase-slot ${tierClass}" data-slot="${slotIdx}" onclick="Screens.profil.showShowcasePicker(${slotIdx})">
               <div style="display:flex;align-items:center;justify-content:center;height:56px">${badgeArtSvg}</div>
               <div style="font-size:0.78rem;font-weight:800;color:#fff;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:95%">${esc(item.name)}</div>
               <div style="font-size:0.62rem;font-weight:700;color:${tierColor};text-transform:uppercase">${esc(item.tier || 'BADGE')}</div>
@@ -4984,16 +4984,17 @@ Screens.profil = {
           const nextTier = f.tiers.find(t => !t.unlocked) || f.tiers[f.tiers.length - 1];
           const isMax = f.unlockedCount === 4;
           return `
-            <div class="badge-family-card" onclick="App.showBadgeFamilyDetailModal('${f.id}')">
+            <div class="badge-family-card" onclick="Screens.profil.showBadgeFamilyDetailModal('${f.id}')">
               <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
                 <div style="display:flex;align-items:center;gap:10px;min-width:0">
-                  <div style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                  <div class="badge-icon-btn" onclick="event.stopPropagation(); Screens.profil.showBadgeDetailModal('${f.id}', '${highest ? f.highestTier : 'COMMON'}')" title="Klik untuk melihat detail lencana" style="width:46px;height:46px;display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;position:relative">
                     ${(window.BadgeArt && typeof window.BadgeArt.renderBadge === 'function')
                       ? (highest
-                          ? BadgeArt.renderBadge(f.id, f.highestTier, { size: 44, title: f.name })
-                          : BadgeArt.renderBadge(f.id, 'common', { size: 44, locked: true, title: f.name }))
+                          ? BadgeArt.renderBadge(f.id, f.highestTier, { size: 46, title: f.name })
+                          : BadgeArt.renderBadge(f.id, 'common', { size: 46, locked: true, title: f.name }))
                       : `<div style="font-size:1.8rem;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);border-radius:10px">${highest ? highest.icon : '🔒'}</div>`
                     }
+                    <span style="position:absolute;bottom:-2px;right:-2px;background:rgba(0,0,0,0.85);border-radius:99px;font-size:0.6rem;padding:1px 4px;border:1px solid rgba(255,255,255,0.25);line-height:1">🔍</span>
                   </div>
                   <div style="min-width:0">
                     <div style="font-weight:800;font-size:0.88rem;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(f.name)}</div>
@@ -5154,9 +5155,243 @@ Screens.profil = {
     }
   },
 
+  showBadgeDetailModal(familyOrBadgeId, tierCode) {
+    if (window.Sfx) Sfx.play('tap');
+    let familyId = familyOrBadgeId;
+    let selectedTier = (tierCode || 'COMMON').toUpperCase();
+
+    // Support full badge ID, e.g. boss_slayer_legend
+    const tierMatch = /^(.*)_(common|rare|epic|legend)$/i.exec(familyOrBadgeId || '');
+    if (tierMatch) {
+      familyId = tierMatch[1];
+      if (!tierCode) selectedTier = tierMatch[2].toUpperCase();
+    }
+
+    const pData = (this && this.profileData) || Screens.profil.profileData || {};
+    let f = (pData.badgeFamilies || []).find(x => x.id === familyId);
+    if (!f && window.Badges && window.Badges.BADGE_FAMILIES) {
+      const baseFam = window.Badges.BADGE_FAMILIES.find(x => x.id === familyId);
+      if (baseFam) {
+        const stats = pData.stats || {};
+        const curVal = Number(stats[baseFam.statKey] || 0);
+        f = {
+          ...baseFam,
+          current: curVal,
+          unlockedCount: baseFam.tiers.filter(t => curVal >= t.target).length,
+          highestTier: baseFam.tiers.slice().reverse().find(t => curVal >= t.target)?.tier || null,
+          tiers: baseFam.tiers.map(t => ({
+            ...t,
+            unlocked: curVal >= t.target,
+            current: curVal,
+            pct: Math.min(100, Math.round((curVal / t.target) * 100)),
+            tierInfo: window.Badges.TIERS ? window.Badges.TIERS[t.tier] : { color: '#f59e0b', label: t.tier, icon: '🥉' }
+          }))
+        };
+      }
+    }
+    if (!f) return;
+
+    const modalId = 'modal-badge-detail';
+    const oldModal = document.getElementById(modalId);
+    if (oldModal) oldModal.remove();
+
+    const overlay = document.createElement('div');
+    overlay.id = modalId;
+    overlay.className = 'confirm-overlay';
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn 0.2s ease;';
+
+    const render = (activeTier) => {
+      selectedTier = (activeTier || 'COMMON').toUpperCase();
+      const t = f.tiers.find(x => x.tier === selectedTier) || f.tiers[0];
+      const isUnlocked = Boolean(t.unlocked);
+      const tInfo = t.tierInfo || (window.Badges?.TIERS ? window.Badges.TIERS[selectedTier] : { color: '#f59e0b', label: selectedTier, icon: '🥉' });
+      const currentVal = f.current || 0;
+      const targetVal = t.target || 1;
+      const pct = Math.min(100, Math.round((currentVal / targetVal) * 100));
+      const remaining = Math.max(0, targetVal - currentVal);
+      const isEquipped = (pData.showcase || Screens.profil.profileData?.showcase || []).some(it => it && it.id === `${f.id}_${selectedTier.toLowerCase()}`);
+
+      const categoryLabel = (window.Badges && window.Badges.CATEGORIES && window.Badges.CATEGORIES[f.category])
+        ? window.Badges.CATEGORIES[f.category].label
+        : f.category || 'Prestasi';
+
+      const svgBig = (window.BadgeArt && typeof window.BadgeArt.renderBadge === 'function')
+        ? BadgeArt.renderBadge(f.id, selectedTier, { size: 110, locked: !isUnlocked, title: t.name })
+        : `<div style="font-size:3.5rem">${t.icon || '🏅'}</div>`;
+
+      overlay.innerHTML = `
+        <div class="confirm-card stack" style="width:min(440px,96vw);max-height:90dvh;background:#0b1120;border:1.5px solid ${isUnlocked ? tInfo.color : 'rgba(255,255,255,0.15)'};border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:13px;box-shadow:0 16px 40px rgba(0,0,0,0.8);overflow-y:auto">
+          
+          <!-- HEADER & CLOSE -->
+          <div style="display:flex;justify-content:space-between;align-items:flex-start">
+            <div>
+              <div style="font-size:0.72rem;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:0.5px">
+                🏅 ${esc(categoryLabel)} · ${esc(f.name)}
+              </div>
+              <h2 style="margin:2px 0 0 0;font-size:1.25rem;font-weight:800;color:#fff">${esc(t.name)}</h2>
+            </div>
+            <button type="button" class="btn ghost small" id="btn-close-badge-detail" style="font-size:1.2rem;padding:2px 8px">✕</button>
+          </div>
+
+          <!-- TIER SELECTOR TABS -->
+          <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:6px;background:rgba(255,255,255,0.04);padding:4px;border-radius:12px;border:1px solid rgba(255,255,255,0.08)">
+            ${f.tiers.map(tr => {
+              const isActive = tr.tier === selectedTier;
+              const trColor = tr.tierInfo ? tr.tierInfo.color : '#f59e0b';
+              return `
+                <button type="button" class="btn small btn-tier-tab" data-tier="${tr.tier}" style="padding:6px 2px;font-size:0.7rem;font-weight:800;border-radius:8px;background:${isActive ? trColor : 'transparent'};color:${isActive ? '#000' : (tr.unlocked ? '#e2e8f0' : '#64748b')};border:none;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer">
+                  <span>${tr.tierInfo ? tr.tierInfo.icon : '🏅'} ${tr.tier}</span>
+                  <span style="font-size:0.6rem;opacity:${isActive ? 0.9 : 0.6}">${tr.unlocked ? '✓' : '🔒'}</span>
+                </button>
+              `;
+            }).join('')}
+          </div>
+
+          <!-- MEDAL SPOTLIGHT SHOWCASE -->
+          <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 0 2px 0;position:relative">
+            <div style="filter:drop-shadow(0 0 22px ${isUnlocked ? tInfo.color : 'transparent'})">
+              ${svgBig}
+            </div>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:8px">
+              <span class="badge" style="background:${tInfo.color};color:#000;font-size:0.72rem;font-weight:800;padding:2px 10px;border-radius:99px">
+                TIER ${selectedTier}
+              </span>
+              ${isUnlocked
+                ? `<span class="badge" style="background:#10b981;color:#fff;font-size:0.72rem;font-weight:800;padding:2px 10px;border-radius:99px">TERBUKA ✓</span>`
+                : `<span class="badge" style="background:#475569;color:#cbd5e1;font-size:0.72rem;font-weight:700;padding:2px 10px;border-radius:99px">TERKUNCI 🔒</span>`
+              }
+            </div>
+          </div>
+
+          <!-- PROGRESS BAR & SYARAT CAPAIAN -->
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px">
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.75rem;margin-bottom:6px">
+              <span style="color:var(--c-muted)">🎯 Syarat Capaian:</span>
+              <strong style="color:#fff;text-align:right">${esc(t.desc)}</strong>
+            </div>
+            <div class="xp-track" style="height:7px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden">
+              <div class="xp-fill" style="width:${pct}%;background:${isUnlocked ? tInfo.color : 'var(--c-primary)'}"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.72rem;color:var(--c-muted);margin-top:5px">
+              <span>Progress: <strong style="color:${isUnlocked ? '#10b981' : '#38bdf8'}">${currentVal} / ${targetVal} ${f.unit || ''}</strong></span>
+              <span>${isUnlocked ? 'Capaian Terpenuhi! ⭐' : `Kurang ${remaining} ${f.unit || ''}`}</span>
+            </div>
+          </div>
+
+          <!-- LORE INSPIRATIF PROPOSAL -->
+          <div style="background:rgba(30, 41, 59, 0.4);border-left:3px solid ${tInfo.color};border-radius:4px 12px 12px 4px;padding:10px 12px">
+            <div style="font-size:0.68rem;font-weight:800;color:${tInfo.color};text-transform:uppercase;margin-bottom:3px">
+              📜 Kisah Prestasi & Lore
+            </div>
+            <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.45;font-style:italic">
+              "${esc(t.lore || 'Dedikasi tinggi dalam petualangan membawamu menorehkan nama di lembaran legenda MI Adventure.')}"
+            </div>
+          </div>
+
+          <!-- HADIAH CAPAIAN -->
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:10px">
+            <span style="font-size:1.5rem">🎁</span>
+            <div style="min-width:0;flex:1">
+              <div style="font-size:0.68rem;font-weight:800;color:var(--c-muted);text-transform:uppercase">Hadiah Prestise</div>
+              <div style="font-size:0.82rem;font-weight:800;color:#fde047">
+                ${esc(t.reward || '+ Hadiah Koin & XP')}
+              </div>
+            </div>
+          </div>
+
+          <!-- ACTION BUTTONS -->
+          <div style="display:flex;gap:8px;margin-top:2px">
+            ${isUnlocked ? `
+              <button type="button" class="btn primary grow" id="btn-equip-detail-showcase" style="font-size:0.82rem;padding:9px">
+                ${isEquipped ? '✓ Terpasang di Showcase' : '⭐ Pasang di Showcase'}
+              </button>
+            ` : ''}
+            <button type="button" class="btn secondary grow" id="btn-view-all-tiers" style="font-size:0.82rem;padding:9px">
+              📋 Lihat Semua Tier
+            </button>
+            <button type="button" class="btn ghost small" id="btn-dismiss-detail" style="font-size:0.82rem">Tutup</button>
+          </div>
+        </div>
+      `;
+
+      wireEvents(selectedTier);
+    };
+
+    const wireEvents = (curTier) => {
+      const close = () => overlay.remove();
+      const closeBtn = overlay.querySelector('#btn-close-badge-detail');
+      if (closeBtn) closeBtn.onclick = close;
+      const dismissBtn = overlay.querySelector('#btn-dismiss-detail');
+      if (dismissBtn) dismissBtn.onclick = close;
+
+      const viewAllBtn = overlay.querySelector('#btn-view-all-tiers');
+      if (viewAllBtn) {
+        viewAllBtn.onclick = () => {
+          close();
+          Screens.profil.showBadgeFamilyDetailModal(f.id);
+        };
+      }
+
+      const equipBtn = overlay.querySelector('#btn-equip-detail-showcase');
+      if (equipBtn) {
+        equipBtn.onclick = async () => {
+          const tObj = f.tiers.find(x => x.tier === curTier) || f.tiers[0];
+          const item = {
+            id: `${f.id}_${curTier.toLowerCase()}`,
+            name: tObj.name,
+            icon: tObj.icon,
+            tier: curTier,
+            type: 'badge'
+          };
+          close();
+          const current = [...(pData.showcase || Screens.profil.profileData?.showcase || [null, null, null])];
+          while (current.length < 3) current.push(null);
+          let targetSlot = current.findIndex(x => x === null);
+          if (targetSlot === -1) targetSlot = 0;
+          await Screens.profil.saveShowcaseItem(targetSlot, item);
+        };
+      }
+
+      overlay.querySelectorAll('.btn-tier-tab').forEach(tabBtn => {
+        tabBtn.onclick = () => {
+          if (window.Sfx) Sfx.play('tap');
+          render(tabBtn.dataset.tier);
+        };
+      });
+    };
+
+    overlay.onclick = (e) => {
+      if (e.target === overlay) overlay.remove();
+    };
+
+    document.body.appendChild(overlay);
+    render(selectedTier);
+  },
+
   showBadgeFamilyDetailModal(familyId) {
     if (window.Sfx) Sfx.play('tap');
-    const f = (this.profileData?.badgeFamilies || []).find(x => x.id === familyId);
+    const pData = (this && this.profileData) || Screens.profil.profileData || {};
+    let f = (pData.badgeFamilies || []).find(x => x.id === familyId);
+    if (!f && window.Badges && window.Badges.BADGE_FAMILIES) {
+      const baseFam = window.Badges.BADGE_FAMILIES.find(x => x.id === familyId);
+      if (baseFam) {
+        const stats = pData.stats || {};
+        const curVal = Number(stats[baseFam.statKey] || 0);
+        f = {
+          ...baseFam,
+          current: curVal,
+          unlockedCount: baseFam.tiers.filter(t => curVal >= t.target).length,
+          highestTier: baseFam.tiers.slice().reverse().find(t => curVal >= t.target)?.tier || null,
+          tiers: baseFam.tiers.map(t => ({
+            ...t,
+            unlocked: curVal >= t.target,
+            current: curVal,
+            pct: Math.min(100, Math.round((curVal / t.target) * 100)),
+            tierInfo: window.Badges.TIERS ? window.Badges.TIERS[t.tier] : { color: '#f59e0b', label: t.tier, icon: '🥉' }
+          }))
+        };
+      }
+    }
     if (!f) return;
 
     const modalId = 'modal-badge-family';
@@ -5183,17 +5418,17 @@ Screens.profil = {
             const isUnlocked = t.unlocked;
             const tColor = t.tierInfo ? t.tierInfo.color : '#f59e0b';
             return `
-              <div style="padding:12px;background:${isUnlocked ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.3)'};border:1.5px solid ${isUnlocked ? tColor : 'rgba(255,255,255,0.1)'};border-radius:12px;opacity:${isUnlocked ? '1' : '0.6'}">
+              <div class="badge-tier-card" style="padding:12px;background:${isUnlocked ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.3)'};border:1.5px solid ${isUnlocked ? tColor : 'rgba(255,255,255,0.1)'};border-radius:12px;opacity:${isUnlocked ? '1' : '0.65'}">
                 <div style="display:flex;justify-content:space-between;align-items:center">
-                  <div style="display:flex;align-items:center;gap:12px">
-                    <div style="width:52px;height:52px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                  <div style="display:flex;align-items:center;gap:12px;min-width:0">
+                    <div class="badge-icon-btn btn-inspect-badge-tier" data-family="${f.id}" data-tier="${t.tier}" style="width:52px;height:52px;display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer" title="Klik untuk lihat detail 3D">
                       ${(window.BadgeArt && typeof window.BadgeArt.renderBadge === 'function')
                         ? BadgeArt.renderBadge(f.id, t.tier, { size: 52, locked: !isUnlocked, title: t.name })
                         : `<span style="font-size:1.8rem">${t.icon || '🏅'}</span>`
                       }
                     </div>
-                    <div>
-                      <div style="font-weight:800;font-size:0.92rem;color:${isUnlocked ? '#fff' : '#94a3b8'}">${esc(t.name)}</div>
+                    <div style="min-width:0">
+                      <div style="font-weight:800;font-size:0.92rem;color:${isUnlocked ? '#fff' : '#94a3b8'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(t.name)}</div>
                       <div style="font-size:0.7rem;font-weight:700;color:${tColor};text-transform:uppercase">${t.tier} · Syarat: ${t.target} ${f.unit || ''}</div>
                     </div>
                   </div>
@@ -5205,13 +5440,18 @@ Screens.profil = {
                   </div>
                 </div>
                 <div style="font-size:0.75rem;color:var(--c-muted);margin-top:6px;line-height:1.4">${esc(t.desc)}</div>
-                ${isUnlocked ? `
-                  <div style="margin-top:8px;display:flex;justify-content:flex-end">
-                    <button class="btn secondary small btn-equip-to-showcase" data-tier="${t.tier}" data-name="${esc(t.name)}" data-icon="${t.icon || '🏅'}" style="font-size:0.72rem;padding:3px 10px">
+                ${t.lore ? `<div style="font-size:0.72rem;color:#cbd5e1;font-style:italic;margin-top:4px;border-left:2px solid ${tColor};padding-left:8px">"${esc(t.lore)}"</div>` : ''}
+                ${t.reward ? `<div style="font-size:0.72rem;font-weight:700;color:#fde047;margin-top:4px">🎁 Hadiah: ${esc(t.reward)}</div>` : ''}
+                <div style="margin-top:8px;display:flex;justify-content:flex-end;gap:6px">
+                  <button type="button" class="btn ghost small btn-inspect-badge-tier" data-family="${f.id}" data-tier="${t.tier}" style="font-size:0.72rem;padding:3px 10px">
+                    🔍 Detail Medali
+                  </button>
+                  ${isUnlocked ? `
+                    <button type="button" class="btn secondary small btn-equip-to-showcase" data-tier="${t.tier}" data-name="${esc(t.name)}" data-icon="${t.icon || '🏅'}" style="font-size:0.72rem;padding:3px 10px">
                       ⭐ Pasang di Showcase
                     </button>
-                  </div>
-                ` : ''}
+                  ` : ''}
+                </div>
               </div>
             `;
           }).join('')}
@@ -5226,8 +5466,18 @@ Screens.profil = {
     document.body.appendChild(overlay);
 
     const close = () => overlay.remove();
+    overlay.onclick = (e) => {
+      if (e.target === overlay) close();
+    };
     overlay.querySelector('#btn-close-badge-family').onclick = close;
     overlay.querySelector('#btn-ok-badge-family').onclick = close;
+
+    overlay.querySelectorAll('.btn-inspect-badge-tier').forEach(btn => {
+      btn.onclick = () => {
+        close();
+        Screens.profil.showBadgeDetailModal(btn.dataset.family, btn.dataset.tier);
+      };
+    });
 
     overlay.querySelectorAll('.btn-equip-to-showcase').forEach(btn => {
       btn.onclick = async () => {
@@ -5240,11 +5490,11 @@ Screens.profil = {
         };
         close();
         // find first empty slot or slot 0
-        const current = [...(this.profileData?.showcase || [null, null, null])];
+        const current = [...(pData.showcase || Screens.profil.profileData?.showcase || [null, null, null])];
         while (current.length < 3) current.push(null);
         let targetSlot = current.findIndex(x => x === null);
         if (targetSlot === -1) targetSlot = 0;
-        await this.saveShowcaseItem(targetSlot, item);
+        await Screens.profil.saveShowcaseItem(targetSlot, item);
       };
     });
   },
@@ -6491,6 +6741,14 @@ Screens.profil = {
     `;
   }
 };
+
+/* Bridge / Namespace App untuk kompatibilitas global & inline callback */
+window.App = window.App || {};
+window.App.showBadgeDetailModal = function(id, tier) { return Screens.profil.showBadgeDetailModal(id, tier); };
+window.App.showBadgeFamilyDetailModal = function(id) { return Screens.profil.showBadgeFamilyDetailModal(id); };
+window.App.showShowcasePicker = function(slot) { return Screens.profil.showShowcasePicker(slot); };
+window.App.saveShowcaseItem = function(slot, item) { return Screens.profil.saveShowcaseItem(slot, item); };
+window.App.removeShowcaseItem = function(slot) { return Screens.profil.removeShowcaseItem(slot); };
 
 /* ============================================================
    SCREEN: Monsterdex (Katalog 100 Monster Boss Elemen v7 - Skin-Adapted)

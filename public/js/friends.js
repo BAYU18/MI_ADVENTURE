@@ -457,7 +457,7 @@
                     ? BadgeArt.renderBadge(item.id || item.familyId, item.tier || 'COMMON', { size: 54, title: item.name })
                     : `<div style="font-size:1.8rem;line-height:1.2">${item.icon || '🏅'}</div>`;
                   return `
-                    <div class="showcase-slot ${tierClass}" style="cursor:default">
+                    <div class="showcase-slot ${tierClass}" onclick="if (window.App && typeof App.showBadgeDetailModal === 'function') App.showBadgeDetailModal('${item.id || item.familyId}', '${item.tier || 'COMMON'}')" title="Klik untuk lihat medali 3D & lore lencana" style="cursor:pointer">
                       <div style="display:flex;align-items:center;justify-content:center;height:56px">${friendBadgeArtSvg}</div>
                       <div style="font-size:0.75rem;font-weight:800;color:#fff;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:95%">${esc(item.name)}</div>
                       <div style="font-size:0.62rem;font-weight:700;color:${tierColor};text-transform:uppercase">${esc(item.tier || 'BADGE')}</div>
