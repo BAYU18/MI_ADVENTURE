@@ -954,7 +954,8 @@ const server = http.createServer(async (req, res) => {
     const playerAuth = getPlayerFromReq(req);
     if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
     const monsters = db.getDex(playerAuth.id);
-    return json(res, { ok: true, monsters });
+    const dexData = db.getPlayerDex(playerAuth.id);
+    return json(res, { ok: true, brutal: dexData.brutal, progress: dexData.progress, monsters });
   }
 
   // ===== FITUR v7: Pertemanan & Presence =====

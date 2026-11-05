@@ -30,7 +30,8 @@
   - ✅ 2026-11-05 04:05 — skillMods.extraCost aktif di skillAvailability dan useSkill pada Fase 2; healMult diterapkan pada aksi heal; alasan NO_ENERGY sinkron dengan biaya akhir
 - [x] **T-14** Hadiah: SEMUA titik kredit koin/XP sesi lewat `BossFx.rewardMult` (×3 Brutal, menumpuk dengan pengali tier v6), `reason` bersufiks `:BRUTAL`, invarian saldo utuh, pengeluaran tidak dikali _(Spek: D.2 · Bukti: skenario H.9)_ <!--tries:1-->
   - ✅ 2026-11-05 04:09 — Semua titik kredit koin/XP sesi (ANSWER_DROP, BOSS_DEFEAT, CAMPAIGN_NODE_FIRST_CLEAR, EVENT_TREASURE, EVENT_TRAP) lewat BossFx.rewardMult dengan sufiks :BRUTAL; pengeluaran tidak dikali; invarian saldo koin terverifikasi utuh
-- [ ] **T-15** `GET /api/dex` (progres per elemen×tier, normal & Brutal), konfigurasi Brutal di `/api/me`, `summary.brutalDefeated` pada laporan mingguan _(Spek: F.2, G.2 · Bukti: respons pemain baru & berdata)_
+- [x] **T-15** `GET /api/dex` (progres per elemen×tier, normal & Brutal), konfigurasi Brutal di `/api/me`, `summary.brutalDefeated` pada laporan mingguan _(Spek: F.2, G.2 · Bukti: respons pemain baru & berdata)_ <!--tries:1-->
+  - ✅ 2026-11-05 04:12 — GET /api/dex menyediakan progress elemen:tier normal & brutal; /api/me menyediakan konfigurasi brutal; summary.brutalDefeated pada laporan mingguan aktif
 - [ ] **G-1** GERBANG 1: `npm test` + `check-schema` + `smoke-test-v4` + skenario H.1–H.10 (sisi server) + tanpa regresi v6; commit
 
 ## Fase 2 — Antarmuka
