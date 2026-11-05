@@ -210,5 +210,130 @@
     3. Menerapkan `justify-content: space-between`, `flex-wrap: nowrap`, dan padding chip optimal (`3px 8px`, font `0.78rem`) di [`public/css/style.css`](file:///home/maman/play/public/css/style.css) yang aktif di seluruh mode tampilan battle (`classic`, `bottom_sheet`, `compact`).
     4. PWA cache busting dinaikkan ke `pp-v7.2.0-20261105v2` dan `app.js?v=20261105v13`.
   - ✅ 2026-11-05 16:10 — Seluruh 30 unit tests 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.
+- [x] **T-50** Sinkronisasi Tier Monster Sesi Pertempuran & Pencatatan Kemenangan Boss Epic di Monster Dex:
+  - **Permintaan**: Perbaiki akun `bayu` baru saja menang lawan bos Epic tapi di Monster Dex tidak menambah bos yang dikalahkan.
+  - **Akar Masalah (Root Cause)**:
+    1. Pada `startSession` di [`lib/db.js`](file:///home/maman/play/lib/db.js), saat pertempuran dimulai, `bossTier` ditentukan berdasarkan level pemain/probabilitas (misal `'epic'`). Namun, pemilihan monster di tema mapel (`themeMonsters`) dilakukan secara acak tanpa memfilter berdasarkan `bossTier` (`pool = themeMonsters`).
+    2. Akibatnya, pada sesi pertempuran `571ebf0f...` akun Bayu, bos yang terpilih adalah `#85 Mekanix` yang bertier **Rare** (mod10 = 4), meskipun pertarungan bertier Epic.
+    3. Ketika Bayu menang, kemenangan dicatat ke `player_monsters` untuk `#85` (Rare). Saat membuka Monster Dex pada filter kategori **Epic**, seluruh monster Epic (seperti `#88 Turbinor` dan `#89 Magnetor`) tetap 0 kali dikalahkan.
+  - **Solusi & Implementasi**:
+    1. **Sinkronisasi Pemilihan Monster Sesuai `bossTier` (`lib/db.js`)**:
+       - Pada blok `// Monster selection`, jika `options.monsterId` tidak diberikan secara eksplisit dan bukan node kampanye, monster dari tema subjek difilter berdasarkan `getMonsterTierById(m.id) === bossTier`.
+       - Menjamin bahwa jika pertarungan melawan bos Epic, monster yang dihadapi adalah monster Epic dari tema tersebut (`#88 Turbinor` atau `#89 Magnetor` pada tema Mesin), bos Legend melawan monster Legend (`#90 Chipzo`), bos Rare melawan monster Rare, dan bos Common melawan monster Common.
+    2. **Koreksi Data Akun `bayu` di SQLite Database**:
+       - Memperbarui sesi `571ebf0f-dfba-4433-a39f-db2f4bd342a6` agar `monster_id` menjadi `88` (Epic Turbinor).
+       - Menambahkan pencatatan kemenangan pada `player_monsters` untuk pemain `bayu` (ID: 8) pada monster `#88 Turbinor` (`defeats: 1, encounters: 1, best_streak: 9, best_stars: 1`).
+       - Mengembalikan status monster `#85` menjadi `defeats: 0` agar sinkron dengan total kemenangan.
+       - Terverifikasi via `getDex(8)` bahwa akun Bayu kini memiliki 1 bos Epic yang tercatat dikalahkan (`#88 Turbinor`).
+    3. **Pengujian & Otomatisasi**:
+       - Menambahkan Subtest 9 di [`tests/ui-v7.test.js`](file:///home/maman/play/tests/ui-v7.test.js) yang memverifikasi bahwa `startSession` untuk seluruh tier (`common`, `rare`, `epic`, `legend`) selalu memilih monster dengan tier yang tepat, serta menguji verifikasi `getDex` akun Bayu.
+       - Seluruh 48 unit dan integration tests lulus 100%.
+  - ✅ 2026-11-05 16:30 — Seluruh 48 unit tests 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.
+- [x] **T-51** Penghapusan Bubble Notifikasi Menghalangi & Reposisi Notifikasi Damage Salah/Benar ke Tengah Layar:
+  - **Permintaan**: Hapus notif text 'kamu tersesat..' dan 'jangan berkecil..' karena menghalangi, kemudian notif salah -7 atau benar tampilkan di tengah-tengah jangan di atas layar karena tidak terlihat.
+  - **Solusi & Implementasi**:
+    1. **Penghapusan Bubble Dialog Mengganggu (`public/js/app.js`, `public/css/style.css`)**:
+       - Bubble 'kamu tersesat...' (`boss-dialog`) dan 'jangan berkecil hati...' (`pet-dialog`) yang muncul menutupi panggung bos dan kartu soal dinonaktifkan (`showBossDialog` & `showPetReaction` diubah menjadi no-op dan panggilannya di `submitAnswer` dihapus).
+       - Di [`public/css/style.css`](file:///home/maman/play/public/css/style.css), `.dialog-bubble` diberi aturan `display: none !important;` sehingga tidak ada bubble teks yang dapat menghalangi pandangan pemain saat duel.
+    2. **Reposisi Notifikasi Floater Salah/Benar ke Tengah Layar (`top: 50%; left: 50%`)**:
+       - Mengubah posisi [`.damage-floater`](file:///home/maman/play/public/css/style.css) dari `position: absolute; top: 30%` di dalam `.boss-card` (yang berada di bagian atas layar) menjadi `position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%)`.
+       - Di [`public/js/app.js`](file:///home/maman/play/public/js/app.js) fungsi `showDamageFloater`, elemen floater ditempelkan langsung ke `document.body` dengan `z-index: 99999`, sehingga posisinya selalu tepat di tengah-tengah layar HP (fokus pandangan pemain saat menjawab).
+       - Floater didesain menyerupai pill badge modern semi-transparan (`background: rgba(15, 23, 42, 0.88)` dengan border dan glow sesuai status: merah untuk salah `-7`, biru/emas untuk benar/kritis, hijau untuk heal), dengan animasi float halus yang menghilang otomatis setelah 950ms.
+    3. **PWA Cache Busting & Pengujian**:
+       - Service worker cache dinaikkan ke `pp-v7.2.0-20261105v3`.
+       - Versi aset dinaikkan ke `style.css?v=20261105v7` dan `app.js?v=20261105v14`.
+       - Menambahkan Subtest 10 di [`tests/ui-v7.test.js`](file:///home/maman/play/tests/ui-v7.test.js). Seluruh 48 unit dan integrasi tests lulus 100%.
+  - ✅ 2026-11-05 16:44 — Seluruh 48 unit tests 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.
+- [x] **T-52** Penghapusan Efek Berkedip Merah/Hijau, Penghapusan Banner Atas Raja Combo, dan Penataan Anti-Bertumpuk Notifikasi Tengah:
+  - **Permintaan**: Hapus efek panel berkedip merah/hijau jika salah/benar, hapus notif Raja Combo yang di atas karena sudah ada di tengah, serta perbaiki notifikasi di tengah agar tidak bertumpuk jika ada beberapa notifikasi sekaligus.
+  - **Solusi & Implementasi**:
+    1. **Penghapusan Efek Panel Berkedip Merah/Hijau (`public/js/app.js`, `public/css/style.css`)**:
+       - Menghapus penambahan kelas `answer-blink-correct` dan `answer-blink-wrong` pada `battleRoot` di fungsi `applyAnswerResult` [`public/js/app.js`](file:///home/maman/play/public/js/app.js).
+       - Menyetel aturan `.answer-blink-correct::after`, `.answer-blink-wrong::after` di [`public/css/style.css`](file:///home/maman/play/public/css/style.css) ke `display: none !important; animation: none !important; border: none !important;` sehingga tidak ada border flash layar/panel saat menjawab.
+    2. **Penghapusan Notifikasi Banner Pasif Raja Combo di Atas Layar (`public/js/app.js`, `public/css/style.css`)**:
+       - Di fungsi `showPassiveTrigger` [`public/js/app.js`](file:///home/maman/play/public/js/app.js), menghapus pembuatan elemen banner `.passive-trigger-banner` yang sebelumnya menempel di bagian atas `.boss-card`.
+       - Di [`public/css/style.css`](file:///home/maman/play/public/css/style.css), `.passive-trigger-banner` disembunyikan permanen dengan `display: none !important;`.
+       - Notifikasi pasif Raja Combo tetap tampil elegan di tengah layar melalui pill badge damage floater (`👑 Raja Combo!`) dan indikator chip pasif berkedip (*buff pulse*).
+    3. **Penataan Anti-Bertumpuk Notifikasi Tengah via `.center-floater-container` (`public/js/app.js`, `public/css/style.css`)**:
+       - Menambahkan kontainer fixed fleksibel [`.center-floater-container`](file:///home/maman/play/public/css/style.css) di tengah layar (`top: 50%; left: 50%; transform: translate(-50%, -50%)`) dengan `display: flex; flex-direction: column; gap: 10px; align-items: center;`.
+       - Di fungsi `showDamageFloater` [`public/js/app.js`](file:///home/maman/play/public/js/app.js), setiap floater (seperti `🎯 TEPAT! -20`, `👑 Raja Combo!`, atau `❌ SALAH! -7`) dimasukkan ke dalam container tersebut.
+       - Jika ada beberapa notifikasi muncul bersamaan atau berturutan (misal damage hit + pasif combo + regen), notifikasi akan tersusun rapi secara vertikal bertingkat dengan jarak 10px, tidak saling menindih atau bertumpuk, lalu memudar secara halus setelah 1050ms.
+    4. **PWA Cache Busting & Pengujian**:
+       - Service worker cache dinaikkan ke `pp-v7.2.0-20261105v4`.
+       - Versi aset dinaikkan ke `style.css?v=20261105v8` dan `app.js?v=20261105v15`.
+       - Memperbarui Subtest 10 di [`tests/ui-v7.test.js`](file:///home/maman/play/tests/ui-v7.test.js) memverifikasi penataan anti-bertumpuk, ketiadaan blink class, dan penghapusan banner atas.
+       - Seluruh 48 unit dan integration tests lulus 100%.
+  - ✅ 2026-11-05 17:02 — Seluruh 48 unit tests 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.
+- [x] **T-53** Penyederhanaan Notifikasi Hadiah Koin/Soal Misteri (+N 🪙) & Audit Notifikasi Pertempuran:
+  - **Permintaan**: Beritahu ada notif apa saja selain berhadiah dan raja combo, serta perbaiki notifikasi hadiah coin yang terlalu besar agar langsung ringkas seperti `+50 🪙` (contoh +50).
+  - **Audit Notifikasi Battle**:
+    1. **Hasil Jawaban**: `🎯 TEPAT! -<N>`, `⚡ KRITIKAL! -<N>`, `🎯 KRITIS TITIK LEMAH! -<N>`, `🐢 LAMBAT! -<N>`, `❌ SALAH! -<N>`, `⏰ HABIS! -<N>`, `⏳ PERGI LAMA!`.
+    2. **Pasif Skin**: `👑 Raja Combo!`, `💥 Serangan Combo!`, `⚡ Critical Hit!`, `🔥 Semburan Naga!`, `💨 HINDARAN! 0 DMG`, `💖 REGEN!`, `⚡ +1 ENERGI!`, `🦉 Proteksi Combo!`, `🩸 Darah Terakhir!`.
+    3. **Skill & Efek**: `+<N> HP` (heal), `🛡️ <N>` (perisai).
+    4. **Status Pertempuran**: `🔥 Bos Mengamuk (Fase 2)`, `😮‍💨 Bos Mulai Kelelahan (Fatigue)`, `💪 Serangan Balik (Pity)`, `🔥 Soal Ditambah (Refill)`, `🔥 COMBO N×`.
+  - **Solusi & Implementasi**:
+    1. **Format Ringkas Hadiah Koin & Soal Misteri (`public/js/app.js`)**:
+       - Menggantikan teks panjang `❓ HADIAH MISTERI: COINS_8!` menjadi langsung `+8 🪙` (atau sesuai jumlah koin riil yang didapat, misal `+<N> 🪙`).
+       - Hadiah soal misteri lainnya diformat ringkas: `+15 HP 💖` (heal), `+1 Energi ⚡` (energi), `1.5× Damage 💥` (damage boost).
+    2. **PWA Cache Busting & Pengujian**:
+       - Service worker cache dinaikkan ke `pp-v7.2.0-20261105v5`.
+       - Versi aset dinaikkan ke `app.js?v=20261105v16`.
+       - Menambahkan assertion di Subtest 10 [`tests/ui-v7.test.js`](file:///home/maman/play/tests/ui-v7.test.js). Seluruh tests lulus 100%.
+  - ✅ 2026-11-05 17:10 — Seluruh unit tests 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.
+- [x] **T-54** Penjaminan Keterbacaan Seluruh Teks Notifikasi (Anti-Terpotong di Mobile Viewport):
+  - **Permintaan**: Buat agar semua notif tulisannya terbaca dan tidak ada yang terpotong.
+  - **Analisis & Titik Rawan Pemotongan Teks**:
+    1. Pada viewport mobile layar sempit (320px–412px), properti `white-space: nowrap` yang dikombinasikan dengan font statis besar (`1.75rem` / `1.95rem`) dan padding lebar (`8px 22px`) pada `.damage-floater` menyebabkan teks panjang (seperti `🎯 KRITIS TITIK LEMAH! -40` atau nama buff pasif) meluap melebihi lebar layar efektif (~328px) dan terpotong di tepi kiri/kanan.
+    2. `.enraged-banner` (banner mengamuk bos fase 2) sebelumnya berukuran font `1.3rem` dengan padding lebar `14px 28px` dan tanpa pembatasan lebar maksimal aman (`max-width: min(92vw, 420px)`), sehingga jika nama bos panjang, banner meluap keluar layar HP.
+    3. `#toast` dan container `.boss-fx-toast` berpotensi terpotong jika teks pesan sistem panjang dan tidak memiliki `word-break: break-word` serta padding fleksibel.
+    4. Box feedback di bawah soal (`#fb-slot .feedback`) sebelumnya memiliki flex child `.grow` tanpa `min-width: 0`, sehingga jika teks penjelasan soal sangat panjang dapat mendorong tombol atau terpotong.
+  - **Solusi & Implementasi**:
+    1. **Fluid Responsive Font & Safe Width pada Floater (`public/css/style.css`)**:
+       - Mengganti font statis `.damage-floater` menjadi `font-size: clamp(0.95rem, 4.2vw, 1.35rem)` dan untuk `.crit` menjadi `font-size: clamp(1.05rem, 4.4vw, 1.45rem)`.
+       - Mengganti `white-space: nowrap` dengan `white-space: normal; word-break: break-word; overflow-wrap: break-word; line-height: 1.25;`.
+       - Menambahkan batas lebar aman `max-width: min(92vw, 420px); width: max-content; box-sizing: border-box;` dan menyesuaikan padding menjadi `7px 16px;`.
+       - Memastikan `.center-floater-container` memiliki `width: 100%; max-width: 92vw; box-sizing: border-box;`.
+    2. **Penyederhanaan Teks Floater Panjang (`public/js/app.js`)**:
+       - Mengubah teks `🎯 KRITIS TITIK LEMAH! -${dmg}` (26+ karakter) menjadi lebih ringkas dan tajam: `🎯 TITIK LEMAH! -${dmg}` (18 karakter) agar tidak memenuhi layar.
+    3. **Safe Dimensions pada Enraged Banner & Toast (`public/css/style.css`)**:
+       - `.enraged-banner-wrap`: diberikan `width: max-content; max-width: min(92vw, 420px); box-sizing: border-box;`.
+       - `.enraged-banner`: diberikan `font-size: clamp(0.92rem, 3.8vw, 1.25rem); padding: 10px 18px; max-width: 100%; box-sizing: border-box; word-break: break-word; line-height: 1.35;`.
+       - `#toast`: diberikan `font-size: clamp(0.85rem, 3.5vw, 0.95rem); max-width: min(92vw, 420px); box-sizing: border-box; word-break: break-word; border-radius: 16px; line-height: 1.35;`.
+       - `.boss-fx-toast-container` & `.boss-fx-toast`: diberikan `width: min(92vw, 360px); max-width: 92vw; word-break: break-word; box-sizing: border-box;`.
+    4. **Flex Overflow-Safe pada Feedback Box (`public/js/app.js`)**:
+       - Menambahkan `min-width: 0; word-break: break-word; overflow-wrap: break-word;` pada `.grow` di dalam `#fb-slot .feedback` agar teks penjelasan sepanjang apa pun ter-wrap dengan rapi dan tombol navigasi tetap utuh.
+    5. **PWA Cache Busting & Pengujian**:
+       - Service worker cache dinaikkan ke `pp-v7.2.0-20261105v6`.
+       - Versi aset dinaikkan ke `style.css?v=20261105v9` dan `app.js?v=20261105v17`.
+       - Memperbarui pengujian di [`tests/ui-v7.test.js`](file:///home/maman/play/tests/ui-v7.test.js) mencakup assertion font `clamp`, batas lebar aman `min(92vw, 420px)`, `word-break: break-word`, serta keringkasan teks notifikasi. Seluruh 18 tes lulus 100%.
+  - ✅ 2026-11-05 17:25 — Seluruh 18 unit tests 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.
+- [x] **T-55** Peningkatan Kontras Keterbacaan Kritikal & Audit Eliminasi Notifikasi Ganda Skill Pasif:
+  - **Permintaan**: Perbaiki teks kritikal/kritis agar terbaca dengan sangat jelas, serta audit dan perbaiki bug skill pasif di mana jika memakai perlengkapan yang sama-sama memiliki skill hindaran saat terpicu notifikasinya muncul 2 kali, agar hanya muncul 1 kali.
+  - **Akar Masalah**:
+    1. **Notifikasi Ganda Hindaran (Dodge) & Kritikal (Crit)**:
+       - Ketika pemain berhasil menghindari serangan (`res.dodged === true`), di fungsi `applyAnswerResult` [`public/js/app.js`](file:///home/maman/play/public/js/app.js) sudah memanggil `this.showDamageFloater('💨 HINDARAN! 0 DMG', 'heal')`.
+       - Namun `res.triggeredPassives` dari backend juga membawa `{ id: 'dodge' }` yang kemudian dieksekusi oleh `showPassiveTrigger` dan memanggil `this.showDamageFloater` kedua kalinya. Akibatnya, muncul 2 badge notifikasi hindaran yang sama persis di tengah layar.
+       - Hal serupa terjadi pada Critical Hit di mana `⚡ KRITIKAL! -<dmg>` muncul bersamaan dengan badge pasif `⚡ Critical Hit!!`.
+    2. **Keterbacaan Buram Teks Kritikal**:
+       - Terdapat aturan CSS lama di baris 1807 [`public/css/style.css`](file:///home/maman/play/public/css/style.css) yang menimpa (`override`) text-shadow `.damage-floater.crit` menjadi hanya `0 0 8px #ef4444` dengan warna teks kuning muda `#fde047` tanpa outline hitam pekat, sehingga teks tampak pudar, silau, dan tidak kontras di atas layar pertempuran.
+  - **Solusi & Implementasi**:
+    1. **Peningkatan Kontras Tinggi & Ketajaman Teks Kritikal (`public/css/style.css`)**:
+       - Menghapus aturan override usang di baris 1807 yang merusak text-shadow.
+       - Memperbarui kelas `.damage-floater.crit` dengan warna teks `#fffbeb` (warm gold white), background gelap solid bergradien `linear-gradient(135deg, rgba(24, 24, 27, 0.98), rgba(67, 30, 5, 0.98))`, border emas `2px solid #fbbf24`, glow emas `box-shadow`, serta **outline kontras tinggi 4-arah** (`-1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000`) dan drop-shadow gelap.
+       - Menambahkan font-weight `950`, font size `clamp(1.15rem, 5vw, 1.6rem)`, dan `letter-spacing: 0.6px` sehingga teks kritikal dijamin terbaca sangat tajam dan kontras.
+       - Memperkuat styling outline hitam pekat juga pada varian `.dmg`, `.heal`, `.miss`, dan `.energy`.
+    2. **Audit & De-duplikasi Skill Pasif (`public/js/app.js`)**:
+       - Menambahkan mekanisme filter deduplikasi `seenCategories` pada fungsi `showPassiveTrigger` [`public/js/app.js`](file:///home/maman/play/public/js/app.js) untuk memastikan setiap kategori skill pasif (misal `dodge`, `crit`, `regen`, `dragon`, `comboDamagePercent`, `comboDamageBonus`, `streakProtect`, `lastStand`, `damageReduction`, `comboEnergy`) hanya diproses satu kali per giliran.
+       - Khusus untuk `dodge` dan `crit`: efek visual floater sudah ditangani secara elegan oleh floater angka/hasil utama di `applyAnswerResult`. Di `showPassiveTrigger`, keduanya hanya mengaktifkan efek visual denyut (*pulse*) pada chip buff bar (`#buff-dodge` & `#buff-crit`) dan tidak lagi memunculkan floater kedua.
+       - Mengintegrasikan deteksi `const isCriticalHit = outcome === 'CRITICAL' || Boolean(res.isCrit)` agar critical pasif langsung menghasilkan satu floater utama `⚡ KRITIKAL! -<dmg>`.
+    3. **PWA Cache Busting & Pengujian**:
+       - Service worker cache dinaikkan ke `pp-v7.2.0-20261105v7`.
+       - Versi aset dinaikkan ke `style.css?v=20261105v10` dan `app.js?v=20261105v18`.
+       - Memperbarui pengujian di [`tests/ui-v7.test.js`](file:///home/maman/play/tests/ui-v7.test.js) memverifikasi kontras tinggi kritikal dan deduplikasi ketat pasif. Seluruh 18 tes lulus 100%.
+  - ✅ 2026-11-05 17:41 — Seluruh 18 unit tests 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.
+
+
+
+
 
 

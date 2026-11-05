@@ -1952,21 +1952,22 @@ Screens.battle = {
 
   showPassiveTrigger(triggeredList) {
     if (!Array.isArray(triggeredList) || triggeredList.length === 0) return;
-    triggeredList.forEach((tp, i) => {
+
+    // 1. Audit & De-duplikasi ketat: pastikan setiap kategori pasif HANYA muncul 1 kali
+    const seenCategories = new Set();
+    const uniqueList = [];
+    for (const tp of triggeredList) {
+      if (!tp || !tp.id) continue;
+      // Satukan kategori serumpun (misal healCorrect & comboRegen keduanya kategori regen)
+      const cat = (tp.id === 'healCorrect' || tp.id === 'comboRegen') ? 'regen' : tp.id;
+      if (seenCategories.has(cat)) continue;
+      seenCategories.add(cat);
+      uniqueList.push(tp);
+    }
+
+    uniqueList.forEach((tp, i) => {
       setTimeout(() => {
-        // 1. Animated floating banner
-        const existing = $('.passive-trigger-banner');
-        if (existing) existing.remove();
-
-        const banner = document.createElement('div');
-        banner.className = 'passive-trigger-banner';
-        banner.setAttribute('data-testid', 'passive-trigger-banner');
-        banner.innerHTML = `<span style="font-size:1.1rem">${esc(tp.icon || '✨')}</span> <span><strong>${esc(tp.name)}</strong>: ${esc(tp.desc || '')}</span>`;
-        const bossCard = $('.boss-card') || document.body;
-        bossCard.appendChild(banner);
-        setTimeout(() => { if (banner && banner.parentNode) banner.remove(); }, 2100);
-
-        // 2. Pulse matching chip in buff bar
+        // Efek visual: pulse chip di status buff bar pemain
         const chip = $(`#buff-${tp.id}`) || $(`[data-buff="${tp.id}"]`);
         if (chip) {
           chip.classList.remove('buff-pulse');
@@ -1974,20 +1975,39 @@ Screens.battle = {
           chip.classList.add('buff-pulse');
         }
 
-        // 3. Floater effect
-        if (tp.id === 'crit' || tp.id === 'dragon' || tp.id === 'comboDamagePercent' || tp.id === 'comboDamageBonus') {
-          this.showDamageFloater(`${tp.icon} ${tp.name}!`, 'crit');
-          this.animateBossShake();
-        } else if (tp.id === 'dodge') {
-          this.showDamageFloater(`💨 HINDARAN! 0 DMG`, 'heal');
-        } else if (tp.id === 'healCorrect' || tp.id === 'comboRegen') {
-          this.showDamageFloater(`💖 REGEN!`, 'heal');
-        } else if (tp.id === 'comboEnergy') {
-          this.showDamageFloater(`⚡ +1 ENERGI!`, 'energy');
+        // Hindaran (dodge) & Kritikal (crit) sudah ditampilkan tegas oleh floater hasil jawaban utama.
+        // Jangan tampilkan floater kedua di sini agar tidak muncul notifikasi ganda / bertumpuk!
+        if (tp.id === 'dodge' || tp.id === 'crit') {
+          return;
         }
 
-        if (window.toast) toast(`✨ [Pasif Skin] ${tp.icon || ''} ${tp.name}: ${tp.desc || ''}`);
-      }, i * 350);
+        // Floater effect unik di tengah layar (Hanya 1 notifikasi per pasif unik)
+        if (tp.id === 'comboDamagePercent') {
+          this.showDamageFloater('👑 Raja Combo!', 'crit');
+          this.animateBossShake();
+        } else if (tp.id === 'comboDamageBonus') {
+          this.showDamageFloater('💥 Combo Strike!', 'crit');
+          this.animateBossShake();
+        } else if (tp.id === 'dragon') {
+          this.showDamageFloater('🔥 Semburan Naga!', 'crit');
+          this.animateBossShake();
+        } else if (tp.id === 'healCorrect' || tp.id === 'comboRegen') {
+          this.showDamageFloater('💖 REGEN!', 'heal');
+        } else if (tp.id === 'comboEnergy') {
+          this.showDamageFloater('⚡ +1 ENERGI!', 'energy');
+        } else if (tp.id === 'streakProtect') {
+          this.showDamageFloater('🦉 Proteksi Combo!', 'crit');
+        } else if (tp.id === 'lastStand') {
+          this.showDamageFloater('🩸 Darah Terakhir!', 'crit');
+        } else if (tp.id === 'damageReduction') {
+          this.showDamageFloater('🛡️ Zirah Baja!', 'heal');
+        } else {
+          const cleanName = (tp.name || '').replace(/!+$/, '');
+          if (cleanName) {
+            this.showDamageFloater(`${tp.icon || '✨'} ${cleanName}!`, 'crit');
+          }
+        }
+      }, i * 250);
     });
   },
 
@@ -2801,13 +2821,10 @@ Screens.battle = {
     this.session = s;
     if (res.player) Player.data = res.player;
 
-    // Efek visual border berkedip hijau (benar) atau merah (salah/waktu habis) - 60fps GPU compositor
+    // Efek visual border berkedip hijau/merah dinonaktifkan sesuai permintaan pengguna
     const battleRoot = document.querySelector('[data-testid="battle-root"]') || document.querySelector('.screen.active');
     if (battleRoot) {
       battleRoot.classList.remove('answer-blink-correct', 'answer-blink-wrong', 'short-active', 'mobile-keyboard-active');
-      requestAnimationFrame(() => {
-        battleRoot.classList.add(res.isCorrect ? 'answer-blink-correct' : 'answer-blink-wrong');
-      });
     }
 
     if (res.alreadyAnswered) {
@@ -2887,15 +2904,33 @@ Screens.battle = {
 
     // Floater & SFX (T-23, T-24, T-25)
     const dmg = res.damageToBoss ?? res.bossDamage ?? 0;
-    if (res.isMystery && res.mysteryReward) {
-      this.showDamageFloater(`❓ HADIAH MISTERI: ${res.mysteryReward}!`, 'crit');
+
+    // Notifikasi Hadiah Koin / Soal Misteri (Format ringkas tanpa teks panjang)
+    const coinDrop = res.drops && typeof res.drops.coins === 'number' ? res.drops.coins : 0;
+    if (coinDrop > 0) {
+      this.showDamageFloater(`+${coinDrop} 🪙`, 'crit');
+    } else if (res.isMystery && res.mysteryReward === 'COINS_8') {
+      this.showDamageFloater(`+8 🪙`, 'crit');
     }
+
+    if (res.isMystery && res.mysteryReward) {
+      if (res.mysteryReward === 'HEAL_15') {
+        this.showDamageFloater(`+15 HP 💖`, 'heal');
+      } else if (res.mysteryReward === 'ENERGY_1') {
+        this.showDamageFloater(`+1 Energi ⚡`, 'heal');
+      } else if (res.mysteryReward === 'DAMAGE_1_5') {
+        this.showDamageFloater(`1.5× Damage 💥`, 'crit');
+      } else if (res.mysteryReward !== 'COINS_8') {
+        this.showDamageFloater(`🎁 ${res.mysteryReward}`, 'crit');
+      }
+    }
+    const isCriticalHit = outcome === 'CRITICAL' || Boolean(res.isCrit);
     if (res.weakHit) {
-      this.showDamageFloater(`🎯 KRITIS TITIK LEMAH! -${dmg}`, 'crit');
+      this.showDamageFloater(`🎯 TITIK LEMAH! -${dmg}`, 'crit');
       this.animateBossShake();
       if (window.Feedback) Feedback.sfx('critical');
       else if (window.Sfx) Sfx.play('correct');
-    } else if (outcome === 'CRITICAL') {
+    } else if (isCriticalHit) {
       this.showDamageFloater(`⚡ KRITIKAL! -${dmg}`, 'crit');
       this.animateBossShake();
       if (window.Feedback) Feedback.sfx('critical');
@@ -2962,19 +2997,11 @@ Screens.battle = {
     if (res.phaseChanged) {
       const monsterName = (s.monster?.name || s.boss?.name || monsterObj.name) || 'Bos';
       this.showEnragedBanner(monsterName);
-      this.showBossDialog('enraged');
     } else if (res.boss?.phase === 2 || s.boss_phase === 2 || s.bossPhase === 2) {
       $('#boss-svg-slot')?.classList.add('boss-enraged');
     }
 
-    // Story Dialog & Pet Reactions (F.1, F.2 / T-24)
-    if (res.isCorrect) {
-      if (!res.phaseChanged) this.showBossDialog('hit');
-      this.showPetReaction(res.streak >= 3 ? 'combo' : 'correct');
-    } else {
-      this.showBossDialog('taunt');
-      this.showPetReaction('wrong');
-    }
+    // Story Dialog & Pet Reactions dinonaktifkan agar tidak menghalangi arena soal
 
     // Combo Meter (G / T-25)
     const comboEl = $('#combo-meter');
@@ -3049,12 +3076,12 @@ Screens.battle = {
       this.stopHeartbeat();
     }
 
-    const fbTitle = outcome === 'CRITICAL' ? 'Luar biasa! Serangan Kritikal!'
+    const fbTitle = isCriticalHit ? 'Luar biasa! Serangan Kritikal!'
       : outcome === 'NORMAL' ? 'Bagus sekali! Tepat sasaran!'
       : outcome === 'SLOW' ? 'Benar, tapi agak lambat! Terkena balasan!'
-      : outcome === 'TIMEOUT' ? 'Waktu habis! Bos menyerangmu!'
+      : outcome === 'TIMEOUT' ? (res.dodged ? 'Waktu habis! Berhasil menghindar! 💨' : 'Waktu habis! Bos menyerangmu!')
       : outcome === 'TIMEOUT_AWAY' ? (res.notice || 'Kamu pergi cukup lama, soal dilewati.')
-      : 'Kurang tepat! Bos menyerangmu!';
+      : (res.dodged ? 'Kurang tepat! Tapi berhasil menghindar! 💨' : 'Kurang tepat! Bos menyerangmu!');
 
     const canAutoNext = !isOver;
     let nextTimeout = null;
@@ -3080,9 +3107,9 @@ Screens.battle = {
       <div class="feedback ${outcome === 'WRONG' || outcome === 'TIMEOUT' ? 'no' : 'ok'}" style="margin-top:10px;padding:12px;border-radius:14px;background:rgba(255,255,255,.08);display:flex;flex-direction:column;gap:8px;cursor:${!isOver ? 'pointer' : 'default'}" title="${!isOver ? 'Ketuk untuk langsung lanjut' : ''}">
         <div style="display:flex;align-items:center;gap:12px">
           <span style="font-size:1.6rem">${outcome === 'WRONG' || outcome === 'TIMEOUT' ? '💔' : (outcome === 'TIMEOUT_AWAY' ? '⏳' : '⭐')}</span>
-          <div class="grow">
+          <div class="grow" style="min-width:0;word-break:break-word;overflow-wrap:break-word">
             <strong style="color:#fff">${res.notice ? esc(res.notice) : fbTitle}</strong>
-            ${res.explanation ? `<div style="font-size:.8rem;color:var(--c-muted);margin-top:2px">${esc(res.explanation)}</div>` : ''}
+            ${res.explanation ? `<div style="font-size:.8rem;color:var(--c-muted);margin-top:2px;word-break:break-word">${esc(res.explanation)}</div>` : ''}
           </div>
           ${isOver ? `
             <button class="btn small primary" id="btn-next" data-testid="btn-next">
@@ -3328,51 +3355,13 @@ Screens.battle = {
   },
 
   showBossDialog(type) {
-    if (this.session && this.session.mode === 'PRACTICE') return;
-    const bubble = $('#boss-dialog');
-    if (!bubble) return;
-    const theme = (this.session && (this.session.subject?.monsterTheme || this.session.monster_theme || this.session.monster?.theme)) || 'hutan';
-    const storyTheme = (window.StoryData && window.StoryData.STORY && (window.StoryData.STORY[theme] || window.StoryData.STORY.hutan)) || null;
-    if (!storyTheme || !storyTheme[type]) return;
-
-    if (type === 'hit' && Math.random() > 0.30) return;
-    if (type === 'taunt' && Math.random() > 0.50) return;
-
-    const line = this.pickLine(storyTheme[type], this.session.currentIndex || 0);
-    if (!line) return;
-
-    const monsterName = (this.session && (this.session.monster?.name || this.session.boss?.name)) || 'Bos';
-    const text = line.replace(/\{boss\}/g, monsterName).replace(/\{hero\}/g, Player.data?.nick || 'Pahlawan');
-
-    bubble.textContent = `💬 ${text}`;
-    bubble.style.display = 'block';
-    bubble.style.opacity = '1';
-    if (this._bossDialogTimer) clearTimeout(this._bossDialogTimer);
-    this._bossDialogTimer = setTimeout(() => {
-      bubble.style.opacity = '0';
-      setTimeout(() => { bubble.style.display = 'none'; }, 300);
-    }, 2000);
+    // Dinonaktifkan: dialog bubble bos dihapus agar tidak menghalangi arena soal
+    return;
   },
 
   showPetReaction(type) {
-    const bubble = $('#pet-dialog');
-    if (!bubble) return;
-    const now = Date.now();
-    if (this._lastPetTime && now - this._lastPetTime < 1500) return;
-    this._lastPetTime = now;
-
-    const list = window.StoryData?.PET_REACTIONS?.[type];
-    if (!list || list.length === 0) return;
-    const line = this.pickLine(list, this.session?.currentIndex || 0);
-
-    bubble.textContent = `🐾 ${line}`;
-    bubble.style.display = 'block';
-    bubble.style.opacity = '1';
-    if (this._petDialogTimer) clearTimeout(this._petDialogTimer);
-    this._petDialogTimer = setTimeout(() => {
-      bubble.style.opacity = '0';
-      setTimeout(() => { bubble.style.display = 'none'; }, 300);
-    }, 1800);
+    // Dinonaktifkan: dialog bubble pet dihapus agar tidak menghalangi arena soal
+    return;
   },
 
   animateBossShake() {
@@ -3385,13 +3374,23 @@ Screens.battle = {
   },
 
   showDamageFloater(text, type = 'dmg') {
-    const slot = $('#damage-floater-slot');
-    if (!slot) return;
+    let container = document.getElementById('center-floater-container');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'center-floater-container';
+      container.className = 'center-floater-container';
+      document.body.appendChild(container);
+    }
     const floater = document.createElement('div');
     floater.className = `damage-floater ${type}`;
     floater.textContent = text;
-    slot.appendChild(floater);
-    setTimeout(() => floater.remove(), 850);
+    container.appendChild(floater);
+    setTimeout(() => {
+      if (floater && floater.parentNode) floater.remove();
+      if (container && container.children.length === 0 && container.parentNode) {
+        container.remove();
+      }
+    }, 1100);
   },
 
   applySkillBarVisibility() {

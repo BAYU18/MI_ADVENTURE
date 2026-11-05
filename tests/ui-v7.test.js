@@ -306,4 +306,74 @@ test('H.12: UI Pertempuran & Mode Brutal (Spek E.1, E.2)', async (t) => {
     assert.ok(css.includes('.battle-hud .hud-left'), 'style.css memuat aturan .battle-hud .hud-left');
     assert.ok(css.includes('.battle-hud .hud-right'), 'style.css memuat aturan .battle-hud .hud-right');
   });
+
+  await t.test('9. Sinkronisasi Tier Monster Sesi Pertempuran & Pencatatan Kemenangan di Monster Dex', () => {
+    const db = require('../lib/db');
+    const rawDb = db.getDb();
+
+    // 1. startSession harus memilih monster yang tier-nya cocok dengan bossTier
+    for (const tier of ['common', 'rare', 'epic', 'legend']) {
+      // Cleanup running session first
+      rawDb.prepare("UPDATE game_sessions SET status='ABANDONED' WHERE player_id=8 AND status='IN_PROGRESS'").run();
+      const sess = db.startSession(8, 1, { bossTier: tier });
+      assert.ok(sess && sess.boss, `Sesi berhasil dibuat untuk tier ${tier}`);
+      const mTier = db.getMonsterTierById(sess.boss.id);
+      assert.equal(mTier, tier, `Tier monster yang dipilih (${mTier}) harus sama persis dengan bossTier (${tier})`);
+      rawDb.prepare("UPDATE game_sessions SET status='ABANDONED' WHERE id=?").run(sess.sessionId);
+    }
+
+    // 2. Verifikasi getDex akun bayu (player 8) menampilkan kemenangan boss Epic
+    const bayuDex = db.getDex(8);
+    const epicDefeated = bayuDex.filter(m => m.tier === 'epic' && (m.defeats > 0 || m.defeated));
+    assert.ok(epicDefeated.length >= 1, 'Akun bayu harus memiliki minimal 1 boss Epic yang tercatat dikalahkan di Monster Dex');
+    const turbinor = bayuDex.find(m => m.id === 88);
+    assert.ok(turbinor && turbinor.defeats >= 1, 'Monster Epic #88 Turbinor tercatat dikalahkan oleh bayu');
+  });
+
+  await t.test('10. Penghapusan Bubble Notif Menghalangi & Floater Damage Ditampilkan di Tengah Layar', () => {
+    const cssPath = path.join(__dirname, '..', 'public', 'css', 'style.css');
+    const css = fs.readFileSync(cssPath, 'utf8');
+    const appPath = path.join(__dirname, '..', 'public', 'js', 'app.js');
+    const appJs = fs.readFileSync(appPath, 'utf8');
+
+    // 1. Bubble dialog (boss-dialog / pet-dialog) disembunyikan/dinonaktifkan agar tidak menghalangi arena
+    assert.ok(css.includes('.dialog-bubble {\n  display: none !important;'), 'style.css menyembunyikan .dialog-bubble dengan display: none !important');
+    assert.ok(!appJs.includes("this.showBossDialog('hit')"), 'app.js tidak memanggil dialog boss saat hit');
+    assert.ok(!appJs.includes("this.showBossDialog('taunt')"), 'app.js tidak memanggil dialog boss saat taunt');
+    assert.ok(!appJs.includes("this.showPetReaction('wrong')"), 'app.js tidak memanggil dialog pet saat salah');
+
+    // 2. Damage floater (notif salah/benar) berposisi fixed di tengah-tengah layar (top: 50%, left: 50%) & rapi bertingkat via center-floater-container
+    assert.ok(css.includes('position: fixed;'), 'style.css menggunakan position: fixed pada .center-floater-container / .damage-floater');
+    assert.ok(css.includes('top: 50%;'), 'style.css menempatkan floater pada top: 50%');
+    assert.ok(css.includes('left: 50%;'), 'style.css menempatkan floater pada left: 50%');
+    assert.ok(css.includes('.center-floater-container'), 'style.css memuat kontainer bertingkat .center-floater-container agar notif tidak bertumpuk');
+    assert.ok(appJs.includes('center-floater-container'), 'app.js menempelkan floater ke center-floater-container');
+
+    // 3. Efek panel berkedip merah/hijau dinonaktifkan
+    assert.ok(css.includes('.answer-blink-correct::after,\n.answer-blink-correct .boss-card::after'), 'style.css menonaktifkan .answer-blink-correct');
+    assert.ok(!appJs.includes("battleRoot.classList.add(res.isCorrect ? 'answer-blink-correct' : 'answer-blink-wrong')"), 'app.js tidak mengaktifkan class blink');
+
+    // 4. Banner pasif Raja Combo di atas (.passive-trigger-banner) dinonaktifkan
+    assert.ok(css.includes('.passive-trigger-banner {\n  display: none !important;'), 'style.css menyembunyikan .passive-trigger-banner');
+    assert.ok(!appJs.includes("const banner = document.createElement('div');\n        banner.className = 'passive-trigger-banner'"), 'app.js tidak membuat banner pasif di atas boss card');
+
+    // 5. Format notifikasi hadiah koin ringkas (+N 🪙) tanpa teks panjang HADIAH MISTERI
+    assert.ok(appJs.includes('+${coinDrop} 🪙'), 'app.js memformat hadiah koin ringkas +N 🪙');
+    assert.ok(!appJs.includes('❓ HADIAH MISTERI: ${res.mysteryReward}!'), 'app.js tidak lagi menggunakan teks panjang HADIAH MISTERI: ...');
+
+    // 6. Anti pemotongan teks notifikasi: fluid font (clamp), max-width aman, dan word-break
+    assert.ok(css.includes('clamp(0.95rem, 4.2vw, 1.35rem)'), 'damage-floater menggunakan font clamp agar teks tidak meluap di mobile');
+    assert.ok(css.includes('max-width: min(92vw, 420px)'), 'damage-floater dibatasi max-width aman agar tidak terpotong');
+    assert.ok(css.includes('word-break: break-word;'), 'damage-floater dan enraged-banner mendukung word-break agar terbaca utuh');
+    assert.ok(appJs.includes('🎯 TITIK LEMAH! -${dmg}'), 'app.js menggunakan notifikasi titik lemah yang ringkas dan tidak kepanjangan');
+
+    // 7. Keterbacaan & kontras tinggi notifikasi kritikal
+    assert.ok(css.includes('color: #fffbeb;'), 'style.css menggunakan warna teks cerah keemasan kontras tinggi untuk kritikal');
+    assert.ok(css.includes('-1.5px -1.5px 0 #000'), 'style.css menerapkan outline hitam pekat 4 arah agar teks kritikal terbaca sangat tajam');
+    assert.ok(!css.includes('text-shadow: 0 0 8px #ef4444;'), 'style.css tidak lagi memiliki override text-shadow buram tipis pada .damage-floater.crit');
+
+    // 8. Audit skill pasif & eliminasi notifikasi ganda (misal 2 item dodge / passives sejenis)
+    assert.ok(appJs.includes('seenCategories'), 'app.js melakukan deduplikasi ketat skill pasif berdasarkan kategori');
+    assert.ok(appJs.includes("if (tp.id === 'dodge' || tp.id === 'crit') {\n          return;"), 'showPassiveTrigger tidak memunculkan floater ganda untuk dodge dan crit yang sudah ditampilkan oleh floater utama');
+  });
 });
