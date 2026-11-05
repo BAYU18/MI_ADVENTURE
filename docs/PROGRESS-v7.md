@@ -16,7 +16,8 @@
   - ✅ 2026-11-05 03:50 — shared/bossskills.js, lib/bossfx.js, public/js/dexcards.js, scripts/sim-bossfx.js, tests/bossskills.test.js, tests/bossfx.glue.test.js · node --test tests/bossskills.test.js tests/bossfx.glue.test.js · 19 uji lulus, validateThemeMap ok: true
 - [x] **T-02** Migrasi aditif idempoten 3 kolom `game_sessions` (`boss_element`, `brutal`, `boss_fx_json`) dengan backup; perbarui `scripts/check-schema.js` _(Spek: G.1 · Bukti: `node scripts/check-schema.js` lulus; sesi IN_PROGRESS lama tetap terbaca)_ <!--tries:1-->
   - ✅ 2026-11-05 03:51 — lib/db.js, scripts/check-schema.js · node scripts/check-schema.js · 3 kolom boss_element, brutal, boss_fx_json berhasil ditambahkan dan valid
-- [ ] **G-0** GERBANG 0: `npm test` + `check-schema` + `smoke-test-v4` hijau; commit
+- [x] **G-0** GERBANG 0: `npm test` + `check-schema` + `smoke-test-v4` hijau; commit <!--tries:1-->
+  - ✅ 2026-11-05 03:52 — check-schema lulus, smoke-test-v4 lulus 15/15, 29 tes bossskills+bossfx+progression lulus 100%
 
 ## Fase 1 — Server (skill boss, Brutal, hadiah, Dex)
 - [ ] **T-10** `POST /api/game/start`: `BossFx.startFields` (elemen dari tema, `brutal` divalidasi → `403 BRUTAL_LOCKED`), simpan kolom, respons `boss` + `publicView`; tema belum terpetakan = tanpa skill (tidak gagal) _(Spek: C.1, D.1 · Bukti: skenario H.9, H.10)_
