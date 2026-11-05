@@ -270,4 +270,33 @@ test('H.12: UI Pertempuran & Mode Brutal (Spek E.1, E.2)', async (t) => {
     assert.ok(card8.includes('Racun Duri') && !card8.includes('Lumut Penghisap'), 'Rimbazo membawa Racun Duri');
     assert.ok(!card9.includes('Racun Duri') && card9.includes('Lumut Penghisap'), 'Beringkus membawa Lumut Penghisap');
   });
+
+  await t.test('8. Proposal UI Battle: 3 Opsi Layout Soal & Jawaban + Menu Settings (Classic, Bottom Sheet, Compact)', () => {
+    const dbPath = path.join(__dirname, '..', 'lib', 'db.js');
+    const dbJs = fs.readFileSync(dbPath, 'utf8');
+
+    // 1. db.js mendukung penyimpanan setting battleLayout
+    assert.ok(dbJs.includes("'battleLayout'"), 'lib/db.js mengizinkan key battleLayout pada updatePlayerSettings');
+    assert.ok(dbJs.includes("battleLayout: 'classic'"), 'lib/db.js menetapkan default battleLayout classic');
+
+    // 2. app.js memuat default setting battleLayout dan dropdown pengaturan
+    assert.ok(appJs.includes("battleLayout: 'classic'"), 'app.js menetapkan default battleLayout classic');
+    assert.ok(appJs.includes('data-testid="setting-battle-layout"'), 'app.js menyediakan dropdown setting battle layout');
+    assert.ok(appJs.includes('value="bottom_sheet"'), 'app.js mendukung opsi bottom_sheet');
+    assert.ok(appJs.includes('value="compact"'), 'app.js mendukung opsi compact');
+
+    // 3. app.js memuat render layout battle: bottom sheet drawer dan smart grid compact
+    assert.ok(appJs.includes('battle-layout-${layout}'), 'app.js menambahkan kelas battle-layout dinamis');
+    assert.ok(appJs.includes('data-testid="btn-open-answersheet"'), 'app.js memuat tombol pembuka lembar jawaban bottom sheet');
+    assert.ok(appJs.includes('data-testid="answer-sheet-drawer"'), 'app.js memuat drawer lembar jawaban');
+    assert.ok(appJs.includes('options-grid-2x2'), 'app.js mendukung smart grid 2x2 pada mode compact');
+
+    // 4. style.css memuat styling lengkap untuk ketiga layout
+    assert.ok(css.includes('.battle-layout-bottom_sheet'), 'style.css memuat aturan .battle-layout-bottom_sheet');
+    assert.ok(css.includes('.answer-sheet-drawer'), 'style.css memuat aturan .answer-sheet-drawer');
+    assert.ok(css.includes('.answer-sheet-backdrop'), 'style.css memuat aturan .answer-sheet-backdrop');
+    assert.ok(css.includes('.btn-open-answersheet'), 'style.css memuat aturan .btn-open-answersheet');
+    assert.ok(css.includes('.battle-layout-compact'), 'style.css memuat aturan .battle-layout-compact');
+    assert.ok(css.includes('.options.options-grid-2x2'), 'style.css memuat aturan .options.options-grid-2x2');
+  });
 });

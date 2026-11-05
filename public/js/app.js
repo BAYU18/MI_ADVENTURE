@@ -37,10 +37,11 @@ const Settings = {
           pace: 'AUTO',
           tts: false,
           autoNext: true,
-          skillBarHidden: false
+          skillBarHidden: false,
+          battleLayout: 'classic'
         }, JSON.parse(localStorage.getItem('pp_settings') || '{}'));
       } catch (e) {
-        this._data = { sfx: true, sound: true, vibrate: true, reducedMotion: false, pace: 'AUTO', tts: false, autoNext: true, skillBarHidden: false };
+        this._data = { sfx: true, sound: true, vibrate: true, reducedMotion: false, pace: 'AUTO', tts: false, autoNext: true, skillBarHidden: false, battleLayout: 'classic' };
       }
     }
     return this._data;
@@ -1848,6 +1849,10 @@ Screens.battle = {
     this.dismissIntro();
     this.stopTimer();
     this.stopHeartbeat();
+    const sheetDrawer = $('#answer-sheet-drawer');
+    const sheetBackdrop = $('#answer-sheet-backdrop');
+    if (sheetDrawer) sheetDrawer.classList.remove('open');
+    if (sheetBackdrop) sheetBackdrop.classList.remove('open');
   },
 
   stopTimer() {
@@ -2005,8 +2010,10 @@ Screens.battle = {
     const isBrutal = Boolean(s.brutal);
     const bossSkills = s.boss?.skills || (window.BossSkills && elemKey && BossSkills.skillsFor(elemKey, tier, monsterObj.id).map(sk => ({ ...BossSkills.describeSkill(sk, tier, isBrutal), textBrutal: BossSkills.describeSkill(sk, tier, true).text }))) || [];
 
+    const layout = Settings.get().battleLayout || 'classic';
+
     app.innerHTML = `
-      <section class="screen active stack ${isBrutal ? 'battle-brutal' : ''}" data-testid="battle-root" style="gap:8px">
+      <section class="screen active stack battle-layout-${layout} ${isBrutal ? 'battle-brutal' : ''}" data-testid="battle-root" style="gap:8px">
         <!-- TOP HUD -->
         <div class="hud" style="margin-bottom:0">
           <button class="icon-btn" id="btn-abandon" title="Menyerah">✕</button>
@@ -2117,12 +2124,39 @@ Screens.battle = {
             <div id="q-image-slot"></div>
           </div>
 
+          ${layout === 'bottom_sheet' ? `
+          <!-- TOMBOL BUKA LEMBAR JAWABAN (BOTTOM SHEET) -->
+          <button type="button" class="btn primary btn-open-answersheet" id="btn-open-answersheet" data-testid="btn-open-answersheet" style="width:100%;padding:13px;font-size:1.02rem;font-weight:800;border-radius:14px;margin-top:6px;display:flex;align-items:center;justify-content:center;gap:8px">
+            <span style="font-size:1.15rem">✍️</span>
+            <span>JAWAB PERTANYAAN</span>
+            <span class="chip" id="sheet-opt-count-chip" style="background:rgba(255,255,255,0.2);color:#fff;font-size:0.75rem;padding:2px 8px;border-radius:99px">Buka Opsi</span>
+          </button>
+          ` : `
           <!-- OPTIONS -->
           <div class="options" id="options-slot" style="margin-top:6px;margin-bottom:6px;flex:0 0 auto"></div>
 
           <!-- FEEDBACK & NEXT -->
           <div id="fb-slot" style="flex:0 0 auto"></div>
+          `}
         </div>
+
+        ${layout === 'bottom_sheet' ? `
+        <!-- BOTTOM SHEET DRAWER & BACKDROP -->
+        <div class="answer-sheet-backdrop" id="answer-sheet-backdrop"></div>
+        <div class="answer-sheet-drawer" id="answer-sheet-drawer" data-testid="answer-sheet-drawer">
+          <div class="drawer-handle" id="drawer-handle"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="font-weight:800;font-size:0.95rem;color:#fff">📝 Lembar Jawaban</span>
+              <span class="chip info small" id="sheet-q-type-badge" style="font-size:0.7rem;padding:2px 6px">PILIHAN GANDA</span>
+            </div>
+            <button type="button" class="btn ghost small" id="btn-close-answersheet" data-testid="btn-close-answersheet" style="padding:4px 8px;font-size:0.8rem;color:var(--c-muted)">✕ Tutup / Baca Soal</button>
+          </div>
+          <p id="drawer-q-excerpt" style="font-size:0.85rem;color:var(--c-muted);margin:0 0 10px 0;line-height:1.3;max-height:44px;overflow:hidden;text-overflow:ellipsis"></p>
+          <div class="options" id="options-slot" style="margin-top:6px;margin-bottom:6px"></div>
+          <div id="fb-slot"></div>
+        </div>
+        ` : ''}
 
         ${!Screens.battle._introShown?.[s.id] ? `
         <div class="boss-intro-overlay" id="boss-intro" data-testid="boss-intro" onclick="Screens.battle.dismissIntro()">
@@ -2171,6 +2205,30 @@ Screens.battle = {
     const fabBtn = $('#skill-fab');
     if (fabBtn) fabBtn.onclick = () => this.openSkillBubblePopup();
 
+    const btnOpenSheet = $('#btn-open-answersheet');
+    const sheetDrawer = $('#answer-sheet-drawer');
+    const sheetBackdrop = $('#answer-sheet-backdrop');
+    const btnCloseSheet = $('#btn-close-answersheet');
+
+    if (btnOpenSheet && sheetDrawer && sheetBackdrop) {
+      btnOpenSheet.onclick = () => {
+        sheetDrawer.classList.add('open');
+        sheetBackdrop.classList.add('open');
+      };
+    }
+    if (btnCloseSheet && sheetDrawer && sheetBackdrop) {
+      btnCloseSheet.onclick = () => {
+        sheetDrawer.classList.remove('open');
+        sheetBackdrop.classList.remove('open');
+      };
+    }
+    if (sheetBackdrop && sheetDrawer) {
+      sheetBackdrop.onclick = () => {
+        sheetDrawer.classList.remove('open');
+        sheetBackdrop.classList.remove('open');
+      };
+    }
+
     $$('.battle-buff-chip', app).forEach(chip => {
       chip.onclick = () => {
         if (window.toast) toast(`✨ [Pasif Skin] ${chip.getAttribute('title') || chip.textContent}`);
@@ -2201,6 +2259,17 @@ Screens.battle = {
 
     this.isAnswering = false;
     this.closeSkillBubblePopup();
+
+    const layout = Settings.get().battleLayout || 'classic';
+    const sheetDrawer = $('#answer-sheet-drawer');
+    const sheetBackdrop = $('#answer-sheet-backdrop');
+    if (sheetDrawer && sheetBackdrop) {
+      sheetDrawer.classList.remove('open');
+      sheetBackdrop.classList.remove('open');
+      const drawerExcerpt = $('#drawer-q-excerpt');
+      if (drawerExcerpt && q) drawerExcerpt.textContent = q.text || '';
+    }
+
     $('#q-counter').textContent = `Soal ${s.currentIndex + 1}/${s.totalQuestions}`;
     $('#q-text').textContent = q.text;
     $('#fb-slot').innerHTML = '';
@@ -2225,15 +2294,28 @@ Screens.battle = {
 
     const qType = q.type || q.questionType || 'MCQ';
     const typeBadge = $('#q-type-badge');
+    const typeLabels = {
+      'MCQ': 'PILIHAN GANDA',
+      'TRUE_FALSE': 'BENAR / SALAH',
+      'ORDERING': 'URUTKAN KARTU',
+      'MATCHING': 'PASANGKAN KATA',
+      'SHORT': 'ISIAN SINGKAT'
+    };
     if (typeBadge) {
-      const typeLabels = {
-        'MCQ': 'PILIHAN GANDA',
-        'TRUE_FALSE': 'BENAR / SALAH',
-        'ORDERING': 'URUTKAN KARTU',
-        'MATCHING': 'PASANGKAN KATA',
-        'SHORT': 'ISIAN SINGKAT'
-      };
       typeBadge.textContent = typeLabels[qType] || qType;
+    }
+
+    const sheetType = $('#sheet-q-type-badge');
+    if (sheetType) {
+      sheetType.textContent = typeLabels[qType] || qType;
+    }
+    const sheetCountChip = $('#sheet-opt-count-chip');
+    if (sheetCountChip) {
+      if (qType === 'MCQ') sheetCountChip.textContent = '4 Pilihan';
+      else if (qType === 'TRUE_FALSE') sheetCountChip.textContent = '2 Pilihan';
+      else if (qType === 'ORDERING') sheetCountChip.textContent = 'Urutkan';
+      else if (qType === 'MATCHING') sheetCountChip.textContent = 'Pasangkan';
+      else if (qType === 'SHORT') sheetCountChip.textContent = 'Isian Singkat';
     }
 
     const reviewBadge = $('#review-badge');
@@ -2261,10 +2343,19 @@ Screens.battle = {
     // Render multi-type options
     const optBox = $('#options-slot');
     optBox.innerHTML = '';
+    optBox.classList.remove('options-grid-2x2');
 
     if (qType === 'MCQ') {
       const letters = ['A', 'B', 'C', 'D'];
       const opts = Array.isArray(q.options) ? q.options : [];
+
+      // Smart Grid 2x2 pada mode compact jika opsi ringkas
+      if (layout === 'compact' && opts.length === 4 && opts.every(t => typeof t === 'string' && t.trim().length <= 26)) {
+        optBox.classList.add('options-grid-2x2');
+      } else {
+        optBox.classList.remove('options-grid-2x2');
+      }
+
       optBox.innerHTML = opts.map((optText, idx) => `
         <button class="btn opt choice-btn" data-idx="${idx}" data-testid="answer-${idx}">
           <span class="key">${letters[idx] || (idx + 1)}</span>
@@ -6311,6 +6402,17 @@ Screens.settings = {
             </div>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
               <div>
+                <strong style="display:block">Tampilan Battle</strong>
+                <span style="font-size:.75rem;color:var(--c-muted)">Tata letak soal & lembar jawaban</span>
+              </div>
+              <select id="sel-battle-layout" data-testid="setting-battle-layout" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:4px 8px;font-size:0.8rem">
+                <option value="classic" ${(!s.battleLayout || s.battleLayout === 'classic') ? 'selected' : ''}>Klasik (Default)</option>
+                <option value="bottom_sheet" ${s.battleLayout === 'bottom_sheet' ? 'selected' : ''}>Baca Penuh + Sheet</option>
+                <option value="compact" ${s.battleLayout === 'compact' ? 'selected' : ''}>Kompak Adaptif</option>
+              </select>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+              <div>
                 <strong style="display:block">Waktu Soal (Pace)</strong>
                 <span style="font-size:.75rem;color:var(--c-muted)">Pengaturan kecepatan waktu kuis</span>
               </div>
@@ -6369,6 +6471,17 @@ Screens.settings = {
         const val = e.target.value;
         Settings.set('pace', val);
         toast('Waktu soal: ' + (val === 'RELAXED' ? 'Santai (+30%)' : (val === 'NORMAL' ? 'Standar' : 'Otomatis')));
+      };
+    }
+
+    const selLayout = $('#sel-battle-layout');
+    if (selLayout) {
+      selLayout.onchange = (e) => {
+        const val = e.target.value;
+        Settings.set('battleLayout', val);
+        API.saveSettings({ battleLayout: val }).catch(() => {});
+        const label = val === 'bottom_sheet' ? 'Baca Penuh + Lembar Jawaban' : (val === 'compact' ? 'Kompak Adaptif' : 'Klasik (Default)');
+        toast('Tampilan Battle: ' + label);
       };
     }
 
