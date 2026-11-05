@@ -5318,6 +5318,7 @@ Screens.dex = {
   filterTheme: 'ALL',
   filterElement: '',
   filterTier: '',
+  searchQuery: '',
   brutalPreview: false,
   progress: {},
   entries: [],
@@ -5329,6 +5330,7 @@ Screens.dex = {
     this.filterTheme = 'ALL';
     this.filterElement = '';
     this.filterTier = '';
+    this.searchQuery = '';
     this.brutalPreview = false;
 
     // Muat data dari /api/dex
@@ -5336,13 +5338,18 @@ Screens.dex = {
       const res = await API.req('/api/dex');
       this.progress = res.progress || {};
       const rawMonsters = res.monsters || (window.Monsters ? Monsters.MONSTERS : []);
+      const TIER_SEQ = ['common', 'common', 'common', 'common', 'rare', 'rare', 'rare', 'epic', 'epic', 'legend'];
       if (window.Monsters && Monsters.MONSTERS) {
-        this.monsters = rawMonsters.map(m => {
+        this.monsters = rawMonsters.map((m, idx) => {
           const full = Monsters.MONSTERS.find(x => x.id === m.id) || {};
-          return { ...full, ...m };
+          const tier = m.tier || full.tier || TIER_SEQ[((m.id || (idx + 1)) - 1) % 10];
+          return { ...full, ...m, tier };
         });
       } else {
-        this.monsters = rawMonsters;
+        this.monsters = rawMonsters.map((m, idx) => ({
+          ...m,
+          tier: m.tier || TIER_SEQ[((m.id || (idx + 1)) - 1) % 10]
+        }));
       }
     } catch (e) {
       console.error('Failed to load dex progress:', e);
@@ -5383,7 +5390,7 @@ Screens.dex = {
               <span style="font-size:0.75rem;color:var(--c-primary);font-weight:700" id="dex-pct">${pct}% Lengkap</span>
             </div>
             <div style="font-size:0.78rem;color:var(--c-muted);margin:2px 0 6px 0">
-              10 Elemen Alam · 100 Karakter Bos
+              10 Elemen Alam · 100 Karakter Bos (40 Common · 30 Rare · 20 Epic · 10 Legend)
             </div>
             <div class="xp-track" style="height:6px;background:rgba(255,255,255,0.1);border-radius:99px;overflow:hidden">
               <div class="xp-fill" id="dex-progress-bar" style="width:${pct}%"></div>
@@ -5428,24 +5435,34 @@ Screens.dex = {
           <button class="btn small skin-cat-btn dex-theme-btn ghost" data-theme="manis" data-el="light" style="flex:0 0 auto;white-space:nowrap;padding:4px 10px">✨ Manis (10)</button>
         </div>
 
-        <!-- CONTROLS ROW (Tier, Elemen & Brutal Toggle) -->
-        <div class="dex-controls" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:2px 0">
-          <div style="flex:1;min-width:130px">
-            <select id="dex-filter-element" data-testid="dex-filter-element" class="btn small ghost" style="width:100%;padding:6px 10px;border-radius:10px;background:var(--c-surface);color:var(--text);border:1px solid var(--c-surface-strong)">
+        <!-- CONTROLS ROW (Search, Elemen, Tier & Brutal Toggle Sejajar - Point 1) -->
+        <div class="dex-controls" style="display:flex;flex-direction:row;flex-wrap:wrap;gap:8px;align-items:center;padding:4px 0;width:100%">
+          <!-- SEARCH BOX -->
+          <div style="flex:1 1 200px;min-width:180px">
+            <input type="text" id="dex-search-input" data-testid="dex-search-input" placeholder="🔍 Cari nama atau #ID bos..." class="input" style="width:100%;box-sizing:border-box;padding:7px 12px;border-radius:10px;background:var(--c-surface);color:#fff;border:1px solid var(--c-surface-strong);font-size:0.82rem;outline:none" value="${esc(this.searchQuery || '')}">
+          </div>
+
+          <!-- DROPDOWN ELEMEN -->
+          <div style="flex:0 0 auto;min-width:140px">
+            <select id="dex-filter-element" data-testid="dex-filter-element" class="btn small ghost" style="width:100%;padding:6px 10px;border-radius:10px;background:var(--c-surface);color:var(--text);border:1px solid var(--c-surface-strong);font-size:0.8rem">
               <option value="">Semua Elemen (10)</option>
               ${window.BossSkills ? BossSkills.ELEMENT_ORDER.map(el => `<option value="${el}">${BossSkills.ELEMENTS[el].icon} ${BossSkills.ELEMENTS[el].name}</option>`).join('') : ''}
             </select>
           </div>
-          <div style="flex:1;min-width:110px">
-            <select id="dex-filter-tier" data-testid="dex-filter-tier" class="btn small ghost" style="width:100%;padding:6px 10px;border-radius:10px;background:var(--c-surface);color:var(--text);border:1px solid var(--c-surface-strong)">
+
+          <!-- DROPDOWN TIER -->
+          <div style="flex:0 0 auto;min-width:125px">
+            <select id="dex-filter-tier" data-testid="dex-filter-tier" class="btn small ghost" style="width:100%;padding:6px 10px;border-radius:10px;background:var(--c-surface);color:var(--text);border:1px solid var(--c-surface-strong);font-size:0.8rem">
               <option value="">Semua Tier</option>
-              <option value="common">⚪ Common (1 Skill)</option>
-              <option value="rare">🔵 Rare (2 Skill)</option>
-              <option value="epic">🟣 Epic (3 Skill)</option>
-              <option value="legend">🟡 Legend (4 Skill)</option>
+              <option value="common">⚪ Common (40)</option>
+              <option value="rare">🔵 Rare (30)</option>
+              <option value="epic">🟣 Epic (20)</option>
+              <option value="legend">🟡 Legend (10)</option>
             </select>
           </div>
-          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.8rem;font-weight:700;padding:6px 10px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.3);border-radius:10px;color:#ef4444;user-select:none">
+
+          <!-- BRUTAL TOGGLE (Sejajar) -->
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.8rem;font-weight:700;padding:6px 12px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.3);border-radius:10px;color:#ef4444;user-select:none;white-space:nowrap;flex:0 0 auto">
             <input type="checkbox" id="dex-brutal-toggle" data-testid="dex-brutal-toggle" style="width:16px;height:16px;accent-color:#dc2626">
             <span>💀 Pratinjau Brutal</span>
           </label>
@@ -5463,6 +5480,15 @@ Screens.dex = {
     const elFilter = $('#dex-filter-element');
     const tierFilter = $('#dex-filter-tier');
     const brutalToggle = $('#dex-brutal-toggle');
+    const searchInput = $('#dex-search-input');
+
+    // Filter Search
+    if (searchInput) {
+      searchInput.oninput = () => {
+        this.searchQuery = searchInput.value;
+        this.renderList();
+      };
+    }
 
     // Filter Owner (Semua / Ditemui / Belum)
     $$('.dex-owner-btn', app).forEach(btn => {
@@ -5552,7 +5578,7 @@ Screens.dex = {
 
     const artCb = (m, tier) => {
       if (m && m.theme && window.Monsters) {
-        return Monsters.renderMonster(m, { size: 68, tier: tier || 'common' });
+        return Monsters.renderMonster(m, { size: 68, tier: tier || m.tier || 'common' });
       }
       if (m && m.element) {
         const theme = BossSkills.themeForElement(m.element) || 'hutan';
@@ -5570,7 +5596,8 @@ Screens.dex = {
         element: this.filterElement || undefined,
         tier: this.filterTier || undefined,
         owner: this.filterOwner !== 'all' ? this.filterOwner : undefined,
-        theme: this.filterTheme !== 'ALL' ? this.filterTheme : undefined
+        theme: this.filterTheme !== 'ALL' ? this.filterTheme : undefined,
+        search: this.searchQuery || undefined
       },
       art: artCb
     });
@@ -5597,10 +5624,15 @@ Screens.dex = {
     const brutal = this.brutalPreview;
     const allSkills = (B && B.skillsFor(elKey, 'legend')) || [];
 
-    const tierToUse = this.filterTier || (m.defeated > 0 ? 'legend' : 'common');
+    const mTier = (window.DexCards && DexCards.getMonsterTier) ? DexCards.getMonsterTier(m) : (m.tier || 'common');
+    const meta = (window.DexCards && DexCards.TIER_META) ? (DexCards.TIER_META[mTier] || DexCards.TIER_META.common) : { name: 'Common', icon: '⚪', color: '#94a3b8', skills: 1 };
+
+    // Point 3: siluet hitam untuk boss yang belum terbuka
     const monsterSvg = isKnown
-      ? (window.Monsters ? Monsters.renderMonster(m, { size: 120, tier: tierToUse }) : elInfo.icon)
-      : `<div style="font-size:3.5rem;line-height:120px;opacity:0.25;text-align:center">❓</div>`;
+      ? (window.Monsters ? Monsters.renderMonster(m, { size: 120, tier: mTier }) : elInfo.icon)
+      : `<div class="monster-silhouette" title="Belum Ditemui" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;filter:brightness(0) drop-shadow(0 0 2px rgba(255,255,255,0.3));opacity:0.42;transform:scale(0.92);pointer-events:none">
+          ${window.Monsters ? Monsters.renderMonster(m, { size: 120, tier: 'common' }) : '🐲'}
+        </div>`;
 
     const modal = document.createElement('div');
     modal.className = 'modal-mask active';
@@ -5611,7 +5643,12 @@ Screens.dex = {
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:8px">
           <div>
             <div style="font-size:0.75rem;color:var(--c-muted)">Detail Bos Elemen #${m.id}</div>
-            <div style="font-weight:800;font-size:1.15rem;color:#fff">${isKnown ? esc(m.name) : `??? #${m.id}`}</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:2px">
+              <span style="font-weight:800;font-size:1.15rem;color:#fff">${isKnown ? esc(m.name) : `??? #${m.id}`}</span>
+              <span class="chip" style="font-size:0.68rem;font-weight:800;color:${meta.color};padding:2px 8px;border-radius:999px;background:${meta.color}1a;border:1px solid ${meta.color}55">
+                ${meta.icon} ${meta.name}
+              </span>
+            </div>
           </div>
           <button class="btn ghost small" id="btn-modal-close" style="padding:4px 10px;font-size:1rem">✕</button>
         </div>
@@ -5648,11 +5685,13 @@ Screens.dex = {
               const tierBadgeColor = idx === 0 ? '#94a3b8' : (idx === 1 ? '#3b82f6' : (idx === 2 ? '#a855f7' : '#f59e0b'));
               const descNormal = B ? B.describeSkill(sk, tierName.toLowerCase(), false) : sk;
               const descBrutal = B ? B.describeSkill(sk, tierName.toLowerCase(), true) : sk;
+              const isMonsterKit = (idx < meta.skills);
               return `
-                <div style="padding:10px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08)">
+                <div style="padding:10px;border-radius:10px;background:rgba(255,255,255,${isMonsterKit ? '0.05' : '0.02'});border:1px solid ${isMonsterKit ? tierBadgeColor + '55' : 'rgba(255,255,255,0.06)'}">
                   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
                     <span style="font-size:0.85rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:6px">
                       ${esc(sk.icon)} ${esc(sk.name)}
+                      ${isMonsterKit ? `<span style="font-size:0.65rem;color:#34d399;font-weight:700">● Aktif</span>` : `<span style="font-size:0.65rem;color:var(--c-muted)">○ Tier Tinggi</span>`}
                     </span>
                     <span style="font-size:0.68rem;font-weight:800;padding:2px 8px;border-radius:999px;background:${tierBadgeColor}22;color:${tierBadgeColor};border:1px solid ${tierBadgeColor}">
                       ${tierName}

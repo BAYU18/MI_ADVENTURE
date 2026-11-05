@@ -120,6 +120,11 @@
     { id: 100, name: 'Gulalon', theme: 'manis', body: 'round', head: 'horns', eyes: 'angry', mouth: 'teeth', extra: 'cheeks', color: [359, 75, 60] },
   ];
 
+  const TIER_SEQUENCE = ['common', 'common', 'common', 'common', 'rare', 'rare', 'rare', 'epic', 'epic', 'legend'];
+  MONSTERS.forEach((m, idx) => {
+    if (!m.tier) m.tier = TIER_SEQUENCE[idx % 10];
+  });
+
   const hsl = (h, s, l) => {
     h = ((h % 360) + 360) % 360; s /= 100; l /= 100;
     const k = (n) => (n + h / 30) % 12, a = s * Math.min(l, 1 - l);

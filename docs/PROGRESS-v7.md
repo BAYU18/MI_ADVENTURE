@@ -66,3 +66,17 @@
     - Kartu Monster Dex (`.dex-monster-card`): Thumbnail SVG 72×72px + Badge Elemen + Status Chip + Pasif/Jurus Elemen + Tombol `Detail Boss 👁️`.
     - Modal Detail Bos: Menampilkan SVG 120px monster, stats lengkap (encounters, defeats, best streak, stars), dan 4 Jurus Elemen (Common s/d Legend) dengan pratinjau Mode Normal vs Brutal.
   - ✅ 2026-11-05 12:42 — Pengujian `tests/ui-v7.test.js`, `tests/bossskills.test.js`, dan `scripts/test-gameplay-e2e.js` 100% lulus. PM2 restart sukses dan HTTP 200 terverifikasi.
+- [x] **T-41** Penyempurnaan UI Monster Dex v7.2 (Permintaan Pengguna):
+  - **1. Posisi Filter Sejajar & Pencarian (Search)**:
+    - Input pencarian (`#dex-search-input`) untuk mencari bos berdasarkan nama, `#ID`, atau wilayah tema/elemen.
+    - Penataan filter: input search, dropdown Semua Elemen, dropdown Semua Tier, dan sakelar Mode Brutal kini tertata rapi dan **SEJAJAR** (`flex-direction: row; align-items: center;`) tanpa stacking vertikal di tengah layar.
+  - **2. Rarity Terdistribusi per Monster (4 Common, 3 Rare, 2 Epic, 1 Legend)**:
+    - Tiap 10 monster per tema memiliki rarity tetap:
+      - 4 Common (⚪, 1 Skill aktif): monster #1..#4 per tema (total 40).
+      - 3 Rare (🔵, 2 Skill aktif): monster #5..#7 per tema (total 30).
+      - 2 Epic (🟣, 3 Skill aktif): monster #8..#9 per tema (total 20).
+      - 1 Legend (🟡, 4 Skill aktif): monster #10 per tema (total 10).
+    - Menampilkan lencana rarity chip yang jelas pada tiap kartu dan modal detail.
+  - **3. Siluet Hitam Karakter Boss**:
+    - Avatar boss yang belum terbuka (`🔒 Belum`) tidak lagi memakai ikon tanda tanya `?`, melainkan menampilkan **siluet warna hitam** (`.monster-silhouette` via `filter: brightness(0) drop-shadow(...) opacity(0.42)`) dari karakter SVG asli monster tersebut.
+  - ✅ 2026-11-05 12:57 — Seluruh 29 unit tests, smoke tests, dan gameplay e2e 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.
