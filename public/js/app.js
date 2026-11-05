@@ -1917,6 +1917,24 @@ Screens.battle = {
     if (passives.coinBonus) {
       chips.push(`<span class="battle-buff-chip chip warning" id="buff-coinBonus" data-buff="coinBonus" title="Bonus Koin +${Math.round(passives.coinBonus * 100)}%">🪙 Koin +${Math.round(passives.coinBonus * 100)}%</span>`);
     }
+    if (passives.comboDamagePercent) {
+      chips.push(`<span class="battle-buff-chip" id="buff-comboDamagePercent" data-buff="comboDamagePercent" style="background:rgba(245,158,11,0.18);color:#f59e0b;border:1px solid rgba(245,158,11,0.4)" title="Raja Combo: +${Math.round(passives.comboDamagePercent * 100)}% Damage per Tingkat Combo">👑 Combo +${Math.round(passives.comboDamagePercent * 100)}%/Streak</span>`);
+    }
+    if (passives.comboDamageBonus) {
+      chips.push(`<span class="battle-buff-chip" id="buff-comboDamageBonus" data-buff="comboDamageBonus" style="background:rgba(245,158,11,0.18);color:#f59e0b;border:1px solid rgba(245,158,11,0.4)" title="Serangan Combo: +${passives.comboDamageBonus.bonus} DMG saat Combo ≥${passives.comboDamageBonus.minCombo || 3}">💥 Combo +${passives.comboDamageBonus.bonus} DMG</span>`);
+    }
+    if (passives.correctDamageBonus) {
+      chips.push(`<span class="battle-buff-chip" id="buff-correctDamageBonus" data-buff="correctDamageBonus" style="background:rgba(239,68,68,0.18);color:#f87171;border:1px solid rgba(239,68,68,0.4)" title="Bonus Serangan: +${passives.correctDamageBonus} DMG">⚔️ Serangan +${passives.correctDamageBonus} DMG</span>`);
+    }
+    if (passives.bossDamageBonusPercent) {
+      chips.push(`<span class="battle-buff-chip" id="buff-bossDamageBonusPercent" data-buff="bossDamageBonusPercent" style="background:rgba(239,68,68,0.18);color:#f87171;border:1px solid rgba(239,68,68,0.4)" title="Bonus Damage Bos: +${Math.round(passives.bossDamageBonusPercent * 100)}%">👹 Bos DMG +${Math.round(passives.bossDamageBonusPercent * 100)}%</span>`);
+    }
+    if (passives.thornsDamage) {
+      chips.push(`<span class="battle-buff-chip" id="buff-thornsDamage" data-buff="thornsDamage" style="background:rgba(168,85,247,0.18);color:#c084fc;border:1px solid rgba(168,85,247,0.4)" title="Duri Pembalas: ${passives.thornsDamage} DMG saat terkena hit">🦔 Duri ${passives.thornsDamage} DMG</span>`);
+    }
+    if (passives.xpBonus) {
+      chips.push(`<span class="battle-buff-chip chip info" id="buff-xpBonus" data-buff="xpBonus" title="Bonus XP +${Math.round(passives.xpBonus * 100)}%">⭐ XP +${Math.round(passives.xpBonus * 100)}%</span>`);
+    }
     if (Array.isArray(passives.activeSets)) {
       passives.activeSets.forEach(set => {
         chips.push(`<span class="battle-buff-chip chip accent" id="buff-set-${esc(set.id)}" data-buff="set" title="${esc(set.desc || set.name)}">${esc(set.icon || '✨')} ${esc(set.name)}</span>`);
@@ -1952,7 +1970,7 @@ Screens.battle = {
         }
 
         // 3. Floater effect
-        if (tp.id === 'crit' || tp.id === 'dragon') {
+        if (tp.id === 'crit' || tp.id === 'dragon' || tp.id === 'comboDamagePercent' || tp.id === 'comboDamageBonus') {
           this.showDamageFloater(`${tp.icon} ${tp.name}!`, 'crit');
           this.animateBossShake();
         } else if (tp.id === 'dodge') {

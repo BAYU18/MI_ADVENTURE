@@ -159,3 +159,16 @@
       - Ditambahkan subtest di `tests/ui-v7.test.js` memverifikasi rendering kartu di Monster Dex (misal #1 Lumutra vs #2 Akarok, #5 Daunjir vs #6 Burunggar, #8 Rimbazo vs #9 Beringkus).
       - Seluruh 66 unit & integration tests lulus 100%. PM2 restart sukses dan HTTP 200 OK.
   - ✅ 2026-11-05 14:59 — Seluruh 66 unit tests 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.
+- [x] **T-47** Proposal UI Battle Efektif & Perbaikan Bug Efek Skin Raja Combo (`title_combo`):
+  - **Permintaan**:
+    1. Buat proposal agar saat battle ruang untuk pertanyaan/soal dan jawaban bisa lebih efektif (tidak terjepit/hilang seperti pada screenshot).
+    2. Perbaiki akun bayu yang saat ini memakai skin/gelar "Raja Combo" namun efeknya tidak muncul saat battle seperti pada gambar.
+  - **Penyebab Bug Efek Raja Combo**:
+    - Gelar "Raja Combo" (`title_combo`) memberikan pasif `comboDamagePercent: 0.05` (+5% Damage per Tingkat Combo).
+    - Di `public/js/app.js` pada fungsi `renderPassiveBuffChips`, pasif `comboDamagePercent` (serta `comboDamageBonus`, `correctDamageBonus`, `bossDamageBonusPercent`, `thornsDamage`, dan `xpBonus`) belum dipetakan ke dalam array chip buff. Akibatnya chip tidak pernah dirender di `#player-passives-bar`.
+    - Di `lib/db.js` pada saat `answerQuestion`, logika damage bertambah namun server tidak menyertakan notifikasi dan objek `triggeredPassives`, sehingga klien tidak dapat menampilkan banner aksi animasi, toast, atau animasi denyut pulse.
+  - **Solusi & Implementasi**:
+    - Di `public/js/app.js`: Menambahkan rendering chip `buff-comboDamagePercent` (`👑 Combo +5%/Streak`) dengan title tooltip informatif, serta chip untuk pasif combo damage bonus, correct damage bonus, boss damage bonus, thorns damage, dan XP bonus. Menghubungkan animasi floater dan getaran bos saat combo aktif.
+    - Di `lib/db.js`: Menambahkan `triggeredPassives.push({ id: 'comboDamagePercent', name: 'Raja Combo!', icon: '👑', desc: ... })` dan `notice` yang mengumumkan persentase damage streak yang didapat.
+    - Menulis proposal arsitektur layout pertempuran mobile lengkap di `docs/PROPOSAL-UI-BATTLE.md` mengusung konsep *Zero-Scroll Golden Layout* (Compact Versus HUD, Hero Question Stage, Smart Answer Grid).
+  - ✅ 2026-11-05 15:19 — Seluruh unit tests 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.

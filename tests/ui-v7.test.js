@@ -204,6 +204,8 @@ test('H.12: UI Pertempuran & Mode Brutal (Spek E.1, E.2)', async (t) => {
     assert.ok(appJs.includes('data-testid="player-passives-bar"'), 'battle-root memuat player-passives-bar');
     assert.ok(appJs.includes('renderPassiveBuffChips'), 'Screens.battle memuat renderPassiveBuffChips');
     assert.ok(appJs.includes('showPassiveTrigger'), 'Screens.battle memuat showPassiveTrigger');
+    assert.ok(appJs.includes('buff-comboDamagePercent'), 'renderPassiveBuffChips mendukung buff Raja Combo (comboDamagePercent)');
+    assert.ok(dbJs.includes("id: 'comboDamagePercent', name: 'Raja Combo!'"), 'answerQuestion memicu triggeredPassives untuk Raja Combo');
 
     // 3. Pastikan style.css memuat animasi passives & pulse
     assert.ok(css.includes('.player-passives-bar'), 'style.css memuat .player-passives-bar');
