@@ -47,6 +47,7 @@ test('T-33 / Spek C.3: Pengali Hadiah Boss Tiap Tier & Agregasi bossByTier Lapor
   const clsInfo = rawDb.prepare("INSERT INTO classes(name, sort_order) VALUES('Kelas Hadiah', 1)").run();
   const clsId = Number(clsInfo.lastInsertRowid);
   const player = db.registerPlayer('PlayerReward', 'Password123', clsId);
+  rawDb.prepare("UPDATE players SET avatar_json='{}' WHERE id=?").run(player.id);
 
   // Setup Subject dengan soal
   const subInfo = rawDb.prepare(`

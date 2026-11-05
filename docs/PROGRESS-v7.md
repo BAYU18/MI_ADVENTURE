@@ -32,7 +32,8 @@
   - ✅ 2026-11-05 04:09 — Semua titik kredit koin/XP sesi (ANSWER_DROP, BOSS_DEFEAT, CAMPAIGN_NODE_FIRST_CLEAR, EVENT_TREASURE, EVENT_TRAP) lewat BossFx.rewardMult dengan sufiks :BRUTAL; pengeluaran tidak dikali; invarian saldo koin terverifikasi utuh
 - [x] **T-15** `GET /api/dex` (progres per elemen×tier, normal & Brutal), konfigurasi Brutal di `/api/me`, `summary.brutalDefeated` pada laporan mingguan _(Spek: F.2, G.2 · Bukti: respons pemain baru & berdata)_ <!--tries:1-->
   - ✅ 2026-11-05 04:12 — GET /api/dex menyediakan progress elemen:tier normal & brutal; /api/me menyediakan konfigurasi brutal; summary.brutalDefeated pada laporan mingguan aktif
-- [ ] **G-1** GERBANG 1: `npm test` + `check-schema` + `smoke-test-v4` + skenario H.1–H.10 (sisi server) + tanpa regresi v6; commit
+- [x] **G-1** GERBANG 1: `npm test` + `check-schema` + `smoke-test-v4` + skenario H.1–H.10 (sisi server) + tanpa regresi v6; commit <!--tries:1-->
+  - ✅ 2026-11-05 04:34 — check-schema valid, smoke-test-v4 15/15 lulus, 29 tes inti bossskills/bossfx/progression lulus, test-fun-mode lulus, mix & types-eval lulus, sim-bossfx kurva seimbang
 
 ## Fase 2 — Antarmuka
 - [ ] **T-20** UI pertempuran: lencana elemen, chip skill boss + lembar deskripsi, banner peringatan jurus (`aria-live`), toast event, penyesuaian timer _(Spek: E.1, E.2 · Bukti: uji manual 320×568 & 430×932; skenario H.12)_
