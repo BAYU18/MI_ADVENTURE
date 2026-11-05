@@ -1436,7 +1436,7 @@ Screens.subjects = {
     }
 
     Screens.battle.brutalEnabled = false;
-    const pLevel = Player.getLevel ? Player.getLevel() : (window.Progression?.levelFormula(Player.data?.xp || 0) || 1);
+    const pLevel = typeof Player.level === 'function' ? Player.level() : (Player.data?.level || 1);
 
     app.innerHTML = `
       <section class="screen active stack" style="gap:10px">

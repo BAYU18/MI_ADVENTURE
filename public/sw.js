@@ -56,6 +56,11 @@ self.addEventListener('fetch', (event) => {
   const req = event.request;
   const url = new URL(req.url);
 
+  // Jangan tangani skema selain http dan https (misal chrome-extension:// atau moz-extension://)
+  if (!url.protocol.startsWith('http')) {
+    return;
+  }
+
   // Jangan cache request non-GET
   if (req.method !== 'GET') {
     return;
@@ -86,9 +91,9 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       fetch(req)
         .then((response) => {
-          if (response.status === 200) {
+          if (response.status === 200 && req.url.startsWith('http')) {
             const clone = response.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(req, clone));
+            caches.open(CACHE_NAME).then((cache) => cache.put(req, clone)).catch(() => {});
           }
           return response;
         })
@@ -105,9 +110,9 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     fetch(req)
       .then((networkResponse) => {
-        if (networkResponse && networkResponse.status === 200) {
+        if (networkResponse && networkResponse.status === 200 && req.url.startsWith('http')) {
           const clone = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(req, clone));
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, clone)).catch(() => {});
         }
         return networkResponse;
       })
