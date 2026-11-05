@@ -4905,9 +4905,12 @@ Screens.profil = {
           }
           const tierClass = item.tier ? `tier-${item.tier.toLowerCase()}` : 'tier-common';
           const tierColor = item.tier === 'LEGEND' ? '#c084fc' : (item.tier === 'EPIC' ? '#fbbf24' : (item.tier === 'RARE' ? '#38bdf8' : '#f59e0b'));
+          const badgeArtSvg = (window.BadgeArt && typeof window.BadgeArt.renderBadge === 'function')
+            ? BadgeArt.renderBadge(item.id || item.familyId, item.tier || 'COMMON', { size: 54, title: item.name })
+            : `<div style="font-size:1.8rem;line-height:1.2">${item.icon || '🏅'}</div>`;
           return `
             <div class="showcase-slot ${tierClass}" data-slot="${slotIdx}" onclick="App.showShowcasePicker(${slotIdx})">
-              <div style="font-size:1.8rem;line-height:1.2">${item.icon || '🏅'}</div>
+              <div style="display:flex;align-items:center;justify-content:center;height:56px">${badgeArtSvg}</div>
               <div style="font-size:0.78rem;font-weight:800;color:#fff;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:95%">${esc(item.name)}</div>
               <div style="font-size:0.62rem;font-weight:700;color:${tierColor};text-transform:uppercase">${esc(item.tier || 'BADGE')}</div>
             </div>
@@ -4984,8 +4987,13 @@ Screens.profil = {
             <div class="badge-family-card" onclick="App.showBadgeFamilyDetailModal('${f.id}')">
               <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
                 <div style="display:flex;align-items:center;gap:10px;min-width:0">
-                  <div style="font-size:1.8rem;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);border-radius:10px;flex-shrink:0">
-                    ${highest ? highest.icon : '🔒'}
+                  <div style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                    ${(window.BadgeArt && typeof window.BadgeArt.renderBadge === 'function')
+                      ? (highest
+                          ? BadgeArt.renderBadge(f.id, f.highestTier, { size: 44, title: f.name })
+                          : BadgeArt.renderBadge(f.id, 'common', { size: 44, locked: true, title: f.name }))
+                      : `<div style="font-size:1.8rem;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);border-radius:10px">${highest ? highest.icon : '🔒'}</div>`
+                    }
                   </div>
                   <div style="min-width:0">
                     <div style="font-weight:800;font-size:0.88rem;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(f.name)}</div>
@@ -5040,7 +5048,12 @@ Screens.profil = {
             return `
               <div style="padding:10px;background:var(--c-surface);border:1px solid ${isEquippedInSlot ? 'var(--c-primary)' : 'rgba(255,255,255,0.1)'};border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:10px">
                 <div style="display:flex;align-items:center;gap:10px;min-width:0">
-                  <span style="font-size:1.8rem;line-height:1">${b.icon || '🏅'}</span>
+                  <div style="width:46px;height:46px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                    ${(window.BadgeArt && typeof window.BadgeArt.renderBadge === 'function')
+                      ? BadgeArt.renderBadge(b.id || b.familyId, b.tier || 'COMMON', { size: 46, title: b.name })
+                      : `<span style="font-size:1.8rem;line-height:1">${b.icon || '🏅'}</span>`
+                    }
+                  </div>
                   <div style="min-width:0">
                     <div style="font-weight:800;font-size:0.88rem;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(b.name)}</div>
                     <div style="font-size:0.7rem;color:${b.tierInfo ? b.tierInfo.color : '#f59e0b'};font-weight:700">${b.tier || 'COMMON'} · ${esc(b.familyName || '')}</div>
@@ -5172,8 +5185,13 @@ Screens.profil = {
             return `
               <div style="padding:12px;background:${isUnlocked ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.3)'};border:1.5px solid ${isUnlocked ? tColor : 'rgba(255,255,255,0.1)'};border-radius:12px;opacity:${isUnlocked ? '1' : '0.6'}">
                 <div style="display:flex;justify-content:space-between;align-items:center">
-                  <div style="display:flex;align-items:center;gap:10px">
-                    <span style="font-size:1.8rem">${t.icon || '🏅'}</span>
+                  <div style="display:flex;align-items:center;gap:12px">
+                    <div style="width:52px;height:52px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                      ${(window.BadgeArt && typeof window.BadgeArt.renderBadge === 'function')
+                        ? BadgeArt.renderBadge(f.id, t.tier, { size: 52, locked: !isUnlocked, title: t.name })
+                        : `<span style="font-size:1.8rem">${t.icon || '🏅'}</span>`
+                      }
+                    </div>
                     <div>
                       <div style="font-weight:800;font-size:0.92rem;color:${isUnlocked ? '#fff' : '#94a3b8'}">${esc(t.name)}</div>
                       <div style="font-size:0.7rem;font-weight:700;color:${tColor};text-transform:uppercase">${t.tier} · Syarat: ${t.target} ${f.unit || ''}</div>

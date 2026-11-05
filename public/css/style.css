@@ -3677,3 +3677,72 @@ body.reduced-motion .boss-telegraph { animation: none; }
   color: var(--c-muted);
   white-space: nowrap;
 }
+
+/* ───────── Badge Art SVG Visuals & Animations ───────── */
+.ba-badge {
+  display: inline-block;
+  vertical-align: middle;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease;
+  user-select: none;
+  flex-shrink: 0;
+}
+.ba-badge:hover {
+  transform: translateY(-2px) scale(1.05);
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.55));
+}
+.ba-locked {
+  filter: grayscale(0.9) opacity(0.55);
+}
+.ba-locked:hover {
+  transform: none;
+  filter: grayscale(0.9) opacity(0.7);
+}
+
+.ba-common {
+  filter: drop-shadow(0 3px 6px rgba(180, 83, 9, 0.35));
+}
+.ba-rare {
+  filter: drop-shadow(0 4px 10px rgba(56, 189, 248, 0.4));
+}
+.ba-epic {
+  filter: drop-shadow(0 4px 14px rgba(251, 191, 36, 0.5));
+}
+.ba-legend {
+  filter: drop-shadow(0 6px 18px rgba(192, 132, 252, 0.65));
+}
+
+@keyframes ba-pulse {
+  0%, 100% { opacity: 0.35; transform: scale(0.96); transform-origin: 64px 64px; }
+  50% { opacity: 0.8; transform: scale(1.04); transform-origin: 64px 64px; }
+}
+.ba-pulse {
+  animation: ba-pulse 3s ease-in-out infinite;
+}
+
+@keyframes ba-spin {
+  from { transform: rotate(0deg); transform-origin: 64px 64px; }
+  to { transform: rotate(360deg); transform-origin: 64px 64px; }
+}
+.ba-spin {
+  animation: ba-spin 24s linear infinite;
+}
+
+@keyframes ba-tw {
+  0%, 100% { opacity: 0.15; transform: scale(0.5); transform-origin: center; }
+  50% { opacity: 1; transform: scale(1.25); transform-origin: center; }
+}
+.ba-tw {
+  animation: ba-tw 2.4s ease-in-out infinite;
+}
+
+@keyframes ba-sheen {
+  0% { transform: translateX(-70px) rotate(20deg); opacity: 0; }
+  25% { opacity: 0.7; }
+  50% { transform: translateX(130px) rotate(20deg); opacity: 0; }
+  100% { transform: translateX(130px) rotate(20deg); opacity: 0; }
+}
+.ba-sheen {
+  animation: ba-sheen 4.5s ease-in-out infinite;
+}
+

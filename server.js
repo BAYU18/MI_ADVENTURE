@@ -27,6 +27,10 @@ const MIME = {
   '.ico':  'image/x-icon',
   '.mp3':  'audio/mpeg',
   '.wav':  'audio/wav',
+  '.pdf':  'application/pdf',
+  '.zip':  'application/zip',
+  '.md':   'text/markdown; charset=utf-8',
+  '.txt':  'text/plain; charset=utf-8',
 };
 
 /* ── HTTP Response Helpers ── */
