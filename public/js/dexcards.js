@@ -48,6 +48,29 @@
     return 'legend';
   }
 
+  function resolveBossSkills() {
+    if (typeof BossSkills !== 'undefined') return BossSkills;
+    if (typeof globalThis !== 'undefined' && globalThis.BossSkills) return globalThis.BossSkills;
+    if (typeof window !== 'undefined' && window.BossSkills) return window.BossSkills;
+    if (typeof require === 'function') {
+      try { return require('../../shared/bossskills.js'); } catch (_) {}
+      try { return require('../shared/bossskills.js'); } catch (_) {}
+    }
+    return null;
+  }
+
+  function resolveMonsters() {
+    if (typeof Monsters !== 'undefined') return Monsters;
+    if (typeof globalThis !== 'undefined' && globalThis.Monsters) return globalThis.Monsters;
+    if (typeof window !== 'undefined' && window.Monsters) return window.Monsters;
+    if (typeof require === 'function') {
+      try { return require('./monsters.js'); } catch (_) {}
+      try { return require('../../shared/monsters.js'); } catch (_) {}
+      try { return require('../shared/monsters.js'); } catch (_) {}
+    }
+    return null;
+  }
+
   // list: array entry; progress: { 'fire:legend': {defeated,brutalDefeated} }; filter: { element, tier, owner, theme, search }
   function renderList(list, progress, opts) {
     if (!list || !list.length) {
@@ -64,7 +87,7 @@
     }
 
     // Otherwise, list is 100 monsters
-    const B = typeof BossSkills !== 'undefined' ? BossSkills : (root.BossSkills || (typeof require === 'function' ? require('../shared/bossskills.js') : null));
+    const B = resolveBossSkills();
     const rows = list.filter((m) => {
       const mTier = getMonsterTier(m);
       if (f.tier && mTier !== f.tier) return false;
@@ -74,6 +97,8 @@
       }
       if (f.theme && f.theme !== 'ALL' && m.theme !== f.theme) return false;
       const isKnown = Boolean(m.encountered || m.defeated || (m.encounters > 0) || (m.defeats > 0));
+      const isDefeated = Boolean(m.defeated || (m.defeats > 0));
+      if (f.owner === 'defeated' && !isDefeated) return false;
       if (f.owner === 'encountered' && !isKnown) return false;
       if (f.owner === 'unencountered' && isKnown) return false;
       if (f.search) {
@@ -99,7 +124,7 @@
     const meta = TIER_META[mTier] || TIER_META.common;
     const isKnown = Boolean(m.encountered || m.defeated || (m.encounters > 0) || (m.defeats > 0));
 
-    const B = typeof BossSkills !== 'undefined' ? BossSkills : (root.BossSkills || (typeof require === 'function' ? require('../shared/bossskills.js') : null));
+    const B = resolveBossSkills();
     const elKey = (B && B.elementForTheme(m.theme)) || 'nature';
     const elInfo = (B && B.ELEMENTS[elKey]) || { name: 'Alam', icon: '🌿', color: '#22C55E', title: 'Roh Rimba' };
 
@@ -117,7 +142,7 @@
       };
     });
 
-    const MRenderer = typeof Monsters !== 'undefined' ? Monsters : (root.Monsters || (typeof require === 'function' ? require('../shared/monsters.js') : null));
+    const MRenderer = resolveMonsters();
     const rawSvg = o.art
       ? o.art(m, mTier)
       : (MRenderer ? MRenderer.renderMonster(m, { size: 68, tier: mTier }) : `<div style="font-size:2.2rem;line-height:72px">${esc(elInfo.icon)}</div>`);

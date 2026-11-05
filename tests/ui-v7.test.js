@@ -95,6 +95,33 @@ test('H.11: Monster Dex UI (Spek F.1, F.3)', async (t) => {
     assert.ok(html.includes('&lt;script&gt;'));
     assert.ok(html.includes('&lt;img'));
   });
+
+  await t.test('6. Filter status koleksi: defeated (sudah dikalahkan), encountered, dan unencountered', () => {
+    const mockMonsters = [
+      { id: 1, name: 'Monster A', theme: 'hutan', tier: 'common', encounters: 5, defeats: 2 },
+      { id: 2, name: 'Monster B', theme: 'hutan', tier: 'common', encounters: 3, defeats: 0 },
+      { id: 3, name: 'Monster C', theme: 'hutan', tier: 'common', encounters: 0, defeats: 0 }
+    ];
+
+    const defeatedHtml = DexCards.renderList(mockMonsters, {}, { filter: { owner: 'defeated' } });
+    assert.ok(defeatedHtml.includes('Monster A'), 'Monster A sudah dikalahkan');
+    assert.ok(!defeatedHtml.includes('Monster B'), 'Monster B belum dikalahkan');
+    assert.ok(!defeatedHtml.includes('Monster C'), 'Monster C belum dikalahkan');
+
+    const encounteredHtml = DexCards.renderList(mockMonsters, {}, { filter: { owner: 'encountered' } });
+    assert.ok(encounteredHtml.includes('Monster A'), 'Monster A ditemui');
+    assert.ok(encounteredHtml.includes('Monster B'), 'Monster B ditemui');
+    assert.ok(!encounteredHtml.includes('Monster C'), 'Monster C belum ditemui');
+
+    const unencounteredHtml = DexCards.renderList(mockMonsters, {}, { filter: { owner: 'unencountered' } });
+    assert.ok(!unencounteredHtml.includes('Monster A'), 'Monster A sudah ditemui');
+    assert.ok(!unencounteredHtml.includes('Monster B'), 'Monster B sudah ditemui');
+    assert.ok(unencounteredHtml.includes('Monster C'), 'Monster C belum ditemui');
+
+    // Cek bahwa tombol data-owner="defeated" tersedia di app.js
+    const appJs = fs.readFileSync(path.join(__dirname, '../public/js/app.js'), 'utf8');
+    assert.ok(appJs.includes('data-owner="defeated"'), 'Tombol filter status Dikalahkan ada di UI');
+  });
 });
 
 test('H.12: UI Pertempuran & Mode Brutal (Spek E.1, E.2)', async (t) => {

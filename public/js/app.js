@@ -5531,9 +5531,10 @@ Screens.dex = {
             </span>
           </div>
           <div class="skin-owner-filter-bar dex-owner-bar" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;-webkit-overflow-scrolling:touch">
-            <button class="btn small skin-owner-btn dex-owner-btn active" data-owner="all" style="flex:0 0 auto;white-space:nowrap;padding:4px 12px">Semua (${totalCount})</button>
-            <button class="btn small skin-owner-btn dex-owner-btn ghost" data-owner="encountered" style="flex:0 0 auto;white-space:nowrap;padding:4px 12px">✓ Ditemui (${totalKnown})</button>
-            <button class="btn small skin-owner-btn dex-owner-btn ghost" data-owner="unencountered" style="flex:0 0 auto;white-space:nowrap;padding:4px 12px">🔒 Belum (${totalUnknown})</button>
+            <button class="btn small skin-owner-btn dex-owner-btn ${this.filterOwner === 'all' ? 'active' : 'ghost'}" data-owner="all" style="flex:0 0 auto;white-space:nowrap;padding:4px 12px">Semua (${totalCount})</button>
+            <button class="btn small skin-owner-btn dex-owner-btn ${this.filterOwner === 'defeated' ? 'active' : 'ghost'}" data-owner="defeated" style="flex:0 0 auto;white-space:nowrap;padding:4px 12px">⚔️ Dikalahkan (${totalDefeated})</button>
+            <button class="btn small skin-owner-btn dex-owner-btn ${this.filterOwner === 'encountered' ? 'active' : 'ghost'}" data-owner="encountered" style="flex:0 0 auto;white-space:nowrap;padding:4px 12px">✓ Ditemui (${totalKnown})</button>
+            <button class="btn small skin-owner-btn dex-owner-btn ${this.filterOwner === 'unencountered' ? 'active' : 'ghost'}" data-owner="unencountered" style="flex:0 0 auto;white-space:nowrap;padding:4px 12px">🔒 Belum (${totalUnknown})</button>
           </div>
         </div>
 

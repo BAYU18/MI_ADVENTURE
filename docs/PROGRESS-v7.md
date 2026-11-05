@@ -95,3 +95,11 @@
     - **Status Buff Bar**: Ditambahkan `#player-passives-bar` di layar pertarungan di bawah darah pemain (`.battle-buff-chip`), menampilkan semua buff pasif skin yang sedang aktif (misal: `🛡️ Perisai +20`, `⚡ Crit +10%`, `💨 Hindaran 10%`, `⏳ Waktu +3s`, `🔥 Semburan Naga`, `Set Rimba/Ksatria/dll`). Chip dapat diklik untuk menampilkan tooltip detail efek.
     - **Animasi saat Pasif Memicu**: Ditambahkan banner animasi popup `.passive-trigger-banner` yang meluncur dan memantul saat pasif aktif (misal: Semburan Naga, Critical Hit, Hindaran, Regen HP, Curi Energi, Proteksi Combo, Darah Terakhir), disertai efek berkedip/pulse pada chip pasif (`.buff-pulse`) dan floater visual.
   - ✅ 2026-11-05 13:43 — Seluruh 40 unit tests (`ui-v7`, `bossskills`, `bossfx.glue`, `skills-v6`) 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.
+- [x] **T-44** Tambah Filter Status Koleksi "Dikalahkan" di Monster Dex:
+  - **Permintaan**: Pada menu Monster Dex bagian Status Koleksi, menambahkan filter untuk monster yang sudah dikalahkan (`⚔️ Dikalahkan (${totalDefeated})`).
+  - **Implementasi**:
+    - Di `public/js/dexcards.js`: Menambahkan filter `f.owner === 'defeated'` berdasarkan `isDefeated = Boolean(m.defeated || (m.defeats > 0))`. Menambahkan modular resolver `resolveBossSkills()` dan `resolveMonsters()` agar kompatibel di browser runtime dan Node.js unit test.
+    - Di `public/js/app.js`: Menambahkan tombol filter `⚔️ Dikalahkan (${totalDefeated})` dengan `data-owner="defeated"` berdampingan dengan `Semua`, `✓ Ditemui`, dan `🔒 Belum`. Mengatur kelas `active` sesuai state `this.filterOwner`.
+    - Di `public/index.html`: Menaikkan versi script `dexcards.js?v=20261105v4` dan `app.js?v=20261105v8` untuk cache busting.
+    - Di `tests/ui-v7.test.js`: Menambahkan unit test subtest 6 memverifikasi fungsi filter `defeated`, `encountered`, dan `unencountered`, serta keberadaan tombol `data-owner="defeated"`.
+  - ✅ 2026-11-05 13:57 — Seluruh 41 unit tests (`ui-v7`, `bossskills`, `bossfx.glue`, `skills-v6`) 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.
