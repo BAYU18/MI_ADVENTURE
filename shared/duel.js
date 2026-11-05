@@ -32,6 +32,7 @@ const C = {
     combo_keeper: 2,
     lucky_pouch: 1,
     second_chance: 2,
+    red_potion: 3,
   },
 };
 

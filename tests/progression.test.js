@@ -69,8 +69,9 @@ test('E: tabel level skill & biaya upgrade', () => {
   assert.deepEqual([1, 2, 3, 4, 5].map((l) => P.skillInfo('shield', l).value), [20, 40, 60, 80, 100]);
   assert.deepEqual([1, 2, 3, 4, 5].map((l) => P.skillInfo('power_strike', l).value), [2, 2.5, 3, 3.5, 4]);
   assert.deepEqual([1, 2, 3, 4, 5].map((l) => P.skillInfo('time_freeze', l).value), [8, 11, 14, 17, 20]);
+  assert.deepEqual([1, 2, 3, 4, 5].map((l) => P.skillInfo('red_potion', l).value), [3.0, 3.5, 3.5, 4.0, 5.0]);
   assert.deepEqual([1, 2, 3, 4, 5].map(P.skillUpgradeCost), [60, 120, 220, 380, null]);
-  assert.equal(Object.keys(P.SKILL_TABLE).length, 9);
+  assert.equal(Object.keys(P.SKILL_TABLE).length, 10);
 });
 test('C/D: simulasi keseimbangan (akurasi 50/70/90%) — pita penerimaan', () => {
   const g = (t, a, acc) => run(t, a, acc, 1500);

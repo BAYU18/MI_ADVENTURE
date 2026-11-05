@@ -381,3 +381,32 @@
       1. Menyesuaikan ekspektasi test tier rewards di [`tests/rewards-tier.test.js`](file:///home/maman/play/tests/rewards-tier.test.js) (Base 1★ = 72, streak = 1 $\rightarrow 74\text{ XP}$).
       2. Membuat unit test dedicated di [`tests/xp-balancing.test.js`](file:///home/maman/play/tests/xp-balancing.test.js) yang memverifikasi perolehan XP dan simulasi kemenangan ke Level 20.
   - ✅ 2026-11-05 21:10 — Seluruh unit tests XP balancing (5/5) dan rewards-tier (7/7) 100% lulus. PM2 restart & commit remote terverifikasi.
+
+
+
+
+
+
+- [x] **T-58** Skill Baru Ramuan Merah (Unlock Lv 5) & Modal Detail Efek Per Kenaikan Level:
+  - **Permintaan**:
+    1. Tambahkan skill baru unlock di Level 5 bernama **Ramuan Merah** (`red_potion`). Efeknya: bisa skip/lewati soal saat ini, lalu soal gantinya menjadi soal paling mudah (`difficulty = 1`), tetapi memberikan damage paling besar ke bos. Sistem level upgrade bertahap (misal Lv 1: 1 soal mudah ×3.0 damage, Lv 2: 1 soal mudah ×3.5 damage, Lv 3: 2 soal mudah berturut-turut ×3.5 damage, Lv 4: 2 soal mudah berturut-turut ×4.0 damage & 2 energi, Lv 5: 3 soal mudah berturut-turut ×5.0 damage & 2 energi).
+    2. Di menu skill pada tiap kartu skill, ketika klik avatar/icon skill, muncul pop-up modal detail skill beserta efek baru per kenaikan levelnya (Lv 1 sampai 5).
+  - **Implementasi**:
+    1. **Konfigurasi Skill Baru `red_potion`**:
+       - [`shared/economy.js`](file:///home/maman/play/shared/economy.js): Mendaftarkan `red_potion` ke `SKILLS` (`unlockLevel: 5`, `cost: [3, 3, 3, 2, 2]`, `costEnergy: [3, 3, 3, 2, 2]`, `uses: [1, 1, 1, 2, 2]`, `value: [3.0, 3.5, 3.5, 4.0, 5.0]`, `consecutive: [1, 1, 2, 2, 3]`, `costMult: 1.3`, `phase: 'P0'`) dan `SKILL_MULTIPLIERS` (`red_potion: 1.3`).
+       - [`shared/progression.js`](file:///home/maman/play/shared/progression.js): Menambahkan `red_potion` ke `SKILL_TABLE` dan memperbarui kalkulasi `hitDamage` agar batas pengganda damage fleksibel mengikuti `powerMult` (`cap = Math.max(HIT_CAP_MULT, o.powerMult || 1)`), memungkinkan pengganda damage s.d. 5.0×.
+       - [`shared/duel.js`](file:///home/maman/play/shared/duel.js): Menambahkan biaya energi default `red_potion: 3` di duel.
+    2. **Logika Battle & Database (`lib/db.js`)**:
+       - `ensurePlayerSkills`: Pemain yang mencapai Level 5 secara otomatis membuka skill `red_potion` pada Level 1.
+       - `useSkill`: Saat `red_potion` diaktifkan, soal saat ini diskip dan digantikan oleh soal berkesulitan terendah (`difficulty = 1`) dari mata pelajaran yang sedang aktif. Pengganda `power_mult` disetel sesuai level skill (3.0× – 5.0×), opsi jawaban diacak ulang, timer di-reset ke `RUNNING`, dan bila skill berada pada Level 3+ (`consecutive > 1`), sisa soal mudah disimpan di `flags.redPotionRemaining`.
+       - `nextQuestion`: Memeriksa `nextFlags.redPotionRemaining > 0`, jika ada, otomatis menyajikan soal termudah berikutnya dengan `power_mult` yang sama hingga kuota berturut-turut habis.
+    3. **Tampilan Menu Skill & Modal Breakdown Level (`public/js/app.js`, `public/css/style.css`)**:
+       - Menambahkan method `getSkillPerLevelInfo(skillId)` untuk seluruh 10 skill petualang dengan rincian efek deskriptif Lv 1 hingga Lv 5.
+       - Menambahkan dialog pop-up `showSkillDetailModal(skillId)` yang menampilkan nama skill, ikon animasi, badge status kepemilikan/level aktif, lore taktis, kartu breakdown progres Lv 1–5 dengan highlight "⭐ LEVEL AKTIF", biaya energi, kuota pemakaian per laga, deskripsi efek, biaya koin upgrade, serta tombol upgrade langsung dari dalam modal.
+       - Memperbarui `renderTabSkill`: Mengganti header menjadi `⚡ 10 Taktik Skill Petualang`, membungkus avatar skill dengan class `.skill-avatar-btn` yang interaktif (animasi hover/active), dan memicu `showSkillDetailModal` ketika avatar atau nama skill diklik.
+       - Integrasi event battle: Menangani aktivasi `red_potion` dengan floater teks `🍷 RAMUAN MERAH!` berkelas `crit` dan re-render otomatis soal baru.
+    4. **PWA Cache & Pengujian**:
+       - Service worker cache diperbarui ke `pp-v7.2.0-20261105v9`.
+       - Cache busting aset dinaikkan ke `style.css?v=20261105v12` dan `app.js?v=20261105v20`.
+       - Menambahkan rangkaian unit test dedicated [`tests/red-potion.test.js`](file:///home/maman/play/tests/red-potion.test.js) (6 subtest). Seluruh test suite (42/42 tests) lulus 100%.
+  - ✅ 2026-11-05 21:42 — Seluruh unit tests 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.

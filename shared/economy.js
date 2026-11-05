@@ -730,6 +730,23 @@ const SKILLS = [
     effectDesc: 'Salah → coba sekali lagi; damage boss ×0.5 / 0.7 / 1.0 / 1.0 / 1.2',
     isStarter: false,
   },
+  {
+    id: 'red_potion',
+    name: 'Ramuan Merah',
+    icon: '🍷',
+    unlockLevel: 5,
+    cost: [3, 3, 3, 2, 2],
+    costEnergy: [3, 3, 3, 2, 2],
+    uses: [1, 1, 1, 2, 2],
+    maxUses: [1, 1, 1, 2, 2],
+    value: [3.0, 3.5, 3.5, 4.0, 5.0],
+    consecutive: [1, 1, 2, 2, 3],
+    costMult: 1.3,
+    phase: 'P0',
+    desc: (v) => `Ganti ke soal termudah & damage ×${v}`,
+    effectDesc: 'Lewati soal & ganti ke soal termudah dengan Damage Super: Lv1 (×3.0) / Lv2 (×3.5) / Lv3 (×3.5, 2 soal) / Lv4 (×4.0, 2 soal) / Lv5 (×5.0, 3 soal)',
+    isStarter: false,
+  },
 ];
 
 const SKILL_BASE_UPGRADE = { 1: 100, 2: 250, 3: 500, 4: 900 };
@@ -743,6 +760,7 @@ const SKILL_MULTIPLIERS = {
   power_strike: 1.25,
   lucky_pouch: 1.25,
   second_chance: 1.5,
+  red_potion: 1.3,
 };
 
 function upgradeCost(s, toLevel) {

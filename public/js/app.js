@@ -3696,6 +3696,15 @@ Screens.battle = {
         if (skillId === 'power_strike') {
           toast('Kekuatan serangan berikutnya berlipat ganda! 💥');
         }
+
+        if (skillId === 'red_potion') {
+          if (res.session) {
+            this.session = res.session;
+            this.renderCurrentQuestion();
+          }
+          this.showDamageFloater('🍷 RAMUAN MERAH!', 'crit');
+          toast('🍷 Ramuan Merah aktif! Soal diganti ke paling mudah dengan Damage Super! 💥');
+        }
       }
     } catch (e) {
       const reason = e.data?.reason || e.code;
@@ -5518,8 +5527,8 @@ Screens.profil = {
         </div>
       </div>
 
-      <!-- DAFTAR 9 SKILL -->
-      <h3 style="font-size:0.95rem;margin:12px 0 6px 4px;color:var(--c-muted)">⚡ 9 Taktik Skill Petualang</h3>
+      <!-- DAFTAR SKILL -->
+      <h3 style="font-size:0.95rem;margin:12px 0 6px 4px;color:var(--c-muted)">⚡ ${skillsList.length} Taktik Skill Petualang</h3>
       <div class="stack" style="gap:10px" id="skills-cards-list"></div>
     `;
 
@@ -5548,10 +5557,19 @@ Screens.profil = {
       return `
         <div class="card skill-card" data-testid="skill-card-${s.id}" style="padding:14px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);display:flex;flex-direction:column;gap:8px">
           <div style="display:flex;justify-content:space-between;align-items:center">
-            <div style="display:flex;align-items:center;gap:8px">
-              <span style="font-size:1.6rem">${s.icon || '⚡'}</span>
-              <div>
-                <strong style="color:#fff;font-size:0.95rem">${esc(s.name)}</strong>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div class="skill-avatar-btn"
+                data-skill-id="${s.id}"
+                data-testid="skill-avatar-${s.id}"
+                role="button"
+                tabindex="0"
+                title="Ketuk avatar untuk melihat detail efek tiap kenaikan level">
+                ${s.icon || '⚡'}
+              </div>
+              <div class="skill-title-btn" data-skill-id="${s.id}" role="button" tabindex="0" style="cursor:pointer" title="Ketuk untuk melihat detail efek tiap kenaikan level">
+                <strong style="color:#fff;font-size:0.95rem;display:flex;align-items:center;gap:4px">
+                  ${esc(s.name)} <span style="font-size:0.75rem;color:var(--c-primary)">ℹ️</span>
+                </strong>
                 <div style="font-size:0.75rem;color:var(--c-muted);margin-top:2px">
                   <span data-testid="skill-level-${s.id}" style="color:var(--c-primary);font-weight:700">${pipsStr} Lv ${s.level || 1}/5</span>
                   ${!s.owned ? ` · <span style="color:#ef4444">Buka di Lv. ${s.unlockLevel}</span>` : ''}
@@ -5682,6 +5700,258 @@ Screens.profil = {
         this.openSelectSlotToReplaceModal(sk, activeLoadout, skillsList, activeMode, maxSlots);
       };
     });
+
+    // Wire Click on Skill Avatar & Title to open Level Details Modal (T-58)
+    $$('.skill-avatar-btn, .skill-title-btn', slot).forEach(btn => {
+      btn.onclick = () => {
+        const skId = btn.dataset.skillId;
+        if (skId) this.showSkillDetailModal(skId);
+      };
+    });
+  },
+
+  getSkillPerLevelInfo(skillId) {
+    const table = {
+      red_potion: {
+        name: 'Ramuan Merah',
+        icon: '🍷',
+        desc: 'Ramuan ajaib yang melewati soal sulit saat ini dan menggantinya dengan soal paling mudah, serta melipatgandakan damage ke bos secara masif!',
+        levels: [
+          { level: 1, energy: 3, uses: 1, effect: 'Lewati soal saat ini ➔ diganti 1 soal paling mudah dengan Damage Super ×3.0!' },
+          { level: 2, energy: 3, uses: 1, effect: 'Lewati soal saat ini ➔ diganti 1 soal paling mudah dengan Damage Super ×3.5!' },
+          { level: 3, energy: 3, uses: 1, effect: 'Lewati soal saat ini ➔ diganti 2 soal paling mudah berturut-turut 🔥 dengan Damage Super ×3.5!' },
+          { level: 4, energy: 2, uses: 2, effect: 'Biaya energi turun jadi 2! 2 soal termudah berturut-turut 🔥 dengan Damage Super ×4.0, bisa dipakai 2× per laga!' },
+          { level: 5, energy: 2, uses: 2, effect: 'Kekuatan Puncak! 3 soal termudah berturut-turut 💥 dengan Damage Super Dahsyat ×5.0!' },
+        ]
+      },
+      eliminate_one: {
+        name: 'Coret Satu',
+        icon: '✏️',
+        desc: 'Mencoret pilihan jawaban yang salah secara acak untuk mempermudah menemukan jawaban benar.',
+        levels: [
+          { level: 1, energy: 1, uses: 3, effect: 'Coret 1 pilihan jawaban salah (Biaya: 1 energi, 3× per laga).' },
+          { level: 2, energy: 1, uses: 3, effect: 'Coret 1 pilihan jawaban salah (Biaya: 1 energi, 3× per laga).' },
+          { level: 3, energy: 1, uses: 4, effect: 'Pemakaian naik jadi 4× per laga, dengan 1× pemakaian gratis tanpa potong energi!' },
+          { level: 4, energy: 1, uses: 4, effect: 'Pemakaian 4× per laga dengan 1× pemakaian gratis tanpa potong energi.' },
+          { level: 5, energy: 1, uses: 5, effect: 'Kekuatan Puncak! Pemakaian 5× per laga dengan 2× pemakaian gratis tanpa potong energi!' },
+        ]
+      },
+      eagle_eye: {
+        name: 'Mata Elang',
+        icon: '🦅',
+        desc: 'Penglihatan tajam elang yang langsung melenyapkan 2 pilihan jawaban salah sekaligus.',
+        levels: [
+          { level: 1, energy: 2, uses: 2, effect: 'Coret 2 pilihan jawaban salah sekaligus (Biaya: 2 energi, 2× per laga).' },
+          { level: 2, energy: 2, uses: 2, effect: 'Coret 2 pilihan jawaban salah sekaligus (Biaya: 2 energi, 2× per laga).' },
+          { level: 3, energy: 2, uses: 3, effect: 'Kapasitas bertambah! Bisa digunakan 3× per laga.' },
+          { level: 4, energy: 1, uses: 3, effect: 'Efisiensi tinggi! Biaya energi turun menjadi hanya 1 energi (3× per laga).' },
+          { level: 5, energy: 1, uses: 4, effect: 'Kekuatan Puncak! Biaya 1 energi dan kapasitas bertambah menjadi 4× per laga!' },
+        ]
+      },
+      heal: {
+        name: 'Ramuan Hijau',
+        icon: '🧪',
+        desc: 'Cairan herbal ajaib yang memulihkan HP pemain seketika saat pertempuran sengit.',
+        levels: [
+          { level: 1, energy: 1, uses: 2, effect: 'Pulihkan +25 HP seketika (Biaya: 1 energi, 2× per laga).' },
+          { level: 2, energy: 1, uses: 2, effect: 'Pemulihan meningkat menjadi +35 HP seketika.' },
+          { level: 3, energy: 1, uses: 2, effect: 'Pemulihan meningkat menjadi +45 HP seketika.' },
+          { level: 4, energy: 1, uses: 3, effect: 'Pemulihan meningkat menjadi +55 HP dan kapasitas bertambah jadi 3× per laga!' },
+          { level: 5, energy: 1, uses: 3, effect: 'Kekuatan Puncak! Memulihkan +65 HP seketika (3× per laga).' },
+        ]
+      },
+      shield: {
+        name: 'Perisai Kayu',
+        icon: '🛡️',
+        desc: 'Membentuk dinding pertahanan kokoh yang menyerap serangan telak berikutnya dari monster bos.',
+        levels: [
+          { level: 1, energy: 2, uses: 2, effect: 'Menyerap 20 damage berikutnya dari serangan bos.' },
+          { level: 2, energy: 2, uses: 2, effect: 'Daya serap meningkat menjadi 30 damage.' },
+          { level: 3, energy: 2, uses: 3, effect: 'Daya serap meningkat menjadi 40 damage dan kapasitas bertambah jadi 3× per laga!' },
+          { level: 4, energy: 2, uses: 3, effect: 'Daya serap meningkat menjadi 50 damage (3× per laga).' },
+          { level: 5, energy: 2, uses: 4, effect: 'Kekuatan Puncak! Menyerap 60 damage dan kapasitas pemakaian bertambah jadi 4× per laga!' },
+        ]
+      },
+      power_strike: {
+        name: 'Tebasan Super',
+        icon: '⚔️',
+        desc: 'Memusatkan seluruh tenaga pada satu tebasan pedang mematikan yang menggandakan damage ke bos.',
+        levels: [
+          { level: 1, energy: 3, uses: 2, effect: 'Damage ke bos berlipat ganda ×2.0 bila jawaban benar!' },
+          { level: 2, energy: 3, uses: 2, effect: 'Damage ke bos meningkat menjadi ×2.25 bila jawaban benar!' },
+          { level: 3, energy: 3, uses: 2, effect: 'Damage ke bos meningkat menjadi ×2.5 bila jawaban benar!' },
+          { level: 4, energy: 3, uses: 3, effect: 'Damage meningkat menjadi ×2.75 dan kapasitas bertambah jadi 3× per laga!' },
+          { level: 5, energy: 2, uses: 3, effect: 'Kekuatan Puncak! Biaya turun jadi 2 energi dan damage berlipat ×3.0!' },
+        ]
+      },
+      time_freeze: {
+        name: 'Waktu Beku',
+        icon: '❄️',
+        desc: 'Membekukan waktu sejenak untuk memberikan waktu berpikir ekstra pada soal yang rumit.',
+        levels: [
+          { level: 1, energy: 3, uses: 2, effect: 'Menambah +8 detik waktu berpikir pada soal ini.' },
+          { level: 2, energy: 3, uses: 2, effect: 'Waktu bertambah meningkat menjadi +10 detik.' },
+          { level: 3, energy: 3, uses: 3, effect: 'Waktu bertambah menjadi +12 detik dan kapasitas bertambah jadi 3× per laga!' },
+          { level: 4, energy: 2, uses: 3, effect: 'Biaya energi turun jadi 2 energi dan waktu bertambah +14 detik!' },
+          { level: 5, energy: 2, uses: 4, effect: 'Kekuatan Puncak! Waktu bertambah +16 detik dan kapasitas 4× per laga!' },
+        ]
+      },
+      combo_keeper: {
+        name: 'Penjaga Combo',
+        icon: '🔥',
+        desc: 'Melindungi rantai kombo agar tidak putus/reset saat terjadi 1 kesalahan jawaban atau timeout.',
+        levels: [
+          { level: 1, energy: 2, uses: 1, effect: 'Streak kombo terlindungi 1x dari kesalahan/timeout berikutnya.' },
+          { level: 2, energy: 2, uses: 1, effect: 'Streak kombo terlindungi 1x dari kesalahan/timeout berikutnya.' },
+          { level: 3, energy: 2, uses: 2, effect: 'Kapasitas pemakaian bertambah menjadi 2× per laga!' },
+          { level: 4, energy: 2, uses: 2, effect: 'Streak kombo terlindungi 1x dan pemakaian 2× per laga.' },
+          { level: 5, energy: 1, uses: 3, effect: 'Kekuatan Puncak! Biaya turun jadi 1 energi dan kapasitas 3× per laga!' },
+        ]
+      },
+      lucky_pouch: {
+        name: 'Kantong Hoki',
+        icon: '💰',
+        desc: 'Mantra keberuntungan yang menggandakan drop koin emas dari setiap soal yang dijawab benar.',
+        levels: [
+          { level: 1, energy: 2, uses: 1, effect: 'Sisa laga: peluang koin drop ×2, jumlah koin yang didapat ×1.5!' },
+          { level: 2, energy: 2, uses: 1, effect: 'Sisa laga: peluang koin drop ×2, jumlah koin yang didapat ×1.75!' },
+          { level: 3, energy: 2, uses: 2, effect: 'Jumlah koin meningkat jadi ×2.0 dan pemakaian bertambah jadi 2× per laga!' },
+          { level: 4, energy: 2, uses: 2, effect: 'Jumlah koin meningkat jadi ×2.25 (pemakaian 2× per laga).' },
+          { level: 5, energy: 2, uses: 2, effect: 'Kekuatan Puncak! Peluang koin drop ×2 dan jumlah koin melimpah ×2.5!' },
+        ]
+      },
+      second_chance: {
+        name: 'Jimat Keberuntungan',
+        icon: '🍀',
+        desc: 'Memberikan kesempatan kedua saat jawaban salah untuk menjawab sekali lagi tanpa terkena damage.',
+        levels: [
+          { level: 1, energy: 4, uses: 1, effect: 'Jika jawaban salah: boleh coba lagi 1x (damage bos ×0.5).' },
+          { level: 2, energy: 4, uses: 1, effect: 'Coba lagi jika salah dengan damage bos meningkat menjadi ×0.6.' },
+          { level: 3, energy: 3, uses: 1, effect: 'Biaya energi turun jadi 3 energi dan damage bos coba lagi ×0.7.' },
+          { level: 4, energy: 3, uses: 2, effect: 'Kapasitas pemakaian naik jadi 2× per laga dan damage coba lagi ×0.85.' },
+          { level: 5, energy: 3, uses: 2, effect: 'Kekuatan Puncak! Coba lagi tanpa penalti damage (damage bos penuh ×1.0, 2× per laga)!' },
+        ]
+      }
+    };
+    return table[skillId] || null;
+  },
+
+  showSkillDetailModal(skillId) {
+    const skillsList = this.skillsData?.skills || [];
+    const s = skillsList.find(x => x.id === skillId);
+    const info = this.getSkillPerLevelInfo(skillId);
+    if (!s && !info) return;
+
+    const currentLevel = s ? (s.level || 1) : 1;
+    const isOwned = Boolean(s && s.owned);
+    const unlockLevel = s ? (s.unlockLevel || 1) : 1;
+    const name = s ? s.name : (info ? info.name : skillId);
+    const icon = s ? s.icon : (info ? info.icon : '⚡');
+    const desc = info?.desc || s?.effectDesc || '';
+    const UPGRADE_BASE_COST = { 1: 100, 2: 250, 3: 500, 4: 900 };
+    const mult = (window.Economy && window.Economy.SKILL_MULTIPLIERS && window.Economy.SKILL_MULTIPLIERS[skillId]) || 1.0;
+
+    const old = $('#modal-skill-detail');
+    if (old) old.remove();
+
+    const modal = document.createElement('div');
+    modal.id = 'modal-skill-detail';
+    modal.className = 'modal-mask active';
+    modal.setAttribute('data-testid', 'modal-skill-detail');
+    modal.style.cssText = 'z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);position:fixed;inset:0';
+
+    modal.innerHTML = `
+      <div class="card modal" style="max-width:440px;width:100%;max-height:90vh;display:flex;flex-direction:column;border-radius:18px;background:var(--c-surface);border:1px solid var(--c-surface-strong);box-shadow:0 20px 40px rgba(0,0,0,0.7);overflow:hidden">
+        <div style="padding:16px 18px 12px 18px;background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-between;align-items:flex-start">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="font-size:2.4rem;width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.15);border-radius:16px">
+              ${icon}
+            </div>
+            <div>
+              <h3 style="margin:0;font-size:1.15rem;color:#fff;font-weight:800">${esc(name)}</h3>
+              <div style="display:flex;gap:6px;align-items:center;margin-top:4px;flex-wrap:wrap">
+                <span class="chip ${isOwned ? 'good' : 'bad'}" style="font-size:0.7rem;font-weight:700">
+                  ${isOwned ? `Milikmu (Lv. ${currentLevel}/5)` : `Terkunci (Buka di Lv. ${unlockLevel})`}
+                </span>
+              </div>
+            </div>
+          </div>
+          <button class="btn icon ghost" id="btn-close-skill-detail" style="font-size:1.2rem;padding:4px 8px;color:var(--c-muted);border-radius:8px">✕</button>
+        </div>
+
+        <div style="padding:16px 18px;overflow-y:auto;display:flex;flex-direction:column;gap:14px;flex:1">
+          <div style="padding:10px 12px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:12px;font-size:0.8rem;color:#e2e8f0;line-height:1.4">
+            💡 <b>Mekanika:</b> ${esc(desc)}
+          </div>
+
+          <div>
+            <div style="font-size:0.82rem;font-weight:700;color:#94a3b8;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px">
+              📈 Efek Per Kenaikan Level (Lv 1 - 5)
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              ${(info?.levels || []).map(lvl => {
+                const isCur = isOwned && (lvl.level === currentLevel);
+                const isPast = isOwned && (lvl.level < currentLevel);
+                const isFuture = !isOwned || (lvl.level > currentLevel);
+                const upCost = lvl.level === 1 ? null : Math.round((UPGRADE_BASE_COST[lvl.level - 1] || 100) * mult);
+
+                return `
+                  <div style="padding:10px 12px;border-radius:12px;background:${isCur ? 'linear-gradient(135deg, rgba(245,158,11,0.18), rgba(0,0,0,0.5))' : 'rgba(255,255,255,0.03)'};border:${isCur ? '1.5px solid #f59e0b' : '1px solid rgba(255,255,255,0.08)'};display:flex;flex-direction:column;gap:4px;position:relative">
+                    <div style="display:flex;justify-content:space-between;align-items:center">
+                      <div style="display:flex;align-items:center;gap:6px">
+                        <span style="font-size:0.8rem;font-weight:800;color:${isCur ? '#fbbf24' : '#fff'}">
+                          Level ${lvl.level}
+                        </span>
+                        ${isCur ? `<span class="chip small" style="background:#f59e0b;color:#000;font-weight:800;font-size:0.65rem;padding:1px 6px">LEVEL AKTIF ⭐</span>` : ''}
+                        ${isPast ? `<span class="chip small good" style="font-size:0.62rem;padding:1px 4px">Telah Tercapai ✓</span>` : ''}
+                      </div>
+                      <div style="font-size:0.72rem;color:var(--c-muted)">
+                        ⚡ ${lvl.energy} Energi · 🔄 ${lvl.uses}×/laga
+                      </div>
+                    </div>
+                    <div style="font-size:0.8rem;color:${isCur ? '#fff' : '#cbd5e1'};line-height:1.35;margin-top:2px">
+                      ${esc(lvl.effect)}
+                    </div>
+                    ${(isFuture && upCost) ? `
+                      <div style="font-size:0.7rem;color:var(--c-primary);margin-top:2px;font-weight:600">
+                        🪙 Biaya Upgrade ke Lv ${lvl.level}: ${upCost} Koin
+                      </div>
+                    ` : ''}
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        </div>
+
+        <div style="padding:12px 18px;background:rgba(255,255,255,0.03);border-top:1px solid rgba(255,255,255,0.08);display:flex;gap:8px;justify-content:flex-end">
+          <button class="btn secondary small" id="btn-modal-skill-close" style="padding:8px 16px;border-radius:10px">Tutup</button>
+          ${(s && s.canUpgrade) ? `
+            <button class="btn primary small" id="btn-modal-skill-upgrade" style="padding:8px 16px;border-radius:10px;font-weight:700">
+              Upgrade Sekarang (${s.upgradeCost || 0} 🪙)
+            </button>
+          ` : ''}
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    const closeModal = () => modal.remove();
+    $('#btn-close-skill-detail', modal).onclick = closeModal;
+    $('#btn-modal-skill-close', modal).onclick = closeModal;
+    modal.onclick = (e) => {
+      if (e.target === modal) closeModal();
+    };
+
+    const upBtn = $('#btn-modal-skill-upgrade', modal);
+    if (upBtn && s) {
+      upBtn.onclick = () => {
+        closeModal();
+        const mainUpBtn = $(`#skills-cards-list button[data-testid="skill-upgrade-btn-${s.id}"]`);
+        if (mainUpBtn) mainUpBtn.click();
+      };
+    }
   },
 
   async renderTabToko(slot) {

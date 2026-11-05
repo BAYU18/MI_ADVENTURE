@@ -118,7 +118,8 @@
     const pity = (o.wrongStreak | 0) >= PITY.afterWrong ? PITY.mult : 1;
     const bonusKeep = clamp(o.comboBonusMult == null ? 1 : o.comboBonusMult, 0, 1);   // skill boss "combo_seal" mengurangi BONUS combo saja (damage dasar tetap)
     const combo = 1 + (comboMult(o.comboStreak | 0) - 1) * bonusKeep;
-    const mult = clamp(combo * pity * Math.max(1, o.powerMult || 1), 1, HIT_CAP_MULT);
+    const cap = Math.max(HIT_CAP_MULT, o.powerMult || 1);
+    const mult = clamp(combo * pity * Math.max(1, o.powerMult || 1), 1, cap);
     return { damage: Math.round(HIT_UNIT * mult), pity: pity > 1 };
   }
   // Dipanggil SEKALI saat Fase Marah. Total jawaban benar tidak pernah turun di bawah 15.
@@ -155,6 +156,7 @@
     combo_keeper:  { cost: [2, 2, 1, 1, 1], protect: [1, 1, 1, 2, 2] },
     lucky_pouch:   { cost: [2, 2, 2, 2, 1], value: [2, 2.25, 2.5, 2.75, 3] },
     second_chance: { cost: [4, 4, 3, 3, 2] },
+    red_potion:    { cost: [3, 3, 3, 2, 2], value: [3, 3.5, 3.5, 4, 5], consecutive: [1, 1, 2, 2, 3] },
   };
   const skillUpgradeCost = (level) => (level >= SKILL_MAX_LEVEL || level < 1 ? null : UPGRADE_COSTS[level - 1]);
   function skillInfo(id, level) {   // efek pada level tertentu: { cost, value?, freeUses?, protect? }
