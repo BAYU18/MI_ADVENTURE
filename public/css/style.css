@@ -2813,3 +2813,23 @@ body.reduced-motion .fatigue-banner {
 
 
 
+
+
+/* ============================================================
+   Skin & Toko 1-Column Responsive Cards (Mobile First)
+   ============================================================ */
+.skin-grid,
+.shop-grid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+@media (min-width: 641px) {
+  .skin-grid,
+  .shop-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
+    gap: 12px;
+  }
+}

@@ -4438,7 +4438,7 @@ Screens.profil = {
       </div>
 
       <!-- GRID ITEM MILIK -->
-      <div class="skin-grid" id="skin-items-grid" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(130px, 1fr));gap:8px"></div>
+      <div class="skin-grid" id="skin-items-grid"></div>
     `;
 
     const renderItems = () => {
@@ -4467,35 +4467,49 @@ Screens.profil = {
         let actionHtml = '';
         if (isEquipped) {
           actionHtml = `
-            <div style="display:flex;gap:4px;justify-content:center;align-items:center">
+            <div style="display:flex;gap:6px;justify-content:flex-end;align-items:center">
               <span class="chip good" style="font-size:0.75rem;padding:3px 8px">Terpasang</span>
-              <button class="btn small ghost item-unequip-btn" data-testid="item-unequip-${it.id}" data-slot="${it.slot}" title="Lepas skin ini" style="padding:2px 6px;font-size:0.75rem">Lepas</button>
+              <button class="btn small ghost item-unequip-btn" data-testid="item-unequip-${it.id}" data-slot="${it.slot}" title="Lepas skin ini" style="padding:4px 10px;font-size:0.75rem">Lepas</button>
             </div>
           `;
         } else if (it.owned) {
           actionHtml = `<button class="btn small primary block item-equip-btn" data-testid="item-equip-${it.id}" data-id="${it.id}" data-slot="${it.slot}">Pakai</button>`;
         } else {
           // Belum dimiliki: tombol shortcut untuk beli di Toko
-          actionHtml = `<button class="btn small secondary block btn-goto-shop" data-id="${it.id}" data-slot="${it.slot}" title="Beli skin ini di Toko" style="font-size:0.75rem;padding:4px 6px">🛒 Beli di Toko</button>`;
+          actionHtml = `<button class="btn small secondary block btn-goto-shop" data-id="${it.id}" data-slot="${it.slot}" title="Beli skin ini di Toko" style="font-size:0.75rem;padding:4px 10px">🛒 Beli di Toko</button>`;
         }
 
         return `
-          <div class="card item-card" data-testid="item-card-${it.id}" style="padding:10px;background:var(--c-surface);border-radius:var(--radius);border:1px solid ${isEquipped ? 'var(--c-primary)' : 'var(--c-surface-strong)'};text-align:center;display:flex;flex-direction:column;gap:5px">
-            <div style="display:flex;justify-content:space-between;align-items:center">
-              <span style="font-size:0.7rem;font-weight:700;color:${rarityColor}">${it.rarity}</span>
-              ${it.owned ? `<span style="font-size:0.65rem;color:var(--c-good)">✓ Milik</span>` : `<span style="font-size:0.65rem;color:var(--c-muted)">🔒 Belum</span>`}
+          <div class="card item-card ${isEquipped ? 'is-equipped' : ''}" data-testid="item-card-${it.id}" style="padding:12px;background:var(--c-surface);border-radius:var(--radius);border:1px solid ${isEquipped ? 'var(--c-primary)' : 'var(--c-surface-strong)'};display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <!-- THUMBNAIL + RARITY -->
+              <div style="flex:0 0 68px;display:flex;flex-direction:column;align-items:center;gap:4px">
+                <div class="skin-thumbnail-box" style="width:68px;height:68px;border-radius:14px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:inset 0 2px 6px rgba(0,0,0,0.3)">
+                  ${window.Avatar ? Avatar.renderThumbnail(it.id, it.slot) : '🎒'}
+                </div>
+                <span style="font-size:0.65rem;font-weight:800;color:${rarityColor};letter-spacing:0.5px">${it.rarity}</span>
+              </div>
+
+              <!-- MAIN INFO: TITLE, STATUS, PASSIVE, LORE -->
+              <div style="flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:4px">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
+                  <div style="font-weight:800;font-size:0.95rem;color:#fff;line-height:1.25">${esc(it.name)}</div>
+                  ${it.owned ? `<span class="chip good" style="font-size:0.65rem;padding:1px 6px;flex:0 0 auto">✓ Milik</span>` : `<span class="chip" style="font-size:0.65rem;padding:1px 6px;color:var(--c-muted);flex:0 0 auto">🔒 Belum</span>`}
+                </div>
+
+                <!-- RPG PASSIVE BADGE -->
+                ${it.passive ? `<div style="font-size:0.75rem;font-weight:700;color:#38bdf8;background:rgba(56,189,248,0.12);padding:4px 8px;border-radius:6px;border:1px solid rgba(56,189,248,0.3);line-height:1.35;word-break:break-word">✨ ${esc(it.passive.desc)}</div>` : ''}
+
+                <!-- LORE FLAVOR TEXT -->
+                ${it.lore ? `<div style="font-size:0.72rem;color:var(--c-muted);line-height:1.35;font-style:italic">${esc(it.lore)}</div>` : ''}
+              </div>
             </div>
-            <!-- THUMBNAIL SKIN -->
-            <div class="skin-thumbnail-box" style="width:68px;height:68px;margin:2px auto;border-radius:14px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:inset 0 2px 6px rgba(0,0,0,0.3)">
-              ${window.Avatar ? Avatar.renderThumbnail(it.id, it.slot) : '🎒'}
-            </div>
-            <div style="font-weight:700;font-size:0.85rem;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(it.name)}</div>
-            <!-- RPG PASSIVE BADGE -->
-            ${it.passive ? `<div style="font-size:0.7rem;font-weight:700;color:#38bdf8;background:rgba(56,189,248,0.1);padding:2px 6px;border-radius:6px;border:1px solid rgba(56,189,248,0.25);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${esc(it.passive.desc)}">${esc(it.passive.desc)}</div>` : ''}
-            <!-- LORE FLAVOR TEXT -->
-            <div style="font-size:0.68rem;color:var(--c-muted);line-height:1.2;height:2.4em;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical" title="${esc(it.lore || '')}">${esc(it.lore || it.slot)}</div>
-            <div style="margin-top:auto;padding-top:4px">
-              ${actionHtml}
+
+            <!-- ACTION FOOTER -->
+            <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.06);margin-top:2px">
+              <div style="flex:0 0 auto;min-width:130px">
+                ${actionHtml}
+              </div>
             </div>
           </div>
         `;
@@ -4907,7 +4921,7 @@ Screens.profil = {
       </div>
 
       <!-- KATALOG ITEM TOKO GRID -->
-      <div class="shop-grid" id="shop-items-grid" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(135px, 1fr));gap:8px;margin-top:8px"></div>
+      <div class="shop-grid" id="shop-items-grid"></div>
     `;
 
     const renderShopItems = () => {
@@ -4928,24 +4942,42 @@ Screens.profil = {
         const canAfford = playerCoins >= it.price;
         const rarityColor = it.rarity === 'LEGENDARY' ? '#f59e0b' : it.rarity === 'EPIC' ? '#a855f7' : it.rarity === 'RARE' ? '#3b82f6' : '#94a3b8';
         return `
-          <div class="card item-card" data-testid="item-card-${it.id}" style="padding:10px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);text-align:center;display:flex;flex-direction:column;gap:5px">
-            <div style="font-size:0.7rem;font-weight:700;color:${rarityColor}">${it.rarity}</div>
-            <!-- THUMBNAIL TOKO -->
-            <div class="skin-thumbnail-box" style="width:68px;height:68px;margin:2px auto;border-radius:14px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:inset 0 2px 6px rgba(0,0,0,0.3)">
-              ${window.Avatar ? Avatar.renderThumbnail(it.id, it.slot) : '🎒'}
+          <div class="card item-card" data-testid="item-card-${it.id}" style="padding:12px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <!-- THUMBNAIL + RARITY -->
+              <div style="flex:0 0 68px;display:flex;flex-direction:column;align-items:center;gap:4px">
+                <div class="skin-thumbnail-box" style="width:68px;height:68px;border-radius:14px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:inset 0 2px 6px rgba(0,0,0,0.3)">
+                  ${window.Avatar ? Avatar.renderThumbnail(it.id, it.slot) : '🎒'}
+                </div>
+                <span style="font-size:0.65rem;font-weight:800;color:${rarityColor};letter-spacing:0.5px">${it.rarity}</span>
+              </div>
+
+              <!-- MAIN INFO: TITLE, PASSIVE, LORE -->
+              <div style="flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:4px">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
+                  <div style="font-weight:800;font-size:0.95rem;color:#fff;line-height:1.25">${esc(it.name)}</div>
+                </div>
+
+                <!-- RPG PASSIVE BADGE -->
+                ${it.passive ? `<div style="font-size:0.75rem;font-weight:700;color:#fbbf24;background:rgba(251,191,36,0.12);padding:4px 8px;border-radius:6px;border:1px solid rgba(251,191,36,0.3);line-height:1.35;word-break:break-word">✨ ${esc(it.passive.desc)}</div>` : ''}
+
+                <!-- LORE FLAVOR TEXT -->
+                ${it.lore ? `<div style="font-size:0.72rem;color:var(--c-muted);line-height:1.35;font-style:italic">${esc(it.lore)}</div>` : ''}
+              </div>
             </div>
-            <div style="font-weight:700;font-size:0.85rem;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(it.name)}</div>
-            <!-- RPG PASSIVE BADGE -->
-            ${it.passive ? `<div style="font-size:0.7rem;font-weight:700;color:#fbbf24;background:rgba(251,191,36,0.1);padding:2px 6px;border-radius:6px;border:1px solid rgba(251,191,36,0.25);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${esc(it.passive.desc)}">${esc(it.passive.desc)}</div>` : ''}
-            <!-- LORE FLAVOR TEXT -->
-            <div style="font-size:0.68rem;color:var(--c-muted);line-height:1.2;height:2.4em;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical" title="${esc(it.lore || '')}">${esc(it.lore || it.slot)}</div>
-            <div style="font-size:0.85rem;font-weight:700;color:#fbbf24;margin-top:auto">🪙 ${it.price}</div>
-            <button class="btn small ${canAfford ? 'primary' : 'secondary'} block item-shop-buy-btn"
-              data-testid="item-buy-${it.id}"
-              data-id="${it.id}"
-              ${!canAfford ? 'disabled' : ''}>
-              ${canAfford ? `Beli` : `Kurang ${it.price - playerCoins} 🪙`}
-            </button>
+
+            <!-- ACTION FOOTER: HARGA & TOMBOL BELI -->
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.06);margin-top:2px">
+              <div style="font-size:0.95rem;font-weight:800;color:#fbbf24;display:flex;align-items:center;gap:4px">🪙 ${it.price}</div>
+              <div style="flex:0 0 auto;min-width:130px">
+                <button class="btn small ${canAfford ? 'primary' : 'secondary'} block item-shop-buy-btn"
+                  data-testid="item-buy-${it.id}"
+                  data-id="${it.id}"
+                  ${!canAfford ? 'disabled' : ''}>
+                  ${canAfford ? 'Beli' : `Kurang ${it.price - playerCoins} 🪙`}
+                </button>
+              </div>
+            </div>
           </div>
         `;
       }).join('');
