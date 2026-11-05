@@ -2833,3 +2833,213 @@ body.reduced-motion .fatigue-banner {
     gap: 12px;
   }
 }
+
+/* ============================================================
+   v7: Monster Dex & Battle UI (Elemen, Skill Boss, Mode Brutal)
+   ============================================================ */
+
+/* DexCards Styles (Lampiran C) */
+.dex-list{display:grid;grid-template-columns:1fr;gap:12px}              /* SELALU 1 kolom: 1 baris = 1 kartu, juga di layar lebar */
+.dex-card{width:100%;box-sizing:border-box;padding:14px;border-radius:16px;border:2px solid var(--el);background:var(--card-bg,#fff);color:var(--text,#1f2937);overflow:visible}
+.dex-head{display:flex;gap:12px;align-items:center}
+.dex-art{flex:0 0 76px;width:76px;height:76px}.dex-art svg{width:100%;height:100%}
+.dex-title{min-width:0;flex:1}
+.dex-name{margin:0;font-size:1.05rem;line-height:1.25;overflow-wrap:anywhere}
+.dex-badges{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 2px}
+.dex-badge{font-size:.8rem;font-weight:700;padding:2px 8px;border-radius:999px;background:color-mix(in srgb,var(--el) 18%,transparent);border:1px solid var(--el)}
+.dex-stats{font-size:.8rem;opacity:.8}
+.dex-desc{margin:10px 0 6px;font-size:.95rem;line-height:1.5;overflow-wrap:anywhere}      /* teks tampil UTUH: tidak ada pemotongan baris */
+.dex-sub{margin:10px 0 6px;font-size:.9rem}
+.dex-skills{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.dex-skill{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:12px;background:color-mix(in srgb,var(--el) 8%,transparent)}
+.dex-skill-ico{flex:0 0 28px;font-size:1.3rem;line-height:1.2;text-align:center}
+.dex-skill-body{min-width:0;flex:1}.dex-skill-name{font-size:.95rem}
+.dex-skill-text{margin:2px 0 0;font-size:.9rem;line-height:1.45;overflow-wrap:anywhere}
+.dex-tier-rare{box-shadow:0 0 0 2px #3B82F633}.dex-tier-epic{box-shadow:0 0 12px #A855F755}.dex-tier-legend{box-shadow:0 0 16px #F59E0B88}
+.dex-brutal{border-color:#DC2626;background:linear-gradient(180deg,#fee2e2 0,var(--card-bg,#fff) 40%)}
+.dex-brutal-badge{background:#DC2626;color:#fff;border-color:#DC2626}
+@media (prefers-reduced-motion:no-preference){.dex-tier-legend{animation:dexGlow 2.4s ease-in-out infinite alternate}}
+@keyframes dexGlow{from{box-shadow:0 0 8px #F59E0B55}to{box-shadow:0 0 18px #F59E0Bcc}}
+
+/* Dex Controls */
+.dex-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.dex-filter-row {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+.dex-filter-row::-webkit-scrollbar {
+  display: none;
+}
+.dex-brutal-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: rgba(220, 38, 38, 0.08);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Battle UI Elements */
+.boss-element-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.boss-skill-chips {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.boss-skill-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 26px;
+  transition: transform 0.1s ease, background 0.15s ease;
+}
+.boss-skill-chip:active {
+  transform: scale(0.95);
+}
+
+.boss-telegraph {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: #fef2f2;
+  border: 1.5px solid #ef4444;
+  color: #991b1b;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  animation: telegraphPulse 2s infinite ease-in-out;
+}
+@keyframes telegraphPulse {
+  0%, 100% { border-color: #ef4444; background: #fef2f2; }
+  50% { border-color: #dc2626; background: #fee2e2; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .boss-telegraph { animation: none; }
+}
+body.reduced-motion .boss-telegraph { animation: none; }
+
+.brutal-badge {
+  background: #dc2626 !important;
+  color: #fff !important;
+  font-weight: 800;
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 0.72rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 0 8px rgba(220, 38, 38, 0.4);
+}
+.battle-brutal {
+  box-shadow: inset 0 0 0 2px rgba(220, 38, 38, 0.5);
+  border-radius: 16px;
+}
+.battle-brutal .boss-card {
+  border-color: rgba(220, 38, 38, 0.6) !important;
+}
+
+.brutal-toggle-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: rgba(220, 38, 38, 0.08);
+  border: 1px dashed rgba(220, 38, 38, 0.4);
+  margin: 8px 0;
+}
+
+/* Boss Skill Detail Sheet */
+.boss-skill-sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  z-index: 10000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.boss-skill-sheet {
+  background: var(--card-bg, #1e293b);
+  color: var(--text, #f8fafc);
+  border-radius: 20px 20px 0 0;
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 18px 20px 24px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.4);
+  animation: slideUp 0.2s ease-out;
+}
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+/* Boss FX Toast */
+.boss-fx-toast-container {
+  position: fixed;
+  top: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 9999;
+  pointer-events: none;
+  max-width: 90vw;
+  width: 360px;
+}
+.boss-fx-toast {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: rgba(30, 41, 59, 0.95);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.boss-fx-toast.toast-warn { border-color: #ef4444; background: rgba(153, 27, 27, 0.95); }
+.boss-fx-toast.toast-status { border-color: #8b5cf6; background: rgba(88, 28, 135, 0.95); }
+.boss-fx-toast.toast-hit { border-color: #f97316; background: rgba(154, 52, 18, 0.95); }
+

@@ -1435,6 +1435,9 @@ Screens.subjects = {
       this.currentClassId = this.classes.some(c => c.id === pCid) ? pCid : this.classes[0].id;
     }
 
+    Screens.battle.brutalEnabled = false;
+    const pLevel = Player.getLevel ? Player.getLevel() : (window.Progression?.levelFormula(Player.data?.xp || 0) || 1);
+
     app.innerHTML = `
       <section class="screen active stack" style="gap:10px">
         <div class="hud" style="margin-bottom:0">
@@ -1456,6 +1459,17 @@ Screens.subjects = {
           </button>
         </div>
 
+        <!-- SAKELAR MODE BRUTAL (T-21) -->
+        <div class="brutal-toggle-wrap" data-testid="brutal-toggle-wrap">
+          <label style="display:flex;align-items:center;gap:10px;cursor:${pLevel >= 5 ? 'pointer' : 'not-allowed'};width:100%">
+            <input type="checkbox" id="brutal-toggle" data-testid="brutal-toggle" ${Screens.battle.brutalEnabled ? 'checked' : ''} ${pLevel < 5 ? 'disabled' : ''} style="width:18px;height:18px;accent-color:#dc2626">
+            <div style="flex:1">
+              <span style="font-size:0.85rem;font-weight:800;color:${pLevel >= 5 ? '#ef4444' : 'var(--c-muted)'}">💀 Mode Brutal</span>
+              <span style="display:block;font-size:0.75rem;color:var(--c-muted)">Skill boss 2× • Hadiah 3× ${pLevel < 5 ? '🔒 (Terbuka di Lv 5)' : ''}</span>
+            </div>
+          </label>
+        </div>
+
         <!-- Pilihan Kelas Dinamis -->
         <div id="class-tabs-container" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:2px">
           ${this.classes.map(c => `
@@ -1472,6 +1486,40 @@ Screens.subjects = {
     `;
 
     $('#sub-back').onclick = () => { if (window.Sfx) Sfx.play('tap'); go('home'); };
+
+    const bToggle = $('#brutal-toggle');
+    if (bToggle) {
+      bToggle.onchange = () => {
+        if (bToggle.checked) {
+          if (pLevel < 5) {
+            bToggle.checked = false;
+            Screens.battle.brutalEnabled = false;
+            toast('Mode Brutal baru terbuka di Level 5! 🔒');
+            return;
+          }
+          let pSettings = {};
+          try {
+            pSettings = typeof Player.data?.settings_json === 'string' ? JSON.parse(Player.data.settings_json) : (Player.data?.settings_json || {});
+          } catch (e) {}
+          if (!pSettings.brutalAck) {
+            bToggle.checked = false;
+            Screens.battle.showBrutalConfirmModal((accepted) => {
+              if (accepted) {
+                bToggle.checked = true;
+                Screens.battle.brutalEnabled = true;
+                pSettings.brutalAck = true;
+                if (Player.data) Player.data.settings_json = pSettings;
+                API.saveSettings({ brutalAck: true }).catch(() => {});
+              }
+            });
+            return;
+          }
+          Screens.battle.brutalEnabled = true;
+        } else {
+          Screens.battle.brutalEnabled = false;
+        }
+      };
+    }
 
     const classContainer = $('#class-tabs-container');
     if (classContainer) {
@@ -1578,7 +1626,7 @@ Screens.subjects = {
           if (this.viewMode === 'fun') {
             await Screens.battle.start(sid, { mode: 'FUN' });
           } else {
-            await Screens.battle.start(sid, { mode: 'BATTLE' });
+            await Screens.battle.start(sid, { mode: 'BATTLE', brutal: Screens.battle.brutalEnabled });
           }
         };
       });
@@ -1686,7 +1734,7 @@ Screens.subjects = {
             return;
           }
           if (window.Sfx) Sfx.play('select');
-          await Screens.battle.start(this.selectedSubjectId, { campaignNode: nodeKey });
+          await Screens.battle.start(this.selectedSubjectId, { campaignNode: nodeKey, brutal: Screens.battle.brutalEnabled });
         };
       });
 
@@ -1832,9 +1880,13 @@ Screens.battle = {
     const hitsLeft = s.hitsLeft ?? s.boss?.hitsLeft ?? Math.ceil(bossHp / 20);
     const monsterDef = (s.monster && s.monster.color) ? s.monster : (Monsters.MONSTERS.find(x => x.id === (s.monster?.id || s.boss?.id || s.monster_id) || (s.boss?.name && x.name === s.boss.name)) || Monsters.MONSTERS[0]);
     const monsterObj = { ...monsterDef, ...(s.boss || {}), ...(s.monster || {}) };
+    const elemKey = s.bossElement || s.boss_element || (s.boss && s.boss.element) || (window.BossSkills && BossSkills.elementForTheme(monsterObj.theme || s.subject?.monster_theme));
+    const elementInfo = (window.BossSkills && BossSkills.ELEMENTS[elemKey]) || null;
+    const isBrutal = Boolean(s.brutal);
+    const bossSkills = s.boss?.skills || (window.BossSkills && elemKey && BossSkills.skillsFor(elemKey, tier).map(sk => ({ ...BossSkills.describeSkill(sk, tier, isBrutal), textBrutal: BossSkills.describeSkill(sk, tier, true).text }))) || [];
 
     app.innerHTML = `
-      <section class="screen active stack" data-testid="battle-root" style="gap:8px">
+      <section class="screen active stack ${isBrutal ? 'battle-brutal' : ''}" data-testid="battle-root" style="gap:8px">
         <!-- TOP HUD -->
         <div class="hud" style="margin-bottom:0">
           <button class="icon-btn" id="btn-abandon" title="Menyerah">✕</button>
@@ -1864,10 +1916,22 @@ Screens.battle = {
               <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
                 <span class="boss-name" id="boss-name-label">${esc(monsterObj.name)} ${(s.bossPhase === 2 || s.boss?.phase === 2) ? '🔥' : ''}</span>
                 <span class="chip tier-badge boss-tier-badge tier-${tier}" id="boss-tier-badge" data-testid="boss-tier-badge" style="background:${tierInfo.color};color:#fff;font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:12px">${tierInfo.icon} ${tierInfo.label}</span>
+                ${elementInfo ? `<span class="chip boss-element-badge" id="boss-element-badge" data-testid="boss-element-badge" style="background:${elementInfo.color}22;color:${elementInfo.color};border:1px solid ${elementInfo.color};">${elementInfo.icon} ${elementInfo.name}</span>` : ''}
+                ${isBrutal ? `<span class="chip brutal-badge" id="brutal-badge" data-testid="brutal-badge">💀 BRUTAL</span>` : ''}
               </div>
               <span class="boss-theme-tag">${esc(monsterObj.theme || 'Arena')}</span>
             </div>
             <div class="boss-weak-tag" id="boss-weak-intro" style="font-size:0.75rem;color:var(--c-warning,#f59e0b);margin-top:2px">Titik lemah: <strong>${esc(s.weakTopic || s.boss?.weakTopic || 'Soal Sulit')}</strong> 🎯</div>
+            ${bossSkills.length > 0 ? `
+              <div class="boss-skill-chips" id="boss-skill-chips" data-testid="boss-skill-chips">
+                ${bossSkills.map(sk => `
+                  <button type="button" class="boss-skill-chip" id="boss-skill-chip-${esc(sk.id)}" data-testid="boss-skill-chip-${esc(sk.id)}" aria-label="${esc(sk.name)}" onclick="Screens.battle.showBossSkillDetail('${esc(sk.id)}')">
+                    <span>${esc(sk.icon)}</span>
+                    <span>${esc(sk.name)}</span>
+                  </button>
+                `).join('')}
+              </div>
+            ` : ''}
             <div class="hp-track" style="margin-top:4px;border:2px solid ${tierInfo.color};border-radius:999px;padding:1px">
               <div class="hp-fill" id="boss-hp-bar" style="width:${(bossHp / bossMaxHp) * 100}%"></div>
             </div>
@@ -1898,6 +1962,10 @@ Screens.battle = {
 
         <!-- QUESTION CARD -->
         <div class="qwrap grow" style="display:flex;flex-direction:column;min-height:0">
+          <div class="boss-telegraph" id="boss-telegraph" data-testid="boss-telegraph" aria-live="assertive" style="display:none">
+            <span class="boss-telegraph-icon">⚠️</span>
+            <span class="boss-telegraph-text" id="boss-telegraph-text"></span>
+          </div>
           <div class="qcard q-scroll-box" style="padding:14px;flex:1 1 auto;overflow-y:auto;max-height:100%">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:6px">
               <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-width:0;flex:1">
@@ -2005,6 +2073,24 @@ Screens.battle = {
     $('#q-counter').textContent = `Soal ${s.currentIndex + 1}/${s.totalQuestions}`;
     $('#q-text').textContent = q.text;
     $('#fb-slot').innerHTML = '';
+
+    // Boss telegraph banner & time modifier
+    const tg = (q && q.bossFx && q.bossFx.telegraph) || (s && s.bossFx && s.bossFx.telegraph);
+    const tgEl = $('#boss-telegraph');
+    if (tgEl) {
+      if (tg && window.BossSkills) {
+        const desc = BossSkills.describeEvent(tg);
+        const tgTxt = $('#boss-telegraph-text');
+        if (tgTxt) tgTxt.textContent = desc.text;
+        tgEl.style.display = 'flex';
+      } else {
+        tgEl.style.display = 'none';
+      }
+    }
+    if (q && q.bossFx && q.bossFx.timeMult && q.bossFx.timeMult < 1) {
+      const pct = Math.round((1 - q.bossFx.timeMult) * 100);
+      toast(`⏳ Waktu soal ini berkurang −${pct}%!`);
+    }
 
     const qType = q.type || q.questionType || 'MCQ';
     const typeBadge = $('#q-type-badge');
@@ -2484,6 +2570,11 @@ Screens.battle = {
 
   applyAnswerResult(res, chosenIndex, chosenBtn) {
     this.closeSkillBubblePopup();
+    const tgEl = $('#boss-telegraph');
+    if (tgEl) tgEl.style.display = 'none';
+    if (res.bossFx && Array.isArray(res.bossFx.events) && res.bossFx.events.length > 0) {
+      this.showBossFxEvents(res.bossFx.events);
+    }
     const s = res.session;
     this.session = s;
     if (res.player) Player.data = res.player;
@@ -3386,6 +3477,99 @@ Screens.battle = {
       btnEl.classList.remove('loading');
       this.renderSkillsDeck();
     }
+  },
+
+  brutalEnabled: false,
+
+  showBossSkillDetail(skillId) {
+    const s = this.session;
+    if (!s) return;
+    const tier = (s.bossTier || s.boss?.tier || s.boss_tier || 'common').toLowerCase();
+    const isBrutal = Boolean(s.brutal);
+    const elemKey = s.bossElement || s.boss_element || (s.boss && s.boss.element) || (window.BossSkills && BossSkills.elementForTheme(s.subject?.monster_theme || s.monster?.theme));
+    const skills = s.boss?.skills || (window.BossSkills && elemKey && BossSkills.skillsFor(elemKey, tier).map(sk => ({ ...BossSkills.describeSkill(sk, tier, isBrutal), textBrutal: BossSkills.describeSkill(sk, tier, true).text }))) || [];
+    const sk = skills.find(x => x.id === skillId) || (window.BossSkills && BossSkills.SKILL_INDEX[skillId]);
+    if (!sk) return;
+
+    const old = $('#boss-skill-sheet-modal');
+    if (old) old.remove();
+
+    const sheet = document.createElement('div');
+    sheet.id = 'boss-skill-sheet-modal';
+    sheet.className = 'boss-skill-sheet-backdrop';
+    sheet.setAttribute('data-testid', 'boss-skill-sheet');
+    sheet.innerHTML = `
+      <div class="boss-skill-sheet" onclick="event.stopPropagation()">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+          <div>
+            <div style="font-size:0.75rem;font-weight:700;color:var(--c-primary,#10b981);text-transform:uppercase">Skill Boss</div>
+            <h3 style="margin:2px 0 0;font-size:1.15rem;font-weight:800;display:flex;align-items:center;gap:6px">
+              <span>${esc(sk.icon)}</span> <span>${esc(sk.name)}</span>
+            </h3>
+          </div>
+          <button type="button" class="icon-btn small" id="btn-close-skill-sheet" style="font-size:1rem;width:32px;height:32px">✕</button>
+        </div>
+        <p style="font-size:0.95rem;line-height:1.5;margin:10px 0 16px;color:var(--text,#f8fafc)">
+          ${esc(isBrutal ? (sk.textBrutal || sk.text) : sk.text)}
+        </p>
+        <button type="button" class="btn primary small" id="btn-close-skill-sheet-ok" style="width:100%;padding:10px;font-weight:700">Tutup</button>
+      </div>
+    `;
+    document.body.appendChild(sheet);
+    const close = () => sheet.remove();
+    sheet.onclick = close;
+    sheet.querySelector('#btn-close-skill-sheet').onclick = close;
+    sheet.querySelector('#btn-close-skill-sheet-ok').onclick = close;
+  },
+
+  showBossFxEvents(events) {
+    if (!events || !events.length || !window.BossSkills) return;
+    let container = $('#boss-fx-toast-container');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'boss-fx-toast-container';
+      container.className = 'boss-fx-toast-container';
+      document.body.appendChild(container);
+    }
+    events.slice(0, 3).forEach((ev, i) => {
+      const desc = BossSkills.describeEvent(ev);
+      if (!desc || !desc.text) return;
+      const toastEl = document.createElement('div');
+      toastEl.className = `boss-fx-toast toast-${desc.kind || 'info'}`;
+      toastEl.setAttribute('data-testid', 'boss-fx-toast');
+      toastEl.innerHTML = `<span aria-hidden="true">${desc.icon || '⚠️'}</span> <span>${esc(desc.text)}</span>`;
+      container.appendChild(toastEl);
+      setTimeout(() => {
+        toastEl.style.opacity = '0';
+        toastEl.style.transform = 'translateY(-8px)';
+        setTimeout(() => toastEl.remove(), 250);
+      }, 2500 + i * 200);
+    });
+  },
+
+  showBrutalConfirmModal(cb) {
+    const old = $('#brutal-confirm-modal');
+    if (old) old.remove();
+    const modal = document.createElement('div');
+    modal.id = 'brutal-confirm-modal';
+    modal.className = 'modal-mask active';
+    modal.innerHTML = `
+      <div class="modal" style="text-align:center;max-width:360px">
+        <div style="font-size:2.8rem;margin-bottom:6px">💀</div>
+        <h3 class="modal-title" style="color:#ef4444;font-size:1.25rem">Tantangan Mode Brutal!</h3>
+        <p style="font-size:0.9rem;line-height:1.45;color:var(--text);margin:8px 0 16px">
+          Mode Brutal melipatgandakan efek <strong>skill boss 2×</strong> lebih dahsyat, tetapi memberikan <strong>hadiah koin & XP 3×</strong> lipat jika kamu menang!<br><br>
+          Apakah kamu siap menghadapi tantangan ini?
+        </p>
+        <div style="display:flex;gap:10px">
+          <button type="button" class="btn secondary" id="btn-brutal-cancel" style="flex:1">Batal</button>
+          <button type="button" class="btn danger" id="btn-brutal-accept" style="flex:1;background:#dc2626;color:#fff;font-weight:700">Siap Laga! ⚔️</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    $('#btn-brutal-cancel', modal).onclick = () => { modal.remove(); cb(false); };
+    $('#btn-brutal-accept', modal).onclick = () => { modal.remove(); cb(true); };
   }
 };
 
@@ -3634,6 +3818,7 @@ Screens.result = {
     const xpEarned = s.xpEarned !== undefined ? s.xpEarned : (s.xp_earned !== undefined ? s.xp_earned : (r.rewards?.xp ?? 0));
     const coinsEarned = s.coinsEarned !== undefined ? s.coinsEarned : (s.coins_earned !== undefined ? s.coins_earned : (r.rewards?.coins ?? 0));
     const maxStreak = s.maxStreak !== undefined ? s.maxStreak : (s.max_streak || 0);
+    const bossSkillsFaced = s.boss?.skills || (s.boss_skills ? (typeof s.boss_skills === 'string' ? JSON.parse(s.boss_skills) : s.boss_skills) : null) || [];
 
     // Child-Friendly Defeat / Victory Messages & Study Tips (K / T-26)
     const accuracy = (s.totalQuestions > 0) ? ((s.correctCount || 0) / s.totalQuestions) : 0;
@@ -3688,6 +3873,18 @@ Screens.result = {
               <strong style="color:var(--c-info)">🔥 ${maxStreak}×</strong>
             </div>
           </div>
+          ${s.brutal ? `
+            <div style="margin-top:10px;display:flex;justify-content:center">
+              <span class="chip brutal-badge" id="result-brutal-reward" data-testid="result-brutal-reward" style="font-size:0.8rem;padding:3px 12px">
+                💀 Hadiah ×3 (Brutal)
+              </span>
+            </div>
+          ` : ''}
+          ${bossSkillsFaced && bossSkillsFaced.length > 0 ? `
+            <div style="margin-top:10px;font-size:0.75rem;color:var(--c-muted);text-align:center;line-height:1.4">
+              Jurus yang kamu hadapi: ${bossSkillsFaced.map(sk => `${esc(sk.icon)} ${esc(sk.name)}`).join(' · ')}
+            </div>
+          ` : ''}
           ${studyTip ? `
             <div style="margin-top:10px;padding:8px 10px;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3);border-radius:10px;text-align:left;font-size:0.8rem;color:#fde047">
               ${esc(studyTip)}
@@ -5114,29 +5311,54 @@ Screens.profil = {
 };
 
 /* ============================================================
-   SCREEN: Monsterdex (Katalog 100 Monster)
+   SCREEN: Monsterdex (Katalog 40 Monster Boss Elemen v7)
    ============================================================ */
 Screens.dex = {
-  currentTheme: 'ALL',
-  allMonsters: [],
+  filterElement: '',
+  filterTier: '',
+  brutalPreview: false,
+  progress: {},
+  entries: [],
 
   async render(app) {
+    this.entries = window.BossSkills ? BossSkills.dexEntries() : [];
+    this.filterElement = '';
+    this.filterTier = '';
+    this.brutalPreview = false;
+
     app.innerHTML = `
       <section class="screen active stack" style="gap:10px">
         <div class="hud" style="margin-bottom:0">
           <button class="icon-btn" id="dex-back">←</button>
-          <h2 class="hud-title">Monsterdex (<span id="dex-count">0</span>/100)</h2>
+          <h2 class="hud-title">Monster Dex (<span id="dex-count">0</span>/40)</h2>
           <span class="chip accent">📖 Katalog</span>
         </div>
 
-        <!-- THEME TABS -->
-        <div class="dextabs" id="dex-tabs" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px">
-          <button class="btn small ${this.currentTheme === 'ALL' ? '' : 'ghost'}" data-theme="ALL">Semua</button>
-          ${Monsters.THEMES.map(t => `<button class="btn small ${this.currentTheme === t.id ? '' : 'ghost'}" data-theme="${t.id}">${t.label}</button>`).join('')}
+        <!-- CONTROLS ROW (F.1) -->
+        <div class="dex-controls" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:4px 0">
+          <div style="flex:1;min-width:130px">
+            <select id="dex-filter-element" data-testid="dex-filter-element" class="btn small ghost" style="width:100%;padding:6px 10px;border-radius:10px;background:var(--c-surface);color:var(--text);border:1px solid var(--c-surface-strong)">
+              <option value="">Semua Elemen (10)</option>
+              ${window.BossSkills ? BossSkills.ELEMENT_ORDER.map(el => `<option value="${el}">${BossSkills.ELEMENTS[el].icon} ${BossSkills.ELEMENTS[el].name}</option>`).join('') : ''}
+            </select>
+          </div>
+          <div style="flex:1;min-width:110px">
+            <select id="dex-filter-tier" data-testid="dex-filter-tier" class="btn small ghost" style="width:100%;padding:6px 10px;border-radius:10px;background:var(--c-surface);color:var(--text);border:1px solid var(--c-surface-strong)">
+              <option value="">Semua Tier (4)</option>
+              <option value="common">⚪ Common</option>
+              <option value="rare">🔵 Rare</option>
+              <option value="epic">🟣 Epic</option>
+              <option value="legend">🟡 Legend</option>
+            </select>
+          </div>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.8rem;font-weight:700;padding:6px 10px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.3);border-radius:10px;color:#ef4444;user-select:none">
+            <input type="checkbox" id="dex-brutal-toggle" data-testid="dex-brutal-toggle" style="width:16px;height:16px;accent-color:#dc2626">
+            <span>💀 Pratinjau Brutal</span>
+          </label>
         </div>
 
-        <!-- MONSTER GRID -->
-        <div class="dex-grid grow" id="dex-grid" style="overflow-y:auto;padding-bottom:20px">
+        <!-- DEX LIST SLOT (1 baris 1 kartu - F.1) -->
+        <div id="dex-list-slot" class="grow" style="overflow-y:auto;padding-bottom:24px">
           <div style="text-align:center;padding:40px;color:var(--c-muted)">Membuka buku monster...</div>
         </div>
       </section>
@@ -5144,77 +5366,67 @@ Screens.dex = {
 
     $('#dex-back').onclick = () => { if (window.Sfx) Sfx.play('tap'); go('home'); };
 
-    $$('#dex-tabs button').forEach(btn => {
-      btn.onclick = () => {
-        this.currentTheme = btn.dataset.theme;
-        $$('#dex-tabs button').forEach(b => b.className = `btn small ${b.dataset.theme === this.currentTheme ? '' : 'ghost'}`);
-        this.renderGrid();
+    const elFilter = $('#dex-filter-element');
+    const tierFilter = $('#dex-filter-tier');
+    const brutalToggle = $('#dex-brutal-toggle');
+
+    if (elFilter) {
+      elFilter.onchange = () => {
+        this.filterElement = elFilter.value;
+        this.renderList();
       };
-    });
+    }
+    if (tierFilter) {
+      tierFilter.onchange = () => {
+        this.filterTier = tierFilter.value;
+        this.renderList();
+      };
+    }
+    if (brutalToggle) {
+      brutalToggle.onchange = () => {
+        this.brutalPreview = brutalToggle.checked;
+        this.renderList();
+      };
+    }
 
     try {
-      this.allMonsters = await API.getDex();
-      const discoveredCount = this.allMonsters.filter(m => m.encountered || m.defeated).length;
-      $('#dex-count').textContent = discoveredCount;
-      this.renderGrid();
+      const res = await API.req('/api/dex');
+      this.progress = res.progress || {};
+      const defeatedTotal = Object.values(this.progress).filter(p => p && (p.defeated > 0 || p.brutalDefeated > 0)).length;
+      const countEl = $('#dex-count');
+      if (countEl) countEl.textContent = defeatedTotal;
     } catch (e) {
-      $('#dex-grid').innerHTML = `<div style="text-align:center;color:var(--c-bad)">Gagal memuat monsterdex: ${esc(e.message)}</div>`;
+      console.error('Failed to load dex progress:', e);
+      this.progress = {};
     }
+
+    this.renderList();
   },
 
-  renderGrid() {
-    const grid = $('#dex-grid');
-    const filtered = this.currentTheme === 'ALL'
-      ? this.allMonsters
-      : this.allMonsters.filter(m => m.theme === this.currentTheme);
+  renderList() {
+    const slot = $('#dex-list-slot');
+    if (!slot) return;
+    if (!window.DexCards || !window.BossSkills) {
+      slot.innerHTML = `<div style="text-align:center;color:var(--c-bad)">Komponen DexCards belum siap.</div>`;
+      return;
+    }
 
-    grid.innerHTML = filtered.map(m => {
-      const isKnown = m.encountered || m.defeated;
-      const fullM = Monsters.MONSTERS.find(x => x.id === m.id) || m;
-      const svg = isKnown ? Monsters.renderMonster(fullM, { size: 68 }) : `<div style="font-size:2.2rem;line-height:68px;opacity:.2">❓</div>`;
+    const artCb = (entry) => {
+      const theme = BossSkills.themeForElement(entry.element) || 'hutan';
+      const dummyMonster = { id: entry.id, name: entry.title, body: 'blob', color: theme, eyes: 'cute', mouth: 'happy', extra: 'horns' };
+      return window.Monsters ? Monsters.renderMonster(dummyMonster, { size: 76, tier: entry.tier }) : entry.icon;
+    };
 
-      return `
-        <div class="dex-cell ${isKnown ? '' : 'unknown'}" data-id="${m.id}" style="cursor:pointer;background:var(--c-surface);border:1px solid var(--c-surface-strong);border-radius:12px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:4px">
-          <div style="width:68px;height:68px;display:flex;align-items:center;justify-content:center">${svg}</div>
-          <div style="font-size:.72rem;font-weight:800;color:${isKnown ? '#fff' : 'var(--c-muted)'};text-align:center">
-            ${isKnown ? esc(m.name) : `??? #${m.id}`}
-          </div>
-          ${isKnown && m.bestStars ? `<div style="font-size:.65rem;color:var(--c-primary)">${'⭐'.repeat(m.bestStars)}</div>` : ''}
-        </div>
-      `;
-    }).join('');
-
-    $$('.dex-cell', grid).forEach(cell => {
-      cell.onclick = () => {
-        const mid = parseInt(cell.dataset.id, 10);
-        const m = this.allMonsters.find(x => x.id === mid);
-        if (m) this.openMonsterModal(m);
-      };
+    const html = DexCards.renderList(this.entries, this.progress, {
+      brutal: this.brutalPreview,
+      filter: {
+        element: this.filterElement || undefined,
+        tier: this.filterTier || undefined
+      },
+      art: artCb
     });
-  },
 
-  openMonsterModal(m) {
-    const isKnown = m.encountered || m.defeated;
-    const fullM = Monsters.MONSTERS.find(x => x.id === m.id) || m;
-    const modal = document.createElement('div');
-    modal.className = 'modal-mask active';
-    modal.innerHTML = `
-      <div class="modal" style="text-align:center">
-        <div style="width:120px;height:120px;margin:0 auto 10px auto">
-          ${isKnown ? Monsters.renderMonster(fullM, { size: 120 }) : `<div style="font-size:4rem;line-height:120px;opacity:.3">❓</div>`}
-        </div>
-        <div class="modal-title" style="margin-bottom:2px">${isKnown ? esc(m.name) : `Monster #${m.id}`}</div>
-        <div style="font-size:.8rem;color:var(--c-primary);margin-bottom:12px">Tema: ${esc(m.theme || 'Misterius')}</div>
-        <div style="display:flex;justify-content:space-around;font-size:.85rem;padding:10px 0;background:rgba(255,255,255,.05);border-radius:10px;margin-bottom:14px">
-          <div><div style="color:var(--c-muted);font-size:.7rem">Ditemui</div><strong>${m.encounters || 0}×</strong></div>
-          <div><div style="color:var(--c-muted);font-size:.7rem">Dikalahkan</div><strong>${m.defeats || 0}×</strong></div>
-          <div><div style="color:var(--c-muted);font-size:.7rem">Bintang Terbaik</div><strong>${m.bestStars ? '⭐'.repeat(m.bestStars) : '-'}</strong></div>
-        </div>
-        <button class="btn block secondary" id="m-dex-close">Tutup</button>
-      </div>
-    `;
-    document.body.appendChild(modal);
-    $('#m-dex-close', modal).onclick = () => modal.remove();
+    slot.innerHTML = html;
   }
 };
 

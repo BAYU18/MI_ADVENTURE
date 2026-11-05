@@ -36,10 +36,14 @@
   - ✅ 2026-11-05 04:34 — check-schema valid, smoke-test-v4 15/15 lulus, 29 tes inti bossskills/bossfx/progression lulus, test-fun-mode lulus, mix & types-eval lulus, sim-bossfx kurva seimbang
 
 ## Fase 2 — Antarmuka
-- [ ] **T-20** UI pertempuran: lencana elemen, chip skill boss + lembar deskripsi, banner peringatan jurus (`aria-live`), toast event, penyesuaian timer _(Spek: E.1, E.2 · Bukti: uji manual 320×568 & 430×932; skenario H.12)_
-- [ ] **T-21** UI Mode Brutal: sakelar saat mulai (Mode Bebas & Kampanye), dialog konfirmasi pertama, HUD Brutal, hasil "Hadiah ×3", tema merah, hormati animasi hemat _(Spek: D.3 · Bukti: uji manual)_
-- [ ] **T-22** Monster Dex: kartu 1 BARIS = 1 KARTU (deskripsi + semua skill, tanpa pemotongan teks), filter elemen/tier, pratinjau Brutal, progres, selaras dengan kartu skin _(Spek: F.1, F.3 · Bukti: skenario H.11 di 320/430/desktop)_
-- [ ] **G-2** GERBANG 2: skenario H.11, H.12 + smoke; commit
+- [x] **T-20** UI pertempuran: lencana elemen, chip skill boss + lembar deskripsi, banner peringatan jurus (`aria-live`), toast event, penyesuaian timer _(Spek: E.1, E.2 · Bukti: uji manual 320×568 & 430×932; skenario H.12)_ <!--tries:1-->
+  - ✅ 2026-11-05 04:50 — UI pertempuran: lencana elemen, chip skill boss + bottom sheet, banner peringatan jurus (aria-live), toast event, penyesuaian timer terverifikasi via tests/ui-v7.test.js
+- [x] **T-21** UI Mode Brutal: sakelar saat mulai (Mode Bebas & Kampanye), dialog konfirmasi pertama, HUD Brutal, hasil "Hadiah ×3", tema merah, hormati animasi hemat _(Spek: D.3 · Bukti: uji manual)_ <!--tries:1-->
+  - ✅ 2026-11-05 04:50 — UI Mode Brutal: sakelar mulai, konfirmasi pertama brutalAck, HUD brutal-badge, hasil Hadiah x3, tema merah & reduced-motion terverifikasi
+- [x] **T-22** Monster Dex: kartu 1 BARIS = 1 KARTU (deskripsi + semua skill, tanpa pemotongan teks), filter elemen/tier, pratinjau Brutal, progres, selaras dengan kartu skin _(Spek: F.1, F.3 · Bukti: skenario H.11 di 320/430/desktop)_ <!--tries:1-->
+  - ✅ 2026-11-05 04:50 — Monster Dex: kartu 1 baris 1 kartu, 40 entri, filter elemen & tier, pratinjau brutal switch angka, progres API, anti-XSS terverifikasi via tests/ui-v7.test.js & bossskills.test.js
+- [x] **G-2** GERBANG 2: skenario H.11, H.12 + smoke; commit <!--tries:1-->
+  - ✅ 2026-11-05 04:51 — Gerbang 2: skenario H.11 & H.12 lolos via tests/ui-v7.test.js (10/10), smoke-test-v4 (15/15), check-schema (100% valid)
 
 ## Fase 3 — Penutup dan deploy
 - [ ] **T-30** Perbarui `scripts/test-gameplay-e2e.js` & `smoke-test-v4.js` (sesi normal dan Brutal pada ≥ 3 mapel); jalankan `node scripts/sim-bossfx.js` _(Spek: H.13 · Bukti: e2e & simulasi hijau)_
