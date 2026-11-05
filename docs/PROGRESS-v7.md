@@ -172,3 +172,31 @@
     - Di `lib/db.js`: Menambahkan `triggeredPassives.push({ id: 'comboDamagePercent', name: 'Raja Combo!', icon: '👑', desc: ... })` dan `notice` yang mengumumkan persentase damage streak yang didapat.
     - Menulis proposal arsitektur layout pertempuran mobile lengkap di `docs/PROPOSAL-UI-BATTLE.md` mengusung konsep *Zero-Scroll Golden Layout* (Compact Versus HUD, Hero Question Stage, Smart Answer Grid).
   - ✅ 2026-11-05 15:19 — Seluruh unit tests 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.
+- [x] **T-48** Eksekusi Proposal UI Battle: 3 Opsi Tampilan Battle & Menu Pengaturan (Classic Default, Bottom Sheet, Compact):
+  - **Permintaan**: Eksekusi proposal `PROPOSAL-UI-BATTLE.md` dengan 3 opsi tampilan soal dan jawaban (misal soal full lalu tombol jawab membuka pilihan opsi/bottom sheet), serta penambahan menu di Settings untuk mengubah tampilan soal dan jawaban dengan tampilan saat ini (`classic`) sebagai default.
+  - **Implementasi**:
+    1. **Penyimpanan Konfigurasi (`lib/db.js`, `public/js/app.js`)**:
+       - `lib/db.js`: Menambahkan `battleLayout: 'classic'` pada default settings pemain, serta mendaftarkan `'battleLayout'` ke daftar field yang diizinkan pada `updatePlayerSettings`.
+       - `public/js/app.js`: Menambahkan `battleLayout: 'classic'` pada `Settings.get()`.
+       - Menambahkan pemilih `Tampilan Battle` di `Screens.settings.render` (seksi Tampilan & Gameplay) dengan opsi:
+         - `classic`: Mode Klasik (Default bawaan saat ini)
+         - `bottom_sheet`: Mode Baca Penuh + Lembar Jawaban (*Bottom Sheet*)
+         - `compact`: Mode Kompak Adaptif (*Zero-Scroll Smart Grid 2x2*)
+    2. **Opsi 2: Mode Baca Penuh + Lembar Jawaban (`bottom_sheet`)**:
+       - Panggung soal (`.qcard`) luas 65% layar, font besar (1.15rem–1.35rem), nyaman dibaca.
+       - Tombol aksi utama: `[ ✍️ JAWAB PERTANYAAN ]` (`#btn-open-answersheet`) membuka drawer lembar jawaban (*Bottom Sheet*) dari bawah (`#answer-sheet-drawer`).
+       - Lembar jawaban memuat pilihan opsi A, B, C, D yang besar dan ramah sentuhan jempol, cuplikan soal, tombol tutup baca ulang, serta feedback benar/salah.
+       - Setiap pergantian soal otomatis mereset dan menutup drawer secara halus.
+    3. **Opsi 3: Mode Kompak Adaptif (`compact`)**:
+       - Versus bar atas diringkas (~48px), avatar bos 36px, bar HP kompak, zero-scroll di semua resolusi HP.
+       - Smart Grid 2×2 (`.options.options-grid-2x2`): Otomatis aktif jika 4 pilihan jawaban berkarakter singkat (<= 26 karakter), menghemat tinggi vertikal hingga 60%.
+    4. **Opsi 1: Mode Klasik (`classic`)**:
+       - Menjadi mode default bawaan saat ini dengan visual bos penuh dan tombol jawaban stack standar.
+    5. **Styling & Animasi (`public/css/style.css`)**:
+       - Menambahkan CSS untuk `.battle-layout-bottom_sheet`, `.answer-sheet-backdrop`, `.answer-sheet-drawer`, `.drawer-handle`, `.btn-open-answersheet`, `.battle-layout-compact`, dan `.options.options-grid-2x2`.
+       - Mendukung `prefers-reduced-motion` dan PWA cache busting `pp-v7.2.0-20261105v1`.
+    6. **Pengujian & Verifikasi**:
+       - Menambahkan subtest 8 di `tests/ui-v7.test.js` memverifikasi struktur settings, app.js layout renderer, dan CSS rules. Seluruh 30 unit & integration tests lulus 100%.
+       - PM2 restart sukses dan verifikasi curl HTTP/2 200 OK.
+  - ✅ 2026-11-05 15:56 — Seluruh 30 unit tests 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.
+
