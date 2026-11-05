@@ -43,6 +43,8 @@ test('D: damage — lantai 1 hit, plafon 4×, pity, dan boss tak tumbang < 15 be
   assert.equal(P.hitDamage({ comboStreak: 0, wrongStreak: 3 }).damage, 30);
   assert.equal(P.hitDamage({ comboStreak: 99, wrongStreak: 9, powerMult: 4 }).damage, 80);
   assert.equal(P.hitDamage({ comboStreak: 0, powerMult: 0.5 }).damage, 20);
+  assert.equal(P.hitDamage({ comboStreak: 9, wrongStreak: 0, comboBonusMult: 0 }).damage, 20);     // combo disegel → tetap 1 hit (lantai)
+  assert.equal(P.hitDamage({ comboStreak: 9, wrongStreak: 0, comboBonusMult: 0.5 }).damage, 23);   // bonus combo 30% → 15%
   assert.equal(P.applyBossDamage(30, 80, 5), 1);        // belum 15 benar → sisa 1
   assert.equal(P.applyBossDamage(30, 80, 15), 0);
   assert.equal(P.applyBossDamage(100, 20, 3), 80);

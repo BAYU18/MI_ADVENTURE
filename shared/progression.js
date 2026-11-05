@@ -116,7 +116,9 @@
   const comboMult = (streak) => 1 + Math.min(0.5, 0.1 * Math.floor(Math.max(0, streak) / 3));   // pakai pengali combo yang sudah ada bila ada (maks 1.5)
   function hitDamage(o) {   // o: { comboStreak, powerMult, wrongStreak }
     const pity = (o.wrongStreak | 0) >= PITY.afterWrong ? PITY.mult : 1;
-    const mult = clamp(comboMult(o.comboStreak | 0) * pity * Math.max(1, o.powerMult || 1), 1, HIT_CAP_MULT);
+    const bonusKeep = clamp(o.comboBonusMult == null ? 1 : o.comboBonusMult, 0, 1);   // skill boss "combo_seal" mengurangi BONUS combo saja (damage dasar tetap)
+    const combo = 1 + (comboMult(o.comboStreak | 0) - 1) * bonusKeep;
+    const mult = clamp(combo * pity * Math.max(1, o.powerMult || 1), 1, HIT_CAP_MULT);
     return { damage: Math.round(HIT_UNIT * mult), pity: pity > 1 };
   }
   // Dipanggil SEKALI saat Fase Marah. Total jawaban benar tidak pernah turun di bawah 15.
