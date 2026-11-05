@@ -5622,12 +5622,15 @@ Screens.dex = {
     const elKey = (B && B.elementForTheme(m.theme)) || 'nature';
     const elInfo = (B && B.ELEMENTS[elKey]) || { name: 'Alam', icon: '🌿', color: '#22C55E', title: 'Roh Rimba' };
     const brutal = this.brutalPreview;
-    const allSkills = (B && B.skillsFor(elKey, 'legend')) || [];
 
     const mTier = (window.DexCards && DexCards.getMonsterTier) ? DexCards.getMonsterTier(m) : (m.tier || 'common');
     const meta = (window.DexCards && DexCards.TIER_META) ? (DexCards.TIER_META[mTier] || DexCards.TIER_META.common) : { name: 'Common', icon: '⚪', color: '#94a3b8', skills: 1 };
 
-    // Point 3: siluet hitam untuk boss yang belum terbuka
+    // Sesuai rarity: Common = 1 skill, Rare = 2 skill, Epic = 3 skill, Legend = 4 skill
+    const allSkills = (B && B.skillsFor(elKey, 'legend')) || [];
+    const monsterSkills = allSkills.slice(0, meta.skills);
+
+    // Siluet hitam untuk boss yang belum terbuka
     const monsterSvg = isKnown
       ? (window.Monsters ? Monsters.renderMonster(m, { size: 120, tier: mTier }) : elInfo.icon)
       : `<div class="monster-silhouette" title="Belum Ditemui" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;filter:brightness(0) drop-shadow(0 0 2px rgba(255,255,255,0.3));opacity:0.42;transform:scale(0.92);pointer-events:none">
@@ -5673,25 +5676,23 @@ Screens.dex = {
           </div>
         </div>
 
-        <!-- SKILLS SECTION -->
+        <!-- SKILLS SECTION (Hanya jurus sesuai rarity bos) -->
         <div style="margin-bottom:8px">
           <div style="font-size:0.82rem;font-weight:800;color:#fff;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between">
-            <span>⚡ Jurus Elemen ${esc(elInfo.name)} (${allSkills.length})</span>
+            <span>⚡ Jurus Bos ${esc(meta.name)} (${monsterSkills.length} Skill)</span>
             ${brutal ? `<span style="font-size:0.7rem;color:#ef4444;font-weight:700">💀 Pratinjau Brutal</span>` : ''}
           </div>
           <div style="display:flex;flex-direction:column;gap:8px">
-            ${allSkills.map((sk, idx) => {
+            ${monsterSkills.map((sk, idx) => {
               const tierName = idx === 0 ? 'Common' : (idx === 1 ? 'Rare' : (idx === 2 ? 'Epic' : 'Legend'));
               const tierBadgeColor = idx === 0 ? '#94a3b8' : (idx === 1 ? '#3b82f6' : (idx === 2 ? '#a855f7' : '#f59e0b'));
               const descNormal = B ? B.describeSkill(sk, tierName.toLowerCase(), false) : sk;
               const descBrutal = B ? B.describeSkill(sk, tierName.toLowerCase(), true) : sk;
-              const isMonsterKit = (idx < meta.skills);
               return `
-                <div style="padding:10px;border-radius:10px;background:rgba(255,255,255,${isMonsterKit ? '0.05' : '0.02'});border:1px solid ${isMonsterKit ? tierBadgeColor + '55' : 'rgba(255,255,255,0.06)'}">
+                <div style="padding:10px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid ${tierBadgeColor}55">
                   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
                     <span style="font-size:0.85rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:6px">
                       ${esc(sk.icon)} ${esc(sk.name)}
-                      ${isMonsterKit ? `<span style="font-size:0.65rem;color:#34d399;font-weight:700">● Aktif</span>` : `<span style="font-size:0.65rem;color:var(--c-muted)">○ Tier Tinggi</span>`}
                     </span>
                     <span style="font-size:0.68rem;font-weight:800;padding:2px 8px;border-radius:999px;background:${tierBadgeColor}22;color:${tierBadgeColor};border:1px solid ${tierBadgeColor}">
                       ${tierName}
