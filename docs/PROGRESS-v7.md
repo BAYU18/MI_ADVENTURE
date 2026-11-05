@@ -55,3 +55,14 @@
   - ✅ 2026-11-05 04:59 — Dokumen arsitektur docs/ARSITEKTUR-v7.md dibuat; sw.js diperbarui; backup data/play.db.bak-20261105115935; pm2 restart play sukses; smoke-test-v4 16/16 lulus (100%); curl HTTP 200 OK
 - [x] **T-33** Kirim Laporan Akhir (Bagian J) beserta salinan file ini _(Bukti: laporan terkirim)_ <!--tries:1-->
   - ✅ 2026-11-05 05:00 — Laporan Akhir Bagian J dikirimkan lengkap dengan bukti skenario H.1-H.14 dan kriteria I.1-I.10 seluruhnya lulus, file PROGRESS-v7.md dan ARSITEKTUR-v7.md terlampir
+
+## Fase 4 — Adaptasi UI Monster Dex ke UI Skin & Katalog 100 Monster Bos (v7.1)
+- [x] **T-40** Integrasi 100 Monster Bos ke Monster Dex & Adaptasi UI Skin:
+  - 100 Monster Bos dari `monsters.js` / `/api/dex` dipetakan ke 10 Elemen (10 monster per tema).
+  - Tampilan UI diadaptasi dari UI Skin (`Screens.profil` tab `skin`):
+    - Top Hero Banner dengan avatar SVG monster, progress bar, persentase kelengkapan, dan statistik (Ditemui, Dikalahkan, Bintang).
+    - Status Filter Bar (`skin-owner-btn`): `Semua (100)`, `✓ Ditemui`, `🔒 Belum`.
+    - Category / Theme Filter Bar (`skin-cat-btn`): `Semua (100)` dan 10 Tema/Elemen (`🌿 Hutan`, `☠️ Rawa`, `🪨 Gua`, `🔥 Api`, `❄️ Es`, `💧 Air`, `🌪️ Angin`, `🌑 Hantu`, `⚡ Mesin`, `✨ Manis`).
+    - Kartu Monster Dex (`.dex-monster-card`): Thumbnail SVG 72×72px + Badge Elemen + Status Chip + Pasif/Jurus Elemen + Tombol `Detail Boss 👁️`.
+    - Modal Detail Bos: Menampilkan SVG 120px monster, stats lengkap (encounters, defeats, best streak, stars), dan 4 Jurus Elemen (Common s/d Legend) dengan pratinjau Mode Normal vs Brutal.
+  - ✅ 2026-11-05 12:42 — Pengujian `tests/ui-v7.test.js`, `tests/bossskills.test.js`, dan `scripts/test-gameplay-e2e.js` 100% lulus. PM2 restart sukses dan HTTP 200 terverifikasi.

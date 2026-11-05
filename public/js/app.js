@@ -5311,31 +5311,125 @@ Screens.profil = {
 };
 
 /* ============================================================
-   SCREEN: Monsterdex (Katalog 40 Monster Boss Elemen v7)
+   SCREEN: Monsterdex (Katalog 100 Monster Boss Elemen v7 - Skin-Adapted)
    ============================================================ */
 Screens.dex = {
+  filterOwner: 'all',
+  filterTheme: 'ALL',
   filterElement: '',
   filterTier: '',
   brutalPreview: false,
   progress: {},
   entries: [],
+  monsters: [],
 
   async render(app) {
     this.entries = window.BossSkills ? BossSkills.dexEntries() : [];
+    this.filterOwner = 'all';
+    this.filterTheme = 'ALL';
     this.filterElement = '';
     this.filterTier = '';
     this.brutalPreview = false;
 
+    // Muat data dari /api/dex
+    try {
+      const res = await API.req('/api/dex');
+      this.progress = res.progress || {};
+      const rawMonsters = res.monsters || (window.Monsters ? Monsters.MONSTERS : []);
+      if (window.Monsters && Monsters.MONSTERS) {
+        this.monsters = rawMonsters.map(m => {
+          const full = Monsters.MONSTERS.find(x => x.id === m.id) || {};
+          return { ...full, ...m };
+        });
+      } else {
+        this.monsters = rawMonsters;
+      }
+    } catch (e) {
+      console.error('Failed to load dex progress:', e);
+      this.progress = {};
+      this.monsters = window.Monsters ? Monsters.MONSTERS : [];
+    }
+
+    const totalCount = this.monsters.length || 100;
+    const knownMonsters = this.monsters.filter(m => Boolean(m.encountered || m.defeated || (m.encounters > 0) || (m.defeats > 0)));
+    const totalKnown = knownMonsters.length;
+    const totalDefeated = this.monsters.filter(m => Boolean(m.defeated || (m.defeats > 0))).length;
+    const totalStars = this.monsters.reduce((acc, m) => acc + (m.bestStars || 0), 0);
+    const totalUnknown = Math.max(0, totalCount - totalKnown);
+    const pct = Math.round((totalKnown / totalCount) * 100);
+
+    const featuredMonster = knownMonsters[0] || this.monsters[0] || { id: 1, name: 'Lumutra', theme: 'hutan' };
+    const featuredArt = window.Monsters
+      ? Monsters.renderMonster(featuredMonster, { size: 68, tier: 'legend' })
+      : '🐲';
+
     app.innerHTML = `
       <section class="screen active stack" style="gap:10px">
+        <!-- TOP HUD -->
         <div class="hud" style="margin-bottom:0">
           <button class="icon-btn" id="dex-back">←</button>
-          <h2 class="hud-title">Monster Dex (<span id="dex-count">0</span>/40)</h2>
-          <span class="chip accent">📖 Katalog</span>
+          <h2 class="hud-title">Monster Dex (<span id="dex-count">${totalKnown}</span>/${totalCount})</h2>
+          <span class="chip accent">📖 Katalog Boss</span>
         </div>
 
-        <!-- CONTROLS ROW (F.1) -->
-        <div class="dex-controls" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:4px 0">
+        <!-- HERO / SUMMARY BANNER (Skin UI Adapted) -->
+        <div class="card" style="padding:14px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);display:flex;gap:14px;align-items:center">
+          <div class="skin-thumbnail-box" style="width:72px;height:72px;border-radius:18px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;overflow:hidden;flex:0 0 auto;font-size:2.2rem;box-shadow:inset 0 2px 6px rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.08)">
+            ${featuredArt}
+          </div>
+          <div class="grow" style="min-width:0">
+            <div style="font-weight:800;font-size:1.05rem;color:#fff;display:flex;align-items:center;justify-content:space-between">
+              <span>Koleksi Boss Elemen</span>
+              <span style="font-size:0.75rem;color:var(--c-primary);font-weight:700" id="dex-pct">${pct}% Lengkap</span>
+            </div>
+            <div style="font-size:0.78rem;color:var(--c-muted);margin:2px 0 6px 0">
+              10 Elemen Alam · 100 Karakter Bos
+            </div>
+            <div class="xp-track" style="height:6px;background:rgba(255,255,255,0.1);border-radius:99px;overflow:hidden">
+              <div class="xp-fill" id="dex-progress-bar" style="width:${pct}%"></div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:6px;font-size:0.72rem;color:var(--c-muted);flex-wrap:wrap">
+              <span>👁️ Ditemui: <b style="color:#fff" id="dex-stat-encountered">${totalKnown}</b>/100</span>
+              <span>⚔️ Dikalahkan: <b style="color:#34d399" id="dex-stat-defeated">${totalDefeated}</b></span>
+              <span>⭐ Bintang: <b style="color:#fbbf24" id="dex-stat-stars">${totalStars}</b></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FILTER STATUS KEPEMILIKAN / DITEMUI (Skin owner filter style) -->
+        <div style="background:rgba(255,255,255,0.04);border:1px solid var(--c-surface-strong);border-radius:var(--radius);padding:8px 10px;display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:0.75rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:6px">
+              🏷️ Status Koleksi:
+            </span>
+          </div>
+          <div class="skin-owner-filter-bar dex-owner-bar" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;-webkit-overflow-scrolling:touch">
+            <button class="btn small skin-owner-btn dex-owner-btn active" data-owner="all" style="flex:0 0 auto;white-space:nowrap;padding:4px 12px">Semua (${totalCount})</button>
+            <button class="btn small skin-owner-btn dex-owner-btn ghost" data-owner="encountered" style="flex:0 0 auto;white-space:nowrap;padding:4px 12px">✓ Ditemui (${totalKnown})</button>
+            <button class="btn small skin-owner-btn dex-owner-btn ghost" data-owner="unencountered" style="flex:0 0 auto;white-space:nowrap;padding:4px 12px">🔒 Belum (${totalUnknown})</button>
+          </div>
+        </div>
+
+        <!-- FILTER TEMA / WILAYAH ELEMEN (Skin category filter style) -->
+        <div style="display:flex;justify-content:space-between;align-items:center;margin:4px 0 2px 2px">
+          <div style="font-size:0.72rem;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:0.5px">📁 Elemen & Wilayah Bos</div>
+        </div>
+        <div class="skin-filter-bar dex-theme-bar" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;min-height:38px">
+          <button class="btn small skin-cat-btn dex-theme-btn active" data-theme="ALL" data-el="" style="flex:0 0 auto;white-space:nowrap;padding:4px 10px">Semua (100)</button>
+          <button class="btn small skin-cat-btn dex-theme-btn ghost" data-theme="hutan" data-el="nature" style="flex:0 0 auto;white-space:nowrap;padding:4px 10px">🌿 Hutan (10)</button>
+          <button class="btn small skin-cat-btn dex-theme-btn ghost" data-theme="rawa" data-el="toxic" style="flex:0 0 auto;white-space:nowrap;padding:4px 10px">☠️ Rawa (10)</button>
+          <button class="btn small skin-cat-btn dex-theme-btn ghost" data-theme="gua" data-el="earth" style="flex:0 0 auto;white-space:nowrap;padding:4px 10px">🪨 Gua (10)</button>
+          <button class="btn small skin-cat-btn dex-theme-btn ghost" data-theme="api" data-el="fire" style="flex:0 0 auto;white-space:nowrap;padding:4px 10px">🔥 Api (10)</button>
+          <button class="btn small skin-cat-btn dex-theme-btn ghost" data-theme="es" data-el="ice" style="flex:0 0 auto;white-space:nowrap;padding:4px 10px">❄️ Es (10)</button>
+          <button class="btn small skin-cat-btn dex-theme-btn ghost" data-theme="laut" data-el="water" style="flex:0 0 auto;white-space:nowrap;padding:4px 10px">💧 Air (10)</button>
+          <button class="btn small skin-cat-btn dex-theme-btn ghost" data-theme="langit" data-el="wind" style="flex:0 0 auto;white-space:nowrap;padding:4px 10px">🌪️ Angin (10)</button>
+          <button class="btn small skin-cat-btn dex-theme-btn ghost" data-theme="hantu" data-el="shadow" style="flex:0 0 auto;white-space:nowrap;padding:4px 10px">🌑 Hantu (10)</button>
+          <button class="btn small skin-cat-btn dex-theme-btn ghost" data-theme="mesin" data-el="thunder" style="flex:0 0 auto;white-space:nowrap;padding:4px 10px">⚡ Mesin (10)</button>
+          <button class="btn small skin-cat-btn dex-theme-btn ghost" data-theme="manis" data-el="light" style="flex:0 0 auto;white-space:nowrap;padding:4px 10px">✨ Manis (10)</button>
+        </div>
+
+        <!-- CONTROLS ROW (Tier, Elemen & Brutal Toggle) -->
+        <div class="dex-controls" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:2px 0">
           <div style="flex:1;min-width:130px">
             <select id="dex-filter-element" data-testid="dex-filter-element" class="btn small ghost" style="width:100%;padding:6px 10px;border-radius:10px;background:var(--c-surface);color:var(--text);border:1px solid var(--c-surface-strong)">
               <option value="">Semua Elemen (10)</option>
@@ -5344,11 +5438,11 @@ Screens.dex = {
           </div>
           <div style="flex:1;min-width:110px">
             <select id="dex-filter-tier" data-testid="dex-filter-tier" class="btn small ghost" style="width:100%;padding:6px 10px;border-radius:10px;background:var(--c-surface);color:var(--text);border:1px solid var(--c-surface-strong)">
-              <option value="">Semua Tier (4)</option>
-              <option value="common">⚪ Common</option>
-              <option value="rare">🔵 Rare</option>
-              <option value="epic">🟣 Epic</option>
-              <option value="legend">🟡 Legend</option>
+              <option value="">Semua Tier</option>
+              <option value="common">⚪ Common (1 Skill)</option>
+              <option value="rare">🔵 Rare (2 Skill)</option>
+              <option value="epic">🟣 Epic (3 Skill)</option>
+              <option value="legend">🟡 Legend (4 Skill)</option>
             </select>
           </div>
           <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.8rem;font-weight:700;padding:6px 10px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.3);border-radius:10px;color:#ef4444;user-select:none">
@@ -5357,7 +5451,7 @@ Screens.dex = {
           </label>
         </div>
 
-        <!-- DEX LIST SLOT (1 baris 1 kartu - F.1) -->
+        <!-- DEX LIST SLOT (1 baris 1 kartu - Skin adapted) -->
         <div id="dex-list-slot" class="grow" style="overflow-y:auto;padding-bottom:24px">
           <div style="text-align:center;padding:40px;color:var(--c-muted)">Membuka buku monster...</div>
         </div>
@@ -5370,34 +5464,79 @@ Screens.dex = {
     const tierFilter = $('#dex-filter-tier');
     const brutalToggle = $('#dex-brutal-toggle');
 
+    // Filter Owner (Semua / Ditemui / Belum)
+    $$('.dex-owner-btn', app).forEach(btn => {
+      btn.onclick = () => {
+        if (window.Sfx) Sfx.play('tap');
+        this.filterOwner = btn.dataset.owner;
+        $$('.dex-owner-btn', app).forEach(b => {
+          if (b.dataset.owner === this.filterOwner) {
+            b.classList.add('active');
+            b.classList.remove('ghost');
+          } else {
+            b.classList.remove('active');
+            b.classList.add('ghost');
+          }
+        });
+        this.renderList();
+      };
+    });
+
+    // Filter Tema (Hutan, Rawa, Api, dsb)
+    $$('.dex-theme-btn', app).forEach(btn => {
+      btn.onclick = () => {
+        if (window.Sfx) Sfx.play('tap');
+        this.filterTheme = btn.dataset.theme;
+        const targetEl = btn.dataset.el || '';
+        this.filterElement = targetEl;
+        if (elFilter) elFilter.value = targetEl;
+
+        $$('.dex-theme-btn', app).forEach(b => {
+          if (b.dataset.theme === this.filterTheme) {
+            b.classList.add('active');
+            b.classList.remove('ghost');
+          } else {
+            b.classList.remove('active');
+            b.classList.add('ghost');
+          }
+        });
+        this.renderList();
+      };
+    });
+
+    // Dropdown Elemen (sinkronisasi dengan tombol tema)
     if (elFilter) {
       elFilter.onchange = () => {
         this.filterElement = elFilter.value;
+        const B = window.BossSkills;
+        const correspondingTheme = elFilter.value && B ? (B.themeForElement(elFilter.value) || 'ALL') : 'ALL';
+        this.filterTheme = correspondingTheme;
+
+        $$('.dex-theme-btn', app).forEach(b => {
+          if (b.dataset.theme === this.filterTheme) {
+            b.classList.add('active');
+            b.classList.remove('ghost');
+          } else {
+            b.classList.remove('active');
+            b.classList.add('ghost');
+          }
+        });
         this.renderList();
       };
     }
+
     if (tierFilter) {
       tierFilter.onchange = () => {
         this.filterTier = tierFilter.value;
         this.renderList();
       };
     }
+
     if (brutalToggle) {
       brutalToggle.onchange = () => {
         this.brutalPreview = brutalToggle.checked;
         this.renderList();
       };
-    }
-
-    try {
-      const res = await API.req('/api/dex');
-      this.progress = res.progress || {};
-      const defeatedTotal = Object.values(this.progress).filter(p => p && (p.defeated > 0 || p.brutalDefeated > 0)).length;
-      const countEl = $('#dex-count');
-      if (countEl) countEl.textContent = defeatedTotal;
-    } catch (e) {
-      console.error('Failed to load dex progress:', e);
-      this.progress = {};
     }
 
     this.renderList();
@@ -5411,22 +5550,136 @@ Screens.dex = {
       return;
     }
 
-    const artCb = (entry) => {
-      const theme = BossSkills.themeForElement(entry.element) || 'hutan';
-      const dummyMonster = { id: entry.id, name: entry.title, body: 'blob', color: theme, eyes: 'cute', mouth: 'happy', extra: 'horns' };
-      return window.Monsters ? Monsters.renderMonster(dummyMonster, { size: 76, tier: entry.tier }) : entry.icon;
+    const artCb = (m, tier) => {
+      if (m && m.theme && window.Monsters) {
+        return Monsters.renderMonster(m, { size: 68, tier: tier || 'common' });
+      }
+      if (m && m.element) {
+        const theme = BossSkills.themeForElement(m.element) || 'hutan';
+        const dummyMonster = { id: m.id, name: m.title, body: 'blob', color: theme, eyes: 'cute', mouth: 'happy', extra: 'horns' };
+        return window.Monsters ? Monsters.renderMonster(dummyMonster, { size: 68, tier: m.tier }) : (m.icon || '🐲');
+      }
+      return '🐲';
     };
 
-    const html = DexCards.renderList(this.entries, this.progress, {
+    const listToRender = (this.monsters && this.monsters.length) ? this.monsters : this.entries;
+
+    const html = DexCards.renderList(listToRender, this.progress, {
       brutal: this.brutalPreview,
       filter: {
         element: this.filterElement || undefined,
-        tier: this.filterTier || undefined
+        tier: this.filterTier || undefined,
+        owner: this.filterOwner !== 'all' ? this.filterOwner : undefined,
+        theme: this.filterTheme !== 'ALL' ? this.filterTheme : undefined
       },
       art: artCb
     });
 
     slot.innerHTML = html;
+
+    // Pasang click listener pada kartu monster & tombol detail
+    $$('.dex-monster-card', slot).forEach(card => {
+      card.style.cursor = 'pointer';
+      card.onclick = () => {
+        const id = parseInt(card.dataset.id, 10);
+        const m = (this.monsters || []).find(x => x.id === id);
+        if (m) this.openMonsterDetailModal(m);
+      };
+    });
+  },
+
+  openMonsterDetailModal(m) {
+    if (window.Sfx) Sfx.play('tap');
+    const isKnown = Boolean(m.encountered || m.defeated || (m.encounters > 0) || (m.defeats > 0));
+    const B = window.BossSkills;
+    const elKey = (B && B.elementForTheme(m.theme)) || 'nature';
+    const elInfo = (B && B.ELEMENTS[elKey]) || { name: 'Alam', icon: '🌿', color: '#22C55E', title: 'Roh Rimba' };
+    const brutal = this.brutalPreview;
+    const allSkills = (B && B.skillsFor(elKey, 'legend')) || [];
+
+    const tierToUse = this.filterTier || (m.defeated > 0 ? 'legend' : 'common');
+    const monsterSvg = isKnown
+      ? (window.Monsters ? Monsters.renderMonster(m, { size: 120, tier: tierToUse }) : elInfo.icon)
+      : `<div style="font-size:3.5rem;line-height:120px;opacity:0.25;text-align:center">❓</div>`;
+
+    const modal = document.createElement('div');
+    modal.className = 'modal-mask active';
+    modal.style.zIndex = '9999';
+    modal.innerHTML = `
+      <div class="modal card" style="max-width:440px;width:92%;padding:18px;max-height:85vh;overflow-y:auto;text-align:left;border:1px solid ${esc(elInfo.color)};box-shadow:0 10px 30px rgba(0,0,0,0.6)">
+        <!-- HEADER -->
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:8px">
+          <div>
+            <div style="font-size:0.75rem;color:var(--c-muted)">Detail Bos Elemen #${m.id}</div>
+            <div style="font-weight:800;font-size:1.15rem;color:#fff">${isKnown ? esc(m.name) : `??? #${m.id}`}</div>
+          </div>
+          <button class="btn ghost small" id="btn-modal-close" style="padding:4px 10px;font-size:1rem">✕</button>
+        </div>
+
+        <!-- HERO VIEW -->
+        <div style="display:flex;gap:14px;align-items:center;background:rgba(255,255,255,0.03);padding:12px;border-radius:14px;border:1px solid rgba(255,255,255,0.06);margin-bottom:12px">
+          <div style="width:120px;height:120px;border-radius:18px;background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;overflow:hidden;flex:0 0 120px;border:2px solid ${esc(elInfo.color)};box-shadow:0 0 16px ${esc(elInfo.color)}33">
+            ${monsterSvg}
+          </div>
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
+            <span style="font-size:0.75rem;font-weight:800;color:${esc(elInfo.color)};display:inline-flex;align-items:center;gap:4px">
+              ${esc(elInfo.icon)} ${esc(elInfo.name)} · ${esc(elInfo.title)}
+            </span>
+            <div style="font-size:0.78rem;color:var(--c-muted)">
+              Wilayah: <b>${esc(m.theme ? m.theme.toUpperCase() : '-')}</b>
+            </div>
+            <div style="font-size:0.78rem;color:var(--c-muted)">
+              Ditemui: <b style="color:#fff">${m.encounters || 0}×</b> · Kalah: <b style="color:#34d399">${m.defeats || 0}×</b>
+            </div>
+            ${m.bestStars ? `<div style="font-size:0.78rem;color:#fbbf24">Bintang Tertinggi: ${'⭐'.repeat(m.bestStars)}</div>` : ''}
+            ${m.bestStreak ? `<div style="font-size:0.75rem;color:var(--c-muted)">Combo Terpanjang: 🔥 ${m.bestStreak}</div>` : ''}
+          </div>
+        </div>
+
+        <!-- SKILLS SECTION -->
+        <div style="margin-bottom:8px">
+          <div style="font-size:0.82rem;font-weight:800;color:#fff;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between">
+            <span>⚡ Jurus Elemen ${esc(elInfo.name)} (${allSkills.length})</span>
+            ${brutal ? `<span style="font-size:0.7rem;color:#ef4444;font-weight:700">💀 Pratinjau Brutal</span>` : ''}
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            ${allSkills.map((sk, idx) => {
+              const tierName = idx === 0 ? 'Common' : (idx === 1 ? 'Rare' : (idx === 2 ? 'Epic' : 'Legend'));
+              const tierBadgeColor = idx === 0 ? '#94a3b8' : (idx === 1 ? '#3b82f6' : (idx === 2 ? '#a855f7' : '#f59e0b'));
+              const descNormal = B ? B.describeSkill(sk, tierName.toLowerCase(), false) : sk;
+              const descBrutal = B ? B.describeSkill(sk, tierName.toLowerCase(), true) : sk;
+              return `
+                <div style="padding:10px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08)">
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+                    <span style="font-size:0.85rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:6px">
+                      ${esc(sk.icon)} ${esc(sk.name)}
+                    </span>
+                    <span style="font-size:0.68rem;font-weight:800;padding:2px 8px;border-radius:999px;background:${tierBadgeColor}22;color:${tierBadgeColor};border:1px solid ${tierBadgeColor}">
+                      ${tierName}
+                    </span>
+                  </div>
+                  <div style="font-size:0.78rem;color:var(--text);line-height:1.4">
+                    ${esc(brutal ? descBrutal.text : descNormal.text)}
+                  </div>
+                  ${!brutal ? `
+                    <div style="font-size:0.7rem;color:#ef4444;margin-top:4px;padding-top:4px;border-top:1px dashed rgba(255,255,255,0.06)">
+                      💀 <i>Mode Brutal:</i> ${esc(descBrutal.text)}
+                    </div>
+                  ` : ''}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+
+        <button class="btn primary block" id="btn-modal-done" style="width:100%;margin-top:12px;padding:8px">Tutup</button>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+    modal.querySelector('#btn-modal-close').onclick = () => modal.remove();
+    modal.querySelector('#btn-modal-done').onclick = () => modal.remove();
+    modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
   }
 };
 

@@ -32,12 +32,131 @@
       </ul>
     </article>`;
   }
-  // list: array entry; progress: { 'fire:legend': {defeated,brutalDefeated} }; filter: { element, tier }
+  // list: array entry; progress: { 'fire:legend': {defeated,brutalDefeated} }; filter: { element, tier, owner, theme }
   function renderList(list, progress, opts) {
+    if (!list || !list.length) {
+      return '<p class="dex-empty" data-testid="dex-empty" style="text-align:center;padding:30px;color:var(--c-muted)">Tidak ada monster untuk filter ini.</p>';
+    }
     const f = (opts && opts.filter) || {};
-    const rows = list.filter((e) => (!f.element || e.element === f.element) && (!f.tier || e.tier === f.tier));
-    if (!rows.length) return '<p class="dex-empty" data-testid="dex-empty">Tidak ada monster untuk filter ini.</p>';
-    return `<div class="dex-list" data-testid="dex-list">${rows.map((e) => renderCard(e, (progress || {})[e.id], opts)).join('')}</div>`;
+    // If entries have 'skills' array, it's 40 dexEntries
+    const isDexEntries = Array.isArray(list[0].skills);
+
+    if (isDexEntries) {
+      const rows = list.filter((e) => (!f.element || e.element === f.element) && (!f.tier || e.tier === f.tier));
+      if (!rows.length) return '<p class="dex-empty" data-testid="dex-empty">Tidak ada monster untuk filter ini.</p>';
+      return `<div class="dex-list" data-testid="dex-list">${rows.map((e) => renderCard(e, (progress || {})[e.id], opts)).join('')}</div>`;
+    }
+
+    // Otherwise, list is 100 monsters
+    const B = typeof BossSkills !== 'undefined' ? BossSkills : (root.BossSkills || (typeof require === 'function' ? require('../shared/bossskills.js') : null));
+    const rows = list.filter((m) => {
+      if (f.element) {
+        const elKey = (B && B.elementForTheme(m.theme)) || '';
+        if (elKey !== f.element) return false;
+      }
+      if (f.theme && f.theme !== 'ALL' && m.theme !== f.theme) return false;
+      const isKnown = Boolean(m.encountered || m.defeated || (m.encounters > 0) || (m.defeats > 0));
+      if (f.owner === 'encountered' && !isKnown) return false;
+      if (f.owner === 'unencountered' && isKnown) return false;
+      return true;
+    });
+
+    if (!rows.length) return '<p class="dex-empty" data-testid="dex-empty" style="text-align:center;padding:30px;color:var(--c-muted)">Tidak ada monster untuk filter ini.</p>';
+    return `<div class="dex-list" data-testid="dex-list">${rows.map((m) => renderMonsterCard(m, { ...opts, tier: f.tier || opts?.tier })).join('')}</div>`;
+  }
+
+  // m: monster dari Monsters.MONSTERS (1..100) + progress; opts: { brutal, tier, art }
+  function renderMonsterCard(m, opts) {
+    const o = opts || {};
+    const brutal = Boolean(o.brutal);
+    const tier = o.tier || 'all';
+    const isKnown = Boolean(m.encountered || m.defeated || (m.encounters > 0) || (m.defeats > 0));
+
+    const B = typeof BossSkills !== 'undefined' ? BossSkills : (root.BossSkills || (typeof require === 'function' ? require('../shared/bossskills.js') : null));
+    const elKey = (B && B.elementForTheme(m.theme)) || 'nature';
+    const elInfo = (B && B.ELEMENTS[elKey]) || { name: 'Alam', icon: '🌿', color: '#22C55E', title: 'Roh Rimba' };
+
+    const skillCount = tier === 'common' ? 1 : (tier === 'rare' ? 2 : (tier === 'epic' ? 3 : 4));
+    const allSkills = (B && B.skillsFor(elKey, 'legend')) || [];
+    const skillsToShow = allSkills.slice(0, skillCount).map(s => {
+      const desc = B ? B.describeSkill(s, tier === 'all' ? 'legend' : tier, brutal) : s;
+      return {
+        id: s.id,
+        name: s.name,
+        icon: s.icon,
+        text: desc.text || s.text || '',
+        textBrutal: (B && B.describeSkill(s, tier === 'all' ? 'legend' : tier, true).text) || s.textBrutal || desc.text
+      };
+    });
+
+    const artHtml = isKnown
+      ? (o.art ? o.art(m, tier === 'all' ? 'common' : tier) : `<div style="font-size:2.2rem;line-height:72px">${esc(elInfo.icon)}</div>`)
+      : `<div style="font-size:2.4rem;line-height:72px;opacity:.25">❓</div>`;
+
+    const statsText = isKnown
+      ? `Ditemui: <b>${m.encounters || 0}×</b> · Kalah: <b>${m.defeats || 0}×</b>`
+      : 'Temukan boss ini dalam petualangan';
+
+    const starsHtml = isKnown && m.bestStars ? ` · <span style="color:#fbbf24">${'⭐'.repeat(m.bestStars)}</span>` : '';
+
+    return `
+      <div class="card item-card dex-card dex-monster-card" data-testid="dex-card-${esc(m.id)}" data-id="${esc(m.id)}" style="padding:12px;background:var(--c-surface);border-radius:var(--radius);border:1px solid ${isKnown ? 'var(--c-surface-strong)' : 'rgba(255,255,255,0.06)'};display:flex;flex-direction:column;gap:8px;margin-bottom:10px;${brutal ? 'border-color:rgba(220,38,38,0.5);background:linear-gradient(180deg,rgba(220,38,38,0.06),var(--c-surface));' : ''}">
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <!-- THUMBNAIL BOX (Skin-adapted) -->
+          <div style="flex:0 0 72px;display:flex;flex-direction:column;align-items:center;gap:4px">
+            <div class="skin-thumbnail-box" style="width:72px;height:72px;border-radius:14px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:inset 0 2px 6px rgba(0,0,0,0.3)">
+              ${artHtml}
+            </div>
+            <span style="font-size:0.68rem;font-weight:800;color:${esc(elInfo.color)};padding:2px 6px;border-radius:999px;background:color-mix(in srgb, ${esc(elInfo.color)} 18%, transparent);border:1px solid ${esc(elInfo.color)};margin-top:2px;display:flex;align-items:center;gap:3px">
+              ${esc(elInfo.icon)} ${esc(elInfo.name)}
+            </span>
+          </div>
+
+          <!-- MAIN INFO -->
+          <div style="flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
+              <div>
+                <div style="font-weight:800;font-size:0.95rem;color:${isKnown ? '#fff' : 'var(--c-muted)'};line-height:1.25">
+                  ${isKnown ? esc(m.name) : `??? #${m.id}`}
+                </div>
+                <div style="font-size:0.75rem;color:var(--c-muted);margin-top:2px">
+                  #${m.id} · ${esc(elInfo.title)}${starsHtml}
+                </div>
+              </div>
+              ${isKnown ? `<span class="chip good" style="font-size:0.65rem;padding:2px 8px;flex:0 0 auto">✓ Ditemui</span>` : `<span class="chip" style="font-size:0.65rem;padding:2px 8px;color:var(--c-muted);flex:0 0 auto">🔒 Belum</span>`}
+            </div>
+
+            <!-- SKILLS BADGES (Skin passive style) -->
+            <div style="display:flex;flex-direction:column;gap:4px;margin-top:4px">
+              ${skillsToShow.map(sk => `
+                <div class="dex-skill-row" data-testid="dex-skill-${esc(sk.id)}" style="font-size:0.75rem;font-weight:700;color:${brutal ? '#ef4444' : esc(elInfo.color)};background:color-mix(in srgb, ${brutal ? '#ef4444' : esc(elInfo.color)} 12%, transparent);padding:4px 8px;border-radius:6px;border:1px solid color-mix(in srgb, ${brutal ? '#ef4444' : esc(elInfo.color)} 28%, transparent);line-height:1.35;word-break:break-word">
+                  <span>${esc(sk.icon)} <b>${esc(sk.name)}</b>: ${esc(brutal ? sk.textBrutal : sk.text)}</span>
+                </div>
+              `).join('')}
+            </div>
+
+            <!-- FOOTER STATS & ACTION -->
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.06);margin-top:2px">
+              <div style="font-size:0.75rem;color:var(--c-muted)">
+                ${statsText}
+              </div>
+              <div style="flex:0 0 auto">
+                <button type="button" class="btn small ${isKnown ? 'primary' : 'ghost'} btn-view-monster" data-id="${esc(m.id)}" style="font-size:0.75rem;padding:4px 12px">
+                  ${isKnown ? 'Detail Boss 👁️' : 'Terkunci 🔒'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderMonsterList(monsters, progress, opts) {
+    if (!monsters || !monsters.length) {
+      return '<p class="dex-empty" data-testid="dex-empty" style="text-align:center;padding:30px;color:var(--c-muted)">Tidak ada monster untuk filter ini.</p>';
+    }
+    return `<div class="dex-list" data-testid="dex-list">${monsters.map((m) => renderMonsterCard(m, opts)).join('')}</div>`;
   }
   const CSS = `
 .dex-list{display:grid;grid-template-columns:1fr;gap:12px}              /* SELALU 1 kolom: 1 baris = 1 kartu, juga di layar lebar */
@@ -61,5 +180,5 @@
 .dex-brutal-badge{background:#DC2626;color:#fff;border-color:#DC2626}
 @media (prefers-reduced-motion:no-preference){.dex-tier-legend{animation:dexGlow 2.4s ease-in-out infinite alternate}}
 @keyframes dexGlow{from{box-shadow:0 0 8px #F59E0B55}to{box-shadow:0 0 18px #F59E0Bcc}}`;
-  return { renderCard, renderList, CSS, esc };
+  return { renderCard, renderList, renderMonsterCard, renderMonsterList, CSS, esc };
 });
