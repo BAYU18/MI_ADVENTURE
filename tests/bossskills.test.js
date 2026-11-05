@@ -23,7 +23,8 @@ test('Mode Brutal: efek skill tepat 2× (atau mentok batas pengaman), hadiah 3×
     assert.ok(Math.abs(b - 2 * n) < 1e-9 || Math.abs(b - cap) < 1e-9, `${skill.id}/${t}: ${n} → ${b}`);
   }
   assert.equal(B.brutalRewardMult(true), 3); assert.equal(B.brutalRewardMult(false), 1);
-  assert.equal(B.brutalAvailable(1), true);
+  assert.equal(B.brutalAvailable(5), true);
+  assert.equal(B.brutalAvailable(4), false);
 });
 test('Api: makin sedikit darah boss, damage ke pemain makin besar (contoh permintaan)', () => {
   const dmg = (r, tier, brutal) => B.onWrong({ element: 'fire', tier, brutal: !!brutal, idx: 1, phase: 1, bossHpRatio: r, baseDamage: 6, playerMaxHp: 100, energy: 5, fx: B.newFx() }).damage;

@@ -12,7 +12,7 @@
   const TIERS = ['common', 'rare', 'epic', 'legend'];
   const TIER_POWER = { common: 1.0, rare: 1.3, epic: 1.6, legend: 2.0 };   // makin tinggi rarity → efek skill makin besar
   const SKILL_COUNT = { common: 1, rare: 2, epic: 3, legend: 4 };            // makin tinggi rarity → skill makin banyak
-  const BRUTAL = { enabled: true, minLevel: 1, skillMult: 2, rewardMult: 3 };
+  const BRUTAL = { enabled: true, minLevel: 5, skillMult: 2, rewardMult: 3 };
   const LIMITS = { maxDamageMult: 6, maxHitPct: 0.5, minTimeMult: 0.6, minTimeSec: 8 };   // pengaman agar tidak mustahil/menyebalkan
   const RARITY_LABEL = { common: 'Common', rare: 'Rare', epic: 'Epic', legend: 'Legend' };
 

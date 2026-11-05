@@ -20,7 +20,8 @@
   - ✅ 2026-11-05 03:52 — check-schema lulus, smoke-test-v4 lulus 15/15, 29 tes bossskills+bossfx+progression lulus 100%
 
 ## Fase 1 — Server (skill boss, Brutal, hadiah, Dex)
-- [ ] **T-10** `POST /api/game/start`: `BossFx.startFields` (elemen dari tema, `brutal` divalidasi → `403 BRUTAL_LOCKED`), simpan kolom, respons `boss` + `publicView`; tema belum terpetakan = tanpa skill (tidak gagal) _(Spek: C.1, D.1 · Bukti: skenario H.9, H.10)_
+- [x] **T-10** `POST /api/game/start`: `BossFx.startFields` (elemen dari tema, `brutal` divalidasi → `403 BRUTAL_LOCKED`), simpan kolom, respons `boss` + `publicView`; tema belum terpetakan = tanpa skill (tidak gagal) _(Spek: C.1, D.1 · Bukti: skenario H.9, H.10)_ <!--tries:1-->
+  - ✅ 2026-11-05 03:56 — lib/db.js, server.js · startSession & POST /api/game/start · BRUTAL_LOCKED untuk lv < 5, boss_element, brutal, boss.skills terintegrasi
 - [ ] **T-11** Penyajian soal (start/next/resume): `onServeQuestion` → `timeLimitSec` final, DoT, telegraph; persist `fx`; respons `bossFx`; idempoten saat resume _(Spek: C.2 · Bukti: skenario H.5, H.6)_
 - [ ] **T-12** Jawaban benar/salah: `onWrongAnswer` (damage final, `shieldMult`, energi tersedot, fx) menggantikan `monster_damage` polos; `comboBonusMult` ke `hitDamage`; lantai HP boss v6 tetap _(Spek: C.3, C.4 · Bukti: skenario H.4, H.7, H.8)_
 - [ ] **T-13** Endpoint pakai-skill: `extraCost` (Fase 2) di validasi **dan** `skills[].cost`, `healMult` pada efek heal; alasan `NO_ENERGY` memakai biaya akhir _(Spek: C.5 · Bukti: skenario H.8)_

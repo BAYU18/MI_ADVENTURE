@@ -763,6 +763,9 @@ const server = http.createServer(async (req, res) => {
         };
         return json(res, resp, 409);
       }
+      if (e.code === 'BRUTAL_LOCKED') {
+        return err(res, e.message || 'Mode Brutal hanya dapat diakses pemain level 5 ke atas', 403, 'BRUTAL_LOCKED');
+      }
       if (e.message === 'SUBJECT_NOT_FOUND') {
         return err(res, 'Mata pelajaran tidak ditemukan atau belum aktif', 404, 'SUBJECT_NOT_FOUND');
       }

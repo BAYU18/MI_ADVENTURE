@@ -4,7 +4,7 @@ const F = require('../lib/bossfx.js'); const B = require('../shared/bossskills.j
 const mkRow = (o) => ({ boss_element: 'fire', boss_tier: 'epic', brutal: 0, boss_phase: 1, boss_hp: 300, boss_max_hp: 400, monster_damage: 6, player_hp: 80, player_max_hp: 100, boss_fx_json: JSON.stringify(B.newFx()), ...o });
 
 test('startFields: elemen dari tema, Brutal hanya bila tersedia & tema terpetakan, tema tak dikenal tidak menggagalkan sesi', () => {
-  assert.deepEqual({ ...F.startFields({ themeKey: 'api', brutal: true, level: 1 }), boss_fx_json: 0 }, { boss_element: 'fire', brutal: 1, boss_fx_json: 0 });
+  assert.deepEqual({ ...F.startFields({ themeKey: 'api', brutal: true, level: 5 }), boss_fx_json: 0 }, { boss_element: 'fire', brutal: 1, boss_fx_json: 0 });
   assert.equal(F.startFields({ themeKey: 'api', brutal: false, level: 9 }).brutal, 0);
   const none = F.startFields({ themeKey: 'tidak-dikenal', brutal: true, level: 9 }); assert.equal(none.boss_element, null); assert.equal(none.brutal, 0);
   const old = B.BRUTAL.minLevel; B.BRUTAL.minLevel = 5; assert.equal(F.startFields({ themeKey: 'laut', brutal: true, level: 4 }).brutal, 0); assert.equal(F.startFields({ themeKey: 'laut', brutal: true, level: 5 }).brutal, 1); B.BRUTAL.minLevel = old;
