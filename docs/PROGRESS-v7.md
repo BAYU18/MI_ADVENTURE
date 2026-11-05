@@ -103,3 +103,37 @@
     - Di `public/index.html`: Menaikkan versi script `dexcards.js?v=20261105v4` dan `app.js?v=20261105v8` untuk cache busting.
     - Di `tests/ui-v7.test.js`: Menambahkan unit test subtest 6 memverifikasi fungsi filter `defeated`, `encountered`, dan `unencountered`, serta keberadaan tombol `data-owner="defeated"`.
   - ✅ 2026-11-05 13:57 — Seluruh 41 unit tests (`ui-v7`, `bossskills`, `bossfx.glue`, `skills-v6`) 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.
+- [x] **T-45** Loadout Bos Battle vs Player (PvP 5 Slot), Syarat Rarity Level, & Integrasi Buff Aktif di Duel:
+  - **Permintaan**:
+    1. Di menu Skill tambahkan loadout battle vs player untuk memasang boss yang sudah dikalahkan dan otomatis mendapatkan skill boss tersebut.
+    2. Tersedia 5 slot: terbuka 1 slot di Lv 5, dan tiap kelipatan 5 level bertambah 1 slot (Lv 5: 1 slot, Lv 10: 2, Lv 15: 3, Lv 20: 4, Lv 25: 5).
+    3. Batasan Rarity berdasarkan level:
+       - Level 5–10: hanya bisa pakai Common
+       - Level 11–15: bisa pakai Rare (Common & Rare)
+       - Level 16–20: bisa pakai Epic (Common, Rare, Epic)
+       - Level 20+: bisa pakai Legend (Common, Rare, Epic, Legend)
+    4. Pastikan skill bos aktif saat battle vs player (PvP duel).
+    5. Tampilkan informasi setiap buff dari skin dan bos ke masing-masing player di arena duel.
+    6. Pemain dapat mengetahui saat skill aktif dengan animasi pulse dan banner aksi/toast.
+  - **Implementasi**:
+    - **Database & Backend (`lib/db.js`)**:
+      - Tabel `player_duel_boss_loadout (player_id, slot_0, slot_1, slot_2, slot_3, slot_4)` di skema & migrasi.
+      - Logika pembukaan slot `getUnlockedBossSlots(pLevel)` (1 di Lv 5, +1 tiap kelipatan 5 level).
+      - Logika batasan rarity `getMaxAllowedBossRarity(pLevel)` & `canEquipBossRarity(pLevel, tier)`.
+      - Validasi equip `updatePlayerDuelBossLoadout`: menolak jika slot terkunci (`SLOT_LOCKED`), rarity melebihi batas level (`RARITY_LOCKED`), bos belum dikalahkan (`BOSS_NOT_DEFEATED`), atau duplikasi bos (`DUPLICATE_BOSS`).
+      - Fungsi `getPlayerEquippedBossSkills(db, playerId)` meresolusi elemen dan daftar jurus bos aktif.
+      - Endpoint `GET /api/duel-boss-loadout` dan `PUT/POST /api/duel-boss-loadout` di `server.js`.
+    - **Duel PvP Arena & Buffs (`lib/db-duel.js`, `public/js/duel.js`, `public/css/style.css`)**:
+      - `getPlayerDuelPassives(db, playerId)` menggabungkan buff pasif skin dan jurus bos terpasang.
+      - `getDuelState` menyertakan `skinBuffs` dan `bossBuffs` untuk kedua pemain.
+      - Arena duel menampilkan wadah chip buff `#duel-buffs-me` dan `#duel-buffs-opp` di bawah status HP bar.
+      - Efek skill bos aktif dieksekusi di `submitAnswer` (Rage multiplier, Charged Strike tiap N soal, DoT extra damage, Time Squeeze, Phase Rage, Shield Pierce, Energy Siphon) dan dikembalikan dalam `bossSkillsTriggered`.
+      - Menampilkan banner aksi, notifikasi toast, dan animasi pulse `.buff-pulse` saat jurus bos terpicu.
+    - **UI Menu Skill (`public/js/app.js`)**:
+      - Di tab Skill saat mode `⚔️ Battle vs Player`, menampilkan kontainer Loadout Bos 5 Slot (`.loadout-boss-slot`): status terkunci dengan gembok `🔒 Buka di Lv. X`, slot kosong `➕ Pasang`, dan slot terisi dengan avatar SVG bos, badge tier/elemen, dan jumlah skill.
+      - Ringkasan jurus bos aktif (`✨ Jurus & Kekuatan Bos Aktif`).
+      - Modal `openSelectBossForSlotModal` dengan filter rarity, syarat level, opsi tukar bos, dan lepas bos.
+    - **Pengujian Unit & Regresi (`tests/duel-boss-loadout.test.js`, `tests/ui-v7.test.js`)**:
+      - 14 pengujian unit khusus loadout bos PvP (slot unlock, rarity rules, defeat requirements, getDuelState, bossSkillsTriggered) lulus 100%.
+      - Seluruh 64 tes duel, UI, dan skill boss lulus 100%.
+  - ✅ 2026-11-05 14:32 — Seluruh 64 unit tests 100% lulus. PM2 restart sukses & HTTP 200 terverifikasi.

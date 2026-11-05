@@ -212,4 +212,24 @@ test('H.12: UI Pertempuran & Mode Brutal (Spek E.1, E.2)', async (t) => {
     assert.ok(css.includes('buffGlow'), 'style.css memuat keyframes buffGlow');
     assert.ok(css.includes('passivePop'), 'style.css memuat keyframes passivePop');
   });
+
+  await t.test('6. Loadout Bos Battle vs Player (5 Slot) & Integrasi Buff di Menu Skill serta Arena Duel', () => {
+    // 1. Pastikan app.js mendukung loadout bos 5 slot dan modal
+    assert.ok(appJs.includes('loadout-boss-slot'), 'app.js memuat loadout-boss-slot');
+    assert.ok(appJs.includes('openSelectBossForSlotModal'), 'Screens.profil memuat openSelectBossForSlotModal');
+    assert.ok(appJs.includes('getDuelBossLoadout'), 'API memuat getDuelBossLoadout');
+    assert.ok(appJs.includes('updateDuelBossLoadout'), 'API memuat updateDuelBossLoadout');
+
+    // 2. Pastikan duel.js memuat wadah buff dan fungsi renderDuelBuffs
+    const duelJs = fs.readFileSync(path.join(__dirname, '../public/js/duel.js'), 'utf8');
+    assert.ok(duelJs.includes('duel-buffs-me'), 'duel.js memuat wadah buff player');
+    assert.ok(duelJs.includes('duel-buffs-opp'), 'duel.js memuat wadah buff lawan');
+    assert.ok(duelJs.includes('renderDuelBuffs'), 'duel.js memuat fungsi renderDuelBuffs');
+    assert.ok(duelJs.includes('bossSkillsTriggered'), 'duel.js mendeteksi bossSkillsTriggered');
+
+    // 3. Pastikan style.css memuat styling chip buff duel
+    assert.ok(css.includes('.duel-buffs-row'), 'style.css memuat .duel-buffs-row');
+    assert.ok(css.includes('.duel-buff-chip'), 'style.css memuat .duel-buff-chip');
+    assert.ok(css.includes('.buff-pulse'), 'style.css memuat .buff-pulse');
+  });
 });

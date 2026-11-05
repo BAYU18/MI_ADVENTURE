@@ -292,6 +292,17 @@ const API = {
     });
   },
 
+  async getDuelBossLoadout() {
+    return this.req('/api/duel-boss-loadout');
+  },
+
+  async updateDuelBossLoadout(slots) {
+    return this.req('/api/duel-boss-loadout', {
+      method: 'PUT',
+      body: JSON.stringify({ slots }),
+    });
+  },
+
   async upgradeSkill(skillId, idemKey) {
     const headers = {};
     if (idemKey) headers['Idempotency-Key'] = idemKey;
@@ -4113,6 +4124,233 @@ Screens.profil = {
     };
   },
 
+  async openSelectBossForSlotModal(slotIdx, bossLoadout, pLevel) {
+    const existing = $('.modal-mask');
+    if (existing) existing.remove();
+
+    let dexList = [];
+    try {
+      dexList = await API.getDex();
+    } catch (_) {}
+
+    const defeatedMonsters = dexList.filter(m => m.defeated || (m.defeats > 0));
+    const currentMonsterId = bossLoadout.rawSlots ? bossLoadout.rawSlots[slotIdx] : null;
+    const slotLabel = `Slot ${slotIdx + 1} Bos (PvP)`;
+    const maxRarity = bossLoadout.maxAllowedRarity || (pLevel <= 10 ? 'common' : (pLevel <= 15 ? 'rare' : (pLevel < 20 ? 'epic' : 'legend')));
+
+    const RARITY_LABEL = { common: 'Common', rare: 'Rare', epic: 'Epic', legend: 'Legend' };
+    const TIER_ICON = { common: '⚪', rare: '🔵', epic: '🟣', legend: '🟡' };
+    const TIER_MIN_LVL = { common: 5, rare: 11, epic: 16, legend: 20 };
+    const TIER_ORDER = { common: 1, rare: 2, epic: 3, legend: 4 };
+
+    const modal = document.createElement('div');
+    modal.className = 'modal-mask active';
+    modal.setAttribute('data-testid', 'modal-select-boss-for-slot');
+    modal.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(5,8,20,0.85);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn 0.2s ease;';
+
+    let activeFilter = 'ALL';
+
+    const renderBossModalContent = () => {
+      const filtered = activeFilter === 'ALL'
+        ? defeatedMonsters
+        : defeatedMonsters.filter(m => {
+            const mod10 = (m.id - 1) % 10;
+            const tier = m.tier || (mod10 < 4 ? 'common' : (mod10 < 7 ? 'rare' : (mod10 < 9 ? 'epic' : 'legend')));
+            return tier === activeFilter;
+          });
+
+      modal.innerHTML = `
+        <div class="modal card" style="max-width:440px;width:100%;max-height:88vh;padding:18px;border:1px solid var(--c-surface-strong);box-shadow:0 20px 40px rgba(0,0,0,0.85);border-radius:20px;background:linear-gradient(165deg, #1e1b4b, #0f172a);display:flex;flex-direction:column;gap:10px;overflow:hidden">
+          <!-- HEADER -->
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:10px">
+            <div>
+              <h3 style="font-size:1.05rem;margin:0;color:#fff;display:flex;align-items:center;gap:6px">
+                👹 Pasang Bos di ${slotLabel}
+              </h3>
+              <div style="font-size:0.75rem;color:var(--c-muted);margin-top:3px">
+                Batas Rarity Kamu: <span class="chip small" style="text-transform:uppercase;font-weight:700;background:rgba(255,255,255,0.1)">${maxRarity || 'Belum Terbuka'}</span> (Lv. ${pLevel})
+              </div>
+            </div>
+            <button class="icon-btn" id="modal-boss-close-btn" style="width:32px;height:32px;font-size:1.1rem;color:var(--c-muted);border:none;background:transparent;cursor:pointer">✕</button>
+          </div>
+
+          <!-- RARITY RULE CALLOUT -->
+          <div style="padding:6px 10px;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.25);border-radius:8px;font-size:0.7rem;color:#93c5fd;line-height:1.35">
+            💡 <b>Syarat Rarity:</b> Lv 5-10: ⚪ Common · Lv 11-15: 🔵 Rare · Lv 16-20: 🟣 Epic · Lv 20+: 🟡 Legend
+          </div>
+
+          <!-- FILTER BAR -->
+          <div style="display:flex;gap:4px;overflow-x:auto;padding-bottom:2px;-webkit-overflow-scrolling:touch">
+            <button class="btn small ${activeFilter === 'ALL' ? 'primary' : 'ghost'} btn-boss-filter" data-tier="ALL" style="padding:4px 8px;font-size:0.75rem">Semua (${defeatedMonsters.length})</button>
+            <button class="btn small ${activeFilter === 'common' ? 'primary' : 'ghost'} btn-boss-filter" data-tier="common" style="padding:4px 8px;font-size:0.75rem">⚪ Common</button>
+            <button class="btn small ${activeFilter === 'rare' ? 'primary' : 'ghost'} btn-boss-filter" data-tier="rare" style="padding:4px 8px;font-size:0.75rem">🔵 Rare</button>
+            <button class="btn small ${activeFilter === 'epic' ? 'primary' : 'ghost'} btn-boss-filter" data-tier="epic" style="padding:4px 8px;font-size:0.75rem">🟣 Epic</button>
+            <button class="btn small ${activeFilter === 'legend' ? 'primary' : 'ghost'} btn-boss-filter" data-tier="legend" style="padding:4px 8px;font-size:0.75rem">🟡 Legend</button>
+          </div>
+
+          <!-- LIST DEFEATED BOSSES -->
+          <div style="overflow-y:auto;max-height:50vh;display:flex;flex-direction:column;gap:8px;padding-right:2px">
+            ${defeatedMonsters.length === 0 ? `
+              <div style="text-align:center;padding:32px 14px;color:var(--c-muted);font-size:0.85rem">
+                <div style="font-size:2rem;margin-bottom:6px">🔒</div>
+                Kamu belum mengalahkan bos monster apapun.<br>
+                Kalahkan bos di menu <b>Petualangan</b> untuk mendapatkan jurusnya!
+              </div>
+            ` : filtered.length === 0 ? `
+              <div style="text-align:center;padding:24px 14px;color:var(--c-muted);font-size:0.8rem">
+                Tidak ada bos yang terkalahkan untuk filter ini.
+              </div>
+            ` : filtered.map(m => {
+              const mod10 = (m.id - 1) % 10;
+              const tier = m.tier || (mod10 < 4 ? 'common' : (mod10 < 7 ? 'rare' : (mod10 < 9 ? 'epic' : 'legend')));
+              const B = typeof BossSkills !== 'undefined' ? BossSkills : null;
+              const elKey = B ? B.elementForTheme(m.theme) : 'nature';
+              const elInfo = (B && B.ELEMENTS[elKey]) || { name: 'Alam', icon: '🌿', color: '#22c55e' };
+              const skills = B ? B.skillsFor(elKey, tier) : [];
+
+              const isThisSlot = m.id === currentMonsterId;
+              const equippedSlotIdx = bossLoadout.rawSlots ? bossLoadout.rawSlots.indexOf(m.id) : -1;
+              const isEquippedElsewhere = equippedSlotIdx !== -1 && equippedSlotIdx !== slotIdx;
+
+              const maxRank = TIER_ORDER[maxRarity] || 1;
+              const bossRank = TIER_ORDER[tier] || 1;
+              const canEquip = bossRank <= maxRank;
+
+              const minLvlReq = TIER_MIN_LVL[tier] || 5;
+
+              let actionHtml = '';
+              if (isThisSlot) {
+                actionHtml = `<span class="chip good" style="font-size:0.72rem;padding:4px 8px">Terpasang</span>`;
+              } else if (!canEquip) {
+                actionHtml = `<span style="font-size:0.7rem;color:#f87171;font-weight:700">🔒 Butuh Lv.${minLvlReq}</span>`;
+              } else if (isEquippedElsewhere) {
+                actionHtml = `
+                  <button class="btn small ghost btn-equip-boss" data-id="${m.id}" data-action="swap" style="font-size:0.72rem;color:#f59e0b;border-color:#f59e0b;padding:4px 8px;white-space:nowrap">
+                    Tukar (Slot ${equippedSlotIdx + 1})
+                  </button>
+                `;
+              } else {
+                actionHtml = `
+                  <button class="btn small primary btn-equip-boss" data-id="${m.id}" data-action="equip" style="font-size:0.72rem;padding:4px 10px;white-space:nowrap">
+                    Gunakan ⚔️
+                  </button>
+                `;
+              }
+
+              const MRenderer = typeof Monsters !== 'undefined' ? Monsters : null;
+              const rawSvg = MRenderer ? MRenderer.renderMonster(m, { size: 48, tier }) : `<span style="font-size:1.8rem">${elInfo.icon}</span>`;
+
+              return `
+                <div class="card boss-pick-item" data-id="${m.id}" data-tier="${tier}" data-can-equip="${canEquip}" style="padding:8px 10px;background:rgba(255,255,255,0.04);border:1px solid ${isThisSlot ? 'var(--c-primary)' : 'rgba(255,255,255,0.08)'};border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:8px;opacity:${canEquip ? '1' : '0.65'}">
+                  <div style="display:flex;align-items:center;gap:10px;overflow:hidden">
+                    <div style="width:48px;height:48px;border-radius:10px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;flex:0 0 auto;border:1px solid rgba(255,255,255,0.1)">
+                      ${rawSvg}
+                    </div>
+                    <div style="overflow:hidden">
+                      <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">
+                        <strong style="color:#fff;font-size:0.85rem">${esc(m.name)}</strong>
+                        <span style="font-size:0.68rem;color:var(--c-muted)">#${m.id}</span>
+                        <span class="chip small" style="font-size:0.65rem;padding:2px 5px;background:${elInfo.color}22;color:${elInfo.color}">${elInfo.icon} ${elInfo.name}</span>
+                        <span class="chip small" style="font-size:0.65rem;padding:2px 5px">${TIER_ICON[tier]} ${RARITY_LABEL[tier]}</span>
+                      </div>
+                      <div style="font-size:0.7rem;color:#cbd5e1;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:210px">
+                        ✨ Skill (${skills.length}): ${skills.map(s => s.name).join(', ')}
+                      </div>
+                    </div>
+                  </div>
+                  <div style="flex:0 0 auto">
+                    ${actionHtml}
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+
+          <!-- FOOTER / UNEQUIP BUTTON -->
+          <div style="display:flex;gap:8px;align-items:center;border-top:1px solid rgba(255,255,255,0.08);padding-top:10px;margin-top:2px">
+            ${currentMonsterId ? `
+              <button class="btn small ghost" id="btn-unequip-boss-slot" style="color:#ef4444;border-color:rgba(239,68,68,0.3);font-size:0.78rem">
+                🗑️ Lepas Bos
+              </button>
+            ` : ''}
+            <div style="flex:1"></div>
+            <button class="btn small ghost" id="modal-boss-cancel-btn" style="font-size:0.8rem">Tutup</button>
+          </div>
+        </div>
+      `;
+
+      // Wire close
+      const closeBtn = $('#modal-boss-close-btn', modal);
+      if (closeBtn) closeBtn.onclick = () => modal.remove();
+      const cancelBtn = $('#modal-boss-cancel-btn', modal);
+      if (cancelBtn) cancelBtn.onclick = () => modal.remove();
+
+      // Wire filter
+      $$('.btn-boss-filter', modal).forEach(btn => {
+        btn.onclick = () => {
+          activeFilter = btn.dataset.tier;
+          renderBossModalContent();
+        };
+      });
+
+      // Wire unequip
+      const unequipBtn = $('#btn-unequip-boss-slot', modal);
+      if (unequipBtn) {
+        unequipBtn.onclick = async () => {
+          unequipBtn.disabled = true;
+          unequipBtn.textContent = 'Melepas...';
+          const newSlots = Array.from({ length: 5 }, (_, i) => (bossLoadout.rawSlots ? bossLoadout.rawSlots[i] : null));
+          newSlots[slotIdx] = null;
+          try {
+            await API.updateDuelBossLoadout(newSlots);
+            toast(`Bos berhasil dilepas dari ${slotLabel}! ✨`);
+            modal.remove();
+            await this.renderActiveTab();
+          } catch (err) {
+            toast('Gagal melepas bos: ' + (err.message || err.code));
+            unequipBtn.disabled = false;
+            unequipBtn.textContent = '🗑️ Lepas Bos';
+          }
+        };
+      }
+
+      // Wire equip buttons
+      $$('.btn-equip-boss', modal).forEach(btn => {
+        btn.onclick = async (e) => {
+          e.stopPropagation();
+          const monsterId = parseInt(btn.dataset.id, 10);
+          btn.disabled = true;
+          btn.textContent = '...';
+
+          const newSlots = Array.from({ length: 5 }, (_, i) => (bossLoadout.rawSlots ? bossLoadout.rawSlots[i] : null));
+          const otherIdx = newSlots.indexOf(monsterId);
+          if (otherIdx !== -1) {
+            newSlots[otherIdx] = currentMonsterId;
+          }
+          newSlots[slotIdx] = monsterId;
+
+          try {
+            await API.updateDuelBossLoadout(newSlots);
+            const mObj = dexList.find(x => x.id === monsterId);
+            toast(`Bos ${mObj ? mObj.name : '#' + monsterId} berhasil dipasang di ${slotLabel}! ⚔️✨`);
+            modal.remove();
+            await this.renderActiveTab();
+          } catch (err) {
+            toast('Gagal memasang bos: ' + (err.message || err.code));
+            btn.disabled = false;
+            btn.textContent = 'Gunakan ⚔️';
+          }
+        };
+      });
+    };
+
+    renderBossModalContent();
+    document.body.appendChild(modal);
+    modal.onclick = (e) => {
+      if (e.target === modal) modal.remove();
+    };
+  },
+
   openSelectSkillForSlotModal(slotIdx, loadout, skillsList, mode = 'adventure', maxSlots = 3) {
     const existing = $('.modal-mask');
     if (existing) existing.remove();
@@ -4987,6 +5225,150 @@ Screens.profil = {
     const activeLoadout = activeMode === 'duel' ? duelLoadout : adventureLoadout;
     const skillsList = skillsRes.skills || [];
 
+    const bossLoadout = skillsRes.duelBossLoadout || {
+      slots: [],
+      rawSlots: [null, null, null, null, null],
+      unlockedCount: 0,
+      maxAllowedRarity: null,
+      playerLevel: 1,
+      activeBossSkills: []
+    };
+    const pLevel = bossLoadout.playerLevel || (this.profileData?.player?.level ?? (Player.data?.level ?? 1));
+    const TIER_ICON = { common: '⚪', rare: '🔵', epic: '🟣', legend: '🟡' };
+    const RARITY_LABEL = { common: 'Common', rare: 'Rare', epic: 'Epic', legend: 'Legend' };
+
+    let bossLoadoutHtml = '';
+    if (activeMode === 'duel') {
+      const bossSlots = (bossLoadout.slots && bossLoadout.slots.length === 5)
+        ? bossLoadout.slots
+        : Array.from({ length: 5 }, (_, idx) => ({
+            slotIndex: idx,
+            unlocked: idx < (bossLoadout.unlockedCount || 0),
+            unlockLevel: 5 * (idx + 1),
+            monster: null,
+            skills: []
+          }));
+
+      bossLoadoutHtml = `
+        <!-- LOADOUT BOS BATTLE VS PLAYER (5 SLOT) -->
+        <div class="card" style="padding:14px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);margin-bottom:12px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+            <div>
+              <h3 style="font-size:0.95rem;margin:0;color:#fff;display:flex;align-items:center;gap:6px">
+                👹 Loadout Bos Duel PvP (5 Slot)
+              </h3>
+              <div style="font-size:0.75rem;color:var(--c-muted);margin-top:2px">
+                Terbuka: <b style="color:var(--c-primary)">${bossLoadout.unlockedCount}/5 Slot</b> · Rarity Maks: <span class="chip small" style="text-transform:uppercase;font-weight:700">${RARITY_LABEL[bossLoadout.maxAllowedRarity] || 'Belum'}</span> (Lv. ${pLevel})
+              </div>
+            </div>
+            <span style="font-size:0.72rem;color:var(--c-muted);text-align:right">Pasang bos kalah</span>
+          </div>
+
+          <!-- RULE BANNER -->
+          <div style="padding:6px 10px;background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.25);border-radius:8px;font-size:0.7rem;color:#c7d2fe;line-height:1.35;margin-bottom:10px">
+            💡 <b>Info:</b> Terbuka 1 slot tiap kelipatan Lv.5. Batas Rarity: Lv 5-10 Common, Lv 11-15 Rare, Lv 16-20 Epic, Lv 20+ Legend. Jurus bos aktif otomatis saat battle vs player!
+          </div>
+
+          <!-- 5 SLOTS GRID -->
+          <div style="display:grid;grid-template-columns:repeat(5, 1fr);gap:6px">
+            ${bossSlots.map(s => {
+              const idx = s.slotIndex;
+              const isLocked = !s.unlocked;
+              const m = s.monster;
+              const MRenderer = typeof Monsters !== 'undefined' ? Monsters : null;
+              const monsterSvg = (m && MRenderer)
+                ? MRenderer.renderMonster(m, { size: 36, tier: m.tier })
+                : (m ? `<span style="font-size:1.4rem">${m.elementIcon || '👹'}</span>` : '');
+
+              if (isLocked) {
+                return `
+                  <div class="loadout-boss-slot card locked"
+                    data-slot-idx="${idx}"
+                    data-locked="true"
+                    data-unlock-level="${s.unlockLevel}"
+                    role="button"
+                    tabindex="0"
+                    style="padding:8px 3px;border-radius:10px;text-align:center;cursor:pointer;position:relative;background:rgba(0,0,0,0.25);border:1px dashed rgba(255,255,255,0.12);opacity:0.6"
+                    title="Slot ${idx + 1} terkunci (Buka di Lv. ${s.unlockLevel})">
+                    <div style="font-size:1.3rem;margin-bottom:2px">🔒</div>
+                    <div style="font-size:0.7rem;font-weight:700;color:var(--c-muted)">Slot ${idx + 1}</div>
+                    <div style="font-size:0.62rem;color:#ef4444;font-weight:600">Lv. ${s.unlockLevel}</div>
+                  </div>
+                `;
+              }
+
+              if (!m) {
+                return `
+                  <div class="loadout-boss-slot card empty"
+                    data-slot-idx="${idx}"
+                    data-locked="false"
+                    role="button"
+                    tabindex="0"
+                    style="padding:8px 3px;border-radius:10px;text-align:center;cursor:pointer;position:relative;background:rgba(255,255,255,0.03);border:1px dashed var(--c-primary);transition:all 0.15s ease"
+                    title="Ketuk untuk memasang bos di Slot ${idx + 1}">
+                    <div style="font-size:1.3rem;margin-bottom:2px">➕</div>
+                    <div style="font-size:0.7rem;font-weight:700;color:#fff">Slot ${idx + 1}</div>
+                    <div style="font-size:0.62rem;color:var(--c-primary);font-weight:600">Pasang</div>
+                  </div>
+                `;
+              }
+
+              return `
+                <div class="loadout-boss-slot card filled"
+                  data-slot-idx="${idx}"
+                  data-locked="false"
+                  role="button"
+                  tabindex="0"
+                  style="padding:6px 2px;border-radius:10px;text-align:center;cursor:pointer;position:relative;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.2);transition:all 0.15s ease"
+                  title="Ketuk untuk mengganti/melepas bos di Slot ${idx + 1}">
+                  <div style="width:36px;height:36px;margin:0 auto 2px auto;display:flex;align-items:center;justify-content:center;overflow:hidden">
+                    ${monsterSvg}
+                  </div>
+                  <div style="font-size:0.68rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 2px">
+                    ${esc(m.name)}
+                  </div>
+                  <div style="font-size:0.6rem;color:${m.elementColor || 'var(--c-muted)'};font-weight:600">
+                    ${TIER_ICON[m.tier] || ''} ${s.skills ? s.skills.length : 1} Jurus
+                  </div>
+                  <div style="font-size:0.58rem;color:var(--c-primary);margin-top:1px;font-weight:600">🔄 Ganti</div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+
+          <!-- JURUS BOS AKTIF -->
+          ${(bossLoadout.activeBossSkills && bossLoadout.activeBossSkills.length > 0) ? `
+            <div style="margin-top:12px;border-top:1px solid rgba(255,255,255,0.08);padding-top:10px">
+              <div style="font-size:0.8rem;font-weight:700;color:#fcd34d;margin-bottom:6px;display:flex;align-items:center;gap:6px">
+                ✨ Jurus & Kekuatan Bos Aktif (${bossLoadout.activeBossSkills.length})
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                ${bossLoadout.activeBossSkills.map(sk => `
+                  <div style="padding:6px 8px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;font-size:0.72rem;display:flex;align-items:flex-start;gap:6px">
+                    <span style="font-size:1.1rem;line-height:1">${sk.icon || '✨'}</span>
+                    <div style="flex:1">
+                      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+                        <strong style="color:#fff">${esc(sk.name)}</strong>
+                        <span class="chip small" style="font-size:0.62rem;padding:1px 4px;background:rgba(255,255,255,0.08)">Bos: ${esc(sk.bossName || '')}</span>
+                        <span class="chip small" style="font-size:0.62rem;padding:1px 4px;background:rgba(245,158,11,0.15);color:#fbbf24">${esc(sk.type || 'Pasif')}</span>
+                      </div>
+                      <div style="color:#cbd5e1;font-size:0.68rem;margin-top:2px;line-height:1.3">
+                        ${esc(sk.text || '')}
+                      </div>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          ` : `
+            <div style="margin-top:10px;text-align:center;padding:8px;background:rgba(255,255,255,0.02);border-radius:8px;font-size:0.72rem;color:var(--c-muted)">
+              Belum ada bos yang dipasang. Pasang bos untuk mengaktifkan jurus saktinya!
+            </div>
+          `}
+        </div>
+      `;
+    }
+
     slot.innerHTML = `
       <!-- SWITCHER LOADOUT (PETUALANGAN VS BATTLE VS PLAYER) -->
       <div style="display:flex;gap:8px;background:rgba(255,255,255,0.06);padding:4px;border-radius:12px;margin-bottom:12px">
@@ -4998,11 +5380,13 @@ Screens.profil = {
         </button>
       </div>
 
+      ${bossLoadoutHtml}
+
       <!-- LOADOUT SLOTS -->
       <div class="card" style="padding:14px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong)">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
           <h3 style="font-size:0.95rem;margin:0;color:#fff">
-            ${activeMode === 'duel' ? '⚔️ Loadout Battle vs Player' : '🎯 Loadout Petualangan'} (${maxSlots} Slot)
+            ${activeMode === 'duel' ? '🎯 Taktik Player Duel' : '🎯 Loadout Petualangan'} (${maxSlots} Slot)
           </h3>
           <span style="font-size:0.75rem;color:var(--c-muted)">Ketuk slot untuk ganti</span>
         </div>
@@ -5164,8 +5548,22 @@ Screens.profil = {
       };
     });
 
+    // Wire Click on Boss Loadout Slots
+    $$('.loadout-boss-slot', slot).forEach(slotEl => {
+      slotEl.onclick = () => {
+        const isLocked = slotEl.dataset.locked === 'true';
+        const unlockLevel = slotEl.dataset.unlockLevel;
+        const idx = parseInt(slotEl.dataset.slotIdx, 10);
+        if (isLocked) {
+          toast(`Slot ${idx + 1} terkunci! Capai Level ${unlockLevel} untuk membukanya. ✨`, 'boss-slot-toast');
+          return;
+        }
+        this.openSelectBossForSlotModal(idx, bossLoadout, pLevel);
+      };
+    });
+
     // Wire Click on Loadout Slot (Tap slot opens modal to pick skill)
-    $$('.loadout-slot').forEach(slotEl => {
+    $$('.loadout-slot', slot).forEach(slotEl => {
       slotEl.onclick = () => {
         const idx = parseInt(slotEl.dataset.idx, 10);
         this.openSelectSkillForSlotModal(idx, activeLoadout, skillsList, activeMode, maxSlots);

@@ -253,6 +253,7 @@
         phaseLabel.textContent = s.phase === 'DEATHMATCH' ? '🔥 DEATHMATCH' : '⏳ NORMAL';
       }
       renderDuelSkills(s);
+      renderDuelBuffs(s);
       updateCountdown();
     } else {
       // First full layout render
@@ -267,6 +268,7 @@
                 <div id="duel-hp-me-fill" class="duel-hp-fill me" style="width:${hpMyPct}%"></div>
               </div>
               <div id="duel-hp-me-text" class="duel-hp-text">${myData.hp} / 100</div>
+              <div id="duel-buffs-me" class="duel-buffs-row"></div>
             </div>
 
             <div class="duel-center-info">
@@ -284,6 +286,7 @@
                 <div id="duel-hp-opp-fill" class="duel-hp-fill opp" style="width:${hpOppPct}%"></div>
               </div>
               <div id="duel-hp-opp-text" class="duel-hp-text">${oppData.hp} / 100</div>
+              <div id="duel-buffs-opp" class="duel-buffs-row"></div>
             </div>
           </div>
 
@@ -307,6 +310,7 @@
       `;
 
       renderDuelSkills(s);
+      renderDuelBuffs(s);
       updateCountdown();
 
       const btnFf = document.getElementById('btn-duel-forfeit');
@@ -432,6 +436,16 @@
               if (ansRes.dragon) {
                 if (window.toast) window.toast('Semburan Naga Mungil! 🔥 (+20 DMG)');
               }
+              if (ansRes.bossSkillsTriggered && ansRes.bossSkillsTriggered.length > 0) {
+                for (const bsk of ansRes.bossSkillsTriggered) {
+                  if (window.toast) window.toast(`<b>[SKILL BOS]</b> ${bsk.text}`);
+                  showActionBanner('attack', `${bsk.icon} ${bsk.text}`);
+                }
+                document.querySelectorAll('#duel-buffs-me .duel-buff-chip.boss-buff').forEach(el => {
+                  el.classList.add('buff-pulse');
+                  setTimeout(() => el.classList.remove('buff-pulse'), 1600);
+                });
+              }
             } else {
               btn.classList.add('wrong');
               if (window.Sfx) Sfx.play('wrong');
@@ -454,6 +468,47 @@
     } catch (e) {
       qBox.innerHTML = '<div style="font-size:0.85rem;color:#f87171">Gagal memuat soal</div>';
     }
+  }
+
+  function renderDuelBuffs(s) {
+    const meSide = s?.you;
+    const myData = (meSide === 'challenger') ? s?.challenger : s?.challenged;
+    const oppData = (meSide === 'challenger') ? s?.challenged : s?.challenger;
+
+    const meEl = document.getElementById('duel-buffs-me');
+    const oppEl = document.getElementById('duel-buffs-opp');
+
+    const renderBuffList = (container, combatantData) => {
+      if (!container) return;
+      const skinBuffs = combatantData?.skinBuffs || [];
+      const bossBuffs = combatantData?.bossBuffs || [];
+
+      if (skinBuffs.length === 0 && bossBuffs.length === 0) {
+        container.innerHTML = '<span style="font-size:0.62rem;color:var(--c-muted);font-style:italic">Tanpa buff</span>';
+        return;
+      }
+
+      const allChips = [
+        ...skinBuffs.map(b => `<span class="duel-buff-chip skin-buff" data-title="${esc(b.title)}" data-desc="${esc(b.text)}" title="${esc(b.title)}: ${esc(b.text)}">${esc(b.icon)} ${esc(b.title)}</span>`),
+        ...bossBuffs.map(b => `<span class="duel-buff-chip boss-buff" data-title="${esc(b.title)}" data-desc="${esc(b.text)}" title="${esc(b.title)}: ${esc(b.text)}">${esc(b.icon)} ${esc(b.title)}</span>`)
+      ];
+
+      container.innerHTML = allChips.join('');
+    };
+
+    renderBuffList(meEl, myData);
+    renderBuffList(oppEl, oppData);
+
+    // Wire clicks on buff chips to show toast detail
+    document.querySelectorAll('.duel-buff-chip').forEach(chip => {
+      chip.onclick = () => {
+        const title = chip.getAttribute('data-title');
+        const desc = chip.getAttribute('data-desc');
+        if (window.toast && title) {
+          window.toast(`<b>${title}</b><br><span style="font-size:0.75rem">${desc}</span>`);
+        }
+      };
+    });
   }
 
   function renderDuelSkills(s) {

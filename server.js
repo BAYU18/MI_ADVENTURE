@@ -577,6 +577,34 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
+  // Duel Boss Loadout (Pasang boss yang sudah dikalahkan untuk battle vs player)
+  if (pathname === '/api/duel-boss-loadout' && method === 'GET') {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    try {
+      const details = db.getDuelBossLoadoutDetails(playerAuth.id);
+      return json(res, { ok: true, ...details });
+    } catch (e) {
+      return err(res, e.message, 400);
+    }
+  }
+
+  if ((pathname === '/api/duel-boss-loadout' || pathname === '/api/loadout/duel-boss') && (method === 'PUT' || method === 'POST')) {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    try {
+      const body = await parseBody(req);
+      const slots = Array.isArray(body.slots) ? body.slots : [];
+      const updated = db.updatePlayerDuelBossLoadout(playerAuth.id, slots);
+      const details = db.getDuelBossLoadoutDetails(playerAuth.id);
+      return json(res, { ok: true, loadout: updated, ...details });
+    } catch (e) {
+      const code = e.code || 'BAD_REQUEST';
+      const status = (code === 'SLOT_LOCKED' || code === 'RARITY_LOCKED' || code === 'BOSS_NOT_DEFEATED') ? 403 : 400;
+      return err(res, e.message, status, code);
+    }
+  }
+
   if (pathname.startsWith('/api/skills/') && pathname.endsWith('/upgrade') && method === 'POST') {
     const playerAuth = getPlayerFromReq(req);
     if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
