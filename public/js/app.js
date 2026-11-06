@@ -1691,20 +1691,19 @@ Screens.subjects = {
                           📖 Lihat Cerita
                         </button>
                       ` : `
-                        <span class="chip" style="font-size:0.75rem;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.2)">${ch.nodes.filter(n => n.cleared).length}/4 Selesai</span>
+                        <span class="chip" style="font-size:0.75rem;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.2)">${ch.nodes.filter(n => n.cleared).length}/${ch.nodes.length} Selesai</span>
                       `}
                     </div>
                   </div>
                 </div>
 
-                <!-- Jalur Berkelok (Vertical Winding Path: left, center, right, boss) -->
+                <!-- Jalur Berkelok (Vertical Winding Path: Wilayah 1, Wilayah 2, Boss Wilayah 3) -->
                 <div class="winding-path" style="display:flex;flex-direction:column;align-items:center;gap:14px;position:relative;padding:10px 0">
                   ${ch.nodes.map(node => {
                     const starsStr = node.stars > 0 ? '⭐'.repeat(node.stars) : '';
                     const alignStyle = node.order === 1 ? 'align-self:flex-start;margin-left:18%'
-                      : node.order === 2 ? 'align-self:center'
-                      : node.order === 3 ? 'align-self:flex-end;margin-right:18%'
-                      : 'align-self:center;transform:scale(1.15)';
+                      : node.order === 2 ? 'align-self:flex-end;margin-right:18%'
+                      : 'align-self:center;transform:scale(1.18);margin-top:6px';
 
                     return `
                       <div class="campaign-node-wrap ${node.unlocked ? 'unlocked' : 'locked'}" style="${alignStyle};display:flex;flex-direction:column;align-items:center;gap:4px">
@@ -1716,7 +1715,10 @@ Screens.subjects = {
                           ${node.unlocked ? (node.isBoss ? '👑' : (node.cleared ? '⚔️' : '📍')) : '🔒'}
                         </button>
                         <div style="font-size:0.75rem;font-weight:700;color:${node.unlocked ? '#fff' : '#64748b'};text-align:center">
-                          ${esc(node.title)}
+                          ${esc(node.title)} ${node.isBoss ? '🎁' : ''}
+                        </div>
+                        <div style="font-size:0.68rem;color:var(--c-muted)">
+                          ${node.questionCount} Soal ${node.isBoss ? '· Boss & Peti 🎁' : ''}
                         </div>
                         ${starsStr ? `<div style="font-size:0.7rem;line-height:1">${starsStr}</div>` : ''}
                       </div>
@@ -3911,6 +3913,238 @@ Screens.showComicModal = function (panels, theme, monsterObj) {
 };
 
 /* ============================================================
+   PETI HARTA KARUN GACHA SKIN WILAYAH 3 (Mode Cerita)
+   ============================================================ */
+Screens.showChapterChestModal = function (item, chapterComic, theme) {
+  if (!item) return;
+
+  const old = $('#chapter-chest-modal');
+  if (old) old.remove();
+
+  if (window.Feedback) Feedback.sfx('levelup');
+  else if (window.Sfx) Sfx.play('win');
+
+  const rarity = String(item.rarity || 'RARE').toUpperCase();
+  const isLegend = (rarity === 'LEGENDARY');
+  const isEpic = (rarity === 'EPIC');
+
+  const slotLabels = {
+    hat: 'Topi',
+    outfit: 'Pakaian / Zirah',
+    weapon: 'Senjata / Alat',
+    pet: 'Peliharaan',
+    bg: 'Latar Belakang',
+    frame: 'Bingkai Avatar',
+    title: 'Gelar Kehormatan',
+    permanent: 'Fitur Permanen'
+  };
+  const slotName = slotLabels[item.slot] || item.slot || 'Item Skin';
+
+  const modal = document.createElement('div');
+  modal.id = 'chapter-chest-modal';
+  modal.setAttribute('data-testid', 'chapter-chest-modal');
+  modal.className = `chest-modal-overlay rarity-${rarity.toLowerCase()}`;
+  modal.style.cssText = 'position:fixed;inset:0;background:radial-gradient(circle at center, rgba(30,27,75,0.96) 0%, rgba(15,23,42,0.98) 100%);z-index:10001;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;overflow-y:auto;animation:fadeIn 0.25s ease;';
+
+  let isOpened = false;
+
+  const renderSealed = () => {
+    modal.innerHTML = `
+      <div class="chest-card card" style="max-width:440px;width:100%;text-align:center;padding:26px 20px;border-radius:24px;background:linear-gradient(135deg, rgba(30,41,59,0.95), rgba(15,23,42,0.98));border:2px solid rgba(245,158,11,0.4);box-shadow:0 0 40px rgba(245,158,11,0.25), 0 24px 48px rgba(0,0,0,0.8);position:relative;overflow:hidden">
+        
+        <!-- Rotating radiant rays -->
+        <div class="chest-rays" style="position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);width:320px;height:320px;background:radial-gradient(circle, rgba(245,158,11,0.25) 0%, transparent 70%);border-radius:50%;pointer-events:none;animation:chestRaysSpin 12s linear infinite"></div>
+
+        <div style="position:relative;z-index:2">
+          <div style="display:inline-block;padding:3px 12px;border-radius:99px;background:rgba(245,158,11,0.2);border:1px solid #f59e0b;color:#fef08a;font-size:0.75rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">
+            🏆 WILAYAH 3 SELESAI!
+          </div>
+          <h2 style="font-size:1.4rem;font-weight:900;color:#fff;margin:0 0 6px 0;text-shadow:0 2px 10px rgba(0,0,0,0.8)">
+            🎁 Peti Harta Karun Wilayah
+          </h2>
+          <p style="font-size:0.85rem;color:#cbd5e1;margin:0 auto 16px auto;max-width:320px;line-height:1.4">
+            Selamat! Kamu telah menaklukkan Boss Wilayah 3. Sentuh peti emas di bawah ini untuk membuka gacha hadiah skin eksklusifmu!
+          </p>
+
+          <!-- Interactive Chest Element -->
+          <div id="interactive-chest" style="width:160px;height:140px;margin:10px auto 20px auto;cursor:pointer;position:relative;transition:transform 0.15s ease" title="Sentuh untuk membuka peti!">
+            <div class="chest-sprite" style="font-size:5.5rem;line-height:1;filter:drop-shadow(0 10px 20px rgba(245,158,11,0.5));animation:floatChest 2.2s ease-in-out infinite">
+              🎁
+            </div>
+            <div style="font-size:0.75rem;font-weight:800;color:#fbbf24;margin-top:6px;animation:pulseText 1.5s ease-in-out infinite">
+              ✨ Sentuh Peti ✨
+            </div>
+          </div>
+
+          <button class="btn block primary large" id="btn-trigger-open" style="font-weight:800;font-size:1rem;padding:12px;box-shadow:0 8px 24px rgba(245,158,11,0.4);border:1px solid #fef08a;background:linear-gradient(135deg, #f59e0b, #d97706)">
+            ✨ BUKA PETI HARTA KARUN! ✨
+          </button>
+        </div>
+      </div>
+    `;
+
+    const triggerOpen = () => {
+      if (isOpened) return;
+      isOpened = true;
+      openSequence();
+    };
+
+    const chestEl = modal.querySelector('#interactive-chest');
+    if (chestEl) chestEl.onclick = triggerOpen;
+    const btnOpen = modal.querySelector('#btn-trigger-open');
+    if (btnOpen) btnOpen.onclick = triggerOpen;
+  };
+
+  const openSequence = () => {
+    const card = modal.querySelector('.chest-card');
+    if (!card) return;
+
+    if (window.Sfx) Sfx.play('tap');
+
+    card.innerHTML = `
+      <div style="padding:40px 10px;text-align:center;position:relative">
+        <div class="chest-opening-wrap" style="display:inline-block;animation:chestShake 0.75s ease-in-out">
+          <div style="font-size:6.5rem;line-height:1;filter:drop-shadow(0 0 35px #f59e0b)">
+            ✨📦✨
+          </div>
+        </div>
+        <div style="font-size:1.15rem;font-weight:800;color:#fef08a;margin-top:16px;letter-spacing:1px;animation:pulseText 0.5s ease-in-out infinite">
+          Membuka Peti Harta Karun...
+        </div>
+      </div>
+    `;
+
+    setTimeout(() => {
+      renderRevealed();
+    }, 850);
+  };
+
+  const renderRevealed = () => {
+    if (isLegend) {
+      if (window.Feedback) Feedback.sfx('levelup');
+      if (window.Sfx) { Sfx.play('win'); setTimeout(() => Sfx.play('win'), 300); }
+    } else if (isEpic) {
+      if (window.Feedback) Feedback.sfx('levelup');
+      else if (window.Sfx) Sfx.play('win');
+    } else {
+      if (window.Sfx) Sfx.play('win');
+    }
+
+    const tierColor = isLegend ? '#fbbf24' : (isEpic ? '#c084fc' : '#38bdf8');
+    const tierBg = isLegend
+      ? 'linear-gradient(135deg, rgba(245,158,11,0.25) 0%, rgba(236,72,153,0.2) 50%, rgba(59,130,246,0.25) 100%)'
+      : (isEpic ? 'linear-gradient(135deg, rgba(192,132,252,0.25) 0%, rgba(251,191,36,0.15) 100%)' : 'rgba(56,189,248,0.18)');
+    const tierBorder = isLegend
+      ? '2px solid #f59e0b'
+      : (isEpic ? '2px solid #c084fc' : '2px solid #38bdf8');
+
+    const tierTitle = isLegend
+      ? '👑 DROP LEGENDARY SPEKTAKULER! 👑'
+      : (isEpic ? '⚡ DROP EPIC LUAR BIASA! ⚡' : '✨ DROP RARE TERBUKA! ✨');
+
+    const itemIcon = item.icon || (item.slot === 'hat' ? '👑' : (item.slot === 'pet' ? '🐾' : (item.slot === 'weapon' ? '⚔️' : (item.slot === 'outfit' ? '🛡️' : (item.slot === 'bg' ? '🌌' : (item.slot === 'frame' ? '🖼️' : '📜'))))));
+
+    modal.innerHTML = `
+      <div class="confetti-container" style="position:absolute;inset:0;pointer-events:none;overflow:hidden">
+        ${Array.from({ length: isLegend ? 40 : (isEpic ? 25 : 15) }).map((_, i) => {
+          const left = Math.random() * 100;
+          const dur = 1.5 + Math.random() * 1.5;
+          const delay = Math.random() * 0.8;
+          const colors = isLegend ? ['#fbbf24', '#f43f5e', '#a855f7', '#38bdf8', '#10b981'] : (isEpic ? ['#c084fc', '#fbbf24', '#e879f9'] : ['#38bdf8', '#bae6fd', '#ffffff']);
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          const size = 6 + Math.random() * 8;
+          return `<div style="position:absolute;top:-20px;left:${left}%;width:${size}px;height:${size}px;background:${color};border-radius:${Math.random() > 0.5 ? '50%' : '2px'};animation:confettiFall ${dur}s ease-out ${delay}s infinite"></div>`;
+        }).join('')}
+      </div>
+
+      <div class="chest-card card ${isLegend ? 'card-legendary' : ''}" style="max-width:440px;width:100%;text-align:center;padding:26px 20px;border-radius:24px;background:linear-gradient(135deg, rgba(30,41,59,0.95), rgba(15,23,42,0.98));border:${tierBorder};box-shadow:0 0 50px ${tierColor}40, 0 24px 48px rgba(0,0,0,0.85);position:relative;overflow:hidden;animation:itemPopIn 0.55s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards">
+        
+        <div style="position:absolute;top:35%;left:50%;transform:translate(-50%,-50%);width:300px;height:300px;background:radial-gradient(circle, ${tierColor}35 0%, transparent 70%);border-radius:50%;pointer-events:none;animation:chestRaysSpin 8s linear infinite"></div>
+
+        <div style="position:relative;z-index:2">
+          <div style="font-size:0.85rem;font-weight:900;letter-spacing:1px;color:${tierColor};margin-bottom:8px;text-shadow:0 0 12px ${tierColor};text-transform:uppercase">
+            ${tierTitle}
+          </div>
+
+          <div style="background:${tierBg};border:${tierBorder};border-radius:20px;padding:18px 14px;margin:12px 0 16px 0;display:flex;flex-direction:column;align-items:center;gap:8px">
+            <div style="font-size:4.2rem;line-height:1;filter:drop-shadow(0 6px 16px ${tierColor}80)">
+              ${itemIcon}
+            </div>
+            <h3 style="font-size:1.3rem;font-weight:900;color:#fff;margin:4px 0 2px 0;text-shadow:0 2px 8px rgba(0,0,0,0.8)">
+              ${esc(item.name)}
+            </h3>
+            <div style="display:flex;gap:6px;align-items:center">
+              <span class="chip" style="font-size:0.72rem;background:${tierColor};color:#000;font-weight:900;padding:2px 8px;border-radius:99px;text-transform:uppercase">
+                ${rarity}
+              </span>
+              <span class="chip" style="font-size:0.72rem;background:rgba(255,255,255,0.1);color:#e2e8f0;font-weight:700;padding:2px 8px;border-radius:99px">
+                ${slotName}
+              </span>
+            </div>
+
+            <div style="margin-top:6px;padding:8px 12px;background:rgba(0,0,0,0.4);border-radius:10px;border:1px solid rgba(255,255,255,0.1);width:100%;text-align:left">
+              <div style="font-size:0.72rem;text-transform:uppercase;color:${tierColor};font-weight:800;margin-bottom:2px">
+                ⚔️ Efek Pasif RPG:
+              </div>
+              <div style="font-size:0.82rem;font-weight:700;color:#fff">
+                ${esc(item.passive?.desc || 'Koleksi Kosmetik Avatar')}
+              </div>
+            </div>
+
+            <div style="font-size:0.75rem;color:#94a3b8;font-style:italic;line-height:1.3;margin-top:2px">
+              "${esc(item.lore || 'Item berharga yang diperoleh dari puncak petualangan wilayah.')}"
+            </div>
+
+            ${item.isDuplicate ? `
+              <div style="margin-top:6px;font-size:0.75rem;color:#fbbf24;font-weight:700">
+                🪙 Sudah dimiliki: +${item.refundCoins || 15} Koin Refund otomatis ditambahkan!
+              </div>
+            ` : `
+              <div style="margin-top:6px;font-size:0.75rem;color:#10b981;font-weight:700">
+                ✅ Berhasil disimpan ke koleksi avatar profilmu!
+              </div>
+            `}
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
+            <button class="btn block primary" id="btn-collect-chest" style="font-weight:800;font-size:0.95rem;padding:10px">
+              🎒 Simpan ke Koleksi
+            </button>
+            ${chapterComic ? `
+              <button class="btn block secondary" id="btn-read-comic-from-chest" style="font-weight:700;font-size:0.85rem;padding:8px">
+                📖 Baca Komik Epilog Bab
+              </button>
+            ` : ''}
+          </div>
+        </div>
+      </div>
+    `;
+
+    const closeAll = () => {
+      if (modal) modal.remove();
+    };
+
+    const btnCollect = modal.querySelector('#btn-collect-chest');
+    if (btnCollect) btnCollect.onclick = () => {
+      if (window.Sfx) Sfx.play('tap');
+      closeAll();
+      toast(`Item ${item.name} telah masuk ke lemari avatar! ✨`);
+    };
+
+    const btnComic = modal.querySelector('#btn-read-comic-from-chest');
+    if (btnComic && chapterComic) {
+      btnComic.onclick = () => {
+        closeAll();
+        Screens.showComicModal(chapterComic, theme);
+      };
+    }
+  };
+
+  document.body.appendChild(modal);
+  renderSealed();
+};
+
+/* ============================================================
    SCREEN: Result (Hasil Pertarungan)
    ============================================================ */
 Screens.result = {
@@ -4131,6 +4365,17 @@ Screens.result = {
           ` : ''}
         </div>
 
+        ${(r.rewards && r.rewards.chapterCompleted && r.rewards.items && r.rewards.items.length > 0) ? `
+          <div style="width:min(340px,100%);margin-top:10px;padding:12px;background:rgba(245,158,11,0.12);border:1.5px solid rgba(245,158,11,0.35);border-radius:14px;text-align:center">
+            <div style="font-weight:900;color:#fbbf24;font-size:0.9rem">🎁 PETI HARTA KARUN WILAYAH 3</div>
+            <div style="font-size:0.8rem;color:#fff;margin:3px 0 8px 0">
+              Skin: <strong>${esc(r.rewards.items[0].name)}</strong> (${esc(r.rewards.items[0].rarity)})
+            </div>
+            <button class="btn block secondary small" id="btn-reopen-chest" style="font-size:0.78rem;font-weight:700;padding:6px">
+              🎁 Buka Ulang Animasi Peti
+            </button>
+          </div>
+        ` : ''}
         ${(r.rewards && r.rewards.chapterCompleted && r.rewards.chapterComic) ? `
           <div style="width:min(340px,100%);margin-top:10px">
             <button class="btn block primary" id="btn-show-comic" data-testid="btn-show-comic" style="font-weight:700">
@@ -4151,7 +4396,17 @@ Screens.result = {
       comicBtn.onclick = () => {
         Screens.showComicModal(r.rewards.chapterComic, s.monster?.theme);
       };
-      // Auto-open comic modal once on chapter completion
+    }
+
+    if (r.rewards?.chapterCompleted && r.rewards?.items && r.rewards.items.length > 0) {
+      Screens.showChapterChestModal(r.rewards.items[0], r.rewards?.chapterComic, s.monster?.theme);
+      const btnReopen = $('#btn-reopen-chest');
+      if (btnReopen) {
+        btnReopen.onclick = () => {
+          Screens.showChapterChestModal(r.rewards.items[0], r.rewards?.chapterComic, s.monster?.theme);
+        };
+      }
+    } else if (comicBtn && r.rewards?.chapterComic) {
       Screens.showComicModal(r.rewards.chapterComic, s.monster?.theme);
     }
 

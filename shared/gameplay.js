@@ -94,9 +94,9 @@
   });
 
   const CAMPAIGN = Object.freeze({
-    chapters: 5,
-    nodesPerChapter: 4,
-    bossNode: 4
+    chapters: 4,
+    nodesPerChapter: 3,
+    bossNode: 3
   });
 
   const REPORT = Object.freeze({

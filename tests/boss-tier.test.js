@@ -25,31 +25,26 @@ test('T-30 / Skenario H.3, H.4, H.8: Boss Bertier, Pemilihan Tier, bossStats, da
     rawDb.prepare("UPDATE game_sessions SET status = 'ABANDONED' WHERE player_id=?").run(playerId);
   }
 
-  await t.test('1. Skenario H.3: Pemilihan Tier Kampanye mengikuti Tabel C.2', () => {
+  await t.test('1. Skenario H.3: Pemilihan Tier Kampanye mengikuti 4 Bab x 3 Wilayah', () => {
+    // Bab 1: Wilayah 1-2 common, Wilayah 3 rare
     assert.equal(Progression.campaignTier(1, 1), 'common');
     assert.equal(Progression.campaignTier(1, 2), 'common');
-    assert.equal(Progression.campaignTier(1, 3), 'common');
-    assert.equal(Progression.campaignTier(1, 4), 'rare');
+    assert.equal(Progression.campaignTier(1, 3), 'rare');
 
+    // Bab 2: Wilayah 1 common, Wilayah 2 rare, Wilayah 3 epic
     assert.equal(Progression.campaignTier(2, 1), 'common');
     assert.equal(Progression.campaignTier(2, 2), 'rare');
-    assert.equal(Progression.campaignTier(2, 3), 'rare');
-    assert.equal(Progression.campaignTier(2, 4), 'epic');
+    assert.equal(Progression.campaignTier(2, 3), 'epic');
 
+    // Bab 3: Wilayah 1 rare, Wilayah 2-3 epic
     assert.equal(Progression.campaignTier(3, 1), 'rare');
-    assert.equal(Progression.campaignTier(3, 2), 'rare');
+    assert.equal(Progression.campaignTier(3, 2), 'epic');
     assert.equal(Progression.campaignTier(3, 3), 'epic');
-    assert.equal(Progression.campaignTier(3, 4), 'epic');
 
-    assert.equal(Progression.campaignTier(4, 1), 'rare');
+    // Bab 4: Wilayah 1-2 epic, Wilayah 3 legend
+    assert.equal(Progression.campaignTier(4, 1), 'epic');
     assert.equal(Progression.campaignTier(4, 2), 'epic');
-    assert.equal(Progression.campaignTier(4, 3), 'epic');
-    assert.equal(Progression.campaignTier(4, 4), 'legend');
-
-    assert.equal(Progression.campaignTier(5, 1), 'epic');
-    assert.equal(Progression.campaignTier(5, 2), 'epic');
-    assert.equal(Progression.campaignTier(5, 3), 'legend');
-    assert.equal(Progression.campaignTier(5, 4), 'legend');
+    assert.equal(Progression.campaignTier(4, 3), 'legend');
   });
 
   await t.test('2. Skenario H.3: Mode Bebas 10.000 undian sesuai bobot ±2 poin & Lv 1-5 tidak pernah legend', () => {

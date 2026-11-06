@@ -50,7 +50,7 @@ test('Skenario 13.2 #10 / T-34: Peta Cerita / Kampanye (E.1, F.3)', async (t) =>
 
   // Buat soal dengan variasi difficulty 1..5
   for (let tier = 1; tier <= 5; tier++) {
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 20; i++) {
       rawDb.prepare(`
         INSERT INTO questions(subject_id, text, options_json, answer_index, explanation, difficulty, hash, is_active, question_type)
         VALUES(?, ?, ?, 0, 'Penjelasan', ?, ?, 1, 'MCQ')
@@ -58,25 +58,34 @@ test('Skenario 13.2 #10 / T-34: Peta Cerita / Kampanye (E.1, F.3)', async (t) =>
     }
   }
 
+  // Tambahkan soal non-MCQ untuk memverifikasi Mode Cerita HANYA mengambil MCQ
+  rawDb.prepare(`
+    INSERT INTO questions(subject_id, text, options_json, answer_index, explanation, difficulty, hash, is_active, question_type)
+    VALUES(?, 'Soal True False Non-MCQ', ?, 0, 'Penjelasan', 1, 'hash_tf_camp', 1, 'TRUE_FALSE')
+  `).run(subjectId, JSON.stringify(['Benar', 'Salah']));
+
   const p = db.registerPlayer('ceritaplayer', 'pass1234', clsId);
 
-  await t.test('1. Struktur Kampanye: 5 bab x 4 simpul, simpul 1 terbuka default, sisanya terkunci', () => {
+  await t.test('1. Struktur Kampanye: 4 bab x 3 wilayah, wilayah 1 terbuka default, sisanya terkunci', () => {
     const camp = db.getCampaign(p.id, subjectId);
-    assert.equal(camp.chapters.length, 5, 'Harus memiliki 5 bab');
-    assert.equal(camp.chapters[0].nodes.length, 4, 'Setiap bab harus memiliki 4 simpul');
+    assert.equal(camp.chapters.length, 4, 'Harus memiliki 4 bab');
+    assert.equal(camp.chapters[0].nodes.length, 3, 'Setiap bab harus memiliki 3 wilayah');
     
-    // Simpul 1-1 harus terbuka
+    // Wilayah 1-1 harus terbuka
     const node11 = camp.chapters[0].nodes[0];
-    assert.equal(node11.unlocked, true, 'Simpul 1-1 harus terbuka');
+    assert.equal(node11.unlocked, true, 'Wilayah 1-1 harus terbuka');
     assert.equal(node11.isBoss, false);
+    assert.equal(node11.questionCount, 15, 'Wilayah 1 harus 15 soal');
 
-    // Simpul 1-2 dan seterusnya harus terkunci
+    // Wilayah 1-2 dan seterusnya harus terkunci
     const node12 = camp.chapters[0].nodes[1];
-    assert.equal(node12.unlocked, false, 'Simpul 1-2 harus terkunci sebelum simpul 1-1 selesai');
+    assert.equal(node12.unlocked, false, 'Wilayah 1-2 harus terkunci sebelum wilayah 1-1 selesai');
+    assert.equal(node12.questionCount, 20, 'Wilayah 2 harus 20 soal');
 
-    // Simpul 1-4 harus berupa Boss Bab
-    const node14 = camp.chapters[0].nodes[3];
-    assert.equal(node14.isBoss, true, 'Simpul 4 harus berupa Boss Bab');
+    // Wilayah 1-3 harus berupa Boss Bab dengan 25 soal
+    const node13 = camp.chapters[0].nodes[2];
+    assert.equal(node13.isBoss, true, 'Wilayah 3 harus berupa Boss Bab');
+    assert.equal(node13.questionCount, 25, 'Wilayah 3 harus 25 soal');
   });
 
   await t.test('2. Memulai simpul terkunci -> NODE_LOCKED error', () => {
@@ -87,10 +96,21 @@ test('Skenario 13.2 #10 / T-34: Peta Cerita / Kampanye (E.1, F.3)', async (t) =>
     }, 'Memulai simpul yang terkunci harus gagal dengan NODE_LOCKED');
   });
 
-  await t.test('3. Memulai dan Menyelesaikan Simpul 1-1 (First Clear Reward 20 + 10*1 = 30 koin)', () => {
+  await t.test('3. Memulai dan Menyelesaikan Wilayah 1-1 (15 Soal, First Clear Reward 20 + 10*1 = 30 koin)', () => {
     const initialCoins = db.getPlayerById(p.id).coins;
     const session = db.startSession(p.id, subjectId, { campaignNode: `s${subjectId}-c1-n1` });
-    assert.equal(session.totalQuestions, 8, 'Simpul 1 harus memiliki 8 soal');
+    assert.equal(session.totalQuestions, 15, 'Wilayah 1 harus memiliki 15 soal');
+
+    // Verifikasi semua soal di sesi Mode Cerita adalah MCQ saja
+    const sessionQuestions = rawDb.prepare(`
+      SELECT q.question_type
+      FROM session_questions sq
+      JOIN questions q ON q.id = sq.question_id
+      WHERE sq.session_id = ?
+    `).all(session.sessionId);
+    for (const sq of sessionQuestions) {
+      assert.ok(!sq.question_type || sq.question_type === 'MCQ', 'Soal Mode Cerita harus tipe MCQ');
+    }
 
     // Jawab sampai selesai
     const sId = session.sessionId;
@@ -113,13 +133,13 @@ test('Skenario 13.2 #10 / T-34: Peta Cerita / Kampanye (E.1, F.3)', async (t) =>
     const aftPlayer = db.getPlayerById(p.id);
     assert.ok(aftPlayer.coins >= initialCoins + 30, 'Koin pemain harus bertambah minimal 30');
 
-    // Simpul 1-2 sekarang harus terbuka!
+    // Wilayah 1-2 sekarang harus terbuka!
     const campAft = db.getCampaign(p.id, subjectId);
-    assert.equal(campAft.chapters[0].nodes[0].cleared, true, 'Simpul 1-1 harus cleared');
-    assert.equal(campAft.chapters[0].nodes[1].unlocked, true, 'Simpul 1-2 sekarang harus terbuka');
+    assert.equal(campAft.chapters[0].nodes[0].cleared, true, 'Wilayah 1-1 harus cleared');
+    assert.equal(campAft.chapters[0].nodes[1].unlocked, true, 'Wilayah 1-2 sekarang harus terbuka');
   });
 
-  await t.test('4. Replay Simpul 1-1: Tidak mendapatkan hadiah first clear lagi', () => {
+  await t.test('4. Replay Wilayah 1-1: Tidak mendapatkan hadiah first clear lagi', () => {
     rawDb.prepare("UPDATE game_sessions SET status='ABANDONED' WHERE player_id=?").run(p.id);
     const session = db.startSession(p.id, subjectId, { campaignNode: `s${subjectId}-c1-n1` });
     const sId = session.sessionId;
@@ -137,22 +157,22 @@ test('Skenario 13.2 #10 / T-34: Peta Cerita / Kampanye (E.1, F.3)', async (t) =>
     assert.equal(ans.rewards.firstClearCoins, 0, 'First clear coins replay harus 0');
   });
 
-  await t.test('5. Selesai Boss Bab 1-4: Chapter Selesai, Bab 2 Terbuka, Dapat Item & Komik', () => {
-    // Tandai simpul 1-2 dan 1-3 sebagai sudah selesai
+  await t.test('5. Selesai Boss Bab 1-3: 25 Soal, Chapter Selesai, Bab 2 Terbuka, Dapat Item Skin & Komik', () => {
+    // Tandai wilayah 1-2 sebagai sudah selesai
     rawDb.prepare(`
       INSERT INTO player_campaign_nodes(player_id, node_key, stars, best_accuracy, cleared_at)
-      VALUES(?, ?, 3, 100, datetime('now')), (?, ?, 3, 100, datetime('now'))
-    `).run(p.id, `s${subjectId}-c1-n2`, p.id, `s${subjectId}-c1-n3`);
+      VALUES(?, ?, 3, 100, datetime('now'))
+    `).run(p.id, `s${subjectId}-c1-n2`);
 
     rawDb.prepare("UPDATE game_sessions SET status='ABANDONED' WHERE player_id=?").run(p.id);
 
-    // Sekarang simpul 1-4 (Boss Bab) harus terbuka
+    // Sekarang wilayah 1-3 (Boss Bab) harus terbuka
     const campCheck = db.getCampaign(p.id, subjectId);
-    assert.equal(campCheck.chapters[0].nodes[3].unlocked, true, 'Simpul 1-4 harus terbuka');
+    assert.equal(campCheck.chapters[0].nodes[2].unlocked, true, 'Wilayah 1-3 harus terbuka');
 
-    // Mulai dan selesaikan simpul 1-4
-    const session = db.startSession(p.id, subjectId, { campaignNode: `s${subjectId}-c1-n4` });
-    assert.equal(session.totalQuestions, 12, 'Boss bab harus memiliki 12 soal');
+    // Mulai dan selesaikan wilayah 1-3 (25 soal)
+    const session = db.startSession(p.id, subjectId, { campaignNode: `s${subjectId}-c1-n3` });
+    assert.equal(session.totalQuestions, 25, 'Boss bab wilayah 3 harus memiliki 25 soal');
     const sId = session.sessionId;
 
     rawDb.prepare('UPDATE game_sessions SET boss_hp=1 WHERE id=?').run(sId);
@@ -166,12 +186,15 @@ test('Skenario 13.2 #10 / T-34: Peta Cerita / Kampanye (E.1, F.3)', async (t) =>
     assert.equal(ans.session.status, 'WON');
     assert.equal(ans.rewards.chapterCompleted, true, 'chapterCompleted harus true');
     assert.ok(ans.rewards.badges.includes(`chapter_${subjectId}_1`), 'Harus mendapatkan badge bab 1');
+    assert.ok(Array.isArray(ans.rewards.items), 'Hadiah skin item harus disertakan');
+    assert.ok(ans.rewards.items.length >= 1, 'Harus mendapatkan minimal 1 item skin');
+    assert.ok(['RARE', 'EPIC', 'LEGENDARY'].includes(ans.rewards.items[0].rarity), 'Item harus tier RARE/EPIC/LEGENDARY');
     assert.ok(Array.isArray(ans.rewards.chapterComic), 'Komik 3 panel harus disertakan');
     assert.equal(ans.rewards.chapterComic.length, 3, 'Komik harus 3 panel');
 
-    // Bab 2 simpul 2-1 sekarang harus terbuka!
+    // Bab 2 wilayah 2-1 sekarang harus terbuka!
     const campFinal = db.getCampaign(p.id, subjectId);
     assert.equal(campFinal.chapters[0].completed, true, 'Bab 1 harus completed');
-    assert.equal(campFinal.chapters[1].nodes[0].unlocked, true, 'Bab 2 simpul 2-1 harus terbuka setelah Boss Bab 1 dikalahkan');
+    assert.equal(campFinal.chapters[1].nodes[0].unlocked, true, 'Bab 2 wilayah 2-1 harus terbuka setelah Boss Bab 1 dikalahkan');
   });
 });

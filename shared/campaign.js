@@ -8,9 +8,9 @@
   'use strict';
 
   const CAMPAIGN = Object.freeze({
-    chapters: 5,
-    nodesPerChapter: 4,
-    questions: Object.freeze([8, 8, 10, 12]),
+    chapters: 4,
+    nodesPerChapter: 3,
+    questions: Object.freeze([15, 20, 25]),
     nodeFirstClearCoins: (chapter) => 20 + 10 * chapter,
     chapterItemRarity: Object.freeze({ RARE: 55, EPIC: 35, LEGENDARY: 10 }),
     defaultThemes: Object.freeze([
@@ -68,8 +68,8 @@
       for (let n = 1; n <= CAMPAIGN.nodesPerChapter; n++) {
         const key = `s${subjectId}-c${c}-n${n}`;
         const isBoss = (n === CAMPAIGN.nodesPerChapter);
-        const qCount = CAMPAIGN.questions[n - 1] || 10;
-        const tier = isBoss ? Math.min(5, c + 1) : Math.min(5, c);
+        const qCount = CAMPAIGN.questions[n - 1] || 15;
+        const tier = isBoss ? Math.min(4, c + 1) : Math.min(4, c);
 
         const prog = progressMap[key] || null;
         const stars = prog ? (prog.stars || 0) : 0;
@@ -79,7 +79,7 @@
         // Unlocked logic:
         // Node 1 in Chapter 1 is always unlocked.
         // Node n > 1 in Chapter c is unlocked if node n-1 is cleared.
-        // Node 1 in Chapter c > 1 is unlocked if Chapter c-1 node 4 (Boss) was cleared.
+        // Node 1 in Chapter c > 1 is unlocked if Chapter c-1 final node (Boss Wilayah 3) was cleared.
         const unlocked = (c === 1 && n === 1) ? true : Boolean(previousNodeCleared);
 
         nodes.push({

@@ -71,12 +71,11 @@
     { maxLevel: 20,       w: { common: 30, rare: 35, epic: 25, legend: 10 } },
     { maxLevel: Infinity, w: { common: 20, rare: 30, epic: 30, legend: 20 } },
   ];
-  const CAMPAIGN_TIERS = {   // [simpul1..simpul4] per bab; simpul 4 = Boss Bab
-    1: ['common', 'common', 'common', 'rare'],
-    2: ['common', 'rare', 'rare', 'epic'],
-    3: ['rare', 'rare', 'epic', 'epic'],
-    4: ['rare', 'epic', 'epic', 'legend'],
-    5: ['epic', 'epic', 'legend', 'legend'],
+  const CAMPAIGN_TIERS = {   // [wilayah1..wilayah3] per bab; wilayah 3 = Boss Bab
+    1: ['common', 'common', 'rare'],
+    2: ['common', 'rare', 'epic'],
+    3: ['rare', 'epic', 'epic'],
+    4: ['epic', 'epic', 'legend'],
   };
   const PITY = { afterWrong: 3, mult: 1.5 };            // 3 salah beruntun → jawaban benar berikutnya ×1.5
   const FATIGUE = { minAnswered: 6, accBelow: 0.55, cut: 0.85 };   // sekali, saat Fase Marah
@@ -88,7 +87,7 @@
     for (const k of TIER_ORDER) { if (r < w[k]) return k; r -= w[k]; }
     return 'common';
   }
-  function campaignTier(chapter, node) { const row = CAMPAIGN_TIERS[clamp(chapter | 0, 1, 5)]; return row[clamp(node | 0, 1, 4) - 1]; }
+  function campaignTier(chapter, node) { const row = CAMPAIGN_TIERS[clamp(chapter | 0, 1, 4)]; return row[clamp(node | 0, 1, 3) - 1]; }
   // Makin kuat pemain (skor 0–100) → makin ke ujung atas rentang tier. Skor tidak ada (null) → tengah.
   function hitsNeeded(tierId, abilityScoreValue) {
     const t = BOSS_TIERS[tierId]; const f = abilityScoreValue == null ? 0.5 : clamp(abilityScoreValue / 100, 0, 1);
