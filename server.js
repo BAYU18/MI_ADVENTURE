@@ -427,6 +427,19 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
+  // Profile Titles (PUT /api/profile/titles or POST /api/profile/titles)
+  if (pathname === '/api/profile/titles' && (method === 'PUT' || method === 'POST')) {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    try {
+      const body = await parseBody(req);
+      const updated = db.updatePlayerTitles(playerAuth.id, body.titles || []);
+      return json(res, updated);
+    } catch (e) {
+      return err(res, e.message, 400);
+    }
+  }
+
   // Player: Avatar (PUT /api/avatar or POST /api/player/avatar)
   if (((pathname === '/api/avatar' && (method === 'PUT' || method === 'POST')) ||
        (pathname === '/api/player/avatar' && method === 'POST'))) {

@@ -407,6 +407,7 @@
       const p = res.player || {};
       const stats = res.stats || {};
       const showcase = res.showcase || [null, null, null];
+      const titles = res.titles || [null, null, null];
       const avatarSvg = (window.Avatar && typeof window.Avatar.renderAvatar === 'function')
         ? window.Avatar.renderAvatar(p.avatar || {})
         : '<span style="font-size:2rem">👤</span>';
@@ -427,7 +428,20 @@
               <div style="min-width:0;flex-grow:1">
                 <div style="font-weight:800;font-size:1.1rem;color:#fff">${esc(p.nick || 'Teman')}</div>
                 <div style="font-size:0.78rem;color:var(--c-muted);margin-top:2px">
-                  <span style="color:var(--c-primary);font-weight:700">Lv. ${p.level || 1}</span> · ${esc(p.title || 'Pelajar Pemula')} · ${esc(p.className || '')}
+                  <span style="color:var(--c-primary);font-weight:700">Lv. ${p.level || 1}</span> · ${esc(p.className || '')}
+                </div>
+                <!-- 3 GELAR TEMAN -->
+                <div class="profile-titles-container" style="display:flex;flex-wrap:wrap;gap:5px;margin:5px 0">
+                  ${(() => {
+                    const activeTitles = titles.filter(Boolean);
+                    if (activeTitles.length === 0) {
+                      return `<span class="title-pill static tier-common"><span>🎖️</span><span>${esc(p.title || 'Pelajar Pemula')}</span></span>`;
+                    }
+                    return activeTitles.map(t => {
+                      const tier = (t.tier || 'COMMON').toLowerCase();
+                      return `<span class="title-pill static tier-${tier}"><span>${t.icon || '🏅'}</span><span>${esc(t.name)}</span></span>`;
+                    }).join('');
+                  })()}
                 </div>
                 <div style="font-size:0.72rem;color:#38bdf8;margin-top:4px;font-weight:700">
                   🏅 ${res.totalBadges || 0} / 80 Lencana Terbuka · 🎨 ${res.totalSkins || 0} Skin

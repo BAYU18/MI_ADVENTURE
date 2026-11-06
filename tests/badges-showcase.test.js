@@ -160,4 +160,57 @@ test('T-59: Sistem 20 Kategori Lencana x 4 Tier & Showcase Profil Teman', async 
     assert.equal(extracted[0].id, 'boss_slayer_common');
     assert.equal(extracted[0].tier, 'COMMON');
   });
+
+  await t.test('6. Sistem Pasang 3 Gelar/Titles (Lencana & Skin Gelar) dan Sinkronisasi Primary Title', () => {
+    const nick = 'TitleP_' + Math.random().toString(36).slice(2, 7);
+    const p = db.registerPlayer(nick, 'pw123', 1);
+
+    // Initial titles for player
+    const prof0 = db.getPlayerProfile(p.id);
+    assert.equal(prof0.titles.length, 3, 'Harus ada 3 slot gelar');
+    assert.equal(prof0.titles[0].name, 'Pelajar Pemula', 'Slot 0 harus memiliki gelar default Pelajar Pemula');
+    assert.equal(prof0.titles[1], null);
+    assert.equal(prof0.titles[2], null);
+    assert.ok(Array.isArray(prof0.ownedTitles), 'Harus mengembalikan daftar gelar yang dimiliki');
+    assert.ok(prof0.ownedTitles.some(t => t.id === 'title_rookie'), 'Pelajar Pemula harus ada di ownedTitles');
+
+    // Update with 3 titles
+    const titleBatch = [
+      { id: 'boss_slayer_legend', name: 'Dewa Penguasa Alam', icon: '👑', tier: 'LEGEND', source: 'badge' },
+      { id: 'combo_virtuoso_epic', name: 'Kilat Presisi', icon: '💥', tier: 'EPIC', source: 'badge' },
+      { id: 'title_rookie', name: 'Pelajar Pemula', icon: '🥉', tier: 'COMMON', source: 'skin' }
+    ];
+
+    const upgRes = db.updatePlayerTitles(p.id, titleBatch);
+    assert.equal(upgRes.ok, true);
+    assert.equal(upgRes.titles.length, 3);
+    assert.equal(upgRes.titles[0].name, 'Dewa Penguasa Alam');
+    assert.equal(upgRes.titles[1].name, 'Kilat Presisi');
+    assert.equal(upgRes.titles[2].name, 'Pelajar Pemula');
+    assert.equal(upgRes.title, 'Dewa Penguasa Alam', 'Primary title pemain harus otomatis tersinkronisasi');
+
+    // Verifikasi profil setelah update
+    const prof1 = db.getPlayerProfile(p.id);
+    assert.equal(prof1.player.title, 'Dewa Penguasa Alam');
+    assert.equal(prof1.titles[0].id, 'boss_slayer_legend');
+    assert.equal(prof1.titles[1].id, 'combo_virtuoso_epic');
+    assert.equal(prof1.titles[2].id, 'title_rookie');
+
+    // Verifikasi public profile untuk teman
+    const pub = db.getPlayerPublicProfile(p.id);
+    assert.equal(pub.titles.length, 3);
+    assert.equal(pub.titles[0].name, 'Dewa Penguasa Alam');
+    assert.equal(pub.titles[1].name, 'Kilat Presisi');
+    assert.equal(pub.titles[2].name, 'Pelajar Pemula');
+
+    // Kosongkan slot 1 dan ubah slot 0
+    const clearedRes = db.updatePlayerTitles(p.id, [
+      null,
+      { id: 'combo_virtuoso_epic', name: 'Kilat Presisi', icon: '💥', tier: 'EPIC', source: 'badge' },
+      null
+    ]);
+    assert.equal(clearedRes.titles[0], null);
+    assert.equal(clearedRes.titles[1].name, 'Kilat Presisi');
+    assert.equal(clearedRes.title, 'Kilat Presisi', 'Primary title mengambil gelar non-null pertama');
+  });
 });

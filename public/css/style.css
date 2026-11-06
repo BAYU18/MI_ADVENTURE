@@ -3634,6 +3634,93 @@ body.reduced-motion .boss-telegraph { animation: none; }
   transform: scale(0.98);
 }
 
+/* ---------- 3-Slot Profile Titles (Gelar Avatar) ---------- */
+.profile-titles-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.title-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+  color: #e2e8f0;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1.2;
+  user-select: none;
+}
+.title-pill:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.1);
+}
+.title-pill:active {
+  transform: scale(0.96);
+}
+.title-pill.static {
+  cursor: default;
+}
+.title-pill.static:hover {
+  transform: none;
+}
+.title-pill.empty {
+  border-style: dashed;
+  border-color: rgba(255, 255, 255, 0.22);
+  color: var(--c-muted);
+  background: transparent;
+}
+.title-pill.empty:hover {
+  border-color: var(--c-primary);
+  color: var(--c-primary);
+  background: rgba(99, 102, 241, 0.1);
+}
+.title-pill.tier-common {
+  border-color: #d97706;
+  background: rgba(217, 119, 6, 0.15);
+  color: #fbbf24;
+}
+.title-pill.tier-rare {
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.15);
+  color: #bae6fd;
+}
+.title-pill.tier-epic {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.18);
+  color: #fde68a;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.2);
+}
+.title-pill.tier-legend {
+  border-color: #c084fc;
+  background: rgba(192, 132, 252, 0.2);
+  color: #f3e8ff;
+  box-shadow: 0 0 10px rgba(192, 132, 252, 0.3);
+}
+.title-pill .title-edit-hint {
+  font-size: 0.62rem;
+  opacity: 0.6;
+  margin-left: 2px;
+}
+.title-pick-row {
+  transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+}
+.title-pick-row:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+.title-pick-row:active {
+  transform: scale(0.98);
+}
+
 .badge-family-card {
   background: var(--c-surface);
   border: 1px solid var(--c-surface-strong);

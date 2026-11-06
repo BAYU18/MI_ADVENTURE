@@ -4844,6 +4844,8 @@ Screens.profil = {
     const badgeSummary = this.profileData?.badgeSummary || { totalUnlocked: badges.length, totalBadges: 80 };
     const badgeFamilies = this.profileData?.badgeFamilies || [];
     const showcase = this.profileData?.showcase || [null, null, null];
+    const titles = this.profileData?.titles || [null, null, null];
+    while (titles.length < 3) titles.push(null);
     const avatarSvg = window.Avatar ? Avatar.renderAvatar(this.profileData?.avatar || {}) : '🎒';
 
     slot.innerHTML = `
@@ -4854,8 +4856,30 @@ Screens.profil = {
         </div>
         <div class="grow" style="min-width:0">
           <div style="font-weight:800;font-size:1.1rem;color:#fff">${esc(p.nick || 'Petualang')}</div>
-          <div style="font-size:0.8rem;color:var(--c-muted);margin:2px 0 6px 0">
-            <span style="color:var(--c-primary);font-weight:700">Lv. ${p.level || 1}</span> · ${esc(p.title || 'Pelajar Pemula')} · ${esc(p.className || 'Kelas 4 SD')}
+          <div style="font-size:0.8rem;color:var(--c-muted);margin:2px 0 4px 0">
+            <span style="color:var(--c-primary);font-weight:700">Lv. ${p.level || 1}</span> · ${esc(p.className || 'Kelas 4 SD')}
+          </div>
+          <!-- 3 SLOTS GELAR / TITLES SAMPING AVATAR -->
+          <div class="profile-titles-container" style="display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px 0">
+            ${[0, 1, 2].map(slotIdx => {
+              const t = titles[slotIdx];
+              if (!t) {
+                return `
+                  <button type="button" class="title-pill empty" onclick="Screens.profil.showTitlePicker(${slotIdx})" title="Pasang Gelar #${slotIdx + 1}">
+                    <span style="opacity:0.6">➕</span>
+                    <span>Gelar #${slotIdx + 1}</span>
+                  </button>
+                `;
+              }
+              const tier = (t.tier || 'COMMON').toLowerCase();
+              return `
+                <button type="button" class="title-pill equipped tier-${tier}" onclick="Screens.profil.showTitlePicker(${slotIdx})" title="Ganti Gelar #${slotIdx + 1}: ${esc(t.name)}">
+                  <span class="title-icon">${t.icon || '🏅'}</span>
+                  <span class="title-name">${esc(t.name)}</span>
+                  <span class="title-edit-hint">✎</span>
+                </button>
+              `;
+            }).join('')}
           </div>
           <div class="xp-track" style="height:6px;background:rgba(255,255,255,0.1);border-radius:99px;overflow:hidden">
             <div class="xp-fill" style="width:${Math.min(100, Math.round(((p.xp || 0) / (p.xpForNext || 100)) * 100))}%"></div>
@@ -5220,6 +5244,277 @@ Screens.profil = {
 
   async removeShowcaseItem(slotIdx) {
     return this.saveShowcaseItem(slotIdx, null);
+  },
+
+  showTitlePicker(slotIdx) {
+    if (window.Sfx) Sfx.play('tap');
+    const pData = (this && this.profileData) || Screens.profil.profileData || {};
+
+    let availableTitles = [];
+    if (Array.isArray(pData.ownedTitles) && pData.ownedTitles.length > 0) {
+      availableTitles = pData.ownedTitles.slice();
+    } else {
+      availableTitles.push({
+        id: 'title_rookie',
+        name: 'Pelajar Pemula',
+        icon: '🥉',
+        tier: 'COMMON',
+        source: 'skin',
+        desc: 'Langkah awal yang penuh rasa ingin tahu.'
+      });
+      const unlockedBadges = (pData.unlockedList || pData.badges || []).slice();
+      for (const b of unlockedBadges) {
+        availableTitles.push({
+          id: b.id,
+          name: b.name,
+          icon: b.icon || '🏅',
+          tier: b.tier || 'COMMON',
+          source: 'badge',
+          desc: `${b.familyName || ''} · ${b.tier || 'COMMON'}`
+        });
+      }
+    }
+
+    if (!availableTitles.some(t => t.id === 'title_rookie')) {
+      availableTitles.unshift({
+        id: 'title_rookie',
+        name: 'Pelajar Pemula',
+        icon: '🥉',
+        tier: 'COMMON',
+        source: 'skin',
+        desc: 'Langkah awal yang penuh rasa ingin tahu.'
+      });
+    }
+
+    const currentTitles = [...(pData.titles || [null, null, null])];
+    while (currentTitles.length < 3) currentTitles.push(null);
+    const currentItem = currentTitles[slotIdx];
+
+    const modalId = 'modal-title-picker';
+    const oldModal = document.getElementById(modalId);
+    if (oldModal) oldModal.remove();
+
+    const overlay = document.createElement('div');
+    overlay.id = modalId;
+    overlay.className = 'confirm-overlay';
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn 0.2s ease;';
+
+    const renderList = (filter, search) => {
+      let list = availableTitles;
+      if (filter === 'badge') list = list.filter(t => t.source === 'badge');
+      else if (filter === 'skin') list = list.filter(t => t.source === 'skin');
+
+      if (search) {
+        const q = search.toLowerCase();
+        list = list.filter(t => t.name.toLowerCase().includes(q) || (t.desc && t.desc.toLowerCase().includes(q)));
+      }
+
+      if (list.length === 0) {
+        return '<div style="text-align:center;color:var(--c-muted);padding:24px 10px;font-size:0.85rem">Tidak ada gelar yang cocok dengan pencarian / kategori ini.</div>';
+      }
+
+      return list.map(t => {
+        const isEquippedInSlot = currentItem && currentItem.id === t.id;
+        const isEquippedOther = !isEquippedInSlot && currentTitles.some(it => it && it.id === t.id);
+        const tier = (t.tier || 'COMMON').toUpperCase();
+        const tierColor = tier === 'LEGEND' ? '#c084fc' : (tier === 'EPIC' ? '#fbbf24' : (tier === 'RARE' ? '#38bdf8' : '#f59e0b'));
+        const sourceLabel = t.source === 'skin' ? '🎒 Skin Gelar' : '🏅 Lencana Prestasi';
+
+        return `
+          <div class="title-pick-row" data-title-id="${esc(t.id)}" style="padding:10px 12px;background:var(--c-surface);border:1.5px solid ${isEquippedInSlot ? 'var(--c-primary)' : 'rgba(255,255,255,0.12)'};border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;transition:transform 0.12s ease, border-color 0.12s ease, background 0.12s ease">
+            <div style="display:flex;align-items:center;gap:10px;min-width:0;pointer-events:none">
+              <div style="width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0">
+                ${t.icon || '🏅'}
+              </div>
+              <div style="min-width:0">
+                <div style="font-weight:800;font-size:0.88rem;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(t.name)}</div>
+                <div style="font-size:0.7rem;color:${tierColor};font-weight:700">
+                  ${sourceLabel} · ${tier}
+                </div>
+              </div>
+            </div>
+            <div>
+              ${isEquippedInSlot
+                ? '<span class="badge small" style="background:#10b981;color:#fff;font-size:0.7rem;padding:4px 10px;border-radius:6px;font-weight:700">Terpasang ✓</span>'
+                : `<button type="button" class="btn primary small btn-pick-title" data-title-id="${esc(t.id)}" style="padding:4px 12px;font-size:0.75rem">${isEquippedOther ? 'Pindah' : 'Pilih'}</button>`
+              }
+            </div>
+          </div>
+        `;
+      }).join('');
+    };
+
+    let activeFilter = 'all';
+    let searchQuery = '';
+
+    const badgeCount = availableTitles.filter(t => t.source === 'badge').length;
+    const skinCount = availableTitles.filter(t => t.source === 'skin').length;
+
+    overlay.innerHTML = `
+      <div class="confirm-card stack" style="width:min(440px,96vw);max-height:86dvh;background:#0f172a;border:1px solid rgba(255,255,255,0.15);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 12px 36px rgba(0,0,0,0.7)">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <h3 style="margin:0;font-size:1.05rem;color:#fff;font-weight:800">✨ Pasang Gelar #${slotIdx + 1}</h3>
+            <div style="font-size:0.72rem;color:var(--c-muted);margin-top:2px">Sematkan gelar lencana atau skin di samping avatarmu</div>
+          </div>
+          <button type="button" class="btn ghost small" id="btn-close-title-picker" style="font-size:1.2rem;padding:2px 8px">✕</button>
+        </div>
+
+        <!-- SEARCH BAR & FILTER TABS -->
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <input type="text" id="title-search-input" placeholder="🔍 Cari nama gelar..." style="width:100%;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);color:#fff;font-size:0.82rem;outline:none">
+          <div style="display:flex;gap:6px">
+            <button type="button" class="btn small title-filter-btn" data-filter="all" style="flex:1;padding:5px 8px;font-size:0.72rem;background:var(--c-primary);color:#fff">Semua (${availableTitles.length})</button>
+            <button type="button" class="btn ghost small title-filter-btn" data-filter="badge" style="flex:1;padding:5px 8px;font-size:0.72rem">🏅 Lencana (${badgeCount})</button>
+            <button type="button" class="btn ghost small title-filter-btn" data-filter="skin" style="flex:1;padding:5px 8px;font-size:0.72rem">🎒 Skin (${skinCount})</button>
+          </div>
+        </div>
+
+        <!-- TITLE LIST -->
+        <div id="title-picker-list" style="display:grid;grid-template-columns:1fr;gap:8px;max-height:45dvh;overflow-y:auto;padding-right:4px;">
+          ${renderList('all', '')}
+        </div>
+
+        <!-- FOOTER ACTIONS -->
+        <div style="display:flex;gap:8px;margin-top:4px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.08)">
+          ${currentItem ? `<button type="button" class="btn danger small grow" id="btn-clear-title-slot" style="font-size:0.8rem">Kosongkan Slot #${slotIdx + 1}</button>` : ''}
+          <button type="button" class="btn ghost small grow" id="btn-cancel-title-picker" style="font-size:0.8rem">Tutup</button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    const close = () => overlay.remove();
+    overlay.onclick = (e) => {
+      if (e.target === overlay) close();
+    };
+    overlay.querySelector('#btn-close-title-picker').onclick = close;
+    overlay.querySelector('#btn-cancel-title-picker').onclick = close;
+
+    const clearBtn = overlay.querySelector('#btn-clear-title-slot');
+    if (clearBtn) {
+      clearBtn.onclick = async () => {
+        close();
+        await Screens.profil.saveTitleItem(slotIdx, null);
+      };
+    }
+
+    const listContainer = overlay.querySelector('#title-picker-list');
+
+    const selectTitleById = async (titleId) => {
+      const selected = availableTitles.find(x => x.id === titleId);
+      if (selected) {
+        if (window.Sfx) Sfx.play('tap');
+        close();
+        await Screens.profil.saveTitleItem(slotIdx, selected);
+      }
+    };
+
+    const attachListEvents = () => {
+      listContainer.querySelectorAll('.title-pick-row').forEach(row => {
+        row.onclick = async () => {
+          await selectTitleById(row.dataset.titleId);
+        };
+      });
+      listContainer.querySelectorAll('.btn-pick-title').forEach(btn => {
+        btn.onclick = async (e) => {
+          e.stopPropagation();
+          await selectTitleById(btn.dataset.titleId);
+        };
+      });
+    };
+
+    attachListEvents();
+
+    overlay.querySelectorAll('.title-filter-btn').forEach(btn => {
+      btn.onclick = () => {
+        overlay.querySelectorAll('.title-filter-btn').forEach(b => {
+          b.className = 'btn ghost small title-filter-btn';
+          b.style.background = '';
+          b.style.color = '';
+        });
+        btn.className = 'btn small title-filter-btn';
+        btn.style.background = 'var(--c-primary)';
+        btn.style.color = '#fff';
+        activeFilter = btn.dataset.filter;
+        listContainer.innerHTML = renderList(activeFilter, searchQuery);
+        attachListEvents();
+      };
+    });
+
+    const searchInput = overlay.querySelector('#title-search-input');
+    if (searchInput) {
+      searchInput.oninput = (e) => {
+        searchQuery = (e.target.value || '').trim();
+        listContainer.innerHTML = renderList(activeFilter, searchQuery);
+        attachListEvents();
+      };
+    }
+  },
+
+  async saveTitleItem(slotIdx, item) {
+    const pData = (this && this.profileData) || Screens.profil.profileData || (Screens.profil.profileData = {});
+    const current = [...(pData.titles || [null, null, null])];
+    while (current.length < 3) current.push(null);
+
+    // If item was equipped in another slot, clear it from that slot (move)
+    if (item && item.id) {
+      for (let i = 0; i < current.length; i++) {
+        if (i !== slotIdx && current[i] && current[i].id === item.id) {
+          current[i] = null;
+        }
+      }
+    }
+
+    current[slotIdx] = item ? {
+      id: item.id,
+      name: item.name,
+      icon: item.icon || '🏅',
+      tier: item.tier || 'COMMON',
+      source: item.source || 'badge',
+      desc: item.desc || ''
+    } : null;
+
+    try {
+      const res = await API.req('/api/profile/titles', {
+        method: 'POST',
+        body: JSON.stringify({ titles: current })
+      });
+      if (res && res.ok) {
+        const updatedTitles = res.titles || current;
+        pData.titles = updatedTitles;
+        if (res.title) {
+          if (pData.player) pData.player.title = res.title;
+          if (window.Player && Player.data) Player.data.title = res.title;
+        }
+        if (Screens.profil.profileData) {
+          Screens.profil.profileData.titles = updatedTitles;
+          if (res.title && Screens.profil.profileData.player) {
+            Screens.profil.profileData.player.title = res.title;
+          }
+        }
+        if (this && this.profileData) {
+          this.profileData.titles = updatedTitles;
+          if (res.title && this.profileData.player) {
+            this.profileData.player.title = res.title;
+          }
+        }
+        const contentSlot = document.getElementById('profile-tab-content');
+        if (contentSlot && Screens.profil.activeTab === 'ringkasan') {
+          Screens.profil.renderTabRingkasan(contentSlot);
+        }
+        if (window.Sfx) Sfx.play('win');
+        toast('Gelar berhasil dipasang! ✨');
+      }
+    } catch (e) {
+      console.error('Failed to save titles:', e);
+      toast('Gagal memperbarui gelar: ' + (e.message || 'Kesalahan jaringan'), 'error');
+    }
+  },
+
+  async removeTitleItem(slotIdx) {
+    return this.saveTitleItem(slotIdx, null);
   },
 
   showBadgeDetailModal(familyOrBadgeId, tierCode) {
@@ -6816,6 +7111,9 @@ window.App.showBadgeFamilyDetailModal = function(id) { return Screens.profil.sho
 window.App.showShowcasePicker = function(slot) { return Screens.profil.showShowcasePicker(slot); };
 window.App.saveShowcaseItem = function(slot, item) { return Screens.profil.saveShowcaseItem(slot, item); };
 window.App.removeShowcaseItem = function(slot) { return Screens.profil.removeShowcaseItem(slot); };
+window.App.showTitlePicker = function(slot) { return Screens.profil.showTitlePicker(slot); };
+window.App.saveTitleItem = function(slot, item) { return Screens.profil.saveTitleItem(slot, item); };
+window.App.removeTitleItem = function(slot) { return Screens.profil.removeTitleItem(slot); };
 
 /* ============================================================
    SCREEN: Monsterdex (Katalog 100 Monster Boss Elemen v7 - Skin-Adapted)
