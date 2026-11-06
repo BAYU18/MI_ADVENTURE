@@ -45,6 +45,11 @@
     reportSort: 'accuracy_desc',
     modal: null, // null | 'question' | 'import' | 'reset-pw'
     modalData: null,
+    economyConfig: null,
+    economyDefaults: null,
+    loadingEconomy: false,
+    savingEconomy: false,
+    adjustPercent: '',
   };
 
   /* ── UI Helpers ── */
@@ -623,6 +628,10 @@
           <span class="tab-icon">📈</span>
           <span class="tab-label">Laporan Mingguan</span>
         </button>
+        <button type="button" class="${curTab === 'economy' ? 'active' : ''}" data-tab="economy">
+          <span class="tab-icon">💰</span>
+          <span class="tab-label">Ekonomi Game</span>
+        </button>
       </div>
 
       <!-- Tab Content Area -->
@@ -631,6 +640,7 @@
         ${curTab === 'questions' ? renderQuestionsContent() : ''}
         ${curTab === 'players' ? renderPlayersContent() : ''}
         ${curTab === 'reports' ? renderReportsContent() : ''}
+        ${curTab === 'economy' ? renderEconomyContent() : ''}
       </div>
     `;
 
@@ -644,6 +654,8 @@
             loadPlayers();
           } else if (t === 'reports' && state.reportsList.length === 0) {
             loadReports();
+          } else if (t === 'economy' && !state.economyConfig) {
+            loadEconomy();
           }
           render();
         }
@@ -1346,6 +1358,434 @@
     `;
   }
 
+  /* ── Economy Handlers & Views (T-61) ── */
+  async function loadEconomy() {
+    state.loadingEconomy = true;
+    render();
+    try {
+      const res = await api('/api/admin/economy');
+      if (res && res.ok) {
+        state.economyConfig = res.config;
+        state.economyDefaults = res.defaults;
+      } else {
+        toast((res && res.error) || 'Gagal memuat pengaturan ekonomi', 'error');
+      }
+    } catch (e) {
+      toast(e.message || 'Gagal terhubung ke server', 'error');
+    } finally {
+      state.loadingEconomy = false;
+      render();
+    }
+  }
+
+  async function saveEconomy(newCfg) {
+    state.savingEconomy = true;
+    render();
+    try {
+      const res = await api('/api/admin/economy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ config: newCfg })
+      });
+      if (res && res.ok) {
+        state.economyConfig = res.config;
+        toast('Pengaturan ekonomi berhasil disimpan! 🪙', 'success');
+      } else {
+        toast((res && res.error) || 'Gagal menyimpan pengaturan ekonomi', 'error');
+      }
+    } catch (e) {
+      toast(e.message || 'Gagal menyimpan', 'error');
+    } finally {
+      state.savingEconomy = false;
+      render();
+    }
+  }
+
+  async function adjustEconomy(percent) {
+    const p = parseFloat(percent);
+    if (isNaN(p) || p === 0) return toast('Masukkan angka persentase yang valid (contoh: 20 atau -10)', 'error');
+    state.savingEconomy = true;
+    state.adjustPercent = String(p);
+    render();
+    try {
+      const res = await api('/api/admin/economy/adjust', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ percent: p })
+      });
+      if (res && res.ok) {
+        state.economyConfig = res.config;
+        state.adjustPercent = '';
+        toast(res.message || `Seluruh drop koin berhasil disesuaikan ${p > 0 ? '+' : ''}${p}%`, 'success');
+      } else {
+        toast((res && res.error) || 'Gagal menyesuaikan ekonomi', 'error');
+      }
+    } catch (e) {
+      toast(e.message || 'Gagal menyesuaikan', 'error');
+    } finally {
+      state.savingEconomy = false;
+      render();
+    }
+  }
+
+  async function resetEconomy() {
+    if (!confirm('Kembalikan seluruh drop rate dan nilai koin ke bawaan pabrik (default)?')) return;
+    state.savingEconomy = true;
+    render();
+    try {
+      const res = await api('/api/admin/economy/reset', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      if (res && res.ok) {
+        state.economyConfig = res.config;
+        toast('Pengaturan ekonomi berhasil dikembalikan ke default! 🔄', 'success');
+      } else {
+        toast((res && res.error) || 'Gagal reset ekonomi', 'error');
+      }
+    } catch (e) {
+      toast(e.message || 'Gagal reset', 'error');
+    } finally {
+      state.savingEconomy = false;
+      render();
+    }
+  }
+
+  function collectEconomyFormData() {
+    const getVal = (id, fallback) => {
+      const el = document.getElementById(id);
+      if (!el) return fallback;
+      const v = parseFloat(el.value);
+      return isNaN(v) ? fallback : v;
+    };
+
+    return {
+      answerDrop: {
+        coinChance: {
+          1: Math.min(1.0, Math.max(0.01, getVal('eco-q-chance-1', 25) / 100)),
+          2: Math.min(1.0, Math.max(0.01, getVal('eco-q-chance-2', 35) / 100)),
+          3: Math.min(1.0, Math.max(0.01, getVal('eco-q-chance-3', 50) / 100)),
+        },
+        coinRange: {
+          1: [Math.max(1, Math.round(getVal('eco-q-range-1-min', 1))), Math.max(1, Math.round(getVal('eco-q-range-1-max', 2)))],
+          2: [Math.max(1, Math.round(getVal('eco-q-range-2-min', 2))), Math.max(1, Math.round(getVal('eco-q-range-2-max', 4)))],
+          3: [Math.max(1, Math.round(getVal('eco-q-range-3-min', 4))), Math.max(1, Math.round(getVal('eco-q-range-3-max', 6)))],
+        },
+        criticalMult: Math.max(1.0, getVal('eco-q-crit-mult', 1.5)),
+      },
+      boss: {
+        baseCoins: Math.max(1, Math.round(getVal('eco-boss-base', 10))),
+        phase2BonusPct: Math.max(0, Math.round(getVal('eco-boss-p2', 15))),
+        tierMultiplier: {
+          common: Math.max(0.1, getVal('eco-tier-common', 1.0)),
+          rare: Math.max(0.1, getVal('eco-tier-rare', 1.3)),
+          epic: Math.max(0.1, getVal('eco-tier-epic', 1.7)),
+          legend: Math.max(0.1, getVal('eco-tier-legend', 2.3)),
+        }
+      },
+      campaign: {
+        firstClearBase: Math.max(0, Math.round(getVal('eco-camp-base', 20))),
+        firstClearPerChapter: Math.max(0, Math.round(getVal('eco-camp-chapter', 10))),
+      },
+      events: {
+        treasureCoins: [Math.max(1, Math.round(getVal('eco-evt-treasure-min', 5))), Math.max(1, Math.round(getVal('eco-evt-treasure-max', 12)))],
+        trapLuckyCoins: Math.max(1, Math.round(getVal('eco-evt-trap', 12))),
+      },
+      starter: {
+        registerCoins: Math.max(0, Math.round(getVal('eco-starter-coins', 100))),
+      },
+      duplicateRefund: {
+        COMMON: Math.max(1, Math.round(getVal('eco-refund-common', 5))),
+        RARE: Math.max(1, Math.round(getVal('eco-refund-rare', 15))),
+        EPIC: Math.max(1, Math.round(getVal('eco-refund-epic', 40))),
+        LEGENDARY: Math.max(1, Math.round(getVal('eco-refund-legend', 100))),
+      },
+      dailyCoinCap: Math.max(50, Math.round(getVal('eco-daily-cap', 300))),
+    };
+  }
+
+  function renderEconomyContent() {
+    if (state.loadingEconomy && !state.economyConfig) {
+      return `<div style="text-align:center;padding:40px;color:var(--c-muted)">Memuat pengaturan ekonomi... 🪙</div>`;
+    }
+
+    const cfg = state.economyConfig || {
+      answerDrop: { coinChance: { 1: 0.25, 2: 0.35, 3: 0.50 }, coinRange: { 1: [1, 2], 2: [2, 4], 3: [4, 6] }, criticalMult: 1.5 },
+      boss: { baseCoins: 10, phase2BonusPct: 15, tierMultiplier: { common: 1.0, rare: 1.3, epic: 1.7, legend: 2.3 } },
+      campaign: { firstClearBase: 20, firstClearPerChapter: 10 },
+      events: { treasureCoins: [5, 12], trapLuckyCoins: 12 },
+      starter: { registerCoins: 100 },
+      duplicateRefund: { COMMON: 5, RARE: 15, EPIC: 40, LEGENDARY: 100 },
+      dailyCoinCap: 300
+    };
+
+    return `
+      <!-- Header Ringkasan & Panduan -->
+      <div style="background:var(--c-surface);border:1px solid var(--c-surface-strong);border-radius:var(--radius);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px">
+        <div>
+          <h2 style="margin:0;font-size:1.25rem;color:var(--c-primary);display:flex;align-items:center;gap:8px">
+            <span>🪙</span> Pengaturan Drop Rate Koin & Ekonomi Game
+          </h2>
+          <div style="font-size:.85rem;color:var(--c-muted);margin-top:4px">
+            Atur peluang perolehan koin, reward kemenangan bos, bonus mode cerita, peti event, dan batas harian.
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <button type="button" id="btn-eco-reset" class="btn small" style="background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:10px;cursor:pointer">
+            🔄 Reset ke Default
+          </button>
+          <button type="button" id="btn-save-economy-top" class="btn small" style="background:var(--c-primary);color:#1c1206;font-weight:800;border:0;border-radius:10px;cursor:pointer">
+            💾 Simpan Perubahan
+          </button>
+        </div>
+      </div>
+
+      <!-- Banner Penyesuaian Massal (Adjust All by %) -->
+      <div class="eco-adjust-banner">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+          <div>
+            <h3 style="margin:0;font-size:1.05rem;color:#fbbf24;display:flex;align-items:center;gap:8px">
+              <span>⚡</span> Penyesuaian Koin Massal (Adjust All by %)
+            </h3>
+            <div style="font-size:.84rem;color:var(--c-text);opacity:.9;margin-top:4px">
+              Naikkan atau turunkan seluruh drop rate dan nilai koin sekaligus secara proporsional (misal: <strong>+20%</strong> atau <strong>-10%</strong>).
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:4px">
+          <div style="display:flex;align-items:center;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:4px 10px;gap:6px">
+            <input type="number" id="eco-adjust-percent" placeholder="Contoh: 20" style="background:transparent;border:0;color:#fff;font-weight:800;font-size:1rem;width:95px;outline:none" value="${escapeHtml(state.adjustPercent || '')}">
+            <span style="font-weight:800;color:#fbbf24">%</span>
+          </div>
+          <button type="button" id="btn-apply-adjust" class="btn small" style="background:#f59e0b;color:#1c1206;font-weight:800;border-radius:10px;cursor:pointer">
+            ⚡ Terapkan Penyesuaian Massal
+          </button>
+          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+            <span style="font-size:.78rem;color:var(--c-muted)">Preset cepat:</span>
+            <button type="button" class="btn small eco-preset-btn" data-pct="10" style="padding:4px 8px;font-size:.75rem;background:rgba(255,255,255,.08);color:#86efac;border:1px solid rgba(34,197,94,.3);border-radius:8px;cursor:pointer">+10%</button>
+            <button type="button" class="btn small eco-preset-btn" data-pct="20" style="padding:4px 8px;font-size:.75rem;background:rgba(255,255,255,.08);color:#86efac;border:1px solid rgba(34,197,94,.3);border-radius:8px;cursor:pointer">+20%</button>
+            <button type="button" class="btn small eco-preset-btn" data-pct="50" style="padding:4px 8px;font-size:.75rem;background:rgba(255,255,255,.08);color:#86efac;border:1px solid rgba(34,197,94,.3);border-radius:8px;cursor:pointer">+50%</button>
+            <button type="button" class="btn small eco-preset-btn" data-pct="-10" style="padding:4px 8px;font-size:.75rem;background:rgba(255,255,255,.08);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:8px;cursor:pointer">-10%</button>
+            <button type="button" class="btn small eco-preset-btn" data-pct="-25" style="padding:4px 8px;font-size:.75rem;background:rgba(255,255,255,.08);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:8px;cursor:pointer">-25%</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Pengaturan Rinci Sumber Koin -->
+      <form id="form-economy">
+        <div class="eco-grid">
+          <!-- 1. Drop Soal Kuis -->
+          <div class="eco-card">
+            <h4><span>🎯</span> 1. Drop Koin Soal Kuis</h4>
+            <div style="font-size:.8rem;color:var(--c-muted);margin-bottom:4px">
+              Peluang drop koin (%) dan rentang koin (min - max) saat siswa menjawab soal dengan benar.
+            </div>
+            <div class="eco-field">
+              <label>Mudah (Diff 1) Peluang</label>
+              <div class="eco-inputs">
+                <input type="number" id="eco-q-chance-1" step="1" min="0" max="100" value="${Math.round((cfg.answerDrop.coinChance[1] || 0.25) * 100)}"> %
+              </div>
+            </div>
+            <div class="eco-field">
+              <label>Mudah (Diff 1) Rentang Koin</label>
+              <div class="eco-inputs">
+                <input type="number" id="eco-q-range-1-min" min="1" max="999" value="${cfg.answerDrop.coinRange[1][0]}">
+                <span>-</span>
+                <input type="number" id="eco-q-range-1-max" min="1" max="999" value="${cfg.answerDrop.coinRange[1][1]}">
+              </div>
+            </div>
+            <div class="eco-field">
+              <label>Sedang (Diff 2) Peluang</label>
+              <div class="eco-inputs">
+                <input type="number" id="eco-q-chance-2" step="1" min="0" max="100" value="${Math.round((cfg.answerDrop.coinChance[2] || 0.35) * 100)}"> %
+              </div>
+            </div>
+            <div class="eco-field">
+              <label>Sedang (Diff 2) Rentang Koin</label>
+              <div class="eco-inputs">
+                <input type="number" id="eco-q-range-2-min" min="1" max="999" value="${cfg.answerDrop.coinRange[2][0]}">
+                <span>-</span>
+                <input type="number" id="eco-q-range-2-max" min="1" max="999" value="${cfg.answerDrop.coinRange[2][1]}">
+              </div>
+            </div>
+            <div class="eco-field">
+              <label>Sulit (Diff 3) Peluang</label>
+              <div class="eco-inputs">
+                <input type="number" id="eco-q-chance-3" step="1" min="0" max="100" value="${Math.round((cfg.answerDrop.coinChance[3] || 0.50) * 100)}"> %
+              </div>
+            </div>
+            <div class="eco-field">
+              <label>Sulit (Diff 3) Rentang Koin</label>
+              <div class="eco-inputs">
+                <input type="number" id="eco-q-range-3-min" min="1" max="999" value="${cfg.answerDrop.coinRange[3][0]}">
+                <span>-</span>
+                <input type="number" id="eco-q-range-3-max" min="1" max="999" value="${cfg.answerDrop.coinRange[3][1]}">
+              </div>
+            </div>
+            <div class="eco-field">
+              <label>Pengali Jawaban Kritis (Critical)</label>
+              <div class="eco-inputs">
+                <input type="number" id="eco-q-crit-mult" step="0.1" min="1.0" max="10.0" value="${cfg.answerDrop.criticalMult || 1.5}"> x
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Kemenangan Bos & Tier -->
+          <div class="eco-card">
+            <h4><span>👑</span> 2. Kemenangan Bos</h4>
+            <div style="font-size:.8rem;color:var(--c-muted);margin-bottom:4px">
+              Koin reward setelah mengalahkan monster bos, bonus Fase Marah (Phase 2), dan pengali tier bos.
+            </div>
+            <div class="eco-field">
+              <label>Koin Dasar Kemenangan Bos</label>
+              <div class="eco-inputs">
+                <input type="number" id="eco-boss-base" min="1" max="999" value="${cfg.boss.baseCoins}">
+              </div>
+            </div>
+            <div class="eco-field">
+              <label>Bonus Fase Marah (Phase 2)</label>
+              <div class="eco-inputs">
+                <input type="number" id="eco-boss-p2" min="0" max="500" value="${cfg.boss.phase2BonusPct}"> %
+              </div>
+            </div>
+            <div class="eco-field">
+              <label>Pengali Tier Common ⚪</label>
+              <div class="eco-inputs">
+                <input type="number" id="eco-tier-common" step="0.1" min="0.1" max="10.0" value="${cfg.boss.tierMultiplier.common}"> x
+              </div>
+            </div>
+            <div class="eco-field">
+              <label>Pengali Tier Rare 🔵</label>
+              <div class="eco-inputs">
+                <input type="number" id="eco-tier-rare" step="0.1" min="0.1" max="10.0" value="${cfg.boss.tierMultiplier.rare}"> x
+              </div>
+            </div>
+            <div class="eco-field">
+              <label>Pengali Tier Epic 🟣</label>
+              <div class="eco-inputs">
+                <input type="number" id="eco-tier-epic" step="0.1" min="0.1" max="10.0" value="${cfg.boss.tierMultiplier.epic}"> x
+              </div>
+            </div>
+            <div class="eco-field">
+              <label>Pengali Tier Legend 🟡</label>
+              <div class="eco-inputs">
+                <input type="number" id="eco-tier-legend" step="0.1" min="0.1" max="10.0" value="${cfg.boss.tierMultiplier.legend}"> x
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Mode Cerita (Campaign First Clear) -->
+          <div class="eco-card">
+            <h4><span>🗺️</span> 3. Mode Cerita (Tamat Pertama Kali)</h4>
+            <div style="font-size:.8rem;color:var(--c-muted);margin-bottom:4px">
+              Reward koin saat pertama kali menyelesaikan wilayah peta petualangan (Formula: Dasar + Tambahan × Bab).
+            </div>
+            <div class="eco-field">
+              <label>Koin Dasar Tamat Wilayah</label>
+              <div class="eco-inputs">
+                <input type="number" id="eco-camp-base" min="1" max="999" value="${cfg.campaign.firstClearBase}">
+              </div>
+            </div>
+            <div class="eco-field">
+              <label>Tambahan Koin per Bab</label>
+              <div class="eco-inputs">
+                <input type="number" id="eco-camp-chapter" min="0" max="999" value="${cfg.campaign.firstClearPerChapter}">
+              </div>
+            </div>
+            <div style="background:rgba(0,0,0,.25);padding:10px 12px;border-radius:10px;font-size:.8rem;color:var(--c-muted);line-height:1.4">
+              <strong>Simulasi Perolehan:</strong><br>
+              • Bab 1: <span style="color:#fbbf24">${cfg.campaign.firstClearBase + cfg.campaign.firstClearPerChapter * 1} koin</span><br>
+              • Bab 2: <span style="color:#fbbf24">${cfg.campaign.firstClearBase + cfg.campaign.firstClearPerChapter * 2} koin</span><br>
+              • Bab 3: <span style="color:#fbbf24">${cfg.campaign.firstClearBase + cfg.campaign.firstClearPerChapter * 3} koin</span><br>
+              • Bab 4: <span style="color:#fbbf24">${cfg.campaign.firstClearBase + cfg.campaign.firstClearPerChapter * 4} koin</span>
+            </div>
+          </div>
+
+          <!-- 4. Peti Harta & Event Acak -->
+          <div class="eco-card">
+            <h4><span>🎁</span> 4. Peti & Event Acak</h4>
+            <div style="font-size:.8rem;color:var(--c-muted);margin-bottom:4px">
+              Hadiah koin saat menemukan Peti Harta Karun atau selamat dari Peti Jebakan di tengah petualangan.
+            </div>
+            <div class="eco-field">
+              <label>Rentang Koin Peti Harta (Treasure)</label>
+              <div class="eco-inputs">
+                <input type="number" id="eco-evt-treasure-min" min="1" max="999" value="${cfg.events.treasureCoins[0]}">
+                <span>-</span>
+                <input type="number" id="eco-evt-treasure-max" min="1" max="999" value="${cfg.events.treasureCoins[1]}">
+              </div>
+            </div>
+            <div class="eco-field">
+              <label>Koin Peti Jebakan (Pemain Selamat)</label>
+              <div class="eco-inputs">
+                <input type="number" id="eco-evt-trap" min="1" max="999" value="${cfg.events.trapLuckyCoins}">
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Bonus Pendaftaran & Batas Harian -->
+          <div class="eco-card">
+            <h4><span>🎒</span> 5. Akun Baru & Batas Harian</h4>
+            <div style="font-size:.8rem;color:var(--c-muted);margin-bottom:4px">
+              Modal koin awal untuk pendaftaran siswa baru dan batas maksimal koin harian untuk menjaga keseimbangan.
+            </div>
+            <div class="eco-field">
+              <label>Modal Koin Siswa Baru (Starter)</label>
+              <div class="eco-inputs">
+                <input type="number" id="eco-starter-coins" min="0" max="9999" value="${cfg.starter.registerCoins}">
+              </div>
+            </div>
+            <div class="eco-field">
+              <label>Batas Maksimal Koin Harian (Daily Cap)</label>
+              <div class="eco-inputs">
+                <input type="number" id="eco-daily-cap" min="50" max="99999" value="${cfg.dailyCoinCap}">
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Kompensasi Duplikat Skin / Gacha -->
+          <div class="eco-card">
+            <h4><span>♻️</span> 6. Kompensasi Duplikat Skin</h4>
+            <div style="font-size:.8rem;color:var(--c-muted);margin-bottom:4px">
+              Pengembalian koin jika siswa mendapatkan skin yang sudah pernah dimiliki dari Peti Harta Cerita atau Kotak Misteri.
+            </div>
+            <div class="eco-field">
+              <label>Refund Duplikat COMMON ⚪</label>
+              <div class="eco-inputs">
+                <input type="number" id="eco-refund-common" min="1" max="9999" value="${cfg.duplicateRefund.COMMON}">
+              </div>
+            </div>
+            <div class="eco-field">
+              <label>Refund Duplikat RARE 🔵</label>
+              <div class="eco-inputs">
+                <input type="number" id="eco-refund-rare" min="1" max="9999" value="${cfg.duplicateRefund.RARE}">
+              </div>
+            </div>
+            <div class="eco-field">
+              <label>Refund Duplikat EPIC 🟣</label>
+              <div class="eco-inputs">
+                <input type="number" id="eco-refund-epic" min="1" max="9999" value="${cfg.duplicateRefund.EPIC}">
+              </div>
+            </div>
+            <div class="eco-field">
+              <label>Refund Duplikat LEGENDARY 🟡</label>
+              <div class="eco-inputs">
+                <input type="number" id="eco-refund-legend" min="1" max="9999" value="${cfg.duplicateRefund.LEGENDARY}">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tombol Aksi Simpan Form Bawah -->
+        <div style="margin-top:20px;display:flex;justify-content:flex-end;gap:12px">
+          <button type="submit" id="btn-save-economy" class="btn" style="background:var(--c-primary);color:#1c1206;font-weight:800;border:0;border-radius:12px;padding:12px 24px;font-size:1rem;cursor:pointer" ${state.savingEconomy ? 'disabled' : ''}>
+            ${state.savingEconomy ? 'Menyimpan...' : '💾 Simpan Seluruh Pengaturan Ekonomi'}
+          </button>
+        </div>
+      </form>
+    `;
+  }
+
   function attachTabListeners() {
     // Quick Action & Card Navigation (Data Ringkasan Link)
     root.querySelectorAll('[data-nav]').forEach(el => {
@@ -1603,6 +2043,47 @@
         const pid = parseInt(btn.getAttribute('data-pid'), 10);
         const pnick = btn.getAttribute('data-pnick') || 'siswa';
         openManageClassesModal(pid, pnick);
+      });
+    });
+
+    // Economy Listeners (T-61)
+    const formEconomy = document.getElementById('form-economy');
+    if (formEconomy) {
+      formEconomy.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const data = collectEconomyFormData();
+        saveEconomy(data);
+      });
+    }
+
+    const btnSaveEcoTop = document.getElementById('btn-save-economy-top');
+    if (btnSaveEcoTop) {
+      btnSaveEcoTop.addEventListener('click', () => {
+        const data = collectEconomyFormData();
+        saveEconomy(data);
+      });
+    }
+
+    const btnEcoReset = document.getElementById('btn-eco-reset');
+    if (btnEcoReset) {
+      btnEcoReset.addEventListener('click', resetEconomy);
+    }
+
+    const btnApplyAdjust = document.getElementById('btn-apply-adjust');
+    if (btnApplyAdjust) {
+      btnApplyAdjust.addEventListener('click', () => {
+        const inp = document.getElementById('eco-adjust-percent');
+        const val = inp ? parseFloat(inp.value) : NaN;
+        adjustEconomy(val);
+      });
+    }
+
+    root.querySelectorAll('.eco-preset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const pct = parseFloat(btn.getAttribute('data-pct'));
+        const inp = document.getElementById('eco-adjust-percent');
+        if (inp) inp.value = pct;
+        adjustEconomy(pct);
       });
     });
   }

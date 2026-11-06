@@ -1491,6 +1491,46 @@ const server = http.createServer(async (req, res) => {
         return err(res, e.message, 400);
       }
     }
+
+    /* ── Economy Configuration & Drop Rates (T-61) ── */
+    if (pathname === '/api/admin/economy' && method === 'GET') {
+      const config = db.getEconomyConfig();
+      return json(res, { ok: true, config, defaults: db.DEFAULT_ECONOMY_CONFIG });
+    }
+    if (pathname === '/api/admin/economy' && method === 'POST') {
+      try {
+        const body = await parseBody(req);
+        const payload = (body && body.config) ? body.config : body;
+        const saved = db.saveEconomyConfig(payload);
+        return json(res, { ok: true, message: 'Pengaturan ekonomi berhasil disimpan', config: saved });
+      } catch (e) {
+        return err(res, e.message || 'Gagal menyimpan konfigurasi ekonomi', 400);
+      }
+    }
+    if (pathname === '/api/admin/economy/adjust' && method === 'POST') {
+      try {
+        const body = await parseBody(req);
+        const percent = Number(body.percent);
+        if (isNaN(percent)) return err(res, 'Nilai persentase tidak valid', 400);
+        const adjusted = db.adjustEconomyConfig(percent);
+        return json(res, {
+          ok: true,
+          message: `Seluruh drop koin berhasil disesuaikan ${percent >= 0 ? '+' : ''}${percent}%`,
+          percent,
+          config: adjusted
+        });
+      } catch (e) {
+        return err(res, e.message || 'Gagal menyesuaikan nilai ekonomi', 400);
+      }
+    }
+    if (pathname === '/api/admin/economy/reset' && method === 'POST') {
+      try {
+        const reset = db.saveEconomyConfig(null);
+        return json(res, { ok: true, message: 'Pengaturan ekonomi berhasil dikembalikan ke default', config: reset });
+      } catch (e) {
+        return err(res, e.message || 'Gagal mereset konfigurasi ekonomi', 400);
+      }
+    }
   }
 
   /* ─────────────────────────────────────────────────────────────
