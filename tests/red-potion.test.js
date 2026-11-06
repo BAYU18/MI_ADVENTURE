@@ -6,9 +6,35 @@ const { SKILLS, getSkillUpgradeCost } = require('../shared/economy');
 const Progression = require('../shared/progression');
 
 function getCorrectDisplayIdx(rawDb, sq) {
-  const q = rawDb.prepare('SELECT answer_index FROM questions WHERE id=?').get(sq.question_id);
-  const display = JSON.parse(sq.display_json || '{}');
-  const order = display.optionOrder || JSON.parse(sq.option_order || '[]');
+  const q = rawDb.prepare('SELECT answer_index, question_type, type_data_json FROM questions WHERE id=?').get(sq.question_id);
+  const qType = (q.question_type || 'MCQ').toUpperCase();
+  let typeData = {};
+  try { typeData = JSON.parse(q.type_data_json || '{}'); } catch(e) {}
+  let displayJson = {};
+  try { displayJson = JSON.parse(sq.display_json || '{}'); } catch(e) {}
+
+  if (qType === 'TRUE_FALSE') {
+    const targetBool = typeData.correctAnswer !== undefined ? Boolean(typeData.correctAnswer) : (q.answer_index === 0);
+    return targetBool ? 0 : 1;
+  }
+  if (qType === 'ORDERING') {
+    const displayOrder = displayJson.displayOrder || [];
+    return Array.from({ length: displayOrder.length }, (_, i) => displayOrder.indexOf(i));
+  }
+  if (qType === 'MATCHING') {
+    const rightOrder = displayJson.rightOrder || [];
+    return Array.from({ length: rightOrder.length }, (_, i) => rightOrder.indexOf(i));
+  }
+  if (qType === 'SHORT') {
+    const accept = typeData.accepted || typeData.answers || (typeData.accept ? (Array.isArray(typeData.accept) ? typeData.accept : [typeData.accept]) : []);
+    return String(accept[0] || '');
+  }
+  let order = [0, 1, 2, 3];
+  if (displayJson && Array.isArray(displayJson.optionOrder)) {
+    order = displayJson.optionOrder;
+  } else if (sq.option_order) {
+    try { order = JSON.parse(sq.option_order); } catch (_) {}
+  }
   const idx = order.indexOf(q.answer_index);
   return idx >= 0 ? idx : q.answer_index;
 }

@@ -1952,7 +1952,7 @@ Screens.battle = {
     return chips.join('');
   },
 
-  showPassiveTrigger(triggeredList) {
+  showPassiveTrigger(triggeredList, startDelay = 500) {
     if (!Array.isArray(triggeredList) || triggeredList.length === 0) return;
 
     // 1. Audit & De-duplikasi ketat: pastikan setiap kategori pasif HANYA muncul 1 kali
@@ -1968,6 +1968,7 @@ Screens.battle = {
     }
 
     uniqueList.forEach((tp, i) => {
+      const delay = startDelay + (i * 380);
       setTimeout(() => {
         // Efek visual: pulse chip di status buff bar pemain
         const chip = $(`#buff-${tp.id}`) || $(`[data-buff="${tp.id}"]`);
@@ -2009,7 +2010,7 @@ Screens.battle = {
             this.showDamageFloater(`${tp.icon || '✨'} ${cleanName}!`, 'crit');
           }
         }
-      }, 600 + i * 320);
+      }, delay);
     });
   },
 
@@ -2981,25 +2982,29 @@ Screens.battle = {
     }
     this.updateActiveSkillBadges();
 
-    // 2. Notifikasi Hadiah Koin / Soal Misteri (Staggered agar TIDAK BERTUMPUK / TUMPANG TINDIH)
+    // 2. Notifikasi Aliran Pertempuran Berurutan (Smooth Choreographed Stream)
+    let nextNotifDelay = 420;
+
     const coinDrop = res.drops && typeof res.drops.coins === 'number' ? res.drops.coins : 0;
     if (coinDrop > 0) {
-      this.showDamageFloater(`+${coinDrop} 🪙`, 'crit', 450);
+      this.showDamageFloater(`+${coinDrop} 🪙`, 'crit', nextNotifDelay);
+      nextNotifDelay += 380;
     } else if (res.isMystery && res.mysteryReward === 'COINS_8') {
-      this.showDamageFloater(`+8 🪙`, 'crit', 450);
+      this.showDamageFloater(`+8 🪙`, 'crit', nextNotifDelay);
+      nextNotifDelay += 380;
     }
 
-    if (res.isMystery && res.mysteryReward) {
-      const mDelay = coinDrop > 0 ? 850 : 450;
+    if (res.isMystery && res.mysteryReward && res.mysteryReward !== 'COINS_8') {
       if (res.mysteryReward === 'HEAL_15') {
-        this.showDamageFloater(`+15 HP 💖`, 'heal', mDelay);
+        this.showDamageFloater(`+15 HP 💖`, 'heal', nextNotifDelay);
       } else if (res.mysteryReward === 'ENERGY_1') {
-        this.showDamageFloater(`+1 Energi ⚡`, 'heal', mDelay);
+        this.showDamageFloater(`+1 Energi ⚡`, 'heal', nextNotifDelay);
       } else if (res.mysteryReward === 'DAMAGE_1_5') {
-        this.showDamageFloater(`1.5× Damage 💥`, 'crit', mDelay);
-      } else if (res.mysteryReward !== 'COINS_8') {
-        this.showDamageFloater(`🎁 ${res.mysteryReward}`, 'crit', mDelay);
+        this.showDamageFloater(`1.5× Damage 💥`, 'crit', nextNotifDelay);
+      } else {
+        this.showDamageFloater(`🎁 ${res.mysteryReward}`, 'crit', nextNotifDelay);
       }
+      nextNotifDelay += 380;
     }
 
     // Update in-battle shield chip from answer response
@@ -3023,7 +3028,7 @@ Screens.battle = {
       if (res.notice && res.notice.includes('Darah Terakhir')) trig.push({ id: 'lastStand', name: 'Darah Terakhir!', icon: '🩸', desc: 'Bertahan Hidup dengan 1 HP!' });
     }
     if (trig.length > 0) {
-      this.showPassiveTrigger(trig);
+      this.showPassiveTrigger(trig, nextNotifDelay);
     }
 
     // Boss Enrage Banner & Phase 2 Transition (C.1 / T-23)
@@ -3442,15 +3447,23 @@ Screens.battle = {
       if (bossChip) {
         bossChip.textContent = label;
         bossChip.style.display = 'inline-flex';
+        bossChip.classList.add('chip-active');
       }
       if (qBadge) {
         qBadge.textContent = `${icon} ${skill.name.toUpperCase()} ×${skill.mult}`;
         qBadge.style.display = 'inline-flex';
+        qBadge.classList.add('badge-active');
       }
       if (svgSlot) svgSlot.classList.add('boss-target-primed');
     } else {
-      if (bossChip) bossChip.style.display = 'none';
-      if (qBadge) qBadge.style.display = 'none';
+      if (bossChip) {
+        bossChip.classList.remove('chip-active');
+        bossChip.style.display = 'none';
+      }
+      if (qBadge) {
+        qBadge.classList.remove('badge-active');
+        qBadge.style.display = 'none';
+      }
       if (svgSlot) svgSlot.classList.remove('boss-target-primed');
     }
   },
@@ -3468,12 +3481,19 @@ Screens.battle = {
       floater.className = `damage-floater ${type}`;
       floater.textContent = text;
       container.appendChild(floater);
+
+      // Mulai fase exit yang halus (fade-out + collapse height)
+      setTimeout(() => {
+        if (floater) floater.classList.add('fade-out');
+      }, 1050);
+
+      // Bersihkan DOM setelah animasi keluar selesai sempurna
       setTimeout(() => {
         if (floater && floater.parentNode) floater.remove();
         if (container && container.children.length === 0 && container.parentNode) {
           container.remove();
         }
-      }, 1200);
+      }, 1400);
     };
 
     if (delay > 0) {
