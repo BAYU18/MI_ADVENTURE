@@ -27,10 +27,10 @@ test('T-59: Sistem 20 Kategori Lencana x 4 Tier & Showcase Profil Teman', async 
     assert.equal(eval0.totalBadges, 80);
 
     const statsMid = {
-      bossDefeated: 30, // Unlocks Common (5) & Rare (25) of boss_slayer
-      stars: 160,       // Unlocks Common (30) & Rare (150) of star_collector
-      bestStreak: 20,   // Unlocks Common (7), Rare (14), Epic (20) of combo_virtuoso
-      level: 10         // Unlocks Common (5) & Rare (10) of ascendant_level
+      bossDefeated: 20, // Unlocks Common (3) & Rare (12) of boss_slayer, Epic is 50
+      stars: 80,        // Unlocks Common (15) & Rare (75) of star_collector, Epic is 225
+      bestStreak: 14,   // Unlocks Common (4), Rare (8), Epic (12) of combo_virtuoso, Legend is 16
+      level: 8          // Unlocks Common (3) & Rare (6) of ascendant_level, Epic is 10
     };
     const evalMid = Badges.evaluateBadges(statsMid);
     assert.ok(evalMid.totalUnlocked >= 9, 'Harus membuka minimal 9 lencana');
