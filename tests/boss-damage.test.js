@@ -1,4 +1,4 @@
-﻿const test = require('node:test');
+const test = require('node:test');
 const assert = require('node:assert/strict');
 const db = require('../lib/db');
 const rawDb = db.getDb();
@@ -24,12 +24,31 @@ function getCorrectChoice(sessionId, orderIndex) {
     JOIN questions q ON q.id=sq.question_id
     WHERE sq.session_id=? AND sq.order_index=?
   `).get(sessionId, orderIndex);
+  const qType = (sq.question_type || 'MCQ').toUpperCase();
+  let typeData = {};
+  try { typeData = JSON.parse(sq.type_data_json || '{}'); } catch(e) {}
+  let displayJson = {};
+  try { displayJson = JSON.parse(sq.display_json || '{}'); } catch(e) {}
+
+  if (qType === 'TRUE_FALSE') {
+    const targetBool = typeData.correctAnswer !== undefined ? Boolean(typeData.correctAnswer) : (sq.answer_index === 0);
+    return targetBool ? 0 : 1;
+  }
+  if (qType === 'ORDERING') {
+    const displayOrder = displayJson.displayOrder || [];
+    return Array.from({ length: displayOrder.length }, (_, i) => displayOrder.indexOf(i));
+  }
+  if (qType === 'MATCHING') {
+    const rightOrder = displayJson.rightOrder || [];
+    return Array.from({ length: rightOrder.length }, (_, i) => rightOrder.indexOf(i));
+  }
+  if (qType === 'SHORT') {
+    const accept = typeData.accepted || typeData.answers || (typeData.accept ? (Array.isArray(typeData.accept) ? typeData.accept : [typeData.accept]) : []);
+    return String(accept[0] || '');
+  }
   let order = [0, 1, 2, 3];
-  if (sq.display_json) {
-    try {
-      const dj = JSON.parse(sq.display_json);
-      if (Array.isArray(dj.optionOrder)) order = dj.optionOrder;
-    } catch (_) {}
+  if (displayJson && Array.isArray(displayJson.optionOrder)) {
+    order = displayJson.optionOrder;
   } else if (sq.option_order) {
     try { order = JSON.parse(sq.option_order); } catch (_) {}
   }
@@ -81,17 +100,17 @@ test('T-31 / Skenario H.4, H.5, H.6: Damage, Pity, Monster Damage, Fatigue, Lant
   });
 
   await t.test('2. Skenario H.5: Pity memberikan 1.5x damage pada jawaban benar setelah 3x salah, lalu reset wrong_streak', async () => {
-    cleanup();
-    const sessionRes = db.startSession(testPlayer, subRow.id);
+    const p2 = createTestPlayer('TesterPity');
+    const sessionRes = db.startSession(p2, subRow.id);
     const sId = sessionRes.sessionId;
-    let s = db.getSession(sId, testPlayer);
+    let s = db.getSession(sId, p2);
 
     // Pastikan tidak ada modifier weak/bonus pada soal uji pity
     rawDb.prepare('UPDATE session_questions SET is_weak=0, is_bonus=0, is_mystery=0 WHERE session_id=?').run(sId);
 
     // Jawab 3x salah
     for (let i = 0; i < 3; i++) {
-      const ans = db.answerQuestion(sId, testPlayer, s.currentIndex, -99);
+      const ans = db.answerQuestion(sId, p2, s.currentIndex, -99);
       s = ans.session;
     }
 
@@ -99,7 +118,7 @@ test('T-31 / Skenario H.4, H.5, H.6: Damage, Pity, Monster Damage, Fatigue, Lant
 
     // Sekarang jawab BENAR
     const correctIdx = getCorrectChoice(sId, s.currentIndex);
-    const ansCorrect = db.answerQuestion(sId, testPlayer, s.currentIndex, correctIdx);
+    const ansCorrect = db.answerQuestion(sId, p2, s.currentIndex, correctIdx);
     assert.equal(ansCorrect.isCorrect, true);
     assert.equal(ansCorrect.pity, true, 'Pity harus aktif pada serangan benar ini');
     // Basic hit = 20, with pity 1.5x = 30
@@ -109,11 +128,9 @@ test('T-31 / Skenario H.4, H.5, H.6: Damage, Pity, Monster Damage, Fatigue, Lant
     const sRow = rawDb.prepare('SELECT wrong_streak FROM game_sessions WHERE id=?').get(sId);
     assert.equal(sRow.wrong_streak, 0);
     assert.equal(ansCorrect.session.pity, false);
-
-    cleanup();
   });
 
-  await t.test('3. Skenario H.4: Boss tidak tumbang sebelum 15 jawaban benar (lantai 15), bahkan dengan power_strike Lv5', async () => {
+  await t.test('3. Skenario H.4: Boss kalah saat HP mencapai 0 dengan power_strike Lv5 (T-56: eliminasi penguncian 1 HP)', async () => {
     cleanup();
     // Start session with explicit count 30
     const sessionRes = db.startSession(testPlayer, subRow.id, { count: 30 });
@@ -123,33 +140,26 @@ test('T-31 / Skenario H.4, H.5, H.6: Damage, Pity, Monster Damage, Fatigue, Lant
     // Paksa power_mult = 4.0 pada setiap session_questions untuk mensimulasikan power_strike Lv5
     rawDb.prepare('UPDATE session_questions SET power_mult = 4.0, is_weak = 0, is_bonus = 0, is_mystery = 0 WHERE session_id=?').run(sId);
 
-    // Jawab 14 soal pertama secara benar berturut-turut
-    for (let i = 0; i < 14; i++) {
+    // Jawab soal sampai boss kalah
+    let hitCount = 0;
+    while (s.bossHp > 0 && s.status === 'IN_PROGRESS' && hitCount < 10) {
       const correctIdx = getCorrectChoice(sId, s.currentIndex);
       const ans = db.answerQuestion(sId, testPlayer, s.currentIndex, correctIdx);
       assert.equal(ans.isCorrect, true);
-      assert.ok(ans.boss.hp >= 1, `Pada jawaban ke-${i + 1}, boss HP (${ans.boss.hp}) tidak boleh <= 0 sebelum jawaban ke-15!`);
-      assert.equal(ans.session.status, 'IN_PROGRESS', `Sesi harus tetap IN_PROGRESS pada hit ke-${i + 1}`);
       s = ans.session;
+      hitCount++;
     }
 
-    // Pada hit ke-14, boss HP harus tertahan di 1 HP karena damage 14 x (20 * 4) = 1120 >> boss_max_hp (300)
-    assert.equal(s.bossHp, 1, 'Boss HP harus tertahan di tepat 1 HP karena lantai 15!');
-
-    // Sekarang jawaban ke-15
-    const correctIdx15 = getCorrectChoice(sId, s.currentIndex);
-    const ans15 = db.answerQuestion(sId, testPlayer, s.currentIndex, correctIdx15);
-    assert.equal(ans15.isCorrect, true);
-    assert.equal(ans15.boss.hp, 0, 'Pada jawaban ke-15, boss HP boleh menjadi 0');
-    assert.equal(ans15.session.status, 'WON', 'Boss harus kalah pada jawaban ke-15');
-    assert.equal(ans15.session.endReason, 'BOSS_DEFEATED');
+    assert.equal(s.bossHp, 0, 'Pada kekalahan, boss HP harus 0 (T-56)');
+    assert.equal(s.status, 'WON', 'Boss harus kalah seketika saat HP habis');
+    assert.equal(s.endReason, 'BOSS_DEFEATED');
 
     cleanup();
   });
 
   await t.test('4b. Skenario H.6: Kelelahan boss terpicu tepat saat masuk Fase Marah di soal ke-6', async () => {
-    cleanup();
-    const sessionRes = db.startSession(testPlayer, subRow.id, { count: 35 });
+    const p4 = createTestPlayer('TesterFatigue');
+    const sessionRes = db.startSession(p4, subRow.id, { count: 35 });
     const sId = sessionRes.sessionId;
 
     // Bersihkan flags bonus/weak pada soal uji
@@ -159,36 +169,36 @@ test('T-31 / Skenario H.4, H.5, H.6: Damage, Pity, Monster Damage, Fatigue, Lant
     rawDb.prepare(`
       UPDATE game_sessions
       SET boss_tier = 'legend', boss_max_hp = 600, boss_hp = 355, boss_hits_needed = 30, boss_hit_unit = 20,
-          boss_phase = 1, fatigue_applied = 0
+          boss_phase = 1, fatigue_applied = 0, weak_topic = NULL
       WHERE id=?
     `).run(sId);
 
-    let s = db.getSession(sId, testPlayer);
+    let s = db.getSession(sId, p4);
 
     // Soal 1: salah (ans 1, cor 0)
-    db.answerQuestion(sId, testPlayer, s.currentIndex, -99);
+    db.answerQuestion(sId, p4, s.currentIndex, -99);
     // Soal 2: salah (ans 2, cor 0)
-    s = db.getSession(sId, testPlayer);
-    db.answerQuestion(sId, testPlayer, s.currentIndex, -99);
+    s = db.getSession(sId, p4);
+    db.answerQuestion(sId, p4, s.currentIndex, -99);
     // Soal 3: benar (ans 3, cor 1) -> dmg 20 -> hp 335 (Phase 1)
-    s = db.getSession(sId, testPlayer);
-    const a3 = db.answerQuestion(sId, testPlayer, s.currentIndex, getCorrectChoice(sId, s.currentIndex));
+    s = db.getSession(sId, p4);
+    const a3 = db.answerQuestion(sId, p4, s.currentIndex, getCorrectChoice(sId, s.currentIndex));
     assert.equal(a3.boss.phase, 1);
 
     // Soal 4: salah (ans 4, cor 1)
-    s = db.getSession(sId, testPlayer);
-    db.answerQuestion(sId, testPlayer, s.currentIndex, -99);
+    s = db.getSession(sId, p4);
+    db.answerQuestion(sId, p4, s.currentIndex, -99);
 
     // Soal 5: benar (ans 5, cor 2) -> dmg 20 -> hp 315 > 300 (masih Phase 1)
-    s = db.getSession(sId, testPlayer);
-    const a5 = db.answerQuestion(sId, testPlayer, s.currentIndex, getCorrectChoice(sId, s.currentIndex));
+    s = db.getSession(sId, p4);
+    const a5 = db.answerQuestion(sId, p4, s.currentIndex, getCorrectChoice(sId, s.currentIndex));
     assert.equal(a5.boss.phase, 1, 'Soal 5 harus masih Phase 1');
     assert.equal(a5.fatigue.applied, false);
 
     // Soal 6: benar (ans 6, cor 3) -> dmg 20 -> hp 295 <= 300 (MASUK PHASE 2!)
     // Total answered = 6, correct = 3, akurasi = 3/6 = 50% < 55%
-    s = db.getSession(sId, testPlayer);
-    const a6 = db.answerQuestion(sId, testPlayer, s.currentIndex, getCorrectChoice(sId, s.currentIndex));
+    s = db.getSession(sId, p4);
+    const a6 = db.answerQuestion(sId, p4, s.currentIndex, getCorrectChoice(sId, s.currentIndex));
     assert.equal(a6.boss.phase, 2, 'Soal 6 harus masuk Phase 2');
     assert.equal(a6.fatigue.applied, true, 'Fatigue harus terpicu!');
     assert.match(a6.notice, /kelelahan/, 'Notice harus mengandung info kelelahan');
@@ -198,18 +208,16 @@ test('T-31 / Skenario H.4, H.5, H.6: Damage, Pity, Monster Damage, Fatigue, Lant
     assert.equal(row.fatigue_applied, 1);
 
     // Soal 7: tidak boleh memicu fatigue lagi
-    s = db.getSession(sId, testPlayer);
-    const a7 = db.answerQuestion(sId, testPlayer, s.currentIndex, getCorrectChoice(sId, s.currentIndex));
+    s = db.getSession(sId, p4);
+    const a7 = db.answerQuestion(sId, p4, s.currentIndex, getCorrectChoice(sId, s.currentIndex));
     assert.equal(a7.fatigue.applied, false, 'Fatigue tidak boleh terpicu dua kali');
-
-    cleanup();
   });
 
   await t.test('5. Skenario H.6: Kelelahan boss TIDAK terpicu saat Fase Marah jika akurasi >= 55%', async () => {
-    cleanup();
-    const sessionRes = db.startSession(testPlayer, subRow.id, { count: 35 });
+    const p5 = createTestPlayer('TesterHighAcc');
+    const sessionRes = db.startSession(p5, subRow.id, { count: 35 });
     const sId = sessionRes.sessionId;
-    let s = db.getSession(sId, testPlayer);
+    let s = db.getSession(sId, p5);
 
     const halfHp = Math.floor(s.bossMaxHp / 2);
     rawDb.prepare('UPDATE game_sessions SET boss_hp = ?, boss_phase = 1, fatigue_applied = 0 WHERE id=?')
@@ -217,16 +225,14 @@ test('T-31 / Skenario H.4, H.5, H.6: Damage, Pity, Monster Damage, Fatigue, Lant
 
     // Jawab 5 benar, 0 salah (akurasi 5/5 = 100%)
     for (let i = 0; i < 5; i++) {
-      s = db.getSession(sId, testPlayer);
-      db.answerQuestion(sId, testPlayer, s.currentIndex, getCorrectChoice(sId, s.currentIndex));
+      s = db.getSession(sId, p5);
+      db.answerQuestion(sId, p5, s.currentIndex, getCorrectChoice(sId, s.currentIndex));
     }
 
     // Pertanyaan 6 benar (masuk phase 2, akurasi 6/6 = 100% >= 55%)
-    s = db.getSession(sId, testPlayer);
-    const ans6 = db.answerQuestion(sId, testPlayer, s.currentIndex, getCorrectChoice(sId, s.currentIndex));
+    s = db.getSession(sId, p5);
+    const ans6 = db.answerQuestion(sId, p5, s.currentIndex, getCorrectChoice(sId, s.currentIndex));
 
     assert.equal(ans6.fatigue.applied, false, 'Fatigue tidak boleh terpicu jika akurasi tinggi');
-
-    cleanup();
   });
 });

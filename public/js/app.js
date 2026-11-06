@@ -2009,7 +2009,7 @@ Screens.battle = {
             this.showDamageFloater(`${tp.icon || '✨'} ${cleanName}!`, 'crit');
           }
         }
-      }, i * 250);
+      }, 600 + i * 320);
     });
   },
 
@@ -2092,8 +2092,10 @@ Screens.battle = {
             <div style="display:flex;gap:6px;margin-top:4px;flex-wrap:wrap">
               <span class="chip danger fatigue-banner" id="boss-fatigue-banner" data-testid="boss-fatigue-banner" style="${(s.fatigue_applied || s.fatigueApplied) ? 'display:inline-flex' : 'display:none'};font-size:0.75rem;font-weight:700">Boss mulai kelelahan! 😮‍💨</span>
               <span class="chip warning pity-badge" id="pity-badge" data-testid="pity-badge" style="${(s.pity || s.wrong_streak >= 3 || s.wrongStreak >= 3) ? 'display:inline-flex' : 'display:none'};font-size:0.75rem;font-weight:700">💪 Serangan Balik</span>
+              <span class="chip accent boss-active-skill-chip" id="boss-active-skill-chip" style="display:none;font-size:0.75rem;font-weight:800;background:linear-gradient(135deg,#991b1b,#d97706);color:#fff;border:1px solid #fbbf24;box-shadow:0 0 10px rgba(245,158,11,0.5)">⚔️ Tebasan Super Aktif!</span>
             </div>
           </div>
+          <div class="boss-slash-effect" id="boss-slash-effect"></div>
           <div id="damage-floater-slot"></div>
           <div class="dialog-bubble boss" id="boss-dialog" style="display:none"></div>
           <div class="dialog-bubble pet" id="pet-dialog" style="display:none"></div>
@@ -2130,6 +2132,7 @@ Screens.battle = {
                 <span class="chip danger" id="weak-badge" data-testid="weak-badge" style="display:none;font-size:0.7rem;font-weight:700;padding:2px 8px;background:var(--c-danger,#ef4444);color:#fff">🎯 TITIK LEMAH</span>
                 <span class="chip warning" id="bonus-badge" data-testid="bonus-badge" style="display:none;font-size:0.7rem;font-weight:700;padding:2px 8px;background:#f59e0b;color:#fff">⭐ BONUS</span>
                 <span class="chip" id="mystery-badge" data-testid="mystery-badge" style="display:none;font-size:0.7rem;font-weight:700;padding:2px 8px;background:#8b5cf6;color:#fff;box-shadow:0 0 8px rgba(139,92,246,0.5)">❓ MISTERI</span>
+                <span class="chip skill-active-badge" id="skill-active-badge" style="display:none;font-size:0.7rem;font-weight:800;padding:2px 8px;background:linear-gradient(135deg,#dc2626,#ea580c);color:#fff;border:1px solid #fef08a;box-shadow:0 0 8px rgba(234,88,12,0.6)">⚔️ TEBASAN SUPER ×2.0</span>
               </div>
               <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
                 <button class="icon-btn small" id="btn-tts" title="Baca Soal" style="width:28px;height:28px;font-size:.8rem">🔊</button>
@@ -2356,6 +2359,7 @@ Screens.battle = {
     if (mysteryBadge) {
       mysteryBadge.style.display = q.isMystery ? 'inline-flex' : 'none';
     }
+    this.updateActiveSkillBadges();
 
     // Image slot
     $('#q-image-slot').innerHTML = q.imageUrl
@@ -2906,53 +2910,53 @@ Screens.battle = {
 
     // Floater & SFX (T-23, T-24, T-25)
     const dmg = res.damageToBoss ?? res.bossDamage ?? 0;
-
-    // Notifikasi Hadiah Koin / Soal Misteri (Format ringkas tanpa teks panjang)
-    const coinDrop = res.drops && typeof res.drops.coins === 'number' ? res.drops.coins : 0;
-    if (coinDrop > 0) {
-      this.showDamageFloater(`+${coinDrop} 🪙`, 'crit');
-    } else if (res.isMystery && res.mysteryReward === 'COINS_8') {
-      this.showDamageFloater(`+8 🪙`, 'crit');
-    }
-
-    if (res.isMystery && res.mysteryReward) {
-      if (res.mysteryReward === 'HEAL_15') {
-        this.showDamageFloater(`+15 HP 💖`, 'heal');
-      } else if (res.mysteryReward === 'ENERGY_1') {
-        this.showDamageFloater(`+1 Energi ⚡`, 'heal');
-      } else if (res.mysteryReward === 'DAMAGE_1_5') {
-        this.showDamageFloater(`1.5× Damage 💥`, 'crit');
-      } else if (res.mysteryReward !== 'COINS_8') {
-        this.showDamageFloater(`🎁 ${res.mysteryReward}`, 'crit');
-      }
-    }
     const isCriticalHit = outcome === 'CRITICAL' || Boolean(res.isCrit);
-    if (res.weakHit) {
-      this.showDamageFloater(`🎯 TITIK LEMAH! -${dmg}`, 'crit');
-      this.animateBossShake();
-      if (window.Feedback) Feedback.sfx('critical');
-      else if (window.Sfx) Sfx.play('correct');
-    } else if (isCriticalHit) {
-      this.showDamageFloater(`⚡ KRITIKAL! -${dmg}`, 'crit');
-      this.animateBossShake();
-      if (window.Feedback) Feedback.sfx('critical');
-      else if (window.Sfx) Sfx.play('correct');
-    } else if (outcome === 'NORMAL') {
-      this.showDamageFloater(`🎯 TEPAT! -${dmg}`, 'dmg');
-      this.animateBossShake();
-      if (window.Feedback) Feedback.sfx('correct');
-      else if (window.Sfx) Sfx.play('correct');
-    } else if (outcome === 'SLOW') {
-      this.showDamageFloater(`🐢 LAMBAT! -${dmg}`, 'dmg');
-      this.animateBossShake();
-      if (window.Feedback) Feedback.sfx('correct');
-      else if (window.Sfx) Sfx.play('correct');
+    const skillEff = res.skillEffects || {};
+    const isPowerStrike = Boolean(skillEff.powerStrike?.active || (this.activeBossSkill && this.activeBossSkill.id === 'power_strike'));
+    const isRedPotion = Boolean(skillEff.redPotion?.active || (this.activeBossSkill && this.activeBossSkill.id === 'red_potion'));
+
+    // 1. Efek Serangan Utama ke Boss (Immediate, Priority #1)
+    if (res.isCorrect) {
+      if (isPowerStrike) {
+        this.animateSwordSlash();
+        this.animateBossShake(true);
+        this.showDamageFloater(`⚔️ TEBASAN SUPER! -${dmg}`, 'power_strike');
+        if (window.Feedback) Feedback.sfx('critical');
+        else if (window.Sfx) Sfx.play('correct');
+      } else if (isRedPotion) {
+        this.animateSwordSlash();
+        this.animateBossShake(true);
+        this.showDamageFloater(`🍷 RAMUAN MERAH! -${dmg}`, 'red_potion');
+        if (window.Feedback) Feedback.sfx('critical');
+        else if (window.Sfx) Sfx.play('correct');
+      } else if (res.weakHit) {
+        this.animateBossShake();
+        this.showDamageFloater(`🎯 TITIK LEMAH! -${dmg}`, 'crit');
+        if (window.Feedback) Feedback.sfx('critical');
+        else if (window.Sfx) Sfx.play('correct');
+      } else if (isCriticalHit) {
+        this.animateBossShake();
+        this.showDamageFloater(`⚡ KRITIKAL! -${dmg}`, 'crit');
+        if (window.Feedback) Feedback.sfx('critical');
+        else if (window.Sfx) Sfx.play('correct');
+      } else if (outcome === 'NORMAL') {
+        this.animateBossShake();
+        this.showDamageFloater(`🎯 TEPAT! -${dmg}`, 'dmg');
+        if (window.Feedback) Feedback.sfx('correct');
+        else if (window.Sfx) Sfx.play('correct');
+      } else if (outcome === 'SLOW') {
+        this.animateBossShake();
+        this.showDamageFloater(`🐢 LAMBAT! -${dmg}`, 'dmg');
+        if (window.Feedback) Feedback.sfx('correct');
+        else if (window.Sfx) Sfx.play('correct');
+      }
     } else if (outcome === 'WRONG') {
       if (res.dodged) {
         this.showDamageFloater('💨 HINDARAN! 0 DMG', 'heal');
         toast('Refleks hebat! Kamu berhasil menghindari serangan! 💨');
       } else {
-        this.showDamageFloater(`❌ SALAH! -${res.damageToPlayer ?? res.playerDamage}`, 'miss');
+        const failTxt = isPowerStrike ? `❌ TEBASAN GAGAL! -${res.damageToPlayer ?? res.playerDamage}` : `❌ SALAH! -${res.damageToPlayer ?? res.playerDamage}`;
+        this.showDamageFloater(failTxt, 'miss');
         if (window.Feedback) Feedback.sfx('wrong');
         else if (window.Sfx) Sfx.play('wrong');
       }
@@ -2969,6 +2973,33 @@ Screens.battle = {
       this.showDamageFloater(`⏳ PERGI LAMA!`, 'miss');
       if (window.Feedback) Feedback.sfx('wrong');
       else if (window.Sfx) Sfx.play('wrong');
+    }
+
+    // Reset status skill serang aktif bila tidak ada sisa lanjutan
+    if (!res.flags?.redPotionRemaining) {
+      this.activeBossSkill = null;
+    }
+    this.updateActiveSkillBadges();
+
+    // 2. Notifikasi Hadiah Koin / Soal Misteri (Staggered agar TIDAK BERTUMPUK / TUMPANG TINDIH)
+    const coinDrop = res.drops && typeof res.drops.coins === 'number' ? res.drops.coins : 0;
+    if (coinDrop > 0) {
+      this.showDamageFloater(`+${coinDrop} 🪙`, 'crit', 450);
+    } else if (res.isMystery && res.mysteryReward === 'COINS_8') {
+      this.showDamageFloater(`+8 🪙`, 'crit', 450);
+    }
+
+    if (res.isMystery && res.mysteryReward) {
+      const mDelay = coinDrop > 0 ? 850 : 450;
+      if (res.mysteryReward === 'HEAL_15') {
+        this.showDamageFloater(`+15 HP 💖`, 'heal', mDelay);
+      } else if (res.mysteryReward === 'ENERGY_1') {
+        this.showDamageFloater(`+1 Energi ⚡`, 'heal', mDelay);
+      } else if (res.mysteryReward === 'DAMAGE_1_5') {
+        this.showDamageFloater(`1.5× Damage 💥`, 'crit', mDelay);
+      } else if (res.mysteryReward !== 'COINS_8') {
+        this.showDamageFloater(`🎁 ${res.mysteryReward}`, 'crit', mDelay);
+      }
     }
 
     // Update in-battle shield chip from answer response
@@ -3360,33 +3391,96 @@ Screens.battle = {
     return;
   },
 
-  animateBossShake() {
+  animateBossShake(isHeavy = false) {
     const box = $('#boss-svg-slot');
     if (box) {
-      box.classList.remove('anim-shake');
+      box.classList.remove('anim-shake', 'anim-shake-heavy');
       void box.offsetWidth;
-      box.classList.add('anim-shake');
+      box.classList.add(isHeavy ? 'anim-shake-heavy' : 'anim-shake');
     }
   },
 
-  showDamageFloater(text, type = 'dmg') {
-    let container = document.getElementById('center-floater-container');
-    if (!container) {
-      container = document.createElement('div');
-      container.id = 'center-floater-container';
-      container.className = 'center-floater-container';
-      document.body.appendChild(container);
+  animateSwordSlash() {
+    const bossCard = $('.boss-card') || $('#boss-svg-slot');
+    if (!bossCard) return;
+    let slash = $('#boss-slash-effect');
+    if (!slash) {
+      slash = document.createElement('div');
+      slash.id = 'boss-slash-effect';
+      slash.className = 'boss-slash-effect';
+      bossCard.appendChild(slash);
     }
-    const floater = document.createElement('div');
-    floater.className = `damage-floater ${type}`;
-    floater.textContent = text;
-    container.appendChild(floater);
-    setTimeout(() => {
-      if (floater && floater.parentNode) floater.remove();
-      if (container && container.children.length === 0 && container.parentNode) {
-        container.remove();
+    slash.classList.remove('anim-slash');
+    void slash.offsetWidth;
+    slash.classList.add('anim-slash');
+
+    const svgSlot = $('#boss-svg-slot');
+    if (svgSlot) {
+      svgSlot.classList.remove('anim-slash-impact');
+      void svgSlot.offsetWidth;
+      svgSlot.classList.add('anim-slash-impact');
+    }
+  },
+
+  updateActiveSkillBadges() {
+    const s = this.session;
+    const q = s?.currentQuestion;
+    const skill = this.activeBossSkill || ((q && (q.powerMult > 1.0 || q.skillApplied)) ? {
+      id: q.skillApplied || 'power_strike',
+      name: q.skillApplied === 'red_potion' ? 'Ramuan Merah' : 'Tebasan Super',
+      mult: q.powerMult || 2.0
+    } : null);
+
+    const bossChip = $('#boss-active-skill-chip');
+    const qBadge = $('#skill-active-badge');
+    const svgSlot = $('#boss-svg-slot');
+
+    if (skill) {
+      const isRed = skill.id === 'red_potion';
+      const icon = isRed ? '🍷' : '⚔️';
+      const label = `${icon} ${skill.name} (×${skill.mult})!`;
+      if (bossChip) {
+        bossChip.textContent = label;
+        bossChip.style.display = 'inline-flex';
       }
-    }, 1100);
+      if (qBadge) {
+        qBadge.textContent = `${icon} ${skill.name.toUpperCase()} ×${skill.mult}`;
+        qBadge.style.display = 'inline-flex';
+      }
+      if (svgSlot) svgSlot.classList.add('boss-target-primed');
+    } else {
+      if (bossChip) bossChip.style.display = 'none';
+      if (qBadge) qBadge.style.display = 'none';
+      if (svgSlot) svgSlot.classList.remove('boss-target-primed');
+    }
+  },
+
+  showDamageFloater(text, type = 'dmg', delay = 0) {
+    const trigger = () => {
+      let container = document.getElementById('center-floater-container');
+      if (!container) {
+        container = document.createElement('div');
+        container.id = 'center-floater-container';
+        container.className = 'center-floater-container';
+        document.body.appendChild(container);
+      }
+      const floater = document.createElement('div');
+      floater.className = `damage-floater ${type}`;
+      floater.textContent = text;
+      container.appendChild(floater);
+      setTimeout(() => {
+        if (floater && floater.parentNode) floater.remove();
+        if (container && container.children.length === 0 && container.parentNode) {
+          container.remove();
+        }
+      }, 1200);
+    };
+
+    if (delay > 0) {
+      setTimeout(trigger, delay);
+    } else {
+      trigger();
+    }
   },
 
   applySkillBarVisibility() {
@@ -3696,16 +3790,22 @@ Screens.battle = {
         }
 
         if (skillId === 'power_strike') {
-          toast('Kekuatan serangan berikutnya berlipat ganda! 💥');
+          const mult = (res.effects?.powerStrike?.powerMult) || 2.0;
+          this.activeBossSkill = { id: 'power_strike', name: 'Tebasan Super', mult };
+          this.updateActiveSkillBadges();
+          toast(`⚔️ Tebasan Super Aktif! Damage serangan berikutnya berlipat ganda: ×${mult}! 💥`);
         }
 
         if (skillId === 'red_potion') {
+          const mult = (res.effects?.redPotion?.powerMult) || 3.0;
+          this.activeBossSkill = { id: 'red_potion', name: 'Ramuan Merah', mult };
           if (res.session) {
             this.session = res.session;
             this.renderCurrentQuestion();
           }
+          this.updateActiveSkillBadges();
           this.showDamageFloater('🍷 RAMUAN MERAH!', 'crit');
-          toast('🍷 Ramuan Merah aktif! Soal diganti ke paling mudah dengan Damage Super! 💥');
+          toast(`🍷 Ramuan Merah Aktif! Soal termudah & Damage Super ×${mult}! 💥`);
         }
       }
     } catch (e) {
