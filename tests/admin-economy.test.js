@@ -172,7 +172,8 @@ test('Admin Economy & Coin Drop Rates (T-61)', async (t) => {
     const p = db.registerPlayer(testNick, 'password123', 1);
     assert.equal(p.coins, 175, 'Player baru harus mendapat 175 starter koin');
 
-    // Reset kembali ke default
+    // Reset kembali ke default & bersihkan akun tes
     db.saveEconomyConfig(null);
+    db.getDb().prepare('DELETE FROM players WHERE id=?').run(p.id);
   });
 });

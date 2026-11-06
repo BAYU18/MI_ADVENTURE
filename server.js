@@ -1445,7 +1445,9 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (pathname === '/api/admin/players' && method === 'GET') {
-      return json(res, { ok: true, players: db.adminGetPlayers() });
+      const search = query.search || query.q || null;
+      const classId = query.classId || null;
+      return json(res, { ok: true, players: db.adminGetPlayers({ search, classId }) });
     }
     if (pathname === '/api/admin/players/reset-password' && method === 'POST') {
       try {
