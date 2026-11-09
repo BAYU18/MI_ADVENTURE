@@ -1,0 +1,221 @@
+/* shared/fx.css — efek rarity & 3D (hanya transform & opacity, kecuali .fx-run) */
+@keyframes fx-bob{to{transform:translateY(-3px)}}
+@keyframes fx-bob-sm{to{transform:translateY(-2.5px)}}
+@keyframes fx-shadow{to{transform:scale(.94)}}
+@keyframes fx-blink{0%,91%,100%{transform:scaleY(1)}94%{transform:scaleY(.08)}}
+@keyframes fx-pulse{0%,100%{transform:scale(.96);opacity:.85}50%{transform:scale(1.05);opacity:1}}
+@keyframes fx-sweep{0%{transform:translateX(0)}40%,100%{transform:translateX(270px)}}
+@keyframes fx-spin{to{transform:rotate(360deg)}}
+@keyframes fx-twinkle{0%,100%{transform:scale(.3);opacity:.2}50%{transform:scale(1);opacity:1}}
+@keyframes fx-glint{0%,60%,100%{transform:scale(0);opacity:0}75%{transform:scale(1);opacity:1}}
+@keyframes fx-gem{to{transform:scale(1.18)}}
+@keyframes fx-ring{to{transform:scaleX(1.08)}}
+@keyframes fx-holo{to{transform:translateX(120px)}}
+@keyframes fx-drift{to{transform:translateX(10px)}}
+@keyframes fx-rise{0%{opacity:0;transform:translateY(0)}20%{opacity:.9}100%{opacity:0;transform:translateY(-34px)}}
+@keyframes fx-run{to{stroke-dashoffset:-1000}}
+
+.fx-float{animation:fx-bob 2.8s ease-in-out infinite alternate}
+.fx-float-sm{animation:fx-bob-sm 2.6s ease-in-out infinite alternate}
+.fx-shadow{transform-box:fill-box;transform-origin:center;animation:fx-shadow 2.8s ease-in-out infinite alternate}
+.fx-blink{transform-box:fill-box;transform-origin:center;animation:fx-blink 4.6s infinite}
+.fx-pulse{transform-box:fill-box;transform-origin:center;animation:fx-pulse 3.2s ease-in-out infinite}
+.fx-sweep{animation:fx-sweep 5s ease-in-out infinite}
+.fx-rays{transform-origin:100px 110px;animation:fx-spin 28s linear infinite}
+.fx-orbit{transform-origin:100px 110px;animation:fx-spin 14s linear infinite}
+.fx-orbit-r{transform-origin:100px 110px;animation:fx-spin 20s linear infinite reverse}
+.fx-twinkle{transform-box:fill-box;transform-origin:center;animation:fx-twinkle 2.4s ease-in-out infinite}
+.fx-glint{transform-box:fill-box;transform-origin:center;animation:fx-glint 2.8s ease-in-out infinite}
+.fx-gem{transform-box:fill-box;transform-origin:center;animation:fx-gem 2.4s ease-in-out infinite alternate}
+.fx-ring{transform-box:fill-box;transform-origin:center;animation:fx-ring 3s ease-in-out infinite alternate}
+.fx-holo{animation:fx-holo 5s ease-in-out infinite alternate}
+.fx-drift{animation:fx-drift 7s ease-in-out infinite alternate}
+.fx-drift2{animation:fx-drift 9s ease-in-out infinite alternate-reverse}
+.fx-rise{animation:fx-rise 4s ease-out infinite}
+.fx-run{animation:fx-run 4.5s linear infinite}
+
+/* backward compatibility for legacy monster/avatar classes */
+.aura-rare{animation:fx-pulse 3.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.aura-epic{animation:fx-pulse 3.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.aura-legend{animation:fx-pulse 3.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.monster-body{transform-origin:100px 110px}
+.eyes{transform-origin:100px 96px}
+
+/* kontrol performa & reduced-motion */
+svg.fx-static [class*="fx-"], svg.fx-static animateTransform, svg.fx-static .aura-rare, svg.fx-static .aura-epic, svg.fx-static .aura-legend{animation:none!important}
+svg.fx-paused [class*="fx-"], svg.fx-paused animateTransform{animation-play-state:paused!important}
+@media (prefers-reduced-motion:reduce){svg.fx [class*="fx-"], svg.fx animateTransform{animation:none!important}}
+
+/* ===== PET FX (kelas berawalan pfx- untuk 28 Pet Baru & 7 Pet Legasi 3D Shiny) ===== */
+.pfx-float{animation:pfx-float 3.4s ease-in-out infinite}
+@keyframes pfx-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.6px)}}
+
+.pfx-pulse{transform-box:fill-box;transform-origin:center;animation:pfx-pulse 3s ease-in-out infinite}
+@keyframes pfx-pulse{0%,100%{opacity:.55;transform:scale(.95)}50%{opacity:1;transform:scale(1.05)}}
+
+.pfx-twinkle{transform-box:fill-box;transform-origin:center;animation:pfx-twinkle 2.4s ease-in-out infinite}
+@keyframes pfx-twinkle{0%,100%{opacity:.2;transform:scale(.55)}50%{opacity:1;transform:scale(1.15)}}
+
+.pfx-rise{animation:pfx-rise 3.2s ease-in infinite}
+@keyframes pfx-rise{0%{transform:translateY(5px);opacity:0}25%{opacity:.95}100%{transform:translateY(-15px);opacity:0}}
+
+.pfx-fall{animation:pfx-fall 4.2s linear infinite}
+@keyframes pfx-fall{0%{transform:translate(0,-4px) rotate(0deg);opacity:0}15%{opacity:.95}100%{transform:translate(3px,16px) rotate(90deg);opacity:0}}
+
+.pfx-spin{transform-box:view-box;transform-origin:32px 32px;animation:pfx-spin 16s linear infinite}
+.pfx-spin-r{transform-box:view-box;transform-origin:32px 32px;animation:pfx-spin 22s linear infinite reverse}
+@keyframes pfx-spin{to{transform:rotate(360deg)}}
+
+.pfx-sheen{animation:pfx-sheen 4.6s ease-in-out infinite}
+@keyframes pfx-sheen{0%{transform:translateX(0) skewX(-18deg)}45%,100%{transform:translateX(90px) skewX(-18deg)}}
+
+.pfx-flash{animation:pfx-flash 3.2s linear infinite}
+@keyframes pfx-flash{0%,84%,100%{opacity:0}86%{opacity:1}89%{opacity:.15}92%{opacity:1}96%{opacity:0}}
+
+.pfx-sway{transform-box:fill-box;transform-origin:50% 0;animation:pfx-sway 3s ease-in-out infinite}
+@keyframes pfx-sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+
+.pfx-bubble{animation:pfx-bubble 4s ease-in infinite}
+@keyframes pfx-bubble{0%{transform:translate(0,4px);opacity:0}15%{opacity:1}50%{transform:translate(1.5px,-8px)}100%{transform:translate(-1px,-20px);opacity:0}}
+
+.pfx-ripple{transform-box:fill-box;transform-origin:center;animation:pfx-ripple 3.2s ease-out infinite}
+@keyframes pfx-ripple{0%{transform:scale(.55);opacity:.9}100%{transform:scale(1.15);opacity:0}}
+
+/* Hentikan animasi pada daftar panjang (papan peringkat, daftar teman) */
+.pfx-still [class*="pfx-"]{animation:none!important}
+
+/* SkillArt 3D Shiny Level-Up Integration */
+.skill-btn.has-svg {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 14px !important;
+}
+.skill-btn.has-svg .skill-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.skill-btn.has-svg .skill-icon svg {
+  width: 48px;
+  height: 48px;
+  display: block;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.45));
+}
+.skill-avatar-btn svg, .skill-card-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Optimasi Performa Scroll Menu Skill & Profil (GPU Layer & Content Visibility) */
+#skills-cards-list {
+  contain: layout paint;
+}
+
+.skill-card {
+  content-visibility: auto;
+  contain-intrinsic-size: 140px;
+  contain: layout paint;
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.skill-avatar-btn {
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  contain: paint;
+}
+
+.loadout-slot {
+  transform: translateZ(0);
+  contain: paint;
+}
+
+#profile-tab-content {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+
+/* Hero Avatar Showcase Card di Tab Ringkasan Profil */
+.hero-profile-card {
+  position: relative;
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%) !important;
+}
+.hero-avatar-box {
+  position: relative;
+  width: 196px;
+  height: 196px;
+  max-width: 100%;
+  border-radius: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 24px rgba(0,0,0,0.5), 0 8px 20px rgba(0,0,0,0.4);
+  overflow: hidden;
+  transition: transform 0.25s ease;
+}
+.hero-avatar-box:hover {
+  transform: scale(1.02);
+}
+.hero-avatar-box svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Animasi Ringan & Halus pada Ikon Skill (GPU Accelerated) */
+.skill-art-lite.fx-skill-glow {
+  will-change: transform;
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  animation: skillGlowBreath 3.2s ease-in-out infinite alternate;
+}
+@keyframes skillGlowBreath {
+  0% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(245,158,11,0.2)); }
+  100% { transform: scale(1.025); filter: drop-shadow(0 0 6px rgba(245,158,11,0.5)); }
+}
+.is-scrolling .skill-art-lite,
+.is-scrolling .skill-card * {
+  animation-play-state: paused !important;
+}
+
+/* Hormati pengaturan "kurangi gerakan" perangkat */
+@media (prefers-reduced-motion:reduce){[class*="pfx-"]{animation:none!important}}
+
+/* Filter Rarity Styling (Toko & Skin) */
+.rarity-pill-btn {
+  transition: all 0.15s ease-in-out;
+  border-width: 1px !important;
+}
+.rarity-pill-btn[data-rarity="COMMON"].active {
+  background: rgba(148, 163, 184, 0.28) !important;
+  border-color: #94a3b8 !important;
+  color: #f8fafc !important;
+  box-shadow: 0 0 10px rgba(148, 163, 184, 0.35);
+}
+.rarity-pill-btn[data-rarity="RARE"].active {
+  background: rgba(14, 165, 233, 0.28) !important;
+  border-color: #38bdf8 !important;
+  color: #38bdf8 !important;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+}
+.rarity-pill-btn[data-rarity="EPIC"].active {
+  background: rgba(168, 85, 247, 0.28) !important;
+  border-color: #c084fc !important;
+  color: #f3e8ff !important;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
+}
+.rarity-pill-btn[data-rarity="LEGENDARY"].active {
+  background: rgba(245, 158, 11, 0.28) !important;
+  border-color: #fbbf24 !important;
+  color: #fef08a !important;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.45);
+}
+

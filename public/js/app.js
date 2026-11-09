@@ -76,7 +76,7 @@ const API = {
     else localStorage.removeItem('pp_token');
   },
 
-  async req(endpoint, opts = {}) {
+  async req(endpoint, opts = {}, retryCount = 0) {
     const headers = { 'Content-Type': 'application/json', ...(opts.headers || {}) };
     if (this.token) headers['Authorization'] = `Bearer ${this.token}`;
     try {
@@ -91,7 +91,17 @@ const API = {
       }
       return data;
     } catch (err) {
+      if (retryCount < 1 && err.name === 'TypeError' && (err.message || '').toLowerCase().includes('fetch')) {
+        await new Promise(r => setTimeout(r, 200));
+        return this.req(endpoint, opts, retryCount + 1);
+      }
       console.warn(`[API] ${endpoint} failed:`, err.message);
+      if (err.name === 'TypeError' && (err.message || '').toLowerCase().includes('fetch')) {
+        const netErr = new Error('Gagal terhubung ke server. Periksa koneksi jaringan Anda.');
+        netErr.code = 'NETWORK_ERROR';
+        netErr.original = err;
+        throw netErr;
+      }
       throw err;
     }
   },
@@ -278,6 +288,10 @@ const API = {
 
   async getCoinHistory(limit = 50) {
     return this.req(`/api/coins/history?limit=${limit}`);
+  },
+
+  async getBattleHistory(limit = 50) {
+    return this.req(`/api/game/history?limit=${limit}`);
   },
 
   async getSkills() {
@@ -477,12 +491,8 @@ Screens.auth = {
               <input type="password" id="auth-pass" data-testid="input-password" placeholder="Minimal 4 karakter" autocomplete="current-password">
             </div>
 
-            <div class="field" id="field-class" style="display:${this.activeTab === 'register' ? 'block' : 'none'}">
-              <label for="auth-class">Tingkat Kelas</label>
-              <select id="auth-class" data-testid="select-class">
-                <option value="1">Kelas 4 SD / MI (Semester 1)</option>
-                <option value="2">Kelas 5 SD / MI (Semester 1)</option>
-              </select>
+            <div class="muted tc" style="font-size:.8rem;color:var(--c-muted);display:${this.activeTab === 'register' ? 'block' : 'none'};text-align:center;padding:4px">
+              Kelas belajar ditentukan otomatis oleh guru/admin kelas kamu.
             </div>
 
             <div id="auth-error" class="auth-error-msg" style="color:var(--c-bad,#ef4444);font-size:0.85rem;display:none;text-align:center;padding:4px"></div>
@@ -525,7 +535,8 @@ Screens.auth = {
           Player.data = await API.login(nick, pass);
           toast(`Selamat datang, ${Player.data.nick}!`);
         } else {
-          const classId = parseInt($('#auth-class').value, 10);
+          const classSelect = $('#auth-class');
+          const classId = classSelect ? parseInt(classSelect.value, 10) : undefined;
           Player.data = await API.register(nick, pass, classId);
           toast(`Akun ${Player.data.nick} berhasil dibuat!`);
         }
@@ -1673,6 +1684,20 @@ Screens.subjects = {
           `).join('')}
         </div>
 
+        
+        <!-- Banner Info Reset Mode Cerita Setiap Senin 07:00 WIB -->
+        <div class="card" style="background:linear-gradient(135deg, rgba(30,41,59,0.95), rgba(15,23,42,0.98));border:1px solid rgba(245,158,11,0.35);border-radius:16px;padding:12px 14px;margin-bottom:14px;display:flex;align-items:center;gap:12px;box-shadow:0 4px 16px rgba(0,0,0,0.35)">
+          <span style="font-size:1.8rem;line-height:1">🗓️</span>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:0.85rem;font-weight:800;color:#fef08a;margin-bottom:2px">
+              Mode Cerita Mingguan: Hanya 1× Tiap Wilayah
+            </div>
+            <div style="font-size:0.75rem;color:#cbd5e1;line-height:1.35">
+              Setiap wilayah hanya dapat dimainkan <strong>1 kali</strong> per minggu. Seluruh wilayah otomatis di-reset setiap <strong>Senin pukul 07:00 WIB</strong>!
+            </div>
+          </div>
+        </div>
+
         <div class="campaign-path-root" style="display:flex;flex-direction:column;gap:20px;padding:8px 0">
           ${campData.chapters.map(ch => {
             return `
@@ -1707,15 +1732,16 @@ Screens.subjects = {
 
                     return `
                       <div class="campaign-node-wrap ${node.unlocked ? 'unlocked' : 'locked'}" style="${alignStyle};display:flex;flex-direction:column;align-items:center;gap:4px">
-                        <button class="campaign-node-btn ${node.isBoss ? 'boss-node' : ''} ${node.unlocked ? 'unlocked' : 'locked'}"
+                        <button class="campaign-node-btn ${node.isBoss ? 'boss-node' : ''} ${node.unlocked ? 'unlocked' : 'locked'} ${node.clearedThisWeek ? 'cleared-week' : ''}"
                           data-key="${node.key}"
                           data-unlocked="${node.unlocked ? '1' : '0'}"
+                          data-cleared-week="${node.clearedThisWeek ? '1' : '0'}"
                           data-testid="campaign-node"
-                          style="width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;cursor:${node.unlocked ? 'pointer' : 'not-allowed'};background:${node.unlocked ? (node.isBoss ? 'linear-gradient(135deg, #f59e0b, #ef4444)' : 'linear-gradient(135deg, #10b981, #059669)') : '#334155'};border:${node.isBoss ? '3px solid #fef08a' : '2px solid rgba(255,255,255,0.2)'};box-shadow:${node.unlocked ? '0 4px 12px rgba(0,0,0,0.4)' : 'none'};opacity:${node.unlocked ? '1' : '0.55'}">
-                          ${node.unlocked ? (node.isBoss ? '👑' : (node.cleared ? '⚔️' : '📍')) : '🔒'}
+                          style="width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;cursor:${node.unlocked ? 'pointer' : 'not-allowed'};background:${node.clearedThisWeek ? 'linear-gradient(135deg, #059669, #047857)' : (node.unlocked ? (node.isBoss ? 'linear-gradient(135deg, #f59e0b, #ef4444)' : 'linear-gradient(135deg, #10b981, #059669)') : '#334155')};border:${node.clearedThisWeek ? '3px solid #34d399' : (node.isBoss ? '3px solid #fef08a' : '2px solid rgba(255,255,255,0.2)')};box-shadow:${node.unlocked ? '0 4px 12px rgba(0,0,0,0.4)' : 'none'};opacity:${node.unlocked ? '1' : '0.55'}">
+                          ${node.unlocked ? (node.clearedThisWeek ? '✅' : (node.isBoss ? '👑' : (node.cleared ? '⚔️' : '📍'))) : '🔒'}
                         </button>
-                        <div style="font-size:0.75rem;font-weight:700;color:${node.unlocked ? '#fff' : '#64748b'};text-align:center">
-                          ${esc(node.title)} ${node.isBoss ? '🎁' : ''}
+                        <div style="font-size:0.75rem;font-weight:700;color:${node.clearedThisWeek ? '#34d399' : (node.unlocked ? '#fff' : '#64748b')};text-align:center">
+                          ${esc(node.title)} ${node.isBoss ? '🎁' : ''} ${node.clearedThisWeek ? '(Selesai)' : ''}
                         </div>
                         <div style="font-size:0.68rem;color:var(--c-muted)">
                           ${node.questionCount} Soal ${node.isBoss ? '· Boss & Peti 🎁' : ''}
@@ -1741,9 +1767,15 @@ Screens.subjects = {
       $$('.campaign-node-btn', box).forEach(btn => {
         btn.onclick = async () => {
           const unlocked = btn.dataset.unlocked === '1';
+          const clearedThisWeek = btn.dataset.clearedWeek === '1';
           const nodeKey = btn.dataset.key;
           if (!unlocked) {
             toast('Selesaikan wilayah sebelumnya terlebih dahulu untuk membuka kunci! 🔒');
+            if (window.Feedback) Feedback.sfx('wrong');
+            return;
+          }
+          if (clearedThisWeek) {
+            toast('Wilayah ini sudah selesai minggu ini! Reset berikutnya hari Senin pukul 07:00 WIB. 🗓️');
             if (window.Feedback) Feedback.sfx('wrong');
             return;
           }
@@ -1942,6 +1974,42 @@ Screens.battle = {
     if (passives.xpBonus) {
       chips.push(`<span class="battle-buff-chip chip info" id="buff-xpBonus" data-buff="xpBonus" title="Bonus XP +${Math.round(passives.xpBonus * 100)}%">⭐ XP +${Math.round(passives.xpBonus * 100)}%</span>`);
     }
+    if (passives.cheatDeath) {
+      chips.push(`<span class="battle-buff-chip chip accent" id="buff-kirinMiracle" data-buff="cheatDeath" title="Mukjizat Kirin: Kebal Kematian 1x +25 Shield +2⚡">🦄 Mukjizat Kirin</span>`);
+    }
+    if (passives.pounceAutoCrit) {
+      chips.push(`<span class="battle-buff-chip chip danger" id="buff-tigerPounce" data-buff="pounce" title="Terkaman Harimau: Tiap 5 Benar Auto-Crit x2.2">🐅 Terkaman Harimau</span>`);
+    }
+    if (passives.gryphonThunder) {
+      chips.push(`<span class="battle-buff-chip chip warning" id="buff-thunderGryphon" data-buff="gryphon" title="Gryphon Petir: Tiap 5 Combo Sambaran 35 True DMG">⚡ Sambaran Petir</span>`);
+    }
+    if (passives.krakenSurge) {
+      chips.push(`<span class="battle-buff-chip chip info" id="buff-krakenTsunami" data-buff="kraken" title="Kraken Samudra: Reduksi 15% Dmg & Tsunami 30 DMG saat terima 40 Dmg">🦑 Gelombang Pasang</span>`);
+    }
+    if (passives.fenrirBlizzard) {
+      chips.push(`<span class="battle-buff-chip" id="buff-fenrirShieldAbsorb" data-buff="fenrir" style="background:rgba(56,189,248,0.18);color:#38bdf8;border:1px solid rgba(56,189,248,0.4)" title="Fenrir Es: Reduksi 10% Dmg & Tameng Kebal 1x Salah tiap 3 Benar">❄️ Badai Fenrir</span>`);
+    }
+    if (passives.vampiricBite) {
+      chips.push(`<span class="battle-buff-chip" id="buff-vampiricDrain" data-buff="vampiric" style="background:rgba(34,197,94,0.18);color:#22c55e;border:1px solid rgba(34,197,94,0.4)" title="Buaya Purba: Lifesteal 12% DMG jadi HP">🐊 Lifesteal 12%</span>`);
+    }
+    if (passives.staticShockStunChance) {
+      chips.push(`<span class="battle-buff-chip" id="buff-abyssalStun" data-buff="stun" style="background:rgba(168,85,247,0.18);color:#c084fc;border:1px solid rgba(168,85,247,0.4)" title="Ubur-Ubur Abisal: ${Math.round(passives.staticShockStunChance * 100)}% Peluang Stun Bos">🪼 Stun ${Math.round(passives.staticShockStunChance * 100)}%</span>`);
+    }
+    if (passives.venomBloom) {
+      chips.push(`<span class="battle-buff-chip" id="buff-venomBloom" data-buff="venom" style="background:rgba(34,197,94,0.18);color:#22c55e;border:1px solid rgba(34,197,94,0.4)" title="Kobra Giok: Racun 4 DMG/turn (max 3x)">🐍 Racun Kobra</span>`);
+    }
+    if (passives.kingsRoar) {
+      chips.push(`<span class="battle-buff-chip chip warning" id="buff-kingsRoar" data-buff="lion" title="Singa Emas: Reduksi Enrage 25% & +15 Shield saat Transisi">🦁 Raungan Singa</span>`);
+    }
+    if (passives.hawkeye) {
+      chips.push(`<span class="battle-buff-chip chip danger" id="buff-hawkeye" data-buff="eagle" title="Mata Rajawali: Beku +2.5s & Tembus 15% Armor">🦅 Mata Rajawali</span>`);
+    }
+    if (passives.coinBonusChance) {
+      chips.push(`<span class="battle-buff-chip chip warning" id="buff-hamsterCoin" data-buff="hamster" title="Hamster: 25% Peluang +5 Koin tiap benar">🐹 Pipi Emas</span>`);
+    }
+    if (passives.sonarEliminateChance) {
+      chips.push(`<span class="battle-buff-chip chip info" id="buff-sonarEliminate" data-buff="bat" title="Kelelawar Gema: 20% Peluang Hapus 1 Pilihan Salah">🦇 Ekolokasi</span>`);
+    }
     if (Array.isArray(passives.activeSets)) {
       passives.activeSets.forEach(set => {
         chips.push(`<span class="battle-buff-chip chip accent" id="buff-set-${esc(set.id)}" data-buff="set" title="${esc(set.desc || set.name)}">${esc(set.icon || '✨')} ${esc(set.name)}</span>`);
@@ -2004,6 +2072,30 @@ Screens.battle = {
           this.showDamageFloater('🩸 Darah Terakhir!', 'crit');
         } else if (tp.id === 'damageReduction') {
           this.showDamageFloater('🛡️ Zirah Baja!', 'heal');
+        } else if (tp.id === 'kirinMiracle') {
+          this.showDamageFloater('🦄✨ MUKJIZAT KIRIN!', 'heal');
+        } else if (tp.id === 'thunderGryphon') {
+          this.showDamageFloater('⚡ SAMBARAN PETIR!', 'crit');
+          this.animateBossShake();
+        } else if (tp.id === 'krakenTsunami') {
+          this.showDamageFloater('🌊 TSUNAMI KRAKEN!', 'crit');
+        } else if (tp.id === 'fenrirShieldAbsorb') {
+          this.showDamageFloater('❄️ TAMENG ES FENRIR!', 'heal');
+        } else if (tp.id === 'tigerPounce') {
+          this.showDamageFloater('🐅 TERKAMAN HARIMAU!', 'crit');
+          this.animateBossShake();
+        } else if (tp.id === 'vampiricDrain') {
+          this.showDamageFloater('🐊 LIFESTEAL!', 'heal');
+        } else if (tp.id === 'abyssalStun') {
+          this.showDamageFloater('🪼 BOS STUN!', 'crit');
+        } else if (tp.id === 'thorns') {
+          this.showDamageFloater('🦔 DURI PEMBALAS!', 'crit');
+        } else if (tp.id === 'venomBloom') {
+          this.showDamageFloater('🐍 RACUN KOBRA!', 'crit');
+        } else if (tp.id === 'hamsterCoin') {
+          this.showDamageFloater('🐹 +5 KOIN!', 'energy');
+        } else if (tp.id === 'racoonSteal') {
+          this.showDamageFloater('🦝 COPET KOIN!', 'energy');
         } else {
           const cleanName = (tp.name || '').replace(/!+$/, '');
           if (cleanName) {
@@ -3164,6 +3256,13 @@ Screens.battle = {
     const barEl = $('.auto-next-bar');
     if (barEl) barEl.onclick = goNext;
 
+    
+    if (isOver) {
+      setTimeout(() => {
+        this.showEndingModal(isWin, s, res, () => goNext());
+      }, 480);
+    }
+
     if (canAutoNext) {
       const duration = 2000;
       const start = Date.now();
@@ -3357,6 +3456,15 @@ Screens.battle = {
         if (dealId) resolveChoice(dealId);
       };
     });
+  },
+
+  
+  showEndingModal(isWin, s, res, onComplete) {
+    if (typeof Screens.showBattleEndingSpectacularModal === 'function') {
+      Screens.showBattleEndingSpectacularModal({ isWin, session: s, res, onComplete });
+    } else {
+      onComplete();
+    }
   },
 
   showEnragedBanner(bossName) {
@@ -3585,14 +3693,19 @@ Screens.battle = {
             : reason === 'NOTHING_TO_ELIMINATE' ? 'Pilihan salah sudah habis dicoret!'
             : 'Belum bisa digunakan saat ini.');
 
+        const lv = sk.level || 1;
+        const skillBubbleArt = (window.SkillArt && SkillArt.hasSkill(id))
+          ? SkillArt.renderSkill(id, lv, { size: 42 })
+          : icon;
+
         return `
           <div class="skill-card-item ${usable ? 'usable' : 'dimmed'}" data-skill-id="${id}">
             <div class="skill-card-top">
               <div class="skill-card-title-wrap">
-                <div class="skill-card-icon">${icon}</div>
+                <div class="skill-card-icon" style="background:transparent;border:none;width:42px;height:42px;display:flex;align-items:center;justify-content:center">${skillBubbleArt}</div>
                 <div>
                   <div class="skill-card-name">${esc(name)}</div>
-                  <div style="font-size:0.75rem;color:var(--c-muted)">Level ${sk.level || 1}</div>
+                  <div style="font-size:0.75rem;color:var(--c-muted)">Level ${lv}</div>
                 </div>
               </div>
               <div class="skill-card-badges">
@@ -3703,9 +3816,14 @@ Screens.battle = {
       const usesLeft = sk.usesLeft ?? 3;
       const usable = !!sk.usable && !this.isAnswering && !this.isUsingSkill;
       const reason = sk.reason || null;
+      const lv = sk.level || 1;
+      const hasSvg = Boolean(window.SkillArt && SkillArt.hasSkill(id));
+      const skillIconContent = hasSvg
+        ? SkillArt.renderSkill(id, lv, { size: 48 })
+        : `<span class="skill-icon">${icon}</span>`;
 
       return `
-        <button class="skill-btn ${!usable ? 'dimmed' : ''}"
+        <button class="skill-btn ${!usable ? 'dimmed' : ''} ${hasSvg ? 'has-svg' : ''}"
           id="skill-btn-${id}"
           data-testid="skill-btn-${id}"
           data-skill-id="${id}"
@@ -3714,8 +3832,8 @@ Screens.battle = {
           title="${esc(name)} (Biaya: ${cost} ⚡, Sisa: ${usesLeft}×)"
           type="button">
           <span class="skill-cost-badge">⚡${cost}</span>
-          <span class="skill-icon">${icon}</span>
-          <span class="skill-level-badge">Lv.${sk.level || 1}</span>
+          ${hasSvg ? skillIconContent : `<span class="skill-icon">${icon}</span>`}
+          <span class="skill-level-badge">Lv.${lv}</span>
           <span class="skill-uses-badge">x${usesLeft}</span>
         </button>
       `;
@@ -4035,6 +4153,226 @@ Screens.showComicModal = function (panels, theme, monsterObj) {
 /* ============================================================
    PETI HARTA KARUN GACHA SKIN WILAYAH 3 (Mode Cerita)
    ============================================================ */
+
+/* ============================================================
+   BATTLE ENDING SPECTACULAR MODAL (Mode Bebas Win/Loss Effect)
+   ============================================================ */
+Screens.showBattleEndingSpectacularModal = function ({ isWin, session, res, onComplete }) {
+  const old = $('#battle-ending-modal');
+  if (old) old.remove();
+
+  const s = session || res?.session || {};
+  let isDone = false;
+
+  // SFX audio feedback
+  try {
+    if (isWin) {
+      if (window.Feedback) Feedback.sfx('levelup');
+      if (window.Sfx) Sfx.play('win');
+    } else {
+      if (window.Feedback) Feedback.sfx('wrong');
+      if (window.Sfx) Sfx.play('lose');
+    }
+  } catch (_) {}
+
+  const winTitles = [
+    'Luar Biasa, Jawara Sejati!',
+    'Kejeniusanmu Tak Tertandingi!',
+    'Kemenangan Mutlak & Gemilang!',
+    'Sang Monster Berhasil Kamu Tundukkan!'
+  ];
+  const winQuotes = [
+    'Strategi dan ketepatan analisismu sungguh memukau! Sang Monster tak kuasa membendung ilmu pengetahuanmu!',
+    'Hebat sekali! Fokus tinggi dan kecepatan berpikirmu membawamu meraih kejayaan di pertarungan ini!',
+    'Pertarungan spektakuler! Setiap pertanyaan kamu tuntaskan dengan cemerlang bagai kesatria ilmu sejati!',
+    'Kemenangan yang sungguh membanggakan! Terus pertahankan prestasimu dan raih puncak kejayaan!'
+  ];
+
+  const lossTitles = [
+    'Kobarkan Kembali Semangatmu!',
+    'Kekalahan Adalah Awal Kebangkitan!',
+    'Pantang Menyerah, Pejuang Tangguh!',
+    'Terus Berjuang, Kemenangan Menantimu!'
+  ];
+  const lossQuotes = [
+    'Jangan berkecil hati! Pejuang terhebat tidak dinilai saat ia menang, melainkan saat ia bangkit kembali setelah terjatuh!',
+    'Pertarungan yang sangat gagah dan membanggakan! Pelajari polanya, asah analisismu, dan buktikan kehebatanmu!',
+    'Kekalahan hanyalah guru terbaik menuju kesuksesan sejati! Kumpulkan energimu dan taklukkan bos di babak berikutnya!',
+    'Tetap percaya diri dan tegakkan kepalamu! Kegigihanmu patut diacungi jempol. Coba lagi dan rebut kemenangan mutlak!'
+  ];
+
+  const seed = Math.abs(((s.id || 1) * 31) + (s.totalQuestions || 0) + (s.correctCount || 0));
+  const headline = isWin ? winTitles[seed % winTitles.length] : lossTitles[seed % lossTitles.length];
+  const quote = isWin ? winQuotes[seed % winQuotes.length] : lossQuotes[seed % lossQuotes.length];
+
+  const themeGlow = isWin ? 'rgba(245,158,11,0.45)' : 'rgba(249,115,22,0.4)';
+  const themeBorder = isWin ? '2px solid #f59e0b' : '2px solid #f97316';
+  const badgeBg = isWin ? 'rgba(245,158,11,0.2)' : 'rgba(239,68,68,0.2)';
+  const badgeBorder = isWin ? '#f59e0b' : '#ef4444';
+  const badgeColor = isWin ? '#fef08a' : '#fca5a5';
+  const badgeText = isWin ? '🏆 VICTORY! KEMENANGAN GEMILANG! 🏆' : '🔥 PANTANG MENYERAH! TETAP SEMANGAT! 🔥';
+
+  const particlesCount = isWin ? 38 : 28;
+  const colors = isWin
+    ? ['#fbbf24', '#f59e0b', '#10b981', '#38bdf8', '#c084fc', '#f43f5e', '#ffffff']
+    : ['#f97316', '#ef4444', '#facc15', '#fb923c', '#a855f7', '#f43f5e'];
+
+  const modal = document.createElement('div');
+  modal.id = 'battle-ending-modal';
+  modal.setAttribute('data-testid', 'battle-ending-modal');
+  modal.style.cssText = 'position:fixed;inset:0;background:radial-gradient(circle at center, rgba(30,27,75,0.96) 0%, rgba(15,23,42,0.98) 100%);z-index:10002;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;overflow-y:auto;cursor:pointer;-webkit-tap-highlight-color:transparent;animation:fadeIn 0.22s ease;';
+
+  const correctN = s.correctCount ?? (s.stats?.correct ?? 0);
+  const totalN = s.totalQuestions ?? (s.stats?.total ?? 0);
+  const enemyName = s.boss?.name || s.monster?.name || 'Monster Penjaga';
+
+  modal.innerHTML = `
+    <!-- Confetti / Ember Particles Container -->
+    <div class="confetti-container" style="position:absolute;inset:0;pointer-events:none;overflow:hidden">
+      ${Array.from({ length: particlesCount }).map((_, i) => {
+        const left = Math.random() * 100;
+        const dur = isWin ? (1.5 + Math.random() * 1.5) : (1.6 + Math.random() * 1.4);
+        const delay = Math.random() * 0.7;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const size = isWin ? (6 + Math.random() * 8) : (5 + Math.random() * 7);
+        const anim = isWin ? 'confettiFall' : 'emberFloat';
+        return `<div style="position:absolute;top:${isWin ? '-20px' : '90%'};left:${left}%;width:${size}px;height:${size}px;background:${color};border-radius:${Math.random() > 0.4 ? '50%' : '2px'};box-shadow:0 0 8px ${color};animation:${anim} ${dur}s ease-out ${delay}s infinite"></div>`;
+      }).join('')}
+    </div>
+
+    <!-- Main Card -->
+    <div class="card" style="max-width:440px;width:100%;text-align:center;padding:26px 20px;border-radius:24px;background:linear-gradient(135deg, rgba(30,41,59,0.96), rgba(15,23,42,0.98));border:${themeBorder};box-shadow:0 0 50px ${themeGlow}, 0 24px 48px rgba(0,0,0,0.85);position:relative;overflow:hidden;animation:itemPopIn 0.55s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards">
+      
+      <!-- Rotating radiant rays -->
+      <div class="chest-rays" style="position:absolute;top:36%;left:50%;transform:translate(-50%,-50%);width:320px;height:320px;background:radial-gradient(circle, ${isWin ? 'rgba(245,158,11,0.3)' : 'rgba(239,68,68,0.25)'} 0%, transparent 70%);border-radius:50%;pointer-events:none;animation:chestRaysSpin ${isWin ? '8s' : '10s'} linear infinite"></div>
+
+      <div style="position:relative;z-index:2">
+        <!-- Badge Atas -->
+        <div style="display:inline-block;padding:4px 14px;border-radius:99px;background:${badgeBg};border:1px solid ${badgeBorder};color:${badgeColor};font-size:0.75rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;box-shadow:0 0 15px ${themeGlow}">
+          ${badgeText}
+        </div>
+
+        <!-- Center Animated Icon / Trophy / Shield -->
+        <div style="margin:6px auto 14px auto;width:120px;height:120px;display:flex;align-items:center;justify-content:center;position:relative">
+          ${isWin ? `
+            <div style="font-size:5.5rem;line-height:1;filter:drop-shadow(0 0 25px #f59e0b);animation:victoryBounce 2s ease-in-out infinite">
+              🏆
+            </div>
+            <div style="position:absolute;top:-4px;right:4px;font-size:1.8rem;animation:pulseText 1.2s infinite">✨</div>
+            <div style="position:absolute;bottom:0;left:6px;font-size:1.5rem;animation:pulseText 1.4s 0.3s infinite">⭐</div>
+          ` : `
+            <div style="font-size:5.2rem;line-height:1;filter:drop-shadow(0 0 22px #f97316);animation:flamePulse 1.8s ease-in-out infinite">
+              🛡️
+            </div>
+            <div style="position:absolute;bottom:4px;right:6px;font-size:2.2rem;animation:pulseText 1.2s infinite">🔥</div>
+          `}
+        </div>
+
+        <!-- Headline -->
+        <h2 style="font-size:1.45rem;font-weight:900;color:#fff;margin:0 0 8px 0;text-shadow:0 2px 12px rgba(0,0,0,0.85);letter-spacing:0.5px">
+          ${esc(headline)}
+        </h2>
+
+        <!-- Pujian / Semangat Quote -->
+        <p style="font-size:0.88rem;color:${isWin ? '#fef08a' : '#cbd5e1'};margin:0 auto 16px auto;max-width:360px;line-height:1.45;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,0.6)">
+          "${esc(quote)}"
+        </p>
+
+        <!-- Mini Stats & Feedback Info -->
+        <div style="background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:10px 14px;margin-bottom:18px;display:flex;justify-content:space-around;align-items:center;font-size:0.8rem">
+          <div style="text-align:center">
+            <div style="color:var(--c-muted);font-size:0.72rem;margin-bottom:2px">Status Pertarungan</div>
+            <strong style="color:${isWin ? '#10b981' : '#f87171'};font-size:0.85rem">
+              ${isWin ? '✅ Menang Mutlak' : '💔 Terkena Serangan'}
+            </strong>
+          </div>
+          <div style="width:1px;height:24px;background:rgba(255,255,255,0.1)"></div>
+          <div style="text-align:center">
+            <div style="color:var(--c-muted);font-size:0.72rem;margin-bottom:2px">Soal Terjawab</div>
+            <strong style="color:#fff;font-size:0.85rem">
+              ${correctN} / ${totalN} Benar
+            </strong>
+          </div>
+          <div style="width:1px;height:24px;background:rgba(255,255,255,0.1)"></div>
+          <div style="text-align:center">
+            <div style="color:var(--c-muted);font-size:0.72rem;margin-bottom:2px">Lawan</div>
+            <strong style="color:#facc15;font-size:0.85rem">
+              ${esc(enemyName)}
+            </strong>
+          </div>
+        </div>
+
+        <!-- Auto-Transition Countdown Bar -->
+        <div style="display:flex;flex-direction:column;gap:6px;width:100%">
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.75rem;color:#94a3b8;font-weight:700">
+            <span style="color:${isWin ? '#fef08a' : '#fdba74'};display:flex;align-items:center;gap:4px">
+              <span>✨</span>
+              <span>Membuka Rangkuman Review Hadiah...</span>
+            </span>
+            <span id="transition-timer-txt">2.5s</span>
+          </div>
+
+          <div style="height:6px;background:rgba(255,255,255,0.12);border-radius:99px;overflow:hidden">
+            <div id="transition-fill-bar" style="width:100%;height:100%;background:${isWin ? 'linear-gradient(90deg, #10b981, #f59e0b)' : 'linear-gradient(90deg, #ef4444, #f97316)'};border-radius:99px;transition:width 0.05s linear"></div>
+          </div>
+
+          <div style="font-size:0.72rem;color:#64748b;margin-top:2px">
+            Sentuh layar di mana saja untuk langsung lanjut ➔
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  let countdownTimer = null;
+  let autoFinishTimeout = null;
+
+  const triggerComplete = () => {
+    if (isDone) return;
+    isDone = true;
+    if (countdownTimer) clearInterval(countdownTimer);
+    if (autoFinishTimeout) clearTimeout(autoFinishTimeout);
+
+    if (modal) {
+      modal.style.transition = 'opacity 0.2s ease-out';
+      modal.style.opacity = '0';
+      setTimeout(() => {
+        if (modal && modal.parentNode) modal.remove();
+        if (typeof onComplete === 'function') onComplete();
+      }, 200);
+    } else {
+      if (typeof onComplete === 'function') onComplete();
+    }
+  };
+
+  // Instant skip on click/tap
+  modal.onclick = triggerComplete;
+
+  // Countdown timer 2.6 seconds
+  const duration = 2600;
+  const startTime = Date.now();
+  const fillEl = modal.querySelector('#transition-fill-bar');
+  const timerTxt = modal.querySelector('#transition-timer-txt');
+
+  countdownTimer = setInterval(() => {
+    const elapsed = Date.now() - startTime;
+    const remainingPct = Math.max(0, 100 - (elapsed / duration) * 100);
+    const remainingSec = Math.max(0, ((duration - elapsed) / 1000)).toFixed(1);
+
+    if (fillEl) fillEl.style.width = `${remainingPct}%`;
+    if (timerTxt) timerTxt.textContent = `${remainingSec}s`;
+
+    if (elapsed >= duration) {
+      clearInterval(countdownTimer);
+    }
+  }, 50);
+
+  autoFinishTimeout = setTimeout(triggerComplete, duration);
+};
+
+
 Screens.showChapterChestModal = function (item, chapterComic, theme) {
   if (!item) return;
 
@@ -4044,9 +4382,11 @@ Screens.showChapterChestModal = function (item, chapterComic, theme) {
   if (window.Feedback) Feedback.sfx('levelup');
   else if (window.Sfx) Sfx.play('win');
 
-  const rarity = String(item.rarity || 'RARE').toUpperCase();
-  const isLegend = (rarity === 'LEGENDARY');
-  const isEpic = (rarity === 'EPIC');
+  const isCoinReward = Boolean(item.isCoinReward || item.slot === 'coin');
+  const rarity = String(item.rarity || 'COMMON').toUpperCase();
+  const isLegend = !isCoinReward && (rarity === 'LEGENDARY');
+  const isEpic = !isCoinReward && (rarity === 'EPIC');
+  const isCommon = !isCoinReward && (rarity === 'COMMON');
 
   const slotLabels = {
     hat: 'Topi',
@@ -4150,17 +4490,19 @@ Screens.showChapterChestModal = function (item, chapterComic, theme) {
       if (window.Sfx) Sfx.play('win');
     }
 
-    const tierColor = isLegend ? '#fbbf24' : (isEpic ? '#c084fc' : '#38bdf8');
-    const tierBg = isLegend
-      ? 'linear-gradient(135deg, rgba(245,158,11,0.25) 0%, rgba(236,72,153,0.2) 50%, rgba(59,130,246,0.25) 100%)'
-      : (isEpic ? 'linear-gradient(135deg, rgba(192,132,252,0.25) 0%, rgba(251,191,36,0.15) 100%)' : 'rgba(56,189,248,0.18)');
-    const tierBorder = isLegend
-      ? '2px solid #f59e0b'
-      : (isEpic ? '2px solid #c084fc' : '2px solid #38bdf8');
+    const tierColor = isCoinReward ? '#fbbf24' : (isLegend ? '#fbbf24' : (isEpic ? '#c084fc' : (isCommon ? '#38bdf8' : '#60a5fa')));
+    const tierBg = isCoinReward
+      ? 'linear-gradient(135deg, rgba(245,158,11,0.25) 0%, rgba(251,191,36,0.15) 100%)'
+      : (isLegend
+        ? 'linear-gradient(135deg, rgba(245,158,11,0.25) 0%, rgba(236,72,153,0.2) 50%, rgba(59,130,246,0.25) 100%)'
+        : (isEpic ? 'linear-gradient(135deg, rgba(192,132,252,0.25) 0%, rgba(251,191,36,0.15) 100%)' : 'rgba(56,189,248,0.18)'));
+    const tierBorder = isCoinReward ? '2px solid #f59e0b' : (isLegend ? '2px solid #f59e0b' : (isEpic ? '2px solid #c084fc' : '2px solid #38bdf8'));
 
-    const tierTitle = isLegend
-      ? '👑 DROP LEGENDARY SPEKTAKULER! 👑'
-      : (isEpic ? '⚡ DROP EPIC LUAR BIASA! ⚡' : '✨ DROP RARE TERBUKA! ✨');
+    const tierTitle = isCoinReward
+      ? '🪙 DROP KOIN PETUALANG WILAYAH 3! 🪙'
+      : (isLegend
+        ? '👑 DROP LEGENDARY SPEKTAKULER! 👑'
+        : (isEpic ? '⚡ DROP EPIC LUAR BIASA! ⚡' : (isCommon ? '✨ DROP COMMON TERBUKA! ✨' : '✨ DROP RARE TERBUKA! ✨')));
 
     const itemIcon = item.icon || (item.slot === 'hat' ? '👑' : (item.slot === 'pet' ? '🐾' : (item.slot === 'weapon' ? '⚔️' : (item.slot === 'outfit' ? '🛡️' : (item.slot === 'bg' ? '🌌' : (item.slot === 'frame' ? '🖼️' : '📜'))))));
 
@@ -4246,9 +4588,16 @@ Screens.showChapterChestModal = function (item, chapterComic, theme) {
 
     const btnCollect = modal.querySelector('#btn-collect-chest');
     if (btnCollect) btnCollect.onclick = () => {
-      if (window.Sfx) Sfx.play('tap');
-      closeAll();
-      toast(`Item ${item.name} telah masuk ke lemari avatar! ✨`);
+      if (isCoinReward) {
+        if (window.Feedback) Feedback.sfx('coin');
+        else if (window.Sfx) Sfx.play('tap');
+        closeAll();
+        toast(`${item.name} berhasil ditambahkan ke kantong koinmu! 🪙`);
+      } else {
+        if (window.Sfx) Sfx.play('tap');
+        closeAll();
+        toast(`Item ${item.name} telah masuk ke lemari avatar! ✨`);
+      }
     };
 
     const btnComic = modal.querySelector('#btn-read-comic-from-chest');
@@ -4444,15 +4793,27 @@ Screens.result = {
           ${esc(defeatQuote)}
         </p>
 
-        <div class="card" style="padding:16px;width:min(340px,100%);text-align:center;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong)">
-          <div style="display:flex;justify-content:center;margin-bottom:8px">
-            <span class="chip tier-badge boss-tier-badge tier-${tier}" id="result-boss-tier" data-testid="boss-tier-badge" style="background:${tierInfo.color};color:#fff;font-size:0.75rem;font-weight:700;padding:2px 10px;border-radius:12px">
+        <div class="card" style="padding:16px;width:min(340px,100%);text-align:center;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);display:flex;flex-direction:column;align-items:center">
+          <!-- Bintang Kemenangan / Status (Di Atas Boss) -->
+          <div style="display:flex;justify-content:center;align-items:center;font-size:2.2rem;line-height:1;margin:4px auto 10px auto;letter-spacing:4px">
+            ${starsStr}
+          </div>
+
+          <!-- Boss Monster (Pas di Tengah) -->
+          <div style="display:flex;align-items:center;justify-content:center;margin:0 auto 10px auto;width:100%;height:140px">
+            <div style="width:140px;height:140px;display:flex;align-items:center;justify-content:center;margin:0 auto">
+              ${monsterSvg}
+            </div>
+          </div>
+
+          <!-- Rarity Tier Badge (Di Bawah Boss) -->
+          <div style="display:flex;justify-content:center;margin-bottom:12px">
+            <span class="chip tier-badge boss-tier-badge tier-${tier}" id="result-boss-tier" data-testid="boss-tier-badge" style="background:${tierInfo.color};color:#fff;font-size:0.75rem;font-weight:700;padding:2px 12px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.25)">
               ${tierInfo.icon} ${tierInfo.label}
             </span>
           </div>
-          <div style="margin:0 auto 10px auto;width:140px;height:140px">${monsterSvg}</div>
-          <div style="font-size:1.8rem;margin-bottom:8px">${starsStr}</div>
-          <div style="display:flex;justify-content:space-around;font-size:.9rem;padding:10px 0;border-top:1px solid rgba(255,255,255,.1)">
+
+          <div style="display:flex;justify-content:space-around;width:100%;font-size:.9rem;padding:10px 0;border-top:1px solid rgba(255,255,255,.1)">
             <div>
               <div style="color:var(--c-muted);font-size:.75rem">XP Didapat</div>
               <strong style="color:var(--c-good)">+${xpEarned} XP</strong>
@@ -4562,15 +4923,36 @@ Screens.result = {
    ============================================================ */
 Screens.profil = {
   activeTab: 'ringkasan',
+  riwayatSubTab: 'battle',
+  battleFilter: 'ALL',
   skinCatFilter: 'ALL',
   skinOwnerFilter: 'all',
+  skinRarityFilter: 'ALL',
   shopCatFilter: 'ALL',
+  shopRarityFilter: 'ALL',
   profileData: null,
   inventoryData: null,
   shopData: null,
   skillsData: null,
   historyData: null,
+  battleData: null,
   avatarDraft: null,
+
+  switchToBattleHistory() {
+    this.activeTab = 'riwayat';
+    this.riwayatSubTab = 'battle';
+    const app = $('#app');
+    $$('.tab-btn', app).forEach(b => {
+      if (b.dataset.tab === 'riwayat') {
+        b.classList.remove('ghost');
+        b.classList.add('active');
+      } else {
+        b.classList.add('ghost');
+        b.classList.remove('active');
+      }
+    });
+    this.renderActiveTab();
+  },
 
   showConfirmModal(title, message, confirmText, onConfirm, previewHtml = '', testId = 'confirm-modal') {
     const existing = $('.modal-mask');
@@ -4896,11 +5278,16 @@ Screens.profil = {
               `;
             }
 
+            const skLv = sk.level || 1;
+            const pickArt = (window.SkillArt && SkillArt.hasSkill(sk.id))
+              ? SkillArt.renderSkill(sk.id, skLv, { size: 40 })
+              : (sk.icon || '⚡');
+
             return `
               <div class="card skill-pick-item" data-id="${sk.id}" style="padding:10px 12px;background:rgba(255,255,255,0.04);border:1px solid ${isThisSlot ? 'var(--c-primary)' : 'rgba(255,255,255,0.08)'};border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer">
                 <div style="display:flex;align-items:center;gap:10px;overflow:hidden">
-                  <div style="font-size:1.6rem;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;flex:0 0 auto">
-                    ${sk.icon || '⚡'}
+                  <div style="width:40px;height:40px;border-radius:10px;background:transparent;display:flex;align-items:center;justify-content:center;flex:0 0 auto">
+                    ${pickArt}
                   </div>
                   <div style="overflow:hidden">
                     <div style="display:flex;align-items:center;gap:6px">
@@ -5035,7 +5422,11 @@ Screens.profil = {
 
         <!-- NEW SKILL PREVIEW -->
         <div style="padding:10px 12px;background:rgba(124, 58, 237, 0.12);border:1px solid rgba(124, 58, 237, 0.3);border-radius:12px;display:flex;align-items:center;gap:10px">
-          <span style="font-size:1.8rem">${skillToEquip.icon || '⚡'}</span>
+          <div style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            ${(window.SkillArt && SkillArt.hasSkill(skillToEquip.id))
+              ? SkillArt.renderSkill(skillToEquip.id, skillToEquip.level || 1, { size: 48 })
+              : `<span style="font-size:1.8rem">${skillToEquip.icon || '⚡'}</span>`}
+          </div>
           <div>
             <div style="font-weight:700;color:#fff;font-size:0.9rem">${esc(skillToEquip.name)} <span style="color:var(--c-primary);font-size:0.75rem">Lv.${skillToEquip.level || 1}</span> <span style="color:#38bdf8;font-size:0.72rem">(Maks: ${skillToEquip.usesPerBattle || 2}×)</span></div>
             <div style="font-size:0.73rem;color:#cbd5e1;line-height:1.3">${esc(skillToEquip.effectNow || skillToEquip.descNow || skillToEquip.desc || '')}</div>
@@ -5048,12 +5439,18 @@ Screens.profil = {
             const currentSkillId = loadout[idx] || null;
             const currentSkill = currentSkillId ? skillsList.find(s => s.id === currentSkillId) : null;
             const isEmpty = !currentSkill;
+            const curLv = currentSkill ? (currentSkill.level || 1) : 1;
+            const slotSkillArt = currentSkill
+              ? ((window.SkillArt && SkillArt.hasSkill(currentSkill.id))
+                  ? SkillArt.renderSkill(currentSkill.id, curLv, { size: 42 })
+                  : currentSkill.icon)
+              : '➕';
 
             return `
               <div class="card slot-pick-item" data-slot="${idx}" style="padding:12px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;transition:all 0.15s ease">
                 <div style="display:flex;align-items:center;gap:12px">
-                  <div style="width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px dashed ${isEmpty ? 'rgba(255,255,255,0.2)' : 'var(--c-primary)'};display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex:0 0 auto">
-                    ${currentSkill ? currentSkill.icon : '➕'}
+                  <div style="width:42px;height:42px;border-radius:10px;background:transparent;border:1px dashed ${isEmpty ? 'rgba(255,255,255,0.2)' : 'var(--c-primary)'};display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex:0 0 auto">
+                    ${slotSkillArt}
                   </div>
                   <div>
                     <div style="font-size:0.75rem;color:var(--c-primary);font-weight:700">Slot ${idx + 1}</div>
@@ -5149,7 +5546,7 @@ Screens.profil = {
         </div>
 
         <!-- Internal Scrollable Content Box (100dvh) -->
-        <div class="q-scroll-box grow stack" id="profile-tab-content" style="overflow-y:auto;overflow-x:hidden;flex:1 1 auto;padding:6px 4px 24px 4px;gap:12px">
+        <div class="q-scroll-box grow stack" id="profile-tab-content" style="overflow-y:auto;overflow-x:hidden;flex:1 1 auto;padding:6px 4px 24px 4px;gap:12px;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain">
           <div style="text-align:center;padding:30px;color:var(--c-muted)">Memuat data profil...</div>
         </div>
       </section>
@@ -5221,21 +5618,36 @@ Screens.profil = {
     const showcase = this.profileData?.showcase || [null, null, null];
     const titles = this.profileData?.titles || [null, null, null];
     while (titles.length < 3) titles.push(null);
-    const avatarSvg = window.Avatar ? Avatar.renderAvatar(this.profileData?.avatar || {}) : '🎒';
+    const heroAvatarSvg = window.Avatar
+      ? Avatar.renderAvatar(this.profileData?.avatar || {}, { size: 196 })
+      : '<div style="font-size:4rem;display:flex;align-items:center;justify-content:center;height:100%">🎒</div>';
 
     slot.innerHTML = `
-      <!-- HERO BANNER -->
-      <div class="card" style="padding:16px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);display:flex;gap:14px;align-items:center">
-        <div style="width:72px;height:72px;border-radius:18px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;overflow:hidden;flex:0 0 auto">
-          ${avatarSvg}
+      <!-- HERO SHOWCASE CARD (1 Kotak Penuh di Atas + Info di Bawah) -->
+      <div class="card hero-profile-card" style="padding:16px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);display:flex;flex-direction:column;align-items:center;box-shadow:0 8px 24px rgba(0,0,0,0.35)">
+        <!-- 1 KOTAK FOTO PROFIL UTUH BESERTA PET, SENJATA & BINGKAI KOTAK -->
+        <div class="hero-avatar-box" style="width:196px;height:196px;max-width:100%;border-radius:28px;background:rgba(255,255,255,0.03);border:2px solid rgba(255,255,255,0.12);box-shadow:inset 0 0 24px rgba(0,0,0,0.5), 0 8px 20px rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;flex-shrink:0">
+          ${heroAvatarSvg}
         </div>
-        <div class="grow" style="min-width:0">
-          <div style="font-weight:800;font-size:1.1rem;color:#fff">${esc(p.nick || 'Petualang')}</div>
-          <div style="font-size:0.8rem;color:var(--c-muted);margin:2px 0 4px 0">
-            <span style="color:var(--c-primary);font-weight:700">Lv. ${p.level || 1}</span> · ${esc(p.className || 'Kelas 4 SD')}
+
+        <!-- INFORMASI DI BAWAH FOTO PROFILE -->
+        <div style="width:100%;text-align:center;margin-top:14px">
+          <!-- NICKNAME BESAR -->
+          <div style="font-weight:900;font-size:1.35rem;color:#fff;letter-spacing:0.5px;text-shadow:0 2px 8px rgba(0,0,0,0.6)">
+            ${esc(p.nick || 'Petualang')}
           </div>
-          <!-- 3 SLOTS GELAR / TITLES SAMPING AVATAR -->
-          <div class="profile-titles-container" style="display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px 0">
+          
+          <!-- LEVEL & KELAS -->
+          <div style="font-size:0.85rem;color:var(--c-muted);margin:4px 0 8px 0;display:flex;align-items:center;justify-content:center;gap:6px">
+            <span style="color:var(--c-primary);font-weight:800;background:rgba(245,158,11,0.15);padding:2px 10px;border-radius:8px;border:1px solid rgba(245,158,11,0.3)">
+              Lv. ${p.level || 1}
+            </span>
+            <span>·</span>
+            <span style="color:#cbd5e1;font-weight:600">${esc(p.className || 'Kelas 4 SD')}</span>
+          </div>
+
+          <!-- 3 SLOTS GELAR / TITLES -->
+          <div class="profile-titles-container" style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:8px 0 12px 0">
             ${[0, 1, 2].map(slotIdx => {
               const t = titles[slotIdx];
               if (!t) {
@@ -5256,11 +5668,16 @@ Screens.profil = {
               `;
             }).join('')}
           </div>
-          <div class="xp-track" style="height:6px;background:rgba(255,255,255,0.1);border-radius:99px;overflow:hidden">
-            <div class="xp-fill" style="width:${Math.min(100, Math.round(((p.xp || 0) / (p.xpForNext || 100)) * 100))}%"></div>
-          </div>
-          <div style="font-size:0.72rem;color:var(--c-muted);margin-top:3px;text-align:right">
-            ${p.xp || 0} / ${p.xpForNext || 100} XP
+
+          <!-- XP BAR & XP NUMBER -->
+          <div style="max-width:340px;margin:0 auto">
+            <div class="xp-track" style="height:8px;background:rgba(255,255,255,0.1);border-radius:99px;overflow:hidden;box-shadow:inset 0 1px 3px rgba(0,0,0,0.4)">
+              <div class="xp-fill" style="width:${Math.min(100, Math.round(((p.xp || 0) / (p.xpForNext || 100)) * 100))}%;height:100%;border-radius:99px;transition:width 0.4s ease"></div>
+            </div>
+            <div style="font-size:0.75rem;color:var(--c-muted);margin-top:4px;display:flex;justify-content:space-between;padding:0 2px">
+              <span>XP Level ${p.level || 1}</span>
+              <span style="font-weight:700;color:#fcd34d">${p.xp || 0} / ${p.xpForNext || 100} XP (${Math.min(100, Math.round(((p.xp || 0) / (p.xpForNext || 100)) * 100))}%)</span>
+            </div>
           </div>
         </div>
       </div>
@@ -5335,12 +5752,12 @@ Screens.profil = {
           <span class="stat-val">${stats.bestStreak || 0}×</span>
           <span class="stat-label">Rekor Kombo</span>
         </div>
-        <div class="profile-stat-box">
+        <div class="profile-stat-box" title="${stats.correctCount || 0} Benar dari ${stats.totalQuestions || 0} Soal Dijawab">
           <span class="stat-icon">🎯</span>
           <span class="stat-val">${stats.accuracy || 0}%</span>
           <span class="stat-label">Akurasi Jawaban</span>
         </div>
-        <div class="profile-stat-box">
+        <div class="profile-stat-box" title="${stats.bossDefeated || 0} Menang dari ${stats.totalSessions || 0} Sesi Dimainkan">
           <span class="stat-icon">🏆</span>
           <span class="stat-val">${stats.winRate || 0}%</span>
           <span class="stat-label">Rasio Menang</span>
@@ -5360,22 +5777,46 @@ Screens.profil = {
           <span class="stat-val">${stats.criticalCount || 0}</span>
           <span class="stat-label">Jawaban Kritis</span>
         </div>
-        <div class="profile-stat-box">
+        <div class="profile-stat-box" title="${stats.dexDefeated || 0} Bos Dikalahkan · ${stats.dexEncountered || 0} Ditemui dari ${stats.totalMonsters || 100} Monster">
           <span class="stat-icon">📖</span>
-          <span class="stat-val">${stats.dexDefeated || 0} / 40</span>
+          <span class="stat-val">${stats.dexDefeated || 0} / ${stats.totalMonsters || 100}</span>
           <span class="stat-label">Monster Dex</span>
         </div>
-        <div class="profile-stat-box">
+        <div class="profile-stat-box" title="${stats.activeDays || p.dayStreak || 1} Hari Belajar · Streak ${p.dayStreak || stats.dayStreak || 1} Hari Beruntun">
           <span class="stat-icon">📅</span>
-          <span class="stat-val">${p.dayStreak || 1} Hari</span>
+          <span class="stat-val">${stats.activeDays || p.dayStreak || 1} Hari</span>
           <span class="stat-label">Hari Belajar</span>
         </div>
       </div>
 
+      <!-- SHORTCUT MENU KE RIWAYAT PERTEMPURAN -->
+      <div style="margin:12px 0 6px 0">
+        <button type="button" class="btn small primary" style="width:100%;padding:10px 14px;border-radius:12px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg, rgba(245,158,11,0.2), rgba(234,179,8,0.1));border:1px solid rgba(245,158,11,0.4);box-shadow:0 4px 12px rgba(0,0,0,0.25);cursor:pointer" onclick="Screens.profil.switchToBattleHistory()">
+          <span style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:1.2rem">⚔️</span>
+            <span style="text-align:left">
+              <strong style="display:block;color:#fef08a;font-size:0.86rem">Riwayat Pertempuran & Tracing Skor</strong>
+              <small style="color:#94a3b8;font-size:0.72rem">Lihat ID Battle, akurasi soal, dan bintang per game</small>
+            </span>
+          </span>
+          <span style="font-size:0.88rem;color:#f59e0b;font-weight:800">Buka ➔</span>
+        </button>
+      </div>
+
       <!-- LENCANA PRESTASI 20 KATEGORI x 4 TIER -->
-      <div style="display:flex;justify-content:space-between;align-items:center;margin:18px 4px 6px 4px">
-        <h3 style="font-size:0.95rem;margin:0;color:var(--c-muted)">🏅 Lencana Prestasi (${badgeSummary.totalUnlocked || 0} / ${badgeSummary.totalBadges || 80} Terbuka)</h3>
-        <span style="font-size:0.75rem;color:var(--c-muted)">Sentuh kartu untuk rincian</span>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin:18px 4px 6px 4px;flex-wrap:wrap;gap:6px">
+        <div>
+          <h3 style="font-size:0.95rem;margin:0;color:var(--c-muted)">🏅 Lencana Prestasi (${badgeSummary.totalUnlocked || 0} / ${badgeSummary.totalBadges || 80} Terbuka)</h3>
+          ${(badgeSummary.unclaimedCount > 0) ? `<div style="font-size:0.75rem;color:#fde047;font-weight:700;margin-top:2px">🎁 Ada ${badgeSummary.unclaimedCount} hadiah lencana siap diklaim!</div>` : ''}
+        </div>
+        <div style="display:flex;gap:6px;align-items:center">
+          ${(badgeSummary.unclaimedCount > 0) ? `
+            <button class="btn small primary" onclick="event.stopPropagation(); Screens.profil.claimAllBadges()" style="background:linear-gradient(135deg, #f59e0b, #eab308);color:#000;font-weight:800;font-size:0.75rem;padding:4px 10px;border-radius:8px;box-shadow:0 0 10px rgba(245,158,11,0.5);border:none;cursor:pointer">
+              🎁 Klaim Semua (${badgeSummary.unclaimedCount})
+            </button>
+          ` : ''}
+          <span style="font-size:0.75rem;color:var(--c-muted)">Sentuh kartu untuk rincian</span>
+        </div>
       </div>
       <div style="display:grid;grid-template-columns:1fr;gap:8px">
         ${(badgeFamilies || []).map(f => {
@@ -5396,7 +5837,10 @@ Screens.profil = {
                     <span style="position:absolute;bottom:-2px;right:-2px;background:rgba(0,0,0,0.85);border-radius:99px;font-size:0.6rem;padding:1px 4px;border:1px solid rgba(255,255,255,0.25);line-height:1">🔍</span>
                   </div>
                   <div style="min-width:0">
-                    <div style="font-weight:800;font-size:0.88rem;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(f.name)}</div>
+                    <div style="display:flex;align-items:center;gap:6px">
+                      <span style="font-weight:800;font-size:0.88rem;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(f.name)}</span>
+                      ${(f.unclaimedCount > 0) ? `<span class="badge" style="background:#f59e0b;color:#000;font-size:0.62rem;font-weight:800;padding:1px 6px;border-radius:99px">🎁 ${f.unclaimedCount} Hadiah</span>` : ''}
+                    </div>
                     <div style="font-size:0.72rem;color:var(--c-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
                       ${highest ? `<strong style="color:${highest.color}">${highest.label}: ${esc(f.tiers.find(t => t.tier === f.highestTier)?.name || '')}</strong>` : 'Terkunci'}
                     </div>
@@ -5409,6 +5853,13 @@ Screens.profil = {
                   <div style="font-size:0.68rem;color:var(--c-muted);margin-top:2px">
                     ${isMax ? '⭐ MAX' : `${f.current} / ${nextTier.target} ${f.unit || ''}`}
                   </div>
+                  ${(f.unclaimedCount > 0) ? `
+                    <div style="margin-top:4px">
+                      <button type="button" class="btn small primary" onclick="event.stopPropagation(); Screens.profil.claimFamilyFirstUnclaimed('${f.id}')" style="background:linear-gradient(135deg, #f59e0b, #d97706);color:#000;font-weight:800;font-size:0.65rem;padding:2px 8px;border-radius:6px;border:none;box-shadow:0 0 8px rgba(245,158,11,0.45);cursor:pointer">
+                        🎁 Klaim
+                      </button>
+                    </div>
+                  ` : ''}
                 </div>
               </div>
               <div class="xp-track" style="height:4px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden;margin-top:4px">
@@ -5892,6 +6343,447 @@ Screens.profil = {
     return this.saveTitleItem(slotIdx, null);
   },
 
+  applyClaimRewardUpdates(res) {
+    if (!res) return;
+    const newCoins = res.newCoins;
+    const newXp = res.newXp;
+    const newLevel = res.newLevel;
+
+    // 1. Update Player global store
+    if (window.Player) {
+      if (!Player.data) Player.data = {};
+      if (newCoins !== undefined) Player.data.coins = newCoins;
+      if (newXp !== undefined) Player.data.xp = newXp;
+      if (newLevel !== undefined) Player.data.level = newLevel;
+    }
+
+    // 2. Update Screens.profil profileData store
+    if (this.profileData && this.profileData.player) {
+      if (newCoins !== undefined) this.profileData.player.coins = newCoins;
+      if (newXp !== undefined) this.profileData.player.xp = newXp;
+      if (newLevel !== undefined) {
+        this.profileData.player.level = newLevel;
+        this.profileData.player.xpForNext = newLevel * newLevel * 50;
+      }
+    }
+
+    // 3. Mark badge as claimed locally in profileData.claimedBadgeIds
+    if (res.badgeId) {
+      if (!this.profileData) this.profileData = {};
+      if (!this.profileData.claimedBadgeIds) this.profileData.claimedBadgeIds = [];
+      if (!this.profileData.claimedBadgeIds.includes(res.badgeId)) {
+        this.profileData.claimedBadgeIds.push(res.badgeId);
+      }
+    } else if (res.claimedIds && Array.isArray(res.claimedIds)) {
+      if (!this.profileData) this.profileData = {};
+      if (!this.profileData.claimedBadgeIds) this.profileData.claimedBadgeIds = [];
+      res.claimedIds.forEach(id => {
+        if (!this.profileData.claimedBadgeIds.includes(id)) {
+          this.profileData.claimedBadgeIds.push(id);
+        }
+      });
+    }
+
+    // 4. Update DOM Elements live
+    if (newCoins !== undefined) {
+      const profCoinEl = document.getElementById('prof-coins-val');
+      if (profCoinEl) profCoinEl.textContent = newCoins;
+      const hdrCoinEl = document.getElementById('hdr-coins');
+      if (hdrCoinEl) hdrCoinEl.textContent = newCoins;
+      document.querySelectorAll('.coins-val').forEach(el => {
+        el.textContent = newCoins;
+      });
+      // Flash / scale effect on coin chip
+      const coinChip = document.getElementById('prof-coin-chip');
+      if (coinChip) {
+        coinChip.style.transition = 'transform 0.25s ease, box-shadow 0.25s ease';
+        coinChip.style.transform = 'scale(1.15)';
+        coinChip.style.boxShadow = '0 0 16px #f59e0b';
+        setTimeout(() => {
+          coinChip.style.transform = 'scale(1)';
+          coinChip.style.boxShadow = '';
+        }, 400);
+      }
+    }
+
+    // 5. Update Hero Card XP bar and text if present
+    if (this.profileData?.player) {
+      const p = this.profileData.player;
+      const xpFill = document.querySelector('#profile-view .xp-track .xp-fill');
+      if (xpFill && p.xpForNext) {
+        xpFill.style.width = `${Math.min(100, Math.round(((p.xp || 0) / p.xpForNext) * 100))}%`;
+      }
+    }
+  },
+
+  showClaimCelebrationModal(opts) {
+    const {
+      isBulk = false,
+      count = 1,
+      badgeName = '',
+      badgeId = '',
+      tier = 'COMMON',
+      familyId = '',
+      coinsAwarded = 0,
+      xpAwarded = 0,
+      itemAwarded = null,
+      itemsAwarded = [],
+      titleAwarded = null,
+      titlesAwarded = [],
+      newCoins = 0,
+      newXp = 0,
+      newLevel = 1,
+      isLevelUp = false,
+      onClose = null
+    } = opts;
+
+    if (window.Sfx) {
+      Sfx.play('coin');
+      setTimeout(() => Sfx.play('win'), 160);
+    }
+
+    const modalId = 'modal-claim-celebration';
+    const oldModal = document.getElementById(modalId);
+    if (oldModal) oldModal.remove();
+
+    const overlay = document.createElement('div');
+    overlay.id = modalId;
+    overlay.className = 'confirm-overlay';
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(3,7,18,0.88);backdrop-filter:blur(10px);z-index:999999;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn 0.25s ease;';
+
+    const cleanTier = (tier || 'COMMON').toUpperCase();
+    const tierColor = cleanTier === 'LEGEND' ? '#fbbf24' : (cleanTier === 'EPIC' ? '#c084fc' : (cleanTier === 'RARE' ? '#38bdf8' : '#10b981'));
+
+    // SVG icon / badge art
+    let badgeSvg = '';
+    if (isBulk) {
+      badgeSvg = `
+        <div style="font-size:4.6rem;line-height:1;filter:drop-shadow(0 8px 26px rgba(245,158,11,0.8));animation:victoryBounce 1.5s ease-in-out infinite">
+          🏆✨
+        </div>
+      `;
+    } else if (window.BadgeArt && typeof window.BadgeArt.renderBadge === 'function' && familyId) {
+      badgeSvg = `
+        <div style="filter:drop-shadow(0 10px 28px ${tierColor}95);animation:victoryBounce 1.5s ease-in-out infinite">
+          ${BadgeArt.renderBadge(familyId, cleanTier, { size: 106, title: badgeName })}
+        </div>
+      `;
+    } else {
+      badgeSvg = `
+        <div style="font-size:4.6rem;line-height:1;filter:drop-shadow(0 8px 24px rgba(245,158,11,0.8));animation:victoryBounce 1.5s ease-in-out infinite">
+          🏅
+        </div>
+      `;
+    }
+
+    const ITEM_NAMES = {
+      pet_dragon: 'Pet Eksklusif: Naga Penjelajah 🐉',
+      pet_phoenix: 'Pet Eksklusif: Burung Phoenix Api 🦅🔥',
+      frame_supernova: 'Bingkai Avatar: Supernova Legend 🌌'
+    };
+
+    // Format all items awarded
+    const allItems = [];
+    if (itemAwarded) allItems.push(ITEM_NAMES[itemAwarded] || itemAwarded);
+    if (Array.isArray(itemsAwarded)) {
+      itemsAwarded.forEach(it => {
+        const str = ITEM_NAMES[it] || it;
+        if (!allItems.includes(str)) allItems.push(str);
+      });
+    }
+
+    // Format all titles awarded
+    const allTitles = [];
+    if (titleAwarded) allTitles.push(titleAwarded);
+    if (Array.isArray(titlesAwarded)) {
+      titlesAwarded.forEach(tt => { if (!allTitles.includes(tt)) allTitles.push(tt); });
+    }
+
+    overlay.innerHTML = `
+      <!-- Confetti Particles Container -->
+      <div class="confetti-container" style="position:absolute;inset:0;pointer-events:none;overflow:hidden">
+        ${Array.from({ length: 34 }).map((_, i) => {
+          const left = Math.random() * 100;
+          const dur = 1.5 + Math.random() * 1.5;
+          const delay = Math.random() * 0.7;
+          const colors = ['#f59e0b', '#fbbf24', '#38bdf8', '#c084fc', '#10b981', '#f43f5e', '#ffffff'];
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          const size = 6 + Math.random() * 8;
+          return `<div style="position:absolute;top:-20px;left:${left}%;width:${size}px;height:${size}px;background:${color};border-radius:${Math.random() > 0.4 ? '50%' : '2px'};box-shadow:0 0 8px ${color};animation:confettiFall ${dur}s ease-out ${delay}s infinite"></div>`;
+        }).join('')}
+      </div>
+
+      <!-- Main Celebration Card -->
+      <div class="card" style="max-width:440px;width:100%;text-align:center;padding:26px 20px;border-radius:24px;background:linear-gradient(135deg, rgba(30,41,59,0.98), rgba(15,23,42,0.99));border:2px solid #f59e0b;box-shadow:0 0 50px rgba(245,158,11,0.45), 0 24px 48px rgba(0,0,0,0.85);position:relative;overflow:hidden;animation:itemPopIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards">
+        
+        <!-- Rotating radiant sunburst background -->
+        <div class="chest-rays" style="position:absolute;top:28%;left:50%;transform:translate(-50%,-50%);width:340px;height:340px;background:radial-gradient(circle, rgba(245,158,11,0.3) 0%, rgba(245,158,11,0.08) 50%, transparent 70%);border-radius:50%;pointer-events:none;animation:chestRaysSpin 8s linear infinite"></div>
+
+        <div style="position:relative;z-index:2">
+          <!-- Eyebrow Banner -->
+          <div style="font-size:0.75rem;font-weight:900;letter-spacing:1.5px;color:#f59e0b;text-transform:uppercase;text-shadow:0 0 14px rgba(245,158,11,0.8);margin-bottom:6px">
+            ${isBulk ? '👑 KLAIM SEMUA PRESTASI BERHASIL! 👑' : '🎉 HADIAH PRESTASI BERHASIL DIKLAIM! 🎉'}
+          </div>
+
+          <!-- Title / Badge Name -->
+          <h2 style="font-size:1.35rem;font-weight:900;color:#fff;margin:0 0 8px 0;text-shadow:0 2px 10px rgba(0,0,0,0.8)">
+            ${isBulk ? `${count} Hadiah Lencana Dibuka!` : esc(badgeName || 'Lencana Prestise')}
+          </h2>
+
+          <!-- Badge Icon Spotlight -->
+          <div style="display:flex;align-items:center;justify-content:center;padding:6px 0 12px 0">
+            ${badgeSvg}
+          </div>
+
+          ${!isBulk && cleanTier ? `
+            <div style="margin-top:-6px;margin-bottom:12px">
+              <span class="badge" style="background:${tierColor};color:#000;font-size:0.75rem;font-weight:900;padding:3px 12px;border-radius:99px;text-transform:uppercase;box-shadow:0 0 12px ${tierColor}80">
+                TIER ${cleanTier}
+              </span>
+            </div>
+          ` : ''}
+
+          ${isLevelUp ? `
+            <div style="background:linear-gradient(135deg, rgba(16,185,129,0.25), rgba(5,150,105,0.3));border:1.5px solid #10b981;border-radius:14px;padding:9px 12px;margin-bottom:10px;text-align:center;box-shadow:0 0 20px rgba(16,185,129,0.4)">
+              <div style="font-size:0.72rem;font-weight:900;color:#34d399;text-transform:uppercase;letter-spacing:1px">
+                🆙 LEVEL UP!
+              </div>
+              <div style="font-size:0.95rem;font-weight:800;color:#fff;margin-top:2px">
+                Selamat! Kamu naik ke Level <span style="color:#6ee7b7">${newLevel}</span>!
+              </div>
+            </div>
+          ` : ''}
+
+          <!-- REWARDS DISPLAY TILES (COINS & XP) -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0 12px 0">
+            <!-- COIN REWARD CARD -->
+            <div style="background:linear-gradient(135deg, rgba(245,158,11,0.18), rgba(217,119,6,0.28));border:1.5px solid #f59e0b;border-radius:16px;padding:12px 10px;display:flex;flex-direction:column;align-items:center;box-shadow:0 4px 16px rgba(245,158,11,0.25)">
+              <div style="font-size:1.6rem;line-height:1;margin-bottom:4px">🪙</div>
+              <div id="claim-anim-coins" style="font-size:1.25rem;font-weight:900;color:#fde047;text-shadow:0 2px 8px rgba(0,0,0,0.7)">
+                +${Number(coinsAwarded || 0).toLocaleString()}
+              </div>
+              <div style="font-size:0.68rem;font-weight:800;color:#fef08a;text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">
+                Koin Petualang
+              </div>
+            </div>
+
+            <!-- XP REWARD CARD -->
+            <div style="background:linear-gradient(135deg, rgba(56,189,248,0.18), rgba(59,130,246,0.28));border:1.5px solid #38bdf8;border-radius:16px;padding:12px 10px;display:flex;flex-direction:column;align-items:center;box-shadow:0 4px 16px rgba(56,189,248,0.25)">
+              <div style="font-size:1.6rem;line-height:1;margin-bottom:4px">⚡</div>
+              <div id="claim-anim-xp" style="font-size:1.25rem;font-weight:900;color:#38bdf8;text-shadow:0 2px 8px rgba(0,0,0,0.7)">
+                +${Number(xpAwarded || 0).toLocaleString()}
+              </div>
+              <div style="font-size:0.68rem;font-weight:800;color:#bae6fd;text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">
+                Exp Points (XP)
+              </div>
+            </div>
+          </div>
+
+          <!-- SPECIAL ITEMS UNLOCKED (IF ANY) -->
+          ${allItems.length > 0 ? `
+            <div style="background:linear-gradient(135deg, rgba(168,85,247,0.2), rgba(236,72,153,0.2));border:1.5px solid #c084fc;border-radius:14px;padding:10px 12px;margin-bottom:10px;text-align:center;box-shadow:0 0 20px rgba(168,85,247,0.3)">
+              <div style="font-size:0.7rem;font-weight:900;color:#f472b6;text-transform:uppercase;letter-spacing:1px">
+                🐾 ITEM / PET EKSKLUSIF TERBUKA!
+              </div>
+              <div style="font-size:0.92rem;font-weight:800;color:#fff;margin-top:3px">
+                ${allItems.map(it => `✨ ${esc(it)}`).join(' · ')}
+              </div>
+            </div>
+          ` : ''}
+
+          <!-- SPECIAL TITLES UNLOCKED (IF ANY) -->
+          ${allTitles.length > 0 ? `
+            <div style="background:linear-gradient(135deg, rgba(234,179,8,0.2), rgba(249,115,22,0.2));border:1.5px solid #facc15;border-radius:14px;padding:10px 12px;margin-bottom:10px;text-align:center;box-shadow:0 0 20px rgba(234,179,8,0.3)">
+              <div style="font-size:0.7rem;font-weight:900;color:#fde047;text-transform:uppercase;letter-spacing:1px">
+                🏅 GELAR PRESTISE BARU TERBUKA!
+              </div>
+              <div style="font-size:0.92rem;font-weight:800;color:#fff;margin-top:3px">
+                ${allTitles.map(t => `"${esc(t)}"`).join(' · ')}
+              </div>
+            </div>
+          ` : ''}
+
+          <!-- UPDATED BALANCE FOOTER -->
+          <div style="display:flex;justify-content:space-around;align-items:center;background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:9px 12px;margin-bottom:16px;font-size:0.82rem">
+            <div>
+              <span style="color:var(--c-muted)">Total Saldo:</span> 
+              <strong style="color:#fde047;font-weight:800">🪙 ${Number(newCoins || 0).toLocaleString()}</strong>
+            </div>
+            <div style="width:1px;height:14px;background:rgba(255,255,255,0.15)"></div>
+            <div>
+              <span style="color:var(--c-muted)">Level & XP:</span> 
+              <strong style="color:#38bdf8;font-weight:800">Lv. ${newLevel || 1} (${Number(newXp || 0).toLocaleString()} XP)</strong>
+            </div>
+          </div>
+
+          <!-- ACTION BUTTON -->
+          <button type="button" class="btn primary full-width" id="btn-claim-modal-ok" style="background:linear-gradient(135deg, #f59e0b, #eab308);color:#000;font-weight:900;font-size:0.95rem;padding:12px;border-radius:12px;border:none;box-shadow:0 4px 20px rgba(245,158,11,0.5);cursor:pointer;text-transform:uppercase;letter-spacing:0.5px">
+            🎉 Keren Banget! Ambil Hadiah
+          </button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    // Dynamic count-up animation for coins & XP
+    const animateCount = (el, target, prefix = '', suffix = '') => {
+      if (!el) return;
+      if (!target || target <= 0) {
+        el.textContent = `${prefix}0${suffix}`;
+        return;
+      }
+      const dur = 750;
+      const startTime = performance.now();
+      const step = (now) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / dur, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const cur = Math.round(target * ease);
+        el.textContent = `${prefix}${cur.toLocaleString()}${suffix}`;
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = `${prefix}${target.toLocaleString()}${suffix}`;
+        }
+      };
+      requestAnimationFrame(step);
+    };
+
+    setTimeout(() => {
+      animateCount(overlay.querySelector('#claim-anim-coins'), Number(coinsAwarded || 0), '+');
+      animateCount(overlay.querySelector('#claim-anim-xp'), Number(xpAwarded || 0), '+');
+    }, 150);
+
+    const closeModal = () => {
+      overlay.style.transition = 'opacity 0.2s ease';
+      overlay.style.opacity = '0';
+      setTimeout(() => {
+        overlay.remove();
+        if (typeof onClose === 'function') onClose();
+      }, 200);
+    };
+
+    overlay.querySelector('#btn-claim-modal-ok').onclick = () => {
+      if (window.Sfx) Sfx.play('tap');
+      closeModal();
+    };
+
+    overlay.onclick = (e) => {
+      if (e.target === overlay) closeModal();
+    };
+  },
+
+  async claimSingleBadge(badgeId, onSuccess) {
+    if (window.Sfx) Sfx.play('tap');
+    const oldLevel = (Player.data && Player.data.level) || (this.profileData?.player?.level) || 1;
+    try {
+      const res = await API.req('/api/badges/claim', {
+        method: 'POST',
+        body: JSON.stringify({ badgeId })
+      });
+      if (res && res.ok) {
+        // 1. Immediately update global Player state and UI DOM numbers
+        this.applyClaimRewardUpdates(res);
+
+        // Parse family and tier from badgeId (e.g. boss_slayer_common)
+        const parts = (badgeId || '').split('_');
+        const tier = parts.length > 1 ? parts[parts.length - 1].toUpperCase() : 'COMMON';
+        const famId = parts.slice(0, parts.length - 1).join('_');
+
+        // 2. Show Spectacular Celebration Modal
+        this.showClaimCelebrationModal({
+          isBulk: false,
+          badgeName: res.badgeName || 'Lencana',
+          badgeId,
+          tier,
+          familyId: famId,
+          coinsAwarded: res.coinsAwarded,
+          xpAwarded: res.xpAwarded,
+          itemAwarded: res.itemAwarded,
+          titleAwarded: res.titleAwarded,
+          newCoins: res.newCoins,
+          newXp: res.newXp,
+          newLevel: res.newLevel,
+          isLevelUp: Boolean(res.newLevel && res.newLevel > oldLevel),
+          onClose: async () => {
+            // Full refresh of profile data in background
+            await this.loadData();
+            const contentSlot = document.getElementById('profile-tab-content');
+            if (contentSlot && Screens.profil.activeTab === 'ringkasan') {
+              const curScroll = contentSlot.scrollTop;
+              Screens.profil.renderTabRingkasan(contentSlot);
+              contentSlot.scrollTop = curScroll;
+            }
+            if (typeof onSuccess === 'function') onSuccess(true);
+          }
+        });
+      } else {
+        toast((res && res.message) || 'Gagal mengklaim hadiah lencana.', 'error');
+        if (typeof onSuccess === 'function') onSuccess(false);
+      }
+    } catch (err) {
+      console.error('Failed to claim badge:', err);
+      toast('Gagal klaim: ' + (err.message || 'Terjadi kesalahan'), 'error');
+      if (typeof onSuccess === 'function') onSuccess(false);
+    }
+  },
+
+  async claimAllBadges() {
+    if (window.Sfx) Sfx.play('tap');
+    const oldLevel = (Player.data && Player.data.level) || (this.profileData?.player?.level) || 1;
+    try {
+      const res = await API.req('/api/badges/claim-all', {
+        method: 'POST',
+        body: JSON.stringify({})
+      });
+      if (res && res.ok && res.claimedCount > 0) {
+        // 1. Immediately update global Player state and UI DOM numbers
+        this.applyClaimRewardUpdates(res);
+
+        // 2. Show Spectacular Celebration Modal
+        this.showClaimCelebrationModal({
+          isBulk: true,
+          count: res.claimedCount,
+          totalCoins: res.totalCoins,
+          totalXp: res.totalXp,
+          coinsAwarded: res.totalCoins,
+          xpAwarded: res.totalXp,
+          itemsAwarded: res.itemsAwarded,
+          titlesAwarded: res.titlesAwarded,
+          newCoins: res.newCoins,
+          newXp: res.newXp,
+          newLevel: res.newLevel,
+          isLevelUp: Boolean(res.newLevel && res.newLevel > oldLevel),
+          onClose: async () => {
+            // Full refresh of profile data
+            await this.loadData();
+            const contentSlot = document.getElementById('profile-tab-content');
+            if (contentSlot && Screens.profil.activeTab === 'ringkasan') {
+              const curScroll = contentSlot.scrollTop;
+              Screens.profil.renderTabRingkasan(contentSlot);
+              contentSlot.scrollTop = curScroll;
+            }
+          }
+        });
+      } else {
+        toast((res && res.message) || 'Tidak ada hadiah lencana baru yang dapat diklaim saat ini.');
+      }
+    } catch (err) {
+      console.error('Failed to claim all badges:', err);
+      toast('Gagal klaim: ' + (err.message || 'Terjadi kesalahan'), 'error');
+    }
+  },
+
+  async claimFamilyFirstUnclaimed(familyId) {
+    const f = (this.profileData?.badgeFamilies || []).find(x => x.id === familyId);
+    if (!f) return;
+    const unclaimedTier = f.tiers.find(t => t.unlocked && !t.claimed);
+    if (!unclaimedTier) return;
+    const badgeId = `${f.id}_${unclaimedTier.tier.toLowerCase()}`;
+    await this.claimSingleBadge(badgeId);
+  },
+
   showBadgeDetailModal(familyOrBadgeId, tierCode) {
     if (window.Sfx) Sfx.play('tap');
     let familyId = familyOrBadgeId;
@@ -5941,6 +6833,7 @@ Screens.profil = {
       selectedTier = (activeTier || 'COMMON').toUpperCase();
       const t = f.tiers.find(x => x.tier === selectedTier) || f.tiers[0];
       const isUnlocked = Boolean(t.unlocked);
+      const isClaimed = Boolean(t.claimed || (pData.claimedBadgeIds && pData.claimedBadgeIds.includes(`${f.id}_${selectedTier.toLowerCase()}`)));
       const tInfo = t.tierInfo || (window.Badges?.TIERS ? window.Badges.TIERS[selectedTier] : { color: '#f59e0b', label: selectedTier, icon: '🥉' });
       const currentVal = f.current || 0;
       const targetVal = t.target || 1;
@@ -5994,7 +6887,10 @@ Screens.profil = {
                 TIER ${selectedTier}
               </span>
               ${isUnlocked
-                ? `<span class="badge" style="background:#10b981;color:#fff;font-size:0.72rem;font-weight:800;padding:2px 10px;border-radius:99px">TERBUKA ✓</span>`
+                ? (isClaimed
+                    ? `<span class="badge" style="background:#059669;color:#fff;font-size:0.72rem;font-weight:800;padding:2px 10px;border-radius:99px">HADIAH TERKLAIM ✓</span>`
+                    : `<span class="badge" style="background:#f59e0b;color:#000;font-size:0.72rem;font-weight:800;padding:2px 10px;border-radius:99px;box-shadow:0 0 10px #f59e0b">BISA KLAIM 🎁</span>`
+                  )
                 : `<span class="badge" style="background:#475569;color:#cbd5e1;font-size:0.72rem;font-weight:700;padding:2px 10px;border-radius:99px">TERKUNCI 🔒</span>`
               }
             </div>
@@ -6037,16 +6933,29 @@ Screens.profil = {
           </div>
 
           <!-- ACTION BUTTONS -->
-          <div style="display:flex;gap:8px;margin-top:2px">
-            ${isUnlocked ? `
-              <button type="button" class="btn primary grow" id="btn-equip-detail-showcase" style="font-size:0.82rem;padding:9px">
-                ${isEquipped ? '✓ Terpasang di Showcase' : '⭐ Pasang di Showcase'}
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:2px">
+            ${isUnlocked ? (
+              isClaimed ? `
+                <div style="display:flex;align-items:center;justify-content:center;gap:6px;padding:9px;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);border-radius:12px;color:#10b981;font-size:0.82rem;font-weight:800">
+                  <span>✓ Hadiah Telah Berhasil Diklaim</span>
+                </div>
+              ` : `
+                <button type="button" class="btn primary full-width" id="btn-claim-detail-reward" style="background:linear-gradient(135deg, #f59e0b, #eab308);color:#000;font-weight:800;font-size:0.9rem;padding:11px;border-radius:12px;border:none;box-shadow:0 4px 16px rgba(245,158,11,0.45);cursor:pointer">
+                  🎁 Klaim Hadiah (${esc(t.reward || '+ Koin & XP')})
+                </button>
+              `
+            ) : ''}
+            <div style="display:flex;gap:8px">
+              ${isUnlocked ? `
+                <button type="button" class="btn secondary grow" id="btn-equip-detail-showcase" style="font-size:0.82rem;padding:9px">
+                  ${isEquipped ? '✓ Terpasang di Showcase' : '⭐ Pasang di Showcase'}
+                </button>
+              ` : ''}
+              <button type="button" class="btn secondary grow" id="btn-view-all-tiers" style="font-size:0.82rem;padding:9px">
+                📋 Lihat Semua Tier
               </button>
-            ` : ''}
-            <button type="button" class="btn secondary grow" id="btn-view-all-tiers" style="font-size:0.82rem;padding:9px">
-              📋 Lihat Semua Tier
-            </button>
-            <button type="button" class="btn ghost small" id="btn-dismiss-detail" style="font-size:0.82rem">Tutup</button>
+              <button type="button" class="btn ghost small" id="btn-dismiss-detail" style="font-size:0.82rem">Tutup</button>
+            </div>
           </div>
         </div>
       `;
@@ -6060,6 +6969,19 @@ Screens.profil = {
       if (closeBtn) closeBtn.onclick = close;
       const dismissBtn = overlay.querySelector('#btn-dismiss-detail');
       if (dismissBtn) dismissBtn.onclick = close;
+
+      const claimBtn = overlay.querySelector('#btn-claim-detail-reward');
+      if (claimBtn) {
+        claimBtn.onclick = async () => {
+          claimBtn.disabled = true;
+          claimBtn.innerHTML = 'Memproses klaim...';
+          const badgeId = `${f.id}_${curTier.toLowerCase()}`;
+          await Screens.profil.claimSingleBadge(badgeId, () => {
+            close();
+            Screens.profil.showBadgeDetailModal(f.id, curTier);
+          });
+        };
+      }
 
       const viewAllBtn = overlay.querySelector('#btn-view-all-tiers');
       if (viewAllBtn) {
@@ -6153,6 +7075,7 @@ Screens.profil = {
         <div style="display:flex;flex-direction:column;gap:10px;overflow-y:auto;max-height:55dvh;padding-right:4px">
           ${f.tiers.map(t => {
             const isUnlocked = t.unlocked;
+            const isClaimed = Boolean(t.claimed || (pData.claimedBadgeIds && pData.claimedBadgeIds.includes(`${f.id}_${t.tier.toLowerCase()}`)));
             const tColor = t.tierInfo ? t.tierInfo.color : '#f59e0b';
             return `
               <div class="badge-tier-card" style="padding:12px;background:${isUnlocked ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.3)'};border:1.5px solid ${isUnlocked ? tColor : 'rgba(255,255,255,0.1)'};border-radius:12px;opacity:${isUnlocked ? '1' : '0.65'}">
@@ -6171,7 +7094,10 @@ Screens.profil = {
                   </div>
                   <div>
                     ${isUnlocked
-                      ? `<span class="badge small" style="background:#10b981;color:#fff;font-size:0.68rem;padding:3px 8px;border-radius:6px;font-weight:800">TERBUKA ✓</span>`
+                      ? (isClaimed
+                          ? `<span class="badge small" style="background:#059669;color:#fff;font-size:0.68rem;padding:3px 8px;border-radius:6px;font-weight:800">TERKLAIM ✓</span>`
+                          : `<span class="badge small" style="background:#f59e0b;color:#000;font-size:0.68rem;padding:3px 8px;border-radius:6px;font-weight:800;box-shadow:0 0 8px #f59e0b">BISA KLAIM 🎁</span>`
+                        )
                       : `<span class="badge small" style="background:#475569;color:#cbd5e1;font-size:0.68rem;padding:3px 8px;border-radius:6px">${t.pct}%</span>`
                     }
                   </div>
@@ -6179,15 +7105,22 @@ Screens.profil = {
                 <div style="font-size:0.75rem;color:var(--c-muted);margin-top:6px;line-height:1.4">${esc(t.desc)}</div>
                 ${t.lore ? `<div style="font-size:0.72rem;color:#cbd5e1;font-style:italic;margin-top:4px;border-left:2px solid ${tColor};padding-left:8px">"${esc(t.lore)}"</div>` : ''}
                 ${t.reward ? `<div style="font-size:0.72rem;font-weight:700;color:#fde047;margin-top:4px">🎁 Hadiah: ${esc(t.reward)}</div>` : ''}
-                <div style="margin-top:8px;display:flex;justify-content:flex-end;gap:6px">
+                <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap">
                   <button type="button" class="btn ghost small btn-inspect-badge-tier" data-family="${f.id}" data-tier="${t.tier}" style="font-size:0.72rem;padding:3px 10px">
                     🔍 Detail Medali
                   </button>
-                  ${isUnlocked ? `
-                    <button type="button" class="btn secondary small btn-equip-to-showcase" data-tier="${t.tier}" data-name="${esc(t.name)}" data-icon="${t.icon || '🏅'}" style="font-size:0.72rem;padding:3px 10px">
-                      ⭐ Pasang di Showcase
-                    </button>
-                  ` : ''}
+                  <div style="display:flex;gap:6px">
+                    ${isUnlocked ? (
+                      isClaimed
+                        ? `<button type="button" class="btn small" disabled style="font-size:0.72rem;padding:3px 10px;background:rgba(16,185,129,0.12);color:#10b981;border:1px solid rgba(16,185,129,0.25);cursor:default">✓ Hadiah Diklaim</button>`
+                        : `<button type="button" class="btn primary small btn-claim-tier-badge" data-badge-id="${f.id}_${t.tier.toLowerCase()}" style="font-size:0.72rem;padding:3px 12px;background:linear-gradient(135deg, #f59e0b, #d97706);color:#000;font-weight:800;border:none;box-shadow:0 0 10px rgba(245,158,11,0.4);cursor:pointer">🎁 Klaim Hadiah</button>`
+                    ) : ''}
+                    ${isUnlocked ? `
+                      <button type="button" class="btn secondary small btn-equip-to-showcase" data-tier="${t.tier}" data-name="${esc(t.name)}" data-icon="${t.icon || '🏅'}" style="font-size:0.72rem;padding:3px 10px">
+                        ⭐ Pasang
+                      </button>
+                    ` : ''}
+                  </div>
                 </div>
               </div>
             `;
@@ -6213,6 +7146,18 @@ Screens.profil = {
       btn.onclick = () => {
         close();
         Screens.profil.showBadgeDetailModal(btn.dataset.family, btn.dataset.tier);
+      };
+    });
+
+    overlay.querySelectorAll('.btn-claim-tier-badge').forEach(btn => {
+      btn.onclick = async () => {
+        const bId = btn.dataset.badgeId;
+        btn.disabled = true;
+        btn.innerHTML = 'Mengklaim...';
+        await Screens.profil.claimSingleBadge(bId, () => {
+          overlay.remove();
+          Screens.profil.showBadgeFamilyDetailModal(f.id);
+        });
       };
     });
 
@@ -6265,6 +7210,7 @@ Screens.profil = {
     const items = inv.items || [];
     if (!this.skinCatFilter) this.skinCatFilter = 'ALL';
     if (!this.skinOwnerFilter) this.skinOwnerFilter = 'all';
+    if (!this.skinRarityFilter) this.skinRarityFilter = 'ALL';
 
     const countAll = items.length;
     const countOwned = items.filter(it => it.owned).length;
@@ -6381,8 +7327,51 @@ Screens.profil = {
       </div>
 
       <!-- GRID ITEM MILIK -->
+      <!-- FILTER RARITY SKIN (DI SETIAP KATEGORI) -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin:6px 0 2px 2px;flex:0 0 auto;flex-shrink:0">
+        <div style="font-size:0.75rem;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:0.5px">💎 Filter Rarity</div>
+        <span id="skin-filter-count" style="font-size:0.72rem;color:var(--c-primary);font-weight:700"></span>
+      </div>
+      <div class="skin-rarity-bar" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;flex:0 0 auto;flex-shrink:0;min-height:40px">
+        <button class="btn small rarity-pill-btn skin-rarity-btn ${this.skinRarityFilter === 'ALL' ? 'active' : 'ghost'}" id="skin-rarity-all" data-rarity="ALL" data-testid="skin-filter-rarity-all" style="flex:0 0 auto;white-space:nowrap;padding:5px 12px;font-size:0.75rem">Semua</button>
+        <button class="btn small rarity-pill-btn skin-rarity-btn ${this.skinRarityFilter === 'COMMON' ? 'active' : 'ghost'}" id="skin-rarity-common" data-rarity="COMMON" data-testid="skin-filter-rarity-common" style="flex:0 0 auto;white-space:nowrap;padding:5px 12px;font-size:0.75rem;border-color:rgba(148,163,184,0.4)">⚪ Common</button>
+        <button class="btn small rarity-pill-btn skin-rarity-btn ${this.skinRarityFilter === 'RARE' ? 'active' : 'ghost'}" id="skin-rarity-rare" data-rarity="RARE" data-testid="skin-filter-rarity-rare" style="flex:0 0 auto;white-space:nowrap;padding:5px 12px;font-size:0.75rem;border-color:rgba(56,189,248,0.4)">🔵 Rare</button>
+        <button class="btn small rarity-pill-btn skin-rarity-btn ${this.skinRarityFilter === 'EPIC' ? 'active' : 'ghost'}" id="skin-rarity-epic" data-rarity="EPIC" data-testid="skin-filter-rarity-epic" style="flex:0 0 auto;white-space:nowrap;padding:5px 12px;font-size:0.75rem;border-color:rgba(168,85,247,0.4)">🟣 Epic</button>
+        <button class="btn small rarity-pill-btn skin-rarity-btn ${this.skinRarityFilter === 'LEGENDARY' ? 'active' : 'ghost'}" id="skin-rarity-legendary" data-rarity="LEGENDARY" data-testid="skin-filter-rarity-legendary" style="flex:0 0 auto;white-space:nowrap;padding:5px 12px;font-size:0.75rem;border-color:rgba(245,158,11,0.4)">🟡 Legend</button>
+      </div>
+
+      <!-- GRID ITEM MILIK -->
       <div class="skin-grid" id="skin-items-grid"></div>
     `;
+
+    const updateSkinRarityBar = () => {
+      let baseItems = items;
+      if (this.skinOwnerFilter === 'owned') {
+        baseItems = baseItems.filter(it => it.owned);
+      } else if (this.skinOwnerFilter === 'unowned') {
+        baseItems = baseItems.filter(it => !it.owned);
+      }
+      if (this.skinCatFilter !== 'ALL') {
+        baseItems = baseItems.filter(it => it.slot === this.skinCatFilter);
+      }
+
+      const countAll = baseItems.length;
+      const countCommon = baseItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'COMMON').length;
+      const countRare = baseItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'RARE').length;
+      const countEpic = baseItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'EPIC').length;
+      const countLeg = baseItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'LEGENDARY').length;
+
+      const btnAll = $('#skin-rarity-all');
+      if (btnAll) btnAll.innerHTML = `Semua (${countAll})`;
+      const btnCom = $('#skin-rarity-common');
+      if (btnCom) btnCom.innerHTML = `⚪ Common (${countCommon})`;
+      const btnRare = $('#skin-rarity-rare');
+      if (btnRare) btnRare.innerHTML = `🔵 Rare (${countRare})`;
+      const btnEpic = $('#skin-rarity-epic');
+      if (btnEpic) btnEpic.innerHTML = `🟣 Epic (${countEpic})`;
+      const btnLeg = $('#skin-rarity-legendary');
+      if (btnLeg) btnLeg.innerHTML = `🟡 Legend (${countLeg})`;
+    };
 
     const renderItems = () => {
       const grid = $('#skin-items-grid');
@@ -6397,9 +7386,15 @@ Screens.profil = {
       } else if (this.skinOwnerFilter === 'unowned') {
         filtered = filtered.filter(it => !it.owned);
       }
+      if (this.skinRarityFilter && this.skinRarityFilter !== 'ALL') {
+        filtered = filtered.filter(it => (it.rarity || 'COMMON').toUpperCase() === this.skinRarityFilter);
+      }
+
+      const countEl = $('#skin-filter-count');
+      if (countEl) countEl.textContent = `${filtered.length} skin`;
 
       if (filtered.length === 0) {
-        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:24px;color:var(--c-muted)">Tidak ada skin dalam filter ini.</div>`;
+        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:24px;color:var(--c-muted)">Tidak ada skin untuk filter kategori & rarity ini.</div>`;
         return;
       }
 
@@ -6464,6 +7459,7 @@ Screens.profil = {
           const slot = btn.dataset.slot || 'ALL';
           this.activeTab = 'toko';
           this.shopCatFilter = slot;
+          this.shopRarityFilter = 'ALL';
           $$('.tab-btn').forEach(b => {
             if (b.dataset.tab === 'toko') { b.classList.remove('ghost'); b.classList.add('active'); }
             else { b.classList.add('ghost'); b.classList.remove('active'); }
@@ -6576,6 +7572,7 @@ Screens.profil = {
           if (b === btn) { b.classList.remove('ghost'); b.classList.add('active'); }
           else { b.classList.add('ghost'); b.classList.remove('active'); }
         });
+        updateSkinRarityBar();
         renderItems();
       };
     });
@@ -6587,10 +7584,23 @@ Screens.profil = {
           if (b === btn) { b.classList.remove('ghost'); b.classList.add('active'); }
           else { b.classList.add('ghost'); b.classList.remove('active'); }
         });
+        updateSkinRarityBar();
         renderItems();
       };
     });
 
+    $$('.skin-rarity-btn').forEach(btn => {
+      btn.onclick = () => {
+        this.skinRarityFilter = btn.dataset.rarity;
+        $$('.skin-rarity-btn').forEach(b => {
+          if (b === btn) { b.classList.remove('ghost'); b.classList.add('active'); }
+          else { b.classList.add('ghost'); b.classList.remove('active'); }
+        });
+        renderItems();
+      };
+    });
+
+    updateSkinRarityBar();
     renderItems();
   },
 
@@ -6780,25 +7790,50 @@ Screens.profil = {
           </h3>
           <span style="font-size:0.75rem;color:var(--c-muted)">Ketuk slot untuk ganti</span>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(${maxSlots}, 1fr);gap:8px">
+        <div style="display:flex;flex-direction:column;gap:8px">
           ${slotIndices.map(idx => {
             const skillId = activeLoadout[idx];
             const sk = skillId ? skillsList.find(x => x.id === skillId) : null;
+            const curLv = sk ? (sk.level || 1) : 1;
+            const slotSkillSvg = sk
+              ? ((window.SkillArt && SkillArt.hasSkill(sk.id))
+                  ? SkillArt.renderSkill(sk.id, curLv, { size: 42, animated: 'lite' })
+                  : sk.icon)
+              : '➕';
             return `
-              <div class="loadout-slot card ${sk ? 'loadout-slot-card filled' : 'loadout-slot-card'}"
+              <div class="loadout-slot card ${sk ? 'loadout-slot-row filled' : 'loadout-slot-row'}"
                 data-idx="${idx}"
                 data-testid="loadout-slot-${idx}"
                 role="button"
                 tabindex="0"
-                style="padding:10px 4px;border-radius:12px;text-align:center;cursor:pointer;position:relative"
+                style="padding:10px 12px;border-radius:12px;display:flex;flex-direction:row;align-items:center;justify-content:space-between;cursor:pointer;position:relative;background:${sk ? 'rgba(56,189,248,0.08)' : 'rgba(255,255,255,0.04)'};border:1px ${sk ? 'solid rgba(56,189,248,0.4)' : 'dashed rgba(255,255,255,0.2)'};transition:all 0.15s ease"
                 title="Ketuk untuk ganti skill Slot ${idx + 1}">
-                <div style="font-size:1.5rem">${sk ? sk.icon : '➕'}</div>
-                <div style="font-size:0.75rem;font-weight:700;color:#fff;margin:2px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
-                  ${sk ? esc(sk.name) : `Slot ${idx + 1}`}
+                <div style="display:flex;align-items:center;gap:12px;min-width:0;flex:1">
+                  <div style="width:42px;height:42px;border-radius:10px;background:transparent;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;overflow:hidden">
+                    ${slotSkillSvg}
+                  </div>
+                  <div style="min-width:0;flex:1">
+                    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+                      <span class="chip small" style="font-size:0.65rem;padding:1px 6px;background:rgba(255,255,255,0.08);color:var(--c-muted);font-weight:700">Slot ${idx + 1}</span>
+                      <strong style="font-size:0.9rem;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+                        ${sk ? esc(sk.name) : '<span style="color:var(--c-muted)">Slot Kosong</span>'}
+                      </strong>
+                      ${sk ? `<span class="chip small" style="font-size:0.65rem;padding:1px 6px;background:rgba(56,189,248,0.15);color:#38bdf8;font-weight:700">Lv. ${sk.level || 1}</span>` : ''}
+                    </div>
+                    <div style="font-size:0.72rem;color:var(--c-muted);margin-top:3px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                      ${sk ? `
+                        <span>⚡ Biaya: <strong style="color:#fcd34d">${sk.costEnergy || sk.cost || 1} energi</strong></span>
+                        <span>·</span>
+                        <span>🔄 Maks: <strong style="color:#38bdf8">${sk.usesPerBattle || 2}×</strong> per laga</span>
+                      ` : `
+                        <span style="color:var(--c-muted)">Ketuk untuk memilih taktik skill</span>
+                      `}
+                    </div>
+                  </div>
                 </div>
-                <div style="font-size:0.7rem;color:var(--c-muted)">${sk ? `Lv. ${sk.level}` : 'Kosong'}</div>
-                ${sk ? `<div style="font-size:0.65rem;color:#38bdf8;font-weight:700">Maks: ${sk.usesPerBattle || 2}×</div>` : ''}
-                <div style="font-size:0.65rem;color:var(--c-primary);margin-top:2px;font-weight:600">🔄 Ganti</div>
+                <div class="btn small ghost" style="padding:4px 10px;font-size:0.72rem;color:var(--c-primary);font-weight:700;border:1px solid rgba(245,158,11,0.3);background:rgba(245,158,11,0.08);border-radius:8px;display:flex;align-items:center;gap:4px;flex-shrink:0;margin-left:8px">
+                  🔄 Ganti
+                </div>
               </div>
             `;
           }).join('')}
@@ -6832,6 +7867,11 @@ Screens.profil = {
       const canUpgrade = Boolean(s.canUpgrade);
       const btnLabel = isMax ? 'Sudah Maksimum 🎉' : (!s.owned ? 'Belum Terbuka' : `Upgrade — ${cost} 🪙`);
 
+      const cardLv = s.level || 1;
+      const cardSkillSvg = (window.SkillArt && SkillArt.hasSkill(s.id))
+        ? SkillArt.renderSkill(s.id, cardLv, { size: 44, animated: 'lite' })
+        : (s.icon || '⚡');
+
       return `
         <div class="card skill-card" data-testid="skill-card-${s.id}" style="padding:14px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);display:flex;flex-direction:column;gap:8px">
           <div style="display:flex;justify-content:space-between;align-items:center">
@@ -6841,8 +7881,9 @@ Screens.profil = {
                 data-testid="skill-avatar-${s.id}"
                 role="button"
                 tabindex="0"
+                style="cursor:pointer;width:44px;height:44px;display:flex;align-items:center;justify-content:center;flex-shrink:0"
                 title="Ketuk avatar untuk melihat detail efek tiap kenaikan level">
-                ${s.icon || '⚡'}
+                ${cardSkillSvg}
               </div>
               <div class="skill-title-btn" data-skill-id="${s.id}" role="button" tabindex="0" style="cursor:pointer" title="Ketuk untuk melihat detail efek tiap kenaikan level">
                 <strong style="color:#fff;font-size:0.95rem;display:flex;align-items:center;gap:4px">
@@ -6986,6 +8027,23 @@ Screens.profil = {
         if (skId) this.showSkillDetailModal(skId);
       };
     });
+
+    // Optimasi scroll 60fps: jeda sementara animasi saat container sedang digulirkan cepat
+    let scrollTid = null;
+    const onScrollActive = () => {
+      if (!slot.classList.contains('is-scrolling')) {
+        slot.classList.add('is-scrolling');
+      }
+      clearTimeout(scrollTid);
+      scrollTid = setTimeout(() => {
+        slot.classList.remove('is-scrolling');
+      }, 100);
+    };
+    if (slot._skillScrollHandler) {
+      window.removeEventListener('scroll', slot._skillScrollHandler);
+    }
+    slot._skillScrollHandler = onScrollActive;
+    window.addEventListener('scroll', onScrollActive, { passive: true });
   },
 
   getSkillPerLevelInfo(skillId) {
@@ -7126,7 +8184,7 @@ Screens.profil = {
     const name = s ? s.name : (info ? info.name : skillId);
     const icon = s ? s.icon : (info ? info.icon : '⚡');
     const desc = info?.desc || s?.effectDesc || '';
-    const UPGRADE_BASE_COST = { 1: 100, 2: 250, 3: 500, 4: 900 };
+    const UPGRADE_BASE_COST = (window.Economy && window.Economy.SKILL_BASE_UPGRADE) || { 1: 175, 2: 438, 3: 875, 4: 1575 };
     const mult = (window.Economy && window.Economy.SKILL_MULTIPLIERS && window.Economy.SKILL_MULTIPLIERS[skillId]) || 1.0;
 
     const old = $('#modal-skill-detail');
@@ -7142,8 +8200,8 @@ Screens.profil = {
       <div class="card modal" style="max-width:440px;width:100%;max-height:90vh;display:flex;flex-direction:column;border-radius:18px;background:var(--c-surface);border:1px solid var(--c-surface-strong);box-shadow:0 20px 40px rgba(0,0,0,0.7);overflow:hidden">
         <div style="padding:16px 18px 12px 18px;background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-between;align-items:flex-start">
           <div style="display:flex;align-items:center;gap:12px">
-            <div style="font-size:2.4rem;width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.15);border-radius:16px">
-              ${icon}
+            <div style="width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;flex-shrink:0">
+              ${(window.SkillArt && SkillArt.hasSkill(skillId)) ? SkillArt.renderSkill(skillId, currentLevel, { size: 56, animated: true }) : icon}
             </div>
             <div>
               <h3 style="margin:0;font-size:1.15rem;color:#fff;font-weight:800">${esc(name)}</h3>
@@ -7172,16 +8230,24 @@ Screens.profil = {
                 const isPast = isOwned && (lvl.level < currentLevel);
                 const isFuture = !isOwned || (lvl.level > currentLevel);
                 const upCost = lvl.level === 1 ? null : Math.round((UPGRADE_BASE_COST[lvl.level - 1] || 100) * mult);
+                const lvlSkillSvg = (window.SkillArt && SkillArt.hasSkill(skillId))
+                  ? SkillArt.renderSkill(skillId, lvl.level, { size: 36, animated: isCur })
+                  : '';
 
                 return `
                   <div style="padding:10px 12px;border-radius:12px;background:${isCur ? 'linear-gradient(135deg, rgba(245,158,11,0.18), rgba(0,0,0,0.5))' : 'rgba(255,255,255,0.03)'};border:${isCur ? '1.5px solid #f59e0b' : '1px solid rgba(255,255,255,0.08)'};display:flex;flex-direction:column;gap:4px;position:relative">
                     <div style="display:flex;justify-content:space-between;align-items:center">
-                      <div style="display:flex;align-items:center;gap:6px">
-                        <span style="font-size:0.8rem;font-weight:800;color:${isCur ? '#fbbf24' : '#fff'}">
-                          Level ${lvl.level}
-                        </span>
-                        ${isCur ? `<span class="chip small" style="background:#f59e0b;color:#000;font-weight:800;font-size:0.65rem;padding:1px 6px">LEVEL AKTIF ⭐</span>` : ''}
-                        ${isPast ? `<span class="chip small good" style="font-size:0.62rem;padding:1px 4px">Telah Tercapai ✓</span>` : ''}
+                      <div style="display:flex;align-items:center;gap:8px">
+                        ${lvlSkillSvg ? `<div style="width:36px;height:36px;flex-shrink:0">${lvlSkillSvg}</div>` : ''}
+                        <div>
+                          <div style="display:flex;align-items:center;gap:6px">
+                            <span style="font-size:0.8rem;font-weight:800;color:${isCur ? '#fbbf24' : '#fff'}">
+                              Level ${lvl.level}
+                            </span>
+                            ${isCur ? `<span class="chip small" style="background:#f59e0b;color:#000;font-weight:800;font-size:0.65rem;padding:1px 6px">LEVEL AKTIF ⭐</span>` : ''}
+                            ${isPast ? `<span class="chip small good" style="font-size:0.62rem;padding:1px 4px">Telah Tercapai ✓</span>` : ''}
+                          </div>
+                        </div>
                       </div>
                       <div style="font-size:0.72rem;color:var(--c-muted)">
                         ⚡ ${lvl.energy} Energi · 🔄 ${lvl.uses}×/laga
@@ -7250,6 +8316,7 @@ Screens.profil = {
     const items = shopRes.items || [];
 
     if (!this.shopCatFilter) this.shopCatFilter = 'ALL';
+    if (!this.shopRarityFilter) this.shopRarityFilter = 'ALL';
 
     slot.innerHTML = `
       <!-- FILTER KATEGORI TOKO (DI PALING ATAS DENGAN WADAH STABIL BEBAS CRUSH) -->
@@ -7268,10 +8335,23 @@ Screens.profil = {
           <button class="btn small shop-cat-btn ${this.shopCatFilter === 'title' ? 'active' : 'ghost'}" data-cat="title" style="flex:0 0 auto;white-space:nowrap;padding:6px 14px">Gelar</button>
           <button class="btn small shop-cat-btn ${this.shopCatFilter === 'permanent' ? 'active' : 'ghost'}" data-cat="permanent" style="flex:0 0 auto;white-space:nowrap;padding:6px 14px">Upgrade</button>
         </div>
+
+        <!-- FILTER RARITY TOKO (DI SETIAP KATEGORI) -->
+        <div style="display:flex;justify-content:space-between;align-items:center;margin:4px 0 2px 2px">
+          <div style="font-size:0.75rem;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:0.5px">💎 Filter Rarity</div>
+          <span id="shop-filter-count" style="font-size:0.72rem;color:var(--c-primary);font-weight:700"></span>
+        </div>
+        <div class="shop-rarity-bar" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;flex:0 0 auto;flex-shrink:0;min-height:40px">
+          <button class="btn small rarity-pill-btn shop-rarity-btn ${this.shopRarityFilter === 'ALL' ? 'active' : 'ghost'}" id="shop-rarity-all" data-rarity="ALL" data-testid="shop-filter-rarity-all" style="flex:0 0 auto;white-space:nowrap;padding:5px 12px;font-size:0.75rem">Semua</button>
+          <button class="btn small rarity-pill-btn shop-rarity-btn ${this.shopRarityFilter === 'COMMON' ? 'active' : 'ghost'}" id="shop-rarity-common" data-rarity="COMMON" data-testid="shop-filter-rarity-common" style="flex:0 0 auto;white-space:nowrap;padding:5px 12px;font-size:0.75rem;border-color:rgba(148,163,184,0.4)">⚪ Common</button>
+          <button class="btn small rarity-pill-btn shop-rarity-btn ${this.shopRarityFilter === 'RARE' ? 'active' : 'ghost'}" id="shop-rarity-rare" data-rarity="RARE" data-testid="shop-filter-rarity-rare" style="flex:0 0 auto;white-space:nowrap;padding:5px 12px;font-size:0.75rem;border-color:rgba(56,189,248,0.4)">🔵 Rare</button>
+          <button class="btn small rarity-pill-btn shop-rarity-btn ${this.shopRarityFilter === 'EPIC' ? 'active' : 'ghost'}" id="shop-rarity-epic" data-rarity="EPIC" data-testid="shop-filter-rarity-epic" style="flex:0 0 auto;white-space:nowrap;padding:5px 12px;font-size:0.75rem;border-color:rgba(168,85,247,0.4)">🟣 Epic</button>
+          <button class="btn small rarity-pill-btn shop-rarity-btn ${this.shopRarityFilter === 'LEGENDARY' ? 'active' : 'ghost'}" id="shop-rarity-legendary" data-rarity="LEGENDARY" data-testid="shop-filter-rarity-legendary" style="flex:0 0 auto;white-space:nowrap;padding:5px 12px;font-size:0.75rem;border-color:rgba(245,158,11,0.4)">🟡 Legend</button>
+        </div>
       </div>
 
-      <!-- MYSTERY BOX CARD (Tampil saat kategori 'Semua' aktif, di bawah filter dengan margin aman) -->
-      <div id="shop-box-container" style="display:${this.shopCatFilter === 'ALL' ? 'block' : 'none'};flex:0 0 auto;flex-shrink:0;margin-top:8px">
+      <!-- MYSTERY BOX CARD (Tampil saat kategori 'Semua' dan rarity 'Semua' aktif) -->
+      <div id="shop-box-container" style="display:${(this.shopCatFilter === 'ALL' && this.shopRarityFilter === 'ALL') ? 'block' : 'none'};flex:0 0 auto;flex-shrink:0;margin-top:8px">
         <div class="card" style="padding:14px;background:linear-gradient(135deg, rgba(245,158,11,0.12), rgba(168,85,247,0.12));border:1px solid rgba(245,158,11,0.3);border-radius:var(--radius);text-align:center">
           <div style="font-size:2.2rem;margin-bottom:2px">🎁</div>
           <h3 style="font-size:1.05rem;margin:0 0 4px 0;color:#fff">Kotak Misteri Ajaib</h3>
@@ -7288,6 +8368,29 @@ Screens.profil = {
       <div class="shop-grid" id="shop-items-grid"></div>
     `;
 
+    const updateShopRarityBar = () => {
+      const catItems = this.shopCatFilter === 'ALL'
+        ? items
+        : items.filter(it => it.slot === this.shopCatFilter);
+
+      const countAll = catItems.length;
+      const countCommon = catItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'COMMON').length;
+      const countRare = catItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'RARE').length;
+      const countEpic = catItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'EPIC').length;
+      const countLeg = catItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'LEGENDARY').length;
+
+      const btnAll = $('#shop-rarity-all');
+      if (btnAll) btnAll.innerHTML = `Semua (${countAll})`;
+      const btnCom = $('#shop-rarity-common');
+      if (btnCom) btnCom.innerHTML = `⚪ Common (${countCommon})`;
+      const btnRare = $('#shop-rarity-rare');
+      if (btnRare) btnRare.innerHTML = `🔵 Rare (${countRare})`;
+      const btnEpic = $('#shop-rarity-epic');
+      if (btnEpic) btnEpic.innerHTML = `🟣 Epic (${countEpic})`;
+      const btnLeg = $('#shop-rarity-legendary');
+      if (btnLeg) btnLeg.innerHTML = `🟡 Legend (${countLeg})`;
+    };
+
     const renderShopItems = () => {
       const grid = $('#shop-items-grid');
       if (!grid) return;
@@ -7296,9 +8399,15 @@ Screens.profil = {
       if (this.shopCatFilter !== 'ALL') {
         filtered = filtered.filter(it => it.slot === this.shopCatFilter);
       }
+      if (this.shopRarityFilter && this.shopRarityFilter !== 'ALL') {
+        filtered = filtered.filter(it => (it.rarity || 'COMMON').toUpperCase() === this.shopRarityFilter);
+      }
+
+      const countEl = $('#shop-filter-count');
+      if (countEl) countEl.textContent = `${filtered.length} item`;
 
       if (filtered.length === 0) {
-        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:24px;color:var(--c-muted)">Tidak ada item untuk kategori ini.</div>`;
+        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:24px;color:var(--c-muted)">Tidak ada item untuk filter kategori & rarity ini.</div>`;
         return;
       }
 
@@ -7422,15 +8531,220 @@ Screens.profil = {
           else { b.classList.add('ghost'); b.classList.remove('active'); }
         });
         const boxCont = $('#shop-box-container');
-        if (boxCont) boxCont.style.display = this.shopCatFilter === 'ALL' ? 'block' : 'none';
+        if (boxCont) boxCont.style.display = (this.shopCatFilter === 'ALL' && this.shopRarityFilter === 'ALL') ? 'block' : 'none';
+        updateShopRarityBar();
         renderShopItems();
       };
     });
 
+    // Wire Rarity Filter Buttons in Toko
+    $$('.shop-rarity-btn').forEach(btn => {
+      btn.onclick = () => {
+        this.shopRarityFilter = btn.dataset.rarity;
+        $$('.shop-rarity-btn').forEach(b => {
+          if (b === btn) { b.classList.remove('ghost'); b.classList.add('active'); }
+          else { b.classList.add('ghost'); b.classList.remove('active'); }
+        });
+        const boxCont = $('#shop-box-container');
+        if (boxCont) boxCont.style.display = (this.shopCatFilter === 'ALL' && this.shopRarityFilter === 'ALL') ? 'block' : 'none';
+        renderShopItems();
+      };
+    });
+
+    updateShopRarityBar();
     renderShopItems();
   },
 
   async renderTabRiwayat(slot) {
+    if (!this.riwayatSubTab) this.riwayatSubTab = 'battle';
+    if (!this.battleFilter) this.battleFilter = 'ALL';
+
+    slot.innerHTML = `
+      <!-- Sub-Tab Switcher (Pertempuran vs Koin) -->
+      <div class="riwayat-subnav" style="display:flex;gap:6px;background:rgba(255,255,255,0.04);padding:4px;border-radius:12px;border:1px solid var(--c-surface-strong)">
+        <button type="button" class="btn small ${this.riwayatSubTab === 'battle' ? 'active' : 'ghost'}" id="btn-subtab-battle" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;font-weight:700">
+          <span>⚔️</span> <span>Pertempuran</span>
+        </button>
+        <button type="button" class="btn small ${this.riwayatSubTab === 'coins' ? 'active' : 'ghost'}" id="btn-subtab-coins" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;font-weight:700">
+          <span>🪙</span> <span>Mutasi Koin</span>
+        </button>
+      </div>
+
+      <!-- Container Subcontent -->
+      <div id="riwayat-subcontent" style="margin-top:10px"></div>
+    `;
+
+    const subSlot = $('#riwayat-subcontent');
+    const btnBattle = $('#btn-subtab-battle');
+    const btnCoins = $('#btn-subtab-coins');
+
+    btnBattle.onclick = () => {
+      if (this.riwayatSubTab !== 'battle') {
+        if (window.Sfx) Sfx.play('tap');
+        this.riwayatSubTab = 'battle';
+        btnBattle.classList.remove('ghost'); btnBattle.classList.add('active');
+        btnCoins.classList.remove('active'); btnCoins.classList.add('ghost');
+        this.renderBattleHistory(subSlot);
+      }
+    };
+
+    btnCoins.onclick = () => {
+      if (this.riwayatSubTab !== 'coins') {
+        if (window.Sfx) Sfx.play('tap');
+        this.riwayatSubTab = 'coins';
+        btnCoins.classList.remove('ghost'); btnCoins.classList.add('active');
+        btnBattle.classList.remove('active'); btnBattle.classList.add('ghost');
+        this.renderCoinHistory(subSlot);
+      }
+    };
+
+    if (this.riwayatSubTab === 'battle') {
+      await this.renderBattleHistory(subSlot);
+    } else {
+      await this.renderCoinHistory(subSlot);
+    }
+  },
+
+  async renderBattleHistory(slot) {
+    slot.innerHTML = `<div style="text-align:center;padding:30px;color:var(--c-muted)">Memuat riwayat pertempuran...</div>`;
+    let res = null;
+    try {
+      res = await API.getBattleHistory(50);
+      this.battleData = res;
+    } catch (e) {
+      slot.innerHTML = `<div style="color:var(--c-bad)">Gagal memuat riwayat pertempuran: ${esc(e.message)}</div>`;
+      return;
+    }
+
+    const items = res.items || res.history || [];
+    if (items.length === 0) {
+      slot.innerHTML = `
+        <div class="card" style="padding:24px;background:var(--c-surface);border-radius:var(--radius);text-align:center;color:var(--c-muted)">
+          Belum ada riwayat pertempuran yang tercatat.
+        </div>
+      `;
+      return;
+    }
+
+    const totalCount = items.length;
+    const wonCount = items.filter(b => b.status === 'WON').length;
+    const lostCount = items.filter(b => b.status !== 'WON').length;
+
+    const currentFilter = this.battleFilter || 'ALL';
+    const filteredItems = items.filter(b => {
+      if (currentFilter === 'WON') return b.status === 'WON';
+      if (currentFilter === 'LOST') return b.status !== 'WON';
+      return true;
+    });
+
+    slot.innerHTML = `
+      <!-- Filter Chips -->
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+        <div class="filter-chips" style="display:flex;gap:4px">
+          <button type="button" class="btn mini ${currentFilter === 'ALL' ? 'active' : 'ghost'}" data-bfilter="ALL">Semua (${totalCount})</button>
+          <button type="button" class="btn mini ${currentFilter === 'WON' ? 'active' : 'ghost'}" data-bfilter="WON">🏆 Menang (${wonCount})</button>
+          <button type="button" class="btn mini ${currentFilter === 'LOST' ? 'active' : 'ghost'}" data-bfilter="LOST">🛡️ Kalah (${lostCount})</button>
+        </div>
+        <span style="font-size:0.72rem;color:var(--c-muted)">${filteredItems.length} pertempuran</span>
+      </div>
+
+      <!-- Battles List -->
+      <div class="battle-history-list stack" style="gap:10px">
+        ${filteredItems.map(b => {
+          const isWon = b.status === 'WON';
+          const isLost = b.status === 'LOST';
+          const dateStr = b.createdAt ? new Date(b.createdAt).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' }) : '-';
+          const statusBadge = isWon
+            ? `<span style="background:rgba(16,185,129,0.18);color:#34d399;border:1px solid rgba(16,185,129,0.35);padding:2px 8px;border-radius:8px;font-size:0.75rem;font-weight:800">🏆 MENANG</span>`
+            : (isLost
+              ? `<span style="background:rgba(239,68,68,0.18);color:#f87171;border:1px solid rgba(239,68,68,0.35);padding:2px 8px;border-radius:8px;font-size:0.75rem;font-weight:800">🛡️ KALAH</span>`
+              : `<span style="background:rgba(156,163,175,0.18);color:#9ca3af;border:1px solid rgba(156,163,175,0.35);padding:2px 8px;border-radius:8px;font-size:0.75rem;font-weight:800">🏃 KELUAR</span>`
+            );
+          
+          const starIcons = [1, 2, 3].map(i => i <= (b.stars || 0)
+            ? `<span style="color:#f59e0b;font-size:0.95rem;text-shadow:0 0 6px rgba(245,158,11,0.5)">⭐</span>`
+            : `<span style="color:rgba(255,255,255,0.18);font-size:0.95rem">☆</span>`
+          ).join('');
+
+          const tierColor = b.bossTier === 'legend' ? '#c084fc' : (b.bossTier === 'epic' ? '#fbbf24' : (b.bossTier === 'elite' ? '#38bdf8' : '#94a3b8'));
+          const tierBadge = `<span style="font-size:0.68rem;font-weight:800;color:${tierColor};background:rgba(255,255,255,0.06);padding:1px 6px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);text-transform:uppercase">${esc(b.bossTier)}</span>`;
+          const brutalBadge = b.brutal ? `<span style="font-size:0.68rem;font-weight:800;color:#ef4444;background:rgba(239,68,68,0.15);padding:1px 6px;border-radius:6px;border:1px solid rgba(239,68,68,0.3)">🔥 BRUTAL</span>` : '';
+
+          return `
+            <div class="card battle-history-card" data-testid="battle-card-${b.id}" style="padding:14px;background:var(--c-surface);border-radius:var(--radius);border:1px solid ${isWon ? 'rgba(16,185,129,0.25)' : 'var(--c-surface-strong)'};box-shadow:0 4px 14px rgba(0,0,0,0.2)">
+              <!-- Row 1: Status, Brutal, Stars, Date -->
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px">
+                <div style="display:flex;align-items:center;gap:6px">
+                  ${statusBadge}
+                  ${brutalBadge}
+                  <div style="display:flex;align-items:center;gap:1px;margin-left:4px">${starIcons}</div>
+                </div>
+                <div style="font-size:0.72rem;color:var(--c-muted)">${dateStr}</div>
+              </div>
+
+              <!-- Row 2: Boss & Subject -->
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <div style="width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:1.4rem;border:1px solid rgba(255,255,255,0.08)">
+                    ${b.subjectIcon || '⚔️'}
+                  </div>
+                  <div>
+                    <div style="display:flex;align-items:center;gap:6px">
+                      <strong style="color:#fff;font-size:0.92rem">${esc(b.monsterName)}</strong>
+                      ${tierBadge}
+                    </div>
+                    <div style="font-size:0.75rem;color:var(--c-muted);margin-top:2px">
+                      ${esc(b.subjectName)}${b.campaignNode ? ` · <span style="color:#cbd5e1">Node ${esc(b.campaignNode)}</span>` : ''}
+                    </div>
+                  </div>
+                </div>
+                <div style="text-align:right">
+                  <div style="font-size:0.92rem;font-weight:800;color:${isWon ? '#34d399' : '#f87171'}">
+                    ${b.correctCount} / ${b.answeredCount} Soal
+                  </div>
+                  <div style="font-size:0.75rem;font-weight:700;color:${b.accuracy >= 63 ? '#fcd34d' : (b.accuracy >= 49 ? '#60a5fa' : '#94a3b8')}">
+                    Akurasi: ${b.accuracy}%
+                  </div>
+                </div>
+              </div>
+
+              <!-- Row 3: Stats Details (Combo, Crit, XP, Coins) -->
+              <div style="display:flex;flex-wrap:wrap;gap:6px;background:rgba(0,0,0,0.25);padding:6px 10px;border-radius:8px;font-size:0.75rem;color:#cbd5e1;margin-bottom:10px">
+                <span>🔥 Kombo: <strong>${b.maxStreak}×</strong></span>
+                <span style="opacity:0.4">·</span>
+                <span>⚡ Kritis: <strong>${b.criticalCount}×</strong></span>
+                <span style="opacity:0.4">·</span>
+                <span style="color:#fcd34d">✨ +${b.xpEarned} XP</span>
+                <span style="opacity:0.4">·</span>
+                <span style="color:#38bdf8">🪙 +${b.coinsEarned}</span>
+              </div>
+
+              <!-- Row 4: Tracing & Battle ID with Copy Button -->
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;background:rgba(255,255,255,0.02);padding:6px 8px;border-radius:8px;border:1px dashed rgba(255,255,255,0.1)">
+                <div style="display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden">
+                  <span style="font-size:0.70rem;color:var(--c-muted);text-transform:uppercase;font-weight:700;flex-shrink:0">ID Battle:</span>
+                  <code style="font-family:monospace;font-size:0.72rem;color:#93c5fd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${esc(b.id)}">${esc(b.id)}</code>
+                </div>
+                <button type="button" class="btn mini ghost" style="flex-shrink:0;padding:2px 8px;font-size:0.72rem;border-radius:6px" onclick="App.copyBattleId('${esc(b.id)}')">
+                  📋 Salin ID
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+
+    $$('.filter-chips button', slot).forEach(btn => {
+      btn.onclick = () => {
+        if (window.Sfx) Sfx.play('tap');
+        this.battleFilter = btn.dataset.bfilter;
+        this.renderBattleHistory(slot);
+      };
+    });
+  },
+
+  async renderCoinHistory(slot) {
     slot.innerHTML = `<div style="text-align:center;padding:30px;color:var(--c-muted)">Memuat catatan transaksi koin...</div>`;
     let histRes = null;
     try {
@@ -7489,6 +8803,18 @@ window.App.removeShowcaseItem = function(slot) { return Screens.profil.removeSho
 window.App.showTitlePicker = function(slot) { return Screens.profil.showTitlePicker(slot); };
 window.App.saveTitleItem = function(slot, item) { return Screens.profil.saveTitleItem(slot, item); };
 window.App.removeTitleItem = function(slot) { return Screens.profil.removeTitleItem(slot); };
+window.App.copyBattleId = function(id) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(id).then(() => {
+      if (typeof toast === 'function') toast('✅ ID Battle disalin ke clipboard!');
+      else alert('ID Battle disalin: ' + id);
+    }).catch(() => {
+      prompt('Salin ID Battle:', id);
+    });
+  } else {
+    prompt('Salin ID Battle:', id);
+  }
+};
 
 /* ============================================================
    SCREEN: Monsterdex (Katalog 100 Monster Boss Elemen v7 - Skin-Adapted)
@@ -7965,6 +9291,17 @@ Screens.settings = {
             </div>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
               <div>
+                <strong style="display:block">Mode Tampilan Layar (UI)</strong>
+                <span style="font-size:.75rem;color:var(--c-muted)">Desktop Cockpit atau Mobile App</span>
+              </div>
+              <select id="sel-ui-mode" data-testid="setting-ui-mode" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:4px 8px;font-size:0.8rem">
+                <option value="auto" ${(typeof localStorage !== 'undefined' && localStorage.getItem('ui_mode') === 'auto') || (typeof localStorage !== 'undefined' && !localStorage.getItem('ui_mode')) ? 'selected' : ''}>Otomatis</option>
+                <option value="desktop" ${typeof localStorage !== 'undefined' && localStorage.getItem('ui_mode') === 'desktop' ? 'selected' : ''}>Paksa Desktop</option>
+                <option value="mobile" ${typeof localStorage !== 'undefined' && localStorage.getItem('ui_mode') === 'mobile' ? 'selected' : ''}>Paksa Mobile</option>
+              </select>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+              <div>
                 <strong style="display:block">Waktu Soal (Pace)</strong>
                 <span style="font-size:.75rem;color:var(--c-muted)">Pengaturan kecepatan waktu kuis</span>
               </div>
@@ -8034,6 +9371,15 @@ Screens.settings = {
         API.saveSettings({ battleLayout: val }).catch(() => {});
         const label = val === 'bottom_sheet' ? 'Baca Penuh + Lembar Jawaban' : (val === 'compact' ? 'Kompak Adaptif' : 'Klasik (Default)');
         toast('Tampilan Battle: ' + label);
+      };
+    }
+
+    const selUIMode = $('#sel-ui-mode');
+    if (selUIMode) {
+      selUIMode.onchange = (e) => {
+        const val = e.target.value;
+        if (window.UIMode) window.UIMode.setPref(val);
+        toast('Mode Tampilan UI: ' + val);
       };
     }
 

@@ -108,7 +108,9 @@ test('T-30 / Skenario H.3, H.4, H.8: Boss Bertier, Pemilihan Tier, bossStats, da
         assert.ok(N >= 15 && N <= 30, `N (${N}) harus antara 15 dan 30 untuk tier ${tier} skor ${score}`);
         assert.equal(stats.bossMaxHp, N * 20);
         assert.equal(stats.hitUnit, 20);
-        assert.ok(stats.monsterDamage >= 5 && stats.monsterDamage <= 17);
+        const expectedDmg = ({ common: 7, rare: 10, epic: 14, legend: 18 })[tier];
+        assert.equal(stats.monsterDamage, expectedDmg);
+        assert.ok(stats.monsterDamage >= 7 && stats.monsterDamage <= 18);
         assert.ok(stats.maxQuestions >= N);
       }
     }

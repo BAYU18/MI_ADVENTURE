@@ -844,7 +844,7 @@ body {
   background: linear-gradient(135deg, rgba(30, 24, 10, 0.96), rgba(120, 53, 15, 0.96));
   border: 1.5px solid #fbbf24;
   box-shadow: 0 8px 26px rgba(0, 0, 0, 0.75), 0 0 16px rgba(245, 158, 11, 0.45);
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9), -1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000;
   font-size: clamp(1.05rem, 4.5vw, 1.45rem);
   font-weight: 950;
   letter-spacing: 0.5px;
@@ -4092,3 +4092,19 @@ body.reduced-motion .boss-telegraph { animation: none; }
 }
 
 
+
+
+@keyframes emberFloat {
+  0% { transform: translateY(0) scale(0.6) rotate(0deg); opacity: 0; }
+  20% { opacity: 1; transform: translateY(-25px) scale(1) rotate(45deg); }
+  80% { opacity: 0.85; transform: translateY(-160px) scale(0.85) rotate(180deg); }
+  100% { transform: translateY(-260px) scale(0.3) rotate(360deg); opacity: 0; }
+}
+@keyframes victoryBounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-12px) scale(1.08); }
+}
+@keyframes flamePulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 16px rgba(249,115,22,0.6)); }
+  50% { transform: scale(1.08); filter: drop-shadow(0 0 30px rgba(239,68,68,0.9)); }
+}

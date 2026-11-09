@@ -26,6 +26,7 @@ function makeRequest(options, body) {
 
 test('Admin Auth & Token Bearer Integration', async (t) => {
   const PORT = 3002;
+  let adminToken = '';
 
   await t.test('1. Login dengan admin:jabar2020 berhasil', async () => {
     const res = await makeRequest({
@@ -41,6 +42,7 @@ test('Admin Auth & Token Bearer Integration', async (t) => {
     assert.equal(res.body.admin.username, 'admin');
     assert.ok(res.body.token, 'Token harus disertakan');
     assert.ok(res.headers['set-cookie'], 'Set-Cookie harus ada');
+    adminToken = res.body.token;
   });
 
   await t.test('2. Login dengan kata sandi lama (admin123) ditolak 401', async () => {
@@ -73,8 +75,8 @@ test('Admin Auth & Token Bearer Integration', async (t) => {
   });
 
   await t.test('4. GET /api/admin/me menggunakan Bearer token berhasil (tanpa cookie)', async () => {
-    // Generate valid admin token
-    const token = auth.signToken({ type: 'admin', id: 1, username: 'admin' });
+    // Gunakan admin token valid dari login atau generate token
+    const token = adminToken || auth.signToken({ type: 'admin', id: 1, username: 'admin' });
 
     const res = await makeRequest({
       hostname: '127.0.0.1',

@@ -55,6 +55,24 @@ function getCorrectChoice(sessionId, orderIndex) {
   return order.indexOf(sq.answer_index);
 }
 
+function getWrongChoice(sessionId, orderIndex) {
+  const sq = rawDb.prepare(`
+    SELECT sq.*, q.answer_index, q.question_type, q.type_data_json
+    FROM session_questions sq
+    JOIN questions q ON q.id=sq.question_id
+    WHERE sq.session_id=? AND sq.order_index=?
+  `).get(sessionId, orderIndex);
+  const correct = getCorrectChoice(sessionId, orderIndex);
+  const qType = (sq.question_type || 'MCQ').toUpperCase();
+  if (qType === 'TRUE_FALSE') {
+    return correct === 0 ? 1 : 0;
+  }
+  if (typeof correct === 'number') {
+    return (correct + 1) % 4;
+  }
+  return '__DEFINITELY_WRONG__';
+}
+
 test('T-31 / Skenario H.4, H.5, H.6: Damage, Pity, Monster Damage, Fatigue, Lantai 15', async (t) => {
   const testPlayer = createTestPlayer('TesterDamage');
   const subRow = rawDb.prepare('SELECT id FROM subjects LIMIT 1').get();
@@ -75,20 +93,20 @@ test('T-31 / Skenario H.4, H.5, H.6: Damage, Pity, Monster Damage, Fatigue, Lant
     const initialPlayerHp = session.playerHp;
     const monsterDmg = session.monsterDamage;
 
-    // Jawab salah pada soal pertama (pilih display index -99)
-    const ans1 = db.answerQuestion(sId, testPlayer, session.currentIndex, -99);
+    // Jawab salah pada soal pertama
+    const ans1 = db.answerQuestion(sId, testPlayer, session.currentIndex, getWrongChoice(sId, session.currentIndex));
     assert.equal(ans1.isCorrect, false);
     assert.equal(ans1.damageToPlayer, monsterDmg);
     assert.equal(ans1.session.playerHp, initialPlayerHp - monsterDmg);
     assert.equal(ans1.session.pity, false); // Baru 1 salah
 
     // Jawab salah kedua
-    const ans2 = db.answerQuestion(sId, testPlayer, ans1.session.currentIndex, -99);
+    const ans2 = db.answerQuestion(sId, testPlayer, ans1.session.currentIndex, getWrongChoice(sId, ans1.session.currentIndex));
     assert.equal(ans2.isCorrect, false);
     assert.equal(ans2.session.pity, false); // Baru 2 salah
 
     // Jawab salah ketiga
-    const ans3 = db.answerQuestion(sId, testPlayer, ans2.session.currentIndex, -99);
+    const ans3 = db.answerQuestion(sId, testPlayer, ans2.session.currentIndex, getWrongChoice(sId, ans2.session.currentIndex));
     assert.equal(ans3.isCorrect, false);
     assert.equal(ans3.session.pity, true); // Sudah 3 salah -> pity aktif untuk jawaban benar berikutnya!
 
@@ -110,7 +128,7 @@ test('T-31 / Skenario H.4, H.5, H.6: Damage, Pity, Monster Damage, Fatigue, Lant
 
     // Jawab 3x salah
     for (let i = 0; i < 3; i++) {
-      const ans = db.answerQuestion(sId, p2, s.currentIndex, -99);
+      const ans = db.answerQuestion(sId, p2, s.currentIndex, getWrongChoice(sId, s.currentIndex));
       s = ans.session;
     }
 
@@ -176,10 +194,10 @@ test('T-31 / Skenario H.4, H.5, H.6: Damage, Pity, Monster Damage, Fatigue, Lant
     let s = db.getSession(sId, p4);
 
     // Soal 1: salah (ans 1, cor 0)
-    db.answerQuestion(sId, p4, s.currentIndex, -99);
+    db.answerQuestion(sId, p4, s.currentIndex, getWrongChoice(sId, s.currentIndex));
     // Soal 2: salah (ans 2, cor 0)
     s = db.getSession(sId, p4);
-    db.answerQuestion(sId, p4, s.currentIndex, -99);
+    db.answerQuestion(sId, p4, s.currentIndex, getWrongChoice(sId, s.currentIndex));
     // Soal 3: benar (ans 3, cor 1) -> dmg 20 -> hp 335 (Phase 1)
     s = db.getSession(sId, p4);
     const a3 = db.answerQuestion(sId, p4, s.currentIndex, getCorrectChoice(sId, s.currentIndex));
@@ -187,7 +205,7 @@ test('T-31 / Skenario H.4, H.5, H.6: Damage, Pity, Monster Damage, Fatigue, Lant
 
     // Soal 4: salah (ans 4, cor 1)
     s = db.getSession(sId, p4);
-    db.answerQuestion(sId, p4, s.currentIndex, -99);
+    db.answerQuestion(sId, p4, s.currentIndex, getWrongChoice(sId, s.currentIndex));
 
     // Soal 5: benar (ans 5, cor 2) -> dmg 20 -> hp 315 > 300 (masih Phase 1)
     s = db.getSession(sId, p4);

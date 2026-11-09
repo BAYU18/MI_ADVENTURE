@@ -9,28 +9,44 @@
   <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <title>Petualangan Pelajar</title>
-  <link rel="stylesheet" href="css/style.css?v=20261106v4">
+  <link id="css-mobile" rel="stylesheet" href="css/style.css?v=20261107v1">
+  <link id="css-desktop" rel="stylesheet" href="css/desktop.css?v=20261108v1">
+  <link rel="stylesheet" href="css/fx.css?v=20261107v1">
 </head>
 <body>
   <div id="app" data-testid="screen-home" class="m-play" aria-live="polite"></div>
   <div id="toast" role="status" aria-live="polite"></div>
-  <script src="/shared/progression.js?v=20261106v1"></script>
+  <div id="d-guard">
+    <div class="guard-box">
+      <div style="font-size:3rem">🖥️</div>
+      <h2>Desktop Mode Butuh Layar Min. 1280×720</h2>
+      <p class="muted" style="font-weight:600">Layar perangkat Anda saat ini lebih kecil dari resolusi minimal Desktop Cockpit.</p>
+      <button class="btn primary lg block" onclick="if(window.UIMode)UIMode.setPref('mobile');">📱 Beralih ke Mode Mobile</button>
+    </div>
+  </div>
+  <script src="/shared/progression.js?v=20261107v1"></script>
   <script src="/shared/gameplay.js?v=20261106v1"></script>
   <script src="/shared/campaign.js?v=20261106v1"></script>
   <script src="/shared/grading.js?v=20261103v12"></script>
-  <script src="js/monsters.js?v=20261105v1"></script>
+  <script src="js/monsters.js?v=20261107v1"></script>
   <script src="js/audio.js?v=20261103v12"></script>
-  <script src="/shared/passives.js?v=20261104v1"></script>
-  <script src="js/avatar.js?v=20261103v12"></script>
+  <script src="/shared/passives.js?v=20261109v1"></script>
+  <script src="/shared/economy.js?v=20261109v1"></script>
+  <script src="/shared/pet-art.js?v=20261107v1"></script>
+  <script src="/shared/skin-art.js?v=20261108v1"></script>
+  <script src="/shared/skill-art.js?v=20261108v3"></script>
+  <script src="js/avatar.js?v=20261107v3"></script>
   <script src="/shared/story.js?v=20261103v12"></script>
   <script src="js/feedback.js?v=20261103v12"></script>
   <script src="/shared/bossskills.js?v=20261105v2"></script>
   <script src="/js/dexcards.js?v=20261105v5"></script>
   <script src="/shared/badges.js?v=20261106v3"></script>
   <script src="/js/badge-art.js?v=20261106v1"></script>
-  <script src="/js/app.js?v=20261106v5"></script>
+  <script src="/js/app.js?v=20261108v3"></script>
   <script src="js/friends.js?v=20261106v2"></script>
   <script src="js/duel.js?v=20261105v5"></script>
+  <script src="js/desktop/core.js?v=20261108v1"></script>
+  <script src="js/desktop/screens.js?v=20261109v1"></script>
   <script>
     if ('serviceWorker' in navigator) {
       let refreshing = false;
@@ -45,6 +61,22 @@
           reg.update();
         }).catch(err => console.warn('[SW reg fail]', err));
       });
+    }
+
+    // Auto-pause SVG animations when offscreen or tab hidden (Section 5.5)
+    if (typeof IntersectionObserver !== 'undefined') {
+      const io = new IntersectionObserver(es => es.forEach(e =>
+        e.target.classList.toggle('fx-paused', !e.isIntersecting)), { threshold: 0.05 });
+      const watchFx = (root = document) => root.querySelectorAll('svg.fx').forEach(s => io.observe(s));
+      document.addEventListener('visibilitychange', () =>
+        document.querySelectorAll('svg.fx').forEach(s => s.classList.toggle('fx-paused', document.hidden)));
+      if (typeof MutationObserver !== 'undefined') {
+        const mo = new MutationObserver(() => watchFx(document));
+        window.addEventListener('DOMContentLoaded', () => {
+          watchFx(document);
+          mo.observe(document.body, { childList: true, subtree: true });
+        });
+      }
     }
   </script>
 </body>

@@ -139,8 +139,23 @@ test('Skenario 13.2 #10 / T-34: Peta Cerita / Kampanye (E.1, F.3)', async (t) =>
     assert.equal(campAft.chapters[0].nodes[1].unlocked, true, 'Wilayah 1-2 sekarang harus terbuka');
   });
 
-  await t.test('4. Replay Wilayah 1-1: Tidak mendapatkan hadiah first clear lagi', () => {
+  await t.test('4. Aturan 1x per Minggu & Replay Setelah Reset Mingguan', () => {
     rawDb.prepare("UPDATE game_sessions SET status='ABANDONED' WHERE player_id=?").run(p.id);
+
+    // Di minggu yang sama, replay Wilayah 1-1 HARUS DITOLAK (hanya 1x per minggu)
+    assert.throws(() => {
+      db.startSession(p.id, subjectId, { campaignNode: `s${subjectId}-c1-n1` });
+    }, (err) => {
+      return err.code === 'NODE_ALREADY_CLEARED_THIS_WEEK' || err.message.includes('minggu ini');
+    }, 'Replay di minggu yang sama harus ditolak');
+
+    // Simulasikan setelah reset mingguan (cleared_at diset ke minggu lalu)
+    rawDb.prepare(`
+      UPDATE player_campaign_nodes
+      SET cleared_at = '2026-10-01T00:00:00.000Z'
+      WHERE player_id=? AND node_key=?
+    `).run(p.id, `s${subjectId}-c1-n1`);
+
     const session = db.startSession(p.id, subjectId, { campaignNode: `s${subjectId}-c1-n1` });
     const sId = session.sessionId;
 
@@ -161,8 +176,8 @@ test('Skenario 13.2 #10 / T-34: Peta Cerita / Kampanye (E.1, F.3)', async (t) =>
     // Tandai wilayah 1-2 sebagai sudah selesai
     rawDb.prepare(`
       INSERT INTO player_campaign_nodes(player_id, node_key, stars, best_accuracy, cleared_at)
-      VALUES(?, ?, 3, 100, datetime('now'))
-    `).run(p.id, `s${subjectId}-c1-n2`);
+      VALUES(?, ?, 3, 100, ?)
+    `).run(p.id, `s${subjectId}-c1-n2`, new Date().toISOString());
 
     rawDb.prepare("UPDATE game_sessions SET status='ABANDONED' WHERE player_id=?").run(p.id);
 
@@ -188,7 +203,7 @@ test('Skenario 13.2 #10 / T-34: Peta Cerita / Kampanye (E.1, F.3)', async (t) =>
     assert.ok(ans.rewards.badges.includes(`chapter_${subjectId}_1`), 'Harus mendapatkan badge bab 1');
     assert.ok(Array.isArray(ans.rewards.items), 'Hadiah skin item harus disertakan');
     assert.ok(ans.rewards.items.length >= 1, 'Harus mendapatkan minimal 1 item skin');
-    assert.ok(['RARE', 'EPIC', 'LEGENDARY'].includes(ans.rewards.items[0].rarity), 'Item harus tier RARE/EPIC/LEGENDARY');
+    assert.ok(['COMMON', 'RARE', 'EPIC', 'LEGENDARY'].includes(ans.rewards.items[0].rarity) || ans.rewards.items[0].isCoinReward, 'Item harus tier COMMON/RARE/EPIC/LEGENDARY atau koin');
     assert.ok(Array.isArray(ans.rewards.chapterComic), 'Komik 3 panel harus disertakan');
     assert.equal(ans.rewards.chapterComic.length, 3, 'Komik harus 3 panel');
 

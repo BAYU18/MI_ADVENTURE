@@ -127,6 +127,12 @@ test('RPG Passives & Skill Elimination Suite', async (t) => {
     assert.equal(accRes.code, 'OK');
 
     // Challenger uses eliminate_one
+    // Ensure duel_question at order 0 has a 4-option MCQ question for deterministic elimination testing
+    const fourOptQ = rawDb.prepare("SELECT id, answer_index FROM questions WHERE options_json IS NOT NULL AND json_array_length(options_json) >= 4 LIMIT 1").get();
+    if (fourOptQ) {
+      rawDb.prepare("UPDATE duel_questions SET question_id=?, option_order_challenger_json='[0,1,2,3]', option_order_challenged_json='[0,1,2,3]' WHERE duel_id=? AND order_index=0").run(fourOptQ.id, chRes.duelId);
+    }
+
     const dq0 = rawDb.prepare('SELECT * FROM duel_questions WHERE duel_id=? AND order_index=0').get(chRes.duelId);
     const canon0 = rawDb.prepare('SELECT answer_index FROM questions WHERE id=?').get(dq0.question_id);
     const orderA = JSON.parse(dq0.option_order_challenger_json);

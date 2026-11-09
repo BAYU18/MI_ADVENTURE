@@ -36,3 +36,18 @@ test('DoT tak pernah membuat HP pemain < 1', () => {
   let row = mkRow({ boss_tier: 'legend', brutal: 1, player_hp: 2, monster_damage: 40 });
   row = { ...row, ...F.onWrongAnswer(row, 1, 5).update }; const s = F.onServeQuestion(row, 2, 20); assert.ok(s.update.player_hp >= 1);
 });
+test('Mode Brutal: salah menjawab soal menghasilkan damage 2x dari mode biasa', () => {
+  const rowNormal = mkRow({ boss_tier: 'common', brutal: 0, monster_damage: 10, boss_hp: 400, boss_max_hp: 400 });
+  const rowBrutal = mkRow({ boss_tier: 'common', brutal: 1, monster_damage: 10, boss_hp: 400, boss_max_hp: 400 });
+  const wNormal = F.onWrongAnswer(rowNormal, 1, 3);
+  const wBrutal = F.onWrongAnswer(rowBrutal, 1, 3);
+  assert.equal(wNormal.damage, 10);
+  assert.equal(wBrutal.damage, 20);
+  assert.equal(wBrutal.damage, wNormal.damage * 2);
+
+  // Inactive row (tanpa boss_element/boss_tier)
+  const rowLegacyNormal = mkRow({ boss_element: null, boss_tier: null, brutal: 0, monster_damage: 8 });
+  const rowLegacyBrutal = mkRow({ boss_element: null, boss_tier: null, brutal: 1, monster_damage: 8 });
+  assert.equal(F.onWrongAnswer(rowLegacyNormal, 1, 3).damage, 8);
+  assert.equal(F.onWrongAnswer(rowLegacyBrutal, 1, 3).damage, 16);
+});

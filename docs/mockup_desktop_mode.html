@@ -1,0 +1,1151 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mockup Desktop Mode — Petualangan Pelajar</title>
+<style>/* =====================================================================
+   public/css/desktop.css — Petualangan Pelajar · Desktop Mode (Single-Viewport Cockpit)
+   Kanvas desain 100rem x 56.25rem (16:9). 1rem = 1vw (dibatasi tinggi layar),
+   sehingga seluruh UI selalu muat dalam 1 layar tanpa scroll halaman.
+   ===================================================================== */
+
+/* ---------- 1. Token ---------- */
+:root {
+  --c-bg: #0f172a;
+  --c-surface: #1e293b;
+  --c-surface-2: #273449;
+  --c-hover: #334155;
+  --c-primary: #38bdf8;
+  --c-good: #22c55e;
+  --c-bad: #ef4444;
+  --c-accent: #f59e0b;
+  --c-text: #f8fafc;
+  --c-muted: #94a3b8;
+
+  --r-common: #94a3b8;
+  --r-rare: #3b82f6;
+  --r-epic: #a855f7;
+  --r-legend: #f59e0b;
+
+  --rad-s: .5rem;
+  --rad-m: .8rem;
+  --rad-l: 1.1rem;
+  --gap: .8rem;
+
+  --rail-w: 5.4rem;
+  --top-h: 3.6rem;
+  --side-w: 23rem;
+}
+
+/* ---------- 2. Skala fluid: kunci "semua terlihat dalam 1 layar" ---------- */
+html { font-size: clamp(10px, min(1vw, 1.7778vh), 22px); height: 100%; }
+body {
+  margin: 0; height: 100%;
+  background: var(--c-bg); color: var(--c-text);
+  font: 1rem/1.35 'Segoe UI', system-ui, -apple-system, sans-serif;
+  overflow: hidden; user-select: none; -webkit-user-select: none;
+}
+*, *::before, *::after { box-sizing: border-box; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; border: 0; background: none; padding: 0; }
+.muted { color: var(--c-muted); }
+.sv { display: block; width: 100%; height: 100%; }
+
+/* ---------- 3. Shell: top bar + rail + stage ---------- */
+#app.d-play {
+  display: grid;
+  grid-template-columns: var(--rail-w) minmax(0, 1fr);
+  grid-template-rows: var(--top-h) minmax(0, 1fr);
+  width: 100vw; height: 100dvh; overflow: hidden;
+  background: radial-gradient(ellipse at 50% -10%, #2a2468 0%, #14193b 45%, #0b1020 100%);
+}
+#app.d-play.focus { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); }
+.focus .d-top, .focus .d-rail { display: none; }
+
+.d-top {
+  grid-column: 1 / -1; display: flex; align-items: center; gap: 1rem;
+  padding: 0 1.2rem; background: rgba(10, 14, 32, .65);
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+.d-logo { display: flex; align-items: center; gap: .6rem; font-weight: 900; letter-spacing: .02em; }
+.d-logo .lg { width: 2.5rem; height: 2.5rem; }
+.d-logo b { font-size: 1.05rem; line-height: 1; }
+.d-logo small { display: block; font-size: .62rem; color: var(--c-muted); font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.d-crumb { font-weight: 800; font-size: 1.05rem; padding-left: 1rem; border-left: 1px solid rgba(255, 255, 255, .15); }
+.sp { flex: 1; }
+.pill {
+  display: inline-flex; align-items: center; gap: .4rem; padding: .3rem .8rem;
+  border-radius: 999px; background: rgba(0, 0, 0, .35); border: 1px solid rgba(255, 255, 255, .12);
+  font-weight: 800; font-size: .9rem; white-space: nowrap;
+}
+.me-chip {
+  display: flex; align-items: center; gap: .6rem; padding: .25rem .9rem .25rem .3rem;
+  border-radius: 999px; background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .12);
+}
+.me-chip .av { width: 2.7rem; height: 2.7rem; border-radius: 50%; overflow: hidden; }
+.me-chip b { display: block; font-size: .9rem; line-height: 1.1; }
+.me-chip .bar { width: 7rem; height: .4rem; margin-top: .2rem; }
+.icon-btn {
+  width: 2.5rem; height: 2.5rem; border-radius: .7rem; display: grid; place-items: center;
+  background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .12); font-size: 1.1rem;
+}
+.icon-btn:hover { background: rgba(255, 255, 255, .14); }
+
+.d-rail {
+  grid-row: 2; display: flex; flex-direction: column; gap: .2rem; padding: .6rem .45rem;
+  background: rgba(10, 14, 32, .5); border-right: 1px solid rgba(255, 255, 255, .08);
+}
+.rail-btn {
+  position: relative; flex: 0 0 auto; height: 3.45rem; border-radius: var(--rad-m);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .1rem;
+  color: var(--c-muted); font-size: .72rem; font-weight: 800; border: 1.5px solid transparent;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.rail-btn .i { font-size: 1.45rem; line-height: 1; }
+.rail-btn .k { position: absolute; top: .22rem; right: .32rem; font-size: .58rem; opacity: .5; font-weight: 800; }
+.rail-btn:hover { background: rgba(255, 255, 255, .07); color: #fff; }
+.rail-btn.active { color: #fff; background: rgba(56, 189, 248, .16); border-color: var(--c-primary); }
+.rail-sp { flex: 1; }
+
+/* ---------- 4. Stage & grid helper ---------- */
+.d-screen {
+  grid-column: 2; grid-row: 2; min-width: 0; min-height: 0; padding: .8rem;
+  display: grid; gap: .8rem; animation: screenIn .25s ease;
+}
+.focus .d-screen { grid-column: 1; grid-row: 1; padding: .8rem 1rem; }
+@keyframes screenIn { from { opacity: 0; transform: translateY(.6rem); } to { opacity: 1; transform: none; } }
+
+.g3  { grid-template-columns: var(--side-w) minmax(0, 1fr) var(--side-w); grid-template-rows: minmax(0, 1fr); }
+.g3n { grid-template-columns: 19rem minmax(0, 1fr) 22rem; grid-template-rows: minmax(0, 1fr); }
+.g2  { grid-template-columns: minmax(0, 1fr) 26rem; grid-template-rows: minmax(0, 1fr); }
+.col { display: flex; flex-direction: column; gap: .8rem; min-width: 0; min-height: 0; }
+.col > .fill, .fill { flex: 1; min-height: 0; }
+.row { display: flex; align-items: center; gap: .6rem; min-width: 0; }
+.wrap { flex-wrap: wrap; }
+.tc { text-align: center; }
+.mt-auto { margin-top: auto; }
+
+/* ---------- 5. Komponen dasar ---------- */
+.panel {
+  position: relative; display: flex; flex-direction: column; gap: .55rem;
+  min-width: 0; min-height: 0; overflow: hidden; padding: .8rem .95rem;
+  background: rgba(30, 41, 59, .78); border: 1.5px solid rgba(255, 255, 255, .1); border-radius: var(--rad-l);
+}
+.panel > h3 {
+  margin: 0; display: flex; justify-content: space-between; align-items: center;
+  font-size: .75rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: var(--c-muted);
+}
+.panel > h3 .more { color: var(--c-primary); letter-spacing: 0; text-transform: none; font-weight: 700; font-size: .78rem; }
+.panel.link { cursor: pointer; transition: border-color .15s, transform .15s; }
+.panel.link:hover { border-color: var(--c-primary); transform: translateY(-1px); }
+.panel.glow { border-color: rgba(56, 189, 248, .5); box-shadow: 0 0 2rem rgba(56, 189, 248, .15); }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 2.5rem;
+  padding: 0 1.1rem; border-radius: var(--rad-m); font-weight: 800; white-space: nowrap;
+  background: var(--c-hover); border: 1.5px solid rgba(255, 255, 255, .14);
+  transition: transform .12s, filter .15s;
+}
+.btn:hover { filter: brightness(1.15); }
+.btn:active { transform: scale(.97); }
+.btn.primary { background: linear-gradient(135deg, #0284c7, #0369a1); border-color: var(--c-primary); box-shadow: 0 .3rem 1rem rgba(2, 132, 199, .4); }
+.btn.gold { background: linear-gradient(135deg, #fbbf24, #d97706); color: #2a1700; border-color: #fde68a; box-shadow: 0 .3rem 1rem rgba(245, 158, 11, .35); }
+.btn.good { background: linear-gradient(135deg, #16a34a, #15803d); border-color: #4ade80; }
+.btn.ghost { background: transparent; }
+.btn.lg { min-height: 3.3rem; font-size: 1.12rem; }
+.btn.sm { min-height: 2rem; padding: 0 .8rem; font-size: .82rem; }
+.btn.block { width: 100%; }
+.btn[disabled] { opacity: .45; pointer-events: none; }
+
+.kbd {
+  display: inline-grid; place-items: center; min-width: 1.35rem; height: 1.35rem; padding: 0 .3rem;
+  border-radius: .35rem; background: rgba(255, 255, 255, .14); border: 1px solid rgba(255, 255, 255, .24);
+  font-size: .68rem; font-weight: 800; color: #fff;
+}
+.chip {
+  display: inline-flex; align-items: center; gap: .35rem; padding: .28rem .75rem; border-radius: 999px;
+  background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .12);
+  font-weight: 700; font-size: .82rem; white-space: nowrap;
+}
+.chip.active { background: rgba(56, 189, 248, .2); border-color: var(--c-primary); color: #fff; }
+.tabs { display: flex; gap: .3rem; padding: .25rem; border-radius: var(--rad-m); background: rgba(0, 0, 0, .3); }
+.tabs button { flex: 1; min-height: 2.2rem; border-radius: .6rem; font-weight: 800; color: var(--c-muted); }
+.tabs button.active { background: var(--c-hover); color: #fff; box-shadow: inset 0 0 0 1.5px var(--c-primary); }
+
+.bar { position: relative; height: .7rem; border-radius: 99px; background: rgba(255, 255, 255, .1); overflow: hidden; }
+.bar > i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--c-primary), #818cf8); transition: width .5s ease; }
+.bar.hp > i { background: linear-gradient(90deg, #16a34a, #4ade80); }
+.bar.boss > i { background: linear-gradient(90deg, #dc2626, #f87171); }
+.bar.xp > i { background: linear-gradient(90deg, #f59e0b, #fde047); }
+.bar.good > i { background: linear-gradient(90deg, #16a34a, #4ade80); }
+.bar.bad > i { background: linear-gradient(90deg, #dc2626, #f87171); }
+.bar.lg { height: 1rem; }
+.bar.tall { height: 1.2rem; }
+.bar .t { position: absolute; inset: 0; display: grid; place-items: center; font-size: .72rem; font-weight: 900; text-shadow: 0 1px 2px #000; }
+
+.rar-common { --rc: var(--r-common); } .rar-rare { --rc: var(--r-rare); }
+.rar-epic { --rc: var(--r-epic); } .rar-legend { --rc: var(--r-legend); }
+.tag { display: inline-block; padding: .1rem .55rem; border-radius: 999px; font-size: .68rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; color: #fff; background: var(--rc, #475569); }
+.slot {
+  position: relative; display: grid; place-items: center; aspect-ratio: 1 / 1; border-radius: var(--rad-m);
+  background: rgba(0, 0, 0, .3); border: 2px solid var(--rc, rgba(255, 255, 255, .15));
+  box-shadow: inset 0 0 1rem color-mix(in srgb, var(--rc, #000) 28%, transparent);
+  font-size: 1.7rem; transition: transform .12s;
+}
+.slot:hover { transform: translateY(-2px); }
+.slot.on { outline: 2.5px solid var(--c-primary); outline-offset: 2px; }
+.slot.lock { filter: grayscale(1) brightness(.55); }
+.slot.lock::after { content: '🔒'; position: absolute; right: .25rem; bottom: .15rem; font-size: .85rem; }
+.slot small { position: absolute; left: 0; right: 0; bottom: .15rem; text-align: center; font-size: .6rem; font-weight: 800; color: #fff; text-shadow: 0 1px 2px #000; }
+
+.stat-tile { padding: .55rem .8rem; border-radius: var(--rad-m); background: rgba(0, 0, 0, .28); border: 1px solid rgba(255, 255, 255, .08); }
+.stat-tile b { display: block; font-size: 1.5rem; line-height: 1.1; }
+.stat-tile span { font-size: .72rem; color: var(--c-muted); font-weight: 700; }
+.ring { --p: 50; --rc2: var(--c-primary); width: 5.2rem; aspect-ratio: 1; border-radius: 50%;
+  background: conic-gradient(var(--rc2) calc(var(--p) * 1%), rgba(255, 255, 255, .1) 0);
+  display: grid; place-items: center; position: relative; flex: 0 0 auto; }
+.ring::before { content: ''; position: absolute; inset: .45rem; border-radius: 50%; background: #1b2539; }
+.ring b { position: relative; font-size: 1.05rem; }
+
+/* ---------- 6. Beranda (Command Center) ---------- */
+.hero-card { display: grid; grid-template-columns: 8.5rem 1fr; gap: .8rem; align-items: center; }
+.hero-card .av { width: 8.5rem; height: 8.5rem; border-radius: var(--rad-l); overflow: hidden; }
+.hero-card h2 { margin: 0; font-size: 1.25rem; line-height: 1.1; }
+.hero-card .ttl { font-size: .78rem; color: var(--c-accent); font-weight: 800; }
+.skill-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+.skill-slot { display: flex; flex-direction: column; align-items: center; gap: .1rem; padding: .5rem .2rem; border-radius: var(--rad-m); background: rgba(0, 0, 0, .3); border: 1.5px solid rgba(56, 189, 248, .35); }
+.skill-slot .i { font-size: 1.5rem; }
+.skill-slot b { font-size: .75rem; }
+.skill-slot small { font-size: .62rem; color: var(--c-muted); font-weight: 700; }
+.badge-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+.badge-card { display: flex; flex-direction: column; align-items: center; gap: .15rem; padding: .5rem .2rem; border-radius: var(--rad-m); background: rgba(0, 0, 0, .28); text-align: center; }
+.badge-card .i { width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center; font-size: 1.4rem; background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--rc) 55%, #fff), var(--rc)); box-shadow: 0 0 .9rem color-mix(in srgb, var(--rc) 60%, transparent); }
+.badge-card b { font-size: .72rem; line-height: 1.1; }
+.badge-card small { font-size: .62rem; color: var(--c-muted); font-weight: 700; }
+
+.stage {
+  position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+  min-height: 0; padding: .9rem 1.2rem 1rem; border-radius: var(--rad-l); overflow: hidden;
+  background: radial-gradient(ellipse at 50% 38%, rgba(124, 77, 255, .35) 0%, rgba(30, 41, 59, .75) 62%);
+  border: 1.5px solid rgba(255, 255, 255, .1);
+}
+.stage .mascot { flex: 1; min-height: 0; width: 100%; }
+.bubble { position: absolute; top: 1.1rem; right: 1.4rem; padding: .5rem .9rem; border-radius: 1rem 1rem .2rem 1rem; background: #fff; color: #1b1340; font-weight: 800; font-size: .92rem; box-shadow: 0 .4rem 1rem rgba(0, 0, 0, .4); }
+.cta-row { display: flex; gap: .7rem; width: 100%; max-width: 40rem; }
+.cta-row .btn { flex: 1; }
+.nowline { width: 100%; max-width: 40rem; display: flex; flex-direction: column; gap: .3rem; padding: .55rem .8rem; border-radius: var(--rad-m); background: rgba(0, 0, 0, .35); }
+.nowline .t { display: flex; justify-content: space-between; font-size: .82rem; font-weight: 800; }
+
+.week-bars { display: flex; align-items: flex-end; gap: .35rem; height: 4.2rem; }
+.week-bars i { flex: 1; border-radius: .25rem .25rem 0 0; background: linear-gradient(180deg, var(--c-primary), #6366f1); min-height: .3rem; }
+.week-bars i.today { background: linear-gradient(180deg, #fde047, #f59e0b); }
+.offer { display: flex; align-items: center; gap: .6rem; padding: .45rem .6rem; border-radius: var(--rad-m); background: rgba(0, 0, 0, .28); }
+.offer .i { font-size: 1.6rem; }
+.offer b { font-size: .85rem; display: block; }
+.offer small { color: var(--c-accent); font-weight: 800; font-size: .75rem; }
+.friend { display: flex; align-items: center; gap: .55rem; font-size: .85rem; font-weight: 700; }
+.friend .dot { width: .6rem; height: .6rem; border-radius: 50%; background: var(--c-good); box-shadow: 0 0 .5rem var(--c-good); }
+.friend .dot.off { background: #64748b; box-shadow: none; }
+.friend .a { width: 1.9rem; height: 1.9rem; border-radius: 50%; display: grid; place-items: center; background: var(--c-hover); font-size: 1rem; }
+
+/* ---------- 7. Peta ---------- */
+.region-list { display: flex; flex-direction: column; gap: .3rem; }
+.region { display: flex; align-items: center; gap: .6rem; padding: .45rem .7rem; border-radius: var(--rad-m); background: rgba(0, 0, 0, .25); border: 1.5px solid transparent; font-weight: 800; font-size: .9rem; }
+.region:hover { background: rgba(255, 255, 255, .07); }
+.region.active { border-color: var(--c-primary); background: rgba(56, 189, 248, .14); }
+.region .i { font-size: 1.2rem; }
+.region small { margin-left: auto; color: var(--c-muted); font-size: .72rem; }
+.map-canvas { position: relative; flex: 1; min-height: 0; border-radius: var(--rad-m); overflow: hidden; background: radial-gradient(ellipse at 20% 80%, rgba(34, 197, 94, .25), transparent 55%), radial-gradient(ellipse at 80% 20%, rgba(124, 77, 255, .3), transparent 55%), rgba(0, 0, 0, .22); }
+.map-canvas svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.node { position: absolute; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: .2rem; text-align: center; width: 11rem; }
+.node .b { width: 4.4rem; height: 4.4rem; border-radius: 50%; display: grid; place-items: center; font-size: 1.6rem; font-weight: 900; background: radial-gradient(circle at 35% 28%, #7dd3fc, #0284c7); border: 3px solid #fff; box-shadow: 0 .4rem 1.2rem rgba(2, 132, 199, .55); transition: transform .15s; }
+.node:hover .b { transform: scale(1.08); }
+.node.boss .b { width: 5.6rem; height: 5.6rem; background: radial-gradient(circle at 35% 28%, #fde68a, #d97706); box-shadow: 0 0 2rem rgba(245, 158, 11, .7); }
+.node.sel .b { outline: 3px solid #fde047; outline-offset: 4px; }
+.node.lock .b { filter: grayscale(1) brightness(.6); }
+.node b.t { font-size: .85rem; }
+.node small { font-size: .8rem; letter-spacing: .1em; }
+.toggle { display: flex; align-items: center; gap: .6rem; padding: .55rem .8rem; border-radius: var(--rad-m); background: rgba(0, 0, 0, .3); font-weight: 800; font-size: .9rem; }
+.sw { position: relative; width: 2.8rem; height: 1.5rem; border-radius: 99px; background: #475569; flex: 0 0 auto; transition: background .2s; }
+.sw::after { content: ''; position: absolute; top: .15rem; left: .15rem; width: 1.2rem; height: 1.2rem; border-radius: 50%; background: #fff; transition: transform .2s; }
+.sw.on { background: var(--c-good); } .sw.on::after { transform: translateX(1.3rem); }
+
+/* ---------- 8. Arena battle (fokus) ---------- */
+.battle { grid-template-columns: 24rem minmax(0, 1fr) 24rem; grid-template-rows: auto minmax(0, 1fr); }
+.battle.read { grid-template-columns: 9rem minmax(0, 1fr) 9rem; }
+.hud { grid-column: 1 / -1; display: flex; flex-direction: row; align-items: center; gap: .8rem; padding: .45rem .7rem; }
+.hud .sp { flex: 1; }
+.hud .timer { flex: 1.4; display: flex; align-items: center; gap: .7rem; }
+.timer-bar { flex: 1; height: .7rem; border-radius: 99px; background: rgba(255, 255, 255, .12); overflow: hidden; }
+.timer-bar i { display: block; height: 100%; width: 62%; background: linear-gradient(90deg, #f97316, #fbbf24); border-radius: inherit; }
+.fighter { align-items: center; text-align: center; }
+.fighter .fig { flex: 1; min-height: 0; width: 100%; }
+.fighter h2 { margin: 0; font-size: 1.3rem; }
+.fighter .meta { font-size: .8rem; color: var(--c-muted); font-weight: 700; }
+.fighter .bar { width: 100%; }
+.telegraph { width: 100%; padding: .5rem .7rem; border-radius: var(--rad-m); background: rgba(239, 68, 68, .18); border: 1.5px solid rgba(239, 68, 68, .6); font-weight: 800; font-size: .85rem; }
+.read .fighter h2, .read .fighter .meta, .read .telegraph, .read .skills-deck, .read .log, .read .fighter .bar .t { display: none; }
+.read .fighter .fig { flex: 0 0 auto; width: 7rem; height: 7rem; }
+
+.qwrap { display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: .8rem; min-height: 0; }
+.qcard { justify-content: center; padding: 1.4rem 2rem; background: rgba(30, 41, 59, .88); }
+.qtag { display: flex; align-items: center; justify-content: space-between; font-size: .8rem; font-weight: 900; letter-spacing: .1em; color: var(--c-accent); }
+.qtext { font-size: clamp(1.4rem, 2.15vw, 2.4rem); font-weight: 800; line-height: 1.35; }
+.read .qtext { font-size: clamp(1.7rem, 2.7vw, 3rem); }
+.qimg { display: grid; place-items: center; min-height: 0; flex: 1; font-size: 4rem; border-radius: var(--rad-m); background: rgba(0, 0, 0, .25); }
+.options { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
+.opt {
+  display: flex; align-items: center; gap: .8rem; min-height: 4.4rem; padding: .6rem 1rem; text-align: left;
+  border-radius: var(--rad-m); font-size: 1.12rem; font-weight: 700;
+  background: rgba(30, 41, 59, .92); border: 2px solid rgba(255, 255, 255, .14); transition: transform .12s, border-color .15s, background .15s;
+}
+.opt:hover { border-color: var(--c-primary); background: rgba(56, 189, 248, .12); transform: translateY(-2px); }
+.opt .key { width: 2.1rem; height: 2.1rem; flex: 0 0 auto; display: grid; place-items: center; border-radius: 50%; background: rgba(255, 255, 255, .12); font-weight: 900; }
+.opt.right { border-color: var(--c-good); background: rgba(34, 197, 94, .22); }
+.opt.wrong { border-color: var(--c-bad); background: rgba(239, 68, 68, .22); }
+.opt.dim { opacity: .4; pointer-events: none; }
+.short-in { width: 100%; box-sizing: border-box; min-height: 3.6rem; padding: 0 1.2rem; border-radius: var(--rad-m); font-size: 1.4rem; font-weight: 800; background: rgba(0, 0, 0, .35); border: 2px solid var(--c-primary); outline: none; }
+.skills-deck { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+.skill-btn { position: relative; display: flex; flex-direction: column; align-items: center; gap: .1rem; padding: 1.15rem .2rem .5rem; border-radius: var(--rad-m); background: linear-gradient(160deg, rgba(2, 132, 199, .35), rgba(30, 27, 75, .7)); border: 1.5px solid var(--c-primary); }
+.skill-btn:hover { filter: brightness(1.2); }
+.skill-btn .i { font-size: 1.6rem; }
+.skill-btn b { font-size: .75rem; }
+.skill-btn small { font-size: .62rem; color: #bae6fd; font-weight: 800; }
+.skill-btn .kbd { position: absolute; top: .25rem; left: .25rem; }
+.log { display: flex; flex-direction: column; gap: .25rem; font-size: .78rem; color: var(--c-muted); font-weight: 600; }
+.log b { color: #fff; }
+.energy-row { display: flex; gap: .3rem; justify-content: center; }
+.energy-row i { width: 1.1rem; height: 1.6rem; border-radius: .3rem; background: #475569; }
+.energy-row i.on { background: linear-gradient(180deg, #fde047, #f59e0b); box-shadow: 0 0 .6rem rgba(245, 158, 11, .7); }
+.combo { text-align: center; font-weight: 900; color: #fb923c; font-size: 1rem; }
+.floaty { position: absolute; left: 50%; top: 38%; transform: translateX(-50%); font-size: 3rem; font-weight: 900; pointer-events: none; animation: floaty 1s ease-out forwards; text-shadow: 0 .2rem 1rem rgba(0, 0, 0, .7); }
+@keyframes floaty { from { opacity: 1; transform: translate(-50%, 0) scale(.8); } to { opacity: 0; transform: translate(-50%, -4rem) scale(1.3); } }
+
+/* ---------- 9. Hasil ---------- */
+.result { place-items: center; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); }
+.result-card { width: min(82rem, 100%); height: min(46rem, 100%); display: grid; grid-template-columns: 1fr 1.05fr; gap: 1.2rem; padding: 1.4rem; border-radius: 1.6rem; background: linear-gradient(160deg, rgba(40, 33, 100, .92), rgba(15, 23, 42, .95)); border: 2px solid rgba(251, 191, 36, .55); box-shadow: 0 0 5rem rgba(251, 191, 36, .22); }
+.stars { display: flex; gap: 1rem; justify-content: center; font-size: 4.2rem; }
+.stars span { animation: pop .5s both; filter: drop-shadow(0 0 1rem rgba(251, 191, 36, .8)); }
+.stars span:nth-child(2) { animation-delay: .2s; } .stars span:nth-child(3) { animation-delay: .4s; }
+@keyframes pop { from { transform: scale(0) rotate(-40deg); opacity: 0; } to { transform: none; opacity: 1; } }
+.kv { display: flex; justify-content: space-between; padding: .45rem 0; border-bottom: 1px dashed rgba(255, 255, 255, .12); font-weight: 700; }
+.kv b { color: var(--c-accent); }
+
+/* ---------- 10. Lemari ---------- */
+.cat-tabs { display: flex; gap: .4rem; }
+.cat-tabs button { flex: 1; display: flex; flex-direction: column; align-items: center; gap: .1rem; padding: .45rem 0; border-radius: var(--rad-m); background: rgba(0, 0, 0, .28); border: 1.5px solid transparent; font-size: .78rem; font-weight: 800; color: var(--c-muted); }
+.cat-tabs button .i { font-size: 1.3rem; }
+.cat-tabs button.active { color: #fff; border-color: var(--c-primary); background: rgba(56, 189, 248, .16); }
+.item-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .7rem; }
+.preview-stage { flex: 1; min-height: 0; display: block; padding: .4rem; border-radius: var(--rad-l); background: radial-gradient(circle at 50% 45%, rgba(124, 77, 255, .4), transparent 70%); }
+.preview-stage .av { width: 100%; height: 100%; }
+.set-prog { display: flex; gap: .3rem; }
+.set-prog i { flex: 1; height: .5rem; border-radius: 9px; background: rgba(255, 255, 255, .14); }
+.set-prog i.on { background: linear-gradient(90deg, #fde047, #f59e0b); }
+
+/* ---------- 11. Toko ---------- */
+.chest-banner { align-items: center; text-align: center; background: radial-gradient(circle at 50% 35%, rgba(168, 85, 247, .45), rgba(30, 41, 59, .8) 70%); }
+.chest-banner .chest { flex: 1; min-height: 0; width: 100%; }
+.shop-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: minmax(0, 1fr); gap: .8rem; }
+.shop-card { align-items: center; text-align: center; justify-content: center; gap: .3rem; }
+.shop-card .i { font-size: 2.6rem; }
+.shop-card b { font-size: 1rem; }
+.shop-card .price { color: var(--c-accent); font-weight: 900; }
+
+/* ---------- 12. Duel ---------- */
+.duel { grid-template-columns: 20rem minmax(0, 1fr) 20rem; grid-template-rows: auto minmax(0, 1fr); }
+.round-dots { display: flex; gap: .4rem; justify-content: center; }
+.round-dots i { width: 1.1rem; height: 1.1rem; border-radius: 50%; background: #475569; }
+.round-dots i.w { background: var(--c-good); } .round-dots i.l { background: var(--c-bad); } .round-dots i.now { background: var(--c-accent); animation: pulseDot 1.2s infinite; }
+@keyframes pulseDot { 50% { transform: scale(1.3); } }
+.vs { font-size: 2.2rem; font-weight: 900; color: var(--c-accent); text-shadow: 0 0 1.2rem rgba(245, 158, 11, .7); }
+
+/* ---------- 13. Dex ---------- */
+.dex-grid { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); grid-template-rows: repeat(10, minmax(0, 1fr)); gap: .4rem; flex: 1; min-height: 0; }
+.dex-cell { position: relative; border-radius: .6rem; padding: .15rem; background: rgba(0, 0, 0, .3); border: 1.5px solid var(--rc, rgba(255, 255, 255, .1)); min-height: 0; min-width: 0; transition: transform .12s, opacity .2s; }
+.dex-cell:hover { transform: scale(1.12); z-index: 3; }
+.dex-cell.sel { outline: 2.5px solid #fde047; z-index: 2; }
+.dex-cell.dim { opacity: .22; }
+.dex-cell.lock svg { filter: brightness(0) opacity(.5); }
+.dex-cell small { position: absolute; left: .2rem; top: .05rem; font-size: .55rem; font-weight: 900; color: #fff; text-shadow: 0 1px 2px #000; }
+.dex-cell .q { position: absolute; inset: 0; display: grid; place-items: center; font-weight: 900; font-size: 1.1rem; color: #cbd5e1; }
+.dex-detail .big { flex: 0 0 auto; height: 16rem; aspect-ratio: 1; align-self: center; }
+.dex-anat { display: grid; grid-template-columns: 1fr 1fr; gap: .35rem .8rem; font-size: .8rem; }
+.dex-anat span { color: var(--c-muted); font-weight: 700; } .dex-anat b { text-align: right; }
+
+/* ---------- 14. Profil ---------- */
+.showcase { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; }
+.sc-card { display: flex; flex-direction: column; align-items: center; gap: .35rem; padding: .9rem .4rem; border-radius: var(--rad-l); text-align: center; background: linear-gradient(170deg, color-mix(in srgb, var(--rc) 28%, #0b1020), rgba(0, 0, 0, .3)); border: 2px solid var(--rc); box-shadow: 0 0 1.4rem color-mix(in srgb, var(--rc) 35%, transparent); }
+.sc-card .i { width: 4.6rem; height: 4.6rem; border-radius: 50%; display: grid; place-items: center; font-size: 2.4rem; background: radial-gradient(circle at 35% 28%, color-mix(in srgb, var(--rc) 50%, #fff), var(--rc)); }
+.badge-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: .5rem; }
+.bdg { aspect-ratio: 1; border-radius: var(--rad-m); display: grid; place-items: center; font-size: 1.6rem; background: radial-gradient(circle at 35% 28%, color-mix(in srgb, var(--rc) 40%, #fff), var(--rc)); }
+.bdg.lock { background: rgba(0, 0, 0, .35); filter: grayscale(1) brightness(.5); }
+
+/* ---------- 15. Laporan ---------- */
+.rep-top { display: grid; grid-template-columns: repeat(4, 1fr); gap: .8rem; }
+.topic-row { display: grid; grid-template-columns: 11rem 1fr 3rem; align-items: center; gap: .6rem; font-size: .85rem; font-weight: 700; }
+.weak { padding: .6rem .8rem; border-radius: var(--rad-m); background: rgba(239, 68, 68, .12); border: 1.5px solid rgba(239, 68, 68, .45); }
+
+/* ---------- 16. Pengaturan / Skill / Latihan / Auth ---------- */
+.radio { display: flex; align-items: flex-start; gap: .7rem; padding: .6rem .8rem; border-radius: var(--rad-m); background: rgba(0, 0, 0, .25); border: 1.5px solid transparent; }
+.radio .o { width: 1.2rem; height: 1.2rem; flex: 0 0 auto; border-radius: 50%; border: 2px solid var(--c-muted); margin-top: .15rem; }
+.radio.on { border-color: var(--c-primary); background: rgba(56, 189, 248, .12); }
+.radio.on .o { border-color: var(--c-primary); background: radial-gradient(circle, var(--c-primary) 45%, transparent 50%); }
+.radio b { display: block; font-size: .92rem; } .radio small { color: var(--c-muted); font-weight: 600; font-size: .75rem; }
+.setrow { display: flex; align-items: center; justify-content: space-between; padding: .5rem 0; border-bottom: 1px dashed rgba(255, 255, 255, .1); font-weight: 700; font-size: .92rem; }
+.keys-table { display: grid; grid-template-columns: auto 1fr; gap: .45rem .8rem; align-items: center; font-size: .85rem; font-weight: 700; }
+.skill-card { align-items: center; text-align: center; gap: .25rem; justify-content: center; }
+.skill-card .i { font-size: 2rem; }
+.skill-card.on { border-color: var(--c-primary); box-shadow: 0 0 1.4rem rgba(56, 189, 248, .25); }
+.big-slot { display: flex; align-items: center; gap: .8rem; padding: .8rem; border-radius: var(--rad-m); background: rgba(0, 0, 0, .3); border: 2px dashed rgba(56, 189, 248, .6); }
+.big-slot .i { font-size: 2.2rem; }
+
+.auth { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: stretch; padding: 0 !important; gap: 0; }
+.auth-hero { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .6rem; background: radial-gradient(ellipse at 50% 55%, rgba(124, 77, 255, .5), transparent 65%); }
+.auth-hero .mon { height: 58%; width: 60%; }
+.auth-hero h1 { margin: 0; font-size: 3.2rem; line-height: 1; text-align: center; letter-spacing: .02em; text-shadow: 0 .3rem 1.4rem rgba(124, 77, 255, .8); }
+.auth-form { display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem; }
+.auth-card { width: min(30rem, 100%); display: flex; flex-direction: column; gap: .9rem; padding: 1.6rem; border-radius: 1.4rem; background: rgba(30, 41, 59, .88); border: 1.5px solid rgba(255, 255, 255, .12); }
+.field { display: flex; flex-direction: column; gap: .3rem; font-weight: 800; font-size: .85rem; color: var(--c-muted); }
+.field select, .field input { min-height: 3rem; padding: 0 1rem; border-radius: var(--rad-m); background: rgba(0, 0, 0, .35); border: 1.5px solid rgba(255, 255, 255, .15); color: #fff; font-size: 1rem; outline: none; }
+.field select:focus, .field input:focus { border-color: var(--c-primary); }
+
+/* ---------- 17. Overlay & toast ---------- */
+.modal-overlay { position: fixed; inset: 0; z-index: 2000; display: grid; place-items: center; background: rgba(0, 0, 0, .7); animation: fadeIn .2s; }
+@keyframes fadeIn { from { opacity: 0; } }
+.modal-card { width: min(46rem, 90vw); max-height: 86vh; overflow: hidden; padding: 1.4rem; border-radius: var(--rad-l); background: var(--c-surface); border: 2px solid rgba(255, 255, 255, .15); box-shadow: 0 1.4rem 4rem rgba(0, 0, 0, .8); }
+.modal-card h3 { margin: 0 0 .8rem; font-size: 1.3rem; display: flex; justify-content: space-between; }
+#toast { position: fixed; left: 50%; bottom: 1.6rem; transform: translate(-50%, 2rem); z-index: 3000; padding: .65rem 1.4rem; border-radius: 999px; background: rgba(15, 23, 42, .96); border: 1.5px solid var(--c-primary); font-weight: 800; opacity: 0; pointer-events: none; transition: transform .25s, opacity .25s; }
+#toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- 18. Penjaga ukuran: di bawah 1280x720 -> mode mobile ---------- */
+#d-guard { display: none; position: fixed; inset: 0; z-index: 9999; place-items: center; text-align: center; padding: 2rem; background: #0f172a; font-weight: 800; }
+@media (max-width: 1279px), (max-height: 719px) { html[data-ui="desktop"] #d-guard { display: grid; } }
+
+@media (prefers-reduced-motion: reduce) { * { animation-duration: .001s !important; transition-duration: .001s !important; } }
+
+/* grafik batang laporan (HTML murni, tidak melar) */
+.chart { display: flex; align-items: stretch; gap: .8rem; height: 100%; padding-top: .4rem; }
+.col-bar { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: .3rem; min-width: 0; }
+.col-bar .stack { width: 100%; display: flex; flex-direction: column; border-radius: .4rem; overflow: hidden; }
+.col-bar .stack .ok { background: linear-gradient(180deg, #4ade80, #16a34a); }
+.col-bar .stack .bad { background: linear-gradient(180deg, #f87171, #dc2626); }
+.col-bar b { font-size: .75rem; color: var(--c-muted); }
+.item-grid .slot { font-size: 2.6rem; }
+.dex-cell { overflow: hidden; } .dex-cell svg { width: 100%; height: 100%; display: block; }
+
+/* shared/fx.css — efek rarity (hanya transform & opacity, kecuali .fx-run) */
+@keyframes fx-bob{to{transform:translateY(-3px)}}
+@keyframes fx-bob-sm{to{transform:translateY(-2.5px)}}
+@keyframes fx-shadow{to{transform:scale(.94)}}
+@keyframes fx-blink{0%,91%,100%{transform:scaleY(1)}94%{transform:scaleY(.08)}}
+@keyframes fx-pulse{0%,100%{transform:scale(.96);opacity:.85}50%{transform:scale(1.05);opacity:1}}
+@keyframes fx-sweep{0%{transform:translateX(0)}40%,100%{transform:translateX(270px)}}
+@keyframes fx-spin{to{transform:rotate(360deg)}}
+@keyframes fx-twinkle{0%,100%{transform:scale(.3);opacity:.2}50%{transform:scale(1);opacity:1}}
+@keyframes fx-glint{0%,60%,100%{transform:scale(0);opacity:0}75%{transform:scale(1);opacity:1}}
+@keyframes fx-gem{to{transform:scale(1.18)}}
+@keyframes fx-ring{to{transform:scaleX(1.08)}}
+@keyframes fx-holo{to{transform:translateX(120px)}}
+@keyframes fx-drift{to{transform:translateX(10px)}}
+@keyframes fx-rise{0%{opacity:0;transform:translateY(0)}20%{opacity:.9}100%{opacity:0;transform:translateY(-34px)}}
+@keyframes fx-run{to{stroke-dashoffset:-1000}}
+
+.fx-float{animation:fx-bob 2.8s ease-in-out infinite alternate}
+.fx-float-sm{animation:fx-bob-sm 2.6s ease-in-out infinite alternate}
+.fx-shadow{transform-box:fill-box;transform-origin:center;animation:fx-shadow 2.8s ease-in-out infinite alternate}
+.fx-blink{transform-box:fill-box;transform-origin:center;animation:fx-blink 4.6s infinite}
+.fx-pulse{transform-box:fill-box;transform-origin:center;animation:fx-pulse 3.2s ease-in-out infinite}
+.fx-sweep{animation:fx-sweep 5s ease-in-out infinite}
+.fx-rays{transform-origin:100px 110px;animation:fx-spin 28s linear infinite}
+.fx-orbit{transform-origin:100px 110px;animation:fx-spin 14s linear infinite}
+.fx-orbit-r{transform-origin:100px 110px;animation:fx-spin 20s linear infinite reverse}
+.fx-twinkle{transform-box:fill-box;transform-origin:center;animation:fx-twinkle 2.4s ease-in-out infinite}
+.fx-glint{transform-box:fill-box;transform-origin:center;animation:fx-glint 2.8s ease-in-out infinite}
+.fx-gem{transform-box:fill-box;transform-origin:center;animation:fx-gem 2.4s ease-in-out infinite alternate}
+.fx-ring{transform-box:fill-box;transform-origin:center;animation:fx-ring 3s ease-in-out infinite alternate}
+.fx-holo{animation:fx-holo 5s ease-in-out infinite alternate}
+.fx-drift{animation:fx-drift 7s ease-in-out infinite alternate}
+.fx-drift2{animation:fx-drift 9s ease-in-out infinite alternate-reverse}
+.fx-rise{animation:fx-rise 4s ease-out infinite}
+.fx-run{animation:fx-run 4.5s linear infinite}
+
+/* kontrol */
+svg.fx-static [class*="fx-"], svg.fx-static animateTransform{animation:none!important}
+svg.fx-paused [class*="fx-"]{animation-play-state:paused!important}
+@media (prefers-reduced-motion:reduce){svg.fx [class*="fx-"]{animation:none!important}}
+
+
+html{font-size:19.2px!important}
+body{background:#070a16}
+#fit{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;overflow:hidden}
+#fit #app.d-play{width:1920px;height:1080px}
+#fit .modal-overlay{position:absolute}#fit #toast{position:absolute}
+</style></head><body>
+<div id="fit"><svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="boss-hero" viewBox="0 0 200 200"><defs><clipPath id="clip-bh"><circle cx="100" cy="112" r="58" /></clipPath><radialGradient id="bd-bh" cx=".5" cy=".5" r="0.75" fx="0.34" fy="0.28"><stop offset="0" stop-color="#f4bebf"/><stop offset="0.45" stop-color="#e64c4f"/><stop offset="1" stop-color="#a51215"/></radialGradient><linearGradient id="sh-bh" x1="0" y1="0" x2="0" y2="1" ><stop offset="0.5" stop-color="#2b0a20" stop-opacity="0"/><stop offset="1" stop-color="#2b0a20" stop-opacity="0.38"/></linearGradient><linearGradient id="gl-bh" x1="0" y1="0" x2="1" y2="1" ><stop offset="0" stop-color="#fff" stop-opacity="0.9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="rm-bh" x1="0" y1="0" x2="1" y2="1" ><stop offset="0" stop-color="#fff" stop-opacity="0.95"/><stop offset="0.55" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="hn-bh" x1="0" y1="0" x2="0" y2="1" ><stop offset="0" stop-color="#97f7c5"/><stop offset="1" stop-color="#2b9c62"/></linearGradient><radialGradient id="sc-bh" cx=".5" cy=".5" r="0.7" fx="0.38" fy="0.3"><stop offset="0" stop-color="#ffffff"/><stop offset="0.45" stop-color="#f1f4fa"/><stop offset="1" stop-color="#c9d0df"/></radialGradient><radialGradient id="pu-bh" cx=".5" cy=".5" r="0.7" fx="0.35" fy="0.3"><stop offset="0" stop-color="#6a4a8c"/><stop offset="0.45" stop-color="#3a2557"/><stop offset="1" stop-color="#1d1030"/></radialGradient><radialGradient id="ch-bh" cx=".5" cy=".5" r="0.75" fx="0.34" fy="0.28"><stop offset="0" stop-color="#ffc2cf"/><stop offset="0.45" stop-color="#ff8fa3"/><stop offset="1" stop-color="#f0627f"/></radialGradient><linearGradient id="mo-bh" x1="0" y1="0" x2="0" y2="1" ><stop offset="0" stop-color="#5a1a30"/><stop offset="1" stop-color="#1d0610"/></linearGradient><linearGradient id="te-bh" x1="0" y1="0" x2="0" y2="1" ><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dcd5ea"/></linearGradient><clipPath id="mc-bh"><rect x="78" y="126" width="44" height="24" rx="9"/></clipPath><linearGradient id="sw-bh" x1="0" y1="0" x2="1" y2="0" ><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="0.5" stop-color="#fff" stop-opacity="0.75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><radialGradient id="au-bh" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#f59e0b" stop-opacity="0.75"/><stop offset="1" stop-color="#f59e0b" stop-opacity="0"/></radialGradient><radialGradient id="ry-bh" gradientUnits="userSpaceOnUse" cx="100" cy="110" r="100"><stop offset="0" stop-color="#fde68a" stop-opacity="0.8"/><stop offset="1" stop-color="#fde68a" stop-opacity="0"/></radialGradient><linearGradient id="gd-bh" x1="0" y1="0" x2="1" y2="1" ><stop offset="0" stop-color="#FFF3B0"/><stop offset="0.35" stop-color="#FBBF24"/><stop offset="0.7" stop-color="#D98A0B"/><stop offset="1" stop-color="#8A4B08"/></linearGradient><linearGradient id="ho-bh" x1="0" y1="0" x2="1" y2="0" ><stop offset="0" stop-color="#ff5d8f"/><stop offset="0.2" stop-color="#ffb347"/><stop offset="0.4" stop-color="#f4ff6b"/><stop offset="0.6" stop-color="#5dffb0"/><stop offset="0.8" stop-color="#5db7ff"/><stop offset="1" stop-color="#c37dff"/></linearGradient><radialGradient id="gm-bh" cx=".5" cy=".5" r="0.75" fx="0.34" fy="0.28"><stop offset="0" stop-color="#ffc2c2"/><stop offset="0.45" stop-color="#ef4444"/><stop offset="1" stop-color="#7f1d1d"/></radialGradient></defs><ellipse class="fx-shadow" cx="100" cy="184" rx="58" ry="8" fill="#000" opacity=".2"/><g class="fx-rays" fill="url(#ry-bh)" opacity=".55"><polygon transform="rotate(0 100 110)" points="100,110 92,-20 108,-20"/><polygon transform="rotate(30 100 110)" points="100,110 92,-20 108,-20"/><polygon transform="rotate(60 100 110)" points="100,110 92,-20 108,-20"/><polygon transform="rotate(90 100 110)" points="100,110 92,-20 108,-20"/><polygon transform="rotate(120 100 110)" points="100,110 92,-20 108,-20"/><polygon transform="rotate(150 100 110)" points="100,110 92,-20 108,-20"/><polygon transform="rotate(180 100 110)" points="100,110 92,-20 108,-20"/><polygon transform="rotate(210 100 110)" points="100,110 92,-20 108,-20"/><polygon transform="rotate(240 100 110)" points="100,110 92,-20 108,-20"/><polygon transform="rotate(270 100 110)" points="100,110 92,-20 108,-20"/><polygon transform="rotate(300 100 110)" points="100,110 92,-20 108,-20"/><polygon transform="rotate(330 100 110)" points="100,110 92,-20 108,-20"/></g><ellipse cx="100" cy="184" rx="70" ry="11" fill="url(#au-bh)"/><circle class="fx-pulse" cx="100" cy="110" r="92" fill="url(#au-bh)"/><g class="monster-body fx-float"><g fill="url(#hn-bh)" stroke="#a51215" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M68 72Q56 42 46 36Q76 38 90 64Z"/><path d="M132 72Q144 42 154 36Q124 38 110 64Z"/></g><g stroke="#fff" stroke-width="2.5" opacity=".55" fill="none" stroke-linecap="round"><path d="M66 66Q58 50 52 42"/><path d="M134 66Q142 50 148 42"/></g><g transform="translate(46 36) scale(0.9)"><path class="fx-twinkle" style="animation-delay:0s" fill="#fef08a" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(154 36) scale(0.9)"><path class="fx-twinkle" style="animation-delay:1.1s" fill="#fef08a" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><circle cx="100" cy="112" r="58" fill="url(#bd-bh)" stroke="#a51215" stroke-width="4" stroke-linejoin="round"/><g clip-path="url(#clip-bh)"><circle cx="100" cy="112" r="58" fill="url(#sh-bh)"/><ellipse cx="100" cy="164" rx="40" ry="11" fill="#f4bebf" opacity=".3"/><circle cx="100" cy="112" r="58" fill="none" stroke="url(#rm-bh)" stroke-width="7"/><circle cx="100" cy="112" r="58" fill="none" stroke="url(#gd-bh)" stroke-width="4" opacity=".9"/><g opacity=".2" style="mix-blend-mode:soft-light"><rect class="fx-holo" x="-100" y="40" width="400" height="140" fill="url(#ho-bh)"/></g><ellipse cx="76" cy="78" rx="30" ry="15" transform="rotate(-32 76 78)" fill="url(#gl-bh)"/><circle cx="62" cy="74" r="3.8" fill="#fff" opacity=".95"/><g class="fx-sweep" style="animation-duration:3.6s"><g transform="rotate(20 100 110)"><rect x="-40" y="0" width="24" height="220" fill="url(#sw-bh)"/></g></g></g><circle cx="60" cy="118" r="10" fill="url(#ch-bh)" opacity=".8"/><circle cx="140" cy="118" r="10" fill="url(#ch-bh)" opacity=".8"/><g class="eyes fx-blink"><circle cx="76" cy="98" r="13" fill="url(#sc-bh)" stroke="#2b1b3d" stroke-width="3"/><circle cx="124" cy="98" r="13" fill="url(#sc-bh)" stroke="#2b1b3d" stroke-width="3"/><circle cx="79" cy="100" r="6.5" fill="url(#pu-bh)"/><circle cx="121" cy="100" r="6.5" fill="url(#pu-bh)"/><circle cx="79" cy="100" r="6.5" fill="none" stroke="#fef08a" stroke-width="1.4" opacity=".85"/><circle cx="121" cy="100" r="6.5" fill="none" stroke="#fef08a" stroke-width="1.4" opacity=".85"/><circle cx="76.8" cy="97" r="2.6" fill="#fff"/><circle cx="118.8" cy="97" r="2.6" fill="#fff"/><circle cx="81.4" cy="102.6" r="1.2" fill="#fff" opacity=".8"/><circle cx="123.4" cy="102.6" r="1.2" fill="#fff" opacity=".8"/><path d="M56 76L92 90M144 76L108 90" stroke="#2b1b3d" stroke-width="7" stroke-linecap="round"/></g><rect x="78" y="126" width="44" height="24" rx="9" fill="url(#mo-bh)"/><g clip-path="url(#mc-bh)"><ellipse cx="100" cy="152" rx="15" ry="9" fill="#ff7a96"/><ellipse cx="100" cy="149" rx="9" ry="3" fill="#ffb3c4" opacity=".7"/></g><g fill="url(#te-bh)"><rect x="82" y="127" width="8" height="9" rx="2"/><rect x="92" y="127" width="8" height="9" rx="2"/><rect x="102" y="127" width="8" height="9" rx="2"/><rect x="110" y="127" width="8" height="9" rx="2"/></g><path d="M81 129h37" stroke="#fff" stroke-width="1.6" opacity=".55" stroke-linecap="round"/><g stroke="#78350f" stroke-width="2" stroke-linejoin="round"><polygon points="85,32 80,16 90,23 100,12 110,23 120,16 115,32" fill="url(#gd-bh)"/><rect x="84" y="28" width="32" height="6" rx="2" fill="url(#gd-bh)"/></g><g fill="#fff8d6" stroke="#78350f" stroke-width="1"><circle cx="80" cy="16" r="2.6"/><circle cx="100" cy="12" r="3.2"/><circle cx="120" cy="16" r="2.6"/></g><circle cx="100" cy="24.5" r="3.2" fill="url(#gm-bh)" stroke="#7f1d1d" stroke-width="1"/><circle cx="99" cy="23.4" r="1" fill="#fff"/><g transform="translate(80 15) scale(1.1)"><path class="fx-glint" style="animation-delay:0s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(100 10) scale(1.4)"><path class="fx-glint" style="animation-delay:0.7s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(120 15) scale(1.1)"><path class="fx-glint" style="animation-delay:1.4s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g></g><g class="fx-orbit"><g transform="translate(40 70) scale(0.9)"><path class="fx-twinkle" style="animation-delay:0s" fill="#fef08a" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(160 58) scale(0.8)"><path class="fx-twinkle" style="animation-delay:0.8s" fill="#fef08a" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(166 132) scale(0.7)"><path class="fx-twinkle" style="animation-delay:1.6s" fill="#fef08a" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(34 136) scale(0.7)"><path class="fx-twinkle" style="animation-delay:2.2s" fill="#fef08a" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(100 22) scale(0.7)"><path class="fx-twinkle" style="animation-delay:0.4s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(100 198) scale(0.7)"><path class="fx-twinkle" style="animation-delay:1.2s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g></g><g class="fx-orbit-r"><g transform="translate(52 40) scale(0.8)"><path class="fx-twinkle" style="animation-delay:0.3s" fill="#fff8d6" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(150 176) scale(0.8)"><path class="fx-twinkle" style="animation-delay:1.3s" fill="#fff8d6" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g></g></symbol><symbol id="boss-king" viewBox="0 0 200 200"><defs><clipPath id="clip-bk"><path d="M44 170V100C44 62 70 48 100 48C130 48 156 62 156 100V170L138 156L120 170L100 156L80 170L62 156Z" /></clipPath><radialGradient id="bd-bk" cx=".5" cy=".5" r="0.75" fx="0.34" fy="0.28"><stop offset="0" stop-color="#93df90"/><stop offset="0.45" stop-color="#35c030"/><stop offset="1" stop-color="#176115"/></radialGradient><linearGradient id="sh-bk" x1="0" y1="0" x2="0" y2="1" ><stop offset="0.5" stop-color="#2b0a20" stop-opacity="0"/><stop offset="1" stop-color="#2b0a20" stop-opacity="0.38"/></linearGradient><linearGradient id="gl-bk" x1="0" y1="0" x2="1" y2="1" ><stop offset="0" stop-color="#fff" stop-opacity="0.9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="rm-bk" x1="0" y1="0" x2="1" y2="1" ><stop offset="0" stop-color="#fff" stop-opacity="0.95"/><stop offset="0.55" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="hn-bk" x1="0" y1="0" x2="0" y2="1" ><stop offset="0" stop-color="#c497f7"/><stop offset="1" stop-color="#602b9c"/></linearGradient><radialGradient id="sc-bk" cx=".5" cy=".5" r="0.7" fx="0.38" fy="0.3"><stop offset="0" stop-color="#ffffff"/><stop offset="0.45" stop-color="#f1f4fa"/><stop offset="1" stop-color="#c9d0df"/></radialGradient><radialGradient id="pu-bk" cx=".5" cy=".5" r="0.7" fx="0.35" fy="0.3"><stop offset="0" stop-color="#6a4a8c"/><stop offset="0.45" stop-color="#3a2557"/><stop offset="1" stop-color="#1d1030"/></radialGradient><radialGradient id="ch-bk" cx=".5" cy=".5" r="0.75" fx="0.34" fy="0.28"><stop offset="0" stop-color="#ffc2cf"/><stop offset="0.45" stop-color="#ff8fa3"/><stop offset="1" stop-color="#f0627f"/></radialGradient><linearGradient id="mo-bk" x1="0" y1="0" x2="0" y2="1" ><stop offset="0" stop-color="#5a1a30"/><stop offset="1" stop-color="#1d0610"/></linearGradient><linearGradient id="te-bk" x1="0" y1="0" x2="0" y2="1" ><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dcd5ea"/></linearGradient><clipPath id="mc-bk"><rect x="78" y="126" width="44" height="24" rx="9"/></clipPath><linearGradient id="sw-bk" x1="0" y1="0" x2="1" y2="0" ><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="0.5" stop-color="#fff" stop-opacity="0.75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><radialGradient id="au-bk" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#f59e0b" stop-opacity="0.75"/><stop offset="1" stop-color="#f59e0b" stop-opacity="0"/></radialGradient><radialGradient id="ry-bk" gradientUnits="userSpaceOnUse" cx="100" cy="110" r="100"><stop offset="0" stop-color="#fde68a" stop-opacity="0.8"/><stop offset="1" stop-color="#fde68a" stop-opacity="0"/></radialGradient><linearGradient id="gd-bk" x1="0" y1="0" x2="1" y2="1" ><stop offset="0" stop-color="#FFF3B0"/><stop offset="0.35" stop-color="#FBBF24"/><stop offset="0.7" stop-color="#D98A0B"/><stop offset="1" stop-color="#8A4B08"/></linearGradient><linearGradient id="ho-bk" x1="0" y1="0" x2="1" y2="0" ><stop offset="0" stop-color="#ff5d8f"/><stop offset="0.2" stop-color="#ffb347"/><stop offset="0.4" stop-color="#f4ff6b"/><stop offset="0.6" stop-color="#5dffb0"/><stop offset="0.8" stop-color="#5db7ff"/><stop offset="1" stop-color="#c37dff"/></linearGradient><radialGradient id="gm-bk" cx=".5" cy=".5" r="0.75" fx="0.34" fy="0.28"><stop offset="0" stop-color="#ffc2c2"/><stop offset="0.45" stop-color="#ef4444"/><stop offset="1" stop-color="#7f1d1d"/></radialGradient></defs><ellipse class="fx-shadow" cx="100" cy="184" rx="58" ry="8" fill="#000" opacity=".2"/><g class="fx-rays" fill="url(#ry-bk)" opacity=".55"><polygon transform="rotate(0 100 110)" points="100,110 92,-20 108,-20"/><polygon transform="rotate(30 100 110)" points="100,110 92,-20 108,-20"/><polygon transform="rotate(60 100 110)" points="100,110 92,-20 108,-20"/><polygon transform="rotate(90 100 110)" points="100,110 92,-20 108,-20"/><polygon transform="rotate(120 100 110)" points="100,110 92,-20 108,-20"/><polygon transform="rotate(150 100 110)" points="100,110 92,-20 108,-20"/><polygon transform="rotate(180 100 110)" points="100,110 92,-20 108,-20"/><polygon transform="rotate(210 100 110)" points="100,110 92,-20 108,-20"/><polygon transform="rotate(240 100 110)" points="100,110 92,-20 108,-20"/><polygon transform="rotate(270 100 110)" points="100,110 92,-20 108,-20"/><polygon transform="rotate(300 100 110)" points="100,110 92,-20 108,-20"/><polygon transform="rotate(330 100 110)" points="100,110 92,-20 108,-20"/></g><ellipse cx="100" cy="184" rx="70" ry="11" fill="url(#au-bk)"/><circle class="fx-pulse" cx="100" cy="110" r="92" fill="url(#au-bk)"/><g class="monster-body fx-float"><g fill="url(#hn-bk)" stroke="#176115" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M68 72Q56 42 46 36Q76 38 90 64Z"/><path d="M132 72Q144 42 154 36Q124 38 110 64Z"/></g><g stroke="#fff" stroke-width="2.5" opacity=".55" fill="none" stroke-linecap="round"><path d="M66 66Q58 50 52 42"/><path d="M134 66Q142 50 148 42"/></g><g transform="translate(46 36) scale(0.9)"><path class="fx-twinkle" style="animation-delay:0s" fill="#fef08a" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(154 36) scale(0.9)"><path class="fx-twinkle" style="animation-delay:1.1s" fill="#fef08a" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><path d="M44 170V100C44 62 70 48 100 48C130 48 156 62 156 100V170L138 156L120 170L100 156L80 170L62 156Z" fill="url(#bd-bk)" stroke="#176115" stroke-width="4" stroke-linejoin="round"/><g clip-path="url(#clip-bk)"><path d="M44 170V100C44 62 70 48 100 48C130 48 156 62 156 100V170L138 156L120 170L100 156L80 170L62 156Z" fill="url(#sh-bk)"/><ellipse cx="100" cy="164" rx="40" ry="11" fill="#93df90" opacity=".3"/><path d="M44 170V100C44 62 70 48 100 48C130 48 156 62 156 100V170L138 156L120 170L100 156L80 170L62 156Z" fill="none" stroke="url(#rm-bk)" stroke-width="7"/><path d="M44 170V100C44 62 70 48 100 48C130 48 156 62 156 100V170L138 156L120 170L100 156L80 170L62 156Z" fill="none" stroke="url(#gd-bk)" stroke-width="4" opacity=".9"/><g opacity=".2" style="mix-blend-mode:soft-light"><rect class="fx-holo" x="-100" y="40" width="400" height="140" fill="url(#ho-bk)"/></g><ellipse cx="76" cy="78" rx="30" ry="15" transform="rotate(-32 76 78)" fill="url(#gl-bk)"/><circle cx="62" cy="74" r="3.8" fill="#fff" opacity=".95"/><g class="fx-sweep" style="animation-duration:3.6s"><g transform="rotate(20 100 110)"><rect x="-40" y="0" width="24" height="220" fill="url(#sw-bk)"/></g></g></g><circle cx="60" cy="118" r="10" fill="url(#ch-bk)" opacity=".8"/><circle cx="140" cy="118" r="10" fill="url(#ch-bk)" opacity=".8"/><g class="eyes fx-blink"><circle cx="76" cy="98" r="13" fill="url(#sc-bk)" stroke="#2b1b3d" stroke-width="3"/><circle cx="124" cy="98" r="13" fill="url(#sc-bk)" stroke="#2b1b3d" stroke-width="3"/><circle cx="79" cy="100" r="6.5" fill="url(#pu-bk)"/><circle cx="121" cy="100" r="6.5" fill="url(#pu-bk)"/><circle cx="79" cy="100" r="6.5" fill="none" stroke="#fef08a" stroke-width="1.4" opacity=".85"/><circle cx="121" cy="100" r="6.5" fill="none" stroke="#fef08a" stroke-width="1.4" opacity=".85"/><circle cx="76.8" cy="97" r="2.6" fill="#fff"/><circle cx="118.8" cy="97" r="2.6" fill="#fff"/><circle cx="81.4" cy="102.6" r="1.2" fill="#fff" opacity=".8"/><circle cx="123.4" cy="102.6" r="1.2" fill="#fff" opacity=".8"/><path d="M56 76L92 90M144 76L108 90" stroke="#2b1b3d" stroke-width="7" stroke-linecap="round"/></g><rect x="78" y="126" width="44" height="24" rx="9" fill="url(#mo-bk)"/><g clip-path="url(#mc-bk)"><ellipse cx="100" cy="152" rx="15" ry="9" fill="#ff7a96"/><ellipse cx="100" cy="149" rx="9" ry="3" fill="#ffb3c4" opacity=".7"/></g><g fill="url(#te-bk)"><rect x="82" y="127" width="8" height="9" rx="2"/><rect x="92" y="127" width="8" height="9" rx="2"/><rect x="102" y="127" width="8" height="9" rx="2"/><rect x="110" y="127" width="8" height="9" rx="2"/></g><path d="M81 129h37" stroke="#fff" stroke-width="1.6" opacity=".55" stroke-linecap="round"/><g stroke="#78350f" stroke-width="2" stroke-linejoin="round"><polygon points="85,32 80,16 90,23 100,12 110,23 120,16 115,32" fill="url(#gd-bk)"/><rect x="84" y="28" width="32" height="6" rx="2" fill="url(#gd-bk)"/></g><g fill="#fff8d6" stroke="#78350f" stroke-width="1"><circle cx="80" cy="16" r="2.6"/><circle cx="100" cy="12" r="3.2"/><circle cx="120" cy="16" r="2.6"/></g><circle cx="100" cy="24.5" r="3.2" fill="url(#gm-bk)" stroke="#7f1d1d" stroke-width="1"/><circle cx="99" cy="23.4" r="1" fill="#fff"/><g transform="translate(80 15) scale(1.1)"><path class="fx-glint" style="animation-delay:0s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(100 10) scale(1.4)"><path class="fx-glint" style="animation-delay:0.7s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(120 15) scale(1.1)"><path class="fx-glint" style="animation-delay:1.4s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g></g><g class="fx-orbit"><g transform="translate(40 70) scale(0.9)"><path class="fx-twinkle" style="animation-delay:0s" fill="#fef08a" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(160 58) scale(0.8)"><path class="fx-twinkle" style="animation-delay:0.8s" fill="#fef08a" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(166 132) scale(0.7)"><path class="fx-twinkle" style="animation-delay:1.6s" fill="#fef08a" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(34 136) scale(0.7)"><path class="fx-twinkle" style="animation-delay:2.2s" fill="#fef08a" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(100 22) scale(0.7)"><path class="fx-twinkle" style="animation-delay:0.4s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(100 198) scale(0.7)"><path class="fx-twinkle" style="animation-delay:1.2s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g></g><g class="fx-orbit-r"><g transform="translate(52 40) scale(0.8)"><path class="fx-twinkle" style="animation-delay:0.3s" fill="#fff8d6" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(150 176) scale(0.8)"><path class="fx-twinkle" style="animation-delay:1.3s" fill="#fff8d6" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g></g></symbol><symbol id="boss-jam" viewBox="0 0 200 200"><defs><clipPath id="clip-bj"><path d="M44 170V100C44 62 70 48 100 48C130 48 156 62 156 100V170L138 156L120 170L100 156L80 170L62 156Z" /></clipPath><radialGradient id="bd-bj" cx=".5" cy=".5" r="0.75" fx="0.34" fy="0.28"><stop offset="0" stop-color="#99d98c"/><stop offset="0.45" stop-color="#49b234"/><stop offset="1" stop-color="#205615"/></radialGradient><linearGradient id="sh-bj" x1="0" y1="0" x2="0" y2="1" ><stop offset="0.5" stop-color="#2b0a20" stop-opacity="0"/><stop offset="1" stop-color="#2b0a20" stop-opacity="0.38"/></linearGradient><linearGradient id="gl-bj" x1="0" y1="0" x2="1" y2="1" ><stop offset="0" stop-color="#fff" stop-opacity="0.9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="rm-bj" x1="0" y1="0" x2="1" y2="1" ><stop offset="0" stop-color="#fff" stop-opacity="0.95"/><stop offset="0.55" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="hn-bj" x1="0" y1="0" x2="0" y2="1" ><stop offset="0" stop-color="#b797f7"/><stop offset="1" stop-color="#512b9c"/></linearGradient><radialGradient id="sc-bj" cx=".5" cy=".5" r="0.7" fx="0.38" fy="0.3"><stop offset="0" stop-color="#ffffff"/><stop offset="0.45" stop-color="#f1f4fa"/><stop offset="1" stop-color="#c9d0df"/></radialGradient><radialGradient id="pu-bj" cx=".5" cy=".5" r="0.7" fx="0.35" fy="0.3"><stop offset="0" stop-color="#6a4a8c"/><stop offset="0.45" stop-color="#3a2557"/><stop offset="1" stop-color="#1d1030"/></radialGradient><radialGradient id="ch-bj" cx=".5" cy=".5" r="0.75" fx="0.34" fy="0.28"><stop offset="0" stop-color="#ffc2cf"/><stop offset="0.45" stop-color="#ff8fa3"/><stop offset="1" stop-color="#f0627f"/></radialGradient><linearGradient id="mo-bj" x1="0" y1="0" x2="0" y2="1" ><stop offset="0" stop-color="#5a1a30"/><stop offset="1" stop-color="#1d0610"/></linearGradient><linearGradient id="te-bj" x1="0" y1="0" x2="0" y2="1" ><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dcd5ea"/></linearGradient><clipPath id="mc-bj"><rect x="78" y="126" width="44" height="24" rx="9"/></clipPath><linearGradient id="sw-bj" x1="0" y1="0" x2="1" y2="0" ><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="0.5" stop-color="#fff" stop-opacity="0.75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><radialGradient id="au-bj" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#3b82f6" stop-opacity="0.6"/><stop offset="1" stop-color="#3b82f6" stop-opacity="0"/></radialGradient></defs><ellipse class="fx-shadow" cx="100" cy="184" rx="58" ry="8" fill="#000" opacity=".2"/><circle class="fx-pulse" cx="100" cy="110" r="82" fill="url(#au-bj)"/><g class="monster-body fx-float"><g fill="url(#hn-bj)" stroke="#205615" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M68 72Q56 42 46 36Q76 38 90 64Z"/><path d="M132 72Q144 42 154 36Q124 38 110 64Z"/></g><g stroke="#fff" stroke-width="2.5" opacity=".55" fill="none" stroke-linecap="round"><path d="M66 66Q58 50 52 42"/><path d="M134 66Q142 50 148 42"/></g><path d="M44 170V100C44 62 70 48 100 48C130 48 156 62 156 100V170L138 156L120 170L100 156L80 170L62 156Z" fill="url(#bd-bj)" stroke="#205615" stroke-width="4" stroke-linejoin="round"/><g clip-path="url(#clip-bj)"><path d="M44 170V100C44 62 70 48 100 48C130 48 156 62 156 100V170L138 156L120 170L100 156L80 170L62 156Z" fill="url(#sh-bj)"/><ellipse cx="100" cy="164" rx="40" ry="11" fill="#99d98c" opacity=".3"/><path d="M44 170V100C44 62 70 48 100 48C130 48 156 62 156 100V170L138 156L120 170L100 156L80 170L62 156Z" fill="none" stroke="url(#rm-bj)" stroke-width="7"/><path d="M44 170V100C44 62 70 48 100 48C130 48 156 62 156 100V170L138 156L120 170L100 156L80 170L62 156Z" fill="none" stroke="#bfdbfe" stroke-width="3" opacity=".9"/><ellipse cx="76" cy="78" rx="30" ry="15" transform="rotate(-32 76 78)" fill="url(#gl-bj)"/><circle cx="62" cy="74" r="3.8" fill="#fff" opacity=".95"/><g class="fx-sweep" style="animation-duration:6s"><g transform="rotate(20 100 110)"><rect x="-40" y="0" width="24" height="220" fill="url(#sw-bj)"/></g></g></g><circle cx="60" cy="118" r="10" fill="url(#ch-bj)" opacity=".8"/><circle cx="140" cy="118" r="10" fill="url(#ch-bj)" opacity=".8"/><g class="eyes fx-blink"><circle cx="76" cy="98" r="13" fill="url(#sc-bj)" stroke="#2b1b3d" stroke-width="3"/><circle cx="124" cy="98" r="13" fill="url(#sc-bj)" stroke="#2b1b3d" stroke-width="3"/><circle cx="79" cy="100" r="6.5" fill="url(#pu-bj)"/><circle cx="121" cy="100" r="6.5" fill="url(#pu-bj)"/><circle cx="76.8" cy="97" r="2.6" fill="#fff"/><circle cx="118.8" cy="97" r="2.6" fill="#fff"/><circle cx="81.4" cy="102.6" r="1.2" fill="#fff" opacity=".8"/><circle cx="123.4" cy="102.6" r="1.2" fill="#fff" opacity=".8"/><path d="M56 76L92 90M144 76L108 90" stroke="#2b1b3d" stroke-width="7" stroke-linecap="round"/></g><rect x="78" y="126" width="44" height="24" rx="9" fill="url(#mo-bj)"/><g clip-path="url(#mc-bj)"><ellipse cx="100" cy="152" rx="15" ry="9" fill="#ff7a96"/><ellipse cx="100" cy="149" rx="9" ry="3" fill="#ffb3c4" opacity=".7"/></g><g fill="url(#te-bj)"><rect x="82" y="127" width="8" height="9" rx="2"/><rect x="92" y="127" width="8" height="9" rx="2"/><rect x="102" y="127" width="8" height="9" rx="2"/><rect x="110" y="127" width="8" height="9" rx="2"/></g><path d="M81 129h37" stroke="#fff" stroke-width="1.6" opacity=".55" stroke-linecap="round"/><g transform="translate(62 56) scale(0.8)"><path class="fx-twinkle" style="animation-delay:0s" fill="#bfdbfe" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(140 64) scale(0.6)"><path class="fx-twinkle" style="animation-delay:1.2s" fill="#bfdbfe" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g></g></symbol><symbol id="av-main" viewBox="0 0 200 200"><defs><clipPath id="bc-am"><rect width="200" height="200" rx="28"/></clipPath><linearGradient id="wz-am" x1="0" y1="0" x2="1" y2="0" ><stop offset="0" stop-color="#5B34C7"/><stop offset="0.45" stop-color="#9D7BFF"/><stop offset="1" stop-color="#4A27A8"/></linearGradient><linearGradient id="wb-am" x1="0" y1="0" x2="0" y2="1" ><stop offset="0" stop-color="#6B3FE0"/><stop offset="1" stop-color="#4222A0"/></linearGradient><linearGradient id="wg-am" x1="0" y1="0" x2="1" y2="1" ><stop offset="0" stop-color="#FFF3B0"/><stop offset="0.35" stop-color="#FBBF24"/><stop offset="0.7" stop-color="#D98A0B"/><stop offset="1" stop-color="#8A4B08"/></linearGradient><radialGradient id="wl-am" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#c4b5fd" stop-opacity="0.6"/><stop offset="1" stop-color="#c4b5fd" stop-opacity="0"/></radialGradient><linearGradient id="or-am" x1="0" y1="0" x2="1" y2="0" ><stop offset="0" stop-color="#5B34C7"/><stop offset="0.5" stop-color="#8F6BFF"/><stop offset="1" stop-color="#4A27A8"/></linearGradient><linearGradient id="org-am" x1="0" y1="0" x2="1" y2="1" ><stop offset="0" stop-color="#FFF3B0"/><stop offset="0.35" stop-color="#FBBF24"/><stop offset="0.7" stop-color="#D98A0B"/><stop offset="1" stop-color="#8A4B08"/></linearGradient><linearGradient id="orsh-am" x1="0" y1="0" x2="0" y2="1" ><stop offset="0.5" stop-color="#1a0a4a" stop-opacity="0"/><stop offset="1" stop-color="#1a0a4a" stop-opacity="0.35"/></linearGradient><linearGradient id="orsw-am" x1="0" y1="0" x2="1" y2="0" ><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="0.5" stop-color="#fff" stop-opacity="0.55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><clipPath id="orc-am"><path d="M66 126h68l8 56H58z"/></clipPath><linearGradient id="ws-am" x1="0" y1="0" x2="1" y2="1" ><stop offset="0" stop-color="#B8814A"/><stop offset="1" stop-color="#6B4220"/></linearGradient><linearGradient id="wg2-am" x1="0" y1="0" x2="1" y2="1" ><stop offset="0" stop-color="#FFF3B0"/><stop offset="0.35" stop-color="#FBBF24"/><stop offset="0.7" stop-color="#D98A0B"/><stop offset="1" stop-color="#8A4B08"/></linearGradient><radialGradient id="wgl-am" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fde68a" stop-opacity="0.9"/><stop offset="1" stop-color="#fde68a" stop-opacity="0"/></radialGradient><linearGradient id="fg-am" x1="0" y1="0" x2="1" y2="1" ><stop offset="0" stop-color="#FFF1A8"/><stop offset="0.3" stop-color="#FBBF24"/><stop offset="0.6" stop-color="#C27A07"/><stop offset="0.85" stop-color="#F5C84B"/><stop offset="1" stop-color="#8A4B08"/></linearGradient><radialGradient id="gr-am" cx=".5" cy=".5" r="0.75" fx="0.34" fy="0.28"><stop offset="0" stop-color="#ffc7c7"/><stop offset="0.45" stop-color="#EF4444"/><stop offset="1" stop-color="#7f1d1d"/></radialGradient><radialGradient id="gb-am" cx=".5" cy=".5" r="0.75" fx="0.34" fy="0.28"><stop offset="0" stop-color="#bfe3ff"/><stop offset="0.45" stop-color="#3B82F6"/><stop offset="1" stop-color="#1e3a8a"/></radialGradient><radialGradient id="gn-am" cx=".5" cy=".5" r="0.75" fx="0.34" fy="0.28"><stop offset="0" stop-color="#c8ffe6"/><stop offset="0.45" stop-color="#10B981"/><stop offset="1" stop-color="#064E3B"/></radialGradient><linearGradient id="bn-am" x1="0" y1="0" x2="0" y2="1" ><stop offset="0" stop-color="#5B49B0"/><stop offset="0.55" stop-color="#2A1F66"/><stop offset="1" stop-color="#120C34"/></linearGradient><radialGradient id="bnb-am" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#e879f9" stop-opacity="0.5"/><stop offset="1" stop-color="#e879f9" stop-opacity="0"/></radialGradient><radialGradient id="bnm-am" cx=".5" cy=".5" r="0.7" fx="0.35" fy="0.3"><stop offset="0" stop-color="#ffffff"/><stop offset="0.45" stop-color="#fff3c4"/><stop offset="1" stop-color="#e6c46a"/></radialGradient><radialGradient id="pp-am" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#a855f7" stop-opacity="0.55"/><stop offset="1" stop-color="#a855f7" stop-opacity="0"/></radialGradient><radialGradient id="sk-am" cx=".5" cy=".5" r="0.75" fx="0.34" fy="0.28"><stop offset="0" stop-color="#FFF3E2"/><stop offset="0.45" stop-color="#FFDDB8"/><stop offset="1" stop-color="#E7B488"/></radialGradient><radialGradient id="hr-am" cx=".5" cy=".5" r="0.75" fx="0.34" fy="0.28"><stop offset="0" stop-color="#9A6A3A"/><stop offset="0.45" stop-color="#6B3F1D"/><stop offset="1" stop-color="#3E2210"/></radialGradient><radialGradient id="tr-am" cx=".5" cy=".5" r="0.75" fx="0.34" fy="0.28"><stop offset="0" stop-color="#FFB777"/><stop offset="0.45" stop-color="#FF8A3D"/><stop offset="1" stop-color="#D96A1F"/></radialGradient><linearGradient id="hs-am" x1="0" y1="0" x2="0" y2="1" ><stop offset="0.55" stop-color="#7a3b10" stop-opacity="0"/><stop offset="1" stop-color="#7a3b10" stop-opacity="0.22"/></linearGradient><radialGradient id="ck-am" cx=".5" cy=".5" r="0.5" fx="0.5" fy="0.5"><stop offset="0" stop-color="#ffc2cf"/><stop offset="0.45" stop-color="#FF8FA3"/><stop offset="1" stop-color="#f0627f"/></radialGradient><radialGradient id="av-am" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#a855f7" stop-opacity="0.55"/><stop offset="1" stop-color="#a855f7" stop-opacity="0"/></radialGradient></defs><g clip-path="url(#bc-am)"><rect width="200" height="200" fill="url(#bn-am)"/><circle cx="140" cy="50" r="64" fill="url(#bnb-am)"/><circle cx="156" cy="40" r="15" fill="url(#bnm-am)"/><circle cx="162" cy="36" r="13" fill="#2f2478" opacity=".55"/><g transform="translate(24 30) scale(0.8)"><path class="fx-twinkle" style="animation-delay:0s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(60 18) scale(0.6)"><path class="fx-twinkle" style="animation-delay:0.8s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(92 46) scale(0.7)"><path class="fx-twinkle" style="animation-delay:1.6s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(40 70) scale(0.5)"><path class="fx-twinkle" style="animation-delay:2.2s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(170 80) scale(0.7)"><path class="fx-twinkle" style="animation-delay:0.4s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(130 20) scale(0.6)"><path class="fx-twinkle" style="animation-delay:1.2s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(20 104) scale(0.6)"><path class="fx-twinkle" style="animation-delay:1.9s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(182 116) scale(0.5)"><path class="fx-twinkle" style="animation-delay:2.6s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><circle class="fx-pulse" cx="100" cy="112" r="84" fill="url(#av-am)"/><ellipse cx="100" cy="190" rx="46" ry="7" fill="#000" opacity=".18"/><rect x="70" y="126" width="60" height="50" rx="14" fill="url(#tr-am)" stroke="#2B1B3D" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><path d="M66 126h68l8 56H58z" fill="url(#or-am)" stroke="#2B1B3D" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><path d="M66 126h68l8 56H58z" fill="url(#orsh-am)"/><path d="M100 126v56" stroke="#2B1B3D" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><path d="M60 176H140" stroke="url(#org-am)" stroke-width="4" stroke-linecap="round"/><g fill="url(#org-am)"><path d="M82 146l3 6 6 1-5 4 2 6-6-4-6 4 2-6-5-4 6-1z"/><path d="M122 164l2 4 4 1-3 3 1 4-4-2-4 2 1-4-3-3 4-1z"/></g><g clip-path="url(#orc-am)"><g class="fx-sweep" style="animation-duration:5.5s"><g transform="rotate(20 100 150)"><rect x="-20" y="90" width="16" height="120" fill="url(#orsw-am)"/></g></g></g><ellipse cx="62" cy="144" rx="9" ry="16" fill="url(#sk-am)" stroke="#2B1B3D" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="138" cy="144" rx="9" ry="16" fill="url(#sk-am)" stroke="#2B1B3D" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="59" cy="138" rx="2.6" ry="6" fill="#fff" opacity=".4"/><ellipse cx="135" cy="138" rx="2.6" ry="6" fill="#fff" opacity=".4"/><circle cx="100" cy="90" r="36" fill="url(#sk-am)" stroke="#2B1B3D" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="100" cy="90" r="36" fill="url(#hs-am)"/><path d="M64 84Q66 52 100 52Q134 52 136 84Q120 66 100 70Q80 66 64 84Z" fill="url(#hr-am)" stroke="#2B1B3D" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><path d="M74 66Q84 56 98 55" stroke="#fff" stroke-width="4" opacity=".45" fill="none" stroke-linecap="round"/><ellipse cx="80" cy="82" rx="7" ry="3.2" transform="rotate(-18 80 82)" fill="#fff" opacity=".35"/><g fill="#2B1B3D"><circle cx="86" cy="94" r="4.8"/><circle cx="114" cy="94" r="4.8"/></g><g fill="#fff"><circle cx="87.6" cy="92.3" r="1.7"/><circle cx="115.6" cy="92.3" r="1.7"/><circle cx="84.8" cy="96" r=".8" opacity=".7"/><circle cx="112.8" cy="96" r=".8" opacity=".7"/></g><path d="M90 106Q100 116 110 106" stroke="#2B1B3D" stroke-width="4" fill="none" stroke-linecap="round"/><g fill="url(#ck-am)" opacity=".7"><circle cx="76" cy="104" r="6"/><circle cx="124" cy="104" r="6"/></g><circle class="fx-pulse" cx="100" cy="30" r="26" fill="url(#wl-am)"/><path d="M62 68L100 6L138 68Z" fill="url(#wz-am)" stroke="#2B1B3D" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="100" cy="68" rx="46" ry="9" fill="url(#wb-am)" stroke="#2B1B3D" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><path d="M68 61Q100 53 132 61" stroke="url(#wg-am)" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M86 52L98 16" stroke="#fff" stroke-width="3" opacity=".4" fill="none" stroke-linecap="round"/><path d="M98 30l3 6 6 1-5 4 2 6-6-4-6 4 2-6-5-4 6-1z" fill="url(#wg-am)"/><g transform="translate(80 38) scale(0.8)"><path class="fx-twinkle" style="animation-delay:0.2s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(120 52) scale(0.7)"><path class="fx-twinkle" style="animation-delay:1s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(104 8) scale(1)"><path class="fx-twinkle" style="animation-delay:0.6s" fill="#fff6c9" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><circle class="fx-pulse" cx="172" cy="102" r="20" fill="url(#wgl-am)"/><path d="M148 160L172 104" stroke="#2B1B3D" stroke-width="10" stroke-linecap="round" opacity=".3"/><path d="M148 160L172 104" stroke="url(#ws-am)" stroke-width="7" stroke-linecap="round"/><path d="M147 157L170 104" stroke="#fff" stroke-width="1.8" opacity=".45" stroke-linecap="round"/><path d="M172 90l4 8 9 1-7 6 2 9-8-5-8 5 2-9-7-6 9-1z" fill="url(#wg2-am)" stroke="#2B1B3D" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><path d="M172 94l1.8 4.4" stroke="#fff" stroke-width="2" opacity=".8" stroke-linecap="round"/><g transform="translate(188 84) scale(0.9)"><path class="fx-twinkle" style="animation-delay:0.2s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(156 92) scale(0.7)"><path class="fx-twinkle" style="animation-delay:1s" fill="#fff6c9" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><ellipse cx="32" cy="182" rx="28" ry="6.5" fill="url(#pp-am)"/><image class="fx-float-sm" href="https://cdn.jsdelivr.net/npm/@twemoji/svg@latest/1f989.svg" x="8" y="136" width="48" height="48"/><circle class="fx-rise" style="animation-delay:0.0s" cx="34" cy="120" r="2.6" fill="#e9d5ff"/><circle class="fx-rise" style="animation-delay:0.7s" cx="160" cy="130" r="2" fill="#e9d5ff"/><circle class="fx-rise" style="animation-delay:1.4s" cx="78" cy="150" r="2.6" fill="#e9d5ff"/><circle class="fx-rise" style="animation-delay:2.0999999999999996s" cx="126" cy="160" r="2" fill="#e9d5ff"/><circle class="fx-rise" style="animation-delay:2.8s" cx="172" cy="96" r="2.6" fill="#e9d5ff"/></g><rect x="4" y="4" width="192" height="192" rx="26" fill="none" stroke="url(#fg-am)" stroke-width="8"/><rect x="8" y="8" width="184" height="184" rx="22" fill="none" stroke="#FFF3B0" stroke-width="2.4"/><rect x="1.5" y="1.5" width="197" height="197" rx="28" fill="none" stroke="#7a4a05" stroke-width="1.2" opacity=".6"/><circle class="fx-gem" cx="100" cy="10" r="6.5" fill="url(#gr-am)" stroke="#78350F" stroke-width="2"/><circle cx="98.2" cy="8" r="1.7" fill="#fff"/><circle class="fx-gem" cx="10" cy="100" r="6.5" fill="url(#gb-am)" stroke="#1E3A8A" stroke-width="2"/><circle cx="8.2" cy="98" r="1.7" fill="#fff"/><circle class="fx-gem" cx="190" cy="100" r="6.5" fill="url(#gb-am)" stroke="#1E3A8A" stroke-width="2"/><circle cx="188.2" cy="98" r="1.7" fill="#fff"/><circle class="fx-gem" cx="100" cy="190" r="6.5" fill="url(#gn-am)" stroke="#064E3B" stroke-width="2"/><circle cx="98.2" cy="188" r="1.7" fill="#fff"/><rect class="fx-run" x="4" y="4" width="192" height="192" rx="26" pathLength="1000" fill="none" stroke="#fff" stroke-width="5" stroke-dasharray="70 430" stroke-linecap="round" opacity=".85"/><g transform="translate(18 18) scale(0.9)"><path class="fx-twinkle" style="animation-delay:0s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(182 182) scale(0.9)"><path class="fx-twinkle" style="animation-delay:1.2s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g></symbol><symbol id="av-rival" viewBox="0 0 200 200"><defs><clipPath id="bc-ar"><rect width="200" height="200" rx="28"/></clipPath><linearGradient id="km-ar" x1="0" y1="0" x2="1" y2="0" ><stop offset="0" stop-color="#5E6A7C"/><stop offset="0.3" stop-color="#F1F5FA"/><stop offset="0.55" stop-color="#AEB8C6"/><stop offset="1" stop-color="#6A7587"/></linearGradient><radialGradient id="kp-ar" cx=".5" cy=".5" r="0.8" fx="0.35" fy="0.3"><stop offset="0" stop-color="#ff9a9f"/><stop offset="0.45" stop-color="#E5484D"/><stop offset="1" stop-color="#8f1d22"/></radialGradient><linearGradient id="ksw-ar" x1="0" y1="0" x2="1" y2="0" ><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="0.5" stop-color="#fff" stop-opacity="0.85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><clipPath id="kc-ar"><path d="M64 84V62Q64 34 100 34Q136 34 136 62V84H120V70H80V84Z"/></clipPath><linearGradient id="oc-ar" x1="0" y1="0" x2="0" y2="1" ><stop offset="0" stop-color="#FFE07A"/><stop offset="0.5" stop-color="#FFC83D"/><stop offset="1" stop-color="#D9981A"/></linearGradient><linearGradient id="oe-ar" x1="0" y1="0" x2="0" y2="1" ><stop offset="0" stop-color="#FF7A7F"/><stop offset="1" stop-color="#B72A31"/></linearGradient><linearGradient id="ob-ar" x1="0" y1="0" x2="0" y2="1" ><stop offset="0" stop-color="#F26A70"/><stop offset="1" stop-color="#9B1F27"/></linearGradient><radialGradient id="og-ar" cx=".5" cy=".5" r="0.75" fx="0.34" fy="0.28"><stop offset="0" stop-color="#fff"/><stop offset="0.45" stop-color="#e8edf5"/><stop offset="1" stop-color="#aab4c4"/></radialGradient><linearGradient id="sb-ar" x1="0" y1="0" x2="1" y2="0" ><stop offset="0" stop-color="#8F9BAD"/><stop offset="0.5" stop-color="#F6F9FD"/><stop offset="1" stop-color="#9AA6B8"/></linearGradient><linearGradient id="sg-ar" x1="0" y1="0" x2="1" y2="1" ><stop offset="0" stop-color="#FFF3B0"/><stop offset="0.35" stop-color="#FBBF24"/><stop offset="0.7" stop-color="#D98A0B"/><stop offset="1" stop-color="#8A4B08"/></linearGradient><radialGradient id="sgm-ar" cx=".5" cy=".5" r="0.75" fx="0.34" fy="0.28"><stop offset="0" stop-color="#bfe3ff"/><stop offset="0.45" stop-color="#3b82f6"/><stop offset="1" stop-color="#1e3a8a"/></radialGradient><linearGradient id="fs-ar" x1="0" y1="0" x2="1" y2="1" ><stop offset="0" stop-color="#64748B"/><stop offset="0.28" stop-color="#F8FAFC"/><stop offset="0.55" stop-color="#94A3B8"/><stop offset="0.8" stop-color="#E2E8F0"/><stop offset="1" stop-color="#475569"/></linearGradient><linearGradient id="fsc-ar" x1="0" y1="0" x2="1" y2="1" ><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#94A3B8"/></linearGradient><linearGradient id="bs-ar" x1="0" y1="0" x2="0" y2="1" ><stop offset="0" stop-color="#FFE58A"/><stop offset="0.45" stop-color="#FFA07A"/><stop offset="1" stop-color="#FF6F91"/></linearGradient><radialGradient id="bsg-ar" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff1b0" stop-opacity="0.95"/><stop offset="1" stop-color="#fff1b0" stop-opacity="0"/></radialGradient><radialGradient id="bss-ar" cx=".5" cy=".5" r="0.6" fx="0.4" fy="0.35"><stop offset="0" stop-color="#FFFBE0"/><stop offset="0.45" stop-color="#FFE27A"/><stop offset="1" stop-color="#FFB347"/></radialGradient><radialGradient id="pp-ar" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#3b82f6" stop-opacity="0.55"/><stop offset="1" stop-color="#3b82f6" stop-opacity="0"/></radialGradient><radialGradient id="sk-ar" cx=".5" cy=".5" r="0.75" fx="0.34" fy="0.28"><stop offset="0" stop-color="#FFF3E2"/><stop offset="0.45" stop-color="#FFDDB8"/><stop offset="1" stop-color="#E7B488"/></radialGradient><radialGradient id="hr-ar" cx=".5" cy=".5" r="0.75" fx="0.34" fy="0.28"><stop offset="0" stop-color="#9A6A3A"/><stop offset="0.45" stop-color="#6B3F1D"/><stop offset="1" stop-color="#3E2210"/></radialGradient><radialGradient id="tr-ar" cx=".5" cy=".5" r="0.75" fx="0.34" fy="0.28"><stop offset="0" stop-color="#FFB777"/><stop offset="0.45" stop-color="#FF8A3D"/><stop offset="1" stop-color="#D96A1F"/></radialGradient><linearGradient id="hs-ar" x1="0" y1="0" x2="0" y2="1" ><stop offset="0.55" stop-color="#7a3b10" stop-opacity="0"/><stop offset="1" stop-color="#7a3b10" stop-opacity="0.22"/></linearGradient><radialGradient id="ck-ar" cx=".5" cy=".5" r="0.5" fx="0.5" fy="0.5"><stop offset="0" stop-color="#ffc2cf"/><stop offset="0.45" stop-color="#FF8FA3"/><stop offset="1" stop-color="#f0627f"/></radialGradient></defs><g clip-path="url(#bc-ar)"><rect width="200" height="200" fill="url(#bs-ar)"/><circle cx="100" cy="150" r="70" fill="url(#bsg-ar)"/><circle cx="100" cy="146" r="26" fill="url(#bss-ar)"/><g fill="#fff" opacity=".35"><ellipse cx="46" cy="60" rx="38" ry="5"/><ellipse cx="150" cy="82" rx="34" ry="4.5"/><ellipse cx="120" cy="44" rx="26" ry="3.5"/></g><path d="M0 168Q50 156 100 166T200 160V200H0Z" fill="#ff5f87" opacity=".55"/><path d="M0 182Q60 172 110 181T200 176V200H0Z" fill="#c93a73" opacity=".6"/><path d="M64 124Q40 170 56 188H144Q160 170 136 124Z" fill="url(#ob-ar)" stroke="#2B1B3D" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><path d="M80 130Q70 164 78 186M120 130Q130 164 122 186" stroke="#7a1218" stroke-width="2.5" opacity=".45" fill="none" stroke-linecap="round"/><ellipse cx="100" cy="190" rx="46" ry="7" fill="#000" opacity=".18"/><rect x="70" y="126" width="60" height="50" rx="14" fill="url(#tr-ar)" stroke="#2B1B3D" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><rect x="70" y="126" width="60" height="50" rx="14" fill="url(#oc-ar)" stroke="#2B1B3D" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><path d="M72 128Q100 146 128 128" fill="url(#oe-ar)" stroke="#2B1B3D" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="100" cy="140" r="5.5" fill="url(#og-ar)" stroke="#2B1B3D" stroke-width="3"/><circle cx="98.5" cy="138.5" r="1.6" fill="#fff"/><path d="M76 134Q84 130 92 132" stroke="#fff" stroke-width="3" opacity=".5" fill="none" stroke-linecap="round"/><ellipse cx="62" cy="144" rx="9" ry="16" fill="url(#sk-ar)" stroke="#2B1B3D" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="138" cy="144" rx="9" ry="16" fill="url(#sk-ar)" stroke="#2B1B3D" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="59" cy="138" rx="2.6" ry="6" fill="#fff" opacity=".4"/><ellipse cx="135" cy="138" rx="2.6" ry="6" fill="#fff" opacity=".4"/><circle cx="100" cy="90" r="36" fill="url(#sk-ar)" stroke="#2B1B3D" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="100" cy="90" r="36" fill="url(#hs-ar)"/><path d="M64 84Q66 52 100 52Q134 52 136 84Q120 66 100 70Q80 66 64 84Z" fill="url(#hr-ar)" stroke="#2B1B3D" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><path d="M74 66Q84 56 98 55" stroke="#fff" stroke-width="4" opacity=".45" fill="none" stroke-linecap="round"/><ellipse cx="80" cy="82" rx="7" ry="3.2" transform="rotate(-18 80 82)" fill="#fff" opacity=".35"/><g fill="#2B1B3D"><circle cx="86" cy="94" r="4.8"/><circle cx="114" cy="94" r="4.8"/></g><g fill="#fff"><circle cx="87.6" cy="92.3" r="1.7"/><circle cx="115.6" cy="92.3" r="1.7"/><circle cx="84.8" cy="96" r=".8" opacity=".7"/><circle cx="112.8" cy="96" r=".8" opacity=".7"/></g><path d="M90 106Q100 116 110 106" stroke="#2B1B3D" stroke-width="4" fill="none" stroke-linecap="round"/><g fill="url(#ck-ar)" opacity=".7"><circle cx="76" cy="104" r="6"/><circle cx="124" cy="104" r="6"/></g><path d="M100 34V14" stroke="#2B1B3D" stroke-width="12" stroke-linecap="round"/><path d="M100 34V14" stroke="url(#kp-ar)" stroke-width="8" stroke-linecap="round"/><path d="M98 30V18" stroke="#fff" stroke-width="2" opacity=".6" stroke-linecap="round"/><path d="M64 84V62Q64 34 100 34Q136 34 136 62V84H120V70H80V84Z" fill="url(#km-ar)" stroke="#2B1B3D" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><path d="M80 70h40" stroke="#2B1B3D" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><path d="M72 58Q76 42 92 38" stroke="#fff" stroke-width="3" opacity=".65" fill="none" stroke-linecap="round"/><g clip-path="url(#kc-ar)"><g class="fx-sweep" style="animation-duration:5s"><g transform="rotate(20 100 60)"><rect x="-10" y="20" width="14" height="90" fill="url(#ksw-ar)"/></g></g></g><polygon points="145.7,148.6 154.3,151.4 171.7,91.7 170.5,82 167.7,90.3" fill="url(#sb-ar)" stroke="#2B1B3D" stroke-width="3" stroke-linejoin="round"/><path d="M150 149L169.6 90" stroke="#fff" stroke-width="1.6" opacity=".8" stroke-linecap="round"/><path d="M141 146l20 9" stroke="#2B1B3D" stroke-width="11" stroke-linecap="round"/><path d="M141 146l20 9" stroke="url(#sg-ar)" stroke-width="7" stroke-linecap="round"/><circle cx="151" cy="150.5" r="3" fill="url(#sgm-ar)" stroke="#1e3a8a" stroke-width="1"/><circle cx="150" cy="149.5" r=".9" fill="#fff"/><g transform="translate(170 84) scale(1.1)"><path class="fx-glint" style="animation-delay:0s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><ellipse cx="32" cy="182" rx="28" ry="6.5" fill="url(#pp-ar)"/><image class="" href="https://cdn.jsdelivr.net/npm/@twemoji/svg@latest/1f98a.svg" x="8" y="136" width="48" height="48"/></g><rect x="4" y="4" width="192" height="192" rx="26" fill="none" stroke="url(#fs-ar)" stroke-width="8"/><rect x="8" y="8" width="184" height="184" rx="22" fill="none" stroke="#F1F5F9" stroke-width="2.4"/><g fill="url(#fsc-ar)" stroke="#64748B" stroke-width="1"><polygon points="4,24 24,4 4,4"/><polygon points="196,24 176,4 196,4"/><polygon points="4,176 24,196 4,196"/><polygon points="196,176 176,196 196,196"/></g><rect class="fx-run" x="4" y="4" width="192" height="192" rx="26" pathLength="1000" fill="none" stroke="#fff" stroke-width="5" stroke-dasharray="60 940" stroke-linecap="round" opacity=".9"/></symbol><symbol id="chest" viewBox="0 0 200 200"><defs>
+<linearGradient id="ch-w" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C98A4A"/><stop offset="1" stop-color="#6B4220"/></linearGradient>
+<linearGradient id="ch-l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E0A25E"/><stop offset="1" stop-color="#9A6330"/></linearGradient>
+<linearGradient id="ch-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFF3B0"/><stop offset=".4" stop-color="#FBBF24"/><stop offset="1" stop-color="#B45309"/></linearGradient>
+<radialGradient id="ch-glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fde68a" stop-opacity=".95"/><stop offset="1" stop-color="#fde68a" stop-opacity="0"/></radialGradient>
+</defs>
+<circle class="fx-pulse" cx="100" cy="92" r="84" fill="url(#ch-glow)"/>
+<polygon points="70,92 130,92 156,24 44,24" fill="#fff6c0" opacity=".45"/>
+<ellipse cx="100" cy="176" rx="64" ry="8" fill="#000" opacity=".25"/>
+<rect x="38" y="98" width="124" height="72" rx="10" fill="url(#ch-w)" stroke="#2B1B3D" stroke-width="4"/>
+<path d="M38 98Q38 62 100 62Q162 62 162 98Z" fill="url(#ch-l)" stroke="#2B1B3D" stroke-width="4" stroke-linejoin="round"/>
+<rect x="84" y="62" width="32" height="108" fill="url(#ch-g)" stroke="#2B1B3D" stroke-width="3"/>
+<rect x="38" y="120" width="124" height="10" fill="url(#ch-g)" opacity=".9"/>
+<rect x="90" y="104" width="20" height="24" rx="5" fill="url(#ch-g)" stroke="#2B1B3D" stroke-width="3"/><circle cx="100" cy="115" r="3.4" fill="#2B1B3D"/>
+<path d="M52 80Q70 66 96 66" stroke="#fff" stroke-width="4" opacity=".5" fill="none" stroke-linecap="round"/>
+<path d="M46 108h22" stroke="#fff" stroke-width="3" opacity=".35" stroke-linecap="round"/><g transform="translate(60 40) scale(1.4)"><path class="fx-twinkle" style="animation-delay:0s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(146 52) scale(1.1)"><path class="fx-twinkle" style="animation-delay:0.8s" fill="#fff6c9" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g><g transform="translate(100 20) scale(1.6)"><path class="fx-twinkle" style="animation-delay:1.5s" fill="#fff" d="M0 -7Q1 -1 7 0Q1 1 0 7Q-1 1 -7 0Q-1 -1 0 -7Z"/></g></symbol></defs></svg><div id="app" class="d-play"></div><div id="toast" role="status"></div></div>
+<script>/* =====================================================================
+   mock-data.js — HANYA UNTUK MOCKUP. Di game asli diganti oleh Player.data (API),
+   Monsters.renderMonster() dan renderAvatar() dari shared/*.js.
+   ===================================================================== */
+const Player = {
+  data: { name: 'Bayu Pratama', cls: 'Kelas 5 SD', lv: 6, xp: 78, coins: 1450, gems: 12, en: 3, enMax: 5,
+          title: 'Ksatria Bintang Penjelajah' }
+};
+
+/* ---------- Monster mini (mode "lite": gradien statis, tanpa animasi) ---------- */
+const HABITATS = [
+  ['Hutan', '🌿', 118], ['Rawa', '🐸', 72], ['Gua Kristal', '💎', 262], ['Api', '🔥', 12], ['Air', '💧', 200],
+  ['Salju', '❄️', 190], ['Petir', '⚡', 48], ['Gurun', '🏜️', 34], ['Langit', '☁️', 215], ['Manis', '🍬', 345]
+];
+const hsl = (h, s, l) => `hsl(${h % 360} ${s}% ${l}%)`;
+const SYL_A = ['Lu', 'Ja', 'Sli', 'Ka', 'Wa', 'Gu', 'Be', 'Mo', 'Ra', 'Tu'];
+const SYL_B = ['mutra', 'murgon', 'mbul', 'rakon', 'felor', 'lalon', 'llybon', 'ndrok', 'zilla', 'pix'];
+const BODIES = ['round', 'egg', 'ghost'];
+const DEX = Array.from({ length: 100 }, (_, i) => {
+  const id = i + 1, d = id % 10;
+  return {
+    id, hab: Math.floor(i / 10),
+    name: SYL_A[(i * 7 + 3) % 10] + SYL_B[(i * 3 + Math.floor(i / 10)) % 10],
+    tier: d === 0 || d === 1 ? 'legend' : d >= 8 ? 'epic' : d >= 5 ? 'rare' : 'common',
+    body: BODIES[(i * 5) % 3], eyes: ['angry', 'sleepy', 'two'][(i * 2) % 3],
+    wins: id <= 24 ? (id % 5) + 1 : 0, stars: id <= 24 ? 1 + (id % 3) : 0, open: id <= 24
+  };
+});
+DEX[0].name = 'Lumutra'; DEX[1].name = 'Ranting Berduri'; DEX[10].name = 'Slimbul'; DEX[97].name = 'Jellybon'; DEX[98].name = 'Wafelor'; DEX[99].name = 'Gulalon';
+
+function miniMonster(m) {
+  const h = HABITATS[m.hab][2], c = hsl(h, 68, 56), dk = hsl(h, 72, 30), lt = hsl(h, 60, 80);
+  const tc = { rare: '#3b82f6', epic: '#a855f7', legend: '#f59e0b' }[m.tier];
+  const shape = {
+    round: a => `<circle cx="100" cy="112" r="58" ${a}/>`,
+    egg: a => `<ellipse cx="100" cy="112" rx="50" ry="64" ${a}/>`,
+    ghost: a => `<path d="M44 170V100C44 62 70 48 100 48C130 48 156 62 156 100V170L138 156L120 170L100 156L80 170L62 156Z" ${a}/>`
+  }[m.body];
+  const eyes = { angry: '<path d="M56 78L92 92M144 78L108 92" stroke="#2b1b3d" stroke-width="7" stroke-linecap="round"/><circle cx="76" cy="100" r="12" fill="#fff"/><circle cx="124" cy="100" r="12" fill="#fff"/><circle cx="78" cy="102" r="6" fill="#2b1b3d"/><circle cx="122" cy="102" r="6" fill="#2b1b3d"/>',
+    sleepy: '<path d="M60 100Q76 114 92 100M108 100Q124 114 140 100" stroke="#2b1b3d" stroke-width="7" fill="none" stroke-linecap="round"/>',
+    two: '<circle cx="76" cy="100" r="13" fill="#fff"/><circle cx="124" cy="100" r="13" fill="#fff"/><circle cx="78" cy="102" r="6.5" fill="#2b1b3d"/><circle cx="122" cy="102" r="6.5" fill="#2b1b3d"/>' }[m.eyes];
+  const aura = tc ? `<circle cx="100" cy="110" r="90" fill="${tc}" opacity=".28"/>` : '';
+  const crown = m.tier === 'legend' ? '<polygon points="82,34 76,12 90,22 100,6 110,22 124,12 118,34" fill="#fbbf24" stroke="#78350f" stroke-width="3" stroke-linejoin="round"/>' : '';
+  return `<svg viewBox="0 0 200 200" aria-label="${m.name}"><defs><radialGradient id="mg${m.id}" cx=".5" cy=".5" r=".75" fx=".34" fy=".28"><stop offset="0" stop-color="${lt}"/><stop offset=".45" stop-color="${c}"/><stop offset="1" stop-color="${dk}"/></radialGradient></defs>
+    ${aura}<path d="M66 70Q56 42 46 36Q76 38 90 64Z M134 70Q144 42 154 36Q124 38 110 64Z" fill="${hsl(h + 150, 80, 60)}" stroke="${dk}" stroke-width="4"/>
+    ${shape(`fill="url(#mg${m.id})" stroke="${dk}" stroke-width="5"`)}${eyes}
+    <rect x="80" y="128" width="40" height="18" rx="8" fill="#3b1020"/><ellipse cx="62" cy="76" rx="22" ry="11" transform="rotate(-30 62 76)" fill="#fff" opacity=".35"/>${crown}</svg>`;
+}
+
+/* ---------- Data lemari (nama dari dokumen skin) ---------- */
+const WARDROBE = {
+  hat: [['hat_explorer', '🎩', 'Topi Penjelajah', 'common', 1], ['hat_headphones', '🎧', 'Headphone Keren', 'common', 1], ['hat_chef', '👨‍🍳', 'Topi Koki', 'common', 1],
+        ['hat_pirate', '🏴‍☠️', 'Topi Bajak Laut', 'rare', 1], ['hat_knight', '🪖', 'Helm Ksatria', 'rare', 1], ['hat_bunny', '🐰', 'Telinga Kelinci', 'rare', 0],
+        ['hat_wizard', '🧙', 'Topi Penyihir', 'epic', 2], ['hat_crown', '👑', 'Mahkota Emas', 'legend', 0]],
+  outfit: [['outfit_vest', '🦺', 'Rompi Rimba', 'common', 1], ['outfit_stripes', '👕', 'Kaos Belang', 'common', 1], ['outfit_labcoat', '🥼', 'Jas Ilmuwan', 'common', 1],
+           ['outfit_cape', '🦸', 'Jubah Pahlawan', 'rare', 1], ['outfit_armor', '🛡️', 'Zirah Baja', 'epic', 0], ['outfit_robe', '🔮', 'Jubah Bintang', 'epic', 2]],
+  weapon: [['weapon_book', '📕', 'Buku Ajaib', 'common', 1], ['weapon_telescope', '🔭', 'Teropong Bintang', 'common', 1], ['weapon_sword', '🗡️', 'Pedang Perak', 'rare', 1],
+           ['weapon_shield', '🛡️', 'Perisai Biru', 'rare', 0], ['weapon_wand', '🪄', 'Tongkat Bintang', 'epic', 2]],
+  pet: [['pet_cat', '🐱', 'Kucing Oren', 'common', 1], ['pet_dog', '🐶', 'Anjing Ceria', 'common', 1], ['pet_penguin', '🐧', 'Pinguin Lucu', 'rare', 1],
+        ['pet_fox', '🦊', 'Rubah Cerdik', 'rare', 0], ['pet_owl', '🦉', 'Burung Hantu Bijak', 'epic', 2], ['pet_dragon', '🐲', 'Naga Mungil', 'legend', 0]],
+  frame: [['frame_wood', '🟫', 'Bingkai Kayu', 'common', 1], ['frame_leaf', '🍃', 'Bingkai Daun', 'common', 1], ['frame_silver', '⬜', 'Perak Bersinar', 'rare', 1],
+          ['frame_flame', '🔥', 'Api Berkobar', 'rare', 0], ['frame_gold', '🟨', 'Emas Kerajaan', 'epic', 2], ['frame_rainbow', '🌈', 'Pelangi Ajaib', 'legend', 0]],
+  bg: [['bg_meadow', '🌄', 'Padang Rumput', 'common', 1], ['bg_sky', '🌤️', 'Langit Cerah', 'common', 1], ['bg_sunset', '🌇', 'Senja Hangat', 'rare', 1],
+       ['bg_candy', '🍭', 'Negeri Permen', 'rare', 0], ['bg_cave', '🕳️', 'Gua Misterius', 'epic', 0], ['bg_night', '🌌', 'Malam Berbintang', 'epic', 2]],
+  title: [['t1', '🎖️', 'Pemula Cerdas', 'common', 1], ['t2', '🎖️', 'Penjelajah Rimba', 'common', 1], ['t3', '🎖️', 'Penakluk Hutan', 'rare', 1],
+          ['t4', '🎖️', 'Ksatria Bintang', 'epic', 2], ['t5', '🎖️', 'Pemburu Naga', 'epic', 0], ['t6', '🎖️', 'Raja Kosmik', 'legend', 0]]
+};   // status: 0 terkunci, 1 dimiliki, 2 terpasang
+const CATS = [['hat', '🧢', 'Topi'], ['outfit', '👕', 'Baju'], ['weapon', '⚔️', 'Senjata'], ['pet', '🐾', 'Pet'], ['frame', '🖼️', 'Bingkai'], ['bg', '🌄', 'Latar'], ['title', '🎖️', 'Gelar']];
+const RARLBL = { common: 'Common', rare: 'Rare', epic: 'Epic', legend: 'Legend' };
+
+/* =====================================================================
+   public/js/desktop/core.js — Deteksi mode, shell (top bar + rail), router, shortcut, UI kit
+   ===================================================================== */
+
+/* ---------- 1. Deteksi & pemilih mode UI ---------- */
+const UIMode = {
+  MIN_W: 1280, MIN_H: 720,
+  pref() { try { return localStorage.getItem('ui_mode') || 'auto'; } catch { return 'auto'; } },
+  setPref(v) { try { localStorage.setItem('ui_mode', v); } catch {} this.apply(true); },
+  detect() {
+    const fine = matchMedia('(pointer:fine)').matches && matchMedia('(hover:hover)').matches;
+    const w = innerWidth, h = innerHeight;
+    return (w >= this.MIN_W && h >= this.MIN_H && w / h >= 1.25 && fine) ? 'desktop' : 'mobile';
+  },
+  current() { const p = this.pref(); return p === 'auto' ? this.detect() : p; },
+  apply(force) {
+    const m = this.current();
+    if (m === this._m && !force) return m;
+    this._m = m;
+    document.documentElement.dataset.ui = m;
+    $('#css-mobile') && ($('#css-mobile').disabled = m !== 'mobile');
+    $('#css-desktop') && ($('#css-desktop').disabled = m !== 'desktop');
+    if (window.Screens && Screens.current) go(Screens.current, Screens._params || {});
+    return m;
+  },
+  init() {
+    let t; addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => this.apply(), 150); });
+    this.apply(true);
+  }
+};
+
+/* ---------- 2. Helper kecil ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const sv = (sym, cls = '') => `<svg class="sv ${cls}" viewBox="0 0 200 200" aria-hidden="true"><use href="#${sym}"/></svg>`;
+const bar = (pct, cls = '', label = '') => `<div class="bar ${cls}"><i style="width:${pct}%"></i>${label ? `<span class="t">${label}</span>` : ''}</div>`;
+const panel = (title, body, cls = '', more = '', go_ = '') =>
+  `<section class="panel ${cls} ${go_ ? 'link' : ''}" ${go_ ? `data-go="${go_}"` : ''}>${title ? `<h3><span>${title}</span>${more ? `<span class="more">${more}</span>` : ''}</h3>` : ''}${body}</section>`;
+
+function toast(msg, ms = 2200) {
+  const el = $('#toast'); if (!el) return;
+  el.textContent = msg; el.className = 'show';
+  clearTimeout(el._t); el._t = setTimeout(() => (el.className = ''), ms);
+}
+const Modal = {
+  open(title, html) {
+    this.close();
+    const o = document.createElement('div');
+    o.className = 'modal-overlay'; o.id = 'common-modal';
+    o.innerHTML = `<div class="modal-card" role="dialog" aria-modal="true"><h3><span>${title}</span><button class="icon-btn" data-close>✕</button></h3>${html}</div>`;
+    o.addEventListener('click', e => { if (e.target === o || e.target.closest('[data-close]')) this.close(); });
+    (document.getElementById('fit') || document.body).appendChild(o);
+  },
+  close() { $('#common-modal')?.remove(); }
+};
+
+/* ---------- 3. Papan pintas keyboard ---------- */
+const Keys = {
+  scope: {},
+  global: {},
+  set(map) { this.scope = map || {}; },
+  init() {
+    addEventListener('keydown', e => {
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      const typing = /INPUT|TEXTAREA|SELECT/.test(e.target.tagName);
+      const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+      if (typing && k !== 'Escape' && k !== 'Enter') return;
+      const fn = this.scope[k] || (!this.scope.__noGlobal && this.global[k]);
+      if (fn) { e.preventDefault(); fn(e); }
+    });
+  }
+};
+
+/* ---------- 4. Shell desktop ---------- */
+const NAV = [
+  ['home', '🏠', 'Beranda', '1'], ['peta', '🗺️', 'Petualangan', '2'], ['latihan', '📚', 'Latihan', '3'],
+  ['duel', '👥', 'Duel', '4'], ['skill', '⚡', 'Skill', '5'], ['wardrobe', '🎒', 'Lemari', '6'],
+  ['shop', '🛒', 'Toko', '7'], ['dex', '📖', 'Monsterdex', '8'], ['profil', '👤', 'Profil', '9'],
+  ['report', '📊', 'Laporan', '0'], ['settings', '⚙️', 'Atur', '-']
+];
+const TITLES = { home: 'Beranda', peta: 'Peta Petualangan', latihan: 'Latihan Bebas', duel: 'Arena Duel', skill: 'Skill RPG', wardrobe: 'Lemari Kostum', shop: 'Toko & Gacha', dex: 'Monster Dex', profil: 'Profil Petualang', report: 'Laporan Mingguan', settings: 'Pengaturan' };
+const FOCUS = new Set(['auth', 'battle', 'duel', 'result']);   // layar tanpa top bar & rail
+
+const DesktopShell = {
+  topbar(P) {
+    return `
+    <header class="d-top">
+      <div class="d-logo"><div class="lg">${sv('boss-hero')}</div><div><b>Petualangan Pelajar</b><small>Desktop</small></div></div>
+      <div class="d-crumb" id="crumb"></div>
+      <div class="sp"></div>
+      <span class="pill" title="Energi">⚡ ${P.en}/${P.enMax}</span>
+      <span class="pill" title="Koin">🪙 ${P.coins.toLocaleString('id-ID')}</span>
+      <span class="pill" title="Permata">💎 ${P.gems}</span>
+      <button class="icon-btn" data-act="sfx" title="Efek suara">🔊</button>
+      <button class="icon-btn" data-act="keys" title="Papan pintas (?)">⌨️</button>
+      <div class="me-chip link" data-go="profil" style="cursor:pointer">
+        <div class="av">${sv('av-main')}</div>
+        <div><b>${P.name}</b><small class="muted" style="font-size:.7rem;font-weight:700">Lv ${P.lv} · ${P.cls}</small>${bar(P.xp, 'xp')}</div>
+      </div>
+    </header>`;
+  },
+  rail(active) {
+    return `<nav class="d-rail" aria-label="Navigasi utama">
+      ${NAV.map(([id, ic, lb, k]) => `<button class="rail-btn ${id === active ? 'active' : ''}" data-go="${id}" title="${lb} (${k})"><span class="k">${k}</span><span class="i">${ic}</span>${lb}</button>`).join('')}
+      <div class="rail-sp"></div>
+      <button class="rail-btn" data-act="admin" title="Menu Guru / Admin"><span class="i">🛡️</span>Guru</button>
+      <button class="rail-btn" data-go="auth" title="Keluar akun"><span class="i">🚪</span>Keluar</button>
+    </nav>`;
+  },
+  mount(app, name, params) {
+    app.className = 'd-play' + (FOCUS.has(name) ? ' focus' : '');
+    app.id = 'app';
+    app.innerHTML = (FOCUS.has(name) ? '' : this.topbar(Player.data) + this.rail(name)) + `<main class="d-screen ${name}-screen" id="d-screen" data-screen="${name}"></main>`;
+    const host = $('#d-screen');
+    $('#crumb') && ($('#crumb').textContent = TITLES[name] || '');
+    Keys.set({});
+    DesktopScreens[name] ? DesktopScreens[name](host, params) : (host.innerHTML = panel('', `<p>Halaman ${name} tidak ditemukan</p>`));
+  },
+  bind() {   // dipasang SEKALI saat boot (delegasi klik) agar tidak menumpuk listener
+    document.addEventListener('click', e => {
+      if (!e.target.closest('#app.d-play')) return;
+      const g = e.target.closest('[data-go]'); if (g) { go(g.dataset.go); return; }
+      const a = e.target.closest('[data-act]'); if (!a) return;
+      if (a.dataset.act === 'keys') DesktopShell.keysHelp();
+      if (a.dataset.act === 'sfx') a.textContent = a.textContent === '🔊' ? '🔇' : '🔊';
+      if (a.dataset.act === 'admin') toast('Menu Guru / Admin dibuka (contoh)');
+    });
+  },
+  keysHelp() {
+    const rows = [['1 – 0, -', 'Pindah layar (Beranda … Pengaturan)'], ['Esc', 'Kembali / tutup'], ['?', 'Tampilkan papan pintas'],
+      ['A B C D  atau  1 2 3 4', 'Pilih jawaban (di arena)'], ['Spasi', 'Bacakan soal (TTS)'], ['Q W E', 'Pakai skill aktif 1 / 2 / 3'],
+      ['F', 'Mode Fokus Baca (soal diperbesar)'], ['Enter', 'Konfirmasi / lanjut']];
+    Modal.open('⌨️ Papan Pintas', `<div class="keys-table">${rows.map(([k, d]) => `<span class="kbd" style="justify-self:start;padding:0 .6rem">${k}</span><span>${d}</span>`).join('')}</div>`);
+  }
+};
+
+/* ---------- 5. Router (membungkus go() versi mobile) ---------- */
+function go(name, params = {}) {
+  window.go = go;
+  if (name !== 'auth' && !Player.data) return go('auth');
+  const prev = Screens.current;
+  if (prev && Screens[prev] && Screens[prev].destroy) Screens[prev].destroy();
+  Modal.close();
+  Screens.current = name; Screens._params = params;
+  const app = $('#app');
+  if (UIMode.current() === 'desktop') {
+    DesktopShell.mount(app, name, params);          // <- jalur baru
+  } else {
+    app.className = 'm-play'; app.innerHTML = '';
+    Screens[name] && Screens[name].render ? Screens[name].render(app, params) : (app.innerHTML = `<div class="screen active center-col"><p>Halaman ${name} tidak ditemukan</p></div>`);
+  }
+  if (location.hash.slice(1) !== name) history.replaceState(null, '', '#' + name);
+}
+
+/* kunci global: angka = pindah layar */
+NAV.forEach(([id, , , k]) => (Keys.global[k] = () => go(id)));
+Keys.global['?'] = () => DesktopShell.keysHelp();
+Keys.global['Escape'] = () => { if ($('#common-modal')) Modal.close(); };
+
+const Screens = window.Screens || {};
+window.Screens = Screens;
+
+/* =====================================================================
+   public/js/desktop/screens.js — Renderer tiap layar untuk Desktop Mode
+   Pola hook di game asli:
+     Screens.home.render = (app, p) => UIMode.current()==='desktop' ? DesktopScreens.home(app, p) : renderMobile(app, p)
+   (di router go() sudah otomatis lewat DesktopShell.mount)
+   ===================================================================== */
+const DesktopScreens = {};
+
+/* ---------- 1. AUTH ---------- */
+DesktopScreens.auth = el => {
+  el.classList.add('auth');
+  el.innerHTML = `
+    <div class="auth-hero">
+      <div class="mon">${sv('boss-hero')}</div>
+      <h1>PETUALANGAN<br>PELAJAR</h1>
+      <div class="muted" style="font-weight:700">Game Kuis RPG Pelajar Cerdas</div>
+    </div>
+    <div class="auth-form">
+      <form class="auth-card" id="form-auth">
+        <div class="tabs"><button type="button" class="active">Masuk</button><button type="button">Daftar Baru</button></div>
+        <label class="field">Pilih Kelasmu<select id="auth-class"><option>Kelas 5 SD</option><option>Kelas 4 SD</option><option>Kelas 6 SD</option></select></label>
+        <label class="field">Pilih Nama Karakter<select><option>Bayu Pratama</option><option>Siti Rahma</option></select></label>
+        <label class="field">PIN Ceria<input type="password" value="1234" maxlength="6" autocomplete="off"></label>
+        <button type="submit" class="btn primary lg block">🚀 Mulai Bermain! <span class="kbd">Enter</span></button>
+        <div class="muted tc" style="font-size:.78rem;font-weight:700">Tab = pindah kolom · Enter = masuk · ? = papan pintas</div>
+      </form>
+    </div>`;
+  $('#form-auth').addEventListener('submit', e => { e.preventDefault(); go('home'); });
+  Keys.set({ '?': () => DesktopShell.keysHelp(), __noGlobal: true });
+};
+
+/* ---------- 2. BERANDA = Command Center ---------- */
+DesktopScreens.home = el => {
+  const P = Player.data;
+  el.classList.add('g3');
+  const days = [40, 65, 30, 80, 55, 90, 70];
+  el.innerHTML = `
+  <div class="col">
+    ${panel('', `<div class="hero-card"><div class="av">${sv('av-main')}</div><div>
+        <h2>${P.name}</h2><div class="ttl">${P.title}</div>
+        <div class="muted" style="font-size:.78rem;font-weight:700;margin:.15rem 0 .35rem">${P.cls} · Level ${P.lv}</div>
+        ${bar(P.xp, 'xp lg', 'XP ' + P.xp + '%')}</div></div>`, '', '', 'profil')}
+    ${panel('Skill aktif', `<div class="skill-row">
+        <div class="skill-slot"><span class="i">✂️</span><b>Coret</b><small>Q · 1⚡</small></div>
+        <div class="skill-slot"><span class="i">🛡️</span><b>Perisai</b><small>W · 1⚡</small></div>
+        <div class="skill-slot"><span class="i">⏳</span><b>Waktu+</b><small>E · 1⚡</small></div></div>`, '', 'Atur ▸', 'skill')}
+    ${panel('Lencana showcase', `<div class="badge-row">
+        <div class="badge-card rar-common"><span class="i">🌟</span><b>Bintang Fajar</b><small>Tier 1</small></div>
+        <div class="badge-card rar-epic"><span class="i">🔥</span><b>Brutal Conqueror</b><small>Tier 3</small></div>
+        <div class="badge-card rar-legend"><span class="i">🐲</span><b>Naga Slayer</b><small>Tier 4</small></div></div>`, '', 'Semua ▸', 'profil')}
+    ${panel('Teman online', `
+        <div class="friend"><span class="a">👧</span>Siti Rahma<span class="dot"></span><span class="sp"></span><button class="btn sm primary" data-go="duel">Duel</button></div>
+        <div class="friend"><span class="a">👦</span>Dimas Putra<span class="dot"></span><span class="sp"></span><button class="btn sm" data-go="duel">Duel</button></div>
+        <div class="friend"><span class="a">🧒</span>Rani Safitri<span class="dot off"></span><span class="sp muted" style="font-size:.7rem">offline</span></div>`, 'fill', 'Pertemanan ▸', 'duel')}
+  </div>
+
+  <div class="stage">
+    <div class="bubble">Halo, siap belajar? 👋</div>
+    <div class="mascot" id="mascot" style="cursor:pointer" title="Sentuh aku!">${sv('boss-hero')}</div>
+    <div class="nowline"><div class="t"><span>📖 Bab 1: Hutan Jamur Terlarang</span><span>⭐ 8/9</span></div>${bar(89, 'good')}
+      <div class="muted" style="font-size:.75rem;font-weight:700">Berikutnya: Simpul 3 — Raja Jamurgon (Boss)</div></div>
+    <div class="cta-row" style="margin-top:.7rem">
+      <button class="btn primary lg" data-go="battle">⚔️ Lanjutkan Petualangan <span class="kbd">Enter</span></button>
+      <button class="btn lg" data-go="latihan">📚 Latihan Bebas</button>
+    </div>
+  </div>
+
+  <div class="col">
+    ${panel('Laporan minggu ini', `<div class="row"><div class="ring" style="--p:85;--rc2:#22c55e"><b>85%</b></div>
+        <div style="flex:1;min-width:0"><div style="font-weight:800">102 / 120 benar</div><div class="muted" style="font-size:.75rem;font-weight:700">Akurasi rata-rata</div>
+        <div class="week-bars" style="height:2.6rem;margin-top:.3rem">${days.map((d, i) => `<i class="${i === 6 ? 'today' : ''}" style="height:${d}%"></i>`).join('')}</div></div></div>
+        <div class="weak" style="padding:.4rem .7rem;font-size:.8rem;font-weight:700">🔴 Titik lemah: <b>Simbiosis Ekosistem</b> (45%)</div>`, '', 'Detail ▸', 'report')}
+    ${panel('Penawaran harian', `
+        <div class="offer"><span class="i">🧪</span><div><b>Ramuan HP</b><small>80 🪙</small></div><span class="sp"></span><button class="btn sm gold" data-go="shop">Beli</button></div>
+        <div class="offer"><span class="i">🛡️</span><div><b>Perisai Ekstra</b><small>120 🪙</small></div><span class="sp"></span><button class="btn sm gold" data-go="shop">Beli</button></div>
+        <div class="offer" style="background:linear-gradient(90deg,rgba(168,85,247,.35),rgba(0,0,0,.2))"><span class="i">🎁</span><div><b>Peti Gua Kristal</b><small>250 🪙</small></div><span class="sp"></span><button class="btn sm primary" data-go="shop">Buka</button></div>`, 'fill', 'Toko ▸', 'shop')}
+    ${panel('Monster Dex', `<div class="row"><div class="ring" style="--p:24;--rc2:#a855f7"><b>24</b></div>
+        <div><div style="font-weight:800">24 / 100 dikalahkan</div><div class="muted" style="font-size:.75rem;font-weight:700">Terbaru: Jamurgon · Ranting Berduri</div></div></div>`, '', 'Buka ▸', 'dex')}
+  </div>`;
+  $('#mascot').onclick = () => toast('🐲 "Ayo kalahkan aku kalau berani!"');
+  Keys.set({ Enter: () => go('battle') });
+};
+
+/* ---------- 3. PETA ---------- */
+DesktopScreens.peta = (el, p) => {
+  el.classList.add('g3n');
+  const nodes = [
+    { n: 1, t: 'Penjaga Hutan', st: 3, x: 14, y: 68, sym: 'boss-jam', boss: 'Jamurgon', lv: 3 },
+    { n: 2, t: 'Duri Beracun', st: 2, x: 42, y: 34, sym: 'boss-jam', boss: 'Ranting Berduri', lv: 4 },
+    { n: 3, t: 'RAJA JAMURGON', st: 0, x: 76, y: 58, sym: 'boss-king', boss: 'Raja Jamurgon', lv: 6, isBoss: true }];
+  let sel = 2, brutal = false, reg = 0;
+  const draw = () => {
+    const n = nodes[sel];
+    el.innerHTML = `
+    ${panel('Wilayah', `<div class="region-list">${HABITATS.map((h, i) => `<button class="region ${i === reg ? 'active' : ''}" data-reg="${i}"><span class="i">${h[1]}</span>${h[0]}<small>${i === 0 ? '8/9 ⭐' : i < 3 ? '🔓' : '🔒'}</small></button>`).join('')}</div>`, '')}
+    <div class="col">
+      ${panel('', `<div class="row"><div style="font-size:1.8rem">📖</div><div style="flex:1"><div style="font-weight:900;font-size:1.15rem">Bab 1: Hutan Jamur Terlarang</div><div class="muted" style="font-size:.8rem;font-weight:700">Progres: ⭐ 8/9 bintang tercapai</div></div><span class="pill">⚡ ${Player.data.en}/${Player.data.enMax}</span></div>`)}
+      <div class="panel fill" style="padding:.6rem"><div class="map-canvas">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M14 68 C 26 68, 30 34, 42 34 S 62 58, 76 58" fill="none" stroke="rgba(255,255,255,.5)" stroke-width=".7" stroke-dasharray="1.6 1.4" vector-effect="non-scaling-stroke" style="stroke-width:3px"/></svg>
+        ${nodes.map((o, i) => `<button class="node ${o.isBoss ? 'boss' : ''} ${i === sel ? 'sel' : ''}" data-node="${i}" style="left:${o.x}%;top:${o.y}%"><span class="b">${o.isBoss ? '👑' : o.n}</span><b class="t">${o.t}</b><small>${o.st ? '⭐'.repeat(o.st) + '☆'.repeat(3 - o.st) : '☆☆☆'}</small></button>`).join('')}
+      </div></div>
+    </div>
+    <div class="col">
+      ${panel('Simpul ' + n.n, `<div style="height:13rem;align-self:center;aspect-ratio:1">${sv(n.sym)}</div>
+          <div class="tc"><div style="font-weight:900;font-size:1.2rem">${n.boss}</div><div class="muted" style="font-size:.8rem;font-weight:700">Lv ${n.lv} · Elemen Hutan · ${n.isBoss ? 'Legend' : 'Rare'}</div></div>
+          <div class="kv"><span>Hadiah menang</span><b>${brutal ? '+360 XP · +105 🪙' : '+120 XP · +35 🪙'}</b></div>
+          <div class="kv"><span>Rekor bintang</span><b>${n.st ? '⭐'.repeat(n.st) : 'Belum ada'}</b></div>`, 'fill')}
+      <div class="toggle" id="brutal"><span class="sw ${brutal ? 'on' : ''}"></span>😈 Mode Brutal <small class="muted" style="font-weight:700">Damage 2×, Hadiah 3×</small></div>
+      <button class="btn primary lg block" id="fight">⚔️ TANTANG SIMPUL INI <span class="kbd">Enter</span></button>
+    </div>`;
+    $$('[data-reg]', el).forEach(b => b.onclick = () => { reg = +b.dataset.reg; draw(); });
+    $$('[data-node]', el).forEach(b => b.onclick = () => { sel = +b.dataset.node; draw(); });
+    $('#brutal').onclick = () => { brutal = !brutal; draw(); };
+    $('#fight').onclick = () => go('battle');
+  };
+  draw();
+  Keys.set({ Enter: () => go('battle'), ArrowLeft: () => { sel = Math.max(0, sel - 1); draw(); }, ArrowRight: () => { sel = Math.min(2, sel + 1); draw(); } });
+};
+
+/* ---------- 4. LATIHAN BEBAS ---------- */
+DesktopScreens.latihan = el => {
+  el.classList.add('g3n');
+  const topics = ['Fotosintesis', 'Rantai Makanan', 'Simbiosis', 'Daur Air', 'Perkalian', 'Pecahan', 'Bangun Datar', 'Ide Pokok', 'Kata Baku', 'Peta & Arah', 'Keragaman Budaya', 'Energi'];
+  el.innerHTML = `
+    ${panel('Mata pelajaran', `<div class="region-list">${['🔬 IPA', '➗ Matematika', '📚 B. Indonesia', '🌏 IPS', '🇬🇧 B. Inggris'].map((t, i) => `<button class="region ${i === 0 ? 'active' : ''}">${t}</button>`).join('')}</div>`)}
+    ${panel('Pilih topik latihan', `<div class="row wrap" style="gap:.5rem">${topics.map((t, i) => `<span class="chip ${i < 3 ? 'active' : ''}" style="font-size:.95rem;padding:.5rem 1rem">${t}</span>`).join('')}</div>
+      <div class="muted" style="font-size:.85rem;font-weight:700;margin-top:.6rem">Topik bertanda biru akan dipakai. Topik yang masih lemah ditandai otomatis dari laporan.</div>`, '')}
+    <div class="col">
+      ${panel('Pengaturan sesi', `
+        <div class="setrow"><span>Jumlah soal</span><span class="row"><span class="chip">5</span><span class="chip active">10</span><span class="chip">15</span></span></div>
+        <div class="setrow"><span>Timer per soal</span><div class="sw on"></div></div>
+        <div class="setrow"><span>Narator soal (TTS)</span><div class="sw on"></div></div>
+        <div class="setrow" style="border:0"><span>Tanpa pemotongan energi</span><span class="tag" style="background:#16a34a">Santai</span></div>`, 'fill')}
+      <button class="btn primary lg block" data-go="battle">▶️ MULAI LATIHAN <span class="kbd">Enter</span></button>
+    </div>`;
+  Keys.set({ Enter: () => go('battle') });
+};
+
+/* ---------- 5. ARENA BATTLE (fokus, 1 layar penuh) ---------- */
+const QBANK = [
+  { t: 'Apa fungsi klorofil pada daun?', o: ['Menyerap cahaya matahari', 'Mengusir serangga hama', 'Membantu penguapan air', 'Menyerap zat hara dari tanah'], a: 0, img: '🍃☀️' },
+  { t: 'Berapakah hasil dari 15 × 8 ?', o: ['110', '120', '125', '130'], a: 1 },
+  { t: 'Hewan pemakan tumbuhan disebut …', short: 'herbivora' }
+];
+DesktopScreens.battle = (el, p) => {
+  const S = { q: 4, total: 10, boss: 280, bossMax: 350, hp: 85, hpMax: 100, shield: 10, en: 3, combo: 2, read: false, lock: false, ok: 0 };
+  const dots = n => Array.from({ length: 5 }, (_, i) => `<i class="${i < n ? 'on' : ''}"></i>`).join('');
+  const draw = () => {
+    const Q = QBANK[(S.q - 4) % QBANK.length];
+    el.className = 'd-screen battle-screen battle' + (S.read ? ' read' : '');
+    el.innerHTML = `
+    <div class="panel hud">
+      <button class="btn sm" data-go="home">✕ <span class="kbd">Esc</span></button>
+      <span class="pill">⚡ ${S.en}/5</span><b>Soal ${S.q}/${S.total}</b>
+      <div class="timer"><span>⏱️</span><div class="timer-bar"><i></i></div><b>12s</b></div>
+      <span class="combo">🔥 Kombo ${S.combo}×</span><span class="sp"></span>
+      <span class="pill">🛡️ ${S.shield}</span>
+      <button class="btn sm" id="b-focus">📖 Fokus Baca <span class="kbd">F</span></button>
+    </div>
+
+    <div class="panel fighter" id="boss-side">
+      <div class="fig">${sv('boss-jam')}</div>
+      <h2>Jamurgon</h2><div class="meta">Lv 3 · Elemen Hutan</div>
+      ${bar(S.boss / S.bossMax * 100, 'boss tall', S.boss + ' / ' + S.bossMax)}
+      <div class="telegraph">⚠️ Aba-aba: Serbuk Lelap</div>
+    </div>
+
+    <div class="qwrap">
+      <div class="panel qcard">
+        <div class="qtag"><span>🎯 TITIK LEMAH</span><button class="btn sm" id="b-tts">🔊 Baca <span class="kbd">Spasi</span></button></div>
+        <div class="qtext">${Q.t}</div>
+        ${Q.img && !S.read ? `<div class="qimg" style="max-height:7rem">${Q.img}</div>` : ''}
+      </div>
+      ${Q.short ? `<div class="col"><input class="short-in" id="short" placeholder="Ketik jawabanmu lalu Enter…" autocomplete="off"><button class="btn primary lg" id="short-ok">Kirim Jawaban <span class="kbd">Enter</span></button></div>` :
+        `<div class="options">${Q.o.map((o, i) => `<button class="opt" data-i="${i}"><span class="key">${'ABCD'[i]}</span>${o}</button>`).join('')}</div>`}
+    </div>
+
+    <div class="panel fighter" id="me-side">
+      <div class="fig">${sv('av-main')}</div>
+      <h2>${Player.data.name.split(' ')[0]}</h2><div class="meta">Lv ${Player.data.lv} · Ksatria</div>
+      ${bar(S.hp / S.hpMax * 100, 'hp tall', S.hp + ' / ' + S.hpMax)}
+      <div class="energy-row">${dots(S.en)}</div>
+      <div class="skills-deck">
+        <button class="skill-btn" data-sk="0"><span class="kbd">Q</span><span class="i">✂️</span><b>Coret</b><small>1⚡</small></button>
+        <button class="skill-btn" data-sk="1"><span class="kbd">W</span><span class="i">🛡️</span><b>Perisai</b><small>1⚡</small></button>
+        <button class="skill-btn" data-sk="2"><span class="kbd">E</span><span class="i">⏳</span><b>Waktu+</b><small>1⚡</small></button>
+      </div>
+      <div class="log"><div>✔ Kamu menyerang <b>-35</b> HP</div><div>⚠ Jamurgon bersiap: <b>Serbuk Lelap</b></div></div>
+    </div>`;
+    bind(Q);
+  };
+  const fx = (txt, col) => { const f = document.createElement('div'); f.className = 'floaty'; f.textContent = txt; f.style.color = col; el.appendChild(f); setTimeout(() => f.remove(), 1000); };
+  const answer = (ok) => {
+    if (S.lock) return; S.lock = true;
+    if (ok) { S.boss = Math.max(0, S.boss - 35); S.combo++; S.ok++; fx('-35', '#fca5a5'); }
+    else { S.hp = Math.max(1, S.hp - 8); S.combo = 0; fx('-8', '#f87171'); }
+    setTimeout(() => { S.lock = false; S.q++; S.q > S.total ? go('result', { ok: S.ok }) : draw(); }, 900);
+  };
+  const bind = Q => {
+    $('#b-focus').onclick = () => { S.read = !S.read; draw(); };
+    $('#b-tts').onclick = () => toast('🔊 Membacakan soal…');
+    $$('.opt', el).forEach(b => b.onclick = () => {
+      if (S.lock) return; const i = +b.dataset.i, ok = i === Q.a;
+      b.classList.add(ok ? 'right' : 'wrong'); if (!ok) $$('.opt', el)[Q.a].classList.add('right'); answer(ok);
+    });
+    $$('.skill-btn', el).forEach(b => b.onclick = () => useSkill(+b.dataset.sk, Q));
+    if (Q.short) {
+      const inp = $('#short'); setTimeout(() => inp.focus(), 50);
+      const send = () => { const ok = inp.value.trim().toLowerCase() === Q.short; inp.style.borderColor = ok ? '#22c55e' : '#ef4444'; answer(ok); };
+      $('#short-ok').onclick = send; inp.onkeydown = e => { if (e.key === 'Enter') send(); };
+    }
+  };
+  const useSkill = (i, Q) => {
+    if (S.en < 1 || S.lock) return toast('Energi tidak cukup');
+    S.en--;
+    if (i === 0 && Q.o) { const wr = Q.o.map((_, k) => k).filter(k => k !== Q.a).slice(0, 2); draw(); wr.forEach(k => $$('.opt', el)[k].classList.add('dim')); S.en; return; }
+    if (i === 1) S.shield += 10;
+    toast(['✂️ Dua opsi salah dicoret', '🛡️ Perisai +10', '⏳ Waktu +5 detik'][i]); draw();
+  };
+  draw();
+  const letter = i => () => { const b = $$('.opt', el)[i]; b && b.click(); };
+  Keys.set({ Escape: () => go('home'), f: () => { S.read = !S.read; draw(); }, ' ': () => toast('🔊 Membacakan soal…'),
+    a: letter(0), b: letter(1), c: letter(2), d: letter(3), 1: letter(0), 2: letter(1), 3: letter(2), 4: letter(3),
+    q: () => useSkill(0, QBANK[(S.q - 4) % 3]), w: () => useSkill(1), e: () => useSkill(2), __noGlobal: true });
+};
+
+/* ---------- 6. HASIL ---------- */
+DesktopScreens.result = el => {
+  el.classList.add('result');
+  el.innerHTML = `
+  <div class="result-card">
+    <div class="col" style="align-items:center;justify-content:center;text-align:center">
+      <div style="font-size:1rem;font-weight:900;letter-spacing:.2em;color:#fde68a">KEMENANGAN TELAK!</div>
+      <div style="height:15rem;aspect-ratio:1;opacity:.85;filter:saturate(.5)">${sv('boss-jam')}</div>
+      <div style="font-size:1.7rem;font-weight:900">"Jamurgon Tumbang!"</div>
+      <div class="stars"><span>⭐</span><span>⭐</span><span>⭐</span></div>
+      <div class="muted" style="font-weight:800">3 BINTANG DIRAIH · Akurasi ≥ 63%</div>
+    </div>
+    <div class="col">
+      ${panel('Ringkasan pertarungan', `<div class="kv"><span>Jawaban benar</span><b>8 dari 10 soal</b></div><div class="kv"><span>Akurasi</span><b>80%</b></div><div class="kv"><span>Kombo terbesar</span><b>6× beruntun 🔥</b></div>`)}
+      ${panel('Hadiah diperoleh', `<div class="kv"><span>XP</span><b>+120 🌟 (Lv 5 ➔ 6)</b></div>${bar(78, 'xp lg', 'Lv 6 · 78%')}<div class="kv"><span>Koin emas</span><b>+35 🪙</b></div><div class="kv"><span>Lencana baru</span><b>🏆 Penakluk Hutan</b></div>`, 'fill')}
+      <button class="btn primary lg block" data-go="peta">▶️ LANJUTKAN PERJALANAN <span class="kbd">Enter</span></button>
+      <button class="btn lg ghost block" data-go="home">🏠 KEMBALI KE BERANDA <span class="kbd">Esc</span></button>
+    </div>
+  </div>`;
+  Keys.set({ Enter: () => go('peta'), Escape: () => go('home'), __noGlobal: true });
+};
+
+/* ---------- 7. LEMARI KOSTUM ---------- */
+DesktopScreens.wardrobe = el => {
+  el.classList.add('g3n');
+  let cat = 'hat', selId = null;
+  const draw = () => {
+    const list = WARDROBE[cat]; const it = list.find(x => x[0] === selId) || list.find(x => x[4] === 2) || list[0]; selId = it[0];
+    const st = ['Terkunci 🔒', 'Dimiliki', 'Sedang dipakai ✔'][it[4]];
+    el.innerHTML = `
+    <div class="col">
+      ${panel('Pratinjau live', `<div class="preview-stage"><div class="av">${sv('av-main')}</div></div>
+         <div class="tc"><div style="font-weight:900">${Player.data.title}</div><div class="muted" style="font-size:.78rem;font-weight:700">${Player.data.name} · Lv ${Player.data.lv}</div></div>`, 'fill')}
+      ${panel('Progres set sinergi', `<div style="font-weight:800;font-size:.85rem">🔮 Set Arkana Bintang Kosmik · 4/6</div><div class="set-prog"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div>`)}
+    </div>
+    ${panel('', `<div class="cat-tabs">${CATS.map(c => `<button class="${c[0] === cat ? 'active' : ''}" data-cat="${c[0]}"><span class="i">${c[1]}</span>${c[2]}</button>`).join('')}</div>
+      <div class="item-grid" style="grid-template-columns:repeat(4,1fr);align-content:start;overflow:hidden">${list.map(x => `<button class="slot rar-${x[3]} ${x[4] === 0 ? 'lock' : ''} ${x[0] === selId ? 'on' : ''}" data-item="${x[0]}" title="${x[2]}"><span>${x[1]}</span><small>${x[4] === 2 ? 'DIPAKAI' : x[2]}</small></button>`).join('')}</div>`, 'fill')}
+    <div class="col">
+      ${panel('Detail item', `<div class="slot rar-${it[3]}" style="width:8rem;align-self:center;font-size:3.4rem">${it[1]}</div>
+        <div class="tc"><div style="font-weight:900;font-size:1.2rem">${it[2]}</div><span class="tag rar-${it[3]}">${RARLBL[it[3]]}</span></div>
+        <div class="kv"><span>Slot</span><b>${CATS.find(c => c[0] === cat)[2]}</b></div><div class="kv"><span>Status</span><b>${st}</b></div>
+        <div class="kv" style="border:0"><span>Cara dapat</span><b>${it[4] ? 'Sudah dimiliki' : it[3] === 'legend' ? 'Peti Gacha' : '🪙 300 koin'}</b></div>`, 'fill')}
+      <button class="btn ${it[4] === 0 ? 'gold' : 'primary'} lg block" id="equip">${it[4] === 0 ? '🛒 Buka di Toko' : it[4] === 2 ? '✔ Terpasang' : 'PAKAI'}</button>
+      <button class="btn ghost block" id="save">✨ Simpan Penampilan Baru (Gratis)</button>
+    </div>`;
+    $$('[data-cat]', el).forEach(b => b.onclick = () => { cat = b.dataset.cat; selId = null; draw(); });
+    $$('[data-item]', el).forEach(b => b.onclick = () => { selId = b.dataset.item; draw(); });
+    $('#equip').onclick = () => it[4] === 0 ? go('shop') : toast('Item dipasang: ' + it[2]);
+    $('#save').onclick = () => toast('✨ Penampilan tersimpan');
+  };
+  draw();
+};
+
+/* ---------- 8. TOKO ---------- */
+DesktopScreens.shop = el => {
+  el.classList.add('g3n');
+  const offers = [['🧪', 'Ramuan HP', 80], ['🛡️', 'Perisai Ekstra', 120], ['⚡', 'Isi Energi', 150], ['⏳', 'Waktu+ ×3', 90], ['💡', 'Petunjuk ×3', 110], ['🔑', 'Kunci Peti', 200]];
+  el.innerHTML = `
+    ${panel('Peti Harta · Wilayah 3', `<div class="tc" style="font-weight:900;font-size:1.05rem">Gua Kristal</div><div class="chest">${sv('chest')}</div>
+      <div class="muted tc" style="font-weight:700;font-size:.85rem">Biaya: 250 koin per buka</div>
+      <button class="btn gold lg block" id="open">🎁 BUKA 1× (250 🪙)</button>`, 'chest-banner')}
+    ${panel('Penawaran harian', `<div class="shop-grid fill">${offers.map(o => `<div class="panel shop-card" style="background:rgba(0,0,0,.25)"><span class="i">${o[0]}</span><b>${o[1]}</b><span class="price">${o[2]} 🪙</span><button class="btn sm primary" data-buy="${o[1]}">Beli</button></div>`).join('')}</div>`, 'fill')}
+    <div class="col">
+      ${panel('Saldo', `<div class="row"><span class="pill" style="font-size:1.1rem">🪙 1.450</span><span class="pill" style="font-size:1.1rem">💎 12</span></div>`)}
+      ${panel('Tasku', `<div class="kv"><span>🧪 Ramuan HP</span><b>×2</b></div><div class="kv"><span>🛡️ Perisai Ekstra</span><b>×1</b></div><div class="kv"><span>⚡ Isi Energi</span><b>×0</b></div>`)}
+      ${panel('Hasil gacha terbaru', `<div class="item-grid" style="grid-template-columns:repeat(3,1fr)"><div class="slot rar-rare"><span>🏴‍☠️</span></div><div class="slot rar-epic"><span>🧙</span></div><div class="slot rar-common"><span>🐱</span></div></div>`, 'fill')}
+    </div>`;
+  $('#open').onclick = () => Modal.open('🎉 Peti Terbuka!', `<div class="tc"><div class="slot rar-epic" style="width:9rem;margin:0 auto;font-size:4rem">🔮</div><h2 style="margin:.6rem 0 .2rem">Jubah Bintang</h2><span class="tag rar-epic">Epic</span><p class="muted" style="font-weight:700">Item masuk ke Lemari Kostum.</p><button class="btn primary lg" data-close>Mantap!</button></div>`);
+  $$('[data-buy]', el).forEach(b => b.onclick = () => toast('Dibeli: ' + b.dataset.buy));
+};
+
+/* ---------- 9. DUEL 1v1 (fokus) ---------- */
+DesktopScreens.duel = el => {
+  el.classList.add('duel');
+  let picked = -1;
+  const side = (sym, name, meta, hp, mine) => `<div class="panel fighter"><div class="fig">${sv(sym)}</div><h2>${name}</h2><div class="meta">${meta}</div>${bar(hp, mine ? 'hp tall' : 'boss tall', `HP ${hp}/100`)}${mine ? `<div class="energy-row"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div><div class="skills-deck" style="grid-template-columns:1fr"><button class="skill-btn"><span class="kbd">Q</span><span class="i">✂️</span><b>Skill Coret</b></button></div>` : '<div class="telegraph" style="background:rgba(56,189,248,.15);border-color:var(--c-primary)">Lawan sedang berpikir…</div>'}</div>`;
+  el.innerHTML = `
+    <div class="panel hud" style="grid-column:1/-1"><button class="btn sm" data-go="home">✕ Keluar <span class="kbd">Esc</span></button>
+      <b style="font-size:1.1rem">⚔️ ARENA DUEL 1v1</b><span class="sp"></span>
+      <div class="round-dots"><i class="w"></i><i class="l"></i><i class="w"></i><i class="now"></i><i></i></div><span class="sp"></span>
+      <div class="timer" style="max-width:20rem"><span>⏱️</span><div class="timer-bar"><i style="width:45%"></i></div><b>12s</b></div></div>
+    ${side('av-main', Player.data.name, 'Lv 6 · Kamu', 90, true)}
+    <div class="qwrap"><div class="panel qcard tc"><div class="vs">VS</div><div class="qtag" style="justify-content:center">SOAL BERSAMA · RONDE 4</div><div class="qtext">Berapakah hasil dari 15 × 8 = …?</div></div>
+      <div class="options">${['110', '120', '125', '130'].map((o, i) => `<button class="opt" data-i="${i}"><span class="key">${'ABCD'[i]}</span>${o}</button>`).join('')}</div></div>
+    ${side('av-rival', 'Siti Rahma', 'Lv 6 · SD Bintang', 75, false)}`;
+  $$('.opt', el).forEach(b => b.onclick = () => { $$('.opt', el).forEach(x => x.classList.add('dim')); b.classList.remove('dim'); b.classList.add(+b.dataset.i === 1 ? 'right' : 'wrong'); toast('Jawaban terkirim, menunggu lawan…'); });
+  const L = i => () => $$('.opt', el)[i].click();
+  Keys.set({ Escape: () => go('home'), a: L(0), b: L(1), c: L(2), d: L(3), __noGlobal: true });
+};
+
+/* ---------- 10. SKILL ---------- */
+const SKILLS = [['✂️', 'Coret', 'Hapus 2 opsi salah', 1], ['🛡️', 'Perisai', '+10 perisai', 1], ['⏳', 'Waktu+', '+5 detik', 1], ['💡', 'Petunjuk', 'Beri petunjuk singkat', 2], ['⚔️', 'Tebas', 'Damage +50%', 2],
+  ['💚', 'Pulih', '+15 HP', 2], ['❄️', 'Beku', 'Timer berhenti 3 dtk', 3], ['🔥', 'Kombo', 'Kombo ×2', 3], ['👁️', 'Intip', 'Lihat 1 jawaban benar', 4], ['⭐', 'Nyawa', 'Selamat 1× dari kalah', 5]];
+DesktopScreens.skill = el => {
+  el.classList.add('g3n');
+  let sel = 0;
+  const draw = () => {
+    const s = SKILLS[sel];
+    el.innerHTML = `
+    ${panel('3 slot skill aktif', ['Q', 'W', 'E'].map((k, i) => `<div class="big-slot"><span class="i">${SKILLS[i][0]}</span><div><b>${SKILLS[i][1]}</b><div class="muted" style="font-size:.75rem;font-weight:700">Tombol ${k} · ${SKILLS[i][3]}⚡</div></div></div>`).join('') + '<div class="muted" style="font-size:.78rem;font-weight:700">Klik skill di kanan, lalu seret ke slot (contoh).</div>', 'fill')}
+    ${panel('10 skill RPG', `<div class="shop-grid" style="grid-template-columns:repeat(5,1fr);grid-auto-rows:minmax(0,1fr)">${SKILLS.map((k, i) => `<button class="panel skill-card ${i === sel ? 'on' : ''}" data-s="${i}" style="background:rgba(0,0,0,.25)"><span class="i">${k[0]}</span><b style="font-size:.9rem">${k[1]}</b><small class="muted" style="font-weight:700">Lv ${(i % 3) + 1} · ${k[3]}⚡</small></button>`).join('')}</div>
+      <div class="muted" style="font-size:.72rem;font-weight:700">Nama & efek skill di layar ini adalah contoh; ambil dari data game.</div>`, 'fill')}
+    ${panel('Detail skill', `<div class="slot rar-epic" style="width:7rem;align-self:center;font-size:3rem">${s[0]}</div><div class="tc"><div style="font-weight:900;font-size:1.2rem">${s[1]}</div><div class="muted" style="font-weight:700;font-size:.85rem">${s[2]}</div></div>
+      <div class="kv"><span>Biaya energi</span><b>${s[3]} ⚡</b></div><div class="kv"><span>Level</span><b>${(sel % 3) + 1} / 5</b></div>`, 'fill')}`;
+    $$('[data-s]', el).forEach(b => b.onclick = () => { sel = +b.dataset.s; draw(); });
+  };
+  draw();
+};
+
+/* ---------- 11. MONSTER DEX (10 × 10 terlihat sekaligus) ---------- */
+DesktopScreens.dex = el => {
+  el.classList.add('g3n');
+  let sel = 0, fil = -1;
+  const draw = () => {
+    const m = DEX[sel], h = HABITATS[m.hab];
+    el.innerHTML = `
+    <div class="col">
+      ${panel('Filter habitat', `<div class="region-list"><button class="region ${fil < 0 ? 'active' : ''}" data-f="-1"><span class="i">🌐</span>Semua</button>${HABITATS.map((x, i) => `<button class="region ${fil === i ? 'active' : ''}" data-f="${i}" style="padding:.3rem .7rem"><span class="i">${x[1]}</span>${x[0]}<small>${DEX.filter(d => d.hab === i && d.open).length}/10</small></button>`).join('')}</div>`, 'fill')}
+      ${panel('', `<div class="row"><div class="ring" style="--p:24;--rc2:#a855f7;width:4rem"><b style="font-size:.9rem">24</b></div><div style="font-weight:800">24 / 100<div class="muted" style="font-size:.72rem">Total dikalahkan 🏆</div></div></div>`)}
+    </div>
+    ${panel('Semua 100 monster', `<div class="dex-grid">${DEX.map((d, i) => `<button class="dex-cell rar-${d.tier === 'common' ? 'common' : d.tier} ${i === sel ? 'sel' : ''} ${fil >= 0 && d.hab !== fil ? 'dim' : ''} ${d.open ? '' : 'lock'}" data-m="${i}" title="${d.open ? d.name : '???'}"><small>#${String(d.id).padStart(3, '0')}</small>${miniMonster(d)}${d.open ? '' : '<span class="q">?</span>'}</button>`).join('')}</div>`, 'fill')}
+    ${panel('Detail', m.open ? `<div class="big">${miniMonster(m)}</div>
+        <div class="tc"><div style="font-weight:900;font-size:1.25rem">#${String(m.id).padStart(3, '0')} · ${m.name}</div><span class="tag rar-${m.tier}">${RARLBL[m.tier]}</span> <span class="chip">${h[1]} ${h[0]}</span></div>
+        <div class="dex-anat"><span>Dikalahkan</span><b>${m.wins}×</b><span>Rekor terbaik</span><b>${'⭐'.repeat(m.stars)}${'☆'.repeat(3 - m.stars)}</b><span>Bentuk tubuh</span><b>${m.body}</b><span>Mata</span><b>${m.eyes}</b></div>`
+      : `<div class="big" style="filter:brightness(0);opacity:.5">${miniMonster(m)}</div><div class="tc" style="font-weight:900;font-size:1.2rem">#${String(m.id).padStart(3, '0')} · ??????</div><div class="muted tc" style="font-weight:700">Tumbangkan bos di ${h[0]} untuk membuka!</div>`, 'fill dex-detail')}`;
+    $$('[data-m]', el).forEach(b => { b.onmouseenter = () => { if (sel !== +b.dataset.m) { sel = +b.dataset.m; draw(); } }; b.onclick = () => { sel = +b.dataset.m; draw(); }; });
+    $$('[data-f]', el).forEach(b => b.onclick = () => { fil = +b.dataset.f; draw(); });
+  };
+  draw();
+};
+
+/* ---------- 12. PROFIL ---------- */
+DesktopScreens.profil = el => {
+  el.classList.add('g3n');
+  const P = Player.data, B = [['🌟', 'common'], ['🔥', 'epic'], ['🐲', 'legend'], ['⚔️', 'rare'], ['📚', 'common'], ['🧠', 'rare'], ['🛡️', 'common'], ['🏆', 'epic'], ['⭐', 'rare'], ['🍄', 'common'], ['🎯', 'rare'], ['🌈', 'legend'], ['🔭', 'common'], ['💎', 'epic']];
+  el.innerHTML = `
+    ${panel('', `<div class="preview-stage"><div class="av">${sv('av-main')}</div></div><div class="tc"><div style="font-weight:900;font-size:1.3rem">${P.name}</div><div class="muted" style="font-weight:700;font-size:.85rem">${P.cls} · Level ${P.lv} Ksatria</div><div style="color:var(--c-accent);font-weight:800;font-size:.8rem">${P.title}</div></div>${bar(P.xp, 'xp lg', 'XP ' + P.xp + '%')}<button class="btn block" data-go="wardrobe">🎒 Ubah penampilan</button>`, 'fill')}
+    <div class="col">
+      ${panel('🏆 3 lencana showcase', `<div class="showcase"><div class="sc-card rar-common"><span class="i">🌟</span><b>Bintang Fajar</b><span class="tag">Tier 1</span></div><div class="sc-card rar-epic"><span class="i">🔥</span><b>Brutal Conqueror</b><span class="tag">Tier 3</span></div><div class="sc-card rar-legend"><span class="i">🐲</span><b>Naga Slayer</b><span class="tag">Tier 4</span></div></div>`)}
+      ${panel('📊 Rekor & prestasi', `<div class="rep-top" style="grid-template-columns:repeat(2,1fr)"><div class="stat-tile"><b>48×</b><span>Total kemenangan</span></div><div class="stat-tile"><b>84,5%</b><span>Akurasi rata-rata</span></div><div class="stat-tile"><b>112 ⭐</b><span>Bintang terkumpul</span></div><div class="stat-tile"><b>6× 😈</b><span>Menang Brutal</span></div></div>`, 'fill')}
+    </div>
+    ${panel('🎖️ Koleksi lencana (14 dibuka)', `<div class="badge-grid">${Array.from({ length: 20 }, (_, i) => i < 14 ? `<div class="bdg rar-${B[i][1]}" title="Lencana">${B[i][0]}</div>` : '<div class="bdg lock">🔒</div>').join('')}</div>`, 'fill')}`;
+};
+
+/* ---------- 13. LAPORAN ---------- */
+DesktopScreens.report = el => {
+  el.classList.add('g2');
+  const W = [['Sen', 14, 4], ['Sel', 18, 3], ['Rab', 10, 5], ['Kam', 20, 2], ['Jum', 16, 3], ['Sab', 12, 4], ['Min', 12, 3]];
+  const mx = 24, chart = `<div class="chart">${W.map(d => `<div class="col-bar"><div class="stack" style="height:${(d[1] + d[2]) / mx * 100}%"><i class="bad" style="flex:${d[2]}"></i><i class="ok" style="flex:${d[1]}"></i></div><b>${d[0]}</b></div>`).join('')}</div>`;
+  const T = [['Fotosintesis Tumbuhan', 95], ['Operasi Hitung Perkalian', 90], ['Rantai Makanan', 82], ['Daur Air', 78], ['Pecahan', 70], ['Ide Pokok', 66], ['Peta & Arah', 58], ['Simbiosis Ekosistem', 45]];
+  el.innerHTML = `
+    <div class="col">
+      <div class="panel row" style="flex-direction:row;justify-content:center"><button class="btn sm">◀</button><b style="font-size:1.05rem">Minggu ini · 3 – 9 Nov 2026</b><button class="btn sm">▶</button></div>
+      <div class="rep-top"><div class="stat-tile"><b>120</b><span>Total soal dijawab</span></div><div class="stat-tile"><b style="color:#4ade80">102</b><span>Jawaban benar</span></div><div class="stat-tile"><b style="color:#fde047">85% ⭐</b><span>Akurasi rata-rata</span></div><div class="stat-tile"><b>6× 🔥</b><span>Kombo terbesar</span></div></div>
+      <div class="col fill" style="flex-direction:row">
+        ${panel('Aktivitas per hari', `<div class="fill">${chart}</div><div class="row" style="font-size:.75rem;font-weight:700"><span style="color:#4ade80">■ Benar</span><span style="color:#f87171">■ Salah</span></div>`, 'fill')}
+        ${panel('Penguasaan topik', T.map(t => `<div class="topic-row"><span>${t[0]}</span>${bar(t[1], t[1] >= 80 ? 'good' : t[1] >= 60 ? '' : 'bad')}<b>${t[1]}%</b></div>`).join(''), 'fill')}
+      </div>
+    </div>
+    <div class="col">
+      ${panel('🔴 Titik lemah', `<div class="weak"><b>Simbiosis Ekosistem</b><div class="muted" style="font-size:.8rem;font-weight:700">Akurasi 45% · 11 soal</div><button class="btn sm primary" style="margin-top:.4rem" data-go="latihan">📚 Latihan ulang topik ini</button></div>
+        <div class="weak" style="border-color:rgba(245,158,11,.5);background:rgba(245,158,11,.1)"><b>Peta & Arah</b><div class="muted" style="font-size:.8rem;font-weight:700">Akurasi 58% · 9 soal</div><button class="btn sm" style="margin-top:.4rem" data-go="latihan">Latihan</button></div>`, 'fill')}
+      ${panel('🟢 Sangat dikuasai', `<div class="kv"><span>Fotosintesis Tumbuhan</span><b>95%</b></div><div class="kv"><span>Operasi Hitung Perkalian</span><b>90%</b></div>`)}
+    </div>`;
+};
+
+/* ---------- 14. PENGATURAN ---------- */
+DesktopScreens.settings = el => {
+  el.style.gridTemplateColumns = 'repeat(3, minmax(0, 1fr))';
+  const pref = UIMode.pref(); const sw = on => `<div class="sw ${on ? 'on' : ''}" data-sw></div>`;
+  el.innerHTML = `
+    ${panel('🎮 Tampilan', `
+      <div class="radio ${pref === 'auto' ? 'on' : ''}" data-ui="auto"><span class="o"></span><div><b>Mode UI: Otomatis</b><small>Desktop bila layar ≥ 1280×720 dan memakai mouse</small></div></div>
+      <div class="radio ${pref === 'desktop' ? 'on' : ''}" data-ui="desktop"><span class="o"></span><div><b>Paksa Desktop</b><small>Satu layar penuh, semua panel terlihat</small></div></div>
+      <div class="radio ${pref === 'mobile' ? 'on' : ''}" data-ui="mobile"><span class="o"></span><div><b>Paksa Mobile</b><small>Tata letak ponsel (3 opsi layout battle)</small></div></div>
+      <div class="setrow"><span>Arena: Fokus Baca bawaan</span>${sw(false)}</div>
+      <div class="setrow" style="border:0"><span>Efek visual (3D & animasi)</span><span class="row"><span class="chip active">Penuh</span><span class="chip">Lite</span></span></div>`, 'fill')}
+    <div class="col">
+      ${panel('🔊 Audio & suara', `<div class="setrow"><span>Efek suara (SFX)</span>${sw(true)}</div><div class="setrow"><span>Musik latar (BGM)</span>${sw(false)}</div><div class="setrow" style="border:0"><span>Narator soal (TTS)</span>${sw(true)}</div>`)}
+      ${panel('♿ Aksesibilitas', `<div class="setrow"><span>Ukuran font soal</span><span class="row"><span class="chip">Kecil</span><span class="chip active">Sedang</span><span class="chip">Besar</span></span></div><div class="setrow" style="border:0"><span>Mode gerak berkurang</span>${sw(false)}</div>`)}
+      <button class="btn lg block mt-auto" data-go="auth">🚪 KELUAR AKUN</button>
+    </div>
+    ${panel('⌨️ Papan pintas', `<div class="keys-table">${[['1 – 0, -', 'Pindah layar'], ['A B C D / 1–4', 'Jawab soal'], ['Q W E', 'Skill 1 / 2 / 3'], ['Spasi', 'Bacakan soal'], ['F', 'Fokus Baca'], ['Enter', 'Lanjut / konfirmasi'], ['Esc', 'Kembali / tutup'], ['?', 'Bantuan']].map(r => `<span class="kbd" style="justify-self:start;padding:0 .6rem">${r[0]}</span><span>${r[1]}</span>`).join('')}</div>`, 'fill')}`;
+  $$('[data-sw]', el).forEach(s => s.onclick = () => s.classList.toggle('on'));
+  $$('[data-ui]', el).forEach(r => r.onclick = () => { UIMode.setPref(r.dataset.ui); toast('Mode UI: ' + r.dataset.ui); });
+};
+
+
+UIMode.current = () => 'desktop';          // mockup: selalu tata letak desktop, diskalakan agar muat di layar apa pun
+const fitEl = document.getElementById('fit');
+const fit = () => { const k = Math.min(innerWidth / 1920, innerHeight / 1080); fitEl.style.transform = `translate(${(innerWidth - 1920 * k) / 2}px,${(innerHeight - 1080 * k) / 2}px) scale(${k})`; };
+addEventListener('resize', fit); fit();
+Keys.init(); DesktopShell.bind(); document.documentElement.dataset.ui = 'desktop';
+go(location.hash.slice(1) || 'home');
+addEventListener('hashchange', () => { const n = location.hash.slice(1); if (n && n !== Screens.current) go(n); });
+</script></body></html>

@@ -59,10 +59,16 @@
   const HIT_CAP_MULT = 4;         // pengali maksimum per jawaban benar (combo × power × pity)
   const MIN_TOTAL_HITS = 15, MAX_TOTAL_HITS = 30, MAX_Q_CAP = 50;
   const BOSS_TIERS = {
-    common: { id: 'common', label: 'Common', icon: '⚪', color: '#9AA5B1', minHits: 15, maxHits: 18, wrongRatio: 0.90, coinMult: 1.0, xpMult: 1.0 },
-    rare:   { id: 'rare',   label: 'Rare',   icon: '🔵', color: '#3B82F6', minHits: 18, maxHits: 22, wrongRatio: 0.80, coinMult: 1.3, xpMult: 1.2 },
-    epic:   { id: 'epic',   label: 'Epic',   icon: '🟣', color: '#A855F7', minHits: 22, maxHits: 26, wrongRatio: 0.70, coinMult: 1.7, xpMult: 1.5 },
-    legend: { id: 'legend', label: 'Legend', icon: '🟡', color: '#F59E0B', minHits: 26, maxHits: 30, wrongRatio: 0.62, coinMult: 2.3, xpMult: 2.0 },
+    common: { id: 'common', label: 'Common', icon: '⚪', color: '#9AA5B1', minHits: 15, maxHits: 18, wrongRatio: 0.90, coinMult: 1.0, xpMult: 1.0, baseDamage: 7 },
+    rare:   { id: 'rare',   label: 'Rare',   icon: '🔵', color: '#3B82F6', minHits: 18, maxHits: 22, wrongRatio: 0.80, coinMult: 1.3, xpMult: 1.2, baseDamage: 10 },
+    epic:   { id: 'epic',   label: 'Epic',   icon: '🟣', color: '#A855F7', minHits: 22, maxHits: 26, wrongRatio: 0.70, coinMult: 1.7, xpMult: 1.5, baseDamage: 14 },
+    legend: { id: 'legend', label: 'Legend', icon: '🟡', color: '#F59E0B', minHits: 26, maxHits: 30, wrongRatio: 0.62, coinMult: 2.3, xpMult: 2.0, baseDamage: 18 },
+  };
+  const TIER_BASE_DAMAGE = {
+    common: 7,
+    rare: 10,
+    epic: 14,
+    legend: 18,
   };
   const TIER_ORDER = ['common', 'rare', 'epic', 'legend'];
   const TIER_WEIGHTS = [   // peluang tier pada Mode Bebas menurut level profil
@@ -103,8 +109,9 @@
     let n = hitsNeeded(tierId, abilityScoreValue);
     if (poolSize != null && poolSize < n) n = Math.max(1, poolSize);       // bank soal terlalu kecil → catat peringatan di server
     const wb = wrongBudget(n, tierId);
+    const mDmg = TIER_BASE_DAMAGE[tierId] || (BOSS_TIERS[tierId] ? BOSS_TIERS[tierId].baseDamage : 7);
     return { tier: tierId, hitsNeeded: n, hitUnit: HIT_UNIT, bossMaxHp: n * HIT_UNIT, wrongBudget: wb,
-             monsterDamage: Math.ceil(playerMaxHp / wb), maxQuestions: maxQuestions(n, tierId), planned: plannedQuestions(n, tierId, abilityScoreValue) };
+             monsterDamage: mDmg, maxQuestions: maxQuestions(n, tierId), planned: plannedQuestions(n, tierId, abilityScoreValue) };
   }
   // HP boss setelah menerima damage. Jika damage menghabisi HP boss (next <= 0), boss kalah seketika (0).
   function applyBossDamage(bossHp, damage, correctCountAfter) {
@@ -165,7 +172,7 @@
   }
 
   return { clamp, ABILITY, abilityLevel, abilityScore, sortAbilities,
-    HIT_UNIT, HIT_CAP_MULT, MIN_TOTAL_HITS, MAX_TOTAL_HITS, MAX_Q_CAP, BOSS_TIERS, TIER_ORDER, TIER_WEIGHTS, CAMPAIGN_TIERS, PITY, FATIGUE, REFILL,
+    HIT_UNIT, HIT_CAP_MULT, MIN_TOTAL_HITS, MAX_TOTAL_HITS, MAX_Q_CAP, BOSS_TIERS, TIER_ORDER, TIER_WEIGHTS, CAMPAIGN_TIERS, TIER_BASE_DAMAGE, PITY, FATIGUE, REFILL,
     tierWeights, pickTier, campaignTier, hitsNeeded, wrongBudget, maxQuestions, plannedQuestions, bossStats, hitsLeft, comboMult, hitDamage, fatigueAdjust, rewardMult, applyBossDamage,
     ENERGY, energyMaxForLevel, gainEnergy, energyFromCorrect, nextEnergyLevel,
     SKILL_MAX_LEVEL, UPGRADE_COSTS, SKILL_TABLE, skillUpgradeCost, skillInfo };

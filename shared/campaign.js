@@ -7,12 +7,34 @@
 }(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
 
+  /**
+   * Menghitung batas waktu reset mingguan terakhir: Setiap hari Senin jam 07:00:00 WIB (00:00:00 UTC).
+   * @param {Date} [now]
+   * @returns {Date}
+   */
+  function getWeeklyResetTime(now = new Date()) {
+    const d = new Date(now);
+    const day = d.getUTCDay(); // 0 = Minggu, 1 = Senin, ..., 6 = Sabtu
+    const diffDays = (day === 0 ? 6 : day - 1);
+    return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() - diffDays, 0, 0, 0, 0));
+  }
+
+  /**
+   * Menghitung waktu reset mingguan berikutnya: Hari Senin jam 07:00:00 WIB (00:00:00 UTC) berikutnya.
+   * @param {Date} [now]
+   * @returns {Date}
+   */
+  function getNextWeeklyResetTime(now = new Date()) {
+    const lastReset = getWeeklyResetTime(now);
+    return new Date(lastReset.getTime() + 7 * 24 * 60 * 60 * 1000);
+  }
+
   const CAMPAIGN = Object.freeze({
     chapters: 4,
     nodesPerChapter: 3,
     questions: Object.freeze([15, 20, 25]),
     nodeFirstClearCoins: (chapter) => 20 + 10 * chapter,
-    chapterItemRarity: Object.freeze({ RARE: 55, EPIC: 35, LEGENDARY: 10 }),
+    chapterItemRarity: Object.freeze({ COMMON: 25, RARE: 15, EPIC: 10, LEGENDARY: 5, COINS: 45 }),
     defaultThemes: Object.freeze([
       'hutan', 'rawa', 'gua', 'es', 'api', 'laut', 'langit', 'hantu', 'mesin', 'manis'
     ]),
@@ -52,7 +74,10 @@
     };
   }
 
-  function buildCampaign(subjectId, monsterTheme, progressMap = {}) {
+  function buildCampaign(subjectId, monsterTheme, progressMap = {}, options = {}) {
+    const weeklyResetDate = options.weeklyResetDate || getWeeklyResetTime();
+    const weeklyResetIso = weeklyResetDate.toISOString();
+    const nextResetDate = options.nextResetDate || getNextWeeklyResetTime(weeklyResetDate);
     const themes = getSubjectThemes(monsterTheme);
     const chapters = [];
 
@@ -72,15 +97,21 @@
         const tier = isBoss ? Math.min(4, c + 1) : Math.min(4, c);
 
         const prog = progressMap[key] || null;
-        const stars = prog ? (prog.stars || 0) : 0;
-        const bestAccuracy = prog ? (prog.best_accuracy || prog.bestAccuracy || 0) : 0;
-        const cleared = stars >= 1;
+        const clearedAtIso = prog ? (prog.cleared_at || prog.clearedAt || null) : null;
+        // Hanya dianggap cleared jika diselesaikan pada minggu berjalan (setelah reset Senin 07:00 WIB)
+        const clearedThisWeek = Boolean(clearedAtIso && clearedAtIso >= weeklyResetIso && (prog.stars >= 1));
+        const stars = clearedThisWeek ? (prog.stars || 0) : 0;
+        const bestAccuracy = clearedThisWeek ? (prog.best_accuracy || prog.bestAccuracy || 0) : 0;
+        const cleared = clearedThisWeek;
 
         // Unlocked logic:
         // Node 1 in Chapter 1 is always unlocked.
-        // Node n > 1 in Chapter c is unlocked if node n-1 is cleared.
-        // Node 1 in Chapter c > 1 is unlocked if Chapter c-1 final node (Boss Wilayah 3) was cleared.
+        // Node n > 1 in Chapter c is unlocked if node n-1 is cleared this week.
+        // Node 1 in Chapter c > 1 is unlocked if Chapter c-1 final node was cleared this week.
         const unlocked = (c === 1 && n === 1) ? true : Boolean(previousNodeCleared);
+
+        // Hanya bisa dimainkan 1x per minggu: jika sudah clearedThisWeek, tidak bisa dimainkan lagi sampai reset Senin
+        const canPlay = Boolean(unlocked && !clearedThisWeek);
 
         nodes.push({
           key,
@@ -94,7 +125,9 @@
           unlocked,
           stars,
           bestAccuracy,
-          cleared
+          cleared,
+          clearedThisWeek,
+          canPlay
         });
 
         previousNodeCleared = cleared;
@@ -115,7 +148,12 @@
 
     return {
       subjectId,
-      chapters
+      chapters,
+      weeklyReset: {
+        lastReset: weeklyResetIso,
+        nextReset: nextResetDate.toISOString(),
+        info: 'Setiap wilayah mode cerita hanya bisa dimainkan 1× per minggu. Reset setiap hari Senin pukul 07:00 WIB.'
+      }
     };
   }
 
@@ -123,6 +161,8 @@
     CAMPAIGN,
     getSubjectThemes,
     parseNodeKey,
-    buildCampaign
+    buildCampaign,
+    getWeeklyResetTime,
+    getNextWeeklyResetTime
   };
 }));

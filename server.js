@@ -301,9 +301,15 @@ const server = http.createServer(async (req, res) => {
   const isSecure = (req.headers['x-forwarded-proto'] === 'https') || (req.socket && req.socket.encrypted);
 
   // CORS headers
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const reqOrigin = req.headers.origin;
+  if (reqOrigin) {
+    res.setHeader('Access-Control-Allow-Origin', reqOrigin);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+  } else {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+  }
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Player-Token');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Player-Token, X-Requested-With, Accept');
   if (method === 'OPTIONS') {
     res.writeHead(204);
     return res.end();
@@ -435,6 +441,31 @@ const server = http.createServer(async (req, res) => {
       const body = await parseBody(req);
       const updated = db.updatePlayerTitles(playerAuth.id, body.titles || []);
       return json(res, updated);
+    } catch (e) {
+      return err(res, e.message, 400);
+    }
+  }
+
+  // Badges: Claim Reward (POST /api/badges/claim)
+  if (pathname === '/api/badges/claim' && method === 'POST') {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    try {
+      const body = await parseBody(req);
+      const result = db.claimBadgeReward(playerAuth.id, body.badgeId);
+      return json(res, result);
+    } catch (e) {
+      return err(res, e.message, 400);
+    }
+  }
+
+  // Badges: Claim All Rewards (POST /api/badges/claim-all)
+  if (pathname === '/api/badges/claim-all' && method === 'POST') {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    try {
+      const result = db.claimAllBadgeRewards(playerAuth.id);
+      return json(res, result);
     } catch (e) {
       return err(res, e.message, 400);
     }
@@ -577,6 +608,14 @@ const server = http.createServer(async (req, res) => {
     if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
     const limit = parseInt(query.limit || '20', 10);
     const history = db.getCoinHistory(playerAuth.id, limit);
+    return json(res, { ok: true, items: history, history });
+  }
+
+  if ((pathname === '/api/game/history' || pathname === '/api/battle/history' || pathname === '/api/profile/battle-history') && method === 'GET') {
+    const playerAuth = getPlayerFromReq(req);
+    if (!playerAuth) return err(res, 'Silakan login terlebih dahulu', 401, 'UNAUTHENTICATED');
+    const limit = parseInt(query.limit || '50', 10);
+    const history = db.getBattleHistory(playerAuth.id, limit);
     return json(res, { ok: true, items: history, history });
   }
 
