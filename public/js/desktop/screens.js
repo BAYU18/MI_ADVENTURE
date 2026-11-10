@@ -2296,7 +2296,7 @@
               </div>
               <h2>${esc(bossName)}</h2>
               <div class="muted" style="font-size:0.85rem;font-weight:700;margin-bottom:8px">${esc(bossObj.theme || 'Arena')} · Lv ${bossObj.tier === 'legend' ? 10 : (bossObj.tier === 'epic' ? 8 : 5)}</div>
-              <div class="chip warning" style="font-size:0.8rem;font-weight:800;padding:6px 14px;border-radius:99px;margin-bottom:16px">🎯 Kelemahan: ${esc(s.weakTopic || 'Soal')}</div>
+              <div class="chip warning" style="font-size:0.8rem;font-weight:800;padding:6px 14px;border-radius:99px;margin-bottom:16px">🎯 Kelemahan: ${esc(String(s.weakTopic || s.boss?.weakTopic || 'Soal Penantang').replace(/🎯/g, '').trim())}</div>
               <button class="btn primary lg block" id="btn-intro-dismiss" style="font-weight:800;width:100%">⚔️ MULAI BERTARUNG</button>
             </div>
           </div>
@@ -2356,7 +2356,7 @@
             <span class="chip accent boss-active-skill-chip" id="boss-active-skill-chip" style="display:none;font-size:0.72rem;font-weight:800">⚔️ Tebasan Super Aktif!</span>
           </div>
 
-          <div class="boss-weak-tag" style="font-size:0.75rem;color:var(--c-warning,#f59e0b);margin-top:6px;text-align:center">Titik lemah: <strong>${esc(s.weakTopic || s.boss?.weakTopic || 'Soal Sulit')}</strong> 🎯</div>
+          
         </div>
 
         <div class="qwrap">
