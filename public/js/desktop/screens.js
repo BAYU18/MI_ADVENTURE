@@ -1405,12 +1405,8 @@
 
     let orderingSelected = [];
 
-    // Helper: Tampilkan Damage Floater di tengah layar (100% sama dengan Mobile)
+    // Helper: Tampilkan Damage Floater di tengah layar (Maksimal di Desktop)
     const showDamageFloater = (text, type = 'dmg', delay = 0) => {
-      if (root.Screens?.battle?.showDamageFloater) {
-        root.Screens.battle.showDamageFloater(text, type, delay);
-        return;
-      }
       const trigger = () => {
         let container = document.getElementById('center-floater-container');
         if (!container) {
@@ -1452,11 +1448,18 @@
         slash = document.createElement('div');
         slash.id = 'boss-slash-effect';
         slash.className = 'boss-slash-effect';
-        slash.style.cssText = 'position:absolute;inset:0;pointer-events:none;z-index:10;background:radial-gradient(circle,rgba(255,255,255,0.8) 0%,rgba(239,68,68,0.5) 40%,transparent 70%);opacity:0;transition:opacity .1s ease';
         bossSide.appendChild(slash);
       }
+      slash.classList.remove('anim-slash');
+      void slash.offsetWidth;
+      slash.classList.add('anim-slash');
       slash.style.opacity = '1';
-      setTimeout(() => { slash.style.opacity = '0'; }, 250);
+      setTimeout(() => {
+        if (slash) {
+          slash.style.opacity = '0';
+          slash.classList.remove('anim-slash');
+        }
+      }, 600);
     };
 
     // Helper Boss Engine: Banner Fase 2 / Enraged Bos
@@ -1470,7 +1473,7 @@
       wrap.innerHTML = `
         <div class="enraged-banner">
           🔥 ${esc(bossName)} MARAH! 🔥
-          <div style="font-size:0.8rem;font-weight:600;margin-top:4px">Waktu ×0.9 & Jurus Muncul Tiap 3 Soal! (+1 ⚡ Semangat!)</div>
+          <div style="font-size:0.85rem;font-weight:700;margin-top:4px">Waktu ×0.9 & Jurus Muncul Tiap 3 Soal! (+1 ⚡ Semangat!)</div>
         </div>
       `;
       document.body.appendChild(wrap);
@@ -1485,15 +1488,11 @@
       if (root.Feedback) root.Feedback.sfx('enraged');
       else if (root.Sfx) root.Sfx.play('hit');
 
-      setTimeout(() => { wrap.remove(); }, 1600);
+      setTimeout(() => { if (wrap && wrap.parentNode) wrap.remove(); }, 1800);
     };
 
     // Helper Boss Engine: Modal Detail Jurus Bos
     const showBossSkillDetail = (skillId) => {
-      if (root.Screens?.battle?.showBossSkillDetail) {
-        root.Screens.battle.showBossSkillDetail(skillId);
-        return;
-      }
       const tier = (s.bossTier || s.boss?.tier || s.boss_tier || 'common').toLowerCase();
       const isBrutal = Boolean(s.brutal);
       const elemKey = s.bossElement || s.boss_element || (s.boss && s.boss.element) || (root.BossSkills && root.BossSkills.elementForTheme(s.subject?.monster_theme || s.monster?.theme));
@@ -1514,20 +1513,20 @@
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
             <div>
               <div style="font-size:0.75rem;font-weight:700;color:var(--c-primary,#10b981);text-transform:uppercase">Skill Boss</div>
-              <h3 style="margin:2px 0 0;font-size:1.15rem;font-weight:800;display:flex;align-items:center;gap:6px">
-                <span>${esc(sk.icon)}</span> <span>${esc(sk.name)}</span>
+              <h3 style="margin:2px 0 0;font-size:1.2rem;font-weight:800;display:flex;align-items:center;gap:6px">
+                <span>${esc(sk.icon || '⚠️')}</span> <span>${esc(sk.name)}</span>
               </h3>
             </div>
-            <button type="button" class="icon-btn small" id="btn-close-skill-sheet" style="font-size:1rem;width:32px;height:32px">✕</button>
+            <button type="button" class="icon-btn small" id="btn-close-skill-sheet" style="font-size:1.1rem;width:34px;height:34px;border-radius:99px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:#fff;cursor:pointer">✕</button>
           </div>
-          <p style="font-size:0.95rem;line-height:1.5;margin:10px 0 16px;color:var(--text,#f8fafc)">
+          <p style="font-size:0.95rem;line-height:1.55;margin:12px 0 18px;color:#cbd5e1">
             ${esc(isBrutal ? (sk.textBrutal || sk.text) : sk.text)}
           </p>
-          <button type="button" class="btn primary small" id="btn-close-skill-sheet-ok" style="width:100%;padding:10px;font-weight:700">Tutup</button>
+          <button type="button" class="btn primary small" id="btn-close-skill-sheet-ok" style="width:100%;padding:10px;font-weight:800">Tutup</button>
         </div>
       `;
       document.body.appendChild(sheet);
-      const close = () => sheet.remove();
+      const close = () => { if (sheet && sheet.parentNode) sheet.remove(); };
       sheet.onclick = close;
       sheet.querySelector('#btn-close-skill-sheet').onclick = close;
       sheet.querySelector('#btn-close-skill-sheet-ok').onclick = close;
@@ -1535,10 +1534,6 @@
 
     // Helper Boss Engine: Tampilkan Boss Fx Toasts
     const showBossFxEvents = (events) => {
-      if (root.Screens?.battle?.showBossFxEvents) {
-        root.Screens.battle.showBossFxEvents(events);
-        return;
-      }
       if (!events || !events.length || !root.BossSkills) return;
       let container = document.getElementById('boss-fx-toast-container');
       if (!container) {
@@ -1558,7 +1553,7 @@
         setTimeout(() => {
           toastEl.style.opacity = '0';
           toastEl.style.transform = 'translateY(-8px)';
-          setTimeout(() => toastEl.remove(), 250);
+          setTimeout(() => { if (toastEl && toastEl.parentNode) toastEl.remove(); }, 250);
         }, 3000 + (i * 300));
       });
     };
@@ -1590,7 +1585,7 @@
         title = 'Peti Harta Karun!';
         desc = 'Kamu menemukan sebuah peti harta karun misterius yang berkilau emas!';
         actionsHtml = `
-          <button class="btn primary" id="btn-event-open" data-testid="btn-event-open" style="width:100%;font-size:1.1rem;padding:12px;font-weight:700">
+          <button class="btn primary" id="btn-event-open" data-testid="btn-event-open" style="width:100%;font-size:1.1rem;padding:12px;font-weight:800">
             Buka Peti 🎁
           </button>
         `;
@@ -1608,9 +1603,9 @@
             <button class="btn ${canAfford ? 'primary' : 'secondary'} btn-merchant-deal"
               data-deal-id="${deal.id}" data-testid="btn-deal-${deal.id}"
               ${canAfford ? '' : 'disabled style="opacity:0.6;cursor:not-allowed;"'}
-              style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:10px 14px;font-size:0.95rem">
+              style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:10px 14px;font-size:0.95rem;font-weight:700">
               <span>${esc(deal.title)} <span style="font-size:0.8rem;opacity:0.8;display:block">${esc(deal.desc || '')}</span></span>
-              <span style="font-weight:700">${deal.price} 🪙 ${canAfford ? '' : '(Koin kurang)'}</span>
+              <span style="font-weight:800">${deal.price} 🪙 ${canAfford ? '' : '(Koin kurang)'}</span>
             </button>
           `;
         }).join('');
@@ -1629,7 +1624,7 @@
         desc = 'Sebuah peti kuno tergeletak di jalan. Berani membuka untuk hadiah, atau lewati demi keselamatan?';
         actionsHtml = `
           <div style="display:flex;flex-direction:column;gap:8px;width:100%">
-            <button class="btn primary" id="btn-event-open" data-testid="btn-event-open" style="width:100%;padding:12px;font-weight:700">
+            <button class="btn primary" id="btn-event-open" data-testid="btn-event-open" style="width:100%;padding:12px;font-weight:800">
               Buka Peti (Risiko Jebakan) 🪤
             </button>
             <button class="btn secondary" id="btn-event-skip" data-testid="btn-event-skip" style="width:100%">
@@ -1709,12 +1704,14 @@
 
           const msg = (res.result && res.result.message) || (isTimeout ? 'Waktu habis! Pilihan aman diambil otomatis.' : 'Kejutan selesai!');
           toast(msg);
-
-          if (modal) modal.remove();
-          renderQuestion();
         } catch (err) {
           toast('Gagal menyelesaikan kejutan: ' + err.message);
-          if (modal) modal.remove();
+        } finally {
+          const m = $('#event-modal');
+          if (m) m.remove();
+          // PASTIKAN isAnswering DAN PILIHAN SELALU DI-RESET AGAR TIDAK STUCK
+          isAnswering = false;
+          eliminatedOptions.clear();
           renderQuestion();
         }
       };
@@ -1749,20 +1746,11 @@
       if (passives.damageReduction) {
         chips.push(`<span class="battle-buff-chip" data-desc="Reduksi Serangan Bos +${Math.round(passives.damageReduction * 100)}%" style="cursor:pointer;font-size:0.75rem;padding:2px 8px;border-radius:99px;background:rgba(148,163,184,0.18);color:#cbd5e1;border:1px solid rgba(148,163,184,0.4)">🛡️ Reduksi ${Math.round(passives.damageReduction * 100)}%</span>`);
       }
-      if (passives.turn1Energy) {
-        chips.push(`<span class="battle-buff-chip chip accent" data-desc="Bonus Energi Awal +${passives.turn1Energy}" style="cursor:pointer;font-size:0.75rem;padding:2px 8px;border-radius:99px">⚡ Awal +${passives.turn1Energy}</span>`);
+      if (passives.coinBonus) {
+        chips.push(`<span class="battle-buff-chip" data-desc="Bonus Koin Emas +${Math.round(passives.coinBonus * 100)}%" style="cursor:pointer;font-size:0.75rem;padding:2px 8px;border-radius:99px;background:rgba(245,158,11,0.18);color:#fbbf24;border:1px solid rgba(245,158,11,0.4)">🪙 Koin +${Math.round(passives.coinBonus * 100)}%</span>`);
       }
       return chips.join('');
     };
-
-    // Skill aktif resmi dari data pemain atau default
-    let activeSkillIds = ['power_strike', 'eagle_eye', 'heal', 'red_potion'];
-    if (s && Array.isArray(s.skills) && s.skills.length > 0) {
-      activeSkillIds = s.skills.map(x => x.id || x);
-    } else if (P.skills) {
-      if (Array.isArray(P.skills)) activeSkillIds = P.skills;
-      else if (Array.isArray(P.skills.loadout)) activeSkillIds = P.skills.loadout;
-    }
 
     const stopTimer = () => {
       if (timerInterval) {
@@ -1771,72 +1759,105 @@
       }
     };
 
-    const triggerSkill = async (skIdx) => {
-      const skId = activeSkillIds[skIdx] || 'power_strike';
-      const skDef = SKILLS_LIST.find(sk => sk.id === skId) || { id: skId, name: skId, cost: 1 };
-      const cost = skDef.cost || 1;
-      let curEn = typeof s.energy === 'object' ? s.energy.value : (s.energy ?? 3);
+    const startTimer = (limitSec) => {
+      stopTimer();
+      currentTimer = limitSec || 20;
+      const bar = $('#desktop-timer-bar', el);
+      const txt = $('#desktop-timer-txt', el);
+      if (bar) bar.style.width = '100%';
+      if (txt) txt.textContent = `${currentTimer}s`;
 
-      if (curEn < cost) {
-        toast(`Energi tidak cukup! Butuh ${cost} ⚡`);
-        if (root.Feedback) root.Feedback.sfx('wrong');
-        else if (root.Sfx) root.Sfx.play('error');
+      const startMs = Date.now();
+      const totalMs = currentTimer * 1000;
+
+      timerInterval = setInterval(() => {
+        const elapsed = Date.now() - startMs;
+        const remainMs = Math.max(0, totalMs - elapsed);
+        const remainSec = Math.ceil(remainMs / 1000);
+        const pct = Math.max(0, (remainMs / totalMs) * 100);
+
+        if (bar) {
+          bar.style.width = `${pct}%`;
+          if (pct < 25) bar.style.background = 'linear-gradient(90deg, #ef4444, #f87171)';
+          else if (pct < 50) bar.style.background = 'linear-gradient(90deg, #f59e0b, #fbbf24)';
+          else bar.style.background = 'linear-gradient(90deg, #10b981, #34d399)';
+        }
+        if (txt) txt.textContent = `${remainSec}s`;
+
+        if (remainMs <= 0) {
+          stopTimer();
+          handleAnswer(-1); // Timeout
+        }
+      }, 100);
+    };
+
+    const triggerSkill = async (skIdx) => {
+      const activeIds = (s.loadout && s.loadout.length ? s.loadout.map(x => x.id || x) : ['power_strike', 'eagle_eye', 'heal', 'red_potion']);
+      const skillId = activeIds[skIdx];
+      if (!skillId) return;
+
+      const skDef = SKILLS_LIST.find(x => x.id === skillId) || { id: skillId, name: skillId, cost: 1 };
+      const curEn = typeof s.energy === 'object' ? s.energy.value : (s.energy ?? 0);
+      if (curEn < (skDef.cost || 1)) {
+        toast('Energi tidak cukup untuk menggunakan skill ini!');
         return;
       }
 
-      if (root.API && typeof root.API.useSkill === 'function') {
-        try {
-          const idemKey = `skill-${s.id}-${s.currentIndex}-${skId}-${Date.now()}`;
-          const res = await root.API.useSkill(s.id, skId, s.currentIndex, idemKey);
-          if (res && res.ok) {
-            if (root.Feedback) root.Feedback.sfx('critical');
-            else if (root.Sfx) root.Sfx.play('select');
-            s.energy = (res.energy && typeof res.energy === 'object') ? res.energy.value : (res.energy ?? (curEn - cost));
-            const fx = res.effects || {};
-            if (Array.isArray(fx.eliminated)) {
-              fx.eliminated.forEach(idx => eliminatedOptions.add(idx));
-              showDamageFloater(`🎯 ${fx.eliminated.length} OPSI DICORET!`, 'crit');
-            }
-            if (fx.shield) {
-              shieldActive = true;
-              showDamageFloater(`🛡️ PERISAI ${fx.shield} AKTIF!`, 'heal');
-            }
-            if (fx.healed) {
-              s.playerHp = Math.min(s.playerMaxHp, (s.playerHp || 85) + fx.healed);
-              showDamageFloater(`+${fx.healed} HP 💖`, 'heal');
-            }
-            if (fx.extraTimeMs) {
-              const addSec = Math.round(fx.extraTimeMs / 1000);
-              currentTimer += addSec;
-              showDamageFloater(`+${addSec}s WAKTU ⏱️`, 'crit');
-            }
-            if (skId === 'power_strike') {
-              showDamageFloater('⚔️ TEBASAN SUPER AKTIF! 💥', 'power_strike');
-            } else if (skId === 'red_potion') {
-              showDamageFloater('🍷 RAMUAN MERAH AKTIF! 💥', 'red_potion');
-            }
-            toast(`✨ Jurus ${skDef.name} Berhasil Digunakan!`);
-            renderQuestion();
-            return;
-          }
-        } catch (err) {
-          toast('Gagal menggunakan skill: ' + err.message);
-          return;
-        }
+      if (skillId === 'shield' && shieldActive) {
+        toast('Perisai masih aktif!');
+        return;
       }
 
-      curEn = Math.max(0, curEn - cost);
-      if (typeof s.energy === 'object') s.energy.value = curEn; else s.energy = curEn;
-      if (skId === 'eliminate_one' || skId === 'eagle_eye') {
-        eliminatedOptions.add(1);
-        eliminatedOptions.add(2);
-        showDamageFloater('🎯 OPSI DICORET!', 'crit');
-      } else if (skId === 'shield') {
-        shieldActive = true;
-        showDamageFloater('🛡️ PERISAI AKTIF!', 'heal');
-      } else if (skId === 'time_freeze') {
-        currentTimer += 15;
-        showDamageFloater('+15s WAKTU ⏱️', 'crit');
+      try {
+        let res = null;
+        if (root.API && typeof root.API.useSkill === 'function') {
+          res = await root.API.useSkill(s.id, skillId);
+        } else {
+          res = { ok: true, skillId };
+        }
+
+        if (res.session) {
+          s = res.session;
+          if (root.Screens?.battle) root.Screens.battle.session = s;
+        }
+
+        if (skillId === 'eliminate_one') {
+          const qOpts = s.currentQuestion?.options || [];
+          const correctIdx = s.currentQuestion?.answerIndex ?? 0;
+          const candidates = [];
+          qOpts.forEach((_, i) => {
+            if (i !== correctIdx && !eliminatedOptions.has(i)) candidates.push(i);
+          });
+          if (candidates.length > 0) {
+            const pick = candidates[Math.floor(Math.random() * candidates.length)];
+            eliminatedOptions.add(pick);
+            toast('🎯 1 Pilihan salah berhasil dicoret!');
+            showDamageFloater('🎯 CORET SALAH!', 'crit');
+          }
+        } else if (skillId === 'eagle_eye') {
+          toast('🦅 Mata Elang aktif! Opsi berkedip.');
+          showDamageFloater('🦅 MATA ELANG!', 'crit');
+        } else if (skillId === 'shield') {
+          shieldActive = true;
+          toast('🛡️ Perisai aktif melindungi dari 1 kesalahan!');
+          showDamageFloater('🛡️ PERISAI AKTIF!', 'heal');
+        } else if (skillId === 'heal') {
+          s.playerHp = Math.min(s.playerMaxHp || 100, (s.playerHp || 80) + 25);
+          toast('💖 Memulihkan 25 HP!');
+          showDamageFloater('+25 HP 💖', 'heal');
+        } else if (skillId === 'power_strike') {
+          toast('⚔️ Tebasan Super siap melipatgandakan damage!');
+          showDamageFloater('⚔️ TEBASAN SUPER!', 'power_strike');
+        } else if (skillId === 'red_potion') {
+          toast('🍷 Ramuan Merah aktif! Soal diganti ke termudah & Damage Super!');
+          showDamageFloater('🍷 RAMUAN MERAH!', 'red_potion');
+          if (res.session) {
+            s = res.session;
+            renderQuestion();
+          }
+        }
+      } catch (e) {
+        toast('Gagal menggunakan skill: ' + e.message);
       }
       toast(`✨ ${skDef.name} Digunakan!`);
       renderQuestion();
@@ -1944,8 +1965,15 @@
         }
 
         // Floater Skin Passives yang Terpicu
-        if (Array.isArray(res.triggeredPassives) && res.triggeredPassives.length > 0) {
-          res.triggeredPassives.forEach(tp => {
+        const trig = Array.isArray(res.triggeredPassives) ? [...res.triggeredPassives] : [];
+        if (trig.length === 0) {
+          if (res.notice && res.notice.includes('Semburan Naga')) trig.push({ id: 'dragon', name: 'Semburan Naga!', icon: '🔥' });
+          if (res.notice && res.notice.includes('Curi Energi')) trig.push({ id: 'comboEnergy', name: 'Curi Energi!', icon: '🦊' });
+          if (res.notice && res.notice.includes('Proteksi Combo')) trig.push({ id: 'streakProtect', name: 'Proteksi Combo!', icon: '🦉' });
+          if (res.notice && res.notice.includes('Darah Terakhir')) trig.push({ id: 'lastStand', name: 'Darah Terakhir!', icon: '🩸' });
+        }
+        if (trig.length > 0) {
+          trig.forEach(tp => {
             if (tp.id === 'comboCount' || tp.id === 'comboDamage') {
               showDamageFloater('👑 Raja Combo!', 'crit', nextNotifDelay);
             } else if (tp.id === 'comboDamageBonus') {
@@ -2013,6 +2041,21 @@
           if (root.Screens?.battle) root.Screens.battle.session = s;
         }
 
+        // Update Bar Darah Bos & Player Real-time
+        const curBossHp = res.bossHp ?? res.boss?.hp ?? s.bossHp ?? s.boss?.hp ?? 0;
+        const curBossMax = s.bossMaxHp ?? s.boss?.maxHp ?? 100;
+        const bossBarEl = $('#boss-side .bar-fill, #boss-side .bar i', el);
+        if (bossBarEl) bossBarEl.style.width = `${Math.max(0, Math.min(100, (curBossHp / curBossMax) * 100))}%`;
+        const bossBarTxt = $('#boss-side .bar .t', el);
+        if (bossBarTxt) bossBarTxt.textContent = `${curBossHp} / ${curBossMax}`;
+
+        const curPlayerHp = res.playerHp ?? s.playerHp ?? 0;
+        const curPlayerMax = s.playerMaxHp ?? 100;
+        const playerBarEl = $('#me-side .bar-fill, #me-side .bar i', el);
+        if (playerBarEl) playerBarEl.style.width = `${Math.max(0, Math.min(100, (curPlayerHp / curPlayerMax) * 100))}%`;
+        const playerBarTxt = $('#me-side .bar .t', el);
+        if (playerBarTxt) playerBarTxt.textContent = `${curPlayerHp} / ${curPlayerMax}`;
+
         // 2. FEEDBACK BOX / PEMBAHASAN SOAL (#fb-slot)
         const isWin = s.status === 'WON';
         const isLost = s.status === 'LOST';
@@ -2047,6 +2090,9 @@
             if (root.Screens?.battle?.stopHeartbeat) root.Screens.battle.stopHeartbeat();
             root.go('result', { session: s, result: res });
           } else if (res.event) {
+            // PENTING: RESET isAnswering SEBELUM MEMUNCULKAN EVENT AGAR TIDAK STUCK
+            isAnswering = false;
+            eliminatedOptions.clear();
             showEventModal(res.event);
           } else {
             isAnswering = false;
@@ -2060,18 +2106,24 @@
       } catch (e) {
         toast('Gagal memproses jawaban: ' + e.message);
         isAnswering = false;
-        $$('.opt, .short-in, #short-ok', el).forEach(b => b.disabled = false);
+        $$('.opt, .short-in, #short-ok', el).forEach(b => {
+          b.disabled = false;
+          b.style.pointerEvents = 'auto';
+        });
       }
     };
 
     const renderQuestion = () => {
       stopTimer();
       if (nextTimeout) clearTimeout(nextTimeout);
+      // SELALU RESET isAnswering SETIAP KALI ME-RENDER SOAL
+      isAnswering = false;
 
       // Cek apakah ada kejutan yang tertunda (Pending Event)
       if (s.pendingEvent) {
-        showEventModal(s.pendingEvent);
+        const pe = s.pendingEvent;
         s.pendingEvent = null;
+        showEventModal(pe);
         return;
       }
 
@@ -2091,17 +2143,20 @@
       const playerMaxHp = s.playerMaxHp ?? 100;
       let curEn = typeof s.energy === 'object' ? s.energy.value : (s.energy ?? 3);
       const playerCombo = s.streak ?? s.combo ?? 0;
-      const tier = (bossObj.tier || s.bossTier || 'rare').toLowerCase();
-      const tierInfo = (root.Progression?.BOSS_TIERS?.[tier]) || { label: tier.toUpperCase(), icon: '⚪', color: '#9aa5b1' };
-      const isBrutal = Boolean(s.brutal);
-      const elemKey = s.bossElement || s.boss_element || (s.boss && s.boss.element) || (root.BossSkills && root.BossSkills.elementForTheme(bossObj.theme || s.subject?.monster_theme));
-      const elementInfo = (root.BossSkills && root.BossSkills.ELEMENTS && root.BossSkills.ELEMENTS[elemKey]) || null;
+
+      // Boss Tier & Hits Left
+      const tier = (s.bossTier || s.boss?.tier || s.boss_tier || bossObj.tier || 'common').toLowerCase();
+      const tierInfo = (root.Progression?.BOSS_TIERS?.[tier]) || { id: tier, label: tier.toUpperCase(), icon: '⚪', color: '#9aa5b1' };
       const hitsLeft = s.hitsLeft ?? s.boss?.hitsLeft ?? Math.ceil(bossHp / 20);
+      const isBrutal = Boolean(s.brutal);
+      const isPhase2 = (s.boss_phase === 2 || s.bossPhase === 2 || (res => res?.phase === 2));
 
-      // Boss Skills
-      const bossSkills = s.boss?.skills || (root.BossSkills && elemKey && root.BossSkills.skillsFor && root.BossSkills.skillsFor(elemKey, tier, bossObj.id).map(sk => ({ ...root.BossSkills.describeSkill(sk, tier, isBrutal), textBrutal: root.BossSkills.describeSkill(sk, tier, true).text }))) || [];
+      // Boss Element & Skills (Engine Boss)
+      const elemKey = s.bossElement || s.boss_element || (s.boss && s.boss.element) || (root.BossSkills && root.BossSkills.elementForTheme(s.subject?.monster_theme || bossObj.theme));
+      const elementInfo = elemKey && root.BossSkills?.ELEMENTS?.[elemKey];
+      const monsterId = bossObj.id || s.monster_id;
+      const bossSkills = s.boss?.skills || (root.BossSkills && elemKey && root.BossSkills.skillsFor(elemKey, tier, monsterId).map(sk => root.BossSkills.describeSkill(sk, tier, isBrutal))) || [];
 
-      const isPhase2 = Boolean(s.bossPhase === 2 || s.boss_phase === 2 || s.boss?.phase === 2);
       const bossSvg = renderMonsterArt(bossObj, 220, { animated: true });
       const avatarSvg = renderPlayerAvatar(P.avatar, 180);
 
@@ -2126,15 +2181,19 @@
         if (!root.Screens.battle) root.Screens.battle = {};
         if (!root.Screens.battle._introShown) root.Screens.battle._introShown = {};
         root.Screens.battle._introShown[s.id] = true;
+        // Gunakan ukuran 140px presisi agar tidak meluber atau menutupi nama bos
+        const introBossSvg = renderMonsterArt(bossObj, 140, { animated: true });
         introHtml = `
-          <div class="boss-intro-overlay" id="boss-intro" data-testid="boss-intro" style="position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:999999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);animation:fadeIn .2s ease">
-            <div class="boss-intro-card" style="background:linear-gradient(135deg,rgba(30,41,59,0.95),rgba(15,23,42,0.98));border:2px solid ${tierInfo.color || '#38bdf8'};border-radius:24px;padding:24px;text-align:center;max-width:380px;box-shadow:0 12px 40px rgba(0,0,0,0.8);position:relative">
+          <div class="boss-intro-overlay" id="boss-intro" data-testid="boss-intro">
+            <div class="boss-intro-card" style="border-color:${tierInfo.color || '#38bdf8'}">
               <div class="chip" style="background:${tierInfo.color || '#38bdf8'};color:#fff;font-weight:800;font-size:0.75rem;margin-bottom:12px">${tierInfo.icon || '⚪'} ${tierInfo.label || tier.toUpperCase()}</div>
-              <div style="width:140px;height:140px;margin:0 auto 12px">${bossSvg}</div>
-              <h2 style="font-size:1.4rem;font-weight:900;color:#fff;margin:0 0 4px">${esc(bossName)}</h2>
+              <div class="boss-intro-stage">
+                ${introBossSvg}
+              </div>
+              <h2>${esc(bossName)}</h2>
               <div class="muted" style="font-size:0.85rem;font-weight:700;margin-bottom:8px">${esc(bossObj.theme || 'Arena')} · Lv ${bossObj.tier === 'legend' ? 10 : (bossObj.tier === 'epic' ? 8 : 5)}</div>
               <div class="chip warning" style="font-size:0.8rem;font-weight:800;padding:6px 14px;border-radius:99px;margin-bottom:16px">🎯 Kelemahan: ${esc(s.weakTopic || 'Soal')}</div>
-              <button class="btn primary lg block" id="btn-intro-dismiss" style="font-weight:800">⚔️ MULAI BERTARUNG</button>
+              <button class="btn primary lg block" id="btn-intro-dismiss" style="font-weight:800;width:100%">⚔️ MULAI BERTARUNG</button>
             </div>
           </div>
         `;
@@ -2154,8 +2213,8 @@
           </div>
           <span class="combo">🔥 Kombo ${playerCombo}×</span>
           ${shieldActive ? `<span class="chip accent" style="font-size:0.75rem;padding:2px 8px;font-weight:800;background:rgba(56,189,248,0.2);color:#38bdf8;border:1px solid #38bdf8">🛡️ PERISAI AKTIF</span>` : ''}
-          <span class="sp"></span>
-          <button class="btn sm" id="b-focus">📖 Fokus Baca <span class="kbd">F</span></button>
+          <div class="sp"></div>
+          <button class="btn sm ghost" id="b-focus" title="Mode Fokus Baca">📖 <span class="kbd">F</span></button>
         </div>
 
         <div class="panel fighter" id="boss-side" style="position:relative">
@@ -2180,7 +2239,7 @@
             <div class="boss-skill-chips" id="boss-skill-chips" data-testid="boss-skill-chips" style="display:flex;gap:6px;justify-content:center;margin:6px 0;flex-wrap:wrap">
               ${bossSkills.map(sk => `
                 <button type="button" class="boss-skill-chip-btn btn sm secondary" data-skid="${esc(sk.id)}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;font-size:0.75rem;border-radius:99px" title="${esc(sk.name)}">
-                  <span>${esc(sk.icon)}</span> <span>${esc(sk.name)}</span>
+                  <span>${esc(sk.icon || '⚠️')}</span> <span>${esc(sk.name)}</span>
                 </button>
               `).join('')}
             </div>
@@ -2238,17 +2297,15 @@
             ` : (qType === 'ORDERING' ? `
               <div class="ordering-container" style="display:flex;flex-direction:column;gap:8px">
                 <div class="muted" style="font-size:0.85rem">Klik opsi untuk menyusun urutan yang tepat:</div>
-                <div class="order-pool" style="display:flex;flex-wrap:wrap;gap:8px">
-                  ${qOpts.map((o, i) => `
-                    <button class="btn secondary order-item-btn" data-idx="${i}" style="font-weight:700">
+                <div id="order-sequence-box" style="min-height:42px;padding:6px 10px;background:rgba(0,0,0,0.3);border:1px dashed rgba(255,255,255,0.2);border-radius:8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center"></div>
+                <div class="options" style="grid-template-columns:1fr 1fr;gap:8px;margin-top:6px">
+                  ${qOpts.map((o, idx) => `
+                    <button class="btn secondary order-item-btn" data-idx="${idx}" style="justify-content:flex-start;text-align:left;padding:8px 12px">
                       ${esc(typeof o === 'object' ? o.text : o)}
                     </button>
                   `).join('')}
                 </div>
-                <div id="order-sequence-box" style="padding:10px;background:rgba(255,255,255,0.05);border-radius:10px;min-height:48px;display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-                  <span class="muted" style="font-size:0.8rem">Urutan terpilih:</span>
-                </div>
-                <button class="btn primary lg btn-confirm-order" style="margin-top:6px">Kirim Urutan <span class="kbd">Enter</span></button>
+                <button class="btn primary btn-confirm-order" style="margin-top:8px;font-weight:700">Konfirmasi Urutan</button>
               </div>
             ` : `
               <div class="options">
@@ -2264,14 +2321,14 @@
         <div class="panel fighter" id="me-side">
           <div class="fig" style="position:relative">
             ${avatarSvg}
-            ${shieldActive ? `<div style="position:absolute;inset:0;border-radius:50%;border:3px solid #38bdf8;box-shadow:0 0 16px #38bdf8;pointer-events:none;animation:pulseDot 1.5s infinite"></div>` : ''}
+            ${shieldActive ? '<div style="position:absolute;inset:-10px;border-radius:50%;border:3px dashed #38bdf8;animation:spin 8s linear infinite;pointer-events:none"></div>' : ''}
           </div>
-          <h2>${esc(pName.split(' ')[0])}</h2>
-          <div class="meta">Lv ${P.level || 1} · Ksatria</div>
-          ${bar((playerHp / playerMaxHp) * 100, 'hp tall', `${playerHp} / ${playerMaxHp}`)}
+          <h2>${esc(pName)}</h2>
+          <div class="meta">Level ${P.level || 1} · ${esc(P.title || 'Murid')}</div>
+          ${bar((playerHp / playerMaxHp) * 100, 'player tall', `${playerHp} / ${playerMaxHp}`)}
 
-          <!-- Skin Passive Buffs Row -->
-          <div class="player-passives-bar" id="player-passives-bar" data-testid="player-passives-bar" style="display:flex;flex-wrap:wrap;gap:4px;margin:6px 0;justify-content:center">
+          <!-- Passive Buff Chips Pemain -->
+          <div class="player-passives-bar" id="player-passives-bar" style="display:flex;gap:4px;flex-wrap:wrap;justify-content:center;margin:4px 0">
             ${renderPassiveBuffChips(s.passives || P.passives)}
           </div>
 
@@ -2295,6 +2352,12 @@
             }).join('')}
           </div>
         </div>`;
+
+      // PASTIKAN SEMUA TOMBOL JAWABAN AKTIF DAN BISA DI-KLIK
+      $$('.opt, .short-in, #short-ok, .order-item-btn, .btn-confirm-order', el).forEach(b => {
+        b.disabled = false;
+        b.style.pointerEvents = 'auto';
+      });
 
       // Event listener: Intro overlay dismiss
       const introEl = $('#boss-intro', el);
@@ -2326,37 +2389,28 @@
         };
       });
 
-      const timerFill = $('#desktop-timer-bar', el);
-      const timerTxt = $('#desktop-timer-txt', el);
-      const totalTimeSec = currentTimer;
-      const startMs = Date.now();
+      startTimer(currentTimer);
 
-      timerInterval = setInterval(() => {
-        const elapsedSec = (Date.now() - startMs) / 1000;
-        const remain = Math.max(0, Math.ceil(totalTimeSec - elapsedSec));
-        if (timerTxt) timerTxt.textContent = `${remain}s`;
-        if (timerFill) timerFill.style.width = `${Math.max(0, (remain / totalTimeSec) * 100)}%`;
-        if (remain <= 0) {
-          stopTimer();
-          handleAnswer(null);
-        }
-      }, 250);
+      $('#b-focus', el).onclick = () => {
+        isReadMode = !isReadMode;
+        renderQuestion();
+      };
 
-      $('#b-focus', el).onclick = () => { isReadMode = !isReadMode; renderQuestion(); };
       $('#b-tts', el).onclick = () => {
-        if (root.Sfx && typeof root.Sfx.speak === 'function') {
-          root.Sfx.speak(qText);
-        } else if ('speechSynthesis' in window) {
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
           const u = new SpeechSynthesisUtterance(qText);
           u.lang = 'id-ID';
           window.speechSynthesis.speak(u);
+        } else {
+          toast('TTS tidak didukung pada browser ini.');
         }
       };
 
       $('#btn-abandon-desktop', el).onclick = () => {
-        stopTimer();
-        Modal.open('Menyerah dari Pertempuran?', `
-          <div class="tc" style="padding:1.2rem">
+        Modal.open(`
+          <div style="padding:16px 20px;text-align:center">
+            <h3 style="font-size:1.25rem;font-weight:800;color:#ef4444;margin-bottom:8px">Menyerah dari Pertempuran?</h3>
             <p style="margin-bottom:1.2rem;line-height:1.5">Apakah kamu yakin ingin meninggalkan pertempuran ini? Kemajuan soal saat ini akan disimpan.</p>
             <div style="display:flex;gap:10px;justify-content:center">
               <button class="btn danger" id="btn-confirm-abandon">Ya, Menyerah</button>

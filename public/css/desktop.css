@@ -1916,3 +1916,386 @@ button { cursor: pointer; border: 0; background: none; padding: 0; }
   animation: ba-pulse 2s ease-in-out infinite !important;
   z-index: 2 !important;
 }
+
+
+/* =====================================================================
+   BATTLE FEEDBACK, FLOATERS, BOSS ENGINE & ANIMATIONS (DESKTOP MODE)
+   ===================================================================== */
+
+/* 1. Center Floater Container & Damage Floaters */
+.center-floater-container {
+  position: fixed !important;
+  top: 32% !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 10px !important;
+  pointer-events: none !important;
+  z-index: 999999 !important;
+  width: 100% !important;
+  max-width: 600px !important;
+  box-sizing: border-box !important;
+}
+
+.damage-floater {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.35rem;
+  font-weight: 900;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+  pointer-events: none;
+  z-index: 999999;
+  text-align: center;
+  max-width: 520px;
+  width: max-content;
+  white-space: normal;
+  word-break: break-word;
+  padding: 10px 24px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  animation: float-damage-smooth 1.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.center-floater-container .damage-floater {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  transform: translateY(12px) scale(0.94) !important;
+  max-height: 80px !important;
+  margin: 0 !important;
+  animation: float-damage-smooth 1.35s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+  will-change: transform, opacity, max-height !important;
+}
+
+.center-floater-container .damage-floater.fade-out {
+  animation: none !important;
+  opacity: 0 !important;
+  transform: translateY(-18px) scale(0.92) !important;
+  max-height: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: -4px !important;
+  margin-bottom: -4px !important;
+  border-width: 0 !important;
+  box-shadow: none !important;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              margin 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              padding 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.damage-floater.crit {
+  color: #fffbeb !important;
+  background: linear-gradient(135deg, rgba(30, 24, 10, 0.96), rgba(120, 53, 15, 0.96)) !important;
+  border: 2px solid #fbbf24 !important;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.75), 0 0 18px rgba(245, 158, 11, 0.55) !important;
+  font-size: 1.45rem !important;
+  letter-spacing: 0.5px !important;
+}
+.damage-floater.power_strike {
+  color: #fffbeb !important;
+  background: linear-gradient(135deg, rgba(70, 10, 5, 0.96), rgba(185, 28, 28, 0.96)) !important;
+  border: 2px solid #fbbf24 !important;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.8), 0 0 24px rgba(245, 158, 11, 0.75), 0 0 35px rgba(239, 68, 68, 0.5) !important;
+  font-size: 1.5rem !important;
+  letter-spacing: 0.6px !important;
+}
+.damage-floater.red_potion {
+  color: #fff1f2 !important;
+  background: linear-gradient(135deg, rgba(88, 10, 30, 0.96), rgba(225, 29, 72, 0.96)) !important;
+  border: 2px solid #fda4af !important;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.8), 0 0 24px rgba(244, 63, 94, 0.75), 0 0 35px rgba(225, 29, 72, 0.5) !important;
+  font-size: 1.5rem !important;
+  letter-spacing: 0.6px !important;
+}
+.damage-floater.dmg {
+  color: #f0fdf4 !important;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(12, 74, 110, 0.95)) !important;
+  border: 2px solid #38bdf8 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65), 0 0 16px rgba(56, 189, 248, 0.4) !important;
+}
+.damage-floater.heal {
+  color: #f0fdf4 !important;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(20, 83, 45, 0.95)) !important;
+  border: 2px solid #4ade80 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65), 0 0 16px rgba(74, 222, 128, 0.4) !important;
+}
+.damage-floater.miss {
+  color: #fef2f2 !important;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(127, 29, 29, 0.95)) !important;
+  border: 2px solid #f87171 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65), 0 0 16px rgba(248, 113, 113, 0.4) !important;
+}
+.damage-floater.energy {
+  color: #ede9fe !important;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(88, 28, 135, 0.95)) !important;
+  border: 2px solid #c084fc !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65), 0 0 16px rgba(192, 132, 252, 0.4) !important;
+}
+
+@keyframes float-damage-smooth {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.92);
+  }
+  16% {
+    opacity: 1;
+    transform: translateY(0) scale(1.02);
+  }
+  28% {
+    transform: translateY(-2px) scale(1);
+  }
+  75% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.94);
+  }
+}
+
+/* 2. Shake Animations */
+.anim-shake {
+  animation: boss-shake .4s cubic-bezier(.36,.07,.19,.97) both !important;
+}
+.anim-shake-heavy {
+  animation: boss-shake-heavy .55s cubic-bezier(.36,.07,.19,.97) both !important;
+}
+@keyframes boss-shake {
+  10%, 90% { transform: translate3d(-3px, 0, 0) rotate(-2deg); }
+  20%, 80% { transform: translate3d(5px, 0, 0) rotate(2deg); }
+  30%, 50%, 70% { transform: translate3d(-6px, 0, 0) rotate(-3deg); }
+  40%, 60% { transform: translate3d(6px, 0, 0) rotate(3deg); }
+}
+@keyframes boss-shake-heavy {
+  10%, 90% { transform: translate3d(-7px, 0, 0) rotate(-4deg) scale(0.96); }
+  20%, 80% { transform: translate3d(9px, 0, 0) rotate(4deg) scale(1.05); }
+  30%, 50%, 70% { transform: translate3d(-10px, 0, 0) rotate(-5deg) scale(0.94); }
+  40%, 60% { transform: translate3d(10px, 0, 0) rotate(5deg) scale(1.06); }
+}
+
+/* 3. Boss Enraged & Banner */
+.boss-enraged {
+  filter: drop-shadow(0 0 16px rgba(239, 68, 68, 0.95)) drop-shadow(0 0 6px #ef4444) !important;
+  animation: enragedPulse 1.2s infinite alternate ease-in-out !important;
+}
+@keyframes enragedPulse {
+  0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.7)); }
+  100% { transform: scale(1.06); filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.98)) drop-shadow(0 0 8px #f87171); }
+}
+
+.enraged-banner-wrap {
+  position: fixed !important;
+  top: 30% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 999999 !important;
+  pointer-events: none !important;
+  animation: popBanner 1.5s forwards ease-out !important;
+  width: max-content !important;
+  max-width: 480px !important;
+  box-sizing: border-box !important;
+}
+.enraged-banner {
+  background: linear-gradient(135deg, #ef4444, #b91c1c) !important;
+  color: #fff !important;
+  padding: 12px 24px !important;
+  border-radius: 20px !important;
+  box-shadow: 0 14px 34px rgba(0,0,0,0.65), 0 0 28px rgba(239,68,68,0.85) !important;
+  border: 2px solid #fca5a5 !important;
+  text-align: center !important;
+  font-weight: 900 !important;
+  font-size: 1.3rem !important;
+  line-height: 1.35 !important;
+}
+@keyframes popBanner {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+  20% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
+  35% { transform: translate(-50%, -50%) scale(1); }
+  80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8) translateY(-20px); }
+}
+
+/* 4. Boss Slash Effect */
+.boss-slash-effect {
+  position: absolute !important;
+  top: 50% !important;
+  left: -20% !important;
+  width: 140% !important;
+  height: 8px !important;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.95), #fbbf24, #ef4444, transparent) !important;
+  box-shadow: 0 0 20px #fbbf24, 0 0 35px #ef4444, 0 0 50px rgba(239, 68, 68, 0.85) !important;
+  transform: translateY(-50%) rotate(-35deg) scaleX(0) !important;
+  transform-origin: center !important;
+  pointer-events: none !important;
+  z-index: 28 !important;
+  opacity: 0 !important;
+  transition: opacity .15s ease !important;
+}
+.boss-slash-effect.anim-slash {
+  animation: slash-strike-anim 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+@keyframes slash-strike-anim {
+  0% { opacity: 0; transform: translateY(-50%) rotate(-38deg) scaleX(0); }
+  15% { opacity: 1; transform: translateY(-50%) rotate(-35deg) scaleX(1.15); }
+  50% { opacity: 0.95; transform: translateY(-46%) rotate(-32deg) scaleX(1.05); filter: brightness(2); }
+  100% { opacity: 0; transform: translateY(-40%) rotate(-28deg) scaleX(0.7); }
+}
+
+/* 5. Boss Intro Card & Monster Positioning */
+.boss-intro-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(0, 0, 0, 0.85) !important;
+  z-index: 999999 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  animation: fadeIn .2s ease !important;
+}
+.boss-intro-card {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.99)) !important;
+  border: 2px solid #38bdf8 !important;
+  border-radius: 24px !important;
+  padding: 26px 28px !important;
+  text-align: center !important;
+  max-width: 400px !important;
+  width: 90% !important;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.85) !important;
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+.boss-intro-stage {
+  width: 140px !important;
+  height: 140px !important;
+  margin: 0 auto 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  overflow: visible !important;
+}
+.boss-intro-stage svg {
+  width: 140px !important;
+  height: 140px !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  display: block !important;
+  margin: 0 auto !important;
+}
+.boss-intro-card h2 {
+  font-size: 1.5rem !important;
+  font-weight: 900 !important;
+  color: #fff !important;
+  margin: 0 0 6px 0 !important;
+  line-height: 1.25 !important;
+  position: relative !important;
+  z-index: 2 !important;
+  clear: both !important;
+}
+
+/* 6. Battle Screen Monster Fig & Options States */
+.fighter .fig {
+  flex: 1 !important;
+  min-height: 180px !important;
+  max-height: 230px !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+}
+.fighter .fig svg {
+  max-width: 100% !important;
+  max-height: 220px !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+  display: block !important;
+  margin: 0 auto !important;
+}
+
+.opt.correct {
+  background: rgba(34, 197, 94, 0.25) !important;
+  border-color: #22c55e !important;
+  color: #fff !important;
+  box-shadow: 0 0 14px rgba(34, 197, 94, 0.4) !important;
+}
+.opt.wrong {
+  background: rgba(239, 68, 68, 0.25) !important;
+  border-color: #ef4444 !important;
+  color: #fff !important;
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.4) !important;
+}
+
+/* 7. Boss Skill Sheet Modal & FX Toasts */
+.boss-skill-sheet-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(0,0,0,0.65) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  z-index: 100000 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.boss-skill-sheet {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(255,255,255,0.15) !important;
+  padding: 22px 24px !important;
+  width: 100% !important;
+  max-width: 440px !important;
+  box-shadow: 0 14px 35px rgba(0,0,0,0.6) !important;
+  animation: fadeIn 0.2s ease-out !important;
+}
+.boss-fx-toast-container {
+  position: fixed !important;
+  top: 72px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  z-index: 999999 !important;
+  pointer-events: none !important;
+  max-width: 420px !important;
+  width: 90% !important;
+  box-sizing: border-box !important;
+}
+.boss-fx-toast {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 8px 14px !important;
+  border-radius: 12px !important;
+  background: rgba(30, 41, 59, 0.95) !important;
+  color: #fff !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  transition: opacity 0.25s ease, transform 0.25s ease !important;
+}
+.boss-fx-toast.toast-warn { border-color: #ef4444 !important; background: rgba(153, 27, 27, 0.96) !important; }
+.boss-fx-toast.toast-status { border-color: #8b5cf6 !important; background: rgba(88, 28, 135, 0.96) !important; }
+.boss-fx-toast.toast-hit { border-color: #f97316 !important; background: rgba(154, 52, 18, 0.96) !important; }
