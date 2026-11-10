@@ -2862,6 +2862,7 @@
       const countRare = baseCat.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'RARE').length;
       const countEpic = baseCat.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'EPIC').length;
       const countLeg = baseCat.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'LEGENDARY').length;
+      const countMyt = baseCat.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'MYTHIC').length;
 
       const totalOwned = itemsList.filter(it => it.owned).length;
       const totalUnowned = itemsList.filter(it => !it.owned).length;
@@ -2983,6 +2984,9 @@
             </button>
             <button class="dex-tier-pill-btn rarity-pill-btn ${rarityFilter === 'LEGENDARY' ? 'active' : ''}" data-rar="LEGENDARY">
               <span style="color:#facc15">🟡 Legend</span><b>${countLeg}</b>
+            </button>
+            <button class="dex-tier-pill-btn rarity-pill-btn ${rarityFilter === 'MYTHIC' ? 'active' : ''}" data-rar="MYTHIC" style="grid-column:1/-1">
+              <span style="color:#ff0055">🔴 Mythic</span><b>${countMyt}</b>
             </button>
           </div>
         `, 'wardrobe-panel-filter')}
@@ -3205,6 +3209,7 @@
       const countRare = catItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'RARE').length;
       const countEpic = catItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'EPIC').length;
       const countLeg = catItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'LEGENDARY').length;
+      const countMyt = catItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'MYTHIC').length;
 
       const totalShopOwned = shopItems.filter(it => it.owned).length;
       const totalShopUnowned = shopItems.filter(it => !it.owned).length;
@@ -3291,6 +3296,7 @@
             </div>
             <div class="shop-rarity-bar" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:2px">
               <button class="btn small rarity-pill-btn shop-rarity-btn ${shopRarityFilter === 'ALL' ? 'active' : 'ghost'}" id="shop-rarity-all" data-rarity="ALL" data-testid="shop-filter-rarity-all">
+
                 Semua (${countAll})
               </button>
               <button class="btn small rarity-pill-btn shop-rarity-btn ${shopRarityFilter === 'COMMON' ? 'active' : 'ghost'}" id="shop-rarity-common" data-rarity="COMMON" data-testid="shop-filter-rarity-common" style="border-color:rgba(148,163,184,0.4)">
@@ -3305,21 +3311,8 @@
               <button class="btn small rarity-pill-btn shop-rarity-btn ${shopRarityFilter === 'LEGENDARY' ? 'active' : 'ghost'}" id="shop-rarity-legendary" data-rarity="LEGENDARY" data-testid="shop-filter-rarity-legendary" style="border-color:rgba(245,158,11,0.4)">
                 🟡 Legend (${countLeg})
               </button>
-            </div>
-          </div>
-                Semua (${countAll})
-              </button>
-              <button class="btn small rarity-pill-btn shop-rarity-btn ${shopRarityFilter === 'COMMON' ? 'active' : 'ghost'}" id="shop-rarity-common" data-rarity="COMMON" data-testid="shop-filter-rarity-common" style="border-color:rgba(148,163,184,0.4)">
-                ⚪ Common (${countCommon})
-              </button>
-              <button class="btn small rarity-pill-btn shop-rarity-btn ${shopRarityFilter === 'RARE' ? 'active' : 'ghost'}" id="shop-rarity-rare" data-rarity="RARE" data-testid="shop-filter-rarity-rare" style="border-color:rgba(56,189,248,0.4)">
-                🔵 Rare (${countRare})
-              </button>
-              <button class="btn small rarity-pill-btn shop-rarity-btn ${shopRarityFilter === 'EPIC' ? 'active' : 'ghost'}" id="shop-rarity-epic" data-rarity="EPIC" data-testid="shop-filter-rarity-epic" style="border-color:rgba(168,85,247,0.4)">
-                🟣 Epic (${countEpic})
-              </button>
-              <button class="btn small rarity-pill-btn shop-rarity-btn ${shopRarityFilter === 'LEGENDARY' ? 'active' : 'ghost'}" id="shop-rarity-legendary" data-rarity="LEGENDARY" data-testid="shop-filter-rarity-legendary" style="border-color:rgba(245,158,11,0.4)">
-                🟡 Legend (${countLeg})
+              <button class="btn small rarity-pill-btn shop-rarity-btn ${shopRarityFilter === 'MYTHIC' ? 'active' : 'ghost'}" id="shop-rarity-mythic" data-rarity="MYTHIC" data-testid="shop-filter-rarity-mythic" style="border-color:rgba(255,0,85,0.4)">
+                🔴 Mythic (${countMyt})
               </button>
             </div>
           </div>

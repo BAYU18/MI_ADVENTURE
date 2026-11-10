@@ -219,3 +219,22 @@ svg.fx-paused [class*="fx-"], svg.fx-paused animateTransform{animation-play-stat
   box-shadow: 0 0 12px rgba(245, 158, 11, 0.45);
 }
 
+
+/* Tier Rarity MYTHIC */
+.rar-mythic { --rc: #ff0055; color: #ff0055 !important; }
+.rarity-pill-btn[data-rarity="MYTHIC"].active,
+.rarity-pill-btn[data-rar="MYTHIC"].active {
+  background: rgba(255, 0, 85, 0.28) !important;
+  border-color: #ff0055 !important;
+  color: #ffb3c9 !important;
+  box-shadow: 0 0 14px rgba(255, 0, 85, 0.55);
+}
+.card-mythic {
+  border: 1.5px solid #ff0055 !important;
+  box-shadow: 0 0 16px rgba(255, 0, 85, 0.35) !important;
+}
+.badge-mythic {
+  background: linear-gradient(135deg, #ff0055, #8b00ff);
+  color: #fff;
+  border: 1px solid #fde047;
+}

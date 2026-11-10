@@ -17,8 +17,8 @@ const ECONOMY = {
     pityEpicAfter: 10,
   },
   firstDefeatBonus: 25,
-  duplicateRefund: { COMMON: 5, RARE: 15, EPIC: 40, LEGENDARY: 100 },
-  price: { COMMON: 30, RARE: 90, EPIC: 250, LEGENDARY: 700 },
+  duplicateRefund: { COMMON: 5, RARE: 15, EPIC: 40, LEGENDARY: 100, MYTHIC: 300 },
+  price: { COMMON: 30, RARE: 90, EPIC: 250, LEGENDARY: 700, MYTHIC: 2000 },
   mysteryBoxPrice: 60,
   dailyCoinCap: 300,
 };
@@ -693,18 +693,31 @@ const ITEMS = [
     },
     "lore": "Gryphon badai petir yang menyambar monster bos dengan petir halilintar penghancur pertahanan."
   },
-  {
+    {
     "id": "pet_leviathan",
     "slot": "pet",
-    "name": "Kraken Samudra Mistis",
-    "rarity": "LEGENDARY",
-    "price": 2500,
+    "name": "Leviathan Samudra Purba",
+    "rarity": "MYTHIC",
+    "price": 2250,
     "isStarter": false,
     "passive": {
-      "krakenSurge": { "damageReduction": 0.15, "threshold": 40, "damage": 30, "heal": 15 },
-      "desc": "Gelombang Pasang: Reduksi 15% Dmg; Tiap 40 Dmg Lepas Tsunami 30 DMG & Heal 15 HP"
+      "krakenSurge": {
+        "damageReduction": 0.15,
+        "threshold": 40,
+        "damage": 30,
+        "heal": 15
+      },
+      "tidalStun": {
+        "comboStep": 3
+      },
+      "perpetualBubble": {
+        "shieldPerTurn": 6,
+        "maxShield": 30
+      },
+      "purification": true,
+      "desc": "Tidal Torrent: Tiap 3 Combo Stun Bos 1 Giliran, +6 Perisai Gelembung Tiap Soal, Reduksi Dmg 15% & Pembersihan Status Negatif"
     },
-    "lore": "Kraken samudra mistis pengubah tekanan air laut dalam menjadi gelombang tsunami pembalik takdir."
+    "lore": "Penjaga lautan terdalam bumi yang telah menyaksikan ribuan zaman. Derunya menenggelamkan kemurkaan bos terbuas sekalipun."
   },
   {
     "id": "pet_fenrir",
@@ -1555,6 +1568,270 @@ const ITEMS = [
       "desc": "Infinite Void: Mulai dengan +2 Energi, Perisai +20 HP & Waktu +2.0 Detik"
     },
     "lore": "Jantung kosmos antariksa tempat lahirnya gugusan bintang baru, menyimpan energi primordial semesta."
+  },
+  {
+    "id": "hat_batara_surya",
+    "slot": "hat",
+    "name": "Mahkota Batara Surya",
+    "rarity": "MYTHIC",
+    "price": 2000,
+    "isStarter": false,
+    "passive": {
+      "startShield": 25,
+      "solarBurn": {
+        "minCombo": 5,
+        "hpPercent": 0.05,
+        "maxDmg": 20
+      },
+      "freezeImmunity": true,
+      "desc": "Supernova Radiance: +25 Perisai Awal, Solar Burn 5% HP Bos saat Combo ≥5 & Kebal Pengurangan Waktu Es"
+    },
+    "lore": "Mahkota warisan Batara Surya yang memancarkan kehangatan jutaan fajar. Kegelapan dan rasa ragu sirna seketika di bawah sinarnya."
+  },
+  {
+    "id": "hat_chronos_abyss",
+    "slot": "hat",
+    "name": "Helm Chronos Abisal",
+    "rarity": "MYTHIC",
+    "price": 1950,
+    "isStarter": false,
+    "passive": {
+      "bonusTime": 3,
+      "timeRewind": {
+        "rewindTo": 5,
+        "oncePerBattle": true
+      },
+      "chronoSiphon": {
+        "percent": 0.15,
+        "ratio": 20
+      },
+      "desc": "Temporal Distortion: Waktu +3.0s, Auto-Rewind 5.0s saat Waktu Habis & Konversi 15% Damage ke Energi"
+    },
+    "lore": "Ditempa di dasar palung waktu abisal. Penggunanya tidak lagi diperbudak detik, melainkan memerintah sang waktu itu sendiri."
+  },
+  {
+    "id": "outfit_antakusuma",
+    "slot": "outfit",
+    "name": "Zirah Kencana Antakusuma",
+    "rarity": "MYTHIC",
+    "price": 2200,
+    "isStarter": false,
+    "passive": {
+      "dodgeRate": 0.14,
+      "counterBlast": true,
+      "damageReduction": 0.15,
+      "desc": "Brajamusti Deflection: Hindaran +14%, Serangan Balik 100% Damage Bos saat Dodge & Reduksi Damage 15%"
+    },
+    "lore": "Kain pusaka kadewatan yang membuat pemakainya kebal dari senjata tajam dan memantulkan niat jahat musuh menjadi kehancuran bagi penyerangnya."
+  },
+  {
+    "id": "outfit_void_singularity",
+    "slot": "outfit",
+    "name": "Jubah Void Singularity",
+    "rarity": "MYTHIC",
+    "price": 2150,
+    "isStarter": false,
+    "passive": {
+      "voidCharge": {
+        "absorbPercent": 0.5,
+        "maxCharge": 40
+      },
+      "cheatDeath": true,
+      "emergencyShield": 30,
+      "desc": "Event Horizon: Serap 50% Damage saat Salah jadi Void Burst & Bertahan 1 HP +30 Perisai Darurat saat Sekarat"
+    },
+    "lore": "Terbuat dari tenunan lubang hitam kosmik. Rasa sakit dan kegagalan bukanlah akhir, melainkan bahan bakar bagi ledakan bintang berikutnya."
+  },
+  {
+    "id": "weapon_nagasasra",
+    "slot": "weapon",
+    "name": "Keris Pusaka Nagasasra",
+    "rarity": "MYTHIC",
+    "price": 2400,
+    "isStarter": false,
+    "passive": {
+      "critChance": 0.12,
+      "critMultiplier": 2.8,
+      "armorPen": {
+        "bonusDamagePercent": 0.2,
+        "durationTurns": 3
+      },
+      "instantStrikeChance": 0.2,
+      "desc": "Dragon Fang Execution: Crit +12%, Pengganda Crit 2.8x, Pecah Zirah +20% & 20% Peluang Serangan Ekstra"
+    },
+    "lore": "Keris pusaka agung yang ditempa dari serpihan meteor dan darah naga purba. Satu goresannya mampu merobek sisik terkeras monster mana pun."
+  },
+  {
+    "id": "weapon_genesis_staff",
+    "slot": "weapon",
+    "name": "Tongkat Kosmik Genesis",
+    "rarity": "MYTHIC",
+    "price": 2350,
+    "isStarter": false,
+    "passive": {
+      "skillCostDiscount": 1,
+      "lifeCatalyst": {
+        "heal": 15,
+        "damageBonusPercent": 0.35
+      },
+      "fullEnergyBoost": 15,
+      "desc": "Celestial Genesis: Hemat Biaya Skill -1⚡, Pakai Skill Pulih +15 HP & Serangan +15 DMG saat Energi Penuh"
+    },
+    "lore": "Pusaka para arsitek semesta. Setiap kata pengetahuan yang terucap mengubah energi murni menjadi mukjizat penyembuhan dan ledakan cahaya."
+  },
+  {
+    "id": "pet_phoenix_nirvana",
+    "slot": "pet",
+    "name": "Phoenix Nirvana Abadi",
+    "rarity": "MYTHIC",
+    "price": 2300,
+    "isStarter": false,
+    "passive": {
+      "nirvanaRebirth": {
+        "reviveHpPercent": 0.5,
+        "energyBonus": 4
+      },
+      "moltenProsperity": {
+        "coinBonus": 0.4,
+        "chestMult": 2
+      },
+      "firstGrace": true,
+      "desc": "Nirvana Rebirth: Bangkit Kembali dengan 50% HP & +4⚡ saat Kalah, Koin +40% & Bebas Kerusakan Salah Pertama"
+    },
+    "lore": "Burung legenda yang terlahir kembali dari abunya sendiri. Di mana ada Phoenix, di situ kekalahan hanyalah awal dari kemenangan yang lebih cemerlang."
+  },
+  {
+    "id": "bg_kahyangan",
+    "slot": "bg",
+    "name": "Gerbang Nirwana Kahyangan",
+    "rarity": "MYTHIC",
+    "price": 1850,
+    "isStarter": false,
+    "passive": {
+      "xpBonus": 0.15,
+      "quickAnswerGrace": {
+        "maxTimeSec": 3,
+        "heal": 4,
+        "bonusCoins": 2
+      },
+      "brutalSuppressor": 0.2,
+      "desc": "Swargaloka Blessing: Bonus EXP +15%, Jawab Cepat <3s Pulih +4 HP & Melemahkan Serangan Bos Brutal 20%"
+    },
+    "lore": "Gerbang perbatasan antara alam fana dan swargaloka. Hanya jiwa-jiwa berilmu tinggi yang diizinkan menjejakkan kaki di atas awan keemasannya."
+  },
+  {
+    "id": "bg_multiverse_rift",
+    "slot": "bg",
+    "name": "Dimensi Celah Multiverse",
+    "rarity": "MYTHIC",
+    "price": 1900,
+    "isStarter": false,
+    "passive": {
+      "quantumEchoChance": 0.25,
+      "lootChanceBonus": 0.15,
+      "dailyCoinCapBonus": 200,
+      "desc": "Quantum Duplication: 25% Peluang Serangan & Koin Ganda (2x DMG), Drop Skin +15% & Batas Koin Harian +200"
+    },
+    "lore": "Pusat konvergensi jutaan realitas paralel. Di sini, satu jawaban benar bergaung ke seluruh dimensi, melipatgandakan takdir kemenanganmu."
+  },
+  {
+    "id": "frame_ouroboros",
+    "slot": "frame",
+    "name": "Bingkai Segel Ouroboros Tak Terhingga",
+    "rarity": "MYTHIC",
+    "price": 1800,
+    "isStarter": false,
+    "passive": {
+      "streakProtectChance": 1,
+      "streakSafeguardOnce": true,
+      "comboMultiplierCap": 2.2,
+      "freeEliminateOnCombo": 5,
+      "desc": "Eternal Continuity: Proteksi 1x Salah Tidak Merusak Combo, Batas Pengali Combo 2.2x & Tiap 5 Combo Coret 1 Opsi Gratis"
+    },
+    "lore": "Ular kembar kosmik yang melambangkan keabadian dan siklus tanpa batas. Tak ada kombo yang runtuh selama tekadmu tak tergoyahkan."
+  },
+  {
+    "id": "frame_supernova_stellar",
+    "slot": "frame",
+    "name": "Bingkai Mahkota Galaksi Supernova",
+    "rarity": "MYTHIC",
+    "price": 1850,
+    "isStarter": false,
+    "passive": {
+      "allPassivesBoost": 0.25,
+      "critChance": 0.08,
+      "prestigeShimmer": true,
+      "desc": "Cosmic Resonance: Amplifikasi Seluruh Pasif Lain +25%, Crit +8% & Efek Kilau Partikel Bintang Kosmik"
+    },
+    "lore": "Bingkai kehormatan yang ditempa dari serpihan bintang supernova tertua di galaksi. Menghidupkan resonansi terdalam dari setiap pusaka yang kamu bawa."
+  },
+  {
+    "id": "title_destiny_conqueror",
+    "slot": "title",
+    "name": "Gelar: \"Sang Penakluk Takdir\"",
+    "rarity": "MYTHIC",
+    "price": 2000,
+    "isStarter": false,
+    "passive": {
+      "weaknessExploitation": 0.5,
+      "hardQuestionMastery": {
+        "coinMult": 3,
+        "energyBonus": 2
+      },
+      "maxHpBonus": 25,
+      "desc": "Fate Overwrite: Damage Kelemahan Bos Naik ke +50%, Soal Sulit Beri 3x Koin & Maks HP Naik ke 125"
+    },
+    "lore": "Gelar bagi kesatria yang menolak tunduk pada garis takdir yang telah tertulis. Baginya, setiap soal tersulit adalah panggung kemenangannya."
+  },
+  {
+    "id": "title_omni_wisdom",
+    "slot": "title",
+    "name": "Gelar: \"Mahaguru Kebijaksanaan Purba\"",
+    "rarity": "MYTHIC",
+    "price": 2050,
+    "isStarter": false,
+    "passive": {
+      "trapOptionIntuition": true,
+      "coinBonus": 0.3,
+      "xpBonus": 0.25,
+      "perfectAccuracyJackpot": 100,
+      "desc": "Omniscience Eye: Deteksi Opsi Pengecoh, Bonus Koin +30%, EXP +25% & Jackpot 100 Koin saat Akurasi Sempurna"
+    },
+    "lore": "Gelar kehormatan tertinggi bagi pencari ilmu sejati. Pengetahuannya menembus kabut ilusi, melihat kebenaran hakiki di setiap pertanyaan."
+  },
+  {
+    "id": "perm_gaia_heart",
+    "slot": "permanent",
+    "name": "Berkah Jantung Gaia",
+    "rarity": "MYTHIC",
+    "price": 2500,
+    "isStarter": false,
+    "passive": {
+      "maxEnergyPermanentBonus": 2,
+      "battleRegenInterval": {
+        "interval": 4,
+        "heal": 10,
+        "energy": 1
+      },
+      "lossProtection": 0.5,
+      "desc": "Perpetual Vitality: Kapasitas Maksimal Energi Akun +2⚡, Tiap 4 Soal Pulih +10 HP & Pertahankan 50% Hadiah saat Kalah"
+    },
+    "lore": "Pecahan intisari bumi pertiwi yang menyimpan denyut kehidupan abadi. Memberikan stamina tak terbatas dan melindungi penjelajah dari keputusasaan."
+  },
+  {
+    "id": "perm_midas_crucible",
+    "slot": "permanent",
+    "name": "Batu Alkimia Midas Kosmik",
+    "rarity": "MYTHIC",
+    "price": 2500,
+    "isStarter": false,
+    "passive": {
+      "dailyCoinCapMultiplier": 2,
+      "highCoinDropRate": 0.8,
+      "tripleDuplicateRefund": true,
+      "desc": "Philosopher Transmutation: Gandakan Batas Koin Harian Menjadi 600, Peluang Drop Koin 80% & Kompensasi Duplikat 3x Lipat"
+    },
+    "lore": "Relik agung para ahli alkimia kosmik. Segala ilmu dan usaha yang dicurahkan seketika bertransmutasi menjadi kemakmuran emas yang melimpah ruah."
   }
 ];
 

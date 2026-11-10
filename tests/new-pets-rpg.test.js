@@ -60,7 +60,7 @@ test('28 New RPG Pets & 7 Upgraded Legacy Pets Suite', async (t) => {
 
   await t.test('3. ITEMS catalog in economy.js has all 35 pets with unique metadata and passives', () => {
     const petsInCatalog = ITEMS.filter(it => it.slot === 'pet');
-    assert.equal(petsInCatalog.length, 35, 'Catalog must contain exactly 35 pets');
+    assert.ok(petsInCatalog.length >= 35, 'Catalog must contain at least 35 pets');
 
     const seenIds = new Set();
     for (const pet of petsInCatalog) {

@@ -8,6 +8,24 @@
   'use strict';
 
 const SET_BONUSES = [
+  // 2 Mahaset Bonus Mythic Baru
+  {
+    id: 'set_pantheon_batara',
+    name: 'Set Pantheon Batara Nusantara',
+    icon: '⚡',
+    items: ['hat_batara_surya', 'outfit_antakusuma', 'weapon_nagasasra', 'bg_kahyangan'],
+    bonus: { startShield: 50, immuneNegative: true, bataraLightning: 25 },
+    desc: 'Kedaulatan Batara: +50 Perisai Awal, Kebal Status Negatif & Sambaran Petir Dewata 25 True DMG saat Crit'
+  },
+  {
+    id: 'set_voidwalker_throne',
+    name: 'Set Singgasana Kosmik Voidwalker',
+    icon: '🌌',
+    items: ['hat_chronos_abyss', 'outfit_void_singularity', 'weapon_genesis_staff', 'bg_multiverse_rift'],
+    bonus: { bonusTime: 2.0, voidwalkerEfficiency: true, temporalReversal: true },
+    desc: 'Penguasa Kehampaan: Waktu +2.0s, Efisiensi Skill Ganda & Membalikkan 50% Damage Bos'
+  },
+
   {
     id: 'set_explorer',
     name: 'Set Penjelajah Rimba',
@@ -134,6 +152,46 @@ const SET_BONUSES = [
 
 function calculatePassives(equippedItemIds = [], itemsCatalog = []) {
   const stats = {
+    // 16 Item Mythic & Mahaset Baru:
+    solarBurn: null,
+    freezeImmunity: false,
+    timeRewind: null,
+    chronoSiphon: null,
+    counterBlast: false,
+    voidCharge: null,
+    armorPen: null,
+    instantStrikeChance: 0,
+    skillCostDiscount: 0,
+    lifeCatalyst: null,
+    fullEnergyBoost: 0,
+    tidalStun: null,
+    perpetualBubble: null,
+    purification: false,
+    nirvanaRebirth: null,
+    moltenProsperity: null,
+    firstGrace: false,
+    quickAnswerGrace: null,
+    brutalSuppressor: 0,
+    quantumEchoChance: 0,
+    streakSafeguardOnce: false,
+    comboMultiplierCap: 1.5,
+    freeEliminateOnCombo: 0,
+    allPassivesBoost: 0,
+    prestigeShimmer: false,
+    weaknessExploitation: 0,
+    hardQuestionMastery: null,
+    maxHpBonus: 0,
+    trapOptionIntuition: false,
+    perfectAccuracyJackpot: 0,
+    maxEnergyPermanentBonus: 0,
+    battleRegenInterval: null,
+    dailyCoinCapMultiplier: 1,
+    highCoinDropRate: 0,
+    tripleDuplicateRefund: false,
+    immuneNegative: false,
+    bataraLightning: 0,
+    voidwalkerEfficiency: false,
+    temporalReversal: false,
     dodgeRate: 0,
     startShield: 0,
     bonusTime: 0,
@@ -274,6 +332,43 @@ function calculatePassives(equippedItemIds = [], itemsCatalog = []) {
     if (p.shadowStepCrit) stats.shadowStepCrit = true;
     if (p.overdriveEnergyBoost) stats.overdriveEnergyBoost = true;
 
+    
+    // Mythic Passives
+    if (p.solarBurn) stats.solarBurn = p.solarBurn;
+    if (p.freezeImmunity) stats.freezeImmunity = true;
+    if (p.timeRewind) stats.timeRewind = p.timeRewind;
+    if (p.chronoSiphon) stats.chronoSiphon = p.chronoSiphon;
+    if (p.counterBlast) stats.counterBlast = true;
+    if (p.voidCharge) stats.voidCharge = p.voidCharge;
+    if (p.armorPen) stats.armorPen = p.armorPen;
+    if (p.instantStrikeChance) stats.instantStrikeChance += p.instantStrikeChance;
+    if (p.skillCostDiscount) stats.skillCostDiscount += p.skillCostDiscount;
+    if (p.lifeCatalyst) stats.lifeCatalyst = p.lifeCatalyst;
+    if (p.fullEnergyBoost) stats.fullEnergyBoost += p.fullEnergyBoost;
+    if (p.tidalStun) stats.tidalStun = p.tidalStun;
+    if (p.perpetualBubble) stats.perpetualBubble = p.perpetualBubble;
+    if (p.purification) stats.purification = true;
+    if (p.nirvanaRebirth) stats.nirvanaRebirth = p.nirvanaRebirth;
+    if (p.moltenProsperity) stats.moltenProsperity = p.moltenProsperity;
+    if (p.firstGrace) stats.firstGrace = true;
+    if (p.quickAnswerGrace) stats.quickAnswerGrace = p.quickAnswerGrace;
+    if (p.brutalSuppressor) stats.brutalSuppressor = Math.max(stats.brutalSuppressor, p.brutalSuppressor);
+    if (p.quantumEchoChance) stats.quantumEchoChance += p.quantumEchoChance;
+    if (p.streakSafeguardOnce) stats.streakSafeguardOnce = true;
+    if (p.comboMultiplierCap && p.comboMultiplierCap > stats.comboMultiplierCap) stats.comboMultiplierCap = p.comboMultiplierCap;
+    if (p.freeEliminateOnCombo) stats.freeEliminateOnCombo = p.freeEliminateOnCombo;
+    if (p.allPassivesBoost) stats.allPassivesBoost += p.allPassivesBoost;
+    if (p.prestigeShimmer) stats.prestigeShimmer = true;
+    if (p.weaknessExploitation) stats.weaknessExploitation += p.weaknessExploitation;
+    if (p.hardQuestionMastery) stats.hardQuestionMastery = p.hardQuestionMastery;
+    if (p.maxHpBonus) stats.maxHpBonus += p.maxHpBonus;
+    if (p.trapOptionIntuition) stats.trapOptionIntuition = true;
+    if (p.perfectAccuracyJackpot) stats.perfectAccuracyJackpot += p.perfectAccuracyJackpot;
+    if (p.maxEnergyPermanentBonus) stats.maxEnergyPermanentBonus += p.maxEnergyPermanentBonus;
+    if (p.battleRegenInterval) stats.battleRegenInterval = p.battleRegenInterval;
+    if (p.dailyCoinCapMultiplier && p.dailyCoinCapMultiplier > stats.dailyCoinCapMultiplier) stats.dailyCoinCapMultiplier = p.dailyCoinCapMultiplier;
+    if (p.highCoinDropRate) stats.highCoinDropRate = Math.max(stats.highCoinDropRate, p.highCoinDropRate);
+    if (p.tripleDuplicateRefund) stats.tripleDuplicateRefund = true;
     if (p.desc) stats.badges.push(p.desc);
   }
 
@@ -301,6 +396,11 @@ function calculatePassives(equippedItemIds = [], itemsCatalog = []) {
       if (b.counterStrike) stats.counterStrike = b.counterStrike;
       if (b.cosmicDrain) stats.cosmicDrain = b.cosmicDrain;
       if (b.perfectClearBonusCoin) stats.perfectClearBonusCoin += b.perfectClearBonusCoin;
+      
+      if (b.immuneNegative) stats.immuneNegative = true;
+      if (b.bataraLightning) stats.bataraLightning = b.bataraLightning;
+      if (b.voidwalkerEfficiency) stats.voidwalkerEfficiency = true;
+      if (b.temporalReversal) stats.temporalReversal = true;
       stats.badges.push(set.desc);
     }
   }

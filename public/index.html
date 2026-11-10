@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <title>Petualangan Pelajar</title>
   <link id="css-mobile" rel="stylesheet" href="css/style.css?v=20261107v1">
-  <link id="css-desktop" rel="stylesheet" href="css/desktop.css?v=20261110v6">
+  <link id="css-desktop" rel="stylesheet" href="css/desktop.css?v=20261111mythic">
   <link rel="stylesheet" href="css/fx.css?v=20261107v1">
 </head>
 <body>
@@ -30,10 +30,10 @@
   <script src="/shared/grading.js?v=20261103v12"></script>
   <script src="js/monsters.js?v=20261107v1"></script>
   <script src="js/audio.js?v=20261103v12"></script>
-  <script src="/shared/passives.js?v=20261109v1"></script>
-  <script src="/shared/economy.js?v=20261109v1"></script>
+  <script src="/shared/passives.js?v=20261111mythic"></script>
+  <script src="/shared/economy.js?v=20261111mythic"></script>
   <script src="/shared/pet-art.js?v=20261107v1"></script>
-  <script src="/shared/skin-art.js?v=20261108v1"></script>
+  <script src="/shared/skin-art.js?v=20261111mythic"></script>
   <script src="/shared/skill-art.js?v=20261108v3"></script>
   <script src="js/avatar.js?v=20261107v3"></script>
   <script src="/shared/story.js?v=20261103v12"></script>
@@ -42,11 +42,11 @@
   <script src="/js/dexcards.js?v=20261105v5"></script>
   <script src="/shared/badges.js?v=20261106v3"></script>
   <script src="/js/badge-art.js?v=20261106v1"></script>
-  <script src="/js/app.js?v=20261108v3"></script>
+  <script src="/js/app.js?v=20261111mythic"></script>
   <script src="js/friends.js?v=20261106v2"></script>
   <script src="js/duel.js?v=20261105v5"></script>
   <script src="js/desktop/core.js?v=20261108v1"></script>
-  <script src="js/desktop/screens.js?v=20261110v6"></script>
+  <script src="js/desktop/screens.js?v=20261111mythic"></script>
   <script>
     if ('serviceWorker' in navigator) {
       let refreshing = false;
@@ -57,7 +57,7 @@
         }
       });
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js?v=20261106v1').then(reg => {
+        navigator.serviceWorker.register('/sw.js?v=20261111mythic').then(reg => {
           reg.update();
         }).catch(err => console.warn('[SW reg fail]', err));
       });

@@ -7338,6 +7338,7 @@ Screens.profil = {
         <button class="btn small rarity-pill-btn skin-rarity-btn ${this.skinRarityFilter === 'RARE' ? 'active' : 'ghost'}" id="skin-rarity-rare" data-rarity="RARE" data-testid="skin-filter-rarity-rare" style="flex:0 0 auto;white-space:nowrap;padding:5px 12px;font-size:0.75rem;border-color:rgba(56,189,248,0.4)">🔵 Rare</button>
         <button class="btn small rarity-pill-btn skin-rarity-btn ${this.skinRarityFilter === 'EPIC' ? 'active' : 'ghost'}" id="skin-rarity-epic" data-rarity="EPIC" data-testid="skin-filter-rarity-epic" style="flex:0 0 auto;white-space:nowrap;padding:5px 12px;font-size:0.75rem;border-color:rgba(168,85,247,0.4)">🟣 Epic</button>
         <button class="btn small rarity-pill-btn skin-rarity-btn ${this.skinRarityFilter === 'LEGENDARY' ? 'active' : 'ghost'}" id="skin-rarity-legendary" data-rarity="LEGENDARY" data-testid="skin-filter-rarity-legendary" style="flex:0 0 auto;white-space:nowrap;padding:5px 12px;font-size:0.75rem;border-color:rgba(245,158,11,0.4)">🟡 Legend</button>
+        <button class="btn small rarity-pill-btn skin-rarity-btn ${this.skinRarityFilter === 'MYTHIC' ? 'active' : 'ghost'}" id="skin-rarity-mythic" data-rarity="MYTHIC" data-testid="skin-filter-rarity-mythic" style="flex:0 0 auto;white-space:nowrap;padding:5px 12px;font-size:0.75rem;border-color:rgba(255,0,85,0.4)">🔴 Mythic</button>
       </div>
 
       <!-- GRID ITEM MILIK -->
@@ -7360,6 +7361,7 @@ Screens.profil = {
       const countRare = baseItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'RARE').length;
       const countEpic = baseItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'EPIC').length;
       const countLeg = baseItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'LEGENDARY').length;
+      const countMyt = baseItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'MYTHIC').length;
 
       const btnAll = $('#skin-rarity-all');
       if (btnAll) btnAll.innerHTML = `Semua (${countAll})`;
@@ -7371,6 +7373,8 @@ Screens.profil = {
       if (btnEpic) btnEpic.innerHTML = `🟣 Epic (${countEpic})`;
       const btnLeg = $('#skin-rarity-legendary');
       if (btnLeg) btnLeg.innerHTML = `🟡 Legend (${countLeg})`;
+      const btnSkinMyt = $('#skin-rarity-mythic');
+      if (btnSkinMyt) btnSkinMyt.innerHTML = `🔴 Mythic (${countMyt})`;
     };
 
     const renderItems = () => {
@@ -7400,7 +7404,7 @@ Screens.profil = {
 
       grid.innerHTML = filtered.map(it => {
         const isEquipped = Boolean(this.avatarDraft && this.avatarDraft[it.slot] === it.id);
-        const rarityColor = it.rarity === 'LEGENDARY' ? '#f59e0b' : it.rarity === 'EPIC' ? '#a855f7' : it.rarity === 'RARE' ? '#3b82f6' : '#94a3b8';
+        const rarityColor = it.rarity === 'MYTHIC' ? '#ff0055' : it.rarity === 'LEGENDARY' ? '#f59e0b' : it.rarity === 'EPIC' ? '#a855f7' : it.rarity === 'RARE' ? '#3b82f6' : '#94a3b8';
 
         let actionHtml = '';
         if (isEquipped) {
@@ -8347,6 +8351,7 @@ Screens.profil = {
           <button class="btn small rarity-pill-btn shop-rarity-btn ${this.shopRarityFilter === 'RARE' ? 'active' : 'ghost'}" id="shop-rarity-rare" data-rarity="RARE" data-testid="shop-filter-rarity-rare" style="flex:0 0 auto;white-space:nowrap;padding:5px 12px;font-size:0.75rem;border-color:rgba(56,189,248,0.4)">🔵 Rare</button>
           <button class="btn small rarity-pill-btn shop-rarity-btn ${this.shopRarityFilter === 'EPIC' ? 'active' : 'ghost'}" id="shop-rarity-epic" data-rarity="EPIC" data-testid="shop-filter-rarity-epic" style="flex:0 0 auto;white-space:nowrap;padding:5px 12px;font-size:0.75rem;border-color:rgba(168,85,247,0.4)">🟣 Epic</button>
           <button class="btn small rarity-pill-btn shop-rarity-btn ${this.shopRarityFilter === 'LEGENDARY' ? 'active' : 'ghost'}" id="shop-rarity-legendary" data-rarity="LEGENDARY" data-testid="shop-filter-rarity-legendary" style="flex:0 0 auto;white-space:nowrap;padding:5px 12px;font-size:0.75rem;border-color:rgba(245,158,11,0.4)">🟡 Legend</button>
+          <button class="btn small rarity-pill-btn shop-rarity-btn ${this.shopRarityFilter === 'MYTHIC' ? 'active' : 'ghost'}" id="shop-rarity-mythic" data-rarity="MYTHIC" data-testid="shop-filter-rarity-mythic" style="flex:0 0 auto;white-space:nowrap;padding:5px 12px;font-size:0.75rem;border-color:rgba(255,0,85,0.4)">🔴 Mythic</button>
         </div>
       </div>
 
@@ -8378,6 +8383,7 @@ Screens.profil = {
       const countRare = catItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'RARE').length;
       const countEpic = catItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'EPIC').length;
       const countLeg = catItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'LEGENDARY').length;
+      const countMyt = catItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'MYTHIC').length;
 
       const btnAll = $('#shop-rarity-all');
       if (btnAll) btnAll.innerHTML = `Semua (${countAll})`;
@@ -8389,6 +8395,8 @@ Screens.profil = {
       if (btnEpic) btnEpic.innerHTML = `🟣 Epic (${countEpic})`;
       const btnLeg = $('#shop-rarity-legendary');
       if (btnLeg) btnLeg.innerHTML = `🟡 Legend (${countLeg})`;
+      const btnShopMyt = $('#shop-rarity-mythic');
+      if (btnShopMyt) btnShopMyt.innerHTML = `🔴 Mythic (${countMyt})`;
     };
 
     const renderShopItems = () => {
@@ -8413,7 +8421,7 @@ Screens.profil = {
 
       grid.innerHTML = filtered.map(it => {
         const canAfford = playerCoins >= it.price;
-        const rarityColor = it.rarity === 'LEGENDARY' ? '#f59e0b' : it.rarity === 'EPIC' ? '#a855f7' : it.rarity === 'RARE' ? '#3b82f6' : '#94a3b8';
+        const rarityColor = it.rarity === 'MYTHIC' ? '#ff0055' : it.rarity === 'LEGENDARY' ? '#f59e0b' : it.rarity === 'EPIC' ? '#a855f7' : it.rarity === 'RARE' ? '#3b82f6' : '#94a3b8';
         return `
           <div class="card item-card" data-testid="item-card-${it.id}" style="padding:12px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);display:flex;flex-direction:column;gap:8px">
             <div style="display:flex;gap:12px;align-items:flex-start">
@@ -8463,7 +8471,7 @@ Screens.profil = {
           if (!it) return;
 
           const thumbPreview = window.Avatar ? Avatar.renderThumbnail(it.id, it.slot) : '🎒';
-          const rarityColor = it.rarity === 'LEGENDARY' ? '#f59e0b' : it.rarity === 'EPIC' ? '#a855f7' : it.rarity === 'RARE' ? '#3b82f6' : '#94a3b8';
+          const rarityColor = it.rarity === 'MYTHIC' ? '#ff0055' : it.rarity === 'LEGENDARY' ? '#f59e0b' : it.rarity === 'EPIC' ? '#a855f7' : it.rarity === 'RARE' ? '#3b82f6' : '#94a3b8';
           const pDesc = it.passive ? `<div style="margin:8px 0;padding:8px 10px;background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.3);border-radius:10px;color:#fbbf24;font-size:0.82rem;font-weight:700;line-height:1.35;text-align:left">✨ Efek Pasif: ${esc(it.passive.desc)}</div>` : '';
           const lDesc = it.lore ? `<div style="font-size:0.8rem;color:var(--c-muted);font-style:italic;margin:6px 0 10px 0;line-height:1.35;text-align:center">"${esc(it.lore)}"</div>` : '';
           const buyPrompt = `<div style="margin-top:8px;font-size:0.92rem;color:#f1f5f9;line-height:1.4">Beli <strong style="color:#fff">${esc(it.name)}</strong> (<span style="color:${rarityColor};font-weight:800;font-size:0.8rem;letter-spacing:0.5px">${esc(it.rarity)}</span>) seharga <strong style="color:#fbbf24">${it.price} 🪙</strong>?</div>`;

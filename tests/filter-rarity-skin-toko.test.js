@@ -76,10 +76,11 @@ test('Filter Rarity di Menu Skin dan Toko Test Suite', async (t) => {
       const countRare = catItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'RARE').length;
       const countEpic = catItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'EPIC').length;
       const countLeg = catItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'LEGENDARY').length;
+      const countMyt = catItems.filter(it => (it.rarity || 'COMMON').toUpperCase() === 'MYTHIC').length;
 
       // Sum of rarities must exactly equal countAll
       assert.strictEqual(
-        countCommon + countRare + countEpic + countLeg,
+        countCommon + countRare + countEpic + countLeg + countMyt,
         countAll,
         `Sum of rarity counts in category ${cat} must equal total category items`
       );
