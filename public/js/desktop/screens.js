@@ -2356,7 +2356,7 @@
             <span class="chip accent boss-active-skill-chip" id="boss-active-skill-chip" style="display:none;font-size:0.72rem;font-weight:800">⚔️ Tebasan Super Aktif!</span>
           </div>
 
-          <div class="telegraph" style="margin-top:8px">⚠️ Titik Lemah: ${esc(s.weakTopic || 'Soal')}</div>
+          <div class="boss-weak-tag" style="font-size:0.75rem;color:var(--c-warning,#f59e0b);margin-top:6px;text-align:center">Titik lemah: <strong>${esc(s.weakTopic || s.boss?.weakTopic || 'Soal Sulit')}</strong> 🎯</div>
         </div>
 
         <div class="qwrap">
@@ -2367,8 +2367,14 @@
           </div>
 
           <div class="panel qcard">
-            <div class="qtag">
-              <span>🎯 TITIK LEMAH · ${esc(qType)}</span>
+            <div class="qtag" style="display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:8px">
+              <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+                <span style="font-size:0.78rem;color:var(--c-muted);font-weight:700">${esc(s.subject?.name || 'Pertarungan')}</span>
+                <span class="chip info" style="font-size:0.7rem;font-weight:700;padding:2px 8px">${isShort ? 'JAWABAN SINGKAT' : (qType === 'TRUE_FALSE' ? 'BENAR / SALAH' : (qType === 'ORDERING' ? 'URUTKAN' : 'PILIHAN GANDA'))}</span>
+                ${(Q.isWeak || Q.is_weak) ? '<span class="chip danger" style="font-size:0.7rem;font-weight:800;background:#ef4444;color:#fff;padding:2px 8px;border-radius:99px">🎯 TITIK LEMAH</span>' : ''}
+                ${(Q.isBonus || Q.is_bonus) ? '<span class="chip warning" style="font-size:0.7rem;font-weight:800;background:#f59e0b;color:#fff;padding:2px 8px;border-radius:99px">⭐ BONUS</span>' : ''}
+                ${(Q.isMystery || Q.is_mystery) ? '<span class="chip" style="font-size:0.7rem;font-weight:800;background:#8b5cf6;color:#fff;padding:2px 8px;border-radius:99px">❓ MISTERI</span>' : ''}
+              </div>
               <button class="btn sm" id="b-tts">🔊 Baca <span class="kbd">Spasi</span></button>
             </div>
             <div class="qtext">${esc(qText)}</div>
@@ -2449,19 +2455,29 @@
           <div class="energy-row" style="margin:.4rem 0">
             ${Array.from({ length: 5 }, (_, i) => `<i class="${i < curEn ? 'on' : ''}"></i>`).join('')}
           </div>
-          <div class="skills-deck" style="display:grid;grid-template-columns:repeat(${activeSkillIds.length},1fr);gap:.45rem;width:100%">
+          <!-- DEK SKILL PETUALANG (VERTIKAL BERBARIS KE BAWAH DENGAN DETAIL EFFECT JELAS) -->
+          <div class="skills-deck user-skills-vertical" style="display:flex;flex-direction:column;gap:7px;width:100%;margin-top:8px">
             ${activeSkillIds.map((skId, idx) => {
               const skDef = SKILLS_LIST.find(s => s.id === skId) || { id: skId, name: skId, cost: 1, desc: '' };
               const key = ['Q', 'W', 'E', 'R'][idx] || (idx + 1);
               const cost = skDef.cost || 1;
               const isDis = curEn < cost || (skId === 'shield' && shieldActive);
+              const isShieldOn = (skId === 'shield' && shieldActive);
               return `
-                <button class="skill-btn" data-sk="${idx}" title="${esc(skDef.name)} (${key}) - Biaya ${cost}⚡" ${isDis ? 'disabled' : ''}>
-                  <span class="kbd">${key}</span>
-                  <span class="cost-badge">⚡ ${cost}</span>
-                  <div style="width:38px;height:38px;margin:0 auto;display:flex;align-items:center;justify-content:center">${renderSkillArt(skDef.id, 1, 38, { animated: false })}</div>
-                  <b>${esc(skDef.name)}</b>
-                  <small>${skId === 'shield' && shieldActive ? 'Aktif ✔' : esc(skDef.desc || 'Taktik')}</small>
+                <button class="skill-btn skill-card-horizontal" data-sk="${idx}" title="${esc(skDef.name)} (${key}) - Biaya ${cost}⚡" ${isDis ? 'disabled' : ''}>
+                  <div class="skill-btn-icon-wrap">
+                    <span class="kbd">${key}</span>
+                    <div style="width:36px;height:36px;display:flex;align-items:center;justify-content:center">${renderSkillArt(skDef.id, 1, 36, { animated: false })}</div>
+                  </div>
+                  <div class="skill-btn-body" style="text-align:left">
+                    <div class="skill-btn-header" style="display:flex;justify-content:space-between;align-items:center">
+                      <span class="skill-btn-title" style="font-size:0.88rem;font-weight:800;color:#fff">${esc(skDef.name)}</span>
+                      <span class="cost-badge" style="font-size:0.72rem;font-weight:800;padding:1px 7px;border-radius:99px;background:rgba(250,204,21,0.2);color:#fde047;border:1px solid rgba(250,204,21,0.4)">⚡ ${cost}</span>
+                    </div>
+                    <div class="skill-btn-desc" style="font-size:0.75rem;color:#cbd5e1;line-height:1.35;margin-top:2px">
+                      ${isShieldOn ? '<span style="color:#38bdf8;font-weight:800">🛡️ Perisai Aktif Melindungi</span>' : esc(skDef.desc || 'Taktik Petualang')}
+                    </div>
+                  </div>
                 </button>`;
             }).join('')}
           </div>
