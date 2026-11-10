@@ -1572,8 +1572,20 @@
       if (!evt) return;
       stopTimer();
 
+      // PASTIKAN pendingEvent PADA SEMUA TEMPAT STATE LANGSUNG DI-NULL-KAN
+      // AGAR TIDAK TERPICU GANDA OLEH renderQuestion() ATAU TIMEOUT
+      s.pendingEvent = null;
+      if (s.flags) s.flags.pendingEvent = false;
+      if (root.Screens?.battle?.session) {
+        root.Screens.battle.session.pendingEvent = null;
+        if (root.Screens.battle.session.flags) root.Screens.battle.session.flags.pendingEvent = false;
+      }
+
       const old = $('#event-modal');
-      if (old) old.remove();
+      if (old) {
+        if (old._evtTimer) clearInterval(old._evtTimer);
+        old.remove();
+      }
 
       if (root.Feedback) root.Feedback.sfx('event');
       else if (root.Sfx) root.Sfx.play('coin');
@@ -1685,11 +1697,31 @@
           resolveChoice(evt.safeChoice || 'SKIP', true);
         }
       }, 100);
+      modal._evtTimer = evtTimerInterval;
+
+      const handleModalKeys = (e) => {
+        if (isResolved) return;
+        if (e.key === 'Enter' || e.key === ' ') {
+          const btn = $('#btn-event-open', modal) || $('.btn-merchant-deal:not([disabled])', modal);
+          if (btn) {
+            e.preventDefault();
+            btn.click();
+          }
+        } else if (e.key === 'Escape') {
+          const skipBtn = $('#btn-event-skip', modal);
+          if (skipBtn) {
+            e.preventDefault();
+            skipBtn.click();
+          }
+        }
+      };
+      window.addEventListener('keydown', handleModalKeys);
 
       const resolveChoice = async (choice, isTimeout = false) => {
         if (isResolved) return;
         isResolved = true;
         clearInterval(evtTimerInterval);
+        window.removeEventListener('keydown', handleModalKeys);
 
         $$('#event-modal button').forEach(b => b.disabled = true);
 
@@ -1707,6 +1739,9 @@
             if ($('#player-hp-bar', el)) $('#player-hp-bar', el).style.width = `${(curPlayerHp / curPlayerMax) * 100}%`;
             if ($('#player-hp-val', el)) $('#player-hp-val', el).textContent = curPlayerHp;
           }
+          if (res.coins !== undefined && root.Player?.data) {
+            root.Player.data.coins = res.coins;
+          }
           if (res.energy) {
             s.energy = res.energy.value;
           }
@@ -1716,9 +1751,17 @@
         } catch (err) {
           toast('Gagal menyelesaikan kejutan: ' + err.message);
         } finally {
+          if (evtTimerInterval) clearInterval(evtTimerInterval);
+          window.removeEventListener('keydown', handleModalKeys);
           const m = $('#event-modal');
           if (m) m.remove();
-          // PASTIKAN isAnswering DAN PILIHAN SELALU DI-RESET AGAR TIDAK STUCK
+          // PASTIKAN isAnswering DAN pendingEvent SELALU DIBERSIHKAN AGAR TIDAK STUCK ATAU MUNCUL GANDA
+          s.pendingEvent = null;
+          if (s.flags) s.flags.pendingEvent = false;
+          if (root.Screens?.battle?.session) {
+            root.Screens.battle.session.pendingEvent = null;
+            if (root.Screens.battle.session.flags) root.Screens.battle.session.flags.pendingEvent = false;
+          }
           isAnswering = false;
           eliminatedOptions.clear();
           renderQuestion();
@@ -1827,6 +1870,7 @@
     };
 
     const triggerSkill = async (skIdx) => {
+      if (isAnswering || document.getElementById('event-modal')) return;
       activeSkillIds = getActiveSkillIds();
       const skillId = activeSkillIds[skIdx];
       if (!skillId) return;
@@ -1902,7 +1946,7 @@
     };
 
     const handleAnswer = async (chosenAnswer) => {
-      if (isAnswering) return;
+      if (isAnswering || document.getElementById('event-modal')) return;
       isAnswering = true;
       stopTimer();
 
@@ -2199,9 +2243,15 @@
             if (root.Screens?.battle?.stopHeartbeat) root.Screens.battle.stopHeartbeat();
             root.go('result', { session: s, result: res });
           } else if (res.event) {
-            // PENTING: RESET isAnswering SEBELUM MEMUNCULKAN EVENT AGAR TIDAK STUCK
+            // PENTING: RESET isAnswering & pendingEvent SEBELUM MEMUNCULKAN EVENT AGAR TIDAK STUCK / MUNCUL GANDA
             isAnswering = false;
             eliminatedOptions.clear();
+            s.pendingEvent = null;
+            if (s.flags) s.flags.pendingEvent = false;
+            if (root.Screens?.battle?.session) {
+              root.Screens.battle.session.pendingEvent = null;
+              if (root.Screens.battle.session.flags) root.Screens.battle.session.flags.pendingEvent = false;
+            }
             showEventModal(res.event);
           } else {
             isAnswering = false;
@@ -2235,6 +2285,11 @@
       if (s.pendingEvent) {
         const pe = s.pendingEvent;
         s.pendingEvent = null;
+        if (s.flags) s.flags.pendingEvent = false;
+        if (root.Screens?.battle?.session) {
+          root.Screens.battle.session.pendingEvent = null;
+          if (root.Screens.battle.session.flags) root.Screens.battle.session.flags.pendingEvent = false;
+        }
         showEventModal(pe);
         return;
       }

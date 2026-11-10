@@ -1030,6 +1030,12 @@ const server = http.createServer(async (req, res) => {
         if (e.message === 'INSUFFICIENT_COINS') {
           return err(res, 'Koin kamu tidak cukup untuk tawaran ini!', 400, 'INSUFFICIENT_COINS');
         }
+        if (e.message === 'NO_PENDING_EVENT') {
+          return err(res, 'Kejutan sudah diselesaikan sebelumnya.', 400, 'NO_PENDING_EVENT');
+        }
+        if (e.message === 'SESSION_ALREADY_FINISHED') {
+          return err(res, 'Sesi pertempuran sudah selesai.', 400, 'SESSION_ALREADY_FINISHED');
+        }
         return err(res, e.message, 400);
       }
     }
