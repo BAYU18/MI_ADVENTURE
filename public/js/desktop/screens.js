@@ -1752,6 +1752,30 @@
       return chips.join('');
     };
 
+    // Resolusi Skill Aktif (Loadout Dek Pertarungan Pemain)
+    const getActiveSkillIds = () => {
+      let ids = [];
+      if (s && Array.isArray(s.skills) && s.skills.length > 0) {
+        ids = s.skills.map(x => (typeof x === 'object' && x ? x.id : x));
+      } else if (root.Screens?.battle?.skills && Array.isArray(root.Screens.battle.skills) && root.Screens.battle.skills.length > 0) {
+        ids = root.Screens.battle.skills.map(x => (typeof x === 'object' && x ? x.id : x));
+      } else if (s && Array.isArray(s.loadout) && s.loadout.length > 0) {
+        ids = s.loadout.map(x => (typeof x === 'object' && x ? x.id : x));
+      } else if (P && P.skills) {
+        if (Array.isArray(P.skills.loadout) && P.skills.loadout.length > 0) {
+          ids = P.skills.loadout;
+        } else if (Array.isArray(P.skills) && P.skills.length > 0) {
+          ids = P.skills.map(x => (typeof x === 'object' && x ? x.id : x));
+        }
+      }
+      ids = (ids || []).filter(Boolean);
+      if (!ids.length) {
+        ids = ['eliminate_one', 'shield', 'power_strike', 'red_potion'];
+      }
+      return ids;
+    };
+    let activeSkillIds = getActiveSkillIds();
+
     const stopTimer = () => {
       if (timerInterval) {
         clearInterval(timerInterval);
@@ -1792,8 +1816,8 @@
     };
 
     const triggerSkill = async (skIdx) => {
-      const activeIds = (s.loadout && s.loadout.length ? s.loadout.map(x => x.id || x) : ['power_strike', 'eagle_eye', 'heal', 'red_potion']);
-      const skillId = activeIds[skIdx];
+      activeSkillIds = getActiveSkillIds();
+      const skillId = activeSkillIds[skIdx];
       if (!skillId) return;
 
       const skDef = SKILLS_LIST.find(x => x.id === skillId) || { id: skillId, name: skillId, cost: 1 };
@@ -2118,6 +2142,7 @@
       if (nextTimeout) clearTimeout(nextTimeout);
       // SELALU RESET isAnswering SETIAP KALI ME-RENDER SOAL
       isAnswering = false;
+      activeSkillIds = getActiveSkillIds();
 
       // Cek apakah ada kejutan yang tertunda (Pending Event)
       if (s.pendingEvent) {
