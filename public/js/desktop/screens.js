@@ -694,7 +694,7 @@
     let selSubjectId = null;
     let campData = null;
     let curChapterIdx = 0;
-    let selNodeKey = '1-1';
+    let selNodeKey = null;
     let brutalMode = Boolean(root.Screens?.battle?.brutalEnabled);
     const pLevel = typeof root.Player?.level === 'function' ? root.Player.level() : (P.level || 1);
 
@@ -737,9 +737,9 @@
           title: `Petualangan Rimba ${curSub.name}`,
           completed: false,
           nodes: [
-            { key: '1-1', title: 'Simpul 1: Penjelajah Awal', stars: 3, unlocked: true, cleared: true, clearedThisWeek: false, isBoss: false, questionCount: 10, order: 1 },
-            { key: '1-2', title: 'Simpul 2: Jurang Pengetahuan', stars: 2, unlocked: true, cleared: true, clearedThisWeek: false, isBoss: false, questionCount: 10, order: 2 },
-            { key: '1-3', title: 'Simpul 3: Bos Penjaga Wilayah', stars: 0, unlocked: true, cleared: false, clearedThisWeek: false, isBoss: true, questionCount: 10, order: 3 }
+            { key: `s${curSub.id}-c1-n1`, title: 'Simpul 1: Penjelajah Awal', stars: 3, unlocked: true, cleared: true, clearedThisWeek: false, isBoss: false, questionCount: 10, order: 1 },
+            { key: `s${curSub.id}-c1-n2`, title: 'Simpul 2: Jurang Pengetahuan', stars: 2, unlocked: true, cleared: true, clearedThisWeek: false, isBoss: false, questionCount: 10, order: 2 },
+            { key: `s${curSub.id}-c1-n3`, title: 'Simpul 3: Bos Penjaga Wilayah', stars: 0, unlocked: true, cleared: false, clearedThisWeek: false, isBoss: true, questionCount: 10, order: 3 }
           ]
         }
       ];
@@ -747,7 +747,14 @@
       if (curChapterIdx >= chapters.length) curChapterIdx = 0;
       const curCh = chapters[curChapterIdx];
       const allNodes = curCh.nodes || [];
-      const curNode = allNodes.find(n => n.key === selNodeKey) || allNodes[0] || { key: `${curCh.n}-1`, title: 'Simpul 1', isBoss: false, unlocked: true };
+
+      // Pastikan selNodeKey selalu tersinkronisasi dengan simpul yang valid di bab ini
+      if (!allNodes.some(n => n.key === selNodeKey)) {
+        const preferredNode = allNodes.find(n => n.unlocked && !n.clearedThisWeek) || allNodes.find(n => n.unlocked) || allNodes[0];
+        selNodeKey = preferredNode ? preferredNode.key : (allNodes[0] ? allNodes[0].key : `s${curSub.id}-c${curCh.n}-n1`);
+      }
+
+      const curNode = allNodes.find(n => n.key === selNodeKey) || allNodes[0] || { key: `s${curSub.id}-c${curCh.n}-n1`, title: 'Simpul 1', isBoss: false, unlocked: true };
       const bossMonster = (root.Monsters && root.Monsters.MONSTERS && (root.Monsters.MONSTERS.find(m => m.theme === curCh.theme || m.element === curCh.theme) || root.Monsters.MONSTERS[2])) || { id: 3, name: 'Raja Jamurgon', tier: 'rare' };
       const bossSvg = renderMonsterArt(bossMonster, 210, { animated: true });
 
@@ -998,6 +1005,7 @@
       $$('.sub-select-btn', el).forEach(btn => {
         btn.onclick = async () => {
           selSubjectId = +btn.dataset.sub;
+          selNodeKey = null;
           if (root.API?.getCampaign) {
             try { campData = await root.API.getCampaign(selSubjectId); } catch (_) {}
           }
@@ -1090,7 +1098,7 @@
             if (isFun) {
               await root.Screens.battle.start(selSubjectId, { mode: 'FUN' });
             } else if (isCerita) {
-              await root.Screens.battle.start(selSubjectId, { campaignNode: selNodeKey, brutal: brutalMode });
+              await root.Screens.battle.start(selSubjectId, { campaignNode: curNode.key || selNodeKey, brutal: brutalMode });
             } else {
               await root.Screens.battle.start(selSubjectId, { mode: 'BATTLE', brutal: brutalMode });
             }

@@ -863,6 +863,15 @@ const server = http.createServer(async (req, res) => {
       if (e.code === 'BRUTAL_LOCKED') {
         return err(res, e.message || 'Mode Brutal hanya dapat diakses pemain level 5 ke atas', 403, 'BRUTAL_LOCKED');
       }
+      if (e.code === 'NODE_ALREADY_CLEARED_THIS_WEEK') {
+        return err(res, e.message, 400, 'NODE_ALREADY_CLEARED_THIS_WEEK');
+      }
+      if (e.message === 'NODE_LOCKED') {
+        return err(res, 'Wilayah ini masih terkunci! Selesaikan wilayah sebelumnya terlebih dahulu.', 400, 'NODE_LOCKED');
+      }
+      if (e.message === 'NODE_NOT_FOUND' || e.message === 'INVALID_CAMPAIGN_NODE') {
+        return err(res, 'Wilayah petualangan tidak valid atau tidak ditemukan.', 400, 'INVALID_CAMPAIGN_NODE');
+      }
       if (e.message === 'SUBJECT_NOT_FOUND') {
         return err(res, 'Mata pelajaran tidak ditemukan atau belum aktif', 404, 'SUBJECT_NOT_FOUND');
       }

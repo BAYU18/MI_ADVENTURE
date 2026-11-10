@@ -64,14 +64,27 @@
     return list.slice(0, CAMPAIGN.chapters);
   }
 
-  function parseNodeKey(nodeKey) {
-    const m = String(nodeKey || '').match(/^s(\w+)-c(\d+)-n(\d+)$/);
-    if (!m) return null;
-    return {
-      subjectId: isNaN(Number(m[1])) ? m[1] : Number(m[1]),
-      chapter: Number(m[2]),
-      node: Number(m[3])
-    };
+  function parseNodeKey(nodeKey, fallbackSubjectId = null) {
+    if (!nodeKey) return null;
+    const str = String(nodeKey).trim();
+    const m = str.match(/^s(\w+)-c(\d+)-n(\d+)$/i);
+    if (m) {
+      return {
+        subjectId: isNaN(Number(m[1])) ? m[1] : Number(m[1]),
+        chapter: Number(m[2]),
+        node: Number(m[3])
+      };
+    }
+    const alt = str.match(/^(?:s?(\w+)[-_])?c?(\d+)[-_]n?(\d+)$/i);
+    if (alt) {
+      const sId = alt[1] || fallbackSubjectId;
+      return {
+        subjectId: isNaN(Number(sId)) ? sId : Number(sId),
+        chapter: Number(alt[2]),
+        node: Number(alt[3])
+      };
+    }
+    return null;
   }
 
   function buildCampaign(subjectId, monsterTheme, progressMap = {}, options = {}) {
