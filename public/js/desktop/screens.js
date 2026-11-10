@@ -3113,7 +3113,29 @@
         };
       }
 
-      $$('.skin-owner-btn', el).forEach(b => { b.onclick = () => { if (root.Sfx) root.Sfx.play('tap'); ownerFilter = b.dataset.owner; selId = null; draw(); }; });
+      // Lazy load offscreen wardrobe thumbnails (300px prefetch)
+      if (typeof IntersectionObserver !== 'undefined') {
+        const obs = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const tEl = entry.target;
+              const id = tEl.dataset.itemId;
+              const slot = tEl.dataset.itemSlot;
+              if (id) {
+                tEl.innerHTML = renderItemArt(id, slot, 80);
+              }
+              observer.unobserve(tEl);
+            }
+          });
+        }, { rootMargin: '300px' });
+        $('.lazy-art', el).forEach(e => obs.observe(e));
+      } else {
+        $('.lazy-art', el).forEach(e => {
+          if (e.dataset.itemId) e.innerHTML = renderItemArt(e.dataset.itemId, e.dataset.itemSlot, 80);
+        });
+      }
+
+      $('.skin-owner-btn', el).forEach(b => { b.onclick = () => { if (root.Sfx) root.Sfx.play('tap'); ownerFilter = b.dataset.owner; selId = null; draw(); }; });
       $$('.skin-cat-tab-btn', el).forEach(b => { b.onclick = () => { if (root.Sfx) root.Sfx.play('tap'); cat = b.dataset.cat; selId = null; draw(); }; });
       $$('.rarity-pill-btn', el).forEach(b => { b.onclick = () => { if (root.Sfx) root.Sfx.play('tap'); rarityFilter = b.dataset.rar; selId = null; draw(); }; });
       $$('[data-jumpcat]', el).forEach(b => { b.onclick = () => { if (root.Sfx) root.Sfx.play('tap'); cat = b.dataset.jumpcat; selId = null; draw(); }; });
@@ -3457,7 +3479,29 @@
       });
 
       // Item selection preview
-      $$('.item-card', el).forEach(card => {
+      // Lazy load offscreen shop thumbnails (300px prefetch)
+      if (typeof IntersectionObserver !== 'undefined') {
+        const obs = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const tEl = entry.target;
+              const id = tEl.dataset.itemId;
+              const slot = tEl.dataset.itemSlot;
+              if (id) {
+                tEl.innerHTML = renderItemArt(id, slot, 68);
+              }
+              observer.unobserve(tEl);
+            }
+          });
+        }, { rootMargin: '300px' });
+        $('.lazy-art', el).forEach(e => obs.observe(e));
+      } else {
+        $('.lazy-art', el).forEach(e => {
+          if (e.dataset.itemId) e.innerHTML = renderItemArt(e.dataset.itemId, e.dataset.itemSlot, 68);
+        });
+      }
+
+      $('.item-card', el).forEach(card => {
         card.onclick = (e) => {
           if (e.target.closest('.item-shop-buy-btn')) return;
           const id = card.dataset.id;
