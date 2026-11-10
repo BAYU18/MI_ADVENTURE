@@ -1396,7 +1396,8 @@
     }
 
     let isReadMode = false;
-    let shieldActive = Boolean((s.flags && s.flags.shield > 0) || (s.shield > 0));
+    let currentShield = (s.flags && typeof s.flags.shield === 'number') ? s.flags.shield : (s.shield || 0);
+    let shieldActive = currentShield > 0;
     const eliminatedOptions = new Set();
     let isAnswering = false;
     let timerInterval = null;
@@ -1730,12 +1731,14 @@
       });
     };
 
-    // Helper: Render Passive Buff Chips
-    const renderPassiveBuffChips = (passives) => {
+    // Helper: Render Passive Buff Chips (Dinamis dengan sisa perisai real-time)
+    const renderPassiveBuffChips = (passives, currentShieldVal = 0) => {
       if (!passives) return '';
       const chips = [];
       if (passives.startShield) {
-        chips.push(`<span class="battle-buff-chip chip info" data-desc="Perisai Awal +${passives.startShield}" style="cursor:pointer;font-size:0.75rem;padding:2px 8px;border-radius:99px">🛡️ Perisai +${passives.startShield}</span>`);
+        const shVal = (typeof currentShieldVal === 'number') ? currentShieldVal : (passives.startShield || 0);
+        const isDepleted = shVal <= 0;
+        chips.push(`<span class="battle-buff-chip chip info" id="active-shield-passive-chip" data-desc="Perisai Awal +${passives.startShield} (Tersisa: ${shVal})" style="cursor:pointer;font-size:0.75rem;padding:2px 8px;border-radius:99px;opacity:${isDepleted ? '0.45' : '1'};background:rgba(56,189,248,0.2);color:#38bdf8;border:1px solid rgba(56,189,248,0.5)">🛡️ Perisai: <b id="passive-shield-val">${shVal}</b></span>`);
       }
       if (passives.critChance) {
         chips.push(`<span class="battle-buff-chip chip accent" data-desc="Peluang Kritis +${Math.round(passives.critChance * 100)}% (Damage 1.5×)" style="cursor:pointer;font-size:0.75rem;padding:2px 8px;border-radius:99px">⚡ Crit +${Math.round(passives.critChance * 100)}%</span>`);
@@ -1863,8 +1866,11 @@
           showDamageFloater('🦅 MATA ELANG!', 'crit');
         } else if (skillId === 'shield') {
           shieldActive = true;
-          toast('🛡️ Perisai aktif melindungi dari 1 kesalahan!');
+          currentShield = (res.session?.flags?.shield) || (currentShield + 20);
+          toast('🛡️ Perisai aktif melindungi dari serangan!');
           showDamageFloater('🛡️ PERISAI AKTIF!', 'heal');
+          renderQuestion();
+          return;
         } else if (skillId === 'heal') {
           s.playerHp = Math.min(s.playerMaxHp || 100, (s.playerHp || 80) + 25);
           toast('💖 Memulihkan 25 HP!');
@@ -1953,14 +1959,43 @@
             showDamageFloater('💨 HINDARAN! 0 DMG', 'heal');
             toast('Refleks hebat! Kamu berhasil menghindari serangan! 💨');
             if (root.Feedback) root.Feedback.sfx('correct');
-          } else if (outcome === 'TIMEOUT') {
-            showDamageFloater(`⏰ WAKTU HABIS! -${res.damageToPlayer || 20}`, 'miss');
-            if (root.Feedback) root.Feedback.sfx('wrong');
-            else if (root.Sfx) root.Sfx.play('error');
           } else {
-            showDamageFloater(`❌ SALAH! -${res.damageToPlayer || 20}`, 'miss');
-            if (root.Feedback) root.Feedback.sfx('wrong');
-            else if (root.Sfx) root.Sfx.play('error');
+            // Evaluasi penyerapan perisai dan pengurangan darah
+            const oldShield = currentShield;
+            const newShield = (res.shield !== undefined) ? res.shield : (res.session?.flags?.shield ?? 0);
+            const shieldAbsorbed = Math.max(0, oldShield - newShield);
+            currentShield = newShield;
+            shieldActive = currentShield > 0;
+
+            const dmgToPlayer = (res.damageToPlayer !== undefined) ? res.damageToPlayer : ((res.playerDamage !== undefined) ? res.playerDamage : 0);
+
+            if (res.dodged) {
+              showDamageFloater('💨 HINDARAN! 0 DMG', 'heal');
+              toast('Refleks hebat! Kamu berhasil menghindari serangan! 💨');
+              if (root.Feedback) root.Feedback.sfx('correct');
+            } else {
+              let delayFloater = 0;
+              if (shieldAbsorbed > 0) {
+                showDamageFloater(`🛡️ PERISAI MENYERAP! -${shieldAbsorbed}`, 'heal');
+                delayFloater = 380;
+                if (newShield <= 0 && oldShield > 0) {
+                  showDamageFloater('🛡️ PERISAI PECAH! 💥', 'miss', delayFloater);
+                  delayFloater += 380;
+                }
+              }
+
+              if (dmgToPlayer > 0) {
+                const failTxt = (outcome === 'TIMEOUT') ? `⏰ WAKTU HABIS! -${dmgToPlayer} HP` : `❌ SALAH! -${dmgToPlayer} HP`;
+                showDamageFloater(failTxt, 'miss', delayFloater);
+                if (root.Feedback) root.Feedback.sfx('wrong');
+                else if (root.Sfx) root.Sfx.play('error');
+              } else if (shieldAbsorbed === 0) {
+                const failTxt = (outcome === 'TIMEOUT') ? '⏰ WAKTU HABIS!' : '❌ SALAH!';
+                showDamageFloater(failTxt, 'miss');
+                if (root.Feedback) root.Feedback.sfx('wrong');
+                else if (root.Sfx) root.Sfx.play('error');
+              }
+            }
           }
         }
 
@@ -2073,12 +2108,54 @@
         const bossBarTxt = $('#boss-side .bar .t', el);
         if (bossBarTxt) bossBarTxt.textContent = `${curBossHp} / ${curBossMax}`;
 
-        const curPlayerHp = res.playerHp ?? s.playerHp ?? 0;
+        // Update status perisai real-time dari respon jawaban
+        if (res.shield !== undefined) {
+          currentShield = res.shield;
+        } else if (s.flags?.shield !== undefined) {
+          currentShield = s.flags.shield;
+        }
+        shieldActive = currentShield > 0;
+
+        const curPlayerHp = (res.playerHp !== undefined) ? res.playerHp : (res.session?.playerHp ?? s.playerHp ?? 0);
         const curPlayerMax = s.playerMaxHp ?? 100;
         const playerBarEl = $('#me-side .bar-fill, #me-side .bar i', el);
         if (playerBarEl) playerBarEl.style.width = `${Math.max(0, Math.min(100, (curPlayerHp / curPlayerMax) * 100))}%`;
         const playerBarTxt = $('#me-side .bar .t', el);
         if (playerBarTxt) playerBarTxt.textContent = `${curPlayerHp} / ${curPlayerMax}`;
+
+        // Update indikator perisai di HUD & avatar real-time
+        const shieldValEl = $('#desktop-shield-val', el);
+        if (shieldValEl) shieldValEl.textContent = currentShield;
+        const shieldChipEl = $('#desktop-shield-chip', el);
+        if (shieldChipEl) shieldChipEl.style.display = shieldActive ? 'inline-flex' : 'none';
+
+        const avatarShieldVal = $('#avatar-shield-val', el);
+        if (avatarShieldVal) avatarShieldVal.textContent = currentShield;
+        const avatarAura = $('#user-shield-aura', el);
+        if (avatarAura) avatarAura.style.display = shieldActive ? 'block' : 'none';
+
+        const shieldBarRow = $('#player-shield-bar-row', el);
+        if (shieldBarRow) {
+          shieldBarRow.style.display = shieldActive ? 'block' : 'none';
+          const shieldBarFill = $('#player-shield-bar-fill', el);
+          const shieldBarTxt = $('#player-shield-bar-txt', el);
+          const maxShieldBase = Math.max(currentShield, s.passives?.startShield || 60, 20);
+          if (shieldBarFill) shieldBarFill.style.width = `${Math.min(100, (currentShield / maxShieldBase) * 100)}%`;
+          if (shieldBarTxt) shieldBarTxt.textContent = `🛡️ Perisai ${currentShield}`;
+        }
+
+        const passiveShieldVal = $('#passive-shield-val', el);
+        if (passiveShieldVal) passiveShieldVal.textContent = currentShield;
+        const passiveShieldChip = $('#active-shield-passive-chip', el);
+        if (passiveShieldChip) {
+          if (currentShield <= 0) {
+            passiveShieldChip.style.opacity = '0.45';
+            passiveShieldChip.innerHTML = '🛡️ Perisai: 0 (Habis)';
+          } else {
+            passiveShieldChip.style.opacity = '1';
+            passiveShieldChip.innerHTML = `🛡️ Perisai: <b id="passive-shield-val">${currentShield}</b>`;
+          }
+        }
 
         // 2. FEEDBACK BOX / PEMBAHASAN SOAL (#fb-slot)
         const isWin = s.status === 'WON';
@@ -2143,6 +2220,8 @@
       // SELALU RESET isAnswering SETIAP KALI ME-RENDER SOAL
       isAnswering = false;
       activeSkillIds = getActiveSkillIds();
+      currentShield = (s.flags && typeof s.flags.shield === 'number') ? s.flags.shield : (s.shield || 0);
+      shieldActive = currentShield > 0;
 
       // Cek apakah ada kejutan yang tertunda (Pending Event)
       if (s.pendingEvent) {
@@ -2237,7 +2316,7 @@
             <b id="desktop-timer-txt">${currentTimer}s</b>
           </div>
           <span class="combo">🔥 Kombo ${playerCombo}×</span>
-          ${shieldActive ? `<span class="chip accent" style="font-size:0.75rem;padding:2px 8px;font-weight:800;background:rgba(56,189,248,0.2);color:#38bdf8;border:1px solid #38bdf8">🛡️ PERISAI AKTIF</span>` : ''}
+          <span class="chip shield-chip" id="desktop-shield-chip" style="font-size:0.75rem;padding:2px 8px;font-weight:800;background:rgba(56,189,248,0.2);color:#38bdf8;border:1px solid #38bdf8;display:${shieldActive ? 'inline-flex' : 'none'};align-items:center;gap:4px">🛡️ PERISAI <span id="desktop-shield-val">${currentShield}</span></span>
           <div class="sp"></div>
           <button class="btn sm ghost" id="b-focus" title="Mode Fokus Baca">📖 <span class="kbd">F</span></button>
         </div>
@@ -2346,15 +2425,25 @@
         <div class="panel fighter" id="me-side">
           <div class="fig" style="position:relative">
             ${avatarSvg}
-            ${shieldActive ? '<div style="position:absolute;inset:-10px;border-radius:50%;border:3px dashed #38bdf8;animation:spin 8s linear infinite;pointer-events:none"></div>' : ''}
+            <div class="user-shield-aura" id="user-shield-aura" style="display:${shieldActive ? 'block' : 'none'}">
+              <div class="user-shield-badge">🛡️ <span id="avatar-shield-val">${currentShield}</span></div>
+            </div>
           </div>
           <h2>${esc(pName)}</h2>
           <div class="meta">Level ${P.level || 1} · ${esc(P.title || 'Murid')}</div>
           ${bar((playerHp / playerMaxHp) * 100, 'player tall', `${playerHp} / ${playerMaxHp}`)}
 
+          <!-- Active Shield Bar (Indikator Perisai Tampil Dinamis) -->
+          <div id="player-shield-bar-row" style="width:100%;display:${shieldActive ? 'block' : 'none'};margin-top:4px">
+            <div class="bar shield tall" style="background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.4)">
+              <i id="player-shield-bar-fill" style="width:${Math.min(100, (currentShield / Math.max(currentShield, s.passives?.startShield || 60, 20)) * 100)}%;background:linear-gradient(90deg, #0284c7, #38bdf8);box-shadow:0 0 8px rgba(56,189,248,0.6)"></i>
+              <span class="t" id="player-shield-bar-txt">🛡️ Perisai ${currentShield}</span>
+            </div>
+          </div>
+
           <!-- Passive Buff Chips Pemain -->
           <div class="player-passives-bar" id="player-passives-bar" style="display:flex;gap:4px;flex-wrap:wrap;justify-content:center;margin:4px 0">
-            ${renderPassiveBuffChips(s.passives || P.passives)}
+            ${renderPassiveBuffChips(s.passives || P.passives, currentShield)}
           </div>
 
           <div class="energy-row" style="margin:.4rem 0">

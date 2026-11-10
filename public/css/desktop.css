@@ -2299,3 +2299,63 @@ button { cursor: pointer; border: 0; background: none; padding: 0; }
 .boss-fx-toast.toast-warn { border-color: #ef4444 !important; background: rgba(153, 27, 27, 0.96) !important; }
 .boss-fx-toast.toast-status { border-color: #8b5cf6 !important; background: rgba(88, 28, 135, 0.96) !important; }
 .boss-fx-toast.toast-hit { border-color: #f97316 !important; background: rgba(154, 52, 18, 0.96) !important; }
+
+/* =====================================================================
+   USER PROFILE SHIELD EFFECT (PULSING BLURRED BLUE BORDER)
+   ===================================================================== */
+.user-shield-aura {
+  position: absolute !important;
+  width: 196px !important;
+  height: 196px !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  border-radius: 28px !important;
+  border: 2.5px solid #38bdf8 !important;
+  pointer-events: none !important;
+  z-index: 5 !important;
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.75), inset 0 0 14px rgba(56, 189, 248, 0.35) !important;
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.8)) !important;
+  animation: shieldPulseGlow 2.2s ease-in-out infinite !important;
+}
+
+.user-shield-badge {
+  position: absolute !important;
+  top: -14px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  background: linear-gradient(135deg, #0284c7, #0369a1) !important;
+  color: #fff !important;
+  font-size: 0.75rem !important;
+  font-weight: 900 !important;
+  padding: 2px 10px !important;
+  border-radius: 99px !important;
+  border: 1.5px solid #7dd3fc !important;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.9) !important;
+  white-space: nowrap !important;
+  letter-spacing: 0.5px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+@keyframes shieldPulseGlow {
+  0% {
+    box-shadow: 0 0 14px rgba(56, 189, 248, 0.55), inset 0 0 10px rgba(56, 189, 248, 0.25) !important;
+    border-color: rgba(56, 189, 248, 0.75) !important;
+    filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.65)) !important;
+    transform: translate(-50%, -50%) scale(1) !important;
+  }
+  50% {
+    box-shadow: 0 0 32px rgba(56, 189, 248, 0.95), 0 0 55px rgba(14, 165, 233, 0.7), inset 0 0 22px rgba(56, 189, 248, 0.5) !important;
+    border-color: #bae6fd !important;
+    filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.95)) !important;
+    transform: translate(-50%, -50%) scale(1.035) !important;
+  }
+  100% {
+    box-shadow: 0 0 14px rgba(56, 189, 248, 0.55), inset 0 0 10px rgba(56, 189, 248, 0.25) !important;
+    border-color: rgba(56, 189, 248, 0.75) !important;
+    filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.65)) !important;
+    transform: translate(-50%, -50%) scale(1) !important;
+  }
+}
