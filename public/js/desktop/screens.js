@@ -3004,12 +3004,16 @@
           <div class="wardrobe-cards-list-layout" style="display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:.65rem;overflow-y:auto;flex:1;min-height:0;padding-right:4px;align-content:start">
             ${filtered.length === 0 ? `
               <div class="muted tc" style="grid-column:1/-1;padding:3rem 0;font-weight:700">Tidak ada perlengkapan yang cocok dengan filter aktif.</div>
-            ` : filtered.map(x => {
+            ` : filtered.map((x, idx) => {
               const equippedNow = Boolean(draftAvatar[x.slot] === x.id);
               const rarKey = (x.rarity || 'common').toLowerCase();
-              const rarColor = rarKey === 'legendary' ? '#f59e0b' : (rarKey === 'epic' ? '#a855f7' : (rarKey === 'rare' ? '#3b82f6' : '#94a3b8'));
+              const rarColor = rarKey === 'mythic' ? '#ff0055' : (rarKey === 'legendary' ? '#f59e0b' : (rarKey === 'epic' ? '#a855f7' : (rarKey === 'rare' ? '#3b82f6' : '#94a3b8')));
               const catObj = CATS_MOBILE.find(c => c[0] === x.slot) || ['item', '🎒', x.slot || 'Item'];
               const isSel = (x.id === selId);
+              const isImmediate = idx < 9;
+              const thumbSvg = isImmediate
+                ? renderItemArt(x.id, x.slot, 80)
+                : `<div class="lazy-thumb-placeholder" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;opacity:0.35;font-size:1.8rem">🎒</div>`;
 
               return `
               <div class="skin-item-card ${isSel ? 'selected' : ''} ${equippedNow ? 'equipped' : (!x.owned ? 'locked' : '')}" data-item="${x.id}" title="${esc(x.name)}">
@@ -3024,8 +3028,8 @@
                 </div>
 
                 <!-- Preview Box Besar (88x88 px dengan efek glow rarity) -->
-                <div class="skin-thumbnail-box" style="width:88px;height:88px;border-radius:14px;background:radial-gradient(circle at center, ${rarColor}25 0%, rgba(0,0,0,.45) 80%);border:1.5px solid ${rarColor}66;display:flex;align-items:center;justify-content:center;margin:3px auto 6px;flex-shrink:0;box-shadow:inset 0 2px 8px rgba(0,0,0,.4)">
-                  ${renderItemArt(x.id, x.slot, 80)}
+                <div class="skin-thumbnail-box ${!isImmediate ? 'lazy-art' : ''}" data-item-id="${x.id}" data-item-slot="${x.slot}" style="width:88px;height:88px;border-radius:14px;background:radial-gradient(circle at center, ${rarColor}25 0%, rgba(0,0,0,.45) 80%);border:1.5px solid ${rarColor}66;display:flex;align-items:center;justify-content:center;margin:3px auto 6px;flex-shrink:0;box-shadow:inset 0 2px 8px rgba(0,0,0,.4)">
+                  ${thumbSvg}
                 </div>
 
                 <!-- Info Nama, Rarity Badge & Efek Pasif -->
@@ -3323,19 +3327,22 @@
               <div style="grid-column:1/-1;text-align:center;padding:36px;color:var(--c-muted);font-weight:700">
                 Tidak ada item untuk filter kategori &amp; rarity ini.
               </div>
-            ` : filtered.map(it => {
+            ` : filtered.map((it, idx) => {
               const isOwned = Boolean(it.owned);
               const canAfford = playerCoins >= (it.price || 0);
               const rarKey = (it.rarity || 'common').toLowerCase();
-              const rarColor = rarKey === 'legendary' || rarKey === 'legend' ? '#f59e0b' : (rarKey === 'epic' ? '#a855f7' : (rarKey === 'rare' ? '#38bdf8' : '#94a3b8'));
-              const thumbSvg = renderItemArt(it.id, it.slot, 68);
+              const rarColor = rarKey === 'mythic' ? '#ff0055' : (rarKey === 'legendary' || rarKey === 'legend' ? '#f59e0b' : (rarKey === 'epic' ? '#a855f7' : (rarKey === 'rare' ? '#38bdf8' : '#94a3b8')));
+              const isImmediate = idx < 10;
+              const thumbSvg = isImmediate
+                ? renderItemArt(it.id, it.slot, 68)
+                : `<div class="lazy-thumb-placeholder" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;opacity:0.35;font-size:1.6rem">🎒</div>`;
 
               return `
                 <div class="card item-card shop-card-desktop ${selPreviewItem?.id === it.id ? 'selected' : ''}" data-testid="item-card-${it.id}" data-id="${it.id}">
                   <div style="display:flex;gap:12px;align-items:flex-start">
                     <!-- THUMBNAIL BOX 68x68 SVG ASLI MOBILE -->
                     <div style="flex:0 0 68px;display:flex;flex-direction:column;align-items:center;gap:4px">
-                      <div class="skin-thumbnail-box" style="width:68px;height:68px">
+                      <div class="skin-thumbnail-box ${!isImmediate ? 'lazy-art' : ''}" data-item-id="${it.id}" data-item-slot="${it.slot}" style="width:68px;height:68px">
                         ${thumbSvg}
                       </div>
                       <span style="font-size:0.65rem;font-weight:800;color:${rarColor};letter-spacing:0.5px">${(it.rarity || 'COMMON').toUpperCase()}</span>

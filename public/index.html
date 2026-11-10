@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <title>Petualangan Pelajar</title>
   <link id="css-mobile" rel="stylesheet" href="css/style.css?v=20261107v1">
-  <link id="css-desktop" rel="stylesheet" href="css/desktop.css?v=20261111mythic">
+  <link id="css-desktop" rel="stylesheet" href="css/desktop.css?v=20261111perf">
   <link rel="stylesheet" href="css/fx.css?v=20261107v1">
 </head>
 <body>
@@ -30,10 +30,10 @@
   <script src="/shared/grading.js?v=20261103v12"></script>
   <script src="js/monsters.js?v=20261107v1"></script>
   <script src="js/audio.js?v=20261103v12"></script>
-  <script src="/shared/passives.js?v=20261111mythic"></script>
-  <script src="/shared/economy.js?v=20261111mythic"></script>
+  <script src="/shared/passives.js?v=20261111perf"></script>
+  <script src="/shared/economy.js?v=20261111perf"></script>
   <script src="/shared/pet-art.js?v=20261107v1"></script>
-  <script src="/shared/skin-art.js?v=20261111mythic"></script>
+  <script src="/shared/skin-art.js?v=20261111perf"></script>
   <script src="/shared/skill-art.js?v=20261108v3"></script>
   <script src="js/avatar.js?v=20261107v3"></script>
   <script src="/shared/story.js?v=20261103v12"></script>
@@ -42,11 +42,11 @@
   <script src="/js/dexcards.js?v=20261105v5"></script>
   <script src="/shared/badges.js?v=20261106v3"></script>
   <script src="/js/badge-art.js?v=20261106v1"></script>
-  <script src="/js/app.js?v=20261111mythic"></script>
+  <script src="/js/app.js?v=20261111perf"></script>
   <script src="js/friends.js?v=20261106v2"></script>
   <script src="js/duel.js?v=20261105v5"></script>
   <script src="js/desktop/core.js?v=20261108v1"></script>
-  <script src="js/desktop/screens.js?v=20261111mythic"></script>
+  <script src="js/desktop/screens.js?v=20261111perf"></script>
   <script>
     if ('serviceWorker' in navigator) {
       let refreshing = false;
@@ -57,7 +57,7 @@
         }
       });
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js?v=20261111mythic').then(reg => {
+        navigator.serviceWorker.register('/sw.js?v=20261111perf').then(reg => {
           reg.update();
         }).catch(err => console.warn('[SW reg fail]', err));
       });
@@ -65,11 +65,24 @@
 
     // Auto-pause SVG animations when offscreen or tab hidden (Section 5.5)
     if (typeof IntersectionObserver !== 'undefined') {
-      const io = new IntersectionObserver(es => es.forEach(e =>
-        e.target.classList.toggle('fx-paused', !e.isIntersecting)), { threshold: 0.05 });
-      const watchFx = (root = document) => root.querySelectorAll('svg.fx').forEach(s => io.observe(s));
+      const io = new IntersectionObserver(es => es.forEach(e => {
+        const off = !e.isIntersecting;
+        e.target.classList.toggle('fx-paused', off);
+        try {
+          if (off && typeof e.target.pauseAnimations === 'function') e.target.pauseAnimations();
+          else if (!off && typeof e.target.unpauseAnimations === 'function') e.target.unpauseAnimations();
+        } catch (_) {}
+      }), { threshold: 0.05 });
+      const watchFx = (root = document) => root.querySelectorAll('svg.fx, .skin-thumbnail-box svg').forEach(s => io.observe(s));
       document.addEventListener('visibilitychange', () =>
-        document.querySelectorAll('svg.fx').forEach(s => s.classList.toggle('fx-paused', document.hidden)));
+        document.querySelectorAll('svg.fx, .skin-thumbnail-box svg').forEach(s => {
+          const hide = document.hidden;
+          s.classList.toggle('fx-paused', hide);
+          try {
+            if (hide && typeof s.pauseAnimations === 'function') s.pauseAnimations();
+            else if (!hide && typeof s.unpauseAnimations === 'function') s.unpauseAnimations();
+          } catch (_) {}
+        }));
       if (typeof MutationObserver !== 'undefined') {
         const mo = new MutationObserver(() => watchFx(document));
         window.addEventListener('DOMContentLoaded', () => {

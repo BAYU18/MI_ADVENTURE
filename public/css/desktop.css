@@ -2543,3 +2543,26 @@ button { cursor: pointer; border: 0; background: none; padding: 0; }
   color: #fff;
   border: 1px solid #fde047;
 }
+
+/* ============================================================
+   PERFORMANCE & ANIMATION ISOLATION (MENU TOKO & LEMARI RINGAN)
+   ============================================================ */
+.item-card, .shop-card-desktop {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 150px;
+}
+.skin-thumbnail-box {
+  contain: paint;
+  position: relative;
+}
+.skin-thumbnail-box svg {
+  transform: translateZ(0);
+  will-change: transform;
+}
+.lazy-thumb-placeholder {
+  animation: pulse-placeholder 1.4s ease-in-out infinite;
+}
+@keyframes pulse-placeholder {
+  0%, 100% { opacity: 0.2; transform: scale(0.96); }
+  50% { opacity: 0.5; transform: scale(1.04); }
+}
