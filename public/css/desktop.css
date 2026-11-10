@@ -2476,3 +2476,51 @@ button { cursor: pointer; border: 0; background: none; padding: 0; }
   max-height: 100% !important;
   scrollbar-width: thin !important;
 }
+
+/* =====================================================================
+   BRUTAL TOGGLE & MODAL MASK COMPATIBILITY (DESKTOP)
+   ===================================================================== */
+.brutal-toggle-wrap {
+  background: rgba(220, 38, 38, 0.12) !important;
+  border: 1.5px solid rgba(220, 38, 38, 0.35) !important;
+  border-radius: 12px !important;
+  padding: 8px 12px !important;
+  transition: all 0.2s ease !important;
+}
+
+.brutal-toggle-wrap.active {
+  background: rgba(220, 38, 38, 0.25) !important;
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.35) !important;
+}
+
+.brutal-toggle-wrap:hover {
+  border-color: #ef4444 !important;
+}
+
+.modal-mask, .modal-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9999 !important;
+  background: rgba(5, 8, 20, 0.82) !important;
+  backdrop-filter: blur(6px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 1.5rem !important;
+  animation: fadeIn 0.2s ease !important;
+}
+
+.modal-mask .modal, .modal-backdrop .modal {
+  width: min(440px, 92vw) !important;
+  max-height: 88vh !important;
+  overflow-y: auto !important;
+  background: linear-gradient(165deg, #1e1b4b, #0f172a) !important;
+  border: 2px solid rgba(239, 68, 68, 0.5) !important;
+  border-radius: 16px !important;
+  padding: 24px !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 25px rgba(220, 38, 38, 0.3) !important;
+  color: #fff !important;
+  box-sizing: border-box !important;
+  text-align: center !important;
+}

@@ -777,7 +777,7 @@
         </div>
 
         <!-- SAKELAR MODE BRUTAL (T-21) -->
-        <div class="brutal-toggle-wrap" data-testid="brutal-toggle-wrap" style="margin-bottom:8px">
+        <div class="brutal-toggle-wrap ${brutalMode ? 'active' : ''}" data-testid="brutal-toggle-wrap" style="margin-bottom:8px">
           <label style="display:flex;align-items:center;gap:10px;cursor:${pLevel >= 5 ? 'pointer' : 'not-allowed'};width:100%">
             <input type="checkbox" id="brutal-toggle" data-testid="brutal-toggle" ${brutalMode ? 'checked' : ''} ${pLevel < 5 ? 'disabled' : ''} style="width:18px;height:18px;accent-color:#dc2626">
             <div style="flex:1">
@@ -964,28 +964,53 @@
             try {
               pSettings = typeof root.Player?.data?.settings_json === 'string' ? JSON.parse(root.Player.data.settings_json) : (root.Player?.data?.settings_json || {});
             } catch (e) {}
-            if (!pSettings.brutalAck && root.Screens?.battle?.showBrutalConfirmModal) {
+
+            const applyBrutalActive = () => {
+              bToggle.checked = true;
+              brutalMode = true;
+              if (root.Screens?.battle) root.Screens.battle.brutalEnabled = true;
+              pSettings.brutalAck = true;
+              if (root.Player?.data) root.Player.data.settings_json = pSettings;
+              if (root.API?.saveSettings) root.API.saveSettings({ brutalAck: true }).catch(() => {});
+              toast('💀 Mode Brutal diaktifkan! Hadiah 3× lipat menanti.');
+              draw();
+            };
+
+            if (!pSettings.brutalAck) {
               bToggle.checked = false;
-              root.Screens.battle.showBrutalConfirmModal((accepted) => {
-                if (accepted) {
-                  bToggle.checked = true;
-                  brutalMode = true;
-                  if (root.Screens?.battle) root.Screens.battle.brutalEnabled = true;
-                  pSettings.brutalAck = true;
-                  if (root.Player?.data) root.Player.data.settings_json = pSettings;
-                  if (root.API?.saveSettings) root.API.saveSettings({ brutalAck: true }).catch(() => {});
-                  draw();
-                }
-              });
+              // Gunakan Desktop Modal yang 100% responsif & reliable
+              Modal.open('💀 Tantangan Mode Brutal!', `
+                <div class="tc" style="text-align:center;padding:0.5rem">
+                  <div style="font-size:3.2rem;margin-bottom:8px">💀</div>
+                  <h3 style="color:#ef4444;font-size:1.3rem;margin:0 0 10px 0;font-weight:800">Tantangan Mode Brutal!</h3>
+                  <p style="font-size:0.92rem;line-height:1.5;color:var(--c-text);margin:0 0 20px 0">
+                    Mode Brutal melipatgandakan efek <strong style="color:#ef4444">skill boss 2×</strong> lebih dahsyat, tetapi memberikan <strong style="color:#f59e0b">hadiah koin & XP 3×</strong> lipat jika kamu menang!<br><br>
+                    Apakah kamu siap menghadapi tantangan mematikan ini?
+                  </p>
+                  <div style="display:flex;gap:12px;justify-content:center">
+                    <button type="button" class="btn secondary lg" id="btn-desktop-brutal-cancel" style="flex:1;min-width:120px;font-weight:700">Batal</button>
+                    <button type="button" class="btn danger lg" id="btn-desktop-brutal-accept" style="flex:1;min-width:140px;background:#dc2626;color:#fff;font-weight:800">Siap Laga! ⚔️</button>
+                  </div>
+                </div>
+              `);
+              setTimeout(() => {
+                const bc = $('#btn-desktop-brutal-cancel');
+                const ba = $('#btn-desktop-brutal-accept');
+                if (bc) bc.onclick = () => { Modal.close(); };
+                if (ba) ba.onclick = () => {
+                  Modal.close();
+                  applyBrutalActive();
+                };
+              }, 30);
               return;
             }
-            brutalMode = true;
-            if (root.Screens?.battle) root.Screens.battle.brutalEnabled = true;
+            applyBrutalActive();
           } else {
             brutalMode = false;
             if (root.Screens?.battle) root.Screens.battle.brutalEnabled = false;
+            toast('Mode Brutal dinonaktifkan.');
+            draw();
           }
-          draw();
         };
       }
 
