@@ -1482,6 +1482,26 @@
 
     let orderingSelected = [];
 
+    // Pulihkan opsi tereliminasi yang sudah tercatat pada soal sesi ini
+    if (s && s.currentQuestion && Array.isArray(s.currentQuestion.eliminated)) {
+      s.currentQuestion.eliminated.forEach(idx => eliminatedOptions.add(Number(idx)));
+    }
+    // Sinkronisasi data ketersediaan skill dari sesi aktif
+    if ((!s.skills || !s.skills.length) && root.Screens?.battle?.skills?.length) {
+      s.skills = root.Screens.battle.skills;
+    }
+    if ((!s.skills || !s.skills.length) && root.API && typeof root.API.getGameSkills === 'function' && s.id) {
+      try {
+        root.API.getGameSkills(s.id).then(sk => {
+          if (sk && sk.length) {
+            s.skills = sk;
+            if (root.Screens?.battle) root.Screens.battle.skills = sk;
+            renderQuestion();
+          }
+        }).catch(() => {});
+      } catch (_) {}
+    }
+
     // Helper: Tampilkan Damage Floater di tengah layar (Maksimal di Desktop)
     const showDamageFloater = (text, type = 'dmg', delay = 0) => {
       const trigger = () => {
@@ -1919,7 +1939,7 @@
       }
       ids = (ids || []).filter(Boolean);
       if (!ids.length) {
-        ids = ['eliminate_one', 'shield', 'power_strike', 'red_potion'];
+        ids = ['eliminate_one', 'eagle_eye', 'heal'];
       }
       return ids;
     };
@@ -1971,73 +1991,152 @@
       if (!skillId) return;
 
       const skDef = SKILLS_LIST.find(x => x.id === skillId) || { id: skillId, name: skillId, cost: 1 };
+      const skInfo = (Array.isArray(s.skills) && s.skills.length > 0)
+        ? s.skills.find(x => (typeof x === 'object' && x ? x.id === skillId : x === skillId))
+        : null;
+
+      const cost = (skInfo && skInfo.cost !== undefined) ? skInfo.cost : (skDef.cost || 1);
+      const lv = (skInfo && skInfo.level) || 1;
+
+      // Evaluasi sisa pemakaian skill dalam sesi pertarungan
+      let currentUses = 0;
+      try {
+        const u = (typeof s.uses === 'object' && s.uses !== null) ? s.uses : JSON.parse(s.uses_json || '{}');
+        currentUses = u[skillId] || 0;
+      } catch (e) {}
+      const maxUses = (skInfo?.maxUses) || (skDef.maxUses && skDef.maxUses[lv - 1]) || (skDef.maxUses && skDef.maxUses[0]) || (skDef.uses || 2);
+      const usesLeft = (skInfo?.usesLeft !== undefined) ? skInfo.usesLeft : Math.max(0, maxUses - currentUses);
+
+      if (usesLeft <= 0 || skInfo?.reason === 'ALREADY_USED') {
+        toast(`Batas pemakaian skill ${skDef.name} sudah habis!`);
+        return;
+      }
+
       const curEn = typeof s.energy === 'object' ? s.energy.value : (s.energy ?? 0);
-      if (curEn < (skDef.cost || 1)) {
-        toast('Energi tidak cukup untuk menggunakan skill ini!');
+      if (curEn < cost || skInfo?.reason === 'NO_ENERGY') {
+        toast(`Energi tidak cukup untuk menggunakan skill ${skDef.name}! (Butuh ${cost}⚡)`);
         return;
       }
 
       if (skillId === 'shield' && shieldActive) {
-        toast('Perisai masih aktif!');
+        toast('Perisai masih aktif melindungi!');
         return;
+      }
+
+      if (skillId === 'eliminate_one' || skillId === 'eagle_eye') {
+        const qOpts = s.currentQuestion?.options || [];
+        const correctIdx = s.currentQuestion?.answerIndex ?? 0;
+        const candidates = [];
+        qOpts.forEach((_, i) => {
+          if (i !== correctIdx && !eliminatedOptions.has(i)) candidates.push(i);
+        });
+        if (candidates.length <= 1) {
+          toast('Pilihan jawaban salah sudah habis dicoret!');
+          return;
+        }
       }
 
       try {
         let res = null;
+        const idemKey = `skill-${s.id}-${s.currentIndex}-${skillId}-${Date.now()}`;
         if (root.API && typeof root.API.useSkill === 'function') {
-          res = await root.API.useSkill(s.id, skillId);
+          res = await root.API.useSkill(s.id, skillId, s.currentIndex, idemKey);
         } else {
           res = { ok: true, skillId };
         }
 
-        if (res.session) {
+        if (res && res.session) {
           s = res.session;
           if (root.Screens?.battle) root.Screens.battle.session = s;
         }
+        if (res && res.skills) {
+          s.skills = res.skills;
+          if (root.Screens?.battle) root.Screens.battle.skills = res.skills;
+        }
+        if (res && res.energy) {
+          s.energy = (typeof res.energy === 'object' && res.energy !== null) ? res.energy.value : res.energy;
+        }
 
-        if (skillId === 'eliminate_one') {
-          const qOpts = s.currentQuestion?.options || [];
-          const correctIdx = s.currentQuestion?.answerIndex ?? 0;
-          const candidates = [];
-          qOpts.forEach((_, i) => {
-            if (i !== correctIdx && !eliminatedOptions.has(i)) candidates.push(i);
-          });
-          if (candidates.length > 0) {
-            const pick = candidates[Math.floor(Math.random() * candidates.length)];
-            eliminatedOptions.add(pick);
+        const fx = (res && res.effects) || {};
+        const backendEliminated = (Array.isArray(fx.eliminated) && fx.eliminated.length > 0)
+          ? fx.eliminated
+          : (Array.isArray(res && res.eliminated) && res.eliminated.length > 0 ? res.eliminated : null);
+
+        if (backendEliminated && backendEliminated.length > 0) {
+          backendEliminated.forEach(idx => eliminatedOptions.add(Number(idx)));
+        }
+
+        if (skillId === 'eliminate_one' || skillId === 'eagle_eye') {
+          if (!backendEliminated || backendEliminated.length === 0) {
+            const qOpts = s.currentQuestion?.options || [];
+            const correctIdx = s.currentQuestion?.answerIndex ?? 0;
+            const candidates = [];
+            qOpts.forEach((_, i) => {
+              if (i !== correctIdx && !eliminatedOptions.has(i)) candidates.push(i);
+            });
+            const maxToRemove = Math.max(0, candidates.length - 1);
+            const count = skillId === 'eagle_eye' ? 2 : 1;
+            const toPick = Math.min(count, maxToRemove);
+            for (let c = 0; c < toPick; c++) {
+              const pickIdx = Math.floor(Math.random() * candidates.length);
+              const pick = candidates.splice(pickIdx, 1)[0];
+              eliminatedOptions.add(pick);
+            }
+          }
+
+          if (skillId === 'eagle_eye') {
+            toast('🦅 Mata Elang aktif! 2 pilihan jawaban salah dicoret.');
+            showDamageFloater('🦅 MATA ELANG!', 'crit');
+            if (root.Feedback) root.Feedback.sfx('critical');
+            else if (root.Sfx) root.Sfx.play('select');
+          } else {
             toast('🎯 1 Pilihan salah berhasil dicoret!');
             showDamageFloater('🎯 CORET SALAH!', 'crit');
+            if (root.Feedback) root.Feedback.sfx('correct');
+            else if (root.Sfx) root.Sfx.play('select');
           }
-        } else if (skillId === 'eagle_eye') {
-          toast('🦅 Mata Elang aktif! Opsi berkedip.');
-          showDamageFloater('🦅 MATA ELANG!', 'crit');
         } else if (skillId === 'shield') {
           shieldActive = true;
-          currentShield = (res.session?.flags?.shield) || (currentShield + 20);
-          toast('🛡️ Perisai aktif melindungi dari serangan!');
+          currentShield = (fx.shield !== undefined) ? fx.shield : ((res?.session?.flags?.shield) || (currentShield + 20));
+          toast(`🛡️ Perisai ${currentShield} aktif melindungi dari serangan!`);
           showDamageFloater('🛡️ PERISAI AKTIF!', 'heal');
-          renderQuestion();
-          return;
+          if (root.Sfx) root.Sfx.play('select');
         } else if (skillId === 'heal') {
-          s.playerHp = Math.min(s.playerMaxHp || 100, (s.playerHp || 80) + 25);
-          toast('💖 Memulihkan 25 HP!');
-          showDamageFloater('+25 HP 💖', 'heal');
+          const healAmt = fx.healed || 25;
+          s.playerHp = res?.player?.hp ?? Math.min(s.playerMaxHp || 100, (s.playerHp || 80) + healAmt);
+          toast(`💖 Memulihkan ${healAmt} HP!`);
+          showDamageFloater(`+${healAmt} HP 💖`, 'heal');
+          if (root.Feedback) root.Feedback.sfx('heal');
+          else if (root.Sfx) root.Sfx.play('level-up');
         } else if (skillId === 'power_strike') {
           toast('⚔️ Tebasan Super siap melipatgandakan damage!');
           showDamageFloater('⚔️ TEBASAN SUPER!', 'power_strike');
+          if (root.Feedback) root.Feedback.sfx('critical');
+          else if (root.Sfx) root.Sfx.play('select');
+        } else if (skillId === 'time_freeze') {
+          const addSec = Math.round((fx.extraTimeMs || 8000) / 1000);
+          currentTimer += addSec;
+          toast(`⏱️ Waktu bertambah +${addSec} detik!`);
+          showDamageFloater(`+${addSec}s ⏱️`, 'heal');
+          if (root.Sfx) root.Sfx.play('select');
         } else if (skillId === 'red_potion') {
           toast('🍷 Ramuan Merah aktif! Soal diganti ke termudah & Damage Super!');
           showDamageFloater('🍷 RAMUAN MERAH!', 'red_potion');
-          if (res.session) {
-            s = res.session;
-            renderQuestion();
-          }
+          if (root.Feedback) root.Feedback.sfx('critical');
+          else if (root.Sfx) root.Sfx.play('select');
         }
+
+        renderQuestion();
       } catch (e) {
-        toast('Gagal menggunakan skill: ' + e.message);
+        const reason = e.data?.reason || e.reason;
+        const msg = reason === 'ALREADY_USED' ? `Batas pemakaian skill ${skDef.name} sudah habis!`
+          : reason === 'NO_ENERGY' ? 'Energi tidak cukup untuk menggunakan skill ini!'
+          : reason === 'NOTHING_TO_ELIMINATE' ? 'Pilihan jawaban salah sudah habis dicoret!'
+          : reason === 'ALREADY_ACTIVE' ? 'Efek skill ini sudah aktif!'
+          : ('Gagal menggunakan skill: ' + (e.message || 'Skill belum bisa digunakan'));
+        toast(msg);
+        renderQuestion();
       }
-      toast(`✨ ${skDef.name} Digunakan!`);
-      renderQuestion();
     };
 
     const handleAnswer = async (chosenAnswer) => {
@@ -2618,23 +2717,69 @@
           <div class="skills-deck user-skills-vertical" style="display:flex;flex-direction:column;gap:7px;width:100%;margin-top:8px">
             ${activeSkillIds.map((skId, idx) => {
               const skDef = SKILLS_LIST.find(s => s.id === skId) || { id: skId, name: skId, cost: 1, desc: '' };
+              const skInfo = (Array.isArray(s.skills) && s.skills.length > 0)
+                ? s.skills.find(x => (typeof x === 'object' && x ? x.id === skId : x === skId))
+                : null;
               const key = ['Q', 'W', 'E', 'R'][idx] || (idx + 1);
-              const cost = skDef.cost || 1;
-              const isDis = curEn < cost || (skId === 'shield' && shieldActive);
+              const cost = (skInfo && skInfo.cost !== undefined) ? skInfo.cost : (skDef.cost || 1);
+              const lv = (skInfo && skInfo.level) || 1;
+
+              let currentUses = 0;
+              try {
+                const u = (typeof s.uses === 'object' && s.uses !== null) ? s.uses : JSON.parse(s.uses_json || '{}');
+                currentUses = u[skId] || 0;
+              } catch (e) {}
+              const maxUses = (skInfo?.maxUses) || (skDef.maxUses && skDef.maxUses[lv - 1]) || (skDef.maxUses && skDef.maxUses[0]) || (skDef.uses || 2);
+              const usesLeft = (skInfo?.usesLeft !== undefined) ? skInfo.usesLeft : Math.max(0, maxUses - currentUses);
+              const isExhausted = usesLeft <= 0;
+
+              let isDis = false;
+              let reason = skInfo?.reason || null;
+              if (isExhausted) {
+                isDis = true;
+                reason = 'ALREADY_USED';
+              } else if (skInfo && skInfo.usable === false) {
+                isDis = true;
+              } else if (curEn < cost) {
+                isDis = true;
+                reason = 'NO_ENERGY';
+              } else if (skId === 'shield' && shieldActive) {
+                isDis = true;
+                reason = 'ALREADY_ACTIVE';
+              }
+
               const isShieldOn = (skId === 'shield' && shieldActive);
               return `
-                <button class="skill-btn skill-card-horizontal" data-sk="${idx}" title="${esc(skDef.name)} (${key}) - Biaya ${cost}⚡" ${isDis ? 'disabled' : ''}>
-                  <div class="skill-btn-icon-wrap">
+                <button class="skill-btn skill-card-horizontal ${isDis ? 'disabled is-disabled' : ''}"
+                  data-sk="${idx}"
+                  data-skill-id="${skId}"
+                  data-usable="${!isDis}"
+                  data-reason="${esc(reason || '')}"
+                  aria-disabled="${isDis}"
+                  title="${esc(skDef.name)} (${key}) - Biaya ${cost}⚡ ${isExhausted ? '(Batas Pemakaian Habis)' : `(Sisa: ${usesLeft}×)`}"
+                  ${isDis ? 'disabled style="opacity:0.45;cursor:not-allowed"' : ''}>
+                  <div class="skill-btn-icon-wrap" style="position:relative">
                     <span class="kbd">${key}</span>
-                    <div style="width:36px;height:36px;display:flex;align-items:center;justify-content:center">${renderSkillArt(skDef.id, 1, 36, { animated: false })}</div>
+                    <div style="width:36px;height:36px;display:flex;align-items:center;justify-content:center">${renderSkillArt(skDef.id, lv, 36, { animated: false })}</div>
                   </div>
                   <div class="skill-btn-body" style="text-align:left">
                     <div class="skill-btn-header" style="display:flex;justify-content:space-between;align-items:center">
-                      <span class="skill-btn-title" style="font-size:0.88rem;font-weight:800;color:#fff">${esc(skDef.name)}</span>
-                      <span class="cost-badge" style="font-size:0.72rem;font-weight:800;padding:1px 7px;border-radius:99px;background:rgba(250,204,21,0.2);color:#fde047;border:1px solid rgba(250,204,21,0.4)">⚡ ${cost}</span>
+                      <span class="skill-btn-title" style="font-size:0.88rem;font-weight:800;color:${isDis ? '#94a3b8' : '#fff'}">${esc(skDef.name)}</span>
+                      <div style="display:flex;align-items:center;gap:4px">
+                        ${isExhausted
+                          ? `<span class="uses-badge" style="font-size:0.68rem;font-weight:800;padding:1px 6px;border-radius:99px;background:rgba(239,68,68,0.2);color:#f87171;border:1px solid rgba(239,68,68,0.4)">Habis</span>`
+                          : `<span class="uses-badge" style="font-size:0.68rem;font-weight:800;padding:1px 6px;border-radius:99px;background:rgba(56,189,248,0.18);color:#38bdf8;border:1px solid rgba(56,189,248,0.35)">Sisa: ${usesLeft}×</span>`}
+                        <span class="cost-badge" style="font-size:0.72rem;font-weight:800;padding:1px 7px;border-radius:99px;background:rgba(250,204,21,0.2);color:#fde047;border:1px solid rgba(250,204,21,0.4)">⚡ ${cost}</span>
+                      </div>
                     </div>
-                    <div class="skill-btn-desc" style="font-size:0.75rem;color:#cbd5e1;line-height:1.35;margin-top:2px">
-                      ${isShieldOn ? '<span style="color:#38bdf8;font-weight:800">🛡️ Perisai Aktif Melindungi</span>' : esc(skDef.desc || 'Taktik Petualang')}
+                    <div class="skill-btn-desc" style="font-size:0.75rem;color:${isDis ? '#64748b' : '#cbd5e1'};line-height:1.35;margin-top:2px">
+                      ${isExhausted
+                        ? '<span style="color:#f87171;font-weight:700">❌ Batas pemakaian habis</span>'
+                        : (isShieldOn
+                            ? '<span style="color:#38bdf8;font-weight:800">🛡️ Perisai Aktif Melindungi</span>'
+                            : (curEn < cost
+                                ? `<span style="color:#f59e0b">⚡ Butuh ${cost} Energi (ada ${curEn})</span>`
+                                : esc(skDef.desc || 'Taktik Petualang')))}
                     </div>
                   </div>
                 </button>`;
@@ -2642,8 +2787,13 @@
           </div>
         </div>`;
 
-      // PASTIKAN SEMUA TOMBOL JAWABAN AKTIF DAN BISA DI-KLIK
-      $$('.opt, .short-in, #short-ok, .order-item-btn, .btn-confirm-order', el).forEach(b => {
+      // PASTIKAN SEMUA TOMBOL JAWABAN AKTIF DAN BISA DI-KLIK KECUALI YANG SUDAH DICORET
+      $$('.opt', el).forEach(b => {
+        const isStruck = eliminatedOptions.has(+b.dataset.i);
+        b.disabled = isStruck;
+        b.style.pointerEvents = isStruck ? 'none' : 'auto';
+      });
+      $$('.short-in, #short-ok, .order-item-btn, .btn-confirm-order', el).forEach(b => {
         b.disabled = false;
         b.style.pointerEvents = 'auto';
       });
@@ -2719,6 +2869,19 @@
 
       $$('.skill-btn', el).forEach(btn => {
         btn.onclick = () => {
+          if (btn.disabled || btn.getAttribute('aria-disabled') === 'true' || btn.dataset.usable === 'false') {
+            const reason = btn.dataset.reason;
+            if (reason === 'ALREADY_USED') {
+              toast('Batas pemakaian skill ini sudah habis!');
+            } else if (reason === 'NO_ENERGY') {
+              toast('Energi tidak cukup untuk menggunakan skill ini!');
+            } else if (reason === 'ALREADY_ACTIVE') {
+              toast('Perisai masih aktif melindungi!');
+            } else {
+              toast('Skill belum bisa digunakan saat ini.');
+            }
+            return;
+          }
           const skIdx = parseInt(btn.dataset.sk, 10);
           triggerSkill(skIdx);
         };
