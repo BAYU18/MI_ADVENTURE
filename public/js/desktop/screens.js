@@ -2784,6 +2784,12 @@
     const bossObj = sess.monster || p.session?.monster || (root.Monsters && root.Monsters.MONSTERS && root.Monsters.MONSTERS[2]) || { id: 3, name: 'Jamurgon' };
     const bossSvg = renderMonsterArt(bossObj, 220);
 
+    const rewards = res.rewards || sess.rewards || p.rewards || null;
+    const chapterItem = (rewards && rewards.items && rewards.items.length > 0) ? rewards.items[0] : (rewards ? rewards.item : null);
+    const hasChapterReward = Boolean(rewards && rewards.chapterCompleted && chapterItem);
+    const hasComic = Boolean(rewards && rewards.chapterComic);
+    const themeName = bossObj.theme || sess.monster?.theme || 'hutan';
+
     el.innerHTML = `
     <div class="result-card">
       <div class="col" style="align-items:center;justify-content:center;text-align:center">
@@ -2805,10 +2811,59 @@
             ${bar(Math.min(100, acc), 'xp lg', isWon ? 'Kemenangan Sempurna' : 'Pengalaman Bertambah')}
             <div class="kv"><span>Koin emas</span><b>+${coinWon} 🪙</b></div>
             <div class="kv"><span>Status Pertempuran</span><b>${isWon ? '🏆 Selesai' : '🛡️ Butuh Latihan'}</b></div>`, 'fill')}
-        <button class="btn primary lg block" data-go="peta">▶️ LANJUTKAN PERJALANAN <span class="kbd">Enter</span></button>
+        ${hasChapterReward ? `
+          <div style="margin-top:4px;padding:12px 14px;background:linear-gradient(135deg, rgba(245,158,11,0.2), rgba(217,119,6,0.25));border:2px solid #f59e0b;border-radius:14px;box-shadow:0 0 24px rgba(245,158,11,0.3);text-align:center">
+            <div style="font-size:0.75rem;font-weight:900;letter-spacing:1px;color:#fef08a;text-transform:uppercase">
+              🏆 HADIAH WILAYAH 3 SELESAI!
+            </div>
+            <div style="font-size:1.05rem;font-weight:900;color:#fff;margin:4px 0 2px">
+              🎁 ${esc(chapterItem.name)}
+            </div>
+            <div style="font-size:0.78rem;color:#cbd5e1;margin-bottom:8px">
+              Rarity: <strong style="color:#fbbf24">${esc(chapterItem.rarity || 'RARE')}</strong> · ${esc(chapterItem.slot || 'Skin')}
+            </div>
+            <button type="button" class="btn primary block" id="btn-reopen-chest" style="font-weight:800;font-size:0.88rem;padding:8px">
+              🎁 Buka Ulang Animasi Peti Harta Karun
+            </button>
+          </div>
+        ` : ''}
+        ${hasComic ? `
+          <button type="button" class="btn secondary block" id="btn-show-comic" style="font-weight:800;margin-top:6px">
+            📖 Buka Komik Epilog Bab!
+          </button>
+        ` : ''}
+        <button class="btn primary lg block" data-go="peta" style="margin-top:6px">▶️ LANJUTKAN PERJALANAN <span class="kbd">Enter</span></button>
         <button class="btn lg ghost block" data-go="home">🏠 KEMBALI KE BERANDA <span class="kbd">Esc</span></button>
       </div>
     </div>`;
+
+    const triggerChestModal = () => {
+      if (hasChapterReward) {
+        if (root.Screens && typeof root.Screens.showChapterChestModal === 'function') {
+          root.Screens.showChapterChestModal(chapterItem, rewards?.chapterComic, themeName);
+        } else if (window.Screens && typeof window.Screens.showChapterChestModal === 'function') {
+          window.Screens.showChapterChestModal(chapterItem, rewards?.chapterComic, themeName);
+        }
+      }
+    };
+
+    if (hasChapterReward) {
+      const btnReopen = $('#btn-reopen-chest', el);
+      if (btnReopen) btnReopen.onclick = triggerChestModal;
+      // Auto buka animasi peti meriah dengan delay halus
+      setTimeout(triggerChestModal, 450);
+    }
+
+    const btnComic = $('#btn-show-comic', el);
+    if (btnComic && rewards?.chapterComic) {
+      btnComic.onclick = () => {
+        if (root.Screens && typeof root.Screens.showComicModal === 'function') {
+          root.Screens.showComicModal(rewards.chapterComic, themeName);
+        } else if (window.Screens && typeof window.Screens.showComicModal === 'function') {
+          window.Screens.showComicModal(rewards.chapterComic, themeName);
+        }
+      };
+    }
 
     if (root.DesktopShell?.updateTopbar) root.DesktopShell.updateTopbar();
     Keys.set({ Enter: () => root.go('peta'), Escape: () => root.go('home'), __noGlobal: true });
@@ -5059,7 +5114,7 @@
       if (root.API) {
         if (typeof root.API.getProfile === 'function') profData = await root.API.getProfile();
         if (typeof root.API.getBattleHistory === 'function') {
-          const hRes = await root.API.getBattleHistory(20);
+          const hRes = await root.API.getBattleHistory(50);
           historyData = hRes.history || hRes.items || hRes || [];
         }
       }
@@ -5086,6 +5141,66 @@
     const badgeSummary = profData?.badgeSummary || { totalUnlocked: 0, totalBadges: 80, unclaimedCount: 0 };
     const badgeFamilies = profData?.badgeFamilies || [];
     const energyMax = p.energyMax || (root.Progression ? root.Progression.energyMaxForLevel(pLv) : (5 + Math.floor(pLv / 5)));
+
+    const renderHistoryRows = (filter = 'ALL') => {
+      const filtered = historyData.filter(h => {
+        const isWin = (h.status === 'WON') || Boolean(h.won);
+        if (filter === 'WON') return isWin;
+        if (filter === 'LOST') return !isWin;
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        return `<div class="muted tc" style="font-size:.78rem;padding:16px">Tidak ada riwayat pertempuran ${filter === 'WON' ? 'menang' : (filter === 'LOST' ? 'kalah' : '')}.</div>`;
+      }
+
+      return filtered.map(h => {
+        const isWin = (h.status === 'WON') || Boolean(h.won);
+        const stars = h.stars || 0;
+        const starsStr = stars > 0 ? ' ' + '⭐'.repeat(stars) : '';
+        const bId = h.id || h.sessionId || '';
+        const correctNum = h.correctCount ?? h.correct ?? 0;
+        const totalNum = h.answeredCount ?? h.total ?? 10;
+        const accPct = h.accuracy !== undefined ? h.accuracy : (totalNum > 0 ? Math.round((correctNum / totalNum) * 100) : 0);
+        const bossTitle = h.monsterName || h.bossName || 'Pertempuran';
+        const subjTitle = h.subjectName ? `· ${h.subjectName}` : '';
+        const brutalBadge = h.brutal ? `<span style="font-size:0.65rem;font-weight:800;color:#ef4444;background:rgba(239,68,68,0.15);padding:1px 5px;border-radius:4px;border:1px solid rgba(239,68,68,0.3)">🔥 BRUTAL</span>` : '';
+        const dateStr = h.createdAt ? new Date(h.createdAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' }) : '';
+
+        return `
+          <div class="history-row" style="display:flex;flex-direction:column;align-items:stretch;width:100%;box-sizing:border-box;gap:5px;padding:9px 12px;background:rgba(255,255,255,0.04);border:1px solid ${isWin ? 'rgba(16,185,129,0.25)' : 'rgba(239,68,68,0.22)'};border-radius:10px">
+            <div style="display:flex;justify-content:space-between;align-items:center;width:100%;gap:8px">
+              <div style="display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden">
+                <span style="font-size:0.95rem;flex-shrink:0">${h.subjectIcon || '⚔️'}</span>
+                <strong style="color:#fff;font-size:0.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${esc(bossTitle)} ${esc(subjTitle)}">
+                  ${esc(bossTitle)} <span style="font-weight:600;font-size:0.78rem;color:#94a3b8">${esc(subjTitle)}</span>
+                </strong>
+                ${brutalBadge}
+              </div>
+              <span style="font-size:0.75rem;font-weight:800;color:${isWin ? '#34d399' : '#f87171'};background:${isWin ? 'rgba(16,185,129,0.15)' : 'rgba(239,68,68,0.15)'};border:1px solid ${isWin ? 'rgba(16,185,129,0.3)' : 'rgba(239,68,68,0.3)'};padding:2px 8px;border-radius:6px;flex-shrink:0">
+                ${isWin ? '🏆 MENANG' + starsStr : '🛡️ KALAH'}
+              </span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;width:100%;font-size:0.72rem;color:var(--c-muted);margin-top:1px">
+              <span>Akurasi: <b style="color:${accPct >= 70 ? '#34d399' : (accPct >= 50 ? '#fcd34d' : '#f87171')}">${accPct}%</b> (${correctNum}/${totalNum} Soal)</span>
+              ${bId ? `
+                <button type="button" class="btn ghost sm" onclick="window.App?.copyBattleId ? window.App.copyBattleId('${bId}') : prompt('ID Battle:', '${bId}')" style="padding:1px 6px;font-size:0.65rem;border-radius:6px;gap:3px" title="Klik untuk salin ID Battle: ${bId}">
+                  📋 #${String(bId).slice(-6)}
+                </button>
+              ` : (dateStr ? `<span>${dateStr}</span>` : '')}
+            </div>
+            ${(h.xpEarned || h.coinsEarned || h.maxStreak) ? `
+              <div style="display:flex;align-items:center;gap:6px;font-size:0.68rem;color:#cbd5e1;background:rgba(0,0,0,0.22);padding:2px 8px;border-radius:6px">
+                ${h.maxStreak ? `<span>🔥 Kombo ${h.maxStreak}×</span><span style="opacity:0.3">·</span>` : ''}
+                ${h.xpEarned ? `<span style="color:#fcd34d">+${h.xpEarned} XP</span><span style="opacity:0.3">·</span>` : ''}
+                ${h.coinsEarned ? `<span style="color:#38bdf8">+${h.coinsEarned} 🪙</span>` : ''}
+                ${dateStr ? `<span style="margin-left:auto;opacity:0.6">${dateStr}</span>` : ''}
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+    };
 
     el.innerHTML = `
     <div class="col">
@@ -5303,37 +5418,62 @@
 
     <div class="col">
       ${panel('Riwayat Pertempuran Terkini', `
-        <div class="history-list" style="display:flex;flex-direction:column;gap:.5rem;overflow-y:auto;max-height:34rem;padding:.2rem">
-          ${historyData.length === 0 ? `
+        ${historyData.length === 0 ? `
+          <div class="history-list" style="display:flex;flex-direction:column;gap:.5rem;overflow-y:auto;max-height:34rem;padding:.2rem">
             <div class="kv"><span>Sesi Latihan Terkini</span><b style="color:#22c55e">Selesai ⭐⭐⭐</b></div>
             <div class="kv"><span>Tantangan Harian</span><b style="color:#22c55e">Menang +40 XP</b></div>
             <div class="muted tc" style="font-size:.75rem;padding:8px">Belum ada riwayat pertempuran terekam.</div>
-          ` : historyData.map(h => {
-            const isWin = Boolean(h.won);
-            const starsStr = h.stars > 0 ? '⭐'.repeat(h.stars) : '';
-            const bId = h.id || h.sessionId || '';
-            return `
-              <div class="history-row" style="display:flex;flex-direction:column;gap:3px;padding:8px 10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px">
-                <div style="display:flex;justify-content:space-between;align-items:center">
-                  <b style="color:#fff;font-size:0.82rem">${esc(h.bossName || h.subjectName || h.mode || 'Pertempuran')}</b>
-                  <span style="font-size:0.75rem;font-weight:800;color:${isWin ? '#34d399' : '#f87171'}">
-                    ${isWin ? 'MENANG ' + starsStr : 'KALAH'}
-                  </span>
-                </div>
-                <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.7rem;color:var(--c-muted)">
-                  <span>Akurasi: ${h.accuracy || Math.round(((h.correct || 0) / (h.total || 10)) * 100)}% (${h.correct || 0}/${h.total || 10})</span>
-                  ${bId ? `
-                    <button class="btn ghost sm" onclick="window.App?.copyBattleId ? window.App.copyBattleId('${bId}') : prompt('ID Battle:', '${bId}')" style="padding:1px 6px;font-size:0.65rem">
-                      📋 #${String(bId).slice(-6)}
-                    </button>
-                  ` : ''}
-                </div>
-              </div>
-            `;
-          }).join('')}
-        </div>
+          </div>
+        ` : `
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:6px">
+            <div style="display:flex;gap:4px">
+              <button type="button" class="btn mini primary" id="btn-hist-all" style="font-size:0.7rem;padding:2px 8px">Semua (${historyData.length})</button>
+              <button type="button" class="btn mini ghost" id="btn-hist-won" style="font-size:0.7rem;padding:2px 8px">🏆 Menang (${historyData.filter(h => (h.status === 'WON') || Boolean(h.won)).length})</button>
+              <button type="button" class="btn mini ghost" id="btn-hist-lost" style="font-size:0.7rem;padding:2px 8px">🛡️ Kalah (${historyData.filter(h => h.status !== 'WON' && !h.won).length})</button>
+            </div>
+            <span style="font-size:0.7rem;color:var(--c-muted)" id="hist-count-txt">${historyData.length} laga</span>
+          </div>
+          <div class="history-list" id="profile-history-list" style="display:flex;flex-direction:column;gap:.5rem;overflow-y:auto;max-height:32rem;padding:.2rem">
+            ${renderHistoryRows('ALL')}
+          </div>
+        `}
       `, 'fill')}
     </div>`;
+
+    // Event Listeners: Filter Tab Riwayat Pertempuran
+    if (historyData.length > 0) {
+      const listSlot = el.querySelector('#profile-history-list');
+      const countTxt = el.querySelector('#hist-count-txt');
+      const bAll = el.querySelector('#btn-hist-all');
+      const bWon = el.querySelector('#btn-hist-won');
+      const bLost = el.querySelector('#btn-hist-lost');
+
+      const setFilter = (filt) => {
+        if (!listSlot) return;
+        [bAll, bWon, bLost].forEach(b => {
+          if (b) {
+            b.classList.remove('primary');
+            b.classList.add('ghost');
+          }
+        });
+        if (filt === 'ALL' && bAll) { bAll.classList.add('primary'); bAll.classList.remove('ghost'); }
+        if (filt === 'WON' && bWon) { bWon.classList.add('primary'); bWon.classList.remove('ghost'); }
+        if (filt === 'LOST' && bLost) { bLost.classList.add('primary'); bLost.classList.remove('ghost'); }
+
+        listSlot.innerHTML = renderHistoryRows(filt);
+        const filteredCount = historyData.filter(h => {
+          const isWin = (h.status === 'WON') || Boolean(h.won);
+          if (filt === 'WON') return isWin;
+          if (filt === 'LOST') return !isWin;
+          return true;
+        }).length;
+        if (countTxt) countTxt.textContent = `${filteredCount} laga`;
+      };
+
+      if (bAll) bAll.onclick = () => setFilter('ALL');
+      if (bWon) bWon.onclick = () => setFilter('WON');
+      if (bLost) bLost.onclick = () => setFilter('LOST');
+    }
 
     // Event Listeners: Klik Lencana untuk Buka Modal Progres Interaktif
     el.querySelectorAll('.badge-item').forEach(itemEl => {

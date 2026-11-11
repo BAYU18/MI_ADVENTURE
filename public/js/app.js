@@ -4616,6 +4616,13 @@ Screens.showChapterChestModal = function (item, chapterComic, theme) {
         : (isEpic ? '⚡ DROP EPIC LUAR BIASA! ⚡' : (isCommon ? '✨ DROP COMMON TERBUKA! ✨' : '✨ DROP RARE TERBUKA! ✨')));
 
     const itemIcon = item.icon || (item.slot === 'hat' ? '👑' : (item.slot === 'pet' ? '🐾' : (item.slot === 'weapon' ? '⚔️' : (item.slot === 'outfit' ? '🛡️' : (item.slot === 'bg' ? '🌌' : (item.slot === 'frame' ? '🖼️' : '📜'))))));
+    let itemArtDisplay = `<div style="font-size:4.2rem;line-height:1;filter:drop-shadow(0 6px 16px ${tierColor}80)">${itemIcon}</div>`;
+    if (window.SkinArt && typeof window.SkinArt.renderItemThumbnail === 'function' && item.id) {
+      const thumbSvg = window.SkinArt.renderItemThumbnail(item.id, item.slot || 'outfit', 100);
+      if (thumbSvg) {
+        itemArtDisplay = `<div class="item-art-wrapper" style="width:100px;height:100px;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 6px 16px ${tierColor}80)">${thumbSvg}</div>`;
+      }
+    }
 
     modal.innerHTML = `
       <div class="confetti-container" style="position:absolute;inset:0;pointer-events:none;overflow:hidden">
@@ -4640,9 +4647,7 @@ Screens.showChapterChestModal = function (item, chapterComic, theme) {
           </div>
 
           <div style="background:${tierBg};border:${tierBorder};border-radius:20px;padding:18px 14px;margin:12px 0 16px 0;display:flex;flex-direction:column;align-items:center;gap:8px">
-            <div style="font-size:4.2rem;line-height:1;filter:drop-shadow(0 6px 16px ${tierColor}80)">
-              ${itemIcon}
-            </div>
+            ${itemArtDisplay}
             <h3 style="font-size:1.3rem;font-weight:900;color:#fff;margin:4px 0 2px 0;text-shadow:0 2px 8px rgba(0,0,0,0.8)">
               ${esc(item.name)}
             </h3>
