@@ -9,6 +9,41 @@ const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
+function formatItemSetHtml(it) {
+  if (!it) return '';
+  const setInfo = it.setInfo || (window.Economy && typeof window.Economy.getItemSetInfo === 'function' ? window.Economy.getItemSetInfo(it.id) : null);
+  if (setInfo) {
+    const isMythic = (it.rarity || '').toUpperCase() === 'MYTHIC';
+    const borderColor = isMythic ? 'rgba(239,68,68,0.45)' : 'rgba(245,158,11,0.35)';
+    const bgGradient = isMythic ? 'linear-gradient(135deg, rgba(239,68,68,0.14), rgba(245,158,11,0.08))' : 'rgba(245,158,11,0.08)';
+    const titleColor = isMythic ? '#f87171' : '#fbbf24';
+    
+    return `
+      <div class="item-set-box" style="margin-top:4px;padding:6px 8px;background:${bgGradient};border:1px solid ${borderColor};border-radius:8px;font-size:0.72rem;display:flex;flex-direction:column;gap:3px">
+        <div style="font-weight:800;color:${titleColor};display:flex;align-items:center;gap:4px">
+          <span>${esc(setInfo.icon || '✨')}</span>
+          <span>1 Set: ${esc(setInfo.name)} (${setInfo.totalItems} Item)</span>
+        </div>
+        <div style="font-size:0.68rem;color:#cbd5e1;line-height:1.35">
+          <span style="color:#94a3b8">Wajib 1 Set:</span> 
+          ${setInfo.members.map(m => `<span style="${m.isSelf ? 'color:#38bdf8;font-weight:800;text-decoration:underline' : 'color:#f1f5f9'}">${m.isSelf ? '👉 ' : ''}${esc(m.name)}</span>`).join(', ')}
+        </div>
+        <div style="font-size:0.68rem;color:#fcd34d;line-height:1.3;border-top:1px dashed rgba(255,255,255,0.12);padding-top:3px;margin-top:2px">
+          ⚡ <b>Efek 1 Set:</b> ${esc(setInfo.desc)}
+        </div>
+      </div>
+    `;
+  }
+  if ((it.rarity || '').toUpperCase() === 'MYTHIC') {
+    return `
+      <div style="margin-top:3px;display:inline-flex;align-items:center;gap:4px;font-size:0.68rem;color:#c084fc;background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.3);padding:2px 6px;border-radius:6px;font-weight:700">
+        💎 Solo Mythic (Fleksibel: dapat dipasangkan dengan set manapun)
+      </div>
+    `;
+  }
+  return '';
+}
+
 function toast(msg, testId = null) {
   const t = $('#toast');
   if (!t) return;
@@ -7448,6 +7483,9 @@ Screens.profil = {
                 <!-- RPG PASSIVE BADGE -->
                 ${it.passive ? `<div style="font-size:0.75rem;font-weight:700;color:#38bdf8;background:rgba(56,189,248,0.12);padding:4px 8px;border-radius:6px;border:1px solid rgba(56,189,248,0.3);line-height:1.35;word-break:break-word">✨ ${esc(it.passive.desc)}</div>` : ''}
 
+                <!-- ITEM SET INFO BADGE -->
+                ${formatItemSetHtml(it)}
+
                 <!-- LORE FLAVOR TEXT -->
                 ${it.lore ? `<div style="font-size:0.72rem;color:var(--c-muted);line-height:1.35;font-style:italic">${esc(it.lore)}</div>` : ''}
               </div>
@@ -8453,6 +8491,9 @@ Screens.profil = {
 
                 <!-- RPG PASSIVE BADGE -->
                 ${it.passive ? `<div style="font-size:0.75rem;font-weight:700;color:#fbbf24;background:rgba(251,191,36,0.12);padding:4px 8px;border-radius:6px;border:1px solid rgba(251,191,36,0.3);line-height:1.35;word-break:break-word">✨ ${esc(it.passive.desc)}</div>` : ''}
+
+                <!-- ITEM SET INFO BADGE -->
+                ${formatItemSetHtml(it)}
 
                 <!-- LORE FLAVOR TEXT -->
                 ${it.lore ? `<div style="font-size:0.72rem;color:var(--c-muted);line-height:1.35;font-style:italic">${esc(it.lore)}</div>` : ''}

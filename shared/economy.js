@@ -2066,6 +2066,30 @@ const BOSS_MOVES = {
   manis:  { name: 'Regenerasi Gula', kind: 'REGEN', desc: 'Boss memulihkan +5 HP!' },
 };
 
+function getItemSetInfo(itemId) {
+  if (!itemId || !Array.isArray(SET_BONUSES)) return null;
+  const set = SET_BONUSES.find(s => Array.isArray(s.items) && s.items.includes(itemId));
+  if (!set) return null;
+  const members = set.items.map(mId => {
+    const found = ITEMS.find(x => x.id === mId);
+    return {
+      id: mId,
+      name: found ? found.name : mId,
+      slot: found ? found.slot : '',
+      isSelf: mId === itemId
+    };
+  });
+  return {
+    id: set.id,
+    name: set.name,
+    icon: set.icon || '✨',
+    desc: set.desc || '',
+    bonus: set.bonus || {},
+    totalItems: set.items.length,
+    members
+  };
+}
+
 const exp = {
   ECONOMY,
   ITEMS,
@@ -2086,6 +2110,7 @@ const exp = {
   BOSS_MOVES,
   SET_BONUSES,
   calculatePassives,
+  getItemSetInfo,
 };
 
 if (typeof module !== 'undefined' && module.exports) {

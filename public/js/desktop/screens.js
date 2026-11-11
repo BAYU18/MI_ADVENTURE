@@ -16,6 +16,47 @@
   const panel = (title, body, cls = '', more = '', go_ = '') =>
     `<section class="panel ${cls} ${go_ ? 'link' : ''}" ${go_ ? `data-go="${go_}"` : ''}>${title ? `<h3><span>${title}</span>${more ? `<span class="more">${more}</span>` : ''}</h3>` : ''}${body}</section>`;
 
+  const formatItemSetHtml = (it, isCompact = false) => {
+    if (!it) return '';
+    const setInfo = it.setInfo || (root.Economy && typeof root.Economy.getItemSetInfo === 'function' ? root.Economy.getItemSetInfo(it.id) : null);
+    if (setInfo) {
+      const isMythic = (it.rarity || '').toUpperCase() === 'MYTHIC';
+      const borderColor = isMythic ? 'rgba(239,68,68,0.45)' : 'rgba(245,158,11,0.35)';
+      const bgGradient = isMythic ? 'linear-gradient(135deg, rgba(239,68,68,0.14), rgba(245,158,11,0.08))' : 'rgba(245,158,11,0.08)';
+      const titleColor = isMythic ? '#f87171' : '#fbbf24';
+      if (isCompact) {
+        return `
+          <div style="font-size:0.67rem;background:${bgGradient};border:1px solid ${borderColor};border-radius:4px;padding:2px 6px;color:${titleColor};line-height:1.25;margin-top:2px">
+            <b>${esc(setInfo.icon || '✨')} 1 Set:</b> ${esc(setInfo.name)} (${setInfo.totalItems} Item)
+          </div>
+        `;
+      }
+      return `
+        <div class="item-set-box" style="margin-top:6px;padding:8px 10px;background:${bgGradient};border:1px solid ${borderColor};border-radius:8px;font-size:0.75rem;display:flex;flex-direction:column;gap:4px">
+          <div style="font-weight:800;color:${titleColor};display:flex;align-items:center;gap:4px">
+            <span>${esc(setInfo.icon || '✨')}</span>
+            <span>1 Set: ${esc(setInfo.name)} (${setInfo.totalItems} Item)</span>
+          </div>
+          <div style="font-size:0.7rem;color:#cbd5e1;line-height:1.35">
+            <span style="color:#94a3b8">Wajib 1 Set:</span><br/>
+            ${setInfo.members.map(m => `<span style="${m.isSelf ? 'color:#38bdf8;font-weight:800;text-decoration:underline' : 'color:#f1f5f9'}">${m.isSelf ? '👉 ' : '• '}${esc(m.name)}</span>`).join('<br/>')}
+          </div>
+          <div style="font-size:0.7rem;color:#fcd34d;line-height:1.3;border-top:1px dashed rgba(255,255,255,0.15);padding-top:4px;margin-top:2px">
+            ⚡ <b>Efek 1 Set:</b> ${esc(setInfo.desc)}
+          </div>
+        </div>
+      `;
+    }
+    if ((it.rarity || '').toUpperCase() === 'MYTHIC') {
+      return `
+        <div style="margin-top:3px;display:inline-flex;align-items:center;gap:4px;font-size:0.67rem;color:#c084fc;background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.3);padding:2px 6px;border-radius:4px;font-weight:700">
+          💎 Solo Mythic (Fleksibel)
+        </div>
+      `;
+    }
+    return '';
+  };
+
   const toast = root.toast || function (msg) { console.log('[Toast]', msg); };
   const Modal = root.Modal || { open: alert, close: () => {} };
   const Keys = root.Keys;
@@ -3045,6 +3086,7 @@
                   ` : `
                     <div style="font-size:.65rem;color:var(--c-muted);font-style:italic;margin-top:1px">Kosmetik Avatar</div>
                   `}
+                  ${formatItemSetHtml(x, true)}
                 </div>
               </div>`;
             }).join('')}
@@ -3078,9 +3120,12 @@
                 <div class="dex-stat-tile"><small>Slot Kategori</small><b>${curCatObj[2]}</b></div>
                 <div class="dex-stat-tile"><small>Tingkat Rarity</small><b style="color:${curRarColor}">${(it.rarity || 'COMMON').toUpperCase()}</b></div>
                 <div class="dex-stat-tile"><small>Status</small><b style="color:${isEquipped ? '#34d399' : (isOwned ? '#38bdf8' : '#94a3b8')}">${isEquipped ? 'Sedang Dipakai ✔' : (isOwned ? 'Sudah Dimiliki' : 'Belum Dimiliki 🔒')}</b></div>
-                <div class="dex-stat-tile"><small>Set Bonus</small><b style="color:#fbbf24">${esc(it.setName || (it.passive?.set ? it.passive.set : 'Solo Item'))}</b></div>
+                <div class="dex-stat-tile"><small>Set Bonus</small><b style="color:#fbbf24">${esc(it.setName || (it.setInfo ? it.setInfo.name : (it.passive?.set ? it.passive.set : 'Solo Item')))}</b></div>
                 <div class="dex-stat-tile" style="grid-column:1/-1"><small>Efek RPG Pasif</small><b style="color:#fcd34d">${it.passive ? '✨ ' + esc(it.passive.desc) : 'Kosmetik Penampilan'}</b></div>
               </div>
+
+              <!-- Rincian Set Bonus Lengkap jika Item Set -->
+              ${formatItemSetHtml(it, false)}
 
               <!-- Lore Deskripsi Cerita Kotak Kutipan -->
               <div style="background:rgba(255,255,255,0.03);padding:.55rem .75rem;border-radius:var(--rad-m);border-left:3px solid var(--c-primary);font-size:.74rem;color:#cbd5e1;line-height:1.4">
@@ -3385,6 +3430,7 @@
                           ${esc(it.lore)}
                         </div>
                       ` : ''}
+                      ${formatItemSetHtml(it, true)}
                     </div>
                   </div>
 
@@ -3425,6 +3471,7 @@
             <span class="tag rar-${(selPreviewItem.rarity || 'common').toLowerCase()}">${(selPreviewItem.rarity || 'COMMON').toUpperCase()} · ${esc(selPreviewItem.slot || 'Item')}</span>
           </div>
           ${selPreviewItem.passive ? `<div class="kv"><span>Efek RPG</span><b style="color:#fbbf24">✨ ${esc(selPreviewItem.passive.desc)}</b></div>` : ''}
+          ${formatItemSetHtml(selPreviewItem, false)}
           ${selPreviewItem.lore ? `<div class="kv"><span>Kisah Item</span><i class="muted" style="font-size:.75rem">${esc(selPreviewItem.lore)}</i></div>` : ''}
           <div class="kv"><span>Harga Resmi</span><b style="color:#fbbf24;font-size:1.1rem">🪙 ${selPreviewItem.price || 0} koin</b></div>
           <div class="kv" style="border:0"><span>Status</span><b style="color:${isPreviewOwned ? '#34d399' : '#38bdf8'}">${isPreviewOwned ? 'Sudah Dimiliki ✔' : 'Tersedia di Toko'}</b></div>
