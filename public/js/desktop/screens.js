@@ -1670,12 +1670,25 @@
       let actionsHtml = '';
 
       if (evt.type === 'TREASURE') {
-        icon = '🎁';
+        icon = `
+          <div class="treasure-chest-icon" style="width:78px;height:78px;margin:0 auto 4px;display:flex;align-items:center;justify-content:center;position:relative">
+            <svg viewBox="0 0 64 64" width="72" height="72" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 0 18px rgba(245,158,11,0.85))">
+              <rect x="6" y="24" width="52" height="32" rx="5" fill="#b45309" stroke="#fbbf24" stroke-width="3"/>
+              <path d="M6 24C6 15 16 9 32 9C48 9 58 15 58 24H6Z" fill="#d97706" stroke="#fbbf24" stroke-width="3"/>
+              <rect x="22" y="9" width="20" height="47" fill="#fde047" opacity="0.35"/>
+              <rect x="26" y="22" width="12" height="13" rx="2" fill="#fbbf24" stroke="#fff" stroke-width="2"/>
+              <circle cx="32" cy="28.5" r="2.2" fill="#78350f"/>
+              <circle cx="15" cy="17" r="1.5" fill="#fff"/>
+              <circle cx="49" cy="17" r="1.5" fill="#fff"/>
+            </svg>
+            <span style="position:absolute;bottom:0px;right:0px;background:#10b981;color:#fff;font-size:0.75rem;padding:1px 5px;border-radius:99px;font-weight:900;border:1.5px solid #fff;box-shadow:0 0 8px #10b981">✨</span>
+          </div>
+        `;
         title = 'Peti Harta Karun!';
         desc = 'Kamu menemukan sebuah peti harta karun misterius yang berkilau emas!';
         actionsHtml = `
           <button class="btn primary" id="btn-event-open" data-testid="btn-event-open" style="width:100%;font-size:1.1rem;padding:12px;font-weight:800">
-            Buka Peti 🎁
+            Buka Peti ✨
           </button>
         `;
       } else if (evt.type === 'MERCHANT') {
@@ -1708,13 +1721,27 @@
           </div>
         `;
       } else if (evt.type === 'TRAP') {
-        icon = '🪤';
+        icon = `
+          <div class="suspicious-chest-icon" style="width:78px;height:78px;margin:0 auto 4px;display:flex;align-items:center;justify-content:center;position:relative">
+            <svg viewBox="0 0 64 64" width="72" height="72" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 0 20px rgba(239,68,68,0.85))">
+              <rect x="6" y="24" width="52" height="32" rx="5" fill="#4c0519" stroke="#ef4444" stroke-width="3"/>
+              <path d="M6 24C6 15 16 9 32 9C48 9 58 15 58 24H6Z" fill="#881337" stroke="#ef4444" stroke-width="3"/>
+              <rect x="22" y="9" width="20" height="47" fill="#f43f5e" opacity="0.35"/>
+              <rect x="26" y="22" width="12" height="13" rx="2" fill="#ef4444" stroke="#fef08a" stroke-width="2"/>
+              <circle cx="32" cy="28.5" r="2.2" fill="#fff"/>
+              <path d="M12 28L18 34M52 28L46 34" stroke="#f43f5e" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="15" cy="17" r="1.5" fill="#fde047"/>
+              <circle cx="49" cy="17" r="1.5" fill="#fde047"/>
+            </svg>
+            <span style="position:absolute;bottom:0px;right:0px;background:#dc2626;color:#fff;font-size:0.75rem;padding:1px 5px;border-radius:99px;font-weight:900;border:1.5px solid #fff;box-shadow:0 0 10px #ef4444">⚠️</span>
+          </div>
+        `;
         title = 'Peti Mencurigakan';
         desc = 'Sebuah peti kuno tergeletak di jalan. Berani membuka untuk hadiah, atau lewati demi keselamatan?';
         actionsHtml = `
           <div style="display:flex;flex-direction:column;gap:8px;width:100%">
-            <button class="btn primary" id="btn-event-open" data-testid="btn-event-open" style="width:100%;padding:12px;font-weight:800">
-              Buka Peti (Risiko Jebakan) 🪤
+            <button class="btn primary" id="btn-event-open" data-testid="btn-event-open" style="width:100%;padding:12px;font-weight:800;background:linear-gradient(135deg, #ef4444, #dc2626);border:1px solid #fca5a5;box-shadow:0 4px 14px rgba(239,68,68,0.4)">
+              Buka Peti (Risiko Jebakan) ⚠️
             </button>
             <button class="btn secondary" id="btn-event-skip" data-testid="btn-event-skip" style="width:100%">
               Lewati (Pilihan Aman) 🛡️
