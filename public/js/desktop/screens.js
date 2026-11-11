@@ -89,13 +89,15 @@
 
   // Helper render skin / item thumbnail SVG asli dari mobile (Avatar.renderThumbnail / SkinArt)
   function renderItemArt(itemId, slot = 'hat', size = 64) {
+    let art = '';
     if (root.Avatar && typeof root.Avatar.renderThumbnail === 'function') {
-      return root.Avatar.renderThumbnail(itemId, slot);
+      art = root.Avatar.renderThumbnail(itemId, slot);
+    } else if (root.SkinArt && typeof root.SkinArt.renderThumbnail === 'function') {
+      art = root.SkinArt.renderThumbnail(itemId, slot);
+    } else {
+      art = `<div style="font-size:${size * 0.5}px;display:flex;align-items:center;justify-content:center;height:100%">🎒</div>`;
     }
-    if (root.SkinArt && typeof root.SkinArt.renderThumbnail === 'function') {
-      return root.SkinArt.renderThumbnail(itemId, slot);
-    }
-    return `<div style="font-size:${size * 0.5}px;display:flex;align-items:center;justify-content:center;height:100%">🎒</div>`;
+    return `<div class="item-art-wrapper" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden">${art}</div>`;
   }
 
   // Helper render skill SVG 3D animasi asli dari mobile (SkillArt.renderSkill)
@@ -2865,6 +2867,8 @@
     };
 
     const draw = () => {
+      const prevList = el.querySelector('.wardrobe-cards-list-layout');
+      const savedScroll = prevList ? prevList.scrollTop : 0;
       const avatarSvg = renderPlayerAvatar(draftAvatar, 120);
       const curP = calcPassives(draftAvatar);
       const synergies = (root.Passives && typeof root.Passives.getEquippedSetsSynergy === 'function')
@@ -2926,7 +2930,8 @@
       const isOwned = Boolean(it.owned);
       const curCatObj = CATS_MOBILE.find(c => c[0] === it.slot) || ['item', '🎒', it.slot || 'Perlengkapan'];
       const curRarKey = (it.rarity || 'common').toLowerCase();
-      const curRarColor = curRarKey === 'legendary' ? '#f59e0b' : (curRarKey === 'epic' ? '#a855f7' : (curRarKey === 'rare' ? '#3b82f6' : '#94a3b8'));
+      const curRarColor = curRarKey === 'mythic' ? '#ff0055' : (curRarKey === 'legendary' ? '#f59e0b' : (curRarKey === 'epic' ? '#a855f7' : (curRarKey === 'rare' ? '#3b82f6' : '#94a3b8')));
+      const currentEquippedInSlot = itemsList.find(x => x.id === draftAvatar[it.slot]);
 
       const eqSlots = [
         { sl: 'hat', icon: '🧢', name: 'Topi', id: draftAvatar.hat },
@@ -2967,10 +2972,10 @@
                 const isSlotActive = (cat === s.sl);
                 return `
                   <div class="skin-equipped-slot ${isSlotActive ? 'active' : ''}" data-jumpcat="${s.sl}" title="${esc(s.name)}: ${esc(itemObj?.name || 'Kosong')}" style="padding:4px;border-radius:8px;background:${isSlotActive ? 'rgba(56,189,248,.18)' : 'rgba(255,255,255,.05)'};border:1px solid ${isSlotActive ? 'var(--c-primary)' : 'rgba(255,255,255,.1)'};display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer">
-                    <div class="slot-icon" style="width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:1.05rem">
+                    <div class="slot-icon" style="width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:1.05rem;overflow:hidden">
                       ${itemObj ? renderItemArt(itemObj.id, s.sl, 26) : s.icon}
                     </div>
-                    <span class="slot-label" style="font-size:.62rem;font-weight:800;color:${itemObj ? '#fff' : 'var(--c-muted)'};margin-top:2px">${s.name}</span>
+                    <span class="slot-label" style="font-size:.62rem;font-weight:800;color:${itemObj ? '#fff' : 'var(--c-muted)'};margin-top:2px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(itemObj?.name || s.name)}</span>
                   </div>`;
               }).join('')}
             </div>
@@ -3147,8 +3152,9 @@
               <div class="dex-inspector-stats-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem">
                 <div class="dex-stat-tile"><small>Slot Kategori</small><b>${curCatObj[2]}</b></div>
                 <div class="dex-stat-tile"><small>Tingkat Rarity</small><b style="color:${curRarColor}">${(it.rarity || 'COMMON').toUpperCase()}</b></div>
-                <div class="dex-stat-tile"><small>Status</small><b style="color:${isEquipped ? '#34d399' : (isOwned ? '#38bdf8' : '#94a3b8')}">${isEquipped ? 'Sedang Dipakai ✔' : (isOwned ? 'Sudah Dimiliki' : 'Belum Dimiliki 🔒')}</b></div>
+                <div class="dex-stat-tile"><small>Status Item Ini</small><b style="color:${isEquipped ? '#34d399' : (isOwned ? '#38bdf8' : '#94a3b8')}">${isEquipped ? 'Sedang Dipakai ✔' : (isOwned ? 'Sudah Dimiliki' : 'Belum Dimiliki 🔒')}</b></div>
                 <div class="dex-stat-tile"><small>Set Bonus</small><b style="color:#fbbf24">${esc(it.setName || (it.setInfo ? it.setInfo.name : (it.passive?.set ? it.passive.set : 'Solo Item')))}</b></div>
+                <div class="dex-stat-tile" style="grid-column:1/-1"><small>Item Terpasang di Slot ${curCatObj[2]} Saat Ini</small><b style="color:${isEquipped ? '#34d399' : '#38bdf8'}">${currentEquippedInSlot ? '✔ ' + esc(currentEquippedInSlot.name) + (isEquipped ? ' (Sedang Dilihat)' : '') : 'Belum Ada (Kosong)'}</b></div>
                 <div class="dex-stat-tile" style="grid-column:1/-1"><small>Efek RPG Pasif</small><b style="color:#fcd34d">${it.passive ? '✨ ' + esc(it.passive.desc) : 'Kosmetik Penampilan'}</b></div>
               </div>
 
@@ -3163,8 +3169,8 @@
 
             <!-- Fixed Bottom Action Footer -->
             <div style="flex-shrink:0;padding-top:.6rem;border-top:1px solid rgba(255,255,255,.08);margin-top:.4rem">
-              <button class="btn ${isOwned ? (isEquipped ? 'good' : 'primary') : 'gold'} lg block" id="equip" style="width:100%;font-weight:800;box-shadow:0 0 16px ${isOwned ? (isEquipped ? 'rgba(16,185,129,.3)' : 'rgba(56,189,248,.3)') : 'rgba(245,158,11,.3)'}">
-                ${isEquipped ? '✔ SEDANG DIPAKAI' : (isOwned ? '👕 PAKAI PERLENGKAPAN INI' : '🛒 DAPATKAN DI TOKO')}
+              <button class="btn ${isOwned ? (isEquipped ? 'good' : 'primary') : 'gold'} lg block" id="equip" style="width:100%;font-weight:800;box-shadow:0 0 16px ${isOwned ? (isEquipped ? 'rgba(16,185,129,.35)' : 'rgba(56,189,248,.35)') : 'rgba(245,158,11,.35)'}">
+                ${isEquipped ? '✔ SEDANG DIPAKAI (TERPASANG)' : (isOwned ? (currentEquippedInSlot ? '👕 GANTI KE PERLENGKAPAN INI' : '👕 PAKAI PERLENGKAPAN INI') : '🛒 DAPATKAN DI TOKO')}
               </button>
               <button class="btn ghost block" id="save" style="width:100%;margin-top:6px;font-weight:700">✨ Simpan Penampilan Baru (Gratis)</button>
             </div>
@@ -3211,7 +3217,14 @@
       $$('.skin-owner-btn', el).forEach(b => { b.onclick = () => { if (root.Sfx) root.Sfx.play('tap'); ownerFilter = b.dataset.owner; selId = null; draw(); }; });
       $$('.skin-cat-tab-btn', el).forEach(b => { b.onclick = () => { if (root.Sfx) root.Sfx.play('tap'); cat = b.dataset.cat; selId = null; draw(); }; });
       $$('.rarity-pill-btn', el).forEach(b => { b.onclick = () => { if (root.Sfx) root.Sfx.play('tap'); rarityFilter = b.dataset.rar; selId = null; draw(); }; });
-      $$('[data-jumpcat]', el).forEach(b => { b.onclick = () => { if (root.Sfx) root.Sfx.play('tap'); cat = b.dataset.jumpcat; selId = null; draw(); }; });
+      $('[data-jumpcat]', el).forEach(b => {
+        b.onclick = () => {
+          if (root.Sfx) root.Sfx.play('tap');
+          cat = b.dataset.jumpcat;
+          selId = draftAvatar[cat] || null;
+          draw();
+        };
+      });
       $$('.missing-set-pill.owned-missing', el).forEach(pill => {
         pill.onclick = (e) => {
           e.stopPropagation();
@@ -3290,6 +3303,12 @@
             toast('✨ Penampilan tersimpan');
           }
         };
+      }
+
+      // Pulihkan scroll position agar tidak meloncat ke atas saat memilih item
+      const curList = el.querySelector('.wardrobe-cards-list-layout');
+      if (curList && savedScroll > 0) {
+        curList.scrollTop = savedScroll;
       }
     };
 

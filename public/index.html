@@ -226,11 +226,11 @@
   <script defer src="/js/dexcards.js?v=20261105v5"></script>
   <script defer src="/shared/badges.js?v=20261106v3"></script>
   <script defer src="/js/badge-art.js?v=20261106v1"></script>
-  <script defer src="/js/app.js?v=20261111staged"></script>
+  <script defer src="/js/app.js?v=20261111c"></script>
   <script defer src="js/friends.js?v=20261106v2"></script>
   <script defer src="js/duel.js?v=20261105v5"></script>
-  <script defer src="js/desktop/core.js?v=20261111staged"></script>
-  <script defer src="js/desktop/screens.js?v=20261111staged"></script>
+  <script defer src="js/desktop/core.js?v=20261111c"></script>
+  <script defer src="js/desktop/screens.js?v=20261111c"></script>
   <script>
     if ('serviceWorker' in navigator) {
       let refreshing = false;
@@ -241,7 +241,7 @@
         }
       });
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js?v=20261111staged').then(reg => {
+        navigator.serviceWorker.register('/sw.js?v=20261111c').then(reg => {
           reg.update();
         }).catch(err => console.warn('[SW reg fail]', err));
       });
