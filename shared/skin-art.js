@@ -215,6 +215,28 @@
         .replace(/<rect[^>]*stroke="#fbbf24"[^>]*\/>/gi, '')
         .replace(/<rect[^>]*stroke="#c084fc"[^>]*\/>/gi, '');
       return extractInner(clean);
+    },
+    renderHat: function(id, uid = 'def') {
+      const scoped = scopeSvg(id, uid);
+      if (!scoped) return '';
+      let clean = scoped
+        .replace(/<rect[^>]*fill="url\(#[^"]*panel\)"[^>]*\/>/gi, '')
+        .replace(/<circle[^>]*fill="url\(#[^"]*ih\)"[^>]*>.*?<\/circle>/gis, '')
+        .replace(/<rect[^>]*stroke="url\(#[^"]*fr\)"[^>]*\/>/gi, '')
+        .replace(/<g class="preview-only">[\s\S]*?<\/g>/g, '');
+      const inner = extractInner(clean);
+      return `<g transform="translate(38 12) scale(.62)">${inner}</g>`;
+    },
+    renderPet: function(id, uid = 'def') {
+      const scoped = scopeSvg(id, uid);
+      if (!scoped) return '';
+      let clean = scoped
+        .replace(/<rect[^>]*fill="url\(#[^"]*panel\)"[^>]*\/>/gi, '')
+        .replace(/<circle[^>]*fill="url\(#[^"]*ih\)"[^>]*>.*?<\/circle>/gis, '')
+        .replace(/<rect[^>]*stroke="url\(#[^"]*fr\)"[^>]*\/>/gi, '')
+        .replace(/<g class="preview-only">[\s\S]*?<\/g>/g, '');
+      const inner = extractInner(clean);
+      return `<g transform="translate(6 130) scale(.28)">${inner}</g>`;
     }
   };
 

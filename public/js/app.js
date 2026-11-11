@@ -7565,11 +7565,11 @@ Screens.profil = {
       }
 
       /* SKIN_LAZY_OPTIMIZED */
-      const IMMEDIATE_LIMIT_SKIN = 8;
+      const isImmediateItem = (idx) => filtered.length <= 48 || (this.skinRarityFilter && this.skinRarityFilter !== 'ALL') || idx < 32;
       grid.innerHTML = filtered.map((it, idx) => {
         const isEquipped = Boolean(this.avatarDraft && this.avatarDraft[it.slot] === it.id);
         const rarityColor = it.rarity === 'MYTHIC' ? '#ff0055' : it.rarity === 'LEGENDARY' ? '#f59e0b' : it.rarity === 'EPIC' ? '#a855f7' : it.rarity === 'RARE' ? '#3b82f6' : '#94a3b8';
-        const isImmediate = idx < IMMEDIATE_LIMIT_SKIN;
+        const isImmediate = isImmediateItem(idx);
         const thumbHtml = isImmediate
           ? (window.Avatar ? Avatar.renderThumbnail(it.id, it.slot) : '🎒')
           : `<div class="lazy-thumb-placeholder" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;opacity:0.35;font-size:1.6rem">🎒</div>`;
@@ -7627,6 +7627,41 @@ Screens.profil = {
           </div>
         `;
       }).join('');
+
+      // Progressive lazy loading for offscreen thumbnails in Wardrobe
+      const hydrateSkinThumbs = () => {
+        grid.querySelectorAll('.lazy-art').forEach(el => {
+          const id = el.dataset.itemId;
+          const slot = el.dataset.itemSlot;
+          if (id && window.Avatar) {
+            el.innerHTML = Avatar.renderThumbnail(id, slot);
+            el.classList.remove('lazy-art');
+            const s = el.querySelector('svg');
+            if (s) s.classList.add('fx');
+          }
+        });
+      };
+
+      if (typeof IntersectionObserver !== 'undefined') {
+        const obs = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const el = entry.target;
+              const id = el.dataset.itemId;
+              const slot = el.dataset.itemSlot;
+              if (id && window.Avatar) {
+                el.innerHTML = Avatar.renderThumbnail(id, slot);
+                el.classList.remove('lazy-art');
+                const s = el.querySelector('svg');
+                if (s) s.classList.add('fx');
+              }
+              observer.unobserve(el);
+            }
+          });
+        }, { rootMargin: '300px' });
+        grid.querySelectorAll('.lazy-art').forEach(el => obs.observe(el));
+      }
+      setTimeout(hydrateSkinThumbs, 40);
 
       // Tombol Beli di Toko dari Tab Belum Dimiliki
       $$('#skin-items-grid .btn-goto-shop').forEach(btn => {
@@ -8610,11 +8645,11 @@ Screens.profil = {
       }
 
       /* SHOP_LAZY_OPTIMIZED */
-      const IMMEDIATE_LIMIT = 8;
+      const isImmediateItem = (idx) => filtered.length <= 48 || (this.shopRarityFilter && this.shopRarityFilter !== 'ALL') || idx < 32;
       grid.innerHTML = filtered.map((it, idx) => {
         const canAfford = playerCoins >= it.price;
         const rarityColor = it.rarity === 'MYTHIC' ? '#ff0055' : it.rarity === 'LEGENDARY' ? '#f59e0b' : it.rarity === 'EPIC' ? '#a855f7' : it.rarity === 'RARE' ? '#3b82f6' : '#94a3b8';
-        const isImmediate = idx < IMMEDIATE_LIMIT;
+        const isImmediate = isImmediateItem(idx);
         const thumbHtml = isImmediate
           ? (window.Avatar ? Avatar.renderThumbnail(it.id, it.slot) : '🎒')
           : `<div class="lazy-thumb-placeholder" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;opacity:0.35;font-size:1.6rem">🎒</div>`;
@@ -8662,7 +8697,20 @@ Screens.profil = {
         `;
       }).join('');
 
-      // Progressive lazy loading for offscreen thumbnails (250px prefetch)
+      // Progressive lazy loading for offscreen thumbnails (300px prefetch + fail-safe timer)
+      const hydrateShopThumbs = () => {
+        grid.querySelectorAll('.lazy-art').forEach(el => {
+          const id = el.dataset.itemId;
+          const slot = el.dataset.itemSlot;
+          if (id && window.Avatar) {
+            el.innerHTML = Avatar.renderThumbnail(id, slot);
+            el.classList.remove('lazy-art');
+            const s = el.querySelector('svg');
+            if (s) s.classList.add('fx');
+          }
+        });
+      };
+
       if (typeof IntersectionObserver !== 'undefined') {
         const obs = new IntersectionObserver((entries, observer) => {
           entries.forEach(entry => {
@@ -8672,21 +8720,17 @@ Screens.profil = {
               const slot = el.dataset.itemSlot;
               if (id && window.Avatar) {
                 el.innerHTML = Avatar.renderThumbnail(id, slot);
+                el.classList.remove('lazy-art');
                 const s = el.querySelector('svg');
                 if (s) s.classList.add('fx');
               }
               observer.unobserve(el);
             }
           });
-        }, { rootMargin: '250px' });
+        }, { rootMargin: '300px' });
         grid.querySelectorAll('.lazy-art').forEach(el => obs.observe(el));
-      } else {
-        grid.querySelectorAll('.lazy-art').forEach(el => {
-          const id = el.dataset.itemId;
-          const slot = el.dataset.itemSlot;
-          if (id && window.Avatar) el.innerHTML = Avatar.renderThumbnail(id, slot);
-        });
       }
+      setTimeout(hydrateShopThumbs, 40);
 
       // Wire item-shop-buy-btn
       $$('.item-shop-buy-btn', grid).forEach(btn => {

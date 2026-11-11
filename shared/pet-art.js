@@ -3260,7 +3260,7 @@
 <!-- Kilap Spekular 3D -->
 <ellipse cx="25" cy="20" rx="7" ry="3.2" transform="rotate(-25 25 20)" fill="url(#gl-${uid})"/>
 </svg>`;
-    },
+    }
   };
 
   /**
@@ -3272,7 +3272,7 @@
    */
   function embedPetArt(petId, uid, opts = {}) {
     if (!petId) return '';
-    const make = PET_ART[petId];
+    const make = PET_ART[petId] || (petId === 'pet_phoenix_nirvana' ? PET_ART.pet_phoenix : null);
     if (!make) return '';
     const { x = 4, y = 132, size = 56 } = opts;
     const raw = make(uid || 'def');
@@ -3285,7 +3285,7 @@
     PET_ART,
     embedPetArt,
     hasPetArt: function(petId) {
-      return Boolean(PET_ART[petId]);
+      return Boolean(PET_ART[petId] || petId === 'pet_phoenix_nirvana');
     }
   };
 

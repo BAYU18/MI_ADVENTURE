@@ -420,6 +420,13 @@ function renderPetElement(petId, uid) {
     if (art) return art;
   }
 
+  // 1.5 Cek SkinArt jika pet terdaftar di katalog mythic
+  const sa = (typeof window !== 'undefined' && window.SkinArt) || (typeof root !== 'undefined' && root.SkinArt) || SkinArt;
+  if (sa && typeof sa.has === 'function' && sa.has(petId) && typeof sa.renderPet === 'function') {
+    const art = sa.renderPet(petId, uid);
+    if (art) return art;
+  }
+
   // 2. Fallback Twemoji Legacy
   if (!PET[petId]) return '';
   const code = PET[petId];
@@ -759,30 +766,34 @@ function renderAvatar(a = {}, opts = {}) {
   const isLegendFrame = a.frame === 'frame_rainbow' || a.hat === 'hat_crown' || a.frame === 'frame_supernova' || a.weapon === 'weapon_excalibur' || a.outfit === 'outfit_astral_king' || a.bg === 'bg_nebula';
   const isEpicFrame = a.frame === 'frame_gold' || a.hat === 'hat_wizard' || a.outfit === 'outfit_robe' || a.frame === 'frame_dragon_scale' || a.frame === 'frame_runic' || a.weapon === 'weapon_scythe' || a.weapon === 'weapon_crossbow' || a.outfit === 'outfit_cyberpunk' || a.outfit === 'outfit_paladin' || a.bg === 'bg_cyber_city' || a.bg === 'bg_temple';
 
-  const backSvg = (SkinArt && SkinArt.has(a.outfit) && typeof SkinArt.renderOutfitBack === 'function' && SkinArt.renderOutfitBack(a.outfit, uid))
-    ? SkinArt.renderOutfitBack(a.outfit, uid)
+  const sa = (typeof window !== 'undefined' && window.SkinArt) || (typeof root !== 'undefined' && root.SkinArt) || SkinArt;
+
+  const backSvg = (sa && sa.has(a.outfit) && typeof sa.renderOutfitBack === 'function' && sa.renderOutfitBack(a.outfit, uid))
+    ? sa.renderOutfitBack(a.outfit, uid)
     : ((typeof OUTFIT_BACK[a.outfit] === 'function')
       ? OUTFIT_BACK[a.outfit](uid)
       : (OUTFIT_BACK[a.outfit] || ''));
 
-  const outfitSvg = (SkinArt && SkinArt.has(a.outfit) && typeof SkinArt.renderOutfit === 'function')
-    ? SkinArt.renderOutfit(a.outfit, uid)
+  const outfitSvg = (sa && sa.has(a.outfit) && typeof sa.renderOutfit === 'function')
+    ? sa.renderOutfit(a.outfit, uid)
     : ((typeof OUTFIT[a.outfit] === 'function')
       ? OUTFIT[a.outfit](uid)
       : (OUTFIT[a.outfit] || ''));
 
-  const hatSvg = (typeof HAT[a.hat] === 'function')
-    ? HAT[a.hat](uid)
-    : (HAT[a.hat] || '');
+  const hatSvg = (sa && sa.has(a.hat) && typeof sa.renderHat === 'function')
+    ? sa.renderHat(a.hat, uid)
+    : ((typeof HAT[a.hat] === 'function')
+      ? HAT[a.hat](uid)
+      : (HAT[a.hat] || ''));
 
-  const weaponSvg = (SkinArt && SkinArt.has(a.weapon) && typeof SkinArt.renderWeapon === 'function')
-    ? SkinArt.renderWeapon(a.weapon, uid)
+  const weaponSvg = (sa && sa.has(a.weapon) && typeof sa.renderWeapon === 'function')
+    ? sa.renderWeapon(a.weapon, uid)
     : ((typeof WEAPON[a.weapon] === 'function')
       ? WEAPON[a.weapon](uid)
       : (WEAPON[a.weapon] || ''));
 
-  const frameSvg = (SkinArt && SkinArt.has(a.frame) && typeof SkinArt.renderFrame === 'function')
-    ? SkinArt.renderFrame(a.frame, uid)
+  const frameSvg = (sa && sa.has(a.frame) && typeof sa.renderFrame === 'function')
+    ? sa.renderFrame(a.frame, uid)
     : ((typeof FRAME[a.frame] === 'function')
       ? FRAME[a.frame](uid)
       : (FRAME[a.frame] || (typeof FRAME.frame_wood === 'function' ? FRAME.frame_wood(uid) : FRAME.frame_wood)));
@@ -821,7 +832,7 @@ function renderAvatar(a = {}, opts = {}) {
 </defs>
 
 <g clip-path="url(#bc-${uid})">
-  ${(SkinArt && SkinArt.has(bgKey) && typeof SkinArt.renderBg === 'function') ? SkinArt.renderBg(bgKey, uid) : renderBgElements(bgKey, uid)}
+  ${(sa && sa.has(bgKey) && typeof sa.renderBg === 'function') ? sa.renderBg(bgKey, uid) : renderBgElements(bgKey, uid)}
   ${legendRays}
   ${backSvg}
   <ellipse cx="100" cy="190" rx="46" ry="7" fill="#000" opacity=".18"/>
@@ -854,8 +865,9 @@ ${frameSvg}
 function renderThumbnail(itemId, slot) {
   if (!itemId) return `<div style="font-size:1.8rem;display:flex;align-items:center;justify-content:center;height:100%">🎒</div>`;
   const uid = 'th-' + itemId;
-  if (SkinArt && SkinArt.has(itemId)) {
-    return SkinArt.renderThumbnail(itemId, slot, uid);
+  const sa = (typeof window !== 'undefined' && window.SkinArt) || (typeof root !== 'undefined' && root.SkinArt) || SkinArt;
+  if (sa && sa.has(itemId)) {
+    return sa.renderThumbnail(itemId, slot, uid);
   }
   const defs = '<defs>' + getAllItemDefs(uid) + '</defs>';
 
@@ -989,8 +1001,8 @@ function renderThumbnail(itemId, slot) {
     HAIRS,
     BG,
     PET,
-    PET_ART: (PetArt && PetArt.PET_ART) ? PetArt.PET_ART : {},
-    SKIN_ART: SkinArt || {},
+    get PET_ART() { const pa = (typeof window !== 'undefined' && window.PetArt) || (typeof root !== 'undefined' && root.PetArt) || PetArt; return pa ? pa.PET_ART : {}; },
+    get SKIN_ART() { return (typeof window !== 'undefined' && window.SkinArt) || (typeof root !== 'undefined' && root.SkinArt) || SkinArt || {}; },
     HAT,
     OUTFIT,
     OUTFIT_BACK,
