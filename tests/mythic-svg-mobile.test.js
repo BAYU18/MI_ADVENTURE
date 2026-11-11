@@ -51,17 +51,25 @@ describe('Mythic SVG & Mobile Rendering Test Suite', () => {
     assert.ok(svg.length > 50000, 'Avatar dengan item mythic harus menghasilkan SVG lengkap dan kaya');
   });
 
-  it('4. Verifikasi Screens.skin dan Screens.shop di app.js memiliki immediate rendering & hydrator fail-safe', () => {
+  it('4. Verifikasi Screens.skin dan Screens.shop di app.js serta desktop me-render SVG langsung 100% tanpa placeholder tas', () => {
     const appJs = fs.readFileSync(path.join(__dirname, '../public/js/app.js'), 'utf8');
+    const desktopJs = fs.readFileSync(path.join(__dirname, '../public/js/desktop/screens.js'), 'utf8');
+    const swJs = fs.readFileSync(path.join(__dirname, '../public/sw.js'), 'utf8');
+    const indexHtml = fs.readFileSync(path.join(__dirname, '../public/index.html'), 'utf8');
 
-    // Screens.skin
-    assert.ok(appJs.includes('const isImmediateItem = (idx) => filtered.length <= 48 || (this.skinRarityFilter && this.skinRarityFilter !== \'ALL\')'), 'Screens.skin harus merender langsung saat filter aktif atau item <= 48');
-    assert.ok(appJs.includes('hydrateSkinThumbs'), 'Screens.skin harus memiliki fungsi hydrateSkinThumbs');
-    assert.ok(appJs.includes('setTimeout(hydrateSkinThumbs, 40)'), 'Screens.skin harus memiliki fail-safe hydration timer');
+    // Screens.skin mobile direct render
+    assert.ok(appJs.includes('SKIN_DIRECT_SVG_RENDERING'), 'Screens.skin harus menggunakan rendering SVG langsung');
+    assert.strictEqual(appJs.includes('IMMEDIATE_LIMIT_SKIN'), false, 'Tidak boleh ada limit kaku IMMEDIATE_LIMIT_SKIN');
 
-    // Screens.shop
-    assert.ok(appJs.includes('const isImmediateItem = (idx) => filtered.length <= 48 || (this.shopRarityFilter && this.shopRarityFilter !== \'ALL\')'), 'Screens.shop harus merender langsung saat filter aktif atau item <= 48');
-    assert.ok(appJs.includes('hydrateShopThumbs'), 'Screens.shop harus memiliki fungsi hydrateShopThumbs');
-    assert.ok(appJs.includes('setTimeout(hydrateShopThumbs, 40)'), 'Screens.shop harus memiliki fail-safe hydration timer');
+    // Screens.shop mobile direct render
+    assert.ok(appJs.includes('SHOP_DIRECT_SVG_RENDERING'), 'Screens.shop harus menggunakan rendering SVG langsung');
+    assert.strictEqual(appJs.includes('IMMEDIATE_LIMIT'), false, 'Tidak boleh ada limit kaku IMMEDIATE_LIMIT');
+
+    // Desktop screens direct render
+    assert.strictEqual(desktopJs.includes('lazy-thumb-placeholder'), false, 'Desktop screens tidak boleh menggunakan lazy-thumb-placeholder');
+
+    // Service Worker cache version & precache consistency
+    assert.ok(swJs.includes('pp-v7.3.5-20261111mythic'), 'SW cache version harus ter-bump ke pp-v7.3.5-20261111mythic');
+    assert.ok(indexHtml.includes('sw.js?v=20261111mythic2'), 'index.html harus mendaftarkan service worker dengan query versioning baru');
   });
 });

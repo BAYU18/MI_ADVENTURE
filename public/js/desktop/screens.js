@@ -3074,17 +3074,14 @@
               const rarColor = rarKey === 'mythic' ? '#ff0055' : (rarKey === 'legendary' ? '#f59e0b' : (rarKey === 'epic' ? '#a855f7' : (rarKey === 'rare' ? '#3b82f6' : '#94a3b8')));
               const catObj = CATS_MOBILE.find(c => c[0] === x.slot) || ['item', '🎒', x.slot || 'Item'];
               const isSel = (x.id === selId);
-              const isImmediate = idx < 9;
-              const thumbSvg = isImmediate
-                ? renderItemArt(x.id, x.slot, 80)
-                : `<div class="lazy-thumb-placeholder" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;opacity:0.35;font-size:1.8rem">🎒</div>`;
+              const thumbSvg = renderItemArt(x.id, x.slot, 80);
 
               return `
               <div class="skin-item-card ${isSel ? 'selected' : ''} ${equippedNow ? 'equipped' : (!x.owned ? 'locked' : '')}" data-item="${x.id}" title="${esc(x.name)}">
                 <div style="display:flex;gap:10px;align-items:flex-start;width:100%">
                   <!-- SISI KIRI: Gambar Item (Thumbnail Box 68x68) & Badge Rarity -->
                   <div style="flex:0 0 68px;display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0">
-                    <div class="skin-thumbnail-box ${!isImmediate ? 'lazy-art' : ''}" data-item-id="${x.id}" data-item-slot="${x.slot}" style="width:68px;height:68px;border-radius:12px;background:radial-gradient(circle at center, ${rarColor}25 0%, rgba(0,0,0,.45) 80%);border:1.5px solid ${rarColor}66;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 2px 8px rgba(0,0,0,.4)">
+                    <div class="skin-thumbnail-box" data-item-id="${x.id}" data-item-slot="${x.slot}" style="width:68px;height:68px;border-radius:12px;background:radial-gradient(circle at center, ${rarColor}25 0%, rgba(0,0,0,.45) 80%);border:1.5px solid ${rarColor}66;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 2px 8px rgba(0,0,0,.4)">
                       ${thumbSvg}
                     </div>
                     <span class="tag rar-${rarKey}" style="font-size:.58rem;font-weight:800;padding:1px 5px;border-radius:999px;background:${rarColor}20;color:${rarColor};border:1px solid ${rarColor}55;letter-spacing:0.5px;text-align:center;width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
@@ -3494,17 +3491,14 @@
               const canAfford = playerCoins >= (it.price || 0);
               const rarKey = (it.rarity || 'common').toLowerCase();
               const rarColor = rarKey === 'mythic' ? '#ff0055' : (rarKey === 'legendary' || rarKey === 'legend' ? '#f59e0b' : (rarKey === 'epic' ? '#a855f7' : (rarKey === 'rare' ? '#38bdf8' : '#94a3b8')));
-              const isImmediate = idx < 10;
-              const thumbSvg = isImmediate
-                ? renderItemArt(it.id, it.slot, 68)
-                : `<div class="lazy-thumb-placeholder" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;opacity:0.35;font-size:1.6rem">🎒</div>`;
+              const thumbSvg = renderItemArt(it.id, it.slot, 68);
 
               return `
                 <div class="card item-card shop-card-desktop ${selPreviewItem?.id === it.id ? 'selected' : ''}" data-testid="item-card-${it.id}" data-id="${it.id}">
                   <div style="display:flex;gap:12px;align-items:flex-start">
                     <!-- THUMBNAIL BOX 68x68 SVG ASLI MOBILE -->
                     <div style="flex:0 0 68px;display:flex;flex-direction:column;align-items:center;gap:4px">
-                      <div class="skin-thumbnail-box ${!isImmediate ? 'lazy-art' : ''}" data-item-id="${it.id}" data-item-slot="${it.slot}" style="width:68px;height:68px">
+                      <div class="skin-thumbnail-box" data-item-id="${it.id}" data-item-slot="${it.slot}" style="width:68px;height:68px">
                         ${thumbSvg}
                       </div>
                       <span style="font-size:0.65rem;font-weight:800;color:${rarColor};letter-spacing:0.5px">${(it.rarity || 'COMMON').toUpperCase()}</span>

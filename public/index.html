@@ -216,21 +216,21 @@
   <script defer src="js/audio.js?v=20261103v12"></script>
   <script defer src="/shared/passives.js?v=20261111perf"></script>
   <script defer src="/shared/economy.js?v=20261111perf"></script>
-  <script defer src="/shared/pet-art.js?v=20261107v1"></script>
-  <script defer src="/shared/skin-art.js?v=20261111perf"></script>
+  <script defer src="/shared/pet-art.js?v=20261111mythic2"></script>
+  <script defer src="/shared/skin-art.js?v=20261111mythic2"></script>
   <script defer src="/shared/skill-art.js?v=20261108v3"></script>
-  <script defer src="js/avatar.js?v=20261107v3"></script>
+  <script defer src="js/avatar.js?v=20261107v4"></script>
   <script defer src="/shared/story.js?v=20261103v12"></script>
   <script defer src="js/feedback.js?v=20261103v12"></script>
   <script defer src="/shared/bossskills.js?v=20261105v2"></script>
   <script defer src="/js/dexcards.js?v=20261105v5"></script>
   <script defer src="/shared/badges.js?v=20261106v3"></script>
   <script defer src="/js/badge-art.js?v=20261106v1"></script>
-  <script defer src="/js/app.js?v=20261111d"></script>
+  <script defer src="/js/app.js?v=20261111mythic2"></script>
   <script defer src="js/friends.js?v=20261106v2"></script>
   <script defer src="js/duel.js?v=20261105v5"></script>
-  <script defer src="js/desktop/core.js?v=20261111d"></script>
-  <script defer src="js/desktop/screens.js?v=20261111d"></script>
+  <script defer src="js/desktop/core.js?v=20261111mythic2"></script>
+  <script defer src="js/desktop/screens.js?v=20261111mythic2"></script>
   <script>
     if ('serviceWorker' in navigator) {
       let refreshing = false;
@@ -241,7 +241,7 @@
         }
       });
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js?v=20261111d').then(reg => {
+        navigator.serviceWorker.register('/sw.js?v=20261111mythic2').then(reg => {
           reg.update();
         }).catch(err => console.warn('[SW reg fail]', err));
       });

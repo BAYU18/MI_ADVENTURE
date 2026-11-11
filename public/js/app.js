@@ -7564,15 +7564,11 @@ Screens.profil = {
         return;
       }
 
-      /* SKIN_LAZY_OPTIMIZED */
-      const isImmediateItem = (idx) => filtered.length <= 48 || (this.skinRarityFilter && this.skinRarityFilter !== 'ALL') || idx < 32;
+      /* SKIN_DIRECT_SVG_RENDERING */
       grid.innerHTML = filtered.map((it, idx) => {
         const isEquipped = Boolean(this.avatarDraft && this.avatarDraft[it.slot] === it.id);
         const rarityColor = it.rarity === 'MYTHIC' ? '#ff0055' : it.rarity === 'LEGENDARY' ? '#f59e0b' : it.rarity === 'EPIC' ? '#a855f7' : it.rarity === 'RARE' ? '#3b82f6' : '#94a3b8';
-        const isImmediate = isImmediateItem(idx);
-        const thumbHtml = isImmediate
-          ? (window.Avatar ? Avatar.renderThumbnail(it.id, it.slot) : '🎒')
-          : `<div class="lazy-thumb-placeholder" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;opacity:0.35;font-size:1.6rem">🎒</div>`;
+        const thumbHtml = window.Avatar ? Avatar.renderThumbnail(it.id, it.slot) : '🎒';
 
         let actionHtml = '';
         if (isEquipped) {
@@ -7594,7 +7590,7 @@ Screens.profil = {
             <div style="display:flex;gap:12px;align-items:flex-start">
               <!-- THUMBNAIL + RARITY -->
               <div style="flex:0 0 68px;display:flex;flex-direction:column;align-items:center;gap:4px">
-                <div class="skin-thumbnail-box ${!isImmediate ? 'lazy-art' : ''}" data-item-id="${it.id}" data-item-slot="${it.slot}" style="width:68px;height:68px;border-radius:14px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:inset 0 2px 6px rgba(0,0,0,0.3)">
+                <div class="skin-thumbnail-box" data-item-id="${it.id}" data-item-slot="${it.slot}" style="width:68px;height:68px;border-radius:14px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:inset 0 2px 6px rgba(0,0,0,0.3)">
                   ${thumbHtml}
                 </div>
                 <span style="font-size:0.65rem;font-weight:800;color:${rarityColor};letter-spacing:0.5px">${it.rarity}</span>
@@ -7627,41 +7623,6 @@ Screens.profil = {
           </div>
         `;
       }).join('');
-
-      // Progressive lazy loading for offscreen thumbnails in Wardrobe
-      const hydrateSkinThumbs = () => {
-        grid.querySelectorAll('.lazy-art').forEach(el => {
-          const id = el.dataset.itemId;
-          const slot = el.dataset.itemSlot;
-          if (id && window.Avatar) {
-            el.innerHTML = Avatar.renderThumbnail(id, slot);
-            el.classList.remove('lazy-art');
-            const s = el.querySelector('svg');
-            if (s) s.classList.add('fx');
-          }
-        });
-      };
-
-      if (typeof IntersectionObserver !== 'undefined') {
-        const obs = new IntersectionObserver((entries, observer) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              const el = entry.target;
-              const id = el.dataset.itemId;
-              const slot = el.dataset.itemSlot;
-              if (id && window.Avatar) {
-                el.innerHTML = Avatar.renderThumbnail(id, slot);
-                el.classList.remove('lazy-art');
-                const s = el.querySelector('svg');
-                if (s) s.classList.add('fx');
-              }
-              observer.unobserve(el);
-            }
-          });
-        }, { rootMargin: '300px' });
-        grid.querySelectorAll('.lazy-art').forEach(el => obs.observe(el));
-      }
-      setTimeout(hydrateSkinThumbs, 40);
 
       // Tombol Beli di Toko dari Tab Belum Dimiliki
       $$('#skin-items-grid .btn-goto-shop').forEach(btn => {
@@ -8644,21 +8605,17 @@ Screens.profil = {
         return;
       }
 
-      /* SHOP_LAZY_OPTIMIZED */
-      const isImmediateItem = (idx) => filtered.length <= 48 || (this.shopRarityFilter && this.shopRarityFilter !== 'ALL') || idx < 32;
+      /* SHOP_DIRECT_SVG_RENDERING */
       grid.innerHTML = filtered.map((it, idx) => {
         const canAfford = playerCoins >= it.price;
         const rarityColor = it.rarity === 'MYTHIC' ? '#ff0055' : it.rarity === 'LEGENDARY' ? '#f59e0b' : it.rarity === 'EPIC' ? '#a855f7' : it.rarity === 'RARE' ? '#3b82f6' : '#94a3b8';
-        const isImmediate = isImmediateItem(idx);
-        const thumbHtml = isImmediate
-          ? (window.Avatar ? Avatar.renderThumbnail(it.id, it.slot) : '🎒')
-          : `<div class="lazy-thumb-placeholder" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;opacity:0.35;font-size:1.6rem">🎒</div>`;
+        const thumbHtml = window.Avatar ? Avatar.renderThumbnail(it.id, it.slot) : '🎒';
         return `
           <div class="card item-card" data-testid="item-card-${it.id}" style="padding:12px;background:var(--c-surface);border-radius:var(--radius);border:1px solid var(--c-surface-strong);display:flex;flex-direction:column;gap:8px">
             <div style="display:flex;gap:12px;align-items:flex-start">
               <!-- THUMBNAIL + RARITY -->
               <div style="flex:0 0 68px;display:flex;flex-direction:column;align-items:center;gap:4px">
-                <div class="skin-thumbnail-box ${!isImmediate ? 'lazy-art' : ''}" data-item-id="${it.id}" data-item-slot="${it.slot}" style="width:68px;height:68px;border-radius:14px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:inset 0 2px 6px rgba(0,0,0,0.3)">
+                <div class="skin-thumbnail-box" data-item-id="${it.id}" data-item-slot="${it.slot}" style="width:68px;height:68px;border-radius:14px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:inset 0 2px 6px rgba(0,0,0,0.3)">
                   ${thumbHtml}
                 </div>
                 <span style="font-size:0.65rem;font-weight:800;color:${rarityColor};letter-spacing:0.5px">${it.rarity}</span>
@@ -8696,41 +8653,6 @@ Screens.profil = {
           </div>
         `;
       }).join('');
-
-      // Progressive lazy loading for offscreen thumbnails (300px prefetch + fail-safe timer)
-      const hydrateShopThumbs = () => {
-        grid.querySelectorAll('.lazy-art').forEach(el => {
-          const id = el.dataset.itemId;
-          const slot = el.dataset.itemSlot;
-          if (id && window.Avatar) {
-            el.innerHTML = Avatar.renderThumbnail(id, slot);
-            el.classList.remove('lazy-art');
-            const s = el.querySelector('svg');
-            if (s) s.classList.add('fx');
-          }
-        });
-      };
-
-      if (typeof IntersectionObserver !== 'undefined') {
-        const obs = new IntersectionObserver((entries, observer) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              const el = entry.target;
-              const id = el.dataset.itemId;
-              const slot = el.dataset.itemSlot;
-              if (id && window.Avatar) {
-                el.innerHTML = Avatar.renderThumbnail(id, slot);
-                el.classList.remove('lazy-art');
-                const s = el.querySelector('svg');
-                if (s) s.classList.add('fx');
-              }
-              observer.unobserve(el);
-            }
-          });
-        }, { rootMargin: '300px' });
-        grid.querySelectorAll('.lazy-art').forEach(el => obs.observe(el));
-      }
-      setTimeout(hydrateShopThumbs, 40);
 
       // Wire item-shop-buy-btn
       $$('.item-shop-buy-btn', grid).forEach(btn => {
