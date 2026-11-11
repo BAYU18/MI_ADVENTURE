@@ -2864,6 +2864,14 @@
     const draw = () => {
       const avatarSvg = renderPlayerAvatar(draftAvatar, 120);
       const curP = calcPassives(draftAvatar);
+      const synergies = (root.Passives && typeof root.Passives.getEquippedSetsSynergy === 'function')
+        ? root.Passives.getEquippedSetsSynergy(Object.values(draftAvatar), itemsList)
+        : (root.Economy && typeof root.Economy.getEquippedSetsSynergy === 'function'
+            ? root.Economy.getEquippedSetsSynergy(Object.values(draftAvatar), itemsList)
+            : []);
+      const renderSetSynergyHtml = (root.Passives && typeof root.Passives.renderSetSynergyHtml === 'function')
+        ? root.Passives.renderSetSynergyHtml
+        : (root.Economy && typeof root.Economy.renderSetSynergyHtml === 'function' ? root.Economy.renderSetSynergyHtml : () => '');
 
       // Filtering items
       let filtered = itemsList;
@@ -2975,6 +2983,12 @@
             ` : ''}
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
               ${statChips.length > 0 ? statChips.join('') : '<div class="muted tc" style="grid-column:1/-1;font-size:.72rem;padding:6px">Pasang skin untuk mengaktifkan pasif pertempuran.</div>'}
+            </div>
+
+            <!-- Sinergi Set Equipment Section -->
+            <div style="margin-top:8px;border-top:1px dashed rgba(255,255,255,0.08);padding-top:6px">
+              <div style="font-size:0.72rem;font-weight:800;color:#fbbf24;margin-bottom:4px">Sinergi Set Equipment:</div>
+              ${renderSetSynergyHtml(synergies)}
             </div>
           </div>
         `, 'wardrobe-panel-avatar')}
@@ -3195,6 +3209,17 @@
       $$('.skin-cat-tab-btn', el).forEach(b => { b.onclick = () => { if (root.Sfx) root.Sfx.play('tap'); cat = b.dataset.cat; selId = null; draw(); }; });
       $$('.rarity-pill-btn', el).forEach(b => { b.onclick = () => { if (root.Sfx) root.Sfx.play('tap'); rarityFilter = b.dataset.rar; selId = null; draw(); }; });
       $$('[data-jumpcat]', el).forEach(b => { b.onclick = () => { if (root.Sfx) root.Sfx.play('tap'); cat = b.dataset.jumpcat; selId = null; draw(); }; });
+      $$('.missing-set-pill.owned-missing', el).forEach(pill => {
+        pill.onclick = (e) => {
+          e.stopPropagation();
+          const targetSlot = pill.dataset.slot;
+          if (targetSlot) {
+            cat = targetSlot;
+            selId = null;
+            draw();
+          }
+        };
+      });
       $$('[data-item]', el).forEach(b => { b.onclick = () => { if (root.Sfx) root.Sfx.play('tap'); selId = b.dataset.item; draw(); }; });
 
       const btnEquip = $('#equip', el);
