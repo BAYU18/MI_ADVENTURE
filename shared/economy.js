@@ -18,7 +18,7 @@ const ECONOMY = {
   },
   firstDefeatBonus: 25,
   duplicateRefund: { COMMON: 5, RARE: 15, EPIC: 40, LEGENDARY: 100, MYTHIC: 300 },
-  price: { COMMON: 30, RARE: 90, EPIC: 250, LEGENDARY: 700, MYTHIC: 2000 },
+  price: { COMMON: 30, RARE: 90, EPIC: 250, LEGENDARY: 700, MYTHIC: 2600 },
   mysteryBoxPrice: 60,
   dailyCoinCap: 300,
 };
@@ -698,7 +698,7 @@ const ITEMS = [
     "slot": "pet",
     "name": "Leviathan Samudra Purba",
     "rarity": "MYTHIC",
-    "price": 2250,
+    "price": 2925,
     "isStarter": false,
     "passive": {
       "krakenSurge": {
@@ -1574,7 +1574,7 @@ const ITEMS = [
     "slot": "hat",
     "name": "Mahkota Batara Surya",
     "rarity": "MYTHIC",
-    "price": 2000,
+    "price": 2600,
     "isStarter": false,
     "passive": {
       "startShield": 25,
@@ -1593,7 +1593,7 @@ const ITEMS = [
     "slot": "hat",
     "name": "Helm Chronos Abisal",
     "rarity": "MYTHIC",
-    "price": 1950,
+    "price": 2535,
     "isStarter": false,
     "passive": {
       "bonusTime": 3,
@@ -1614,7 +1614,7 @@ const ITEMS = [
     "slot": "outfit",
     "name": "Zirah Kencana Antakusuma",
     "rarity": "MYTHIC",
-    "price": 2200,
+    "price": 2860,
     "isStarter": false,
     "passive": {
       "dodgeRate": 0.14,
@@ -1629,7 +1629,7 @@ const ITEMS = [
     "slot": "outfit",
     "name": "Jubah Void Singularity",
     "rarity": "MYTHIC",
-    "price": 2150,
+    "price": 2795,
     "isStarter": false,
     "passive": {
       "voidCharge": {
@@ -1647,7 +1647,7 @@ const ITEMS = [
     "slot": "weapon",
     "name": "Keris Pusaka Nagasasra",
     "rarity": "MYTHIC",
-    "price": 2400,
+    "price": 3120,
     "isStarter": false,
     "passive": {
       "critChance": 0.12,
@@ -1666,7 +1666,7 @@ const ITEMS = [
     "slot": "weapon",
     "name": "Tongkat Kosmik Genesis",
     "rarity": "MYTHIC",
-    "price": 2350,
+    "price": 3055,
     "isStarter": false,
     "passive": {
       "skillCostDiscount": 1,
@@ -1684,7 +1684,7 @@ const ITEMS = [
     "slot": "pet",
     "name": "Phoenix Nirvana Abadi",
     "rarity": "MYTHIC",
-    "price": 2300,
+    "price": 2990,
     "isStarter": false,
     "passive": {
       "nirvanaRebirth": {
@@ -1705,7 +1705,7 @@ const ITEMS = [
     "slot": "bg",
     "name": "Gerbang Nirwana Kahyangan",
     "rarity": "MYTHIC",
-    "price": 1850,
+    "price": 2405,
     "isStarter": false,
     "passive": {
       "xpBonus": 0.15,
@@ -1724,7 +1724,7 @@ const ITEMS = [
     "slot": "bg",
     "name": "Dimensi Celah Multiverse",
     "rarity": "MYTHIC",
-    "price": 1900,
+    "price": 2470,
     "isStarter": false,
     "passive": {
       "quantumEchoChance": 0.25,
@@ -1739,7 +1739,7 @@ const ITEMS = [
     "slot": "frame",
     "name": "Bingkai Segel Ouroboros Tak Terhingga",
     "rarity": "MYTHIC",
-    "price": 1800,
+    "price": 2340,
     "isStarter": false,
     "passive": {
       "streakProtectChance": 1,
@@ -1755,7 +1755,7 @@ const ITEMS = [
     "slot": "frame",
     "name": "Bingkai Mahkota Galaksi Supernova",
     "rarity": "MYTHIC",
-    "price": 1850,
+    "price": 2405,
     "isStarter": false,
     "passive": {
       "allPassivesBoost": 0.25,
@@ -1770,7 +1770,7 @@ const ITEMS = [
     "slot": "title",
     "name": "Gelar: \"Sang Penakluk Takdir\"",
     "rarity": "MYTHIC",
-    "price": 2000,
+    "price": 2600,
     "isStarter": false,
     "passive": {
       "weaknessExploitation": 0.5,
@@ -1788,7 +1788,7 @@ const ITEMS = [
     "slot": "title",
     "name": "Gelar: \"Mahaguru Kebijaksanaan Purba\"",
     "rarity": "MYTHIC",
-    "price": 2050,
+    "price": 2665,
     "isStarter": false,
     "passive": {
       "trapOptionIntuition": true,
@@ -1804,7 +1804,7 @@ const ITEMS = [
     "slot": "permanent",
     "name": "Berkah Jantung Gaia",
     "rarity": "MYTHIC",
-    "price": 2500,
+    "price": 3250,
     "isStarter": false,
     "passive": {
       "maxEnergyPermanentBonus": 2,
@@ -1823,7 +1823,7 @@ const ITEMS = [
     "slot": "permanent",
     "name": "Batu Alkimia Midas Kosmik",
     "rarity": "MYTHIC",
-    "price": 2500,
+    "price": 3250,
     "isStarter": false,
     "passive": {
       "dailyCoinCapMultiplier": 2,
