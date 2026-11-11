@@ -3051,7 +3051,7 @@
               const rarColor = rarKey === 'mythic' ? '#ff0055' : (rarKey === 'legendary' ? '#f59e0b' : (rarKey === 'epic' ? '#a855f7' : (rarKey === 'rare' ? '#3b82f6' : '#94a3b8')));
               const catObj = CATS_MOBILE.find(c => c[0] === x.slot) || ['item', '🎒', x.slot || 'Item'];
               const isSel = (x.id === selId);
-              const isImmediate = idx < 9;
+              const isImmediate = idx < 24 || filtered.length <= 32;
               const thumbSvg = isImmediate
                 ? renderItemArt(x.id, x.slot, 80)
                 : `<div class="lazy-thumb-placeholder" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;opacity:0.35;font-size:1.8rem">🎒</div>`;
@@ -3173,14 +3173,14 @@
             }
           });
         }, { rootMargin: '300px' });
-        $('.lazy-art', el).forEach(e => obs.observe(e));
+        $$('.lazy-art', el).forEach(e => obs.observe(e));
       } else {
-        $('.lazy-art', el).forEach(e => {
+        $$('.lazy-art', el).forEach(e => {
           if (e.dataset.itemId) e.innerHTML = renderItemArt(e.dataset.itemId, e.dataset.itemSlot, 80);
         });
       }
 
-      $('.skin-owner-btn', el).forEach(b => { b.onclick = () => { if (root.Sfx) root.Sfx.play('tap'); ownerFilter = b.dataset.owner; selId = null; draw(); }; });
+      $$('.skin-owner-btn', el).forEach(b => { b.onclick = () => { if (root.Sfx) root.Sfx.play('tap'); ownerFilter = b.dataset.owner; selId = null; draw(); }; });
       $$('.skin-cat-tab-btn', el).forEach(b => { b.onclick = () => { if (root.Sfx) root.Sfx.play('tap'); cat = b.dataset.cat; selId = null; draw(); }; });
       $$('.rarity-pill-btn', el).forEach(b => { b.onclick = () => { if (root.Sfx) root.Sfx.play('tap'); rarityFilter = b.dataset.rar; selId = null; draw(); }; });
       $$('[data-jumpcat]', el).forEach(b => { b.onclick = () => { if (root.Sfx) root.Sfx.play('tap'); cat = b.dataset.jumpcat; selId = null; draw(); }; });
@@ -3399,7 +3399,7 @@
               const canAfford = playerCoins >= (it.price || 0);
               const rarKey = (it.rarity || 'common').toLowerCase();
               const rarColor = rarKey === 'mythic' ? '#ff0055' : (rarKey === 'legendary' || rarKey === 'legend' ? '#f59e0b' : (rarKey === 'epic' ? '#a855f7' : (rarKey === 'rare' ? '#38bdf8' : '#94a3b8')));
-              const isImmediate = idx < 10;
+              const isImmediate = idx < 24 || filtered.length <= 32;
               const thumbSvg = isImmediate
                 ? renderItemArt(it.id, it.slot, 68)
                 : `<div class="lazy-thumb-placeholder" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;opacity:0.35;font-size:1.6rem">🎒</div>`;
@@ -3541,14 +3541,14 @@
             }
           });
         }, { rootMargin: '300px' });
-        $('.lazy-art', el).forEach(e => obs.observe(e));
+        $$('.lazy-art', el).forEach(e => obs.observe(e));
       } else {
-        $('.lazy-art', el).forEach(e => {
+        $$('.lazy-art', el).forEach(e => {
           if (e.dataset.itemId) e.innerHTML = renderItemArt(e.dataset.itemId, e.dataset.itemSlot, 68);
         });
       }
 
-      $('.item-card', el).forEach(card => {
+      $$('.item-card', el).forEach(card => {
         card.onclick = (e) => {
           if (e.target.closest('.item-shop-buy-btn')) return;
           const id = card.dataset.id;

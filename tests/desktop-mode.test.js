@@ -232,6 +232,10 @@ test('Desktop Mode Cockpit UI Test Suite', async (t) => {
     assert.ok(screensJs.includes('skin-thumbnail-box'), 'Toko menggunakan skin-thumbnail-box 68x68');
     assert.ok(screensJs.includes('data-testid="buy-mystery-box"'), 'Toko memiliki tombol Kotak Misteri Ajaib');
     assert.ok(screensJs.includes('item-shop-buy-btn'), 'Toko memiliki tombol beli item terkonfirmasi');
+    assert.ok(!/(?<!\$)\$\('\.lazy-art'/.test(screensJs), 'screens.js tidak boleh menggunakan single $ untuk querySelectorAll .lazy-art');
+    assert.ok(!/(?<!\$)\$\('\.item-card'/.test(screensJs), 'screens.js tidak boleh menggunakan single $ untuk querySelectorAll .item-card');
+    assert.ok(!/(?<!\$)\$\('\.skin-owner-btn'/.test(screensJs), 'screens.js tidak boleh menggunakan single $ untuk querySelectorAll .skin-owner-btn');
+    assert.ok(screensJs.includes("$$('.lazy-art', el).forEach"), 'screens.js harus menggunakan $$ untuk .lazy-art');
 
     // 3. Verifikasi Skill Deck & Loadout Mode Switcher
     assert.ok(screensJs.includes('btn-loadout-mode'), 'Layar skill memiliki sakelar mode petualangan vs duel');
