@@ -219,7 +219,7 @@
         <div class="d-crumb" id="crumb"></div>
         <div class="sp"></div>
         <span class="pill" title="Energi">⚡ <span id="top-energy">${pEn}/${pEnMax}</span></span>
-        <span class="pill" title="Koin Emas">🪙 <span id="top-coins">${pCoins.toLocaleString('id-ID')}</span></span>
+        <span class="pill" title="Koin Emas"><span class="coin-ico" aria-label="koin"></span> <span id="top-coins">${pCoins.toLocaleString('id-ID')}</span></span>
         <button class="icon-btn" data-act="sfx" title="Efek suara (SFX)">🔊</button>
         <button class="icon-btn" data-act="keys" title="Papan pintas keyboard (?)">⌨️</button>
         <div class="me-chip link" data-go="profil" style="cursor:pointer" title="Buka Profil Petualang">
@@ -452,7 +452,61 @@
   };
 
   /* Auto bootstrap desktop mode */
+  /* Universal Coin Glyph Guardian (Zero-Tofu Windows PC & Mobile) */
+  function initCoinGlyphGuardian() {
+    if (typeof document === 'undefined') return;
+    const COIN = '\u{1FA99}';
+    const replaceNode = (node) => {
+      if (!node || node.nodeType !== 3 || !node.nodeValue || !node.nodeValue.includes(COIN)) return;
+      const p = node.parentNode;
+      if (!p || /^(SCRIPT|STYLE|TEXTAREA|INPUT)$/i.test(p.tagName)) return;
+      const frag = document.createDocumentFragment();
+      const parts = node.nodeValue.split(COIN);
+      for (let i = 0; i < parts.length; i++) {
+        if (parts[i]) frag.appendChild(document.createTextNode(parts[i]));
+        if (i < parts.length - 1) {
+          const ico = document.createElement('span');
+          ico.className = 'coin-ico';
+          ico.setAttribute('aria-label', 'koin');
+          frag.appendChild(ico);
+        }
+      }
+      p.replaceChild(frag, node);
+    };
+    const scan = (el) => {
+      if (!el || !el.nodeType) return;
+      if (el.nodeType === 3) { replaceNode(el); return; }
+      try {
+        const w = document.createTreeWalker(el, 4, {
+          acceptNode: n => (n.nodeValue && n.nodeValue.includes(COIN)) ? 1 : 2
+        });
+        const batch = [];
+        while (w.nextNode()) batch.push(w.currentNode);
+        for (let i = 0; i < batch.length; i++) replaceNode(batch[i]);
+      } catch (_) {}
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => scan(document.body));
+    } else if (document.body) {
+      scan(document.body);
+    }
+    if (typeof MutationObserver !== 'undefined' && document.body) {
+      new MutationObserver(ms => {
+        for (let i = 0; i < ms.length; i++) {
+          const m = ms[i];
+          if (m.type === 'childList') {
+            for (let j = 0; j < m.addedNodes.length; j++) scan(m.addedNodes[j]);
+          } else if (m.type === 'characterData') {
+            replaceNode(m.target);
+          }
+        }
+      }).observe(document.body, { childList: true, subtree: true, characterData: true });
+    }
+  }
+
   function bootDesktop() {
+    initCoinGlyphGuardian();
     Keys.init();
     DesktopShell.bind();
     UIMode.init();

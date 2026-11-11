@@ -418,8 +418,89 @@ function calculatePassives(equippedItemIds = [], itemsCatalog = []) {
   return stats;
 }
 
+const SLOT_NAMES_ID = {
+  hat: 'Topi',
+  outfit: 'Baju',
+  weapon: 'Senjata',
+  pet: 'Pet',
+  bg: 'Latar',
+  frame: 'Bingkai',
+  title: 'Gelar'
+};
+
+function getEquippedSetsSynergy(equippedItemIds = [], itemsCatalog = []) {
+  if (!Array.isArray(equippedItemIds)) return [];
+  const eqSet = new Set(equippedItemIds.filter(Boolean));
+  let catalog = Array.isArray(itemsCatalog) && itemsCatalog.length > 0 ? itemsCatalog : [];
+  if (catalog.length === 0 && typeof window !== 'undefined' && window.Economy?.ITEMS) {
+    catalog = window.Economy.ITEMS;
+  }
+  const catalogMap = new Map();
+  for (const it of catalog) {
+    if (it && it.id) catalogMap.set(it.id, it);
+  }
+
+  const results = [];
+  for (const set of SET_BONUSES) {
+    if (!Array.isArray(set.items) || set.items.length === 0) continue;
+    const equipped = [];
+    const missing = [];
+
+    for (const itemId of set.items) {
+      const it = catalogMap.get(itemId);
+      const slot = it?.slot || (itemId.startsWith('hat_') ? 'hat' : (itemId.startsWith('outfit_') ? 'outfit' : (itemId.startsWith('weapon_') ? 'weapon' : (itemId.startsWith('pet_') ? 'pet' : (itemId.startsWith('bg_') ? 'bg' : (itemId.startsWith('frame_') ? 'frame' : (itemId.startsWith('title_') ? 'title' : '')))))));
+      const slotLabel = SLOT_NAMES_ID[slot] || slot || 'Item';
+      const name = it?.name || (itemId === 'bg_aurora' ? 'Cahaya Aurora Kosmik' : itemId);
+      const isEquipped = eqSet.has(itemId);
+      const isOwned = Boolean(it?.owned);
+
+      const member = {
+        id: itemId,
+        name,
+        slot,
+        slotLabel,
+        owned: isEquipped || isOwned,
+        equipped: isEquipped
+      };
+
+      if (isEquipped) {
+        equipped.push(member);
+      } else {
+        missing.push(member);
+      }
+    }
+
+    if (equipped.length > 0) {
+      results.push({
+        id: set.id,
+        name: set.name,
+        icon: set.icon || '✨',
+        desc: set.desc || '',
+        bonus: set.bonus || {},
+        totalItems: set.items.length,
+        equippedCount: equipped.length,
+        missingCount: missing.length,
+        isActive: missing.length === 0,
+        isPartial: missing.length > 0,
+        equipped,
+        missing
+      });
+    }
+  }
+
+  results.sort((a, b) => {
+    if (a.isActive && !b.isActive) return -1;
+    if (!a.isActive && b.isActive) return 1;
+    return b.equippedCount - a.equippedCount;
+  });
+
+  return results;
+}
+
   return {
     SET_BONUSES,
-    calculatePassives
+    calculatePassives,
+    getEquippedSetsSynergy,
+    SLOT_NAMES_ID
   };
 }));

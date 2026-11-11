@@ -1501,7 +1501,7 @@ Screens.subjects = {
         <div class="hud" style="margin-bottom:0">
           <button class="icon-btn" id="sub-back">←</button>
           <h2 class="hud-title">Peta Petualangan</h2>
-          <span class="chip accent">🪙 <span id="hdr-coins">${Player.coins()}</span></span>
+          <span class="chip accent"><span class="coin-ico" aria-label="koin"></span> <span id="hdr-coins">${Player.coins()}</span></span>
         </div>
 
         <!-- Sakelar Mode: Bebas | Cerita | Fun -->
@@ -5567,7 +5567,7 @@ Screens.profil = {
           <button class="icon-btn" id="prof-back" title="Kembali ke Beranda">←</button>
           <h2 class="hud-title">Profil Petualang</h2>
           <div class="chip accent" id="prof-coin-chip" data-testid="coin-balance" style="font-weight:700">
-            🪙 <span id="prof-coins-val">${Player.data?.coins ?? 0}</span>
+            <span class="coin-ico" aria-label="koin"></span> <span id="prof-coins-val">${Player.data?.coins ?? 0}</span>
           </div>
         </div>
 
@@ -8408,7 +8408,7 @@ Screens.profil = {
             Dapatkan 1 skin acak untuk memperkeren avatarmu! Jika item sudah dimiliki, 20 koin dikembalikan otomatis.
           </p>
           <button class="btn ${canAffordBox ? 'primary' : 'secondary'} block" id="btn-buy-box" data-testid="buy-mystery-box" ${!canAffordBox ? 'disabled' : ''}>
-            ${canAffordBox ? `Buka Kotak (${boxPrice} 🪙)` : `Kurang ${boxPrice - playerCoins} 🪙`}
+            ${canAffordBox ? `Buka Kotak (${boxPrice} <span class="coin-ico"></span>)` : `Kurang ${boxPrice - playerCoins} <span class="coin-ico"></span>`}
           </button>
         </div>
       </div>
@@ -8502,13 +8502,13 @@ Screens.profil = {
 
             <!-- ACTION FOOTER: HARGA & TOMBOL BELI -->
             <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.06);margin-top:2px">
-              <div style="font-size:0.95rem;font-weight:800;color:#fbbf24;display:flex;align-items:center;gap:4px">🪙 ${it.price}</div>
+              <div style="font-size:0.95rem;font-weight:800;color:#fbbf24;display:flex;align-items:center;gap:4px"><span class="coin-ico"></span> ${it.price}</div>
               <div style="flex:0 0 auto;min-width:130px">
                 <button class="btn small ${canAfford ? 'primary' : 'secondary'} block item-shop-buy-btn"
                   data-testid="item-buy-${it.id}"
                   data-id="${it.id}"
                   ${!canAfford ? 'disabled' : ''}>
-                  ${canAfford ? 'Beli' : `Kurang ${it.price - playerCoins} 🪙`}
+                  ${canAfford ? 'Beli' : `Kurang ${it.price - playerCoins} <span class="coin-ico"></span>`}
                 </button>
               </div>
             </div>
@@ -9524,3 +9524,57 @@ window.addEventListener('DOMContentLoaded', async () => {
     go('home');
   }
 });
+
+
+/* Universal Coin Glyph Guardian for Mobile Mode (Zero-Tofu Windows PC & Mobile) */
+(function() {
+  if (typeof document === 'undefined') return;
+  const COIN = '\u{1FA99}';
+  const replaceNode = (node) => {
+    if (!node || node.nodeType !== 3 || !node.nodeValue || !node.nodeValue.includes(COIN)) return;
+    const p = node.parentNode;
+    if (!p || /^(SCRIPT|STYLE|TEXTAREA|INPUT)$/i.test(p.tagName)) return;
+    const frag = document.createDocumentFragment();
+    const parts = node.nodeValue.split(COIN);
+    for (let i = 0; i < parts.length; i++) {
+      if (parts[i]) frag.appendChild(document.createTextNode(parts[i]));
+      if (i < parts.length - 1) {
+        const ico = document.createElement('span');
+        ico.className = 'coin-ico';
+        ico.setAttribute('aria-label', 'koin');
+        frag.appendChild(ico);
+      }
+    }
+    p.replaceChild(frag, node);
+  };
+  const scan = (el) => {
+    if (!el || !el.nodeType) return;
+    if (el.nodeType === 3) { replaceNode(el); return; }
+    try {
+      const w = document.createTreeWalker(el, 4, {
+        acceptNode: n => (n.nodeValue && n.nodeValue.includes(COIN)) ? 1 : 2
+      });
+      const batch = [];
+      while (w.nextNode()) batch.push(w.currentNode);
+      for (let i = 0; i < batch.length; i++) replaceNode(batch[i]);
+    } catch (_) {}
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => scan(document.body));
+  } else if (document.body) {
+    scan(document.body);
+  }
+  if (typeof MutationObserver !== 'undefined' && document.body) {
+    new MutationObserver(ms => {
+      for (let i = 0; i < ms.length; i++) {
+        const m = ms[i];
+        if (m.type === 'childList') {
+          for (let j = 0; j < m.addedNodes.length; j++) scan(m.addedNodes[j]);
+        } else if (m.type === 'characterData') {
+          replaceNode(m.target);
+        }
+      }
+    }).observe(document.body, { childList: true, subtree: true, characterData: true });
+  }
+})();

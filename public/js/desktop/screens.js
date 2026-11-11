@@ -509,7 +509,7 @@
         <div class="hero-quick-stats-card" id="home-quick-stats" style="display:flex;justify-content:space-around;gap:.8rem;width:100%;padding:.65rem .8rem;border-radius:var(--rad-m);background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.07);margin:.4rem 0">
           <div class="tc" style="flex:1"><span style="font-size:1.3rem">🔥</span><div style="font-size:.85rem;font-weight:900;color:#fb923c" id="home-stat-streak">${pStreak} Hari</div><small class="muted" style="font-size:.68rem;font-weight:800">Streak Belajar</small></div>
           <div style="width:1px;background:rgba(255,255,255,.1)"></div>
-          <div class="tc" style="flex:1"><span style="font-size:1.3rem">🪙</span><div style="font-size:.85rem;font-weight:900;color:#facc15" id="home-stat-coins">${pCoins.toLocaleString('id-ID')}</div><small class="muted" style="font-size:.68rem;font-weight:800">Koin Diperoleh</small></div>
+          <div class="tc" style="flex:1"><span style="font-size:1.3rem"><span class="coin-ico"></span></span><div style="font-size:.85rem;font-weight:900;color:#facc15" id="home-stat-coins">${pCoins.toLocaleString('id-ID')}</div><small class="muted" style="font-size:.68rem;font-weight:800">Koin Diperoleh</small></div>
           <div style="width:1px;background:rgba(255,255,255,.1)"></div>
           <div class="tc" style="flex:1"><span style="font-size:1.3rem">🏆</span><div style="font-size:.85rem;font-weight:900;color:#38bdf8" id="home-stat-wins">${pWins} Laga</div><small class="muted" style="font-size:.68rem;font-weight:800">Kemenangan Arena</small></div>
         </div>
@@ -3051,7 +3051,7 @@
               const rarColor = rarKey === 'mythic' ? '#ff0055' : (rarKey === 'legendary' ? '#f59e0b' : (rarKey === 'epic' ? '#a855f7' : (rarKey === 'rare' ? '#3b82f6' : '#94a3b8')));
               const catObj = CATS_MOBILE.find(c => c[0] === x.slot) || ['item', '🎒', x.slot || 'Item'];
               const isSel = (x.id === selId);
-              const isImmediate = idx < 24 || filtered.length <= 32;
+              const isImmediate = idx < 9;
               const thumbSvg = isImmediate
                 ? renderItemArt(x.id, x.slot, 80)
                 : `<div class="lazy-thumb-placeholder" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;opacity:0.35;font-size:1.8rem">🎒</div>`;
@@ -3292,7 +3292,7 @@
       <div class="col">
         <!-- DOMPET PETUALANG -->
         ${panel('Dompet Petualang', `
-          <div class="kv"><span>Saldo Koin Emas</span><b style="color:#fde047;font-size:1.15rem">🪙 ${playerCoins.toLocaleString('id-ID')}</b></div>
+          <div class="kv"><span>Saldo Koin Emas</span><b style="color:#fde047;font-size:1.15rem"><span class="coin-ico"></span> ${playerCoins.toLocaleString('id-ID')}</b></div>
           <div class="kv"><span>Permata Mistis</span><b style="color:#38bdf8;font-size:1.15rem">💎 ${gems}</b></div>
           <div class="kv" style="border:0"><span>Garansi Transaksi</span><b style="color:#34d399">Anti-Duplikat 100%</b></div>
         `)}
@@ -3306,7 +3306,7 @@
               1 skin acak anti-duplikat (+20 koin jika dobel).
             </p>
             <button class="btn ${canAffordBox ? 'primary' : 'secondary'} lg block" id="btn-buy-box" data-testid="buy-mystery-box" ${!canAffordBox ? 'disabled' : ''} style="font-weight:800;width:100%">
-              ${canAffordBox ? `Buka Kotak (${boxPrice} 🪙)` : `Kurang ${boxPrice - playerCoins} 🪙`}
+              ${canAffordBox ? `Buka Kotak (${boxPrice} <span class="coin-ico"></span>)` : `Kurang ${boxPrice - playerCoins} <span class="coin-ico"></span>`}
             </button>
           </div>
         `)}
@@ -3399,7 +3399,7 @@
               const canAfford = playerCoins >= (it.price || 0);
               const rarKey = (it.rarity || 'common').toLowerCase();
               const rarColor = rarKey === 'mythic' ? '#ff0055' : (rarKey === 'legendary' || rarKey === 'legend' ? '#f59e0b' : (rarKey === 'epic' ? '#a855f7' : (rarKey === 'rare' ? '#38bdf8' : '#94a3b8')));
-              const isImmediate = idx < 24 || filtered.length <= 32;
+              const isImmediate = idx < 10;
               const thumbSvg = isImmediate
                 ? renderItemArt(it.id, it.slot, 68)
                 : `<div class="lazy-thumb-placeholder" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;opacity:0.35;font-size:1.6rem">🎒</div>`;
@@ -3437,7 +3437,7 @@
                   <!-- FOOTER: HARGA & TOMBOL BELI TERKONFIRMASI -->
                   <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.06);margin-top:auto">
                     <div style="font-size:0.95rem;font-weight:800;color:#fbbf24;display:flex;align-items:center;gap:4px">
-                      🪙 ${it.price || 0}
+                      <span class="coin-ico"></span> ${it.price || 0}
                     </div>
                     <div>
                       ${isOwned ? `
@@ -3449,7 +3449,7 @@
                           data-name="${esc(it.name)}"
                           data-price="${it.price || 0}"
                           ${!canAfford ? 'disabled' : ''}>
-                          ${canAfford ? 'Beli' : `Kurang ${(it.price || 0) - playerCoins} 🪙`}
+                          ${canAfford ? 'Beli' : `Kurang ${(it.price || 0) - playerCoins} <span class="coin-ico"></span>`}
                         </button>
                       `}
                     </div>
@@ -3473,14 +3473,14 @@
           ${selPreviewItem.passive ? `<div class="kv"><span>Efek RPG</span><b style="color:#fbbf24">✨ ${esc(selPreviewItem.passive.desc)}</b></div>` : ''}
           ${formatItemSetHtml(selPreviewItem, false)}
           ${selPreviewItem.lore ? `<div class="kv"><span>Kisah Item</span><i class="muted" style="font-size:.75rem">${esc(selPreviewItem.lore)}</i></div>` : ''}
-          <div class="kv"><span>Harga Resmi</span><b style="color:#fbbf24;font-size:1.1rem">🪙 ${selPreviewItem.price || 0} koin</b></div>
+          <div class="kv"><span>Harga Resmi</span><b style="color:#fbbf24;font-size:1.1rem"><span class="coin-ico"></span> ${selPreviewItem.price || 0} koin</b></div>
           <div class="kv" style="border:0"><span>Status</span><b style="color:${isPreviewOwned ? '#34d399' : '#38bdf8'}">${isPreviewOwned ? 'Sudah Dimiliki ✔' : 'Tersedia di Toko'}</b></div>
           <div style="margin-top:12px">
             ${isPreviewOwned ? `
               <button class="btn secondary lg block" disabled style="width:100%;font-weight:800">✓ Sudah Dimiliki</button>
             ` : `
               <button class="btn ${canAffordPreview ? 'primary' : 'secondary'} lg block" id="btn-buy-preview" style="width:100%;font-weight:800" ${!canAffordPreview ? 'disabled' : ''}>
-                ${canAffordPreview ? `🛒 Beli Sekarang (${selPreviewItem.price || 0} 🪙)` : `Kurang ${(selPreviewItem.price || 0) - playerCoins} 🪙`}
+                ${canAffordPreview ? `🛒 Beli Sekarang (${selPreviewItem.price || 0} <span class="coin-ico"></span>)` : `Kurang ${(selPreviewItem.price || 0) - playerCoins} <span class="coin-ico"></span>`}
               </button>
             `}
           </div>
@@ -5033,7 +5033,7 @@
         </div>
         <div class="kv">
           <span>Saldo Koin Emas</span>
-          <b style="color:#fde047;font-size:1.05rem">🪙 ${pCoins.toLocaleString('id-ID')}</b>
+          <b style="color:#fde047;font-size:1.05rem"><span class="coin-ico"></span> ${pCoins.toLocaleString('id-ID')}</b>
         </div>
         <div class="kv">
           <span>Permata Mistis</span>

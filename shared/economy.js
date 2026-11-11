@@ -1,4 +1,4 @@
-const { SET_BONUSES, calculatePassives } = (typeof require !== 'undefined') ? require('./passives') : ((typeof window !== 'undefined' && window.Passives) ? window.Passives : { SET_BONUSES: [], calculatePassives: () => ({}) });
+const { SET_BONUSES, calculatePassives, getEquippedSetsSynergy, SLOT_NAMES_ID } = (typeof require !== 'undefined') ? require('./passives') : ((typeof window !== 'undefined' && window.Passives) ? window.Passives : { SET_BONUSES: [], calculatePassives: () => ({}), getEquippedSetsSynergy: () => [] });
 'use strict';
 
 const ECONOMY = {
@@ -2110,6 +2110,8 @@ const exp = {
   BOSS_MOVES,
   SET_BONUSES,
   calculatePassives,
+  getEquippedSetsSynergy,
+  SLOT_NAMES_ID,
   getItemSetInfo,
 };
 
