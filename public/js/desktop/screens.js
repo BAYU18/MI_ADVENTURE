@@ -2830,7 +2830,10 @@
         if (inv) {
           itemsList = inv.items || [];
           if (inv.avatar && Object.keys(inv.avatar).length > 0) {
-            draftAvatar = Object.assign({}, inv.avatar, draftAvatar);
+            draftAvatar = Object.assign({}, inv.avatar);
+            if (root.Player && root.Player.data) {
+              root.Player.data.avatar = Object.assign({}, root.Player.data.avatar, inv.avatar);
+            }
           }
         }
       }
@@ -3224,14 +3227,50 @@
 
       const btnEquip = $('#equip', el);
       if (btnEquip) {
-        btnEquip.onclick = () => {
+        btnEquip.onclick = async () => {
           if (!isOwned) {
             root.go('shop');
-          } else {
-            if (root.Sfx) root.Sfx.play('equip');
-            draftAvatar[it.slot] = it.id;
-            toast('Item dipasang: ' + it.name);
-            draw();
+            return;
+          }
+          if (isEquipped) {
+            toast('Item ini sedang dipakai ✔');
+            return;
+          }
+
+          if (root.Sfx) root.Sfx.play('equip');
+          draftAvatar[it.slot] = it.id;
+
+          // 1. Update itemsList equipped state agar kartu di etalase sinkron
+          itemsList.forEach(i => {
+            if (i.slot === it.slot) {
+              i.equipped = (i.id === it.id);
+            }
+          });
+
+          // 2. Update Player data avatar lokal secara langsung
+          if (root.Player && root.Player.data) {
+            root.Player.data.avatar = Object.assign({}, root.Player.data.avatar, draftAvatar);
+          }
+
+          // 3. Update topbar live
+          if (root.DesktopShell?.updateTopbar) root.DesktopShell.updateTopbar();
+
+          toast('✨ ' + it.name + ' berhasil dipakai & disimpan!');
+          draw();
+
+          // 4. Simpan permanen ke database server via API.updateAvatar
+          if (root.API && typeof root.API.updateAvatar === 'function') {
+            try {
+              const res = await root.API.updateAvatar(draftAvatar);
+              const savedAvatar = res?.avatar || draftAvatar;
+              draftAvatar = Object.assign({}, savedAvatar);
+              if (root.Player && root.Player.data) {
+                root.Player.data.avatar = savedAvatar;
+              }
+              if (root.DesktopShell?.updateTopbar) root.DesktopShell.updateTopbar();
+            } catch (e) {
+              console.warn('Gagal sinkronisasi avatar ke server:', e);
+            }
           }
         };
       }
