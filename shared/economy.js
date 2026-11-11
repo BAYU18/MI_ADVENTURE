@@ -1,4 +1,4 @@
-const { SET_BONUSES, calculatePassives, getEquippedSetsSynergy, SLOT_NAMES_ID } = (typeof require !== 'undefined') ? require('./passives') : ((typeof window !== 'undefined' && window.Passives) ? window.Passives : { SET_BONUSES: [], calculatePassives: () => ({}), getEquippedSetsSynergy: () => [] });
+const { SET_BONUSES, calculatePassives, getEquippedSetsSynergy, renderSetSynergyHtml, SLOT_NAMES_ID } = (typeof require !== 'undefined') ? require('./passives') : ((typeof window !== 'undefined' && window.Passives) ? window.Passives : { SET_BONUSES: [], calculatePassives: () => ({}), getEquippedSetsSynergy: () => [], renderSetSynergyHtml: () => '' });
 'use strict';
 
 const ECONOMY = {
@@ -2111,6 +2111,7 @@ const exp = {
   SET_BONUSES,
   calculatePassives,
   getEquippedSetsSynergy,
+  renderSetSynergyHtml,
   SLOT_NAMES_ID,
   getItemSetInfo,
 };

@@ -26,7 +26,7 @@
       const titleColor = isMythic ? '#f87171' : '#fbbf24';
       if (isCompact) {
         return `
-          <div style="font-size:0.67rem;background:${bgGradient};border:1px solid ${borderColor};border-radius:4px;padding:2px 6px;color:${titleColor};line-height:1.25;margin-top:2px">
+          <div style="font-size:0.65rem;background:${bgGradient};border:1px solid ${borderColor};border-radius:4px;padding:2px 6px;color:${titleColor};line-height:1.25;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${esc(setInfo.name)} (${setInfo.totalItems} Item)">
             <b>${esc(setInfo.icon || '✨')} 1 Set:</b> ${esc(setInfo.name)} (${setInfo.totalItems} Item)
           </div>
         `;
@@ -3058,35 +3058,46 @@
 
               return `
               <div class="skin-item-card ${isSel ? 'selected' : ''} ${equippedNow ? 'equipped' : (!x.owned ? 'locked' : '')}" data-item="${x.id}" title="${esc(x.name)}">
-                <!-- Baris Atas: Kategori Slot & Status Kepemilikan -->
-                <div style="display:flex;align-items:center;justify-content:space-between;width:100%;margin-bottom:2px">
-                  <span style="font-size:.65rem;font-weight:800;color:var(--c-muted);display:flex;align-items:center;gap:3px">
-                    <span>${catObj[1]}</span><span>${catObj[2]}</span>
-                  </span>
-                  <div>
-                    ${equippedNow ? `<span class="chip" style="font-size:.58rem;font-weight:800;padding:1px 6px;border-radius:99px;background:#10b98122;color:#34d399;border:1px solid #10b98155">✔ DIPAKAI</span>` : (x.owned ? `<span class="chip" style="font-size:.58rem;font-weight:800;padding:1px 6px;border-radius:99px;background:#38bdf822;color:#38bdf8;border:1px solid #38bdf855">📦 MILIK</span>` : `<span class="chip" style="font-size:.58rem;font-weight:800;padding:1px 6px;border-radius:99px;background:#64748b22;color:#94a3b8;border:1px solid #64748b55">🔒 BELUM</span>`)}
-                  </div>
-                </div>
-
-                <!-- Preview Box Besar (88x88 px dengan efek glow rarity) -->
-                <div class="skin-thumbnail-box ${!isImmediate ? 'lazy-art' : ''}" data-item-id="${x.id}" data-item-slot="${x.slot}" style="width:88px;height:88px;border-radius:14px;background:radial-gradient(circle at center, ${rarColor}25 0%, rgba(0,0,0,.45) 80%);border:1.5px solid ${rarColor}66;display:flex;align-items:center;justify-content:center;margin:3px auto 6px;flex-shrink:0;box-shadow:inset 0 2px 8px rgba(0,0,0,.4)">
-                  ${thumbSvg}
-                </div>
-
-                <!-- Info Nama, Rarity Badge & Efek Pasif -->
-                <div style="width:100%;display:flex;flex-direction:column;align-items:center;gap:3px">
-                  <div style="font-size:.82rem;font-weight:900;color:#fff;line-height:1.2;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${esc(x.name)}">${esc(x.name)}</div>
-                  <div style="display:flex;align-items:center;justify-content:center;gap:4px">
-                    <span class="tag rar-${rarKey}" style="font-size:.6rem;font-weight:800;padding:1px 6px;border-radius:999px;background:${rarColor}20;color:${rarColor};border:1px solid ${rarColor}55">${(x.rarity || 'COMMON').toUpperCase()}</span>
-                  </div>
-                  ${x.passive ? `
-                    <div style="font-size:.67rem;color:#fcd34d;font-weight:700;display:flex;align-items:center;justify-content:center;gap:3px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px" title="${esc(x.passive.desc)}">
-                      <span>✨</span><span style="overflow:hidden;text-overflow:ellipsis">${esc(x.passive.desc)}</span>
+                <div style="display:flex;gap:10px;align-items:flex-start;width:100%">
+                  <!-- SISI KIRI: Gambar Item (Thumbnail Box 68x68) & Badge Rarity -->
+                  <div style="flex:0 0 68px;display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0">
+                    <div class="skin-thumbnail-box ${!isImmediate ? 'lazy-art' : ''}" data-item-id="${x.id}" data-item-slot="${x.slot}" style="width:68px;height:68px;border-radius:12px;background:radial-gradient(circle at center, ${rarColor}25 0%, rgba(0,0,0,.45) 80%);border:1.5px solid ${rarColor}66;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 2px 8px rgba(0,0,0,.4)">
+                      ${thumbSvg}
                     </div>
-                  ` : `
-                    <div style="font-size:.65rem;color:var(--c-muted);font-style:italic;margin-top:1px">Kosmetik Avatar</div>
-                  `}
-                  ${formatItemSetHtml(x, true)}
+                    <span class="tag rar-${rarKey}" style="font-size:.58rem;font-weight:800;padding:1px 5px;border-radius:999px;background:${rarColor}20;color:${rarColor};border:1px solid ${rarColor}55;letter-spacing:0.5px;text-align:center;width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+                      ${(x.rarity || 'COMMON').toUpperCase()}
+                    </span>
+                  </div>
+
+                  <!-- SISI KANAN: Deskripsi & Effect Skill dalam 1 Kotak Rapi -->
+                  <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;text-align:left">
+                    <!-- Baris Atas: Kategori Slot & Status Kepemilikan -->
+                    <div style="display:flex;align-items:center;justify-content:space-between;width:100%;gap:4px">
+                      <span style="font-size:.65rem;font-weight:800;color:var(--c-muted);display:flex;align-items:center;gap:3px;white-space:nowrap">
+                        <span>${catObj[1]}</span><span>${catObj[2]}</span>
+                      </span>
+                      <div style="flex-shrink:0">
+                        ${equippedNow ? `<span class="chip" style="font-size:.56rem;font-weight:800;padding:1px 6px;border-radius:99px;background:#10b98122;color:#34d399;border:1px solid #10b98155">✔ DIPAKAI</span>` : (x.owned ? `<span class="chip" style="font-size:.56rem;font-weight:800;padding:1px 6px;border-radius:99px;background:#38bdf822;color:#38bdf8;border:1px solid #38bdf855">📦 MILIK</span>` : `<span class="chip" style="font-size:.56rem;font-weight:800;padding:1px 6px;border-radius:99px;background:#64748b22;color:#94a3b8;border:1px solid #64748b55">🔒 BELUM</span>`)}
+                      </div>
+                    </div>
+
+                    <!-- Nama Item -->
+                    <div style="font-size:.84rem;font-weight:900;color:#fff;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${esc(x.name)}">
+                      ${esc(x.name)}
+                    </div>
+
+                    <!-- Efek Pasif / Skill RPG -->
+                    ${x.passive ? `
+                      <div style="font-size:.68rem;color:#fcd34d;font-weight:700;display:flex;align-items:center;gap:3px;background:rgba(251,191,36,0.1);padding:2px 6px;border-radius:4px;border:1px solid rgba(251,191,36,0.25);line-height:1.25" title="${esc(x.passive.desc)}">
+                        <span style="flex-shrink:0">✨</span><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(x.passive.desc)}</span>
+                      </div>
+                    ` : `
+                      <div style="font-size:.65rem;color:var(--c-muted);font-style:italic">Kosmetik Avatar</div>
+                    `}
+
+                    <!-- Item Set Info (Compact 1 Kotak, Ellipsis) -->
+                    ${formatItemSetHtml(x, true)}
+                  </div>
                 </div>
               </div>`;
             }).join('')}

@@ -984,16 +984,17 @@ button { cursor: pointer; border: 0; background: none; padding: 0; }
   background: rgba(255, 255, 255, 0.04);
   border: 1.5px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--rad-m);
-  padding: 8px 6px;
+  padding: 8px 10px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  text-align: center;
+  align-items: stretch;
+  justify-content: flex-start;
+  text-align: left;
   cursor: pointer;
-  min-height: 110px;
+  min-height: 105px;
   position: relative;
   transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  box-sizing: border-box;
 }
 .skin-item-card:hover {
   transform: translateY(-2px);
@@ -1042,19 +1043,20 @@ button { cursor: pointer; border: 0; background: none; padding: 0; }
   background: rgba(15, 23, 42, .65) !important;
   border: 1.5px solid rgba(255, 255, 255, .09) !important;
   border-radius: var(--rad-m) !important;
-  padding: .65rem .6rem !important;
+  padding: .55rem .65rem !important;
   display: flex !important;
   flex-direction: column !important;
-  align-items: center !important;
-  text-align: center !important;
-  justify-content: space-between !important;
+  align-items: stretch !important;
+  text-align: left !important;
+  justify-content: flex-start !important;
   cursor: pointer !important;
   transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease, background .15s ease !important;
   position: relative !important;
-  min-height: 190px !important;
+  min-height: auto !important;
+  box-sizing: border-box !important;
 }
 .skin-item-card:hover {
-  transform: translateY(-3px) !important;
+  transform: translateY(-2px) !important;
   border-color: rgba(56, 189, 248, .55) !important;
   background: rgba(56, 189, 248, .09) !important;
   box-shadow: 0 6px 16px rgba(0, 0, 0, .35) !important;
@@ -1076,16 +1078,17 @@ button { cursor: pointer; border: 0; background: none; padding: 0; }
   filter: brightness(0.7) !important;
 }
 .skin-item-card .skin-thumbnail-box {
-  width: 88px !important;
-  height: 88px !important;
-  border-radius: 14px !important;
-  margin: 3px auto 6px !important;
+  width: 68px !important;
+  height: 68px !important;
+  border-radius: 12px !important;
+  margin: 0 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   overflow: hidden !important;
   box-shadow: inset 0 2px 8px rgba(0, 0, 0, .4) !important;
   transition: transform .15s ease !important;
+  flex-shrink: 0 !important;
 }
 .skin-item-card:hover .skin-thumbnail-box {
   transform: scale(1.05) !important;
@@ -1093,8 +1096,8 @@ button { cursor: pointer; border: 0; background: none; padding: 0; }
 .skin-item-card .skin-thumbnail-box svg {
   width: 100% !important;
   height: 100% !important;
-  max-width: 80px !important;
-  max-height: 80px !important;
+  max-width: 64px !important;
+  max-height: 64px !important;
 }
 .skin-equipped-slots {
   display: grid !important;

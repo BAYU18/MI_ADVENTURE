@@ -7261,6 +7261,23 @@ Screens.profil = {
     };
 
     let curP = calcCurrentPassives(this.avatarDraft || {});
+    const calcEquippedSets = (av) => {
+      const eqIds = ['hat', 'outfit', 'weapon', 'pet', 'bg', 'frame', 'title']
+        .map(sl => av[sl])
+        .filter(Boolean);
+      return (window.Passives && Passives.getEquippedSetsSynergy)
+        ? Passives.getEquippedSetsSynergy(eqIds, items)
+        : [];
+    };
+
+    let curSets = calcEquippedSets(this.avatarDraft || {});
+    const buildSetsDetailHtml = (sets) => {
+      if (window.Passives && Passives.renderSetSynergyHtml) {
+        return Passives.renderSetSynergyHtml(sets);
+      }
+      return '';
+    };
+
     const buildSetHtml = (p) => (p.activeSets && p.activeSets.length > 0)
       ? p.activeSets.map(s => `<span class="chip" style="background:rgba(245,158,11,0.2);color:#fbbf24;border:1px solid rgba(245,158,11,0.4);font-size:0.68rem;font-weight:700;padding:2px 8px">${esc(s.icon)} ${esc(s.name)}</span>`).join(' ')
       : '';
@@ -7326,8 +7343,15 @@ Screens.profil = {
           <div id="skin-stats-grid" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(75px, 1fr));gap:6px">
             ${buildStatsGridHtml(curP)}
           </div>
-            </div>
+        </div>
+
+        <!-- SINERGI SET EQUIPMENT (AKTIF & YANG KURANG) -->
+        <div id="skin-sets-detail" style="width:100%;margin-top:8px;border-top:1px dashed rgba(255,255,255,0.12);padding-top:8px">
+          <div style="font-size:0.75rem;font-weight:800;color:var(--c-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center">
+            <span>⚡ Sinergi Set Equipment:</span>
+            <span id="skin-sets-count" style="font-size:0.7rem;color:var(--c-primary);font-weight:800">${curSets.length} Set</span>
           </div>
+          <div id="skin-sets-list">${buildSetsDetailHtml(curSets)}</div>
         </div>
       </div>
 
@@ -7410,6 +7434,33 @@ Screens.profil = {
       if (btnLeg) btnLeg.innerHTML = `🟡 Legend (${countLeg})`;
       const btnSkinMyt = $('#skin-rarity-mythic');
       if (btnSkinMyt) btnSkinMyt.innerHTML = `🔴 Mythic (${countMyt})`;
+    };
+
+    const bindMissingSetPills = () => {
+      $$('.missing-set-pill.owned-missing').forEach(pill => {
+        pill.onclick = (e) => {
+          e.stopPropagation();
+          const targetSlot = pill.dataset.slot;
+          if (targetSlot) {
+            this.skinCatFilter = targetSlot;
+            $$('.skin-cat-btn').forEach(b => {
+              b.classList.toggle('active', b.dataset.cat === targetSlot);
+              b.classList.toggle('ghost', b.dataset.cat !== targetSlot);
+            });
+            updateSkinRarityBar();
+            renderItems();
+            const grid = $('#skin-items-grid');
+            if (grid) grid.scrollIntoView({ behavior: 'smooth' });
+          }
+        };
+      });
+      $$('.missing-set-pill.unowned-missing').forEach(pill => {
+        pill.onclick = (e) => {
+          e.stopPropagation();
+          const itName = pill.dataset.name || 'Item ini';
+          toast(itName + ' belum dimiliki. Cari di Toko atau Peti Kosmik! 🛒');
+        };
+      });
     };
 
     const renderItems = () => {
@@ -7553,6 +7604,15 @@ Screens.profil = {
               if (sGrid) sGrid.innerHTML = buildStatsGridHtml(upStats);
               const sSets = $('#skin-active-sets');
               if (sSets) sSets.innerHTML = buildSetHtml(upStats);
+
+              const sList = $('#skin-sets-list');
+              const sCount = $('#skin-sets-count');
+              if (sList) {
+                const upSets = calcEquippedSets(savedAv);
+                if (sCount) sCount.textContent = upSets.length + ' Set';
+                sList.innerHTML = buildSetsDetailHtml(upSets);
+                bindMissingSetPills();
+              }
             };
 
             toast('Skin berhasil dipakai! ✨');
@@ -7599,6 +7659,15 @@ Screens.profil = {
               if (sGrid) sGrid.innerHTML = buildStatsGridHtml(upStats);
               const sSets = $('#skin-active-sets');
               if (sSets) sSets.innerHTML = buildSetHtml(upStats);
+
+              const sList = $('#skin-sets-list');
+              const sCount = $('#skin-sets-count');
+              if (sList) {
+                const upSets = calcEquippedSets(savedAv);
+                if (sCount) sCount.textContent = upSets.length + ' Set';
+                sList.innerHTML = buildSetsDetailHtml(upSets);
+                bindMissingSetPills();
+              }
             };
 
             toast('Skin berhasil dilepas.');
@@ -7650,6 +7719,7 @@ Screens.profil = {
 
     updateSkinRarityBar();
     renderItems();
+    bindMissingSetPills();
   },
 
   async renderTabSkill(slot) {

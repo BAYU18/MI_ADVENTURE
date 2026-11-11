@@ -497,10 +497,99 @@ function getEquippedSetsSynergy(equippedItemIds = [], itemsCatalog = []) {
   return results;
 }
 
+function esc(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function renderSetSynergyHtml(equippedSets = []) {
+  if (!Array.isArray(equippedSets) || equippedSets.length === 0) {
+    return `
+      <div class="set-synergy-empty" style="padding:8px 10px;background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.12);border-radius:8px;font-size:0.7rem;color:var(--c-muted);text-align:center;line-height:1.4">
+        💡 <i>Belum ada item set terpasang. Gunakan perlengkapan dengan tema 1 set (seperti Batara, Voidwalker, Ksatria, dll.) untuk membuka Efek Set!</i>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="set-synergies-list" style="display:flex;flex-direction:column;gap:8px">
+      ${equippedSets.map(s => {
+        if (s.isActive) {
+          return `
+            <div class="set-card-active" style="background:linear-gradient(135deg, rgba(245,158,11,0.18), rgba(16,185,129,0.12));border:1px solid rgba(245,158,11,0.5);border-radius:8px;padding:8px 10px">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;gap:6px">
+                <span style="font-weight:800;color:#fbbf24;font-size:0.75rem;display:flex;align-items:center;gap:4px">
+                  <span>${esc(s.icon || '✨')}</span>
+                  <span>${esc(s.name)}</span>
+                </span>
+                <span class="badge" style="background:#10b981;color:#fff;font-size:0.62rem;font-weight:800;padding:2px 7px;border-radius:4px;white-space:nowrap">
+                  ✔ AKTIF (${s.totalItems}/${s.totalItems})
+                </span>
+              </div>
+              <div style="font-size:0.71rem;color:#fef08a;line-height:1.35;margin-bottom:6px;background:rgba(0,0,0,0.3);border-radius:5px;padding:5px 8px;border-left:3px solid #10b981">
+                ⚡ <b>Efek Set Aktif:</b> ${esc(s.desc)}
+              </div>
+              <div style="font-size:0.68rem;color:#34d399;display:flex;flex-wrap:wrap;gap:4px;align-items:center">
+                <span style="font-weight:700">Lengkap Terpasang:</span>
+                ${s.equipped.map(m => `
+                  <span style="background:rgba(16,185,129,0.18);color:#34d399;border:1px solid rgba(16,185,129,0.35);border-radius:4px;padding:1px 6px">
+                    ✔ ${esc(m.name)} <span style="opacity:0.75">(${esc(m.slotLabel)})</span>
+                  </span>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }
+
+        return `
+          <div class="set-card-partial" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:8px 10px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;gap:6px">
+              <span style="font-weight:800;color:#e2e8f0;font-size:0.75rem;display:flex;align-items:center;gap:4px">
+                <span>${esc(s.icon || '✨')}</span>
+                <span>${esc(s.name)}</span>
+              </span>
+              <span class="badge" style="background:rgba(245,158,11,0.22);color:#fbbf24;border:1px solid rgba(245,158,11,0.45);font-size:0.62rem;font-weight:800;padding:2px 7px;border-radius:4px;white-space:nowrap">
+                ⏳ ${s.equippedCount}/${s.totalItems} (Kurang ${s.missingCount})
+              </span>
+            </div>
+            <div style="font-size:0.71rem;color:#cbd5e1;line-height:1.35;margin-bottom:6px;background:rgba(0,0,0,0.3);border-radius:5px;padding:5px 8px;border-left:3px solid #f59e0b">
+              <span style="color:#94a3b8">⚡ <b>Efek Jika Lengkap:</b></span> <span style="color:#fcd34d">${esc(s.desc)}</span>
+            </div>
+            <div style="font-size:0.68rem;line-height:1.45;display:flex;flex-direction:column;gap:4px">
+              <div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center">
+                <span style="color:#34d399;font-weight:700">Sudah Dipakai:</span>
+                ${s.equipped.map(m => `
+                  <span style="background:rgba(52,211,153,0.15);color:#34d399;border:1px solid rgba(52,211,153,0.3);border-radius:4px;padding:1px 5px">
+                    ✔ ${esc(m.name)} <span style="opacity:0.75">(${esc(m.slotLabel)})</span>
+                  </span>
+                `).join('')}
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center">
+                <span style="color:#f87171;font-weight:700">Perlu Dipakai (Kurang):</span>
+                ${s.missing.map(m => `
+                  <span class="missing-set-pill ${m.owned ? 'owned-missing' : 'unowned-missing'}" data-slot="${esc(m.slot)}" data-id="${esc(m.id)}" data-name="${esc(m.name)}" title="${m.owned ? 'Item ini ada di lemari kamu! Klik untuk membuka slot ' + m.slotLabel : 'Item ini belum kamu miliki (bisa didapatkan di Toko atau Peti)'}" style="background:${m.owned ? 'rgba(56,189,248,0.16)' : 'rgba(239,68,68,0.12)'};color:${m.owned ? '#38bdf8' : '#fca5a5'};border:1px solid ${m.owned ? 'rgba(56,189,248,0.45)' : 'rgba(239,68,68,0.3)'};border-radius:4px;padding:2px 7px;cursor:${m.owned ? 'pointer' : 'default'}">
+                    ⚠️ <b>${esc(m.name)}</b> (${esc(m.slotLabel)}) ${m.owned ? '<b style="color:#34d399"> [📦 Ada di Lemari - Klik!]</b>' : '<span style="color:#94a3b8"> [🔒 Belum Ada]</span>'}
+                  </span>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+}
+
   return {
     SET_BONUSES,
     calculatePassives,
     getEquippedSetsSynergy,
+    renderSetSynergyHtml,
     SLOT_NAMES_ID
   };
 }));
