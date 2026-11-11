@@ -515,16 +515,6 @@
           <div style="width:1px;background:rgba(255,255,255,.1)"></div>
           <div class="tc" style="flex:1"><span style="font-size:1.3rem">🏆</span><div style="font-size:.85rem;font-weight:900;color:#38bdf8" id="home-stat-wins">${pWins} Laga</div><small class="muted" style="font-size:.68rem;font-weight:800">Kemenangan Arena</small></div>
         </div>
-
-        <div class="nowline" id="home-nowline" style="width:100%">
-          <div class="t"><span id="home-camp-title">📖 Petualangan Kampanye Kurikulum</span><span id="home-camp-stars">⭐ Siap Tempur</span></div>
-          ${bar(75, 'good')}
-          <div class="muted" id="home-camp-next" style="font-size:.75rem;font-weight:700">Tantang Monster Bos Wilayah untuk Bintang Sempurna!</div>
-        </div>
-        <div class="cta-row" style="margin-top:.5rem;width:100%;display:flex;gap:.8rem">
-          <button class="btn primary lg" id="btn-home-continue" style="flex:1">⚔️ Lanjutkan Petualangan <span class="kbd">Enter</span></button>
-          <button class="btn lg" data-go="latihan" style="flex:1">📚 Latihan Bebas</button>
-        </div>
       </div>
 
       <div class="col">
@@ -591,7 +581,8 @@
       root.go('peta');
     };
 
-    $('#btn-home-continue').onclick = handleContinue;
+    const btnHomeCont = $('#btn-home-continue');
+    if (btnHomeCont) btnHomeCont.onclick = handleContinue;
     Keys.set({ Enter: handleContinue });
 
     // Live Data Synchronization
