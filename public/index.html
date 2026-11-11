@@ -12,9 +12,175 @@
   <link id="css-mobile" rel="stylesheet" href="css/style.css?v=20261111vcoin">
   <link id="css-desktop" rel="stylesheet" href="css/desktop.css?v=20261111vwardrobe">
   <link rel="stylesheet" href="css/fx.css?v=20261107v1">
+  <style id="boot-css">
+    .boot-splash {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 50% 30%, #1e1b4b 0%, #0a0e1a 100%);
+      color: #f8fafc;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      z-index: 9999;
+      padding: 16px;
+      box-sizing: border-box;
+    }
+    .boot-card {
+      max-width: 420px;
+      width: 100%;
+      background: rgba(30, 27, 75, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 20px;
+      padding: 28px 24px;
+      text-align: center;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6), 0 0 32px rgba(56, 189, 248, 0.18);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .boot-mascot-wrap {
+      margin-bottom: 12px;
+      animation: bootPulse 2s ease-in-out infinite;
+    }
+    @keyframes bootPulse {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-5px) scale(1.05); }
+    }
+    .boot-title {
+      font-size: 1.55rem;
+      font-weight: 900;
+      margin: 0 0 4px 0;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #ffffff 40%, #93c5fd 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .boot-tagline {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .boot-progress-wrap {
+      margin-bottom: 18px;
+    }
+    .boot-bar-track {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 99px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .boot-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #38bdf8, #818cf8, #a855f7);
+      border-radius: 99px;
+      transition: width 0.35s ease;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+    }
+    .boot-status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .boot-status {
+      color: #cbd5e1;
+    }
+    .boot-pct {
+      color: #38bdf8;
+    }
+    .boot-stages {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      gap: 6px;
+    }
+    .boot-stage-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #64748b;
+      transition: color 0.25s ease;
+    }
+    .boot-stage-item.active {
+      color: #38bdf8;
+    }
+    .boot-stage-item .b-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #475569;
+      transition: all 0.25s ease;
+    }
+    .boot-stage-item.active .b-dot {
+      background: #38bdf8;
+      box-shadow: 0 0 8px #38bdf8;
+    }
+  </style>
 </head>
 <body>
-  <div id="app" data-testid="screen-home" class="m-play" aria-live="polite"></div>
+  <div id="app" data-testid="screen-home" class="m-play" aria-live="polite">
+    <!-- Progressive Staged App Shell Loader (Zero-Wait Visual Feedback) -->
+    <div id="boot-loader" class="boot-splash">
+      <div class="boot-card">
+        <div class="boot-mascot-wrap">
+          <svg class="boot-mascot" viewBox="0 0 100 100" width="84" height="84" aria-hidden="true">
+            <defs>
+              <linearGradient id="boot-mascot-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#38bdf8"/>
+                <stop offset="100%" stop-color="#818cf8"/>
+              </linearGradient>
+            </defs>
+            <circle cx="50" cy="50" r="44" fill="#1e1b4b" stroke="url(#boot-mascot-grad)" stroke-width="2.5"/>
+            <path d="M28 42 Q50 18 72 42 Q82 72 50 84 Q18 72 28 42 Z" fill="url(#boot-mascot-grad)"/>
+            <circle cx="40" cy="48" r="6" fill="#ffffff"/>
+            <circle cx="60" cy="48" r="6" fill="#ffffff"/>
+            <circle cx="42" cy="48" r="3.2" fill="#0f172a"/>
+            <circle cx="62" cy="48" r="3.2" fill="#0f172a"/>
+            <path d="M44 62 Q50 70 56 62" stroke="#fef08a" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <polygon points="50,14 57,27 43,27" fill="#fbbf24"/>
+            <polygon points="32,22 39,31 29,33" fill="#f59e0b"/>
+            <polygon points="68,22 71,33 61,31" fill="#f59e0b"/>
+          </svg>
+        </div>
+        <h1 class="boot-title">Petualangan Pelajar</h1>
+        <div class="boot-tagline">Game Edukasi RPG &amp; Arena Kuis Interaktif</div>
+        
+        <div class="boot-progress-wrap">
+          <div class="boot-bar-track">
+            <div class="boot-bar-fill" id="boot-progress-fill" style="width:25%"></div>
+          </div>
+          <div class="boot-status-row">
+            <span class="boot-status" id="boot-status-text">Menyiapkan arena petualangan...</span>
+            <span class="boot-pct" id="boot-status-pct">25%</span>
+          </div>
+        </div>
+
+        <div class="boot-stages">
+          <div class="boot-stage-item active" id="bstep-system">
+            <span class="b-dot"></span>
+            <span>⚡ Sistem</span>
+          </div>
+          <div class="boot-stage-item" id="bstep-data">
+            <span class="b-dot"></span>
+            <span>🎒 Karakter</span>
+          </div>
+          <div class="boot-stage-item" id="bstep-arena">
+            <span class="b-dot"></span>
+            <span>⚔️ Arena</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div id="toast" role="status" aria-live="polite"></div>
   <div id="d-guard">
     <div class="guard-box">
@@ -24,29 +190,47 @@
       <button class="btn primary lg block" onclick="if(window.UIMode)UIMode.setPref('mobile');">📱 Beralih ke Mode Mobile</button>
     </div>
   </div>
-  <script src="/shared/progression.js?v=20261107v1"></script>
-  <script src="/shared/gameplay.js?v=20261106v1"></script>
-  <script src="/shared/campaign.js?v=20261106v1"></script>
-  <script src="/shared/grading.js?v=20261103v12"></script>
-  <script src="js/monsters.js?v=20261107v1"></script>
-  <script src="js/audio.js?v=20261103v12"></script>
-  <script src="/shared/passives.js?v=20261111perf"></script>
-  <script src="/shared/economy.js?v=20261111perf"></script>
-  <script src="/shared/pet-art.js?v=20261107v1"></script>
-  <script src="/shared/skin-art.js?v=20261111perf"></script>
-  <script src="/shared/skill-art.js?v=20261108v3"></script>
-  <script src="js/avatar.js?v=20261107v3"></script>
-  <script src="/shared/story.js?v=20261103v12"></script>
-  <script src="js/feedback.js?v=20261103v12"></script>
-  <script src="/shared/bossskills.js?v=20261105v2"></script>
-  <script src="/js/dexcards.js?v=20261105v5"></script>
-  <script src="/shared/badges.js?v=20261106v3"></script>
-  <script src="/js/badge-art.js?v=20261106v1"></script>
-  <script src="/js/app.js?v=20261111vcoin"></script>
-  <script src="js/friends.js?v=20261106v2"></script>
-  <script src="js/duel.js?v=20261105v5"></script>
-  <script src="js/desktop/core.js?v=20261111vcoin"></script>
-  <script src="js/desktop/screens.js?v=20261111vwardrobe"></script>
+  <script>
+    window.BootLoader = {
+      set(pct, text, stageId) {
+        try {
+          const fill = document.getElementById('boot-progress-fill');
+          const txt = document.getElementById('boot-status-text');
+          const pctEl = document.getElementById('boot-status-pct');
+          if (fill) fill.style.width = pct + '%';
+          if (txt && text) txt.textContent = text;
+          if (pctEl) pctEl.textContent = Math.round(pct) + '%';
+          if (stageId) {
+            const step = document.getElementById(stageId);
+            if (step) step.classList.add('active');
+          }
+        } catch (_) {}
+      }
+    };
+  </script>
+  <script defer src="/shared/progression.js?v=20261107v1"></script>
+  <script defer src="/shared/gameplay.js?v=20261106v1"></script>
+  <script defer src="/shared/campaign.js?v=20261106v1"></script>
+  <script defer src="/shared/grading.js?v=20261103v12"></script>
+  <script defer src="js/monsters.js?v=20261107v1"></script>
+  <script defer src="js/audio.js?v=20261103v12"></script>
+  <script defer src="/shared/passives.js?v=20261111perf"></script>
+  <script defer src="/shared/economy.js?v=20261111perf"></script>
+  <script defer src="/shared/pet-art.js?v=20261107v1"></script>
+  <script defer src="/shared/skin-art.js?v=20261111perf"></script>
+  <script defer src="/shared/skill-art.js?v=20261108v3"></script>
+  <script defer src="js/avatar.js?v=20261107v3"></script>
+  <script defer src="/shared/story.js?v=20261103v12"></script>
+  <script defer src="js/feedback.js?v=20261103v12"></script>
+  <script defer src="/shared/bossskills.js?v=20261105v2"></script>
+  <script defer src="/js/dexcards.js?v=20261105v5"></script>
+  <script defer src="/shared/badges.js?v=20261106v3"></script>
+  <script defer src="/js/badge-art.js?v=20261106v1"></script>
+  <script defer src="/js/app.js?v=20261111staged"></script>
+  <script defer src="js/friends.js?v=20261106v2"></script>
+  <script defer src="js/duel.js?v=20261105v5"></script>
+  <script defer src="js/desktop/core.js?v=20261111staged"></script>
+  <script defer src="js/desktop/screens.js?v=20261111staged"></script>
   <script>
     if ('serviceWorker' in navigator) {
       let refreshing = false;
@@ -57,7 +241,7 @@
         }
       });
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js?v=20261111perf').then(reg => {
+        navigator.serviceWorker.register('/sw.js?v=20261111staged').then(reg => {
           reg.update();
         }).catch(err => console.warn('[SW reg fail]', err));
       });

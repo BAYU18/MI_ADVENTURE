@@ -361,6 +361,7 @@
             root.API.logout().catch(() => {});
           }
           if (root.Player) root.Player.data = null;
+          try { localStorage.removeItem('pp_player_cache'); } catch (_) {}
           toast('Berhasil keluar');
           root.go('auth');
         }

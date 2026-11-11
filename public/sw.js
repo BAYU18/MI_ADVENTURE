@@ -4,13 +4,15 @@
  * Menyediakan caching asset statis untuk kecepatan & kesiapan offline
  */
 
-const CACHE_NAME = 'pp-v7.3.1-20261111sets';
+const CACHE_NAME = 'pp-v7.3.2-20261111staged';
 
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
   '/admin.html',
   '/css/style.css',
+  '/css/desktop.css',
+  '/css/fx.css',
   '/js/monsters.js',
   '/js/avatar.js',
   '/js/audio.js',
@@ -20,9 +22,21 @@ const PRECACHE_ASSETS = [
   '/js/duel.js',
   '/js/dexcards.js',
   '/js/badge-art.js',
+  '/js/feedback.js',
+  '/js/desktop/core.js',
+  '/js/desktop/screens.js',
   '/shared/bossskills.js',
   '/shared/badges.js',
   '/shared/progression.js',
+  '/shared/gameplay.js',
+  '/shared/campaign.js',
+  '/shared/grading.js',
+  '/shared/passives.js',
+  '/shared/economy.js',
+  '/shared/pet-art.js',
+  '/shared/skin-art.js',
+  '/shared/skill-art.js',
+  '/shared/story.js',
   '/manifest.webmanifest',
   '/icons/icon.svg',
   '/icons/icon-192.png',
@@ -108,19 +122,21 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 3. Static Assets: Network-First dengan fallback cache
+  // 3. Static Assets: Stale-While-Revalidate (Seketika 0ms dari Cache, Revalidasi di Latar Belakang)
   event.respondWith(
-    fetch(req)
-      .then((networkResponse) => {
-        if (networkResponse && networkResponse.status === 200 && req.url.startsWith('http')) {
-          const clone = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(req, clone)).catch(() => {});
-        }
-        return networkResponse;
-      })
-      .catch(async () => {
-        const cached = await caches.match(req);
-        if (cached) return cached;
-      })
+    caches.match(req).then((cached) => {
+      const fetchPromise = fetch(req)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200 && req.url.startsWith('http')) {
+            const clone = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(req, clone)).catch(() => {});
+          }
+          return networkResponse;
+        })
+        .catch(() => cached);
+
+      // Kembalikan versi cache seketika jika ada (0ms load!), update di latar belakang
+      return cached || fetchPromise;
+    })
   );
 });

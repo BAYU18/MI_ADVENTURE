@@ -152,6 +152,9 @@ const API = {
       body: JSON.stringify({ nick, password }),
     });
     if (res.token) this.setToken(res.token);
+    if (res.player) {
+      try { localStorage.setItem('pp_player_cache', JSON.stringify(res.player)); } catch (_) {}
+    }
     return res.player;
   },
 
@@ -161,12 +164,16 @@ const API = {
       body: JSON.stringify({ nick, password, classId }),
     });
     if (res.token) this.setToken(res.token);
+    if (res.player) {
+      try { localStorage.setItem('pp_player_cache', JSON.stringify(res.player)); } catch (_) {}
+    }
     return res.player;
   },
 
   async logout() {
     try { await this.req('/api/player/logout', { method: 'POST' }); } catch (e) {}
     this.setToken(null);
+    try { localStorage.removeItem('pp_player_cache'); } catch (_) {}
   },
 
   async getClasses() {
@@ -382,14 +389,83 @@ const API = {
 const Player = {
   data: null,
   async init() {
-    try {
-      this.data = await API.getMe();
-      if (this.data && this.data.settings) {
-        Object.assign(Settings.get(), this.data.settings);
-        Settings.save();
+    // 1. Instant Cache Hydration: muat data pemain dari localStorage seketika (0ms delay)
+    if (API.token) {
+      try {
+        const cached = localStorage.getItem('pp_player_cache');
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          if (parsed && (parsed.id || parsed.nick)) {
+            this.data = parsed;
+            if (this.data.settings) {
+              Object.assign(Settings.get(), this.data.settings);
+            }
+          }
+        }
+      } catch (_) {}
+    }
+
+    if (window.BootLoader && typeof window.BootLoader.set === 'function') {
+      window.BootLoader.set(65, 'Memuat profil petualang...', 'bstep-data');
+    }
+
+    // 2. Jika ada cache, jalankan revalidasi latar belakang (SWR) dan langsung return cache agar UI segera tampil
+    if (API.token && this.data) {
+      API.getMe().then(player => {
+        if (player) {
+          this.data = Object.assign(this.data || {}, player);
+          try { localStorage.setItem('pp_player_cache', JSON.stringify(this.data)); } catch (_) {}
+          if (this.data.settings) {
+            Object.assign(Settings.get(), this.data.settings);
+            Settings.save();
+          }
+          if (window.DesktopShell && typeof DesktopShell.updateTopbar === 'function') {
+            DesktopShell.updateTopbar(this.data);
+          }
+          if (window.UIMode && window.UIMode.current && window.UIMode.current() === 'mobile') {
+            const nickEl = document.querySelector('.player-banner .nick');
+            if (nickEl && player.nick) {
+              nickEl.innerHTML = `${esc(player.nick)} · <span style="color:var(--c-primary)">Lv. ${player.level || 1}</span>`;
+            }
+          }
+        }
+      }).catch(err => {
+        if (err && err.status === 401) {
+          this.data = null;
+          API.setToken(null);
+          try { localStorage.removeItem('pp_player_cache'); } catch (_) {}
+          if (typeof go === 'function') go('auth');
+        }
+      });
+
+      if (window.BootLoader && typeof window.BootLoader.set === 'function') {
+        window.BootLoader.set(100, 'Membuka arena petualangan...', 'bstep-arena');
       }
-    } catch (e) {
-      this.data = null;
+      return this.data;
+    }
+
+    // 3. Fallback jika belum ada cache (login pertama kali)
+    if (API.token) {
+      try {
+        this.data = await API.getMe();
+        if (this.data) {
+          try { localStorage.setItem('pp_player_cache', JSON.stringify(this.data)); } catch (_) {}
+          if (this.data.settings) {
+            Object.assign(Settings.get(), this.data.settings);
+            Settings.save();
+          }
+        }
+      } catch (e) {
+        this.data = null;
+        if (e && e.status === 401) {
+          API.setToken(null);
+          try { localStorage.removeItem('pp_player_cache'); } catch (_) {}
+        }
+      }
+    }
+
+    if (window.BootLoader && typeof window.BootLoader.set === 'function') {
+      window.BootLoader.set(100, 'Membuka arena petualangan...', 'bstep-arena');
     }
     return this.data;
   },
