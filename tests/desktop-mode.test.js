@@ -382,8 +382,10 @@ test('Desktop Mode Cockpit UI Test Suite', async (t) => {
     assert.ok(screensJs.includes('skin-search-in'), 'Menu skin/wardrobe memiliki input pencarian');
     assert.ok(screensJs.includes('shop-search-in'), 'Menu toko memiliki input pencarian');
     assert.ok(screensJs.includes('shop-owner-filter-btn'), 'Menu toko memiliki filter kepemilikan (Semua / Tersedia / Dimiliki)');
+  });
 
-  test('14. Verifikasi Paritas Penuh Boss Engine & Tipe-Tipe Kejutan (Surprise Events & Mystery Rewards)', () => {
+  await t.test('14. Verifikasi Paritas Penuh Boss Engine & Tipe-Tipe Kejutan (Surprise Events & Mystery Rewards)', () => {
+    const screensJs = fs.readFileSync(screensJsPath, 'utf8');
     // 1. Boss Engine Parity
     assert.ok(screensJs.includes('boss-skill-chips'), 'Tersedia chips skill bos interaktif');
     assert.ok(screensJs.includes('showBossSkillDetail'), 'Tersedia modal inspeksi detail jurus bos');
@@ -406,5 +408,35 @@ test('Desktop Mode Cockpit UI Test Suite', async (t) => {
     assert.ok(screensJs.includes('COINS_8'), 'Mendukung hadiah misteri koin');
     assert.ok(screensJs.includes('DAMAGE_1_5'), 'Mendukung hadiah misteri buff damage');
   });
+
+  await t.test('15. Verifikasi Slideshow Bos Ditaklukkan pada Beranda Desktop Mode (Nama, Rarity & Transisi Smooth)', () => {
+    const screensJs = fs.readFileSync(screensJsPath, 'utf8');
+    const cssDesktop = fs.readFileSync(cssDesktopPath, 'utf8');
+
+    // 1. Struktur DOM Slideshow Beranda
+    assert.ok(screensJs.includes('boss-slideshow-box'), 'Beranda memiliki kontainer slideshow bos ditaklukkan');
+    assert.ok(screensJs.includes('boss-slide-viewport'), 'Tersedia viewport slideshow bos');
+    assert.ok(screensJs.includes('id="btn-boss-prev"'), 'Tersedia tombol navigasi bos sebelumnya');
+    assert.ok(screensJs.includes('id="btn-boss-next"'), 'Tersedia tombol navigasi bos berikutnya');
+    assert.ok(screensJs.includes('id="boss-slide-svg"'), 'Tersedia kontainer SVG bos 3D');
+    assert.ok(screensJs.includes('id="boss-slide-name"'), 'Tersedia elemen penampil nama bos');
+    assert.ok(screensJs.includes('id="boss-slide-rarity"'), 'Tersedia elemen penampil rarity/tier bos');
+    assert.ok(screensJs.includes('id="boss-slide-dots"'), 'Tersedia kontainer titik indikator slide');
+
+    // 2. Transisi Smooth & Ringan (GPU-Accelerated)
+    assert.ok(screensJs.includes('renderSlide'), 'Tersedia fungsi renderSlide dengan transisi animasi');
+    assert.ok(screensJs.includes('isTransitioning'), 'Tersedia guard proteksi transisi ganda');
+    assert.ok(screensJs.includes('translateX') && screensJs.includes('scale'), 'Animasi menggunakan transform GPU translateX dan scale');
+    assert.ok(cssDesktop.includes('.boss-slideshow-box') && cssDesktop.includes('.boss-slide-nav'), 'CSS desktop menyediakan styling lengkap untuk slideshow dan tombol nav');
+
+    // 3. Dukungan Rarity Tiers Lengkap
+    assert.ok(screensJs.includes('RARITY_META'), 'Mendefinisikan metadata rarity');
+    assert.ok(screensJs.includes('⚪ COMMON') && screensJs.includes('🔵 RARE'), 'Mendukung badge COMMON dan RARE');
+    assert.ok(screensJs.includes('🟣 EPIC') && screensJs.includes('🟡 LEGEND'), 'Mendukung badge EPIC dan LEGEND');
+
+    // 4. Sinkronisasi Data Dex & Timer Cleanup
+    assert.ok(screensJs.includes('loadDexBosses'), 'Beranda menyinkronkan daftar bos ditaklukkan dari /api/dex');
+    assert.ok(screensJs.includes('DesktopScreens.home._timer'), 'Timer auto-slide memiliki pembersihan aman (cleanup on unmount)');
+    assert.ok(screensJs.includes('slideBox.onmouseenter') && screensJs.includes('slideBox.onmouseleave'), 'Slideshow pause saat hover dan resume saat mouse leave');
   });
 });

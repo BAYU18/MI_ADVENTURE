@@ -455,6 +455,12 @@
 
   /* ---------- 2. BERANDA = Ruang Kendali Cockpit Presisi ---------- */
   DesktopScreens.home = el => {
+    // Hentikan timer slideshow sebelumnya jika ada
+    if (DesktopScreens.home._timer) {
+      clearInterval(DesktopScreens.home._timer);
+      DesktopScreens.home._timer = null;
+    }
+
     const P = root.Player?.data || {};
     const pName = P.nick || P.name || 'Petualang';
     const pLv = P.level || (root.Player && typeof root.Player.level === 'function' ? root.Player.level() : 1);
@@ -472,8 +478,30 @@
     if (!activeTitles.length && pTitle) activeTitles = [{ id: P.title, name: pTitle, icon: '🎖️', tier: 'COMMON' }];
 
     const avatarSvg = renderPlayerAvatar(P.avatar, 140);
-    const heroM = (root.Monsters && root.Monsters.MONSTERS && root.Monsters.MONSTERS[2]) || { id: 3, name: 'Jamurgon' };
-    const mascotSvg = renderMonsterArt(heroM, 240);
+    const heroM = (root.Monsters && root.Monsters.MONSTERS && root.Monsters.MONSTERS[2]) || { id: 3, name: 'Jamurgon', theme: 'hutan', tier: 'common' };
+
+    // Metadata Rarity untuk styling badge & glow
+    const RARITY_META = {
+      common: { name: 'Common', label: '⚪ COMMON', color: '#cbd5e1', bg: 'rgba(148, 163, 184, 0.16)', borderColor: 'rgba(148, 163, 184, 0.4)', glow: '0 0 10px rgba(148, 163, 184, 0.2)' },
+      rare: { name: 'Rare', label: '🔵 RARE', color: '#38bdf8', bg: 'rgba(56, 189, 248, 0.16)', borderColor: 'rgba(56, 189, 248, 0.5)', glow: '0 0 12px rgba(56, 189, 248, 0.35)' },
+      epic: { name: 'Epic', label: '🟣 EPIC', color: '#c084fc', bg: 'rgba(168, 85, 247, 0.2)', borderColor: 'rgba(168, 85, 247, 0.55)', glow: '0 0 14px rgba(168, 85, 247, 0.4)' },
+      legend: { name: 'Legend', label: '🟡 LEGEND', color: '#facc15', bg: 'rgba(234, 179, 8, 0.2)', borderColor: 'rgba(234, 179, 8, 0.6)', glow: '0 0 18px rgba(234, 179, 8, 0.5)' }
+    };
+
+    // Ambil daftar bos yang pernah dikalahkan dari cache jika tersedia
+    let defeatedBosses = [];
+    if (root._cachedDexMonsters && Array.isArray(root._cachedDexMonsters)) {
+      defeatedBosses = root._cachedDexMonsters.filter(m => Boolean(m.defeated || (m.defeats > 0)));
+    } else if (P.monsters && Array.isArray(P.monsters)) {
+      defeatedBosses = P.monsters.filter(m => Boolean(m.defeated || (m.defeats > 0)));
+    }
+
+    const hasDefeated = defeatedBosses.length > 0;
+    const initialBoss = hasDefeated ? defeatedBosses[0] : { ...heroM, defeats: 0, isDefault: true };
+    const initialTier = (initialBoss.tier || 'common').toLowerCase();
+    const initialRarity = RARITY_META[initialTier] || RARITY_META.common;
+    const initialHab = HABITATS.find(h => h[3] === initialBoss.theme) || HABITATS[(initialBoss.id ? (initialBoss.id - 1) % 10 : 0)] || ['Hutan Rimba', '🌿'];
+    const initialSvg = renderMonsterArt(initialBoss, 210, { tier: initialBoss.tier, animated: true });
 
     el.classList.add('g3');
     const days = [40, 65, 30, 80, 55, 90, 70];
@@ -503,9 +531,43 @@
             </div>`, 'fill', 'Pertemanan ▸', 'friends')}
       </div>
 
-      <div class="stage" style="display:flex;flex-direction:column;align-items:center;justify-content:space-between">
+      <div class="stage" style="display:flex;flex-direction:column;align-items:center;justify-content:space-between;position:relative">
         <div class="bubble" id="home-bubble">Halo ${esc(pName)}, siap menaklukkan bos hari ini? 👋</div>
-        <div class="mascot" id="mascot" style="cursor:pointer" title="${esc(heroM.name)}">${mascotSvg}</div>
+
+        <!-- Slideshow Bos Ditaklukkan Cockpit -->
+        <div class="boss-slideshow-box" id="boss-slideshow-box" style="flex:1;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;margin:.4rem 0" aria-label="Slideshow Bos Ditaklukkan">
+          <!-- Tag Header Trofi -->
+          <div class="boss-slide-tag" id="boss-slide-tag" style="display:flex;align-items:center;gap:.4rem;margin-bottom:.35rem;z-index:2">
+            <span style="font-size:.72rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:#e2e8f0;background:rgba(15,23,42,.7);padding:.22rem .75rem;border-radius:20px;border:1px solid rgba(255,255,255,.15);box-shadow:0 4px 12px rgba(0,0,0,.35);display:flex;align-items:center;gap:.35rem">
+              <span>🏆</span>
+              <span id="boss-slide-tag-label">${hasDefeated ? 'Trofi Bos Ditaklukkan' : 'Target Bos Pertama'}</span>
+              <span id="boss-slide-counter" style="color:#facc15;font-weight:900;margin-left:.25rem">${hasDefeated ? `1 / ${defeatedBosses.length}` : '1 / 1'}</span>
+            </span>
+          </div>
+
+          <!-- Wrapper Gambar & Navigasi -->
+          <div class="boss-slide-viewport" style="position:relative;width:100%;display:flex;align-items:center;justify-content:center">
+            <button class="boss-slide-nav" id="btn-boss-prev" title="Bos Sebelumnya" aria-label="Sebelumnya" style="position:absolute;left:.5rem;top:50%;transform:translateY(-50%);z-index:10;width:2.2rem;height:2.2rem;border-radius:50%;background:rgba(15,23,42,.75);border:1.5px solid rgba(255,255,255,.18);color:#fff;font-size:1.15rem;font-weight:bold;display:${defeatedBosses.length > 1 ? 'flex' : 'none'};align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(6px);transition:all .2s ease;box-shadow:0 4px 12px rgba(0,0,0,.4)">‹</button>
+
+            <div class="mascot boss-slide-art" id="mascot" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .24s ease, transform .24s ease;user-select:none" title="${esc(initialBoss.name)}">
+              <div id="boss-slide-svg">${initialSvg}</div>
+            </div>
+
+            <button class="boss-slide-nav" id="btn-boss-next" title="Bos Berikutnya" aria-label="Berikutnya" style="position:absolute;right:.5rem;top:50%;transform:translateY(-50%);z-index:10;width:2.2rem;height:2.2rem;border-radius:50%;background:rgba(15,23,42,.75);border:1.5px solid rgba(255,255,255,.18);color:#fff;font-size:1.15rem;font-weight:bold;display:${defeatedBosses.length > 1 ? 'flex' : 'none'};align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(6px);transition:all .2s ease;box-shadow:0 4px 12px rgba(0,0,0,.4)">›</button>
+          </div>
+
+          <!-- Informasi Nama & Rarity Bos -->
+          <div class="boss-slide-info" id="boss-slide-info" style="display:flex;flex-direction:column;align-items:center;gap:.2rem;margin-top:.35rem;transition:opacity .24s ease, transform .24s ease;z-index:2">
+            <div style="display:flex;align-items:center;gap:.5rem;justify-content:center;flex-wrap:wrap">
+              <h3 id="boss-slide-name" style="margin:0;font-size:1.25rem;font-weight:900;color:#fff;letter-spacing:.4px;text-shadow:0 2px 8px rgba(0,0,0,.75)">${esc(initialBoss.name)}</h3>
+              <span id="boss-slide-rarity" class="boss-rarity-pill" style="font-size:.68rem;font-weight:900;padding:.18rem .6rem;border-radius:12px;letter-spacing:.6px;text-transform:uppercase;background:${initialRarity.bg};color:${initialRarity.color};border:1px solid ${initialRarity.borderColor};box-shadow:${initialRarity.glow}">${initialRarity.label}</span>
+            </div>
+            <div id="boss-slide-meta" style="font-size:.72rem;font-weight:700;color:rgba(255,255,255,.65)">Habitat: ${esc(initialHab[0])} · ${hasDefeated ? `Ditaklukkan ${initialBoss.defeats || 1}x` : 'Siap Ditantang'}</div>
+          </div>
+
+          <!-- Titik Indikator Slideshow -->
+          <div class="boss-slide-dots" id="boss-slide-dots" style="display:flex;align-items:center;justify-content:center;gap:.35rem;margin-top:.45rem;z-index:2"></div>
+        </div>
 
         <!-- Quick Stats Hero Cockpit (Menggantikan 10 ubin menu duplikat) -->
         <div class="hero-quick-stats-card" id="home-quick-stats" style="display:flex;justify-content:space-around;gap:.8rem;width:100%;padding:.65rem .8rem;border-radius:var(--rad-m);background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.07);margin:.4rem 0">
@@ -539,6 +601,203 @@
           </div>`, 'fill', 'Buka ▸', 'dex')}
       </div>`;
 
+    /* ---------- Logika Slideshow Bos Ditaklukkan (Smooth & Ringan) ---------- */
+    let currentSlideIdx = 0;
+    let isTransitioning = false;
+    let autoSlideTimer = null;
+
+    const updateDots = (activeIdx) => {
+      const dotsBox = $('#boss-slide-dots', el);
+      if (!dotsBox) return;
+      if (defeatedBosses.length <= 1) {
+        dotsBox.innerHTML = '';
+        return;
+      }
+      const count = Math.min(defeatedBosses.length, 10);
+      let dotsHtml = '';
+      for (let i = 0; i < count; i++) {
+        const isActive = (i === (activeIdx % count));
+        dotsHtml += `<button class="boss-slide-dot" data-idx="${i}" style="width:${isActive ? '1.4rem' : '.45rem'};height:.45rem;border-radius:10px;border:none;background:${isActive ? '#38bdf8' : 'rgba(255,255,255,.25)'};cursor:pointer;transition:all .25s ease;padding:0" title="Bos ke-${i + 1}"></button>`;
+      }
+      dotsBox.innerHTML = dotsHtml;
+      $$('.boss-slide-dot', dotsBox).forEach(d => {
+        d.onclick = e => {
+          e.stopPropagation();
+          goToSlide(Number(d.dataset.idx));
+          resetAutoSlide();
+        };
+      });
+    };
+
+    const renderSlide = (idx, animate = true, dir = 'next') => {
+      const list = defeatedBosses.length > 0 ? defeatedBosses : [{ ...heroM, defeats: 0, isDefault: true }];
+      const boss = list[idx] || list[0];
+      if (!boss) return;
+
+      const tier = (boss.tier || 'common').toLowerCase();
+      const rarity = RARITY_META[tier] || RARITY_META.common;
+      const hab = HABITATS.find(h => h[3] === boss.theme) || HABITATS[(boss.id ? (boss.id - 1) % 10 : 0)] || ['Hutan Rimba', '🌿'];
+      const artBox = $('#mascot', el);
+      const infoBox = $('#boss-slide-info', el);
+      const svgBox = $('#boss-slide-svg', el);
+
+      const applyContent = () => {
+        if (svgBox) svgBox.innerHTML = renderMonsterArt(boss, 210, { tier: boss.tier, animated: true });
+        if (artBox) artBox.title = boss.name;
+
+        const nameEl = $('#boss-slide-name', el);
+        if (nameEl) nameEl.textContent = boss.name;
+
+        const rEl = $('#boss-slide-rarity', el);
+        if (rEl) {
+          rEl.textContent = rarity.label;
+          rEl.style.color = rarity.color;
+          rEl.style.background = rarity.bg;
+          rEl.style.borderColor = rarity.borderColor;
+          rEl.style.boxShadow = rarity.glow;
+        }
+
+        const metaEl = $('#boss-slide-meta', el);
+        if (metaEl) {
+          metaEl.textContent = boss.isDefault
+            ? `Habitat: ${hab[0]} · Target Bos Pertama`
+            : `Habitat: ${hab[0]} · Ditaklukkan ${boss.defeats || 1}x`;
+        }
+
+        const counterEl = $('#boss-slide-counter', el);
+        if (counterEl) {
+          counterEl.textContent = `${idx + 1} / ${list.length}`;
+        }
+
+        const tagLabel = $('#boss-slide-tag-label', el);
+        if (tagLabel) {
+          tagLabel.textContent = boss.isDefault ? 'Target Bos Pertama' : 'Trofi Bos Ditaklukkan';
+        }
+
+        const prevBtn = $('#btn-boss-prev', el);
+        const nextBtn = $('#btn-boss-next', el);
+        if (prevBtn) prevBtn.style.display = list.length > 1 ? 'flex' : 'none';
+        if (nextBtn) nextBtn.style.display = list.length > 1 ? 'flex' : 'none';
+
+        updateDots(idx);
+
+        const bEl = $('#home-bubble', el);
+        if (bEl && !bEl.dataset.custom) {
+          if (boss.isDefault) {
+            bEl.textContent = `Halo ${pName}, siap menaklukkan bos hari ini? 👋`;
+          } else {
+            const praiseList = [
+              `🏆 "${boss.name}" (${rarity.name}): Mengakui kehebatanmu!`,
+              `⚔️ Trofi Bos: "${boss.name}" berhasil kamu taklukkan!`,
+              `⭐ Hebat, ${pName}! Terus kumpulkan bos lainnya di Monster Dex!`
+            ];
+            bEl.textContent = praiseList[idx % praiseList.length];
+          }
+        }
+      };
+
+      if (!animate || !artBox || !infoBox) {
+        applyContent();
+        return;
+      }
+
+      isTransitioning = true;
+      // Step 1: Smooth Fade out + subtle horizontal slide
+      artBox.style.opacity = '0';
+      artBox.style.transform = dir === 'next' ? 'translateX(-16px) scale(0.94)' : 'translateX(16px) scale(0.94)';
+      infoBox.style.opacity = '0';
+      infoBox.style.transform = 'translateY(6px)';
+
+      setTimeout(() => {
+        if (!el.isConnected) return;
+        applyContent();
+
+        // Step 2: Set incoming position without transition
+        artBox.style.transition = 'none';
+        artBox.style.transform = dir === 'next' ? 'translateX(16px) scale(0.94)' : 'translateX(-16px) scale(0.94)';
+        void artBox.offsetWidth; // Force GPU reflow
+
+        // Step 3: Animate in smoothly
+        artBox.style.transition = 'opacity .24s cubic-bezier(0.16, 1, 0.3, 1), transform .24s cubic-bezier(0.16, 1, 0.3, 1)';
+        infoBox.style.transition = 'opacity .24s ease, transform .24s ease';
+        artBox.style.opacity = '1';
+        artBox.style.transform = 'translateX(0) scale(1)';
+        infoBox.style.opacity = '1';
+        infoBox.style.transform = 'translateY(0)';
+
+        setTimeout(() => {
+          isTransitioning = false;
+        }, 240);
+      }, 160);
+    };
+
+    const nextSlide = () => {
+      const list = defeatedBosses.length > 0 ? defeatedBosses : [{ ...heroM, defeats: 0, isDefault: true }];
+      if (isTransitioning || list.length <= 1) return;
+      currentSlideIdx = (currentSlideIdx + 1) % list.length;
+      renderSlide(currentSlideIdx, true, 'next');
+    };
+
+    const prevSlide = () => {
+      const list = defeatedBosses.length > 0 ? defeatedBosses : [{ ...heroM, defeats: 0, isDefault: true }];
+      if (isTransitioning || list.length <= 1) return;
+      currentSlideIdx = (currentSlideIdx - 1 + list.length) % list.length;
+      renderSlide(currentSlideIdx, true, 'prev');
+    };
+
+    const goToSlide = (targetIdx) => {
+      const list = defeatedBosses.length > 0 ? defeatedBosses : [{ ...heroM, defeats: 0, isDefault: true }];
+      if (isTransitioning || targetIdx === currentSlideIdx || targetIdx < 0 || targetIdx >= list.length) return;
+      const dir = targetIdx > currentSlideIdx ? 'next' : 'prev';
+      currentSlideIdx = targetIdx;
+      renderSlide(currentSlideIdx, true, dir);
+    };
+
+    const resetAutoSlide = () => {
+      if (autoSlideTimer) clearInterval(autoSlideTimer);
+      const list = defeatedBosses.length > 0 ? defeatedBosses : [];
+      if (list.length <= 1) return;
+      autoSlideTimer = setInterval(() => {
+        if (!el.isConnected || !$('#boss-slideshow-box', el)) {
+          if (autoSlideTimer) { clearInterval(autoSlideTimer); autoSlideTimer = null; }
+          return;
+        }
+        nextSlide();
+      }, 4500);
+      DesktopScreens.home._timer = autoSlideTimer;
+    };
+
+    const slideBox = $('#boss-slideshow-box', el);
+    if (slideBox) {
+      slideBox.onmouseenter = () => {
+        if (autoSlideTimer) { clearInterval(autoSlideTimer); autoSlideTimer = null; }
+      };
+      slideBox.onmouseleave = () => {
+        resetAutoSlide();
+      };
+    }
+
+    const prevBtn = $('#btn-boss-prev', el);
+    if (prevBtn) {
+      prevBtn.onclick = e => {
+        e.stopPropagation();
+        prevSlide();
+        resetAutoSlide();
+      };
+    }
+
+    const nextBtn = $('#btn-boss-next', el);
+    if (nextBtn) {
+      nextBtn.onclick = e => {
+        e.stopPropagation();
+        nextSlide();
+        resetAutoSlide();
+      };
+    }
+
+    updateDots(currentSlideIdx);
+    resetAutoSlide();
+
     const mascotLines = [
       `Halo ${pName}, siap menaklukkan bos hari ini? 👋`,
       `Petualang cerdas tak pernah gentar menghadapi tantangan! ⚔️`,
@@ -547,13 +806,22 @@
       `Semangat belajar, raih bintang tertinggi hari ini! ⭐`
     ];
     let lineIdx = 0;
-    $('#mascot').onclick = () => {
-      if (root.Sfx && typeof root.Sfx.play === 'function') root.Sfx.play('tap');
-      lineIdx = (lineIdx + 1) % mascotLines.length;
-      const bEl = $('#home-bubble');
-      if (bEl) bEl.textContent = mascotLines[lineIdx];
-      toast(`🐲 ${esc(heroM.name)}: "${mascotLines[lineIdx]}"`);
-    };
+    const mascotEl = $('#mascot', el);
+    if (mascotEl) {
+      mascotEl.onclick = () => {
+        if (root.Sfx && typeof root.Sfx.play === 'function') root.Sfx.play('tap');
+        const list = defeatedBosses.length > 0 ? defeatedBosses : [heroM];
+        const curBoss = list[currentSlideIdx] || heroM;
+        lineIdx = (lineIdx + 1) % mascotLines.length;
+        const bEl = $('#home-bubble', el);
+        if (bEl) {
+          bEl.dataset.custom = '1';
+          bEl.textContent = mascotLines[lineIdx];
+          setTimeout(() => { if (bEl) delete bEl.dataset.custom; }, 4000);
+        }
+        toast(`🐲 ${esc(curBoss.name)} (${(curBoss.tier || 'common').toUpperCase()}): "${mascotLines[lineIdx]}"`);
+      };
+    }
 
     const handleContinue = async () => {
       if (root.Screens?.battle?.session) {
@@ -662,6 +930,36 @@
           if (root.DesktopShell?.updateTopbar) root.DesktopShell.updateTopbar(p);
         }).catch(() => {});
       }
+
+      // Sinkronisasi data Dex untuk memperbarui daftar bos yang pernah dikalahkan
+      const loadDexBosses = async () => {
+        try {
+          let monsters = [];
+          if (root.API && typeof root.API.getDex === 'function') {
+            monsters = await root.API.getDex();
+          } else if (root.API && typeof root.API.req === 'function') {
+            const resDex = await root.API.req('/api/dex');
+            monsters = resDex?.monsters || [];
+          }
+          if (Array.isArray(monsters) && monsters.length > 0) {
+            root._cachedDexMonsters = monsters;
+            const defs = monsters.filter(m => Boolean(m.defeated || (m.defeats > 0)));
+            if (defs.length > 0) {
+              defeatedBosses = defs;
+              currentSlideIdx = 0;
+              renderSlide(currentSlideIdx, false);
+              resetAutoSlide();
+            }
+            const countEl = $('#home-dex-count');
+            const ringEl = $('#home-dex-ring');
+            const labelEl = $('#home-dex-label');
+            if (countEl) countEl.textContent = defs.length;
+            if (ringEl) ringEl.style.setProperty('--p', defs.length);
+            if (labelEl) labelEl.textContent = `${defs.length} / 100 dikalahkan`;
+          }
+        } catch (_) {}
+      };
+      loadDexBosses();
 
       if (typeof root.API.getWeeklyReport === 'function') {
         root.API.getWeeklyReport().then(res => {

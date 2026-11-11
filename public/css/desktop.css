@@ -2791,3 +2791,51 @@ body.reduced-motion .boss-telegraph-icon {
   position: relative;
   border-image: linear-gradient(135deg, #f59e0b, #ec4899, #8b5cf6, #3b82f6) 1;
 }
+
+/* ---------- Boss Slideshow (Beranda Cockpit) ---------- */
+.boss-slideshow-box {
+  flex: 1; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  position: relative; user-select: none; min-height: 0;
+}
+.boss-slide-viewport {
+  position: relative; width: 100%; display: flex; align-items: center; justify-content: center;
+}
+.boss-slide-nav {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
+  width: 2.3rem; height: 2.3rem; border-radius: 50%;
+  background: rgba(15, 23, 42, 0.75); border: 1.5px solid rgba(255, 255, 255, 0.18);
+  color: #fff; font-size: 1.25rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+}
+.boss-slide-nav:hover {
+  background: rgba(56, 189, 248, 0.35) !important; border-color: rgba(56, 189, 248, 0.65) !important;
+  color: #38bdf8 !important; transform: translateY(-50%) scale(1.1) !important;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.4) !important;
+}
+.boss-slide-nav:active {
+  transform: translateY(-50%) scale(0.95) !important;
+}
+.boss-slide-art {
+  flex: 1; min-height: 0; width: 100%; display: flex; align-items: center; justify-content: center;
+  will-change: transform, opacity;
+}
+.boss-slide-info {
+  display: flex; flex-direction: column; align-items: center; gap: 0.2rem;
+  margin-top: 0.35rem; z-index: 2; will-change: transform, opacity;
+}
+.boss-rarity-pill {
+  display: inline-flex; align-items: center; gap: 0.25rem;
+  font-size: 0.72rem; font-weight: 900; padding: 0.2rem 0.65rem; border-radius: 12px;
+  letter-spacing: 0.6px; text-transform: uppercase;
+  transition: all 0.25s ease;
+}
+.boss-slide-dot {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.boss-slide-dot:hover {
+  background: rgba(255, 255, 255, 0.7) !important;
+}
+
