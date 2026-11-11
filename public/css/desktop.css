@@ -387,7 +387,119 @@ button { cursor: pointer; border: 0; background: none; padding: 0; }
 .read .fighter h2, .read .fighter .meta, .read .telegraph, .read .skills-deck, .read .log, .read .fighter .bar .t { display: none; }
 .read .fighter .fig { flex: 0 0 auto; width: 7rem; height: 7rem; }
 
-.qwrap { display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: .8rem; min-height: 0; }
+.qwrap {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  min-height: 0;
+  height: 100%;
+}
+.qwrap .qcard {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.qwrap .q-interactive-slot,
+.qwrap #fb-slot {
+  flex: 0 0 auto;
+}
+
+/* Telegraph Alert Notification (Peringatan Jurus Berbahaya Bos - Cockpit Presisi & Animasi Berdenyut) */
+.boss-telegraph {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0.5rem 1.25rem;
+  min-height: 2.5rem;
+  border-radius: var(--rad-m);
+  background: linear-gradient(90deg, rgba(239, 68, 68, 0.22) 0%, rgba(185, 28, 28, 0.38) 50%, rgba(239, 68, 68, 0.22) 100%);
+  border: 1.5px solid #ef4444;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  margin-bottom: 0.15rem;
+  animation: bossTelegraphPulse 1.8s infinite ease-in-out;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+}
+
+.boss-telegraph::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(254, 202, 202, 0.22) 0%, transparent 75%);
+  opacity: 0.7;
+  pointer-events: none;
+  animation: bossTelegraphGlow 1.8s infinite ease-in-out;
+}
+
+.boss-telegraph-icon {
+  font-size: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.9));
+  animation: bossTelegraphIconBounce 0.9s infinite alternate ease-in-out;
+}
+
+.boss-telegraph-badge {
+  font-size: 0.65rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #dc2626;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(220, 38, 38, 0.85);
+  flex-shrink: 0;
+}
+
+.boss-telegraph-text {
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.25px;
+  color: #fee2e2;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8), 0 0 12px rgba(239, 68, 68, 0.65);
+}
+
+@keyframes bossTelegraphPulse {
+  0%, 100% {
+    border-color: rgba(239, 68, 68, 0.75);
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    transform: scale(1);
+  }
+  50% {
+    border-color: #f87171;
+    box-shadow: 0 0 24px rgba(239, 68, 68, 0.65), 0 0 8px rgba(248, 113, 113, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    transform: scale(1.012);
+  }
+}
+
+@keyframes bossTelegraphGlow {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.9; }
+}
+
+@keyframes bossTelegraphIconBounce {
+  0% { transform: scale(1) translateY(0); }
+  100% { transform: scale(1.22) translateY(-1.5px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boss-telegraph,
+  .boss-telegraph::before,
+  .boss-telegraph-icon {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+body.reduced-motion .boss-telegraph,
+body.reduced-motion .boss-telegraph::before,
+body.reduced-motion .boss-telegraph-icon {
+  animation: none !important;
+  transform: none !important;
+}
 .qcard { justify-content: center; padding: 1.4rem 2rem; background: rgba(30, 41, 59, .88); }
 .qtag { display: flex; align-items: center; justify-content: space-between; font-size: .8rem; font-weight: 900; letter-spacing: .1em; color: var(--c-accent); }
 .qtext { font-size: clamp(1.4rem, 2.15vw, 2.4rem); font-weight: 800; line-height: 1.35; }

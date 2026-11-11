@@ -2492,9 +2492,10 @@
 
         <div class="qwrap">
           <!-- Boss Telegraph Alert Banner -->
-          <div class="boss-telegraph" id="boss-telegraph" data-testid="boss-telegraph" aria-live="assertive" style="display:${tgText ? 'flex' : 'none'};background:rgba(239,68,68,0.18);border:1.5px solid #ef4444;border-radius:12px;padding:8px 12px;align-items:center;gap:8px;margin-bottom:8px">
-            <span class="boss-telegraph-icon" style="font-size:1.2rem">⚠️</span>
-            <span class="boss-telegraph-text" id="boss-telegraph-text" style="font-size:0.85rem;font-weight:700;color:#fca5a5">${esc(tgText)}</span>
+          <div class="boss-telegraph" id="boss-telegraph" data-testid="boss-telegraph" aria-live="assertive" style="display:${tgText ? 'flex' : 'none'}">
+            <span class="boss-telegraph-icon">⚠️</span>
+            <span class="boss-telegraph-badge">BAHAYA</span>
+            <span class="boss-telegraph-text" id="boss-telegraph-text">${esc(tgText)}</span>
           </div>
 
           <div class="panel qcard">
